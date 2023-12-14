@@ -1,0 +1,110 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "helloworld",
+    "description": "",
+    "version": "v1.0.0"
+  },
+  "paths": {
+    "/helloworld.Greeter/SayHello": {
+      "parameters": [
+        {
+          "$ref": "#/components/schemas/helloworld.HelloReply"
+        }
+      ],
+      "post": {
+        "tags": [
+          "helloworld.Greeter"
+        ],
+        "description": "Sends a greeting",
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "The greeting service definition.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/helloworld.HelloRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "connect.error": {
+        "properties": {
+          "code": {
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "helloworld.HelloReply": {
+        "$id": "helloworld.HelloReply",
+        "description": "The response message containing the greetings",
+        "properties": {
+          "message": {
+            "$id": "helloworld.HelloReply.message",
+            "description": "",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "helloworld.HelloRequest": {
+        "$id": "helloworld.HelloRequest",
+        "description": "The request message containing the user's name.",
+        "properties": {
+          "name": {
+            "$id": "helloworld.HelloRequest.name",
+            "description": "",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "helloworld.Greeter",
+      "description": "The greeting service definition."
+    }
+  ]
+}
