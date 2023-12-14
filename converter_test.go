@@ -2,8 +2,8 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -17,20 +17,15 @@ import (
 // TestConvert calls greetings.Hello with a name, checking
 // for a valid return value.
 func TestConvert(t *testing.T) {
-	cases := []struct {
-		protofile        string
-		expectedFilename string
-	}{
-		{
-			protofile:        "helloworld/helloworld.proto",
-			expectedFilename: "helloworld/helloworld.openapi.json",
-		},
-	}
-	for _, tt := range cases {
-		tt := tt
-		t.Run(tt.protofile, func(t *testing.T) {
+	paths, err := filepath.Glob("fixtures/*.proto")
+	require.NoError(t, err)
+	for _, protofile := range paths {
+		protofile := protofile
+		fmt.Println(protofile)
+		t.Run(protofile, func(t *testing.T) {
 			pf, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
-			req := utils.CreateGenRequest(pf, tt.protofile)
+			req := utils.CreateGenRequest(pf, protofile)
+			fmt.Println(req.FileToGenerate)
 			require.NoError(t, err)
 
 			b, err := proto.Marshal(req)
@@ -40,10 +35,9 @@ func TestConvert(t *testing.T) {
 			require.NoError(t, err)
 			assert.Len(t, resp.File, 1)
 			assert.NotNil(t, resp.File[0].Name)
-			assert.Equal(t, path.Join("fixtures", tt.expectedFilename), resp.File[0].GetName())
-
-			baseFilename := strings.TrimSuffix(tt.protofile, filepath.Ext(tt.protofile))
-			expectedFile, err := os.ReadFile(path.Join("fixtures", baseFilename+".openapi.json"))
+			baseFilename := strings.TrimSuffix(protofile, filepath.Ext(protofile))
+			assert.Equal(t, baseFilename+".openapi.json", resp.File[0].GetName())
+			expectedFile, err := os.ReadFile(baseFilename + ".openapi.json")
 			require.NoError(t, err)
 
 			assert.Equal(t, string(expectedFile), resp.File[0].GetContent())

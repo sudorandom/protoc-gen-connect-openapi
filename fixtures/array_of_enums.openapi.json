@@ -1,0 +1,74 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "enums",
+    "description": "",
+    "version": "v1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "connect.error": {
+        "properties": {
+          "code": {
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "enums.ArrayOfEnums": {
+        "$id": "enums.ArrayOfEnums",
+        "description": "",
+        "properties": {
+          "description": {
+            "$id": "enums.ArrayOfEnums.description",
+            "description": "",
+            "type": "string"
+          },
+          "stuff": {
+            "$id": "enums.ArrayOfEnums.stuff",
+            "$ref": "#/components/schemas/enums.ArrayOfEnums.inline",
+            "description": ""
+          }
+        },
+        "type": "object"
+      },
+      "enums.ArrayOfEnums.inline": {
+        "$id": "enums.ArrayOfEnums.inline",
+        "description": "",
+        "enum": [
+          [
+            "FOO",
+            0,
+            "BAR",
+            1
+          ]
+        ],
+        "type": "string"
+      }
+    }
+  }
+}

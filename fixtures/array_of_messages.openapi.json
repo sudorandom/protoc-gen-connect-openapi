@@ -1,0 +1,74 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "messages",
+    "description": "",
+    "version": "v1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "connect.error": {
+        "properties": {
+          "code": {
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "messages.ArrayOfMessages": {
+        "$id": "messages.ArrayOfMessages",
+        "description": "",
+        "properties": {
+          "description": {
+            "$id": "messages.ArrayOfMessages.description",
+            "description": "",
+            "type": "string"
+          },
+          "things": {
+            "$id": "messages.ArrayOfMessages.things",
+            "$ref": "#/components/schemas/messages.Thing",
+            "description": "",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "messages.Thing": {
+        "$id": "messages.Thing",
+        "description": "",
+        "properties": {
+          "name": {
+            "$id": "messages.Thing.name",
+            "description": "",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}
