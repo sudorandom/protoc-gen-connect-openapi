@@ -46,15 +46,23 @@
           "description": {
             "$id": "messages.ArrayOfMessages.description",
             "description": "",
+            "title": "description",
             "type": "string"
           },
           "things": {
             "$id": "messages.ArrayOfMessages.things",
-            "$ref": "#/components/schemas/messages.Thing",
             "description": "",
-            "type": "object"
+            "items": [
+              {
+                "$ref": "#/components/schemas/messages.Thing",
+                "type": "object"
+              }
+            ],
+            "title": "things",
+            "type": "array"
           }
         },
+        "title": "ArrayOfMessages",
         "type": "object"
       },
       "messages.Thing": {
@@ -64,9 +72,11 @@
           "name": {
             "$id": "messages.Thing.name",
             "description": "",
+            "title": "name",
             "type": "string"
           }
         },
+        "title": "Thing",
         "type": "object"
       }
     }

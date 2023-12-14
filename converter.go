@@ -226,9 +226,6 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 		return s
 	case protoreflect.FieldDescriptor:
 		s := &jsonschema.Schema{}
-		s.WithID(string(tt.FullName()))
-		s.WithTitle(string(tt.Name()))
-		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
 		if tt.IsMap() {
 			s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: resolveJsonSchema(tt.MapValue())}
 		}
@@ -258,14 +255,23 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 			s.WithType(jsonschema.Object.Type())
 		}
 
+		// type: array
+		// items:
 		// Handle maps
 		// tt.MapKey()
 		// tt.MapValue()
 
 		// Handle Lists
-		// if tt.IsList() {
-		// 	s.WithType(jsonschema.Object.Type())
-		// }
+		if tt.IsList() {
+			wrapped := s
+			s = &jsonschema.Schema{}
+			s.WithType(jsonschema.Array.Type())
+			s.WithItems(jsonschema.Items{SchemaArray: []jsonschema.SchemaOrBool{{TypeObject: wrapped}}})
+		}
+
+		s.WithID(string(tt.FullName()))
+		s.WithTitle(string(tt.Name()))
+		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
 		return s
 	case protoreflect.OneofDescriptor:
 		s := &jsonschema.Schema{}

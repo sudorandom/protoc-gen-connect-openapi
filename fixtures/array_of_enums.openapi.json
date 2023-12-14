@@ -46,14 +46,22 @@
           "description": {
             "$id": "enums.ArrayOfEnums.description",
             "description": "",
+            "title": "description",
             "type": "string"
           },
           "stuff": {
             "$id": "enums.ArrayOfEnums.stuff",
-            "$ref": "#/components/schemas/enums.ArrayOfEnums.inline",
-            "description": ""
+            "description": "",
+            "items": [
+              {
+                "$ref": "#/components/schemas/enums.ArrayOfEnums.inline"
+              }
+            ],
+            "title": "stuff",
+            "type": "array"
           }
         },
+        "title": "ArrayOfEnums",
         "type": "object"
       },
       "enums.ArrayOfEnums.inline": {
@@ -67,6 +75,7 @@
             1
           ]
         ],
+        "title": "inline",
         "type": "string"
       }
     }
