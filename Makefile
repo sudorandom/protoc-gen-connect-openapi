@@ -1,11 +1,21 @@
-ALL: fixtures/fileset.pb
-PHONY: test
+ALL: fixtures/fileset.binpb
+PHONY: test install buf-generate
 
 PROTO_FILES=$(shell find fixtures -type f -name '*.proto')
 
-fixtures/fileset.pb: $(PROTO_FILES)
-	@echo "Generating fixtures"
-	protoc --descriptor_set_out=fixtures/fileset.pb --include_imports --include_source_info -I. fixtures/*.proto
+fixtures/fileset.binpb: $(PROTO_FILES)
+	@echo "Generating fixture descriptor set"
+	@cd fixtures; buf build -o fileset.binpb
 
-test: fixtures/fileset.pb
+fixtures/googleapis.binpb:
+	@echo "Generating googleapis descriptor set"
+	@cd fixtures; buf build buf.build/googleapis/googleapis -o googleapis.binpb
+
+test: fixtures/fileset.binpb fixtures/googleapis.binpb
 	go test ./...
+
+install:
+	go install
+
+buf-generate: install
+	cd fixtures; buf generate

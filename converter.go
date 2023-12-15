@@ -19,9 +19,9 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-// TODO: Option to set API version
 // TODO: Handle well-known types
 // TODO: Additional string types
+// TODO: Option to set API version
 // TODO: Extra credit: protovalidate constraints
 
 func ConvertFrom(rd io.Reader) (*plugin.CodeGeneratorResponse, error) {
@@ -49,6 +49,15 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 	for _, file := range req.FileToGenerate {
 		genFiles[file] = struct{}{}
 	}
+
+	// We need this to resolve dependencies when making protodesc versions of the files
+	resolver, err := protodesc.NewFiles(&descriptorpb.FileDescriptorSet{
+		File: req.GetProtoFile(),
+	})
+	if err != nil {
+		return nil, err
+	}
+
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
 			slog.Info("skip generating file because it wasn't requested", slog.String("name", fileDesc.GetName()))
@@ -57,14 +66,14 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 
 		slog.Info("generating file", slog.String("name", fileDesc.GetName()))
 
-		fd, err := protodesc.NewFile(fileDesc, nil)
+		fd, err := protodesc.NewFile(fileDesc, resolver)
 		if err != nil {
+			slog.Error("error loading file", slog.Any("error", err))
 			return nil, err
 		}
 
 		spec := openapi31.Spec{Openapi: "3.1.0"}
 		spec.SetTitle(string(fd.FullName()))
-
 		spec.SetDescription("")
 
 		// TODO: This should come in from CLI arguments, this data isn't contained in proto files
@@ -72,7 +81,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 
 		// Add all messages as top-level types
 		components := openapi31.Components{}
-		rootSchema := resolveJsonSchema(fd)
+		rootSchema := toSchema(fd)
 		for _, item := range rootSchema.Items.SchemaArray {
 			if item.TypeObject == nil {
 				continue
@@ -189,8 +198,8 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 	}, nil
 }
 
-func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
-	slog.Info("processSchemaItem", slog.Any("descriptor", t.FullName()), slog.Any("type", reflect.TypeOf(t).String()))
+func toSchema(t protoreflect.Descriptor) *jsonschema.Schema {
+	slog.Info("toSchema", slog.Any("descriptor", t.FullName()), slog.Any("type", reflect.TypeOf(t).String()))
 	switch tt := t.(type) {
 	case protoreflect.EnumDescriptor:
 		s := &jsonschema.Schema{}
@@ -219,7 +228,7 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 		children := make(map[string]jsonschema.SchemaOrBool, fields.Len())
 		for i := 0; i < fields.Len(); i++ {
 			field := fields.Get(i)
-			child := resolveJsonSchema(field)
+			child := toSchema(field)
 			children[field.JSONName()] = jsonschema.SchemaOrBool{TypeObject: child}
 		}
 		s.WithProperties(children)
@@ -227,8 +236,9 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 	case protoreflect.FieldDescriptor:
 		s := &jsonschema.Schema{}
 		if tt.IsMap() {
-			s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: resolveJsonSchema(tt.MapValue())}
+			s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: toSchema(tt.MapValue())}
 		}
+
 		switch tt.Kind() {
 		case protoreflect.BoolKind:
 			s.WithType(jsonschema.Boolean.Type())
@@ -255,12 +265,6 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 			s.WithType(jsonschema.Object.Type())
 		}
 
-		// type: array
-		// items:
-		// Handle maps
-		// tt.MapKey()
-		// tt.MapValue()
-
 		// Handle Lists
 		if tt.IsList() {
 			wrapped := s
@@ -282,7 +286,7 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 		fields := tt.Fields()
 		for i := 0; i < fields.Len(); i++ {
 			field := fields.Get(i)
-			children = append(children, jsonschema.SchemaOrBool{TypeObject: resolveJsonSchema(field)})
+			children = append(children, jsonschema.SchemaOrBool{TypeObject: toSchema(field)})
 		}
 		s.WithOneOf(children...)
 		return s
@@ -294,20 +298,20 @@ func resolveJsonSchema(t protoreflect.Descriptor) *jsonschema.Schema {
 		children := []jsonschema.SchemaOrBool{}
 		enums := tt.Enums()
 		for i := 0; i < enums.Len(); i++ {
-			child := resolveJsonSchema(enums.Get(i))
+			child := toSchema(enums.Get(i))
 			children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
 		}
 		messages := tt.Messages()
 		for i := 0; i < messages.Len(); i++ {
 			message := messages.Get(i)
-			child := resolveJsonSchema(message)
+			child := toSchema(message)
 			children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
 
 			// messages can also have enums defined in them. This is handled by adding them to the root
 			// schema with a fully-qualified path
 			enums := message.Enums()
 			for i := 0; i < enums.Len(); i++ {
-				child := resolveJsonSchema(enums.Get(i))
+				child := toSchema(enums.Get(i))
 				children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
 			}
 		}

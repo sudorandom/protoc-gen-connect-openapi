@@ -18,6 +18,7 @@ func main() {
 	resp, err := ConvertFrom(os.Stdin)
 	if err != nil {
 		message := fmt.Sprintf("Failed to read input: %v", err)
+		slog.Error(message)
 		renderResponse(&plugin.CodeGeneratorResponse{
 			Error: &message,
 		})

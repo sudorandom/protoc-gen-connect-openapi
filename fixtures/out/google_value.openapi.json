@@ -1,0 +1,73 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "samples",
+    "description": "",
+    "version": "v1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "connect.error": {
+        "properties": {
+          "code": {
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "samples.GoogleValue": {
+        "$id": "samples.GoogleValue",
+        "description": "",
+        "properties": {
+          "arg": {
+            "$id": "samples.GoogleValue.arg",
+            "$ref": "#/components/schemas/google.protobuf.Value",
+            "description": "",
+            "title": "arg",
+            "type": "object"
+          },
+          "someList": {
+            "$id": "samples.GoogleValue.some_list",
+            "$ref": "#/components/schemas/google.protobuf.ListValue",
+            "description": "",
+            "title": "some_list",
+            "type": "object"
+          },
+          "someStruct": {
+            "$id": "samples.GoogleValue.some_struct",
+            "$ref": "#/components/schemas/google.protobuf.Struct",
+            "description": "",
+            "title": "some_struct",
+            "type": "object"
+          }
+        },
+        "title": "GoogleValue",
+        "type": "object"
+      }
+    }
+  }
+}
