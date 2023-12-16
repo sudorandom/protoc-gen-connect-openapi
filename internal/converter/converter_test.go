@@ -1,4 +1,4 @@
-package main
+package converter_test
 
 import (
 	"bytes"
@@ -16,6 +16,7 @@ import (
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 	"google.golang.org/protobuf/proto"
 	"gopkg.in/yaml.v3"
 )
@@ -55,7 +56,7 @@ func TestConvert(t *testing.T) {
 				require.NoError(t, err)
 
 				// Call the conversion code!
-				resp, err := ConvertFrom(bytes.NewBuffer(b))
+				resp, err := converter.ConvertFrom(bytes.NewBuffer(b))
 				require.NoError(t, err)
 				assert.Len(t, resp.File, 1)
 				file := resp.File[0]

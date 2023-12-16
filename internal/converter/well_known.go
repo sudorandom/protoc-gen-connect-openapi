@@ -1,4 +1,4 @@
-package main
+package converter
 
 import (
 	"github.com/swaggest/jsonschema-go"

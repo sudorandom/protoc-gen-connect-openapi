@@ -8,6 +8,8 @@ import (
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/lmittmann/tint"
 	"google.golang.org/protobuf/proto"
+
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 )
 
 func main() {
@@ -15,7 +17,7 @@ func main() {
 		tint.NewHandler(os.Stderr, &tint.Options{}),
 	))
 
-	resp, err := ConvertFrom(os.Stdin)
+	resp, err := converter.ConvertFrom(os.Stdin)
 	if err != nil {
 		message := fmt.Sprintf("Failed to read input: %v", err)
 		slog.Error(message)
