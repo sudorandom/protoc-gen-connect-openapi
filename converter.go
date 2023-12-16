@@ -19,7 +19,6 @@ import (
 )
 
 // TODO: Tests that actually validate responses using generated OpenAPIv3 schema
-// TODO: Option to set API version, and maybe API endpoints?
 
 type Options struct {
 	// Format can be either "yaml" or "json"
@@ -130,9 +129,19 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		if err != nil {
 			return nil, err
 		}
-		components.WithSchemasItem("connect.error", map[string]interface{}{
-			"properties": connectError.Properties,
-			"type":       connectError.Type,
+
+		mediaItem := openapi31.MediaType{
+			Schema: map[string]interface{}{
+				"properties": connectError.Properties,
+				"type":       connectError.ID,
+			},
+		}
+		components.WithResponsesItem("connect.error", openapi31.ResponseOrReference{
+			Response: &openapi31.Response{
+				Content: map[string]openapi31.MediaType{
+					"application/json": mediaItem,
+				},
+			},
 		})
 
 		spec.WithComponents(components)
@@ -163,7 +172,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 					Parameters: []openapi31.ParameterOrReference{
 						{
 							Reference: &openapi31.Reference{
-								Ref: "#/components/schemas/" + formatTypeRef(string(method.Output().FullName())),
+								Ref: "#/components/parameter/" + formatTypeRef(string(method.Input().FullName())),
 							},
 						},
 					},
@@ -175,7 +184,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 							Content: map[string]openapi31.MediaType{
 								"application/json": {
 									Schema: map[string]interface{}{
-										"$ref": "#/components/schemas/connect.error",
+										"$ref": "#/components/responses/connect.error",
 									},
 								},
 							},
@@ -188,7 +197,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 								Content: map[string]openapi31.MediaType{
 									"application/json": {
 										Schema: map[string]interface{}{
-											"$ref": "#/components/schemas/" + formatTypeRef(string(method.Input().FullName())),
+											"$ref": "#/components/responses/" + formatTypeRef(string(method.Output().FullName())),
 										},
 									},
 								},
@@ -196,6 +205,21 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 						},
 					},
 				})
+
+				spec.Components.WithParametersItem(formatTypeRef(string(method.Input().FullName())),
+					openapi31.ParameterOrReference{
+						Reference: &openapi31.Reference{
+							Ref: "#/components/schemas/" + formatTypeRef(string(method.Input().FullName())),
+						},
+					},
+				)
+				spec.Components.WithResponsesItem(formatTypeRef(string(method.Output().FullName())),
+					openapi31.ResponseOrReference{
+						Reference: &openapi31.Reference{
+							Ref: "#/components/schemas/" + formatTypeRef(string(method.Output().FullName())),
+						},
+					},
+				)
 
 				options := method.Options().(*descriptorpb.MethodOptions)
 				if options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS {

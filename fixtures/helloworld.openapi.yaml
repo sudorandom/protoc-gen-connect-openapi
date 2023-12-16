@@ -6,7 +6,7 @@ info:
 paths:
   /helloworld.Greeter/SayHello:
     parameters:
-    - $ref: '#/components/schemas/helloworld.HelloReply'
+    - $ref: '#/components/parameter/helloworld.HelloRequest'
     post:
       description: Sends a greeting
       responses:
@@ -14,43 +14,53 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
+                $ref: '#/components/responses/helloworld.HelloReply'
           description: The greeting service definition.
         default:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/connect.error'
+                $ref: '#/components/responses/connect.error'
           description: ""
       tags:
       - helloworld.Greeter
 components:
-  schemas:
+  parameters:
+    helloworld.HelloRequest:
+      $ref: '#/components/schemas/helloworld.HelloRequest'
+  responses:
     connect.error:
-      properties:
-        code:
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        message:
-          type: string
-      type: object
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                enum:
+                - CodeCanceled
+                - CodeUnknown
+                - CodeInvalidArgument
+                - CodeDeadlineExceeded
+                - CodeNotFound
+                - CodeAlreadyExists
+                - CodePermissionDenied
+                - CodeResourceExhausted
+                - CodeFailedPrecondition
+                - CodeAborted
+                - CodeOutOfRange
+                - CodeInternal
+                - CodeUnavailable
+                - CodeDataLoss
+                - CodeUnauthenticated
+                examples:
+                - CodeNotFound
+                type: string
+              message:
+                type: string
+            type: null
+      description: ""
+    helloworld.HelloReply:
+      $ref: '#/components/schemas/helloworld.HelloReply'
+  schemas:
     helloworld.HelloReply:
       $id: helloworld.HelloReply
       description: The response message containing the greetings

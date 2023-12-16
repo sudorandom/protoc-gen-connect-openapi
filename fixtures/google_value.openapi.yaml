@@ -5,32 +5,37 @@ info:
   version: v1.0.0
 paths: {}
 components:
-  schemas:
+  responses:
     connect.error:
-      properties:
-        code:
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        message:
-          type: string
-      type: object
+      content:
+        application/json:
+          schema:
+            properties:
+              code:
+                enum:
+                - CodeCanceled
+                - CodeUnknown
+                - CodeInvalidArgument
+                - CodeDeadlineExceeded
+                - CodeNotFound
+                - CodeAlreadyExists
+                - CodePermissionDenied
+                - CodeResourceExhausted
+                - CodeFailedPrecondition
+                - CodeAborted
+                - CodeOutOfRange
+                - CodeInternal
+                - CodeUnavailable
+                - CodeDataLoss
+                - CodeUnauthenticated
+                examples:
+                - CodeNotFound
+                type: string
+              message:
+                type: string
+            type: null
+      description: ""
+  schemas:
     google.protobuf.ListValue:
       $id: google.protobuf.ListValue
       description: |-

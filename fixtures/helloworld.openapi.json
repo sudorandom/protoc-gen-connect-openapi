@@ -9,7 +9,7 @@
     "/helloworld.Greeter/SayHello": {
       "parameters": [
         {
-          "$ref": "#/components/schemas/helloworld.HelloReply"
+          "$ref": "#/components/parameter/helloworld.HelloRequest"
         }
       ],
       "post": {
@@ -23,7 +23,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/connect.error"
+                  "$ref": "#/components/responses/connect.error"
                 }
               }
             }
@@ -33,7 +33,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/helloworld.HelloRequest"
+                  "$ref": "#/components/responses/helloworld.HelloReply"
                 }
               }
             }
@@ -44,37 +44,6 @@
   },
   "components": {
     "schemas": {
-      "connect.error": {
-        "properties": {
-          "code": {
-            "examples": [
-              "CodeNotFound"
-            ],
-            "enum": [
-              "CodeCanceled",
-              "CodeUnknown",
-              "CodeInvalidArgument",
-              "CodeDeadlineExceeded",
-              "CodeNotFound",
-              "CodeAlreadyExists",
-              "CodePermissionDenied",
-              "CodeResourceExhausted",
-              "CodeFailedPrecondition",
-              "CodeAborted",
-              "CodeOutOfRange",
-              "CodeInternal",
-              "CodeUnavailable",
-              "CodeDataLoss",
-              "CodeUnauthenticated"
-            ],
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "helloworld.HelloReply": {
         "$id": "helloworld.HelloReply",
         "description": "The response message containing the greetings",
@@ -102,6 +71,54 @@
         },
         "title": "HelloRequest",
         "type": "object"
+      }
+    },
+    "responses": {
+      "connect.error": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "code": {
+                  "examples": [
+                    "CodeNotFound"
+                  ],
+                  "enum": [
+                    "CodeCanceled",
+                    "CodeUnknown",
+                    "CodeInvalidArgument",
+                    "CodeDeadlineExceeded",
+                    "CodeNotFound",
+                    "CodeAlreadyExists",
+                    "CodePermissionDenied",
+                    "CodeResourceExhausted",
+                    "CodeFailedPrecondition",
+                    "CodeAborted",
+                    "CodeOutOfRange",
+                    "CodeInternal",
+                    "CodeUnavailable",
+                    "CodeDataLoss",
+                    "CodeUnauthenticated"
+                  ],
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "type": null
+            }
+          }
+        }
+      },
+      "helloworld.HelloReply": {
+        "$ref": "#/components/schemas/helloworld.HelloReply"
+      }
+    },
+    "parameters": {
+      "helloworld.HelloRequest": {
+        "$ref": "#/components/schemas/helloworld.HelloRequest"
       }
     }
   },
