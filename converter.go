@@ -59,7 +59,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
-			slog.Info("skip generating file because it wasn't requested", slog.String("name", fileDesc.GetName()))
+			slog.Debug("skip generating file because it wasn't requested", slog.String("name", fileDesc.GetName()))
 			continue
 		}
 
@@ -73,7 +73,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 
 		spec := openapi31.Spec{Openapi: "3.1.0"}
 		spec.SetTitle(string(fd.FullName()))
-		spec.SetDescription("")
+		spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
 
 		// TODO: This should come in from CLI arguments, this data isn't contained in proto files
 		spec.SetVersion("v1.0.0")
@@ -224,6 +224,9 @@ func enumToSchema(state *State, tt protoreflect.EnumDescriptor) *jsonschema.Sche
 
 func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschema.Schema {
 	slog.Info("messageToSchema", slog.Any("descriptor", tt.FullName()))
+	if isWellKnown(tt) {
+		return wellKnownToSchema(tt)
+	}
 	s := &jsonschema.Schema{}
 	s.WithID(string(tt.FullName()))
 	s.WithTitle(string(tt.Name()))
@@ -294,22 +297,6 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 	s.WithID(string(tt.FullName()))
 	s.WithTitle(string(tt.Name()))
 	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
-	return s
-}
-
-func oneOfToSchema(state *State, tt protoreflect.OneofDescriptor) *jsonschema.Schema {
-	slog.Info("oneOfToSchema", slog.Any("descriptor", tt.FullName()))
-	s := &jsonschema.Schema{}
-	s.WithID(string(tt.FullName()))
-	s.WithTitle(string(tt.Name()))
-	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
-	children := []jsonschema.SchemaOrBool{}
-	fields := tt.Fields()
-	for i := 0; i < fields.Len(); i++ {
-		field := fields.Get(i)
-		children = append(children, jsonschema.SchemaOrBool{TypeObject: fieldToSchema(state, field)})
-	}
-	s.WithOneOf(children...)
 	return s
 }
 
