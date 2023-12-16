@@ -18,8 +18,6 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-// TODO: Tests that actually validate responses using generated OpenAPIv3 schema
-
 type Options struct {
 	// Format can be either "yaml" or "json"
 	Format  string
@@ -129,18 +127,19 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		if err != nil {
 			return nil, err
 		}
+		connectError.WithID("connect.error")
 
-		mediaItem := openapi31.MediaType{
-			Schema: map[string]interface{}{
-				"properties": connectError.Properties,
-				"type":       connectError.ID,
-			},
-		}
+		components.WithSchemasItem(*connectError.ID, map[string]interface{}{
+			"$id":         connectError.ID,
+			"description": connectError.Description,
+			"properties":  connectError.Properties,
+			"title":       connectError.Title,
+			"type":        connectError.Type,
+		})
+
 		components.WithResponsesItem("connect.error", openapi31.ResponseOrReference{
-			Response: &openapi31.Response{
-				Content: map[string]openapi31.MediaType{
-					"application/json": mediaItem,
-				},
+			Reference: &openapi31.Reference{
+				Ref: "#/components/schemas/connect.error",
 			},
 		})
 
@@ -168,16 +167,32 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 				loc := fd.SourceLocations().ByDescriptor(method)
 				op.WithDescription(formatComments(loc))
 
-				item := openapi31.PathItem{
-					Parameters: []openapi31.ParameterOrReference{
-						{
-							Reference: &openapi31.Reference{
-								Ref: "#/components/parameter/" + formatTypeRef(string(method.Input().FullName())),
+				// Request Body
+				item := openapi31.PathItem{}
+				op.WithRequestBody(openapi31.RequestBodyOrReference{
+					Reference: &openapi31.Reference{
+						Ref: "#/components/requestBodies/" + formatTypeRef(string(method.Input().FullName())),
+					},
+				})
+				trueVar := true
+				spec.Components.WithRequestBodiesItem(formatTypeRef(string(method.Input().FullName())),
+					openapi31.RequestBodyOrReference{
+						RequestBody: &openapi31.RequestBody{
+							Description: new(string),
+							Content: map[string]openapi31.MediaType{
+								"application/json": {
+									Schema: map[string]interface{}{
+										"$ref": "#/components/schemas/" + formatTypeRef(string(method.Input().FullName())),
+									},
+								},
 							},
+							Required:      &trueVar,
+							MapOfAnything: map[string]interface{}{},
 						},
 					},
-				}
+				)
 
+				// Responses
 				op.WithResponses(openapi31.Responses{
 					Default: &openapi31.ResponseOrReference{
 						Response: &openapi31.Response{
@@ -206,13 +221,6 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 					},
 				})
 
-				spec.Components.WithParametersItem(formatTypeRef(string(method.Input().FullName())),
-					openapi31.ParameterOrReference{
-						Reference: &openapi31.Reference{
-							Ref: "#/components/schemas/" + formatTypeRef(string(method.Input().FullName())),
-						},
-					},
-				)
 				spec.Components.WithResponsesItem(formatTypeRef(string(method.Output().FullName())),
 					openapi31.ResponseOrReference{
 						Reference: &openapi31.Reference{
@@ -358,6 +366,8 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 	// Handle maps
 	if tt.IsMap() {
 		s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: fieldToSchema(state, tt.MapValue())}
+		s.WithType(jsonschema.Object.Type())
+		s.Ref = nil
 	}
 
 	// Handle Lists

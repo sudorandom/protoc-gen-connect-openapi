@@ -4,12 +4,15 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
-	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/pb33f/libopenapi"
+	validator "github.com/pb33f/libopenapi-validator"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -65,14 +68,13 @@ func TestConvert(t *testing.T) {
 				assert.Equal(t, string(expectedFile), file.GetContent())
 
 				// Validate
-				var spec *openapi3.T
+				var validate validator.Validator
 				t.Run("validate", func(tt *testing.T) {
-					loader := openapi3.NewLoader()
-					spec, err = loader.LoadFromData([]byte(file.GetContent()))
+					document, err := libopenapi.NewDocument([]byte(file.GetContent()))
 					require.NoError(t, err)
-					if err = spec.Validate(loader.Context); err != nil {
-						require.NoError(t, err, "spec should validate!")
-					}
+					var errs []error
+					validate, errs = validator.NewValidator(document)
+					require.Len(t, errs, 0, errs)
 				})
 
 				// Load in validation test cases to check OpenAPI specifications against sample requests
@@ -90,11 +92,32 @@ func TestConvert(t *testing.T) {
 					require.NoError(t, err)
 				}
 
-				t.Logf("%+v", testCaseFile)
-
 				for _, testCase := range testCaseFile.Cases {
 					testCase := testCase
+					if testCase.Method == "" {
+						testCase.Method = "POST"
+					}
+					if len(testCase.Errors) == 0 {
+						testCase.Errors = []string{}
+					}
 					t.Run(testCase.Name, func(tt *testing.T) {
+						var body io.Reader
+						if len(testCase.Body) > 0 {
+							body = strings.NewReader(testCase.Body)
+						}
+						req, err := http.NewRequest(testCase.Method, testCase.Path, body)
+						for k, v := range testCase.Headers {
+							req.Header.Add(k, v)
+						}
+						require.NoError(tt, err)
+
+						ok, errs := validate.ValidateHttpRequest(req)
+						require.Len(tt, errs, len(testCase.Errors), "Incorrect number of errors", errs)
+
+						for i, err := range errs {
+							assert.Regexp(tt, testCase.Errors[i], err.Error())
+						}
+						assert.Equal(tt, ok, len(testCase.Errors) == 0)
 					})
 				}
 			})
@@ -112,7 +135,7 @@ type TestCase struct {
 	Path    string            `yaml:"path"`
 	Headers map[string]string `yaml:"headers"`
 	Body    string            `yaml:"body"`
-	Error   string            `yaml:"error"`
+	Errors  []string          `yaml:"errors"`
 }
 
 func makeOutputPath(protofile, format string) string {

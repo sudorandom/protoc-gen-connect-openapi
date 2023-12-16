@@ -5,10 +5,10 @@ info:
   version: v1.0.0
 paths:
   /helloworld.Greeter/SayHello:
-    parameters:
-    - $ref: '#/components/parameter/helloworld.HelloRequest'
     post:
       description: Sends a greeting
+      requestBody:
+        $ref: '#/components/requestBodies/helloworld.HelloRequest'
       responses:
         "200":
           content:
@@ -25,42 +25,48 @@ paths:
       tags:
       - helloworld.Greeter
 components:
-  parameters:
+  requestBodies:
     helloworld.HelloRequest:
-      $ref: '#/components/schemas/helloworld.HelloRequest'
-  responses:
-    connect.error:
       content:
         application/json:
           schema:
-            properties:
-              code:
-                enum:
-                - CodeCanceled
-                - CodeUnknown
-                - CodeInvalidArgument
-                - CodeDeadlineExceeded
-                - CodeNotFound
-                - CodeAlreadyExists
-                - CodePermissionDenied
-                - CodeResourceExhausted
-                - CodeFailedPrecondition
-                - CodeAborted
-                - CodeOutOfRange
-                - CodeInternal
-                - CodeUnavailable
-                - CodeDataLoss
-                - CodeUnauthenticated
-                examples:
-                - CodeNotFound
-                type: string
-              message:
-                type: string
-            type: null
+            $ref: '#/components/schemas/helloworld.HelloRequest'
       description: ""
+      required: true
+  responses:
+    connect.error:
+      $ref: '#/components/schemas/connect.error'
     helloworld.HelloReply:
       $ref: '#/components/schemas/helloworld.HelloReply'
   schemas:
+    connect.error:
+      $id: connect.error
+      description: null
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      title: null
+      type: object
     helloworld.HelloReply:
       $id: helloworld.HelloReply
       description: The response message containing the greetings

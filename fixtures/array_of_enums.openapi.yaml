@@ -7,35 +7,36 @@ paths: {}
 components:
   responses:
     connect.error:
-      content:
-        application/json:
-          schema:
-            properties:
-              code:
-                enum:
-                - CodeCanceled
-                - CodeUnknown
-                - CodeInvalidArgument
-                - CodeDeadlineExceeded
-                - CodeNotFound
-                - CodeAlreadyExists
-                - CodePermissionDenied
-                - CodeResourceExhausted
-                - CodeFailedPrecondition
-                - CodeAborted
-                - CodeOutOfRange
-                - CodeInternal
-                - CodeUnavailable
-                - CodeDataLoss
-                - CodeUnauthenticated
-                examples:
-                - CodeNotFound
-                type: string
-              message:
-                type: string
-            type: null
-      description: ""
+      $ref: '#/components/schemas/connect.error'
   schemas:
+    connect.error:
+      $id: connect.error
+      description: null
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      title: null
+      type: object
     enums.ArrayOfEnums:
       $id: enums.ArrayOfEnums
       description: ""

@@ -1,3 +1,15 @@
 cases:
   - name: "hello"
+    path: "helloworld.Greeter/SayHello"
+    body: '{"name": "kevin"}'
+    headers:
+      Content-Type: application/json
+    
+  - name: "hello-wrong-value-type"
+    path: "helloworld.Greeter/SayHello"
+    body: '{"name": 1}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
     

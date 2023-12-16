@@ -7,16 +7,14 @@
   },
   "paths": {
     "/helloworld.Greeter/SayHello": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameter/helloworld.HelloRequest"
-        }
-      ],
       "post": {
         "tags": [
           "helloworld.Greeter"
         ],
         "description": "Sends a greeting",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/helloworld.HelloRequest"
+        },
         "responses": {
           "default": {
             "description": "",
@@ -44,6 +42,40 @@
   },
   "components": {
     "schemas": {
+      "connect.error": {
+        "$id": "connect.error",
+        "description": null,
+        "properties": {
+          "code": {
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "title": null,
+        "type": "object"
+      },
       "helloworld.HelloReply": {
         "$id": "helloworld.HelloReply",
         "description": "The response message containing the greetings",
@@ -75,50 +107,23 @@
     },
     "responses": {
       "connect.error": {
-        "description": "",
-        "content": {
-          "application/json": {
-            "schema": {
-              "properties": {
-                "code": {
-                  "examples": [
-                    "CodeNotFound"
-                  ],
-                  "enum": [
-                    "CodeCanceled",
-                    "CodeUnknown",
-                    "CodeInvalidArgument",
-                    "CodeDeadlineExceeded",
-                    "CodeNotFound",
-                    "CodeAlreadyExists",
-                    "CodePermissionDenied",
-                    "CodeResourceExhausted",
-                    "CodeFailedPrecondition",
-                    "CodeAborted",
-                    "CodeOutOfRange",
-                    "CodeInternal",
-                    "CodeUnavailable",
-                    "CodeDataLoss",
-                    "CodeUnauthenticated"
-                  ],
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                }
-              },
-              "type": null
-            }
-          }
-        }
+        "$ref": "#/components/schemas/connect.error"
       },
       "helloworld.HelloReply": {
         "$ref": "#/components/schemas/helloworld.HelloReply"
       }
     },
-    "parameters": {
+    "requestBodies": {
       "helloworld.HelloRequest": {
-        "$ref": "#/components/schemas/helloworld.HelloRequest"
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/helloworld.HelloRequest"
+            }
+          }
+        },
+        "required": true
       }
     }
   },
