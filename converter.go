@@ -6,7 +6,6 @@ import (
 	"io"
 	"log/slog"
 	"path/filepath"
-	"reflect"
 	"strings"
 
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
@@ -81,7 +80,8 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 
 		// Add all messages as top-level types
 		components := openapi31.Components{}
-		rootSchema := toSchema(fd)
+		state := &State{}
+		rootSchema := fileToSchema(state, fd)
 		for _, item := range rootSchema.Items.SchemaArray {
 			if item.TypeObject == nil {
 				continue
@@ -198,132 +198,180 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 	}, nil
 }
 
-func toSchema(t protoreflect.Descriptor) *jsonschema.Schema {
-	slog.Info("toSchema", slog.Any("descriptor", t.FullName()), slog.Any("type", reflect.TypeOf(t).String()))
-	switch tt := t.(type) {
-	case protoreflect.EnumDescriptor:
-		s := &jsonschema.Schema{}
-		s.WithID(string(t.FullName()))
-		s.WithTitle(string(tt.Name()))
-		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
-		s.WithType(jsonschema.String.Type())
-		children := []interface{}{}
-		values := tt.Values()
-		for i := 0; i < values.Len(); i++ {
-			value := values.Get(i)
-			children = append(children, string(value.Name()))
-			children = append(children, value.Number())
-		}
-		s.WithEnum(children)
-		return s
-	case protoreflect.EnumValueDescriptor:
-	case protoreflect.MessageDescriptor:
-		s := &jsonschema.Schema{}
-		s.WithID(string(t.FullName()))
-		s.WithTitle(string(tt.Name()))
-		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
-		s.WithType(jsonschema.Object.Type())
+type State struct {
+	CurrentFile      protoreflect.FileDescriptor
+	ExternalMessages []protoreflect.MessageDescriptor
+	ExternalEnums    []protoreflect.EnumDescriptor
+}
 
-		fields := tt.Fields()
-		children := make(map[string]jsonschema.SchemaOrBool, fields.Len())
-		for i := 0; i < fields.Len(); i++ {
-			field := fields.Get(i)
-			child := toSchema(field)
-			children[field.JSONName()] = jsonschema.SchemaOrBool{TypeObject: child}
-		}
-		s.WithProperties(children)
-		return s
-	case protoreflect.FieldDescriptor:
-		s := &jsonschema.Schema{}
-		if tt.IsMap() {
-			s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: toSchema(tt.MapValue())}
-		}
+func enumToSchema(state *State, tt protoreflect.EnumDescriptor) *jsonschema.Schema {
+	slog.Info("enumToSchema", slog.Any("descriptor", tt.FullName()))
+	s := &jsonschema.Schema{}
+	s.WithID(string(tt.FullName()))
+	s.WithTitle(string(tt.Name()))
+	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	s.WithType(jsonschema.String.Type())
+	children := []interface{}{}
+	values := tt.Values()
+	for i := 0; i < values.Len(); i++ {
+		value := values.Get(i)
+		children = append(children, string(value.Name()))
+		children = append(children, value.Number())
+	}
+	s.WithEnum(children)
+	return s
+}
 
-		switch tt.Kind() {
-		case protoreflect.BoolKind:
-			s.WithType(jsonschema.Boolean.Type())
-		case protoreflect.EnumKind:
-			s.WithRef("#/components/schemas/" + string(tt.Enum().FullName()))
-		case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind:
-			s.WithType(jsonschema.Integer.Type())
-		case protoreflect.Sfixed32Kind, protoreflect.Fixed32Kind:
-			s.WithType(jsonschema.Integer.Type())
-		case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind:
-			s.WithType(jsonschema.Number.Type())
-		case protoreflect.Sfixed64Kind, protoreflect.Fixed64Kind:
-			s.WithType(jsonschema.Number.Type())
-		case protoreflect.FloatKind:
-			s.WithType(jsonschema.Number.Type())
-		case protoreflect.DoubleKind:
-			s.WithType(jsonschema.Number.Type())
-		case protoreflect.StringKind:
-			s.WithType(jsonschema.String.Type())
-		case protoreflect.BytesKind:
-			s.WithType(jsonschema.String.Type())
-		case protoreflect.MessageKind:
-			s.WithRef("#/components/schemas/" + string(tt.Message().FullName()))
-			s.WithType(jsonschema.Object.Type())
-		}
+func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschema.Schema {
+	slog.Info("messageToSchema", slog.Any("descriptor", tt.FullName()))
+	s := &jsonschema.Schema{}
+	s.WithID(string(tt.FullName()))
+	s.WithTitle(string(tt.Name()))
+	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	s.WithType(jsonschema.Object.Type())
 
-		// Handle Lists
-		if tt.IsList() {
-			wrapped := s
-			s = &jsonschema.Schema{}
-			s.WithType(jsonschema.Array.Type())
-			s.WithItems(jsonschema.Items{SchemaArray: []jsonschema.SchemaOrBool{{TypeObject: wrapped}}})
-		}
-
-		s.WithID(string(tt.FullName()))
-		s.WithTitle(string(tt.Name()))
-		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
-		return s
-	case protoreflect.OneofDescriptor:
-		s := &jsonschema.Schema{}
-		s.WithID(string(tt.FullName()))
-		s.WithTitle(string(tt.Name()))
-		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
-		children := []jsonschema.SchemaOrBool{}
-		fields := tt.Fields()
-		for i := 0; i < fields.Len(); i++ {
-			field := fields.Get(i)
-			children = append(children, jsonschema.SchemaOrBool{TypeObject: toSchema(field)})
-		}
-		s.WithOneOf(children...)
-		return s
-	case protoreflect.FileDescriptor:
-		s := &jsonschema.Schema{}
-		s.WithID(string(t.FullName()))
-		s.WithTitle(string(tt.Name()))
-		s.WithDescription(formatComments(t.ParentFile().SourceLocations().ByDescriptor(t)))
-		children := []jsonschema.SchemaOrBool{}
-		enums := tt.Enums()
-		for i := 0; i < enums.Len(); i++ {
-			child := toSchema(enums.Get(i))
-			children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
-		}
-		messages := tt.Messages()
-		for i := 0; i < messages.Len(); i++ {
-			message := messages.Get(i)
-			child := toSchema(message)
-			children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
-
-			// messages can also have enums defined in them. This is handled by adding them to the root
-			// schema with a fully-qualified path
-			enums := message.Enums()
-			for i := 0; i < enums.Len(); i++ {
-				child := toSchema(enums.Get(i))
-				children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
-			}
-		}
-		s.WithItems(jsonschema.Items{SchemaArray: children})
-		return s
-
-	// We don't use these here
-	case protoreflect.ServiceDescriptor:
-	case protoreflect.MethodDescriptor:
+	fields := tt.Fields()
+	children := make(map[string]jsonschema.SchemaOrBool, fields.Len())
+	for i := 0; i < fields.Len(); i++ {
+		field := fields.Get(i)
+		child := fieldToSchema(state, field)
+		children[field.JSONName()] = jsonschema.SchemaOrBool{TypeObject: child}
 	}
 
-	return nil
+	s.WithProperties(children)
+	return s
+}
+
+func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Schema {
+	slog.Info("fieldToSchema", slog.Any("descriptor", tt.FullName()))
+	s := &jsonschema.Schema{}
+
+	switch tt.Kind() {
+	case protoreflect.BoolKind:
+		s.WithType(jsonschema.Boolean.Type())
+	case protoreflect.EnumKind:
+		if tt.Enum().ParentFile().Path() != state.CurrentFile.Path() {
+			state.ExternalEnums = append(state.ExternalEnums, tt.Enum())
+		}
+		s.WithRef("#/components/schemas/" + string(tt.Enum().FullName()))
+	case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind:
+		s.WithType(jsonschema.Integer.Type())
+	case protoreflect.Sfixed32Kind, protoreflect.Fixed32Kind:
+		s.WithType(jsonschema.Integer.Type())
+	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind:
+		s.WithType(jsonschema.Number.Type())
+	case protoreflect.Sfixed64Kind, protoreflect.Fixed64Kind:
+		s.WithType(jsonschema.Number.Type())
+	case protoreflect.FloatKind:
+		s.WithType(jsonschema.Number.Type())
+	case protoreflect.DoubleKind:
+		s.WithType(jsonschema.Number.Type())
+	case protoreflect.StringKind:
+		s.WithType(jsonschema.String.Type())
+	case protoreflect.BytesKind:
+		s.WithType(jsonschema.String.Type())
+	case protoreflect.MessageKind:
+		if tt.Message().ParentFile().Path() != state.CurrentFile.Path() {
+			state.ExternalMessages = append(state.ExternalMessages, tt.Message())
+		}
+		s.WithRef("#/components/schemas/" + string(tt.Message().FullName()))
+		s.WithType(jsonschema.Object.Type())
+	}
+
+	// Handle maps
+	if tt.IsMap() {
+		s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: fieldToSchema(state, tt.MapValue())}
+	}
+
+	// Handle Lists
+	if tt.IsList() {
+		wrapped := s
+		s = &jsonschema.Schema{}
+		s.WithType(jsonschema.Array.Type())
+		s.WithItems(jsonschema.Items{SchemaArray: []jsonschema.SchemaOrBool{{TypeObject: wrapped}}})
+	}
+
+	s.WithID(string(tt.FullName()))
+	s.WithTitle(string(tt.Name()))
+	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	return s
+}
+
+func oneOfToSchema(state *State, tt protoreflect.OneofDescriptor) *jsonschema.Schema {
+	slog.Info("oneOfToSchema", slog.Any("descriptor", tt.FullName()))
+	s := &jsonschema.Schema{}
+	s.WithID(string(tt.FullName()))
+	s.WithTitle(string(tt.Name()))
+	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	children := []jsonschema.SchemaOrBool{}
+	fields := tt.Fields()
+	for i := 0; i < fields.Len(); i++ {
+		field := fields.Get(i)
+		children = append(children, jsonschema.SchemaOrBool{TypeObject: fieldToSchema(state, field)})
+	}
+	s.WithOneOf(children...)
+	return s
+}
+
+func fileToSchema(state *State, tt protoreflect.FileDescriptor) *jsonschema.Schema {
+	slog.Info("fileOfToSchema", slog.Any("descriptor", tt.FullName()))
+	state.CurrentFile = tt
+	s := &jsonschema.Schema{}
+	s.WithID(string(tt.FullName()))
+	s.WithTitle(string(tt.Name()))
+	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	children := []jsonschema.SchemaOrBool{}
+	enums := tt.Enums()
+	for i := 0; i < enums.Len(); i++ {
+		child := enumToSchema(state, enums.Get(i))
+		children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
+	}
+	messages := tt.Messages()
+	for i := 0; i < messages.Len(); i++ {
+		message := messages.Get(i)
+		child := messageToSchema(state, message)
+		children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
+
+		// messages can also have enums defined in them. This is handled by adding them to the root
+		// schema with a fully-qualified path
+		enums := message.Enums()
+		for i := 0; i < enums.Len(); i++ {
+			child := enumToSchema(state, enums.Get(i))
+			children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
+		}
+	}
+
+	for _, child := range resolveExternalDescriptors(state) {
+		children = append(children, jsonschema.SchemaOrBool{TypeObject: child})
+	}
+
+	s.WithItems(jsonschema.Items{SchemaArray: children})
+	return s
+}
+
+func resolveExternalDescriptors(state *State) []*jsonschema.Schema {
+	if len(state.ExternalEnums) == 0 && len(state.ExternalMessages) == 0 {
+		return []*jsonschema.Schema{}
+	}
+
+	children := []*jsonschema.Schema{}
+	for _, enum := range state.ExternalEnums {
+		childState := &State{
+			CurrentFile: enum.ParentFile(),
+		}
+		children = append(children, enumToSchema(childState, enum))
+		children = append(children, resolveExternalDescriptors(childState)...)
+	}
+
+	for _, message := range state.ExternalMessages {
+		childState := &State{
+			CurrentFile: message.ParentFile(),
+		}
+		children = append(children, messageToSchema(childState, message))
+		children = append(children, resolveExternalDescriptors(childState)...)
+	}
+
+	return children
 }
 
 // TODO: Add more annotations for examples
