@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -21,8 +22,9 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// TestConvert calls greetings.Hello with a name, checking
-// for a valid return value.
+// TestConvert uses data in fixtures/ to make requests to generate openapi documents,
+// checks if they are valid OpenAPI documents and validates that a list of example
+// requests would conform to the OpenAPI spec or fail.
 func TestConvert(t *testing.T) {
 	paths, err := filepath.Glob("fixtures/*.proto")
 	require.NoError(t, err)
@@ -40,11 +42,10 @@ func TestConvert(t *testing.T) {
 
 		require.NotZero(t, len(formats), "at least one output format has to exist")
 
-		relPath := strings.TrimPrefix(protofile, "fixtures/")
+		relPath := path.Join("internal", "converter", protofile)
 		for _, format := range formats {
 			format := format
 			t.Run(protofile+"→"+format, func(t *testing.T) {
-
 				// Make Generation Request
 				pf, err := utils.LoadDescriptorSet("fixtures", "fileset.binpb")
 				require.NoError(t, err)
