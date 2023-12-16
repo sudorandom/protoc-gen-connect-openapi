@@ -18,10 +18,38 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-// TODO: Handle well-known types
-// TODO: Additional string types
-// TODO: Option to set API version
-// TODO: Extra credit: protovalidate constraints
+// TODO: Tests that actually validate responses using generated OpenAPIv3 schema
+// TODO: Option to set API version, and maybe API endpoints?
+
+type Options struct {
+	// Format can be either "yaml" or "json"
+	Format  string
+	Version string
+}
+
+func parseOptions(s string) (Options, error) {
+	opts := Options{
+		Version: "v1.0.0",
+		Format:  "yaml",
+	}
+
+	for _, param := range strings.Split(s, ",") {
+		switch param {
+		case "":
+		case "format_yaml":
+			opts.Format = "yaml"
+		case "format_json":
+			opts.Format = "json"
+		default:
+			if strings.HasPrefix(param, "version=") {
+				opts.Version = param[8:]
+			} else {
+				return opts, fmt.Errorf("invalid parameter: %s", param)
+			}
+		}
+	}
+	return opts, nil
+}
 
 func ConvertFrom(rd io.Reader) (*plugin.CodeGeneratorResponse, error) {
 	input, err := io.ReadAll(rd)
@@ -43,6 +71,11 @@ func formatTypeRef(t string) string {
 }
 
 func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, error) {
+	opts, err := parseOptions(req.GetParameter())
+	if err != nil {
+		return nil, err
+	}
+
 	files := []*pluginpb.CodeGeneratorResponse_File{}
 	genFiles := make(map[string]struct{}, len(req.FileToGenerate))
 	for _, file := range req.FileToGenerate {
@@ -74,9 +107,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		spec := openapi31.Spec{Openapi: "3.1.0"}
 		spec.SetTitle(string(fd.FullName()))
 		spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
-
-		// TODO: This should come in from CLI arguments, this data isn't contained in proto files
-		spec.SetVersion("v1.0.0")
+		spec.SetVersion(opts.Version)
 
 		// Add all messages as top-level types
 		components := openapi31.Components{}
@@ -178,19 +209,38 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		spec.WithPaths(openapi31.Paths{MapOfPathItemValues: items})
 		spec.WithTags(tags...)
 
-		b, err := json.MarshalIndent(spec, "", "  ")
-		if err != nil {
-			return nil, err
-		}
+		switch opts.Format {
+		case "yaml":
+			b, err := spec.MarshalYAML()
+			if err != nil {
+				return nil, err
+			}
 
-		content := string(b)
-		name := fileDesc.GetName()
-		filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi.json"
-		files = append(files, &pluginpb.CodeGeneratorResponse_File{
-			Name:              &filename,
-			Content:           &content,
-			GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
-		})
+			content := string(b)
+			name := fileDesc.GetName()
+			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi.yaml"
+
+			files = append(files, &pluginpb.CodeGeneratorResponse_File{
+				Name:              &filename,
+				Content:           &content,
+				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
+			})
+		case "json":
+			b, err := json.MarshalIndent(spec, "", "  ")
+			if err != nil {
+				return nil, err
+			}
+
+			content := string(b)
+			name := fileDesc.GetName()
+			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi.json"
+
+			files = append(files, &pluginpb.CodeGeneratorResponse_File{
+				Name:              &filename,
+				Content:           &content,
+				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
+			})
+		}
 	}
 
 	return &plugin.CodeGeneratorResponse{
@@ -361,7 +411,6 @@ func resolveExternalDescriptors(state *State) []*jsonschema.Schema {
 	return children
 }
 
-// TODO: Add more annotations for examples
 type ConnectError struct {
 	Code    string `json:"code" example:"CodeNotFound" enum:"CodeCanceled,CodeUnknown,CodeInvalidArgument,CodeDeadlineExceeded,CodeNotFound,CodeAlreadyExists,CodePermissionDenied,CodeResourceExhausted,CodeFailedPrecondition,CodeAborted,CodeOutOfRange,CodeInternal,CodeUnavailable,CodeDataLoss,CodeUnauthenticated"`
 	Message string `json:"message,omitempty"`

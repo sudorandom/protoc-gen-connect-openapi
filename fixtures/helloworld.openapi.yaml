@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  description: ""
+  title: helloworld
+  version: v1.0.0
+paths:
+  /helloworld.Greeter/SayHello:
+    parameters:
+    - $ref: '#/components/schemas/helloworld.HelloReply'
+    post:
+      description: Sends a greeting
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/helloworld.HelloRequest'
+          description: The greeting service definition.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+          description: ""
+      tags:
+      - helloworld.Greeter
+components:
+  schemas:
+    connect.error:
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      type: object
+    helloworld.HelloReply:
+      $id: helloworld.HelloReply
+      description: The response message containing the greetings
+      properties:
+        message:
+          $id: helloworld.HelloReply.message
+          description: ""
+          title: message
+          type: string
+      title: HelloReply
+      type: object
+    helloworld.HelloRequest:
+      $id: helloworld.HelloRequest
+      description: The request message containing the user's name.
+      properties:
+        name:
+          $id: helloworld.HelloRequest.name
+          description: ""
+          title: name
+          type: string
+      title: HelloRequest
+      type: object
+tags:
+- description: The greeting service definition.
+  name: helloworld.Greeter

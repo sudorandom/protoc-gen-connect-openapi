@@ -1,0 +1,117 @@
+openapi: 3.1.0
+info:
+  description: ""
+  title: samples
+  version: v1.0.0
+paths: {}
+components:
+  schemas:
+    connect.error:
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      type: object
+    google.protobuf.ListValue:
+      $id: google.protobuf.ListValue
+      description: |-
+        `ListValue` is a wrapper around a repeated field of values.
+
+         The JSON representation for `ListValue` is JSON array.
+      properties:
+        values:
+          $id: google.protobuf.ListValue.values
+          description: Repeated field of dynamically typed values.
+          items:
+          - $ref: '#/components/schemas/google.protobuf.Value'
+            type: object
+          title: values
+          type: array
+      title: ListValue
+      type: object
+    google.protobuf.Struct:
+      $id: google.protobuf.Struct
+      description: |-
+        `Struct` represents a structured data value, consisting of fields
+         which map to dynamically typed values. In some languages, `Struct`
+         might be supported by a native representation. For example, in
+         scripting languages like JS a struct is represented as an
+         object. The details of that representation are described together
+         with the proto support for the language.
+
+         The JSON representation for `Struct` is JSON object.
+      properties:
+        fields:
+          $id: google.protobuf.Struct.fields
+          $ref: '#/components/schemas/google.protobuf.Struct.FieldsEntry'
+          additionalProperties:
+            $id: google.protobuf.Struct.FieldsEntry.value
+            $ref: '#/components/schemas/google.protobuf.Value'
+            description: ""
+            title: value
+            type: object
+          description: Unordered map of dynamically typed values.
+          title: fields
+          type: object
+      title: Struct
+      type: object
+    google.protobuf.Value:
+      $id: google.protobuf.Value
+      description: |-
+        `Value` represents a dynamically typed value which can be either
+         null, a number, a string, a boolean, a recursive struct value, or a
+         list of values. A producer of value is expected to set one of these
+         variants. Absence of any variant indicates an error.
+
+         The JSON representation for `Value` is JSON value.
+      oneOf:
+      - type: "null"
+      - type: number
+      - type: string
+      - type: boolean
+      - type: array
+      - additionalProperties: true
+        type: object
+    samples.GoogleValue:
+      $id: samples.GoogleValue
+      description: ""
+      properties:
+        arg:
+          $id: samples.GoogleValue.arg
+          $ref: '#/components/schemas/google.protobuf.Value'
+          description: ""
+          title: arg
+          type: object
+        someList:
+          $id: samples.GoogleValue.some_list
+          $ref: '#/components/schemas/google.protobuf.ListValue'
+          description: ""
+          title: some_list
+          type: object
+        someStruct:
+          $id: samples.GoogleValue.some_struct
+          $ref: '#/components/schemas/google.protobuf.Struct'
+          description: ""
+          title: some_struct
+          type: object
+      title: GoogleValue
+      type: object

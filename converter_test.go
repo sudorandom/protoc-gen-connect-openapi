@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -20,25 +22,49 @@ func TestConvert(t *testing.T) {
 	require.NoError(t, err)
 	for _, protofile := range paths {
 		protofile := protofile
-		t.Run(protofile, func(t *testing.T) {
-			relPath := strings.TrimPrefix(protofile, "fixtures/")
-			pf, err := utils.LoadDescriptorSet("fixtures", "fileset.binpb")
-			req := utils.CreateGenRequest(pf, relPath)
-			require.NoError(t, err)
 
-			b, err := proto.Marshal(req)
-			require.NoError(t, err)
+		formats := []string{}
+		for _, format := range []string{"yaml", "json"} {
+			_, err := os.Stat(makeOutputPath(protofile, format))
+			errors.Is(err, os.ErrNotExist)
+			if err != nil && errors.Is(err, os.ErrNotExist) {
+				continue
+			} else if err != nil {
+				require.NoError(t, err)
+			}
 
-			resp, err := ConvertFrom(bytes.NewBuffer(b))
-			require.NoError(t, err)
-			assert.Len(t, resp.File, 1)
-			assert.NotNil(t, resp.File[0].Name)
-			assert.Equal(t, strings.TrimSuffix(relPath, filepath.Ext(relPath))+".openapi.json", resp.File[0].GetName())
+			formats = append(formats, format)
+		}
 
-			expectedFile, err := os.ReadFile(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi.json")
-			require.NoError(t, err)
+		require.NotZero(t, len(formats), "at least one output format has to exist")
 
-			assert.Equal(t, string(expectedFile), resp.File[0].GetContent())
-		})
+		relPath := strings.TrimPrefix(protofile, "fixtures/")
+		for _, format := range formats {
+			format := format
+			t.Run(protofile+"→"+format, func(t *testing.T) {
+				pf, err := utils.LoadDescriptorSet("fixtures", "fileset.binpb")
+				req := utils.CreateGenRequest(pf, relPath)
+				params := fmt.Sprintf("format_%s", format)
+				req.Parameter = &params
+				require.NoError(t, err)
+
+				b, err := proto.Marshal(req)
+				require.NoError(t, err)
+
+				resp, err := ConvertFrom(bytes.NewBuffer(b))
+				require.NoError(t, err)
+				assert.Len(t, resp.File, 1)
+				assert.NotNil(t, resp.File[0].Name)
+				assert.Equal(t, strings.TrimSuffix(relPath, filepath.Ext(relPath))+".openapi."+format, resp.File[0].GetName())
+
+				expectedFile, err := os.ReadFile(makeOutputPath(protofile, format))
+				require.NoError(t, err)
+				assert.Equal(t, string(expectedFile), resp.File[0].GetContent())
+			})
+		}
 	}
+}
+
+func makeOutputPath(protofile, format string) string {
+	return strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi." + format
 }
