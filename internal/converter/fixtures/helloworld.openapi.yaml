@@ -69,6 +69,7 @@ components:
       type: object
     helloworld.HelloReply:
       $id: helloworld.HelloReply
+      additionalProperties: false
       description: The response message containing the greetings
       properties:
         message:
@@ -80,6 +81,7 @@ components:
       type: object
     helloworld.HelloRequest:
       $id: helloworld.HelloRequest
+      additionalProperties: false
       description: The request message containing the user's name.
       properties:
         name:

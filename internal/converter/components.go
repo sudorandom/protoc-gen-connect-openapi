@@ -1,6 +1,8 @@
 package converter
 
 import (
+	"log/slog"
+
 	"github.com/swaggest/jsonschema-go"
 	"github.com/swaggest/openapi-go/openapi31"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -9,7 +11,11 @@ import (
 func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, error) {
 	// Add schema from messages/enums
 	components := openapi31.Components{}
-	rootSchema := fileToSchema(&State{}, fd)
+	st := NewState()
+	slog.Info("start collection")
+	st.CollectFile(fd)
+	slog.Info("collection complete", slog.String("file", string(fd.Name())), slog.Int("messages", len(st.Messages)), slog.Int("enum", len(st.Enums)))
+	rootSchema := stateToSchema(st)
 	for _, item := range rootSchema.Items.SchemaArray {
 		if item.TypeObject == nil {
 			continue
@@ -26,7 +32,7 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
 		methods := service.Methods()
-		for j := 0; j < services.Len(); j++ {
+		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
 			op := &openapi31.Operation{}
 			op.WithTags(string(service.FullName()))

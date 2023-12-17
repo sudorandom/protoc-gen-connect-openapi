@@ -26,7 +26,7 @@ import (
 // checks if they are valid OpenAPI documents and validates that a list of example
 // requests would conform to the OpenAPI spec or fail.
 func TestConvert(t *testing.T) {
-	paths, err := filepath.Glob("fixtures/*.proto")
+	paths, err := filepath.Glob("fixtures/**.proto")
 	require.NoError(t, err)
 	for _, protofile := range paths {
 		protofile := protofile

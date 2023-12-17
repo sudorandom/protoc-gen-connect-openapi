@@ -15,7 +15,7 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 		description := formatComments(loc)
 
 		methods := service.Methods()
-		for j := 0; j < services.Len(); j++ {
+		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
 			op := &openapi31.Operation{}
 			op.WithTags(string(service.FullName()))

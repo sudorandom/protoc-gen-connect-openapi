@@ -4,7 +4,7 @@ cases:
     body: '{"name": "kevin"}'
     headers:
       Content-Type: application/json
-    
+
   - name: "hello-wrong-value-type"
     path: "helloworld.Greeter/SayHello"
     body: '{"name": 1}'
@@ -12,3 +12,19 @@ cases:
       Content-Type: application/json
     errors:
       - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
+
+  - name: "hello-wrong-key"
+    path: "helloworld.Greeter/SayHello"
+    body: '{"nane": "kevin"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
+
+  - name: "with-extra-keys"
+    path: "helloworld.Greeter/SayHello"
+    body: '{"name": "kevin", "extra": 1234}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*additionalProperties 'extra' not allowed, Location: /additionalProperties.*"

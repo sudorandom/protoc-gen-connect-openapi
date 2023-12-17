@@ -39,6 +39,7 @@ components:
       type: object
     google.protobuf.ListValue:
       $id: google.protobuf.ListValue
+      additionalProperties: false
       description: |-
         `ListValue` is a wrapper around a repeated field of values.
 
@@ -54,8 +55,21 @@ components:
           type: array
       title: ListValue
       type: object
+    google.protobuf.NullValue:
+      $id: google.protobuf.NullValue
+      description: |-
+        `NullValue` is a singleton enumeration to represent the null value for the
+         `Value` type union.
+
+         The JSON representation for `NullValue` is JSON `null`.
+      enum:
+      - - NULL_VALUE
+        - 0
+      title: NullValue
+      type: string
     google.protobuf.Struct:
       $id: google.protobuf.Struct
+      additionalProperties: false
       description: |-
         `Struct` represents a structured data value, consisting of fields
          which map to dynamically typed values. In some languages, `Struct`
@@ -79,6 +93,24 @@ components:
           type: object
       title: Struct
       type: object
+    google.protobuf.Struct.FieldsEntry:
+      $id: google.protobuf.Struct.FieldsEntry
+      additionalProperties: false
+      description: ""
+      properties:
+        key:
+          $id: google.protobuf.Struct.FieldsEntry.key
+          description: ""
+          title: key
+          type: string
+        value:
+          $id: google.protobuf.Struct.FieldsEntry.value
+          $ref: '#/components/schemas/google.protobuf.Value'
+          description: ""
+          title: value
+          type: object
+      title: FieldsEntry
+      type: object
     google.protobuf.Value:
       $id: google.protobuf.Value
       description: |-
@@ -98,6 +130,7 @@ components:
         type: object
     samples.GoogleValue:
       $id: samples.GoogleValue
+      additionalProperties: false
       description: ""
       properties:
         arg:

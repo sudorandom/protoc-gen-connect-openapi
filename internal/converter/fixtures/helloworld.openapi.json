@@ -78,6 +78,7 @@
       },
       "helloworld.HelloReply": {
         "$id": "helloworld.HelloReply",
+        "additionalProperties": false,
         "description": "The response message containing the greetings",
         "properties": {
           "message": {
@@ -92,6 +93,7 @@
       },
       "helloworld.HelloRequest": {
         "$id": "helloworld.HelloRequest",
+        "additionalProperties": false,
         "description": "The request message containing the user's name.",
         "properties": {
           "name": {

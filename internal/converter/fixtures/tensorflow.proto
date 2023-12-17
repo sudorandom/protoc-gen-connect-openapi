@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package tensorflowtest;
+
+import "tensorflow/core/protobuf/master.proto";
+
+service MasterService {
+  // Creates a session.
+  rpc CreateSession(tensorflow.CreateSessionRequest) returns (tensorflow.CreateSessionResponse);
+
+  // Extends a session.
+  rpc ExtendSession(tensorflow.ExtendSessionRequest) returns (tensorflow.ExtendSessionResponse);
+}

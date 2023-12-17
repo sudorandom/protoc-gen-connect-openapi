@@ -39,6 +39,7 @@ components:
       type: object
     messages.ArrayOfMessages:
       $id: messages.ArrayOfMessages
+      additionalProperties: false
       description: ""
       properties:
         description:
@@ -58,6 +59,7 @@ components:
       type: object
     messages.Thing:
       $id: messages.Thing
+      additionalProperties: false
       description: ""
       properties:
         name:
