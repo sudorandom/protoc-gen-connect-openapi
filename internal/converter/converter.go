@@ -153,8 +153,10 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		}
 	}
 
+	features := uint64(plugin.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 	return &plugin.CodeGeneratorResponse{
-		File: files,
+		File:              files,
+		SupportedFeatures: &features,
 	}, nil
 }
 
