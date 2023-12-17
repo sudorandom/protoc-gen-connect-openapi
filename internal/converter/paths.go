@@ -24,14 +24,16 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 
 			// Request Body
 			item := openapi31.PathItem{}
-			op.WithRequestBody(openapi31.RequestBodyOrReference{
-				Reference: &openapi31.Reference{
-					Ref: "#/components/requestBodies/" + formatTypeRef(string(method.Input().FullName())),
-				},
-			})
+			if !IsEmpty(method.Input()) {
+				op.WithRequestBody(openapi31.RequestBodyOrReference{
+					Reference: &openapi31.Reference{
+						Ref: "#/components/requestBodies/" + formatTypeRef(string(method.Input().FullName())),
+					},
+				})
+			}
 
 			// Responses
-			op.WithResponses(openapi31.Responses{
+			responses := openapi31.Responses{
 				Default: &openapi31.ResponseOrReference{
 					Response: &openapi31.Response{
 						Content: map[string]openapi31.MediaType{
@@ -43,21 +45,22 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 						},
 					},
 				},
-				MapOfResponseOrReferenceValues: map[string]openapi31.ResponseOrReference{
-					"200": {
-						Response: &openapi31.Response{
-							Description: description,
-							Content: map[string]openapi31.MediaType{
-								"application/json": {
-									Schema: map[string]interface{}{
-										"$ref": "#/components/responses/" + formatTypeRef(string(method.Output().FullName())),
-									},
+			}
+			if !IsEmpty(method.Input()) {
+				responses.WithMapOfResponseOrReferenceValuesItem("200", openapi31.ResponseOrReference{
+					Response: &openapi31.Response{
+						Description: description,
+						Content: map[string]openapi31.MediaType{
+							"application/json": {
+								Schema: map[string]interface{}{
+									"$ref": "#/components/responses/" + formatTypeRef(string(method.Output().FullName())),
 								},
 							},
 						},
 					},
-				},
-			})
+				})
+			}
+			op.WithResponses(responses)
 
 			options := method.Options().(*descriptorpb.MethodOptions)
 			if options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS {

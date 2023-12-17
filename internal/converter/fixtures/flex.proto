@@ -1,0 +1,53 @@
+// Protobuf that flexes a lot of the types
+syntax = "proto3";
+
+package flex;
+
+import "google/protobuf/empty.proto";
+
+// This service tries to flex the different options
+service FlexService {
+  // Normal RPC method
+  rpc NormalRPC (FlexRequest) returns (FlexReply) {}
+  // Stream from client to server
+  rpc ClientStream (stream FlexRequest) returns (FlexReply) {}
+  // Stream from server to client
+  rpc ServerStream (FlexRequest) returns (stream FlexReply) {}
+  // Stream both ways
+  rpc BiDirectorionalStream (FlexRequest) returns (stream FlexReply) {}
+  // Don't send or receive anything
+  rpc EmptyRPC (google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}
+
+// The request message containing the user's name.
+message FlexRequest {
+}
+
+// The response message containing the greetings
+message FlexReply {
+  string message = 1;
+}
+
+// Type that has a bunch of different types
+message ComplexType {
+  double doubleField = 1;
+  float floatField = 2;
+  int32 int32Field = 3;
+  int64 int64Field = 4;
+  uint32 uint32Field = 5;
+  uint64 uint64Field = 6;
+  sint32 sint32Field = 7;
+  sint64 sint64Field = 8;
+  fixed32 fixed32Field = 9;
+  fixed64 fixed64Field = 10;
+  sfixed32 sfixed32Field = 11;
+  sfixed64 sfixed64Field = 12;
+  bool boolField = 13;
+  string stringField = 14;
+  Other msgField = 15;
+  repeated Other repeatedMsgField = 16;
+  optional Other optionalMsgField = 17;
+}
+
+message Other {
+}

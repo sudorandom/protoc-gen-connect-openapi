@@ -8,7 +8,7 @@ internal/converter/fixtures/fileset.binpb: $(PROTO_FILES)
 	buf build -o internal/converter/fixtures/fileset.binpb
 
 test: internal/converter/fixtures/fileset.binpb
-	go test -v ./...
+	go test ./...
 
 install:
 	go install

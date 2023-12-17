@@ -214,70 +214,60 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.CloseSessionRequest'
-      description: ""
       required: true
     tensorflow.CreateSessionRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.CreateSessionRequest'
-      description: ""
       required: true
     tensorflow.ExtendSessionRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ExtendSessionRequest'
-      description: ""
       required: true
     tensorflow.ListDevicesRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ListDevicesRequest'
-      description: ""
       required: true
     tensorflow.MakeCallableRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.MakeCallableRequest'
-      description: ""
       required: true
     tensorflow.PartialRunSetupRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.PartialRunSetupRequest'
-      description: ""
       required: true
     tensorflow.ReleaseCallableRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ReleaseCallableRequest'
-      description: ""
       required: true
     tensorflow.ResetRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ResetRequest'
-      description: ""
       required: true
     tensorflow.RunCallableRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.RunCallableRequest'
-      description: ""
       required: true
     tensorflow.RunStepRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.RunStepRequest'
-      description: ""
       required: true
   responses:
     connect.error:

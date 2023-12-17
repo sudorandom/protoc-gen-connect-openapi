@@ -1,0 +1,260 @@
+openapi: 3.1.0
+info:
+  description: ""
+  title: flex
+  version: v1.0.0
+paths:
+  /flex.FlexService/BiDirectorionalStream:
+    post:
+      description: Stream both ways
+      requestBody:
+        $ref: '#/components/requestBodies/flex.FlexRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/flex.FlexReply'
+          description: This service tries to flex the different options
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - flex.FlexService
+  /flex.FlexService/ClientStream:
+    post:
+      description: Stream from client to server
+      requestBody:
+        $ref: '#/components/requestBodies/flex.FlexRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/flex.FlexReply'
+          description: This service tries to flex the different options
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - flex.FlexService
+  /flex.FlexService/EmptyRPC:
+    post:
+      description: Don't send or receive anything
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - flex.FlexService
+  /flex.FlexService/NormalRPC:
+    post:
+      description: Normal RPC method
+      requestBody:
+        $ref: '#/components/requestBodies/flex.FlexRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/flex.FlexReply'
+          description: This service tries to flex the different options
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - flex.FlexService
+  /flex.FlexService/ServerStream:
+    post:
+      description: Stream from server to client
+      requestBody:
+        $ref: '#/components/requestBodies/flex.FlexRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/flex.FlexReply'
+          description: This service tries to flex the different options
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - flex.FlexService
+components:
+  requestBodies:
+    flex.FlexRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/flex.FlexRequest'
+      required: true
+  responses:
+    connect.error:
+      $ref: '#/components/schemas/connect.error'
+    flex.FlexReply:
+      $ref: '#/components/schemas/flex.FlexReply'
+  schemas:
+    connect.error:
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      title: Connect Error
+      type: object
+    flex.ComplexType:
+      additionalProperties: false
+      description: Type that has a bunch of different types
+      properties:
+        boolField:
+          additionalProperties: false
+          description: ""
+          title: boolField
+          type: boolean
+        doubleField:
+          additionalProperties: false
+          description: ""
+          title: doubleField
+          type: number
+        fixed32Field:
+          additionalProperties: false
+          description: ""
+          title: fixed32Field
+          type: integer
+        fixed64Field:
+          additionalProperties: false
+          description: ""
+          title: fixed64Field
+          type: number
+        floatField:
+          additionalProperties: false
+          description: ""
+          title: floatField
+          type: number
+        int32Field:
+          additionalProperties: false
+          description: ""
+          title: int32Field
+          type: integer
+        int64Field:
+          additionalProperties: false
+          description: ""
+          title: int64Field
+          type: number
+        msgField:
+          $ref: '#/components/schemas/flex.Other'
+          additionalProperties: false
+          description: ""
+          title: msgField
+          type: object
+        optionalMsgField:
+          $ref: '#/components/schemas/flex.Other'
+          additionalProperties: false
+          description: ""
+          title: optionalMsgField
+          type: object
+        repeatedMsgField:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/flex.Other'
+            type: object
+          title: repeatedMsgField
+          type: array
+        sfixed32Field:
+          additionalProperties: false
+          description: ""
+          title: sfixed32Field
+          type: integer
+        sfixed64Field:
+          additionalProperties: false
+          description: ""
+          title: sfixed64Field
+          type: number
+        sint32Field:
+          additionalProperties: false
+          description: ""
+          title: sint32Field
+          type: integer
+        sint64Field:
+          additionalProperties: false
+          description: ""
+          title: sint64Field
+          type: number
+        stringField:
+          additionalProperties: false
+          description: ""
+          title: stringField
+          type: string
+        uint32Field:
+          additionalProperties: false
+          description: ""
+          title: uint32Field
+          type: integer
+        uint64Field:
+          additionalProperties: false
+          description: ""
+          title: uint64Field
+          type: number
+      title: ComplexType
+      type: object
+    flex.FlexReply:
+      additionalProperties: false
+      description: The response message containing the greetings
+      properties:
+        message:
+          additionalProperties: false
+          description: ""
+          title: message
+          type: string
+      title: FlexReply
+      type: object
+    flex.FlexRequest:
+      additionalProperties: false
+      description: The request message containing the user's name.
+      title: FlexRequest
+      type: object
+    flex.Other:
+      additionalProperties: false
+      description: ""
+      title: Other
+      type: object
+tags:
+- description: This service tries to flex the different options
+  name: flex.FlexService

@@ -71,14 +71,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
-      description: ""
       required: true
     envoy.service.discovery.v3.DiscoveryRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
-      description: ""
       required: true
   responses:
     connect.error:

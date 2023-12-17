@@ -42,31 +42,32 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 			op.WithDescription(formatComments(loc))
 
 			// Request Body
-			trueVar := true
-			components.WithRequestBodiesItem(formatTypeRef(string(method.Input().FullName())),
-				openapi31.RequestBodyOrReference{
-					RequestBody: &openapi31.RequestBody{
-						Description: new(string),
-						Content: map[string]openapi31.MediaType{
-							"application/json": {
-								Schema: map[string]interface{}{
-									"$ref": "#/components/schemas/" + formatTypeRef(string(method.Input().FullName())),
+			if !IsEmpty(method.Input()) {
+				components.WithRequestBodiesItem(formatTypeRef(string(method.Input().FullName())),
+					openapi31.RequestBodyOrReference{
+						RequestBody: &openapi31.RequestBody{
+							Content: map[string]openapi31.MediaType{
+								"application/json": {
+									Schema: map[string]interface{}{
+										"$ref": "#/components/schemas/" + formatTypeRef(string(method.Input().FullName())),
+									},
 								},
 							},
+							Required: BoolPtr(true),
 						},
-						Required:      &trueVar,
-						MapOfAnything: map[string]interface{}{},
 					},
-				},
-			)
+				)
+			}
 
-			components.WithResponsesItem(formatTypeRef(string(method.Output().FullName())),
-				openapi31.ResponseOrReference{
-					Reference: &openapi31.Reference{
-						Ref: "#/components/schemas/" + formatTypeRef(string(method.Output().FullName())),
+			if !IsEmpty(method.Output()) {
+				components.WithResponsesItem(formatTypeRef(string(method.Output().FullName())),
+					openapi31.ResponseOrReference{
+						Reference: &openapi31.Reference{
+							Ref: "#/components/schemas/" + formatTypeRef(string(method.Output().FullName())),
+						},
 					},
-				},
-			)
+				)
+			}
 		}
 	}
 

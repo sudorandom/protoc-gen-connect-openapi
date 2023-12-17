@@ -9,6 +9,7 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *json
 	"google.protobuf.Duration":  googleDuration,
 	"google.protobuf.Timestamp": googleTimestamp,
 	"google.protobuf.Value":     googleValue,
+	"google.protobuf.Empty":     googleEmpty,
 }
 
 func isWellKnown(msg protoreflect.MessageDescriptor) bool {
@@ -59,4 +60,12 @@ func googleValue(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	}
 	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 	return s
+}
+
+func googleEmpty(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
+	return nil
+}
+
+func IsEmpty(msg protoreflect.MessageDescriptor) bool {
+	return msg.FullName() == "google.protobuf.Empty"
 }
