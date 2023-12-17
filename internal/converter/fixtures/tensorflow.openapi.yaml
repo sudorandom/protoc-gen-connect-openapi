@@ -489,6 +489,7 @@ components:
         s:
           additionalProperties: false
           description: '"string"'
+          format: byte
           title: s
           type: string
         shape:
@@ -549,6 +550,7 @@ components:
           additionalProperties: false
           description: '"list(string)"'
           items:
+            format: byte
             type: string
           title: s
           type: array
@@ -5060,6 +5062,7 @@ components:
           description: |-
             DT_FLOAT8_*, use variable-sized set of bytes
              (i.e. the equivalent of repeated uint8, if such a thing existed).
+          format: byte
           title: float8_val
           type: string
         floatVal:
@@ -5115,6 +5118,7 @@ components:
           additionalProperties: false
           description: DT_STRING
           items:
+            format: byte
             type: string
           title: string_val
           type: array
@@ -5126,6 +5130,7 @@ components:
              can be used for all tensor types. The purpose of this representation is to
              reduce serialization overhead during RPC call by avoiding serialization of
              many repeated small items.
+          format: byte
           title: tensor_content
           type: string
         tensorShape:
@@ -5271,6 +5276,7 @@ components:
         metadata:
           additionalProperties: false
           description: Portions of the object that are not Tensors.
+          format: byte
           title: metadata
           type: string
         tensors:

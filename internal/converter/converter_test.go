@@ -51,7 +51,7 @@ func TestConvert(t *testing.T) {
 				pf, err := utils.LoadDescriptorSet("fixtures", "fileset.binpb")
 				require.NoError(t, err)
 				req := utils.CreateGenRequest(pf, relPath)
-				params := fmt.Sprintf("format_%s", format)
+				params := fmt.Sprintf("format=%s", format)
 				req.Parameter = &params
 
 				b, err := proto.Marshal(req)

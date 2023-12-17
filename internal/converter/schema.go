@@ -175,9 +175,8 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 		s.WithType(jsonschema.Boolean.Type())
 	case protoreflect.EnumKind:
 		s.WithRef("#/components/schemas/" + string(tt.Enum().FullName()))
-	case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind:
-		s.WithType(jsonschema.Integer.Type())
-	case protoreflect.Sfixed32Kind, protoreflect.Fixed32Kind:
+	case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind,
+		protoreflect.Sfixed32Kind, protoreflect.Fixed32Kind:
 		s.WithType(jsonschema.Integer.Type())
 	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind,
 		protoreflect.Sfixed64Kind, protoreflect.Fixed64Kind, protoreflect.DoubleKind:
@@ -191,6 +190,7 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 		s.WithType(jsonschema.String.Type())
 	case protoreflect.BytesKind:
 		s.WithType(jsonschema.String.Type())
+		s.WithFormat("byte")
 	case protoreflect.MessageKind:
 		s.WithRef("#/components/schemas/" + string(tt.Message().FullName()))
 		s.WithType(jsonschema.Object.Type())

@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"os"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -19,8 +21,10 @@ import (
 
 type Options struct {
 	// Format can be either "yaml" or "json"
-	Format  string
-	Version string
+	Format              string
+	Version             string
+	BaseOpenAPIYAMLPath string
+	BaseOpenAPIJSONPath string
 }
 
 func parseOptions(s string) (Options, error) {
@@ -30,18 +34,33 @@ func parseOptions(s string) (Options, error) {
 	}
 
 	for _, param := range strings.Split(s, ",") {
-		switch param {
-		case "":
-		case "format_yaml":
-			opts.Format = "yaml"
-		case "format_json":
-			opts.Format = "json"
-		default:
-			if strings.HasPrefix(param, "version=") {
-				opts.Version = param[8:]
-			} else {
-				return opts, fmt.Errorf("invalid parameter: %s", param)
+		switch {
+		case param == "":
+		case strings.HasPrefix(param, "format="):
+			format := param[7:]
+			switch format {
+			case "yaml":
+				opts.Format = "yaml"
+			case "json":
+				opts.Format = "json"
+			default:
+				return opts, fmt.Errorf("format be yaml or json, not '%s'", format)
 			}
+		case strings.HasPrefix(param, "base="):
+			basePath := param[5:]
+			ext := path.Ext(basePath)
+			switch ext {
+			case ".yaml", ".yml":
+				opts.BaseOpenAPIYAMLPath = basePath
+			case ".json":
+				opts.BaseOpenAPIJSONPath = basePath
+			default:
+				return opts, fmt.Errorf("the file extention for 'base' should end with yaml or json, not '%s'", ext)
+			}
+		case strings.HasPrefix(param, "version="):
+			opts.Version = param[8:]
+		default:
+			return opts, fmt.Errorf("invalid parameter: %s", param)
 		}
 	}
 	return opts, nil
@@ -104,6 +123,26 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		spec.SetTitle(string(fd.FullName()))
 		spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
 		spec.SetVersion(opts.Version)
+
+		if opts.BaseOpenAPIJSONPath != "" {
+			baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
+			if err != nil {
+				return nil, err
+			}
+			if err := spec.UnmarshalJSON(baseJSON); err != nil {
+				return nil, err
+			}
+		}
+
+		if opts.BaseOpenAPIYAMLPath != "" {
+			baseYAML, err := os.ReadFile(opts.BaseOpenAPIYAMLPath)
+			if err != nil {
+				return nil, err
+			}
+			if err := spec.UnmarshalYAML(baseYAML); err != nil {
+				return nil, err
+			}
+		}
 
 		// Add all messages/enums as top-level types
 		components, err := fileToComponents(fd)
