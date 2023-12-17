@@ -1,6 +1,44 @@
+# NOTE: Our validator can't actually handle recursive references so some methods don't work well. So if you
+# add something here and you see tests taking a long time and getting stack overflow errored, it's probably this.
 cases:
-  # - name: "create-session"
-  #   path: "tensorflowtest.MasterService/ExtendSession"
-  #   body: '{}'
-  #   headers:
-  #     Content-Type: application/json
+  - name: "list-devices-empty"
+    path: "tensorflowtest.MasterService/ListDevices"
+    body: '{}'
+    headers:
+      Content-Type: application/json
+
+  - name: "list-devices-with-session"
+    path: "tensorflowtest.MasterService/ListDevices"
+    body: '{"sessionHandle":"testsession"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "list-devices-with-int"
+    path: "tensorflowtest.MasterService/ListDevices"
+    body: '{"sessionHandle": 0}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*expected string, but got number, Location: /properties/sessionHandle/type.*"
+
+  - name: "list-devices-with-null"
+    path: "tensorflowtest.MasterService/ListDevices"
+    body: '{"sessionHandle": null}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*expected string, but got null, Location: /properties/sessionHandle/type.*"
+
+  - name: "list-devices-with-array"
+    path: "tensorflowtest.MasterService/ListDevices"
+    body: '{"sessionHandle": []}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*expected string, but got array, Location: /properties/sessionHandle/type.*"
+
+  - name: "make-callable-with-empty"
+    path: "tensorflowtest.MasterService/MakeCallable"
+    body: '{}'
+    headers:
+      Content-Type: application/json

@@ -14,6 +14,7 @@ import (
 
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
+	"github.com/pb33f/libopenapi/datamodel"
 	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -72,8 +73,15 @@ func TestConvert(t *testing.T) {
 				// Validate
 				var validate validator.Validator
 				t.Run("validate", func(tt *testing.T) {
-					document, err := libopenapi.NewDocument([]byte(file.GetContent()))
+					config := datamodel.DocumentConfiguration{
+						IgnorePolymorphicCircularReferences: true,
+						IgnoreArrayCircularReferences:       true,
+						SkipCircularReferenceCheck:          true,
+					}
+
+					document, err := libopenapi.NewDocumentWithConfiguration([]byte(file.GetContent()), &config)
 					require.NoError(t, err)
+
 					var errs []error
 					validate, errs = validator.NewValidator(document)
 					require.Len(t, errs, 0, errs)

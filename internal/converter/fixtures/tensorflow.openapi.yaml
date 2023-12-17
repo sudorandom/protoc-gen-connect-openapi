@@ -4,6 +4,26 @@ info:
   title: tensorflowtest
   version: v1.0.0
 paths:
+  /tensorflowtest.MasterService/CloseSession:
+    post:
+      description: Closes a session.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.CloseSessionRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.CloseSessionResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
   /tensorflowtest.MasterService/CreateSession:
     post:
       description: Creates a session.
@@ -44,8 +64,158 @@ paths:
           description: ""
       tags:
       - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/ListDevices:
+    post:
+      description: List the devices usable by the master.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.ListDevicesRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.ListDevicesResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/MakeCallable:
+    post:
+      description: Registers a callable for execution with RunCallable.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.MakeCallableRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.MakeCallableResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/PartialRunSetup:
+    post:
+      description: Prepares future partial run calls.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.PartialRunSetupRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.PartialRunSetupResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/ReleaseCallable:
+    post:
+      description: Frees resources associated with a callable registered with MakeCallable.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.ReleaseCallableRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.ReleaseCallableResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/Reset:
+    post:
+      description: |-
+        Close and abandon all existing sessions.  Ongoing computations
+         will no longer affect fresh ones via the resources in containers listed in
+         the ResetRequest.  See ResetRequest for more details.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.ResetRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.ResetResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/RunCallable:
+    post:
+      description: Executes a callable registered with MakeCallable.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.RunCallableRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.RunCallableResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
+  /tensorflowtest.MasterService/RunStep:
+    post:
+      description: Drives the graph computation.
+      requestBody:
+        $ref: '#/components/requestBodies/tensorflow.RunStepRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/tensorflow.RunStepResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/connect.error'
+          description: ""
+      tags:
+      - tensorflowtest.MasterService
 components:
   requestBodies:
+    tensorflow.CloseSessionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.CloseSessionRequest'
+      description: ""
+      required: true
     tensorflow.CreateSessionRequest:
       content:
         application/json:
@@ -60,13 +230,78 @@ components:
             $ref: '#/components/schemas/tensorflow.ExtendSessionRequest'
       description: ""
       required: true
+    tensorflow.ListDevicesRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ListDevicesRequest'
+      description: ""
+      required: true
+    tensorflow.MakeCallableRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.MakeCallableRequest'
+      description: ""
+      required: true
+    tensorflow.PartialRunSetupRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.PartialRunSetupRequest'
+      description: ""
+      required: true
+    tensorflow.ReleaseCallableRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ReleaseCallableRequest'
+      description: ""
+      required: true
+    tensorflow.ResetRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ResetRequest'
+      description: ""
+      required: true
+    tensorflow.RunCallableRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.RunCallableRequest'
+      description: ""
+      required: true
+    tensorflow.RunStepRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.RunStepRequest'
+      description: ""
+      required: true
   responses:
     connect.error:
       $ref: '#/components/schemas/connect.error'
+    tensorflow.CloseSessionResponse:
+      $ref: '#/components/schemas/tensorflow.CloseSessionResponse'
     tensorflow.CreateSessionResponse:
       $ref: '#/components/schemas/tensorflow.CreateSessionResponse'
     tensorflow.ExtendSessionResponse:
       $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
+    tensorflow.ListDevicesResponse:
+      $ref: '#/components/schemas/tensorflow.ListDevicesResponse'
+    tensorflow.MakeCallableResponse:
+      $ref: '#/components/schemas/tensorflow.MakeCallableResponse'
+    tensorflow.PartialRunSetupResponse:
+      $ref: '#/components/schemas/tensorflow.PartialRunSetupResponse'
+    tensorflow.ReleaseCallableResponse:
+      $ref: '#/components/schemas/tensorflow.ReleaseCallableResponse'
+    tensorflow.ResetResponse:
+      $ref: '#/components/schemas/tensorflow.ResetResponse'
+    tensorflow.RunCallableResponse:
+      $ref: '#/components/schemas/tensorflow.RunCallableResponse'
+    tensorflow.RunStepResponse:
+      $ref: '#/components/schemas/tensorflow.RunStepResponse'
   schemas:
     connect.error:
       additionalProperties: false
@@ -95,6 +330,99 @@ components:
         message:
           type: string
       title: Connect Error
+      type: object
+    tensorflow.AllocationDescription:
+      additionalProperties: false
+      description: ""
+      properties:
+        allocatedBytes:
+          additionalProperties: false
+          description: Total number of bytes allocated if known
+          title: allocated_bytes
+          type: number
+        allocationId:
+          additionalProperties: false
+          description: Identifier of the allocated buffer if known
+          title: allocation_id
+          type: number
+        allocatorName:
+          additionalProperties: false
+          description: Name of the allocator used
+          title: allocator_name
+          type: string
+        hasSingleReference:
+          additionalProperties: false
+          description: Set if this tensor only has one remaining reference
+          title: has_single_reference
+          type: boolean
+        ptr:
+          additionalProperties: false
+          description: Address of the allocation.
+          title: ptr
+          type: number
+        requestedBytes:
+          additionalProperties: false
+          description: Total number of bytes requested
+          title: requested_bytes
+          type: number
+      title: AllocationDescription
+      type: object
+    tensorflow.AllocationRecord:
+      additionalProperties: false
+      description: An allocation/de-allocation operation performed by the allocator.
+      properties:
+        allocBytes:
+          additionalProperties: false
+          description: Number of bytes allocated, or de-allocated if negative.
+          title: alloc_bytes
+          type: number
+        allocMicros:
+          additionalProperties: false
+          description: The timestamp of the operation.
+          title: alloc_micros
+          type: number
+      title: AllocationRecord
+      type: object
+    tensorflow.AllocatorMemoryUsed:
+      additionalProperties: false
+      description: ""
+      properties:
+        allocationRecords:
+          additionalProperties: false
+          description: The allocation and deallocation timeline.
+          items:
+            $ref: '#/components/schemas/tensorflow.AllocationRecord'
+            type: object
+          title: allocation_records
+          type: array
+        allocatorBytesInUse:
+          additionalProperties: false
+          description: |-
+            These are snapshots of the overall allocator memory stats.
+             The number of live bytes currently allocated by the allocator.
+          title: allocator_bytes_in_use
+          type: number
+        allocatorName:
+          additionalProperties: false
+          description: ""
+          title: allocator_name
+          type: string
+        liveBytes:
+          additionalProperties: false
+          description: The bytes that are not deallocated.
+          title: live_bytes
+          type: number
+        peakBytes:
+          additionalProperties: false
+          description: ""
+          title: peak_bytes
+          type: number
+        totalBytes:
+          additionalProperties: false
+          description: These are per-node allocator memory stats.
+          title: total_bytes
+          type: number
+      title: AllocatorMemoryUsed
       type: object
     tensorflow.AttrValue:
       additionalProperties: false
@@ -250,6 +578,182 @@ components:
           title: num_replicas
           type: integer
       title: AutoParallelOptions
+      type: object
+    tensorflow.CallableOptions:
+      additionalProperties: false
+      description: |-
+        Defines a subgraph in another `GraphDef` as a set of feed points and nodes
+         to be fetched or executed.
+
+         Compare with the arguments to `Session::Run()`.
+      properties:
+        feed:
+          additionalProperties: false
+          description: Tensors to be fed in the callable. Each feed is the name of
+            a tensor.
+          items:
+            type: string
+          title: feed
+          type: array
+        feedDevices:
+          additionalProperties: false
+          description: |-
+            The Tensor objects fed in the callable and fetched from the callable
+             are expected to be backed by host (CPU) memory by default.
+
+             The options below allow changing that - feeding tensors backed by
+             device memory, or returning tensors that are backed by device memory.
+
+             The maps below map the name of a feed/fetch tensor (which appears in
+             'feed' or 'fetch' fields above), to the fully qualified name of the device
+             owning the memory backing the contents of the tensor.
+
+             For example, creating a callable with the following options:
+
+             CallableOptions {
+               feed: "a:0"
+               feed: "b:0"
+
+               fetch: "x:0"
+               fetch: "y:0"
+
+               feed_devices: {
+                 "a:0": "/job:localhost/replica:0/task:0/device:GPU:0"
+               }
+
+               fetch_devices: {
+                 "y:0": "/job:localhost/replica:0/task:0/device:GPU:0"
+              }
+             }
+
+             means that the Callable expects:
+             - The first argument ("a:0") is a Tensor backed by GPU memory.
+             - The second argument ("b:0") is a Tensor backed by host memory.
+             and of its return values:
+             - The first output ("x:0") will be backed by host memory.
+             - The second output ("y:0") will be backed by GPU memory.
+
+             FEEDS:
+             It is the responsibility of the caller to ensure that the memory of the fed
+             tensors will be correctly initialized and synchronized before it is
+             accessed by operations executed during the call to Session::RunCallable().
+
+             This is typically ensured by using the TensorFlow memory allocators
+             (Device::GetAllocator()) to create the Tensor to be fed.
+
+             Alternatively, for CUDA-enabled GPU devices, this typically means that the
+             operation that produced the contents of the tensor has completed, i.e., the
+             CUDA stream has been synchronized (e.g., via cuCtxSynchronize() or
+             cuStreamSynchronize()).
+          title: feed_devices
+          type: object
+        fetch:
+          additionalProperties: false
+          description: |-
+            Fetches. A list of tensor names. The caller of the callable expects a
+             tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
+             order of specified fetches does not change the execution order.
+          items:
+            type: string
+          title: fetch
+          type: array
+        fetchDevices:
+          additionalProperties: false
+          description: ""
+          title: fetch_devices
+          type: object
+        fetchSkipSync:
+          additionalProperties: false
+          description: |-
+            By default, RunCallable() will synchronize the GPU stream before returning
+             fetched tensors on a GPU device, to ensure that the values in those tensors
+             have been produced. This simplifies interacting with the tensors, but
+             potentially incurs a performance hit.
+
+             If this options is set to true, the caller is responsible for ensuring
+             that the values in the fetched tensors have been produced before they are
+             used. The caller can do this by invoking `Device::Sync()` on the underlying
+             device(s), or by feeding the tensors back to the same Session using
+             `feed_devices` with the same corresponding device name.
+          title: fetch_skip_sync
+          type: boolean
+        runOptions:
+          $ref: '#/components/schemas/tensorflow.RunOptions'
+          additionalProperties: false
+          description: Options that will be applied to each run.
+          title: run_options
+          type: object
+        target:
+          additionalProperties: false
+          description: |-
+            Target Nodes. A list of node names. The named nodes will be run by the
+             callable but their outputs will not be returned.
+          items:
+            type: string
+          title: target
+          type: array
+        tensorConnection:
+          additionalProperties: false
+          description: |-
+            Tensors to be connected in the callable. Each TensorConnection denotes
+             a pair of tensors in the graph, between which an edge will be created
+             in the callable.
+          items:
+            $ref: '#/components/schemas/tensorflow.TensorConnection'
+            type: object
+          title: tensor_connection
+          type: array
+      title: CallableOptions
+      type: object
+    tensorflow.CallableOptions.FeedDevicesEntry:
+      additionalProperties: false
+      description: ""
+      properties:
+        key:
+          additionalProperties: false
+          description: ""
+          title: key
+          type: string
+        value:
+          additionalProperties: false
+          description: ""
+          title: value
+          type: string
+      title: FeedDevicesEntry
+      type: object
+    tensorflow.CallableOptions.FetchDevicesEntry:
+      additionalProperties: false
+      description: ""
+      properties:
+        key:
+          additionalProperties: false
+          description: ""
+          title: key
+          type: string
+        value:
+          additionalProperties: false
+          description: ""
+          title: value
+          type: string
+      title: FetchDevicesEntry
+      type: object
+    tensorflow.CloseSessionRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: session_handle must be returned by a CreateSession call
+             to the same master service.
+          title: session_handle
+          type: string
+      title: CloseSessionRequest
+      type: object
+    tensorflow.CloseSessionResponse:
+      additionalProperties: false
+      description: ""
+      title: CloseSessionResponse
       type: object
     tensorflow.ClusterDef:
       additionalProperties: false
@@ -784,6 +1288,195 @@ components:
           type: number
       title: CoordinationServiceConfig
       type: object
+    tensorflow.CostGraphDef:
+      additionalProperties: false
+      description: ""
+      properties:
+        cost:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.CostGraphDef.AggregatedCost'
+            type: object
+          title: cost
+          type: array
+        node:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.CostGraphDef.Node'
+            type: object
+          title: node
+          type: array
+      title: CostGraphDef
+      type: object
+    tensorflow.CostGraphDef.AggregatedCost:
+      additionalProperties: false
+      description: Total cost of this graph, typically used for balancing decisions.
+      properties:
+        cost:
+          additionalProperties: false
+          description: Aggregated cost value.
+          title: cost
+          type: number
+        dimension:
+          additionalProperties: false
+          description: Aggregated cost dimension (e.g. 'memory', 'compute', 'network').
+          title: dimension
+          type: string
+      title: AggregatedCost
+      type: object
+    tensorflow.CostGraphDef.Node:
+      additionalProperties: false
+      description: ""
+      properties:
+        computeCost:
+          additionalProperties: false
+          description: Estimate of the computational cost of this node, in microseconds.
+          title: compute_cost
+          type: number
+        computeTime:
+          additionalProperties: false
+          description: |-
+            Analytical estimate of the computational cost of this node, in
+             microseconds.
+          title: compute_time
+          type: number
+        controlInput:
+          additionalProperties: false
+          description: Ids of the control inputs for this node.
+          items:
+            type: integer
+          title: control_input
+          type: array
+        device:
+          additionalProperties: false
+          description: |-
+            The device of the node. Can be empty if the node is mapped to the
+             default partition or partitioning hasn't been run yet.
+          title: device
+          type: string
+        devicePersistentMemorySize:
+          additionalProperties: false
+          description: ""
+          title: device_persistent_memory_size
+          type: number
+        deviceTempMemorySize:
+          additionalProperties: false
+          description: ""
+          title: device_temp_memory_size
+          type: number
+        hostTempMemorySize:
+          additionalProperties: false
+          description: ""
+          title: host_temp_memory_size
+          type: number
+        id:
+          additionalProperties: false
+          description: The id of the node. Node ids are only unique inside a partition.
+          title: id
+          type: integer
+        inaccurate:
+          additionalProperties: false
+          description: Are the costs inaccurate?
+          title: inaccurate
+          type: boolean
+        inputInfo:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.CostGraphDef.Node.InputInfo'
+            type: object
+          title: input_info
+          type: array
+        isFinal:
+          additionalProperties: false
+          description: |-
+            If true, the output is permanent: it can't be discarded, because this
+             node is part of the "final output". Nodes may depend on final nodes.
+          title: is_final
+          type: boolean
+        memoryTime:
+          additionalProperties: false
+          description: |-
+            Analytical estimate of the memory access cost of this node, in
+             microseconds.
+          title: memory_time
+          type: number
+        name:
+          additionalProperties: false
+          description: The name of the node. Names are globally unique.
+          title: name
+          type: string
+        outputInfo:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.CostGraphDef.Node.OutputInfo'
+            type: object
+          title: output_info
+          type: array
+        persistentMemorySize:
+          additionalProperties: false
+          description: Persistent memory used by this node.
+          title: persistent_memory_size
+          type: number
+        temporaryMemorySize:
+          additionalProperties: false
+          description: Temporary memory used by this node.
+          title: temporary_memory_size
+          type: number
+      title: Node
+      type: object
+    tensorflow.CostGraphDef.Node.InputInfo:
+      additionalProperties: false
+      description: |-
+        Inputs of this node. They must be executed before this node can be
+         executed. An input is a particular output of another node, specified
+         by the node id and the output index.
+      properties:
+        precedingNode:
+          additionalProperties: false
+          description: ""
+          title: preceding_node
+          type: integer
+        precedingPort:
+          additionalProperties: false
+          description: ""
+          title: preceding_port
+          type: integer
+      title: InputInfo
+      type: object
+    tensorflow.CostGraphDef.Node.OutputInfo:
+      additionalProperties: false
+      description: Outputs of this node.
+      properties:
+        aliasInputPort:
+          additionalProperties: false
+          description: |-
+            If >= 0, the output is an alias of an input. Note that an alias input
+             may itself be an alias. The algorithm will therefore need to follow
+             those pointers.
+          title: alias_input_port
+          type: number
+        dtype:
+          $ref: '#/components/schemas/tensorflow.DataType'
+          additionalProperties: false
+          description: ""
+          title: dtype
+        shape:
+          $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          additionalProperties: false
+          description: ""
+          title: shape
+          type: object
+        size:
+          additionalProperties: false
+          description: ""
+          title: size
+          type: number
+      title: OutputInfo
+      type: object
     tensorflow.CreateSessionRequest:
       additionalProperties: false
       description: ""
@@ -938,6 +1631,219 @@ components:
         - 125
       title: DataType
       type: string
+    tensorflow.DebugOptions:
+      additionalProperties: false
+      description: Options for initializing DebuggerState in TensorFlow Debugger (tfdbg).
+      properties:
+        debugTensorWatchOpts:
+          additionalProperties: false
+          description: Debugging options
+          items:
+            $ref: '#/components/schemas/tensorflow.DebugTensorWatch'
+            type: object
+          title: debug_tensor_watch_opts
+          type: array
+        globalStep:
+          additionalProperties: false
+          description: |-
+            Caller-specified global step count.
+             Note that this is distinct from the session run count and the executor
+             step count.
+          title: global_step
+          type: number
+        resetDiskByteUsage:
+          additionalProperties: false
+          description: |-
+            Whether the total disk usage of tfdbg is to be reset to zero
+             in this Session.run call. This is used by wrappers and hooks
+             such as the local CLI ones to indicate that the dumped tensors
+             are cleaned up from the disk after each Session.run.
+          title: reset_disk_byte_usage
+          type: boolean
+      title: DebugOptions
+      type: object
+    tensorflow.DebugTensorWatch:
+      additionalProperties: false
+      description: Option for watching a node in TensorFlow Debugger (tfdbg).
+      properties:
+        debugOps:
+          additionalProperties: false
+          description: |-
+            Name(s) of the debugging op(s).
+             One or more than one probes on a tensor.
+             e.g., {"DebugIdentity", "DebugNanCount"}
+          items:
+            type: string
+          title: debug_ops
+          type: array
+        debugUrls:
+          additionalProperties: false
+          description: |-
+            URL(s) for debug targets(s).
+
+             Supported URL formats are:
+               - file:///foo/tfdbg_dump: Writes out Event content to file
+                 /foo/tfdbg_dump.  Assumes all directories can be created if they don't
+                 already exist.
+               - grpc://localhost:11011: Sends an RPC request to an EventListener
+                 service running at localhost:11011 with the event.
+               - memcbk:///event_key: Routes tensors to clients using the
+                 callback registered with the DebugCallbackRegistry for event_key.
+
+             Each debug op listed in debug_ops will publish its output tensor (debug
+             signal) to all URLs in debug_urls.
+
+             N.B. Session::Run() supports concurrent invocations of the same inputs
+             (feed keys), outputs and target nodes. If such concurrent invocations
+             are to be debugged, the callers of Session::Run() must use distinct
+             debug_urls to make sure that the streamed or dumped events do not overlap
+             among the invocations.
+             TODO(cais): More visible documentation of this in g3docs.
+          items:
+            type: string
+          title: debug_urls
+          type: array
+        nodeName:
+          additionalProperties: false
+          description: |-
+            Name of the node to watch.
+             Use "*" for wildcard. But note: currently, regex is not supported in
+             general.
+          title: node_name
+          type: string
+        outputSlot:
+          additionalProperties: false
+          description: |-
+            Output slot to watch.
+             The semantics of output_slot == -1 is that all outputs of the node
+             will be watched (i.e., a wildcard).
+             Other negative values of output_slot are invalid and will lead to
+             errors currently.
+          title: output_slot
+          type: integer
+        tolerateDebugOpCreationFailures:
+          additionalProperties: false
+          description: |-
+            Do not error out if debug op creation fails (e.g., due to dtype
+             incompatibility). Instead, just log the failure.
+          title: tolerate_debug_op_creation_failures
+          type: boolean
+      title: DebugTensorWatch
+      type: object
+    tensorflow.DeviceAttributes:
+      additionalProperties: false
+      description: ""
+      properties:
+        deviceType:
+          additionalProperties: false
+          description: String representation of device_type.
+          title: device_type
+          type: string
+        incarnation:
+          additionalProperties: false
+          description: |-
+            A device is assigned a global unique number each time it is
+             initialized. "incarnation" should never be 0.
+          title: incarnation
+          type: number
+        locality:
+          $ref: '#/components/schemas/tensorflow.DeviceLocality'
+          additionalProperties: false
+          description: |-
+            Platform-specific data about device that may be useful
+             for supporting efficient data transfers.
+          title: locality
+          type: object
+        memoryLimit:
+          additionalProperties: false
+          description: Memory capacity of device in bytes.
+          title: memory_limit
+          type: number
+        name:
+          additionalProperties: false
+          description: Fully specified name of the device within a cluster.
+          title: name
+          type: string
+        physicalDeviceDesc:
+          additionalProperties: false
+          description: String representation of the physical device that this device
+            maps to.
+          title: physical_device_desc
+          type: string
+        xlaGlobalId:
+          additionalProperties: false
+          description: |-
+            A physical device ID for use in XLA DeviceAssignments, unique across
+             clients in a multi-client setup. Set to -1 if unavailable, non-negative
+             otherwise.
+          title: xla_global_id
+          type: number
+      title: DeviceAttributes
+      type: object
+    tensorflow.DeviceLocality:
+      additionalProperties: false
+      description: ""
+      properties:
+        busId:
+          additionalProperties: false
+          description: |-
+            Optional bus locality of device.  Default value of 0 means
+             no specific locality.  Specific localities are indexed from 1.
+          title: bus_id
+          type: integer
+        links:
+          $ref: '#/components/schemas/tensorflow.LocalLinks'
+          additionalProperties: false
+          description: Optional local interconnect links to other devices.
+          title: links
+          type: object
+        numaNode:
+          additionalProperties: false
+          description: Optional NUMA locality of device.
+          title: numa_node
+          type: integer
+      title: DeviceLocality
+      type: object
+    tensorflow.DeviceStepStats:
+      additionalProperties: false
+      description: ""
+      properties:
+        device:
+          additionalProperties: false
+          description: ""
+          title: device
+          type: string
+        nodeStats:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.NodeExecStats'
+            type: object
+          title: node_stats
+          type: array
+        threadNames:
+          additionalProperties: false
+          description: Its key is thread id.
+          title: thread_names
+          type: object
+      title: DeviceStepStats
+      type: object
+    tensorflow.DeviceStepStats.ThreadNamesEntry:
+      additionalProperties: false
+      description: ""
+      properties:
+        key:
+          additionalProperties: false
+          description: ""
+          title: key
+          type: integer
+        value:
+          additionalProperties: false
+          description: ""
+          title: value
+          type: string
+      title: ThreadNamesEntry
+      type: object
     tensorflow.ExtendSessionRequest:
       additionalProperties: false
       description: ""
@@ -1989,6 +2895,27 @@ components:
           type: integer
       title: GraphOptions
       type: object
+    tensorflow.InterconnectLink:
+      additionalProperties: false
+      description: ""
+      properties:
+        deviceId:
+          additionalProperties: false
+          description: ""
+          title: device_id
+          type: integer
+        strength:
+          additionalProperties: false
+          description: ""
+          title: strength
+          type: integer
+        type:
+          additionalProperties: false
+          description: ""
+          title: type
+          type: string
+      title: InterconnectLink
+      type: object
     tensorflow.JobDef:
       additionalProperties: false
       description: Defines a single job in a TensorFlow cluster.
@@ -2029,6 +2956,139 @@ components:
           type: string
       title: TasksEntry
       type: object
+    tensorflow.ListDevicesRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            Optional: session_handle must be returned by a CreateSession call to the
+             same master service.
+
+             When session_handle is empty, the ClusterSpec provided when the master was
+             started is used to compute the available devices. If the session_handle is
+             provided but not recognized, an error is returned. Finally, if a valid
+             session_handle is provided, the cluster configuration for that session is
+             used when computing the response.
+          title: session_handle
+          type: string
+      title: ListDevicesRequest
+      type: object
+    tensorflow.ListDevicesResponse:
+      additionalProperties: false
+      description: ""
+      properties:
+        localDevice:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.DeviceAttributes'
+            type: object
+          title: local_device
+          type: array
+        remoteDevice:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.DeviceAttributes'
+            type: object
+          title: remote_device
+          type: array
+      title: ListDevicesResponse
+      type: object
+    tensorflow.LocalLinks:
+      additionalProperties: false
+      description: ""
+      properties:
+        link:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.InterconnectLink'
+            type: object
+          title: link
+          type: array
+      title: LocalLinks
+      type: object
+    tensorflow.MakeCallableRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        options:
+          $ref: '#/components/schemas/tensorflow.CallableOptions'
+          additionalProperties: false
+          description: Options that define the behavior of the created callable.
+          title: options
+          type: object
+        requestId:
+          additionalProperties: false
+          description: |-
+            Unique identifier for this request. Every MakeCallableRequest must
+             have a unique request_id, and retried MakeCallableRequest must have
+             the same request_id. If request_id is zero, retry detection is disabled.
+          title: request_id
+          type: number
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: session_handle must be returned by a CreateSession call
+             to the same master service.
+          title: session_handle
+          type: string
+      title: MakeCallableRequest
+      type: object
+    tensorflow.MakeCallableResponse:
+      additionalProperties: false
+      description: ""
+      properties:
+        handle:
+          additionalProperties: false
+          description: A handle to the created callable.
+          title: handle
+          type: number
+      title: MakeCallableResponse
+      type: object
+    tensorflow.MemoryStats:
+      additionalProperties: false
+      description: For memory tracking.
+      properties:
+        devicePersistentMemorySize:
+          additionalProperties: false
+          description: ""
+          title: device_persistent_memory_size
+          type: number
+        devicePersistentTensorAllocIds:
+          additionalProperties: false
+          description: ""
+          items:
+            type: number
+          title: device_persistent_tensor_alloc_ids
+          type: array
+        deviceTempMemorySize:
+          additionalProperties: false
+          description: ""
+          title: device_temp_memory_size
+          type: number
+        persistentMemorySize:
+          additionalProperties: false
+          description: ""
+          title: persistent_memory_size
+          type: number
+        persistentTensorAllocIds:
+          additionalProperties: false
+          description: ""
+          items:
+            type: number
+          title: persistent_tensor_alloc_ids
+          type: array
+        tempMemorySize:
+          additionalProperties: false
+          description: ""
+          title: temp_memory_size
+          type: number
+      title: MemoryStats
+      type: object
     tensorflow.NameAttrList:
       additionalProperties: false
       description: |-
@@ -2063,6 +3123,29 @@ components:
           title: value
           type: object
       title: AttrEntry
+      type: object
+    tensorflow.NamedTensorProto:
+      additionalProperties: false
+      description: A pair of tensor name and tensor values.
+      properties:
+        name:
+          additionalProperties: false
+          description: Name of the tensor.
+          title: name
+          type: string
+        tensor:
+          $ref: '#/components/schemas/tensorflow.TensorProto'
+          additionalProperties: false
+          description: |-
+            The client can populate a TensorProto using a tensorflow::Tensor`, or
+             directly using the protobuf field accessors.
+
+             The client specifies whether the returned tensor values should be
+             filled tensor fields (float_val, int_val, etc.) or encoded in a
+             compact form in tensor.tensor_content.
+          title: tensor
+          type: object
+      title: NamedTensorProto
       type: object
     tensorflow.NodeDef:
       additionalProperties: false
@@ -2205,6 +3288,128 @@ components:
           title: original_node_names
           type: array
       title: ExperimentalDebugInfo
+      type: object
+    tensorflow.NodeExecStats:
+      additionalProperties: false
+      description: Time/size stats recorded for a single execution of a graph node.
+      properties:
+        allEndRelMicros:
+          additionalProperties: false
+          description: ""
+          title: all_end_rel_micros
+          type: number
+        allEndRelNanos:
+          additionalProperties: false
+          description: ""
+          title: all_end_rel_nanos
+          type: number
+        allStartMicros:
+          additionalProperties: false
+          description: ""
+          title: all_start_micros
+          type: number
+        allStartNanos:
+          additionalProperties: false
+          description: ""
+          title: all_start_nanos
+          type: number
+        memory:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.AllocatorMemoryUsed'
+            type: object
+          title: memory
+          type: array
+        memoryStats:
+          $ref: '#/components/schemas/tensorflow.MemoryStats'
+          additionalProperties: false
+          description: ""
+          title: memory_stats
+          type: object
+        nodeName:
+          additionalProperties: false
+          description: |-
+            TODO(tucker): Use some more compact form of node identity than
+             the full string name.  Either all processes should agree on a
+             global id (cost_id?) for each node, or we should use a hash of
+             the name.
+          title: node_name
+          type: string
+        opEndRelMicros:
+          additionalProperties: false
+          description: ""
+          title: op_end_rel_micros
+          type: number
+        opEndRelNanos:
+          additionalProperties: false
+          description: ""
+          title: op_end_rel_nanos
+          type: number
+        opStartRelMicros:
+          additionalProperties: false
+          description: ""
+          title: op_start_rel_micros
+          type: number
+        opStartRelNanos:
+          additionalProperties: false
+          description: ""
+          title: op_start_rel_nanos
+          type: number
+        output:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.NodeOutput'
+            type: object
+          title: output
+          type: array
+        referencedTensor:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.AllocationDescription'
+            type: object
+          title: referenced_tensor
+          type: array
+        scheduledMicros:
+          additionalProperties: false
+          description: ""
+          title: scheduled_micros
+          type: number
+        scheduledNanos:
+          additionalProperties: false
+          description: ""
+          title: scheduled_nanos
+          type: number
+        threadId:
+          additionalProperties: false
+          description: ""
+          title: thread_id
+          type: integer
+        timelineLabel:
+          additionalProperties: false
+          description: ""
+          title: timeline_label
+          type: string
+      title: NodeExecStats
+      type: object
+    tensorflow.NodeOutput:
+      additionalProperties: false
+      description: Output sizes recorded for a single execution of a graph node.
+      properties:
+        slot:
+          additionalProperties: false
+          description: ""
+          title: slot
+          type: integer
+        tensorDescription:
+          $ref: '#/components/schemas/tensorflow.TensorDescription'
+          additionalProperties: false
+          description: ""
+          title: tensor_description
+          type: object
+      title: NodeOutput
       type: object
     tensorflow.OpDef:
       additionalProperties: false
@@ -2560,6 +3765,68 @@ components:
         - -1
       title: Level
       type: string
+    tensorflow.PartialRunSetupRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        feed:
+          additionalProperties: false
+          description: Tensors to be fed in future steps.
+          items:
+            type: string
+          title: feed
+          type: array
+        fetch:
+          additionalProperties: false
+          description: |-
+            Fetches. A list of tensor names. The caller expects a tensor to be returned
+             for each fetch[i] (see RunStepResponse.tensor), for corresponding partial
+             RunStepRequests. The order of specified fetches does not change the
+             execution order.
+          items:
+            type: string
+          title: fetch
+          type: array
+        requestId:
+          additionalProperties: false
+          description: |-
+            Unique identifier for this request. Every PartialRunSetupRequest must
+             have a unique request_id, and retried PartialRunSetupRequest must have
+             the same request_id. If request_id is zero, retry detection is disabled.
+          title: request_id
+          type: number
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: session_handle must be returned by a CreateSession call
+             to the same master service.
+          title: session_handle
+          type: string
+        target:
+          additionalProperties: false
+          description: |-
+            Target Nodes. A list of node names. The named nodes will be run in future
+             steps, but their outputs will not be fetched.
+          items:
+            type: string
+          title: target
+          type: array
+      title: PartialRunSetupRequest
+      type: object
+    tensorflow.PartialRunSetupResponse:
+      additionalProperties: false
+      description: ""
+      properties:
+        partialRunHandle:
+          additionalProperties: false
+          description: |-
+            The unique handle corresponding to the ongoing partial run call setup by
+             the invocation to PartialRunSetup. This handle may be passed to
+             RunStepRequest to send and receive tensors for this partial run.
+          title: partial_run_handle
+          type: string
+      title: PartialRunSetupResponse
+      type: object
     tensorflow.RPCOptions:
       additionalProperties: false
       description: RPC options for distributed runtime.
@@ -2634,6 +3901,80 @@ components:
           title: registered_op_type
           type: string
       title: RegisteredGradient
+      type: object
+    tensorflow.ReleaseCallableRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        handle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: handle must be returned by a MakeCallable call to the same
+             master service.
+          title: handle
+          type: number
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: session_handle must be returned by a CreateSession call
+             to the same master service.
+          title: session_handle
+          type: string
+      title: ReleaseCallableRequest
+      type: object
+    tensorflow.ReleaseCallableResponse:
+      additionalProperties: false
+      description: ""
+      title: ReleaseCallableResponse
+      type: object
+    tensorflow.ResetRequest:
+      additionalProperties: false
+      description: |-
+        Reset() allows misbehaving or slow sessions to be aborted and closed, and
+         causes their resources eventually to be released.  Reset() does not wait
+         for the computations in old sessions to cease; it merely starts the
+         process of tearing them down.  However, if a new session is started after
+         a Reset(), the new session is isolated from changes that old sessions
+         (started prior to the Reset()) may continue to make to resources, provided
+         all those resources are in containers listed in "containers".
+
+         Old sessions may continue to have side-effects on resources not in
+         containers listed in "containers", and thus may affect future
+         sessions' results in ways that are hard to predict.  Thus, if well-defined
+         behavior is desired, is it recommended that all containers be listed in
+         "containers".  Similarly, if a device_filter is specified, results may be
+         hard to predict.
+      properties:
+        container:
+          additionalProperties: false
+          description: |-
+            A list of container names, which may be empty.
+
+             If 'container' is not empty, releases resources in the given
+             containers in all devices.
+
+             If 'container' is empty, releases resources in the default
+             container in all devices.
+          items:
+            type: string
+          title: container
+          type: array
+        deviceFilters:
+          additionalProperties: false
+          description: |-
+            When any filters are present, only devices that match the filters
+             will be reset. Each filter can be partially specified,
+             e.g. "/job:ps" "/job:worker/replica:3", etc.
+          items:
+            type: string
+          title: device_filters
+          type: array
+      title: ResetRequest
+      type: object
+    tensorflow.ResetResponse:
+      additionalProperties: false
+      description: ""
+      title: ResetResponse
       type: object
     tensorflow.ResourceHandleProto:
       additionalProperties: false
@@ -3079,6 +4420,371 @@ components:
         - 5
       title: Toggle
       type: string
+    tensorflow.RunCallableRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        feed:
+          additionalProperties: false
+          description: |-
+            Values of the tensors passed as arguments to the callable, in the order
+             defined in the CallableOptions.feed field passed to MakeCallable.
+          items:
+            $ref: '#/components/schemas/tensorflow.TensorProto'
+            type: object
+          title: feed
+          type: array
+        handle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: handle must be returned by a MakeCallable call to the same
+             master service.
+          title: handle
+          type: number
+        requestId:
+          additionalProperties: false
+          description: |-
+            Unique identifier for this request. Every RunCallableRequest must
+             have a unique request_id, and retried RunCallableRequest must have
+             the same request_id. If request_id is zero, retry detection is disabled.
+          title: request_id
+          type: number
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: session_handle must be returned by a CreateSession call
+             to the same master service.
+          title: session_handle
+          type: string
+      title: RunCallableRequest
+      type: object
+    tensorflow.RunCallableResponse:
+      additionalProperties: false
+      description: ""
+      properties:
+        fetch:
+          additionalProperties: false
+          description: |-
+            Values of the tensors returned by the callable, in the order defined in the
+             CallableOptions.fetch field passed to MakeCallable.
+          items:
+            $ref: '#/components/schemas/tensorflow.TensorProto'
+            type: object
+          title: fetch
+          type: array
+        metadata:
+          $ref: '#/components/schemas/tensorflow.RunMetadata'
+          additionalProperties: false
+          description: Returned metadata if requested in the options.
+          title: metadata
+          type: object
+      title: RunCallableResponse
+      type: object
+    tensorflow.RunMetadata:
+      additionalProperties: false
+      description: Metadata output (i.e., non-Tensor) for a single Run() call.
+      properties:
+        costGraph:
+          $ref: '#/components/schemas/tensorflow.CostGraphDef'
+          additionalProperties: false
+          description: The cost graph for the computation defined by the run call.
+          title: cost_graph
+          type: object
+        functionGraphs:
+          additionalProperties: false
+          description: |-
+            This is only populated for graphs that are run as functions in TensorFlow
+             V2. There will be an entry below for each function that is traced.
+             The main use cases of the post_optimization_graph and the partition_graphs
+             is to give the caller insight into the graphs that were actually run by the
+             runtime. Additional information (such as those in step_stats) will match
+             these graphs.
+             We also include the pre_optimization_graph since it is usually easier to
+             read, and is helpful in situations where the caller wants to get a high
+             level idea of what the built graph looks like (since the various graph
+             optimization passes might change the structure of the graph significantly).
+          items:
+            $ref: '#/components/schemas/tensorflow.RunMetadata.FunctionGraphs'
+            type: object
+          title: function_graphs
+          type: array
+        partitionGraphs:
+          additionalProperties: false
+          description: Graphs of the partitions executed by executors.
+          items:
+            $ref: '#/components/schemas/tensorflow.GraphDef'
+            type: object
+          title: partition_graphs
+          type: array
+        sessionMetadata:
+          $ref: '#/components/schemas/tensorflow.SessionMetadata'
+          additionalProperties: false
+          description: Metadata about the session.
+          title: session_metadata
+          type: object
+        stepStats:
+          $ref: '#/components/schemas/tensorflow.StepStats'
+          additionalProperties: false
+          description: |-
+            Statistics traced for this step. Populated if tracing is turned on via the
+             "RunOptions" proto.
+             EXPERIMENTAL: The format and set of events may change in future versions.
+          title: step_stats
+          type: object
+      title: RunMetadata
+      type: object
+    tensorflow.RunMetadata.FunctionGraphs:
+      additionalProperties: false
+      description: ""
+      properties:
+        partitionGraphs:
+          additionalProperties: false
+          description: 'TODO(nareshmodi): Include some sort of function/cache-key
+            identifier?'
+          items:
+            $ref: '#/components/schemas/tensorflow.GraphDef'
+            type: object
+          title: partition_graphs
+          type: array
+        postOptimizationGraph:
+          $ref: '#/components/schemas/tensorflow.GraphDef'
+          additionalProperties: false
+          description: ""
+          title: post_optimization_graph
+          type: object
+        preOptimizationGraph:
+          $ref: '#/components/schemas/tensorflow.GraphDef'
+          additionalProperties: false
+          description: ""
+          title: pre_optimization_graph
+          type: object
+      title: FunctionGraphs
+      type: object
+    tensorflow.RunOptions:
+      additionalProperties: false
+      description: Options for a single Run() call.
+      properties:
+        debugOptions:
+          $ref: '#/components/schemas/tensorflow.DebugOptions'
+          additionalProperties: false
+          description: EXPERIMENTAL.  Options used to initialize DebuggerState, if
+            enabled.
+          title: debug_options
+          type: object
+        experimental:
+          $ref: '#/components/schemas/tensorflow.RunOptions.Experimental'
+          additionalProperties: false
+          description: ""
+          title: experimental
+          type: object
+        interOpThreadPool:
+          additionalProperties: false
+          description: |-
+            The thread pool to use, if session_inter_op_thread_pool is configured.
+             To use the caller thread set this to -1 - this uses the caller thread
+             to execute Session::Run() and thus avoids a context switch. Using the
+             caller thread to execute Session::Run() should be done ONLY for simple
+             graphs, where the overhead of an additional context switch is
+             comparable with the overhead of Session::Run().
+          title: inter_op_thread_pool
+          type: integer
+        outputPartitionGraphs:
+          additionalProperties: false
+          description: |-
+            Whether the partition graph(s) executed by the executor(s) should be
+             outputted via RunMetadata.
+          title: output_partition_graphs
+          type: boolean
+        reportTensorAllocationsUponOom:
+          additionalProperties: false
+          description: |-
+            When enabled, causes tensor allocation information to be included in
+             the error message when the Run() call fails because the allocator ran
+             out of memory (OOM).
+
+             Enabling this option can slow down the Run() call.
+          title: report_tensor_allocations_upon_oom
+          type: boolean
+        timeoutInMs:
+          additionalProperties: false
+          description: Time to wait for operation to complete in milliseconds.
+          title: timeout_in_ms
+          type: number
+        traceLevel:
+          $ref: '#/components/schemas/tensorflow.RunOptions.TraceLevel'
+          additionalProperties: false
+          description: ""
+          title: trace_level
+      title: RunOptions
+      type: object
+    tensorflow.RunOptions.Experimental:
+      additionalProperties: false
+      description: |-
+        Everything inside Experimental is subject to change and is not subject
+         to API stability guarantees in
+         https://www.tensorflow.org/guide/version_compat.
+      properties:
+        collectiveGraphKey:
+          additionalProperties: false
+          description: |-
+            If non-zero, declares that this graph is going to use collective
+             ops and must synchronize step_ids with any other graph with this
+             same group_key value (in a distributed computation where tasks
+             run disjoint graphs).
+          title: collective_graph_key
+          type: number
+        runHandlerPoolOptions:
+          $ref: '#/components/schemas/tensorflow.RunOptions.Experimental.RunHandlerPoolOptions'
+          additionalProperties: false
+          description: ""
+          title: run_handler_pool_options
+          type: object
+        useRunHandlerPool:
+          additionalProperties: false
+          description: |-
+            If true, then operations (using the inter-op pool) across all
+             session::run() calls will be centrally scheduled, optimizing for (median
+             and tail) latency.
+             Consider using this option for CPU-bound workloads like inference.
+          title: use_run_handler_pool
+          type: boolean
+      title: Experimental
+      type: object
+    tensorflow.RunOptions.Experimental.RunHandlerPoolOptions:
+      additionalProperties: false
+      description: Options for run handler thread pool.
+      properties:
+        priority:
+          additionalProperties: false
+          description: |-
+            Priority of the request. The run handler thread pool will schedule ops
+             based on the priority number. The larger number means higher priority.
+          title: priority
+          type: number
+      title: RunHandlerPoolOptions
+      type: object
+    tensorflow.RunOptions.TraceLevel:
+      description: |-
+        TODO(pbar) Turn this into a TraceOptions proto which allows
+         tracing to be controlled in a more orthogonal manner?
+      enum:
+      - - NO_TRACE
+        - 0
+        - SOFTWARE_TRACE
+        - 1
+        - HARDWARE_TRACE
+        - 2
+        - FULL_TRACE
+        - 3
+      title: TraceLevel
+      type: string
+    tensorflow.RunStepRequest:
+      additionalProperties: false
+      description: ""
+      properties:
+        feed:
+          additionalProperties: false
+          description: Tensors to be fed in the step. Each feed is a named tensor.
+          items:
+            $ref: '#/components/schemas/tensorflow.NamedTensorProto'
+            type: object
+          title: feed
+          type: array
+        fetch:
+          additionalProperties: false
+          description: |-
+            Fetches. A list of tensor names. The caller expects a tensor to
+             be returned for each fetch[i] (see RunStepResponse.tensor). The
+             order of specified fetches does not change the execution order.
+          items:
+            type: string
+          title: fetch
+          type: array
+        options:
+          $ref: '#/components/schemas/tensorflow.RunOptions'
+          additionalProperties: false
+          description: Options for the run call.
+          title: options
+          type: object
+        partialRunHandle:
+          additionalProperties: false
+          description: |-
+            Partial run handle (optional). If specified, this will be a partial run
+             execution, run up to the specified fetches.
+          title: partial_run_handle
+          type: string
+        requestId:
+          additionalProperties: false
+          description: |-
+            Unique identifier for this request. Every RunStepRequest must
+             have a unique request_id, and retried RunStepRequest must have
+             the same request_id. If request_id is zero, retry detection is disabled.
+          title: request_id
+          type: number
+        sessionHandle:
+          additionalProperties: false
+          description: |-
+            REQUIRED: session_handle must be returned by a CreateSession call
+             to the same master service.
+          title: session_handle
+          type: string
+        storeErrorsInResponseBody:
+          additionalProperties: false
+          description: |-
+            If true then some errors, e.g., execution errors that have long
+             error messages, may return an OK RunStepResponse with the actual
+             error saved in the status_code/status_error_message fields of the
+             response body. This is a workaround since the RPC subsystem may
+             truncate long metadata messages.
+          title: store_errors_in_response_body
+          type: boolean
+        target:
+          additionalProperties: false
+          description: |-
+            Target Nodes. A list of node names. The named nodes will be run
+             to but their outputs will not be fetched.
+          items:
+            type: string
+          title: target
+          type: array
+      title: RunStepRequest
+      type: object
+    tensorflow.RunStepResponse:
+      additionalProperties: false
+      description: ""
+      properties:
+        metadata:
+          $ref: '#/components/schemas/tensorflow.RunMetadata'
+          additionalProperties: false
+          description: Returned metadata if requested in the options.
+          title: metadata
+          type: object
+        statusCode:
+          $ref: '#/components/schemas/tensorflow.error.Code'
+          additionalProperties: false
+          description: |-
+            If store_errors_in_response_body is true in the request, then
+             optionally the server may return an OK status for the RPC and
+             fill the true status into the fields below, to allow for messages
+             that are too long to fit in metadata.
+          title: status_code
+        statusErrorMessage:
+          additionalProperties: false
+          description: ""
+          title: status_error_message
+          type: string
+        tensor:
+          additionalProperties: false
+          description: |-
+            NOTE: The order of the returned tensors may or may not match
+             the fetch order specified in RunStepRequest.
+          items:
+            $ref: '#/components/schemas/tensorflow.NamedTensorProto'
+            type: object
+          title: tensor
+          type: array
+      title: RunStepResponse
+      type: object
     tensorflow.ScopedAllocatorOptions:
       additionalProperties: false
       description: ""
@@ -3115,6 +4821,63 @@ components:
           title: version
           type: number
       title: SessionMetadata
+      type: object
+    tensorflow.StepStats:
+      additionalProperties: false
+      description: ""
+      properties:
+        devStats:
+          additionalProperties: false
+          description: ""
+          items:
+            $ref: '#/components/schemas/tensorflow.DeviceStepStats'
+            type: object
+          title: dev_stats
+          type: array
+      title: StepStats
+      type: object
+    tensorflow.TensorConnection:
+      additionalProperties: false
+      description: Defines a connection between two tensors in a `GraphDef`.
+      properties:
+        fromTensor:
+          additionalProperties: false
+          description: |-
+            A tensor name. The value of this tensor will be substituted for
+             the tensor named in `to_tensor`.
+          title: from_tensor
+          type: string
+        toTensor:
+          additionalProperties: false
+          description: |-
+            A tensor name. The value of this tensor will be bound to the
+             value of the tensor named in `from_tensor`.
+          title: to_tensor
+          type: string
+      title: TensorConnection
+      type: object
+    tensorflow.TensorDescription:
+      additionalProperties: false
+      description: ""
+      properties:
+        allocationDescription:
+          $ref: '#/components/schemas/tensorflow.AllocationDescription'
+          additionalProperties: false
+          description: Information about the size and allocator used for the data
+          title: allocation_description
+          type: object
+        dtype:
+          $ref: '#/components/schemas/tensorflow.DataType'
+          additionalProperties: false
+          description: Data type of tensor elements
+          title: dtype
+        shape:
+          $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          additionalProperties: false
+          description: Shape of the tensor.
+          title: shape
+          type: object
+      title: TensorDescription
       type: object
     tensorflow.TensorProto:
       additionalProperties: false
@@ -3442,6 +5205,62 @@ components:
           type: integer
       title: VersionDef
       type: object
+    tensorflow.error.Code:
+      description: |-
+        The canonical error codes for TensorFlow APIs.
+
+         Warnings:
+
+         -   Do not change any numeric assignments.
+         -   Changes to this list should only be made if there is a compelling
+             need that can't be satisfied in another way.  Such changes
+             must be approved by at least two OWNERS.
+         -   These error codes must match gRPC and protobuf error codes (except for
+             DO_NOT_USE_RESERVED_FOR_FUTURE_EXPANSION_USE_DEFAULT_IN_SWITCH_INSTEAD_).
+
+         Sometimes multiple error codes may apply.  Services should return
+         the most specific error code that applies.  For example, prefer
+         OUT_OF_RANGE over FAILED_PRECONDITION if both codes apply.
+         Similarly prefer NOT_FOUND or ALREADY_EXISTS over FAILED_PRECONDITION.
+      enum:
+      - - OK
+        - 0
+        - CANCELLED
+        - 1
+        - UNKNOWN
+        - 2
+        - INVALID_ARGUMENT
+        - 3
+        - DEADLINE_EXCEEDED
+        - 4
+        - NOT_FOUND
+        - 5
+        - ALREADY_EXISTS
+        - 6
+        - PERMISSION_DENIED
+        - 7
+        - UNAUTHENTICATED
+        - 16
+        - RESOURCE_EXHAUSTED
+        - 8
+        - FAILED_PRECONDITION
+        - 9
+        - ABORTED
+        - 10
+        - OUT_OF_RANGE
+        - 11
+        - UNIMPLEMENTED
+        - 12
+        - INTERNAL
+        - 13
+        - UNAVAILABLE
+        - 14
+        - DATA_LOSS
+        - 15
+        - DO_NOT_USE_RESERVED_FOR_FUTURE_EXPANSION_USE_DEFAULT_IN_SWITCH_INSTEAD_
+        - 20
+      title: Code
+      type: string
 tags:
 - description: ""
   name: tensorflowtest.MasterService

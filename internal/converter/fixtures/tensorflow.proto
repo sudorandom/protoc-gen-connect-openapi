@@ -10,4 +10,30 @@ service MasterService {
 
   // Extends a session.
   rpc ExtendSession(tensorflow.ExtendSessionRequest) returns (tensorflow.ExtendSessionResponse);
+
+  // Prepares future partial run calls.
+  rpc PartialRunSetup(tensorflow.PartialRunSetupRequest) returns (tensorflow.PartialRunSetupResponse);
+
+  // Drives the graph computation.
+  rpc RunStep(tensorflow.RunStepRequest) returns (tensorflow.RunStepResponse);
+
+  // Closes a session.
+  rpc CloseSession(tensorflow.CloseSessionRequest) returns (tensorflow.CloseSessionResponse);
+
+  // List the devices usable by the master.
+  rpc ListDevices(tensorflow.ListDevicesRequest) returns (tensorflow.ListDevicesResponse);
+
+  // Close and abandon all existing sessions.  Ongoing computations
+  // will no longer affect fresh ones via the resources in containers listed in
+  // the ResetRequest.  See ResetRequest for more details.
+  rpc Reset(tensorflow.ResetRequest) returns (tensorflow.ResetResponse);
+
+  // Registers a callable for execution with RunCallable.
+  rpc MakeCallable(tensorflow.MakeCallableRequest) returns (tensorflow.MakeCallableResponse);
+
+  // Executes a callable registered with MakeCallable.
+  rpc RunCallable(tensorflow.RunCallableRequest) returns (tensorflow.RunCallableResponse);
+
+  // Frees resources associated with a callable registered with MakeCallable.
+  rpc ReleaseCallable(tensorflow.ReleaseCallableRequest) returns (tensorflow.ReleaseCallableResponse);
 }
