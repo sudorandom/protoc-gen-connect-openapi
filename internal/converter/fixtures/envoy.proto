@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package envoy.test;
+
+import "envoy/service/discovery/v3/discovery.proto";
+
+service ClusterDiscoveryService {
+  rpc StreamClusters(stream envoy.service.discovery.v3.DiscoveryRequest)
+      returns (stream envoy.service.discovery.v3.DiscoveryResponse) {
+  }
+
+  rpc DeltaClusters(stream envoy.service.discovery.v3.DeltaDiscoveryRequest)
+      returns (stream envoy.service.discovery.v3.DeltaDiscoveryResponse) {
+  }
+
+  rpc FetchClusters(envoy.service.discovery.v3.DiscoveryRequest) returns (envoy.service.discovery.v3.DiscoveryResponse) {}
+}
