@@ -328,13 +328,17 @@ components:
         allocatedBytes:
           additionalProperties: false
           description: Total number of bytes allocated if known
+          oneOf:
+          - type: string
+          - type: number
           title: allocated_bytes
-          type: number
         allocationId:
           additionalProperties: false
           description: Identifier of the allocated buffer if known
+          oneOf:
+          - type: string
+          - type: number
           title: allocation_id
-          type: number
         allocatorName:
           additionalProperties: false
           description: Name of the allocator used
@@ -348,13 +352,17 @@ components:
         ptr:
           additionalProperties: false
           description: Address of the allocation.
+          oneOf:
+          - type: string
+          - type: number
           title: ptr
-          type: number
         requestedBytes:
           additionalProperties: false
           description: Total number of bytes requested
+          oneOf:
+          - type: string
+          - type: number
           title: requested_bytes
-          type: number
       title: AllocationDescription
       type: object
     tensorflow.AllocationRecord:
@@ -364,13 +372,17 @@ components:
         allocBytes:
           additionalProperties: false
           description: Number of bytes allocated, or de-allocated if negative.
+          oneOf:
+          - type: string
+          - type: number
           title: alloc_bytes
-          type: number
         allocMicros:
           additionalProperties: false
           description: The timestamp of the operation.
+          oneOf:
+          - type: string
+          - type: number
           title: alloc_micros
-          type: number
       title: AllocationRecord
       type: object
     tensorflow.AllocatorMemoryUsed:
@@ -390,8 +402,10 @@ components:
           description: |-
             These are snapshots of the overall allocator memory stats.
              The number of live bytes currently allocated by the allocator.
+          oneOf:
+          - type: string
+          - type: number
           title: allocator_bytes_in_use
-          type: number
         allocatorName:
           additionalProperties: false
           description: ""
@@ -400,18 +414,24 @@ components:
         liveBytes:
           additionalProperties: false
           description: The bytes that are not deallocated.
+          oneOf:
+          - type: string
+          - type: number
           title: live_bytes
-          type: number
         peakBytes:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: peak_bytes
-          type: number
         totalBytes:
           additionalProperties: false
           description: These are per-node allocator memory stats.
+          oneOf:
+          - type: string
+          - type: number
           title: total_bytes
-          type: number
       title: AllocatorMemoryUsed
       type: object
     tensorflow.AttrValue:
@@ -444,8 +464,10 @@ components:
         i:
           additionalProperties: false
           description: '"int"'
+          oneOf:
+          - type: string
+          - type: number
           title: i
-          type: number
         list:
           $ref: '#/components/schemas/tensorflow.AttrValue.ListValue'
           additionalProperties: false
@@ -518,7 +540,9 @@ components:
           additionalProperties: false
           description: '"list(int)"'
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: i
           type: array
         s:
@@ -872,8 +896,10 @@ components:
             Global timeout for all blocking operations in this session.  If non-zero,
              and not overridden on a per-operation basis, this value will be used as the
              deadline for all blocking operations.
+          oneOf:
+          - type: string
+          - type: number
           title: operation_timeout_in_ms
-          type: number
         placementPeriod:
           additionalProperties: false
           description: |-
@@ -1152,8 +1178,10 @@ components:
 
              The XLA fusion autotuner can improve performance by executing a heuristic
              search on the compiler parameters.
+          oneOf:
+          - type: string
+          - type: number
           title: xla_fusion_autotuner_thresh
-          type: number
         xlaPreferSingleGraphCluster:
           additionalProperties: false
           description: |-
@@ -1217,8 +1245,10 @@ components:
         clusterRegisterTimeoutInMs:
           additionalProperties: false
           description: Maximum wait time for all members in the cluster to be registered.
+          oneOf:
+          - type: string
+          - type: number
           title: cluster_register_timeout_in_ms
-          type: number
         coordinatedJobList:
           additionalProperties: false
           description: ""
@@ -1240,8 +1270,10 @@ components:
              Note: This is also used as a grace period to accept any heartbeats after
              the agent has disconnected, to account for the lag time between the service
              recording the state change and the agent stopping heartbeats.
+          oneOf:
+          - type: string
+          - type: number
           title: heartbeat_timeout_in_ms
-          type: number
         recoverableJobs:
           additionalProperties: false
           description: |-
@@ -1274,8 +1306,10 @@ components:
              (after the first shutdown request) before disconnecting together. If
              set to 0, no barrier is imposed upon shutdown and each worker can
              disconnect individually.
+          oneOf:
+          - type: string
+          - type: number
           title: shutdown_barrier_timeout_in_ms
-          type: number
       title: CoordinationServiceConfig
       type: object
     tensorflow.CostGraphDef:
@@ -1323,15 +1357,19 @@ components:
         computeCost:
           additionalProperties: false
           description: Estimate of the computational cost of this node, in microseconds.
+          oneOf:
+          - type: string
+          - type: number
           title: compute_cost
-          type: number
         computeTime:
           additionalProperties: false
           description: |-
             Analytical estimate of the computational cost of this node, in
              microseconds.
+          oneOf:
+          - type: string
+          - type: number
           title: compute_time
-          type: number
         controlInput:
           additionalProperties: false
           description: Ids of the control inputs for this node.
@@ -1349,18 +1387,24 @@ components:
         devicePersistentMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: device_persistent_memory_size
-          type: number
         deviceTempMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: device_temp_memory_size
-          type: number
         hostTempMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: host_temp_memory_size
-          type: number
         id:
           additionalProperties: false
           description: The id of the node. Node ids are only unique inside a partition.
@@ -1391,8 +1435,10 @@ components:
           description: |-
             Analytical estimate of the memory access cost of this node, in
              microseconds.
+          oneOf:
+          - type: string
+          - type: number
           title: memory_time
-          type: number
         name:
           additionalProperties: false
           description: The name of the node. Names are globally unique.
@@ -1409,13 +1455,17 @@ components:
         persistentMemorySize:
           additionalProperties: false
           description: Persistent memory used by this node.
+          oneOf:
+          - type: string
+          - type: number
           title: persistent_memory_size
-          type: number
         temporaryMemorySize:
           additionalProperties: false
           description: Temporary memory used by this node.
+          oneOf:
+          - type: string
+          - type: number
           title: temporary_memory_size
-          type: number
       title: Node
       type: object
     tensorflow.CostGraphDef.Node.InputInfo:
@@ -1447,8 +1497,10 @@ components:
             If >= 0, the output is an alias of an input. Note that an alias input
              may itself be an alias. The algorithm will therefore need to follow
              those pointers.
+          oneOf:
+          - type: string
+          - type: number
           title: alias_input_port
-          type: number
         dtype:
           $ref: '#/components/schemas/tensorflow.DataType'
           additionalProperties: false
@@ -1463,8 +1515,10 @@ components:
         size:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: size
-          type: number
       title: OutputInfo
       type: object
     tensorflow.CreateSessionRequest:
@@ -1499,8 +1553,10 @@ components:
           description: |-
             The initial version number for the graph, to be used in the next call
              to ExtendSession.
+          oneOf:
+          - type: string
+          - type: number
           title: graph_version
-          type: number
         sessionHandle:
           additionalProperties: false
           description: |-
@@ -1639,8 +1695,10 @@ components:
             Caller-specified global step count.
              Note that this is distinct from the session run count and the executor
              step count.
+          oneOf:
+          - type: string
+          - type: number
           title: global_step
-          type: number
         resetDiskByteUsage:
           additionalProperties: false
           description: |-
@@ -1734,8 +1792,10 @@ components:
           description: |-
             A device is assigned a global unique number each time it is
              initialized. "incarnation" should never be 0.
+          oneOf:
+          - type: string
+          - type: number
           title: incarnation
-          type: number
         locality:
           $ref: '#/components/schemas/tensorflow.DeviceLocality'
           additionalProperties: false
@@ -1747,8 +1807,10 @@ components:
         memoryLimit:
           additionalProperties: false
           description: Memory capacity of device in bytes.
+          oneOf:
+          - type: string
+          - type: number
           title: memory_limit
-          type: number
         name:
           additionalProperties: false
           description: Fully specified name of the device within a cluster.
@@ -1766,8 +1828,10 @@ components:
             A physical device ID for use in XLA DeviceAssignments, unique across
              clients in a multi-client setup. Set to -1 if unavailable, non-negative
              otherwise.
+          oneOf:
+          - type: string
+          - type: number
           title: xla_global_id
-          type: number
       title: DeviceAttributes
       type: object
     tensorflow.DeviceLocality:
@@ -1844,8 +1908,10 @@ components:
             REQUIRED: The version number of the graph to be extended. This will be
              tested against the current server-side version number, and the operation
              will fail with FAILED_PRECONDITION if they do not match.
+          oneOf:
+          - type: string
+          - type: number
           title: current_graph_version
-          type: number
         graphDef:
           $ref: '#/components/schemas/tensorflow.GraphDef'
           additionalProperties: false
@@ -1873,8 +1939,10 @@ components:
           description: |-
             The new version number for the extended graph, to be used in the next call
              to ExtendSession.
+          oneOf:
+          - type: string
+          - type: number
           title: new_graph_version
-          type: number
       title: ExtendSessionResponse
       type: object
     tensorflow.FullTypeDef:
@@ -1897,8 +1965,10 @@ components:
           additionalProperties: false
           description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD,
             etc.'
+          oneOf:
+          - type: string
+          - type: number
           title: i
-          type: number
         s:
           additionalProperties: false
           description: ""
@@ -2230,8 +2300,10 @@ components:
             Delay deletion of up to this many bytes to reduce the number of
              interactions with gpu driver code.  If 0, the system chooses
              a reasonable default (several MBs).
+          oneOf:
+          - type: string
+          - type: number
           title: deferred_deletion_bytes
-          type: number
         experimental:
           $ref: '#/components/schemas/tensorflow.GPUOptions.Experimental'
           additionalProperties: false
@@ -2276,8 +2348,10 @@ components:
              operating system. See
              https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements
              for the detailed requirements.
+          oneOf:
+          - type: string
+          - type: number
           title: per_process_gpu_memory_fraction
-          type: number
         pollingActiveDelayUsecs:
           additionalProperties: false
           description: |-
@@ -2373,8 +2447,10 @@ components:
              example setting it to 0.05 would imply a chunk needs to be split if its
              size exceeds the requested memory by 5% of the total virtual device/gpu
              memory size.
+          oneOf:
+          - type: string
+          - type: number
           title: internal_fragmentation_fraction
-          type: number
         kernelTrackerMaxBytes:
           additionalProperties: false
           description: |-
@@ -2661,8 +2737,10 @@ components:
         key:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: key
-          type: number
         value:
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
           additionalProperties: false
@@ -2683,8 +2761,10 @@ components:
         value:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: value
-          type: number
       title: NameToTraceIdEntry
       type: object
     tensorflow.GraphDebugInfo.StackTrace:
@@ -2703,7 +2783,9 @@ components:
           additionalProperties: false
           description: ""
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: frame_id
           type: array
       title: StackTrace
@@ -2715,8 +2797,10 @@ components:
         key:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: key
-          type: number
         value:
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
           additionalProperties: false
@@ -2821,15 +2905,19 @@ components:
             The number of steps to run before returning a cost model detailing
              the memory usage and performance of each node of the graph. 0 means
              no cost model.
+          oneOf:
+          - type: string
+          - type: number
           title: build_cost_model
-          type: number
         buildCostModelAfter:
           additionalProperties: false
           description: |-
             The number of steps to skip before collecting statistics for the
              cost model.
+          oneOf:
+          - type: string
+          - type: number
           title: build_cost_model_after
-          type: number
         enableBfloat16Sendrecv:
           additionalProperties: false
           description: If true, transfer float values between processes as bfloat16.
@@ -3017,8 +3105,10 @@ components:
             Unique identifier for this request. Every MakeCallableRequest must
              have a unique request_id, and retried MakeCallableRequest must have
              the same request_id. If request_id is zero, retry detection is disabled.
+          oneOf:
+          - type: string
+          - type: number
           title: request_id
-          type: number
         sessionHandle:
           additionalProperties: false
           description: |-
@@ -3035,8 +3125,10 @@ components:
         handle:
           additionalProperties: false
           description: A handle to the created callable.
+          oneOf:
+          - type: string
+          - type: number
           title: handle
-          type: number
       title: MakeCallableResponse
       type: object
     tensorflow.MemoryStats:
@@ -3046,37 +3138,49 @@ components:
         devicePersistentMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: device_persistent_memory_size
-          type: number
         devicePersistentTensorAllocIds:
           additionalProperties: false
           description: ""
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: device_persistent_tensor_alloc_ids
           type: array
         deviceTempMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: device_temp_memory_size
-          type: number
         persistentMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: persistent_memory_size
-          type: number
         persistentTensorAllocIds:
           additionalProperties: false
           description: ""
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: persistent_tensor_alloc_ids
           type: array
         tempMemorySize:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: temp_memory_size
-          type: number
       title: MemoryStats
       type: object
     tensorflow.NameAttrList:
@@ -3286,23 +3390,31 @@ components:
         allEndRelMicros:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: all_end_rel_micros
-          type: number
         allEndRelNanos:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: all_end_rel_nanos
-          type: number
         allStartMicros:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: all_start_micros
-          type: number
         allStartNanos:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: all_start_nanos
-          type: number
         memory:
           additionalProperties: false
           description: ""
@@ -3329,23 +3441,31 @@ components:
         opEndRelMicros:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: op_end_rel_micros
-          type: number
         opEndRelNanos:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: op_end_rel_nanos
-          type: number
         opStartRelMicros:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: op_start_rel_micros
-          type: number
         opStartRelNanos:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: op_start_rel_nanos
-          type: number
         output:
           additionalProperties: false
           description: ""
@@ -3365,13 +3485,17 @@ components:
         scheduledMicros:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: scheduled_micros
-          type: number
         scheduledNanos:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: scheduled_nanos
-          type: number
         threadId:
           additionalProperties: false
           description: ""
@@ -3640,8 +3764,10 @@ components:
         minimum:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: minimum
-          type: number
         name:
           additionalProperties: false
           description: |-
@@ -3722,8 +3848,10 @@ components:
              the size of each constant created can be limited. If this value is zero, a
              default limit of 10 MiB will be applied. If constant folding optimization
              is disabled, this value is ignored.
+          oneOf:
+          - type: string
+          - type: number
           title: max_folded_constant_in_bytes
-          type: number
         optLevel:
           $ref: '#/components/schemas/tensorflow.OptimizerOptions.Level'
           additionalProperties: false
@@ -3783,8 +3911,10 @@ components:
             Unique identifier for this request. Every PartialRunSetupRequest must
              have a unique request_id, and retried PartialRunSetupRequest must have
              the same request_id. If request_id is zero, retry detection is disabled.
+          oneOf:
+          - type: string
+          - type: number
           title: request_id
-          type: number
         sessionHandle:
           additionalProperties: false
           description: |-
@@ -3901,8 +4031,10 @@ components:
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
              master service.
+          oneOf:
+          - type: string
+          - type: number
           title: handle
-          type: number
         sessionHandle:
           additionalProperties: false
           description: |-
@@ -3996,8 +4128,10 @@ components:
           description: |-
             Hash code for the type of the resource. Is only valid in the same device
              and in the same execution.
+          oneOf:
+          - type: string
+          - type: number
           title: hash_code
-          type: number
         maybeTypeName:
           additionalProperties: false
           description: |-
@@ -4239,8 +4373,10 @@ components:
             Maximum number of milliseconds to spend optimizing a single graph before
              timing out. If less than or equal to 0 (default value) the optimizer will
              never time out.
+          oneOf:
+          - type: string
+          - type: number
           title: meta_optimizer_timeout_ms
-          type: number
         minGraphNodes:
           additionalProperties: false
           description: |-
@@ -4429,16 +4565,20 @@ components:
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
              master service.
+          oneOf:
+          - type: string
+          - type: number
           title: handle
-          type: number
         requestId:
           additionalProperties: false
           description: |-
             Unique identifier for this request. Every RunCallableRequest must
              have a unique request_id, and retried RunCallableRequest must have
              the same request_id. If request_id is zero, retry detection is disabled.
+          oneOf:
+          - type: string
+          - type: number
           title: request_id
-          type: number
         sessionHandle:
           additionalProperties: false
           description: |-
@@ -4598,8 +4738,10 @@ components:
         timeoutInMs:
           additionalProperties: false
           description: Time to wait for operation to complete in milliseconds.
+          oneOf:
+          - type: string
+          - type: number
           title: timeout_in_ms
-          type: number
         traceLevel:
           $ref: '#/components/schemas/tensorflow.RunOptions.TraceLevel'
           additionalProperties: false
@@ -4621,8 +4763,10 @@ components:
              ops and must synchronize step_ids with any other graph with this
              same group_key value (in a distributed computation where tasks
              run disjoint graphs).
+          oneOf:
+          - type: string
+          - type: number
           title: collective_graph_key
-          type: number
         runHandlerPoolOptions:
           $ref: '#/components/schemas/tensorflow.RunOptions.Experimental.RunHandlerPoolOptions'
           additionalProperties: false
@@ -4649,8 +4793,10 @@ components:
           description: |-
             Priority of the request. The run handler thread pool will schedule ops
              based on the priority number. The larger number means higher priority.
+          oneOf:
+          - type: string
+          - type: number
           title: priority
-          type: number
       title: RunHandlerPoolOptions
       type: object
     tensorflow.RunOptions.TraceLevel:
@@ -4709,8 +4855,10 @@ components:
             Unique identifier for this request. Every RunStepRequest must
              have a unique request_id, and retried RunStepRequest must have
              the same request_id. If request_id is zero, retry detection is disabled.
+          oneOf:
+          - type: string
+          - type: number
           title: request_id
-          type: number
         sessionHandle:
           additionalProperties: false
           description: |-
@@ -4808,8 +4956,10 @@ components:
         version:
           additionalProperties: false
           description: The version is optional. If set, needs to be >= 0.
+          oneOf:
+          - type: string
+          - type: number
           title: version
-          type: number
       title: SessionMetadata
       type: object
     tensorflow.StepStats:
@@ -4886,14 +5036,18 @@ components:
             DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
              and imaginary parts of i-th double precision complex.
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: dcomplex_val
           type: array
         doubleVal:
           additionalProperties: false
           description: DT_DOUBLE.
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: double_val
           type: array
         dtype:
@@ -4928,7 +5082,9 @@ components:
           additionalProperties: false
           description: DT_INT64
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: int64_val
           type: array
         intVal:
@@ -4989,7 +5145,9 @@ components:
           additionalProperties: false
           description: DT_UINT64
           items:
-            type: number
+            oneOf:
+            - type: string
+            - type: number
           title: uint64_val
           type: array
         variantVal:
@@ -5064,8 +5222,10 @@ components:
              shapes (values of -1 mean "unknown" dimension).  Certain wrappers
              that work with TensorShapeProto may fail at runtime when deserializing
              a TensorShapeProto containing a dim value of -1.
+          oneOf:
+          - type: string
+          - type: number
           title: size
-          type: number
       title: Dim
       type: object
     tensorflow.ThreadPoolOptionProto:
@@ -5143,8 +5303,10 @@ components:
           description: |-
             Deadline for completion of all verification i.e. all the Toggle ON
              verifiers must complete execution within this time.
+          oneOf:
+          - type: string
+          - type: number
           title: verification_timeout_in_ms
-          type: number
       title: VerifierConfig
       type: object
     tensorflow.VerifierConfig.Toggle:

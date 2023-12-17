@@ -168,6 +168,8 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 	slog.Info("fieldToSchema", slog.Any("descriptor", tt.FullName()))
 	s := &jsonschema.Schema{}
 
+	// TODO: 64-bit types can be strings or numbers because they sometimes
+	//       cannot fit into a JSON number type
 	switch tt.Kind() {
 	case protoreflect.BoolKind:
 		s.WithType(jsonschema.Boolean.Type())
@@ -177,13 +179,13 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 		s.WithType(jsonschema.Integer.Type())
 	case protoreflect.Sfixed32Kind, protoreflect.Fixed32Kind:
 		s.WithType(jsonschema.Integer.Type())
-	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind:
-		s.WithType(jsonschema.Number.Type())
-	case protoreflect.Sfixed64Kind, protoreflect.Fixed64Kind:
-		s.WithType(jsonschema.Number.Type())
+	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind,
+		protoreflect.Sfixed64Kind, protoreflect.Fixed64Kind, protoreflect.DoubleKind:
+		s.WithOneOf(
+			jsonschema.SchemaOrBool{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.String.Type())},
+			jsonschema.SchemaOrBool{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Number.Type())},
+		)
 	case protoreflect.FloatKind:
-		s.WithType(jsonschema.Number.Type())
-	case protoreflect.DoubleKind:
 		s.WithType(jsonschema.Number.Type())
 	case protoreflect.StringKind:
 		s.WithType(jsonschema.String.Type())

@@ -21,11 +21,12 @@ service FlexService {
 
 // The request message containing the user's name.
 message FlexRequest {
+  ComplexType msg = 1;
 }
 
 // The response message containing the greetings
 message FlexReply {
-  string message = 1;
+  ComplexType msg = 1;
 }
 
 // Type that has a bunch of different types

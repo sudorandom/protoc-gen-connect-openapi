@@ -150,8 +150,10 @@ components:
         doubleField:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: doubleField
-          type: number
         fixed32Field:
           additionalProperties: false
           description: ""
@@ -160,8 +162,10 @@ components:
         fixed64Field:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: fixed64Field
-          type: number
         floatField:
           additionalProperties: false
           description: ""
@@ -175,8 +179,10 @@ components:
         int64Field:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: int64Field
-          type: number
         msgField:
           $ref: '#/components/schemas/flex.Other'
           additionalProperties: false
@@ -205,8 +211,10 @@ components:
         sfixed64Field:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: sfixed64Field
-          type: number
         sint32Field:
           additionalProperties: false
           description: ""
@@ -215,8 +223,10 @@ components:
         sint64Field:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: sint64Field
-          type: number
         stringField:
           additionalProperties: false
           description: ""
@@ -230,24 +240,34 @@ components:
         uint64Field:
           additionalProperties: false
           description: ""
+          oneOf:
+          - type: string
+          - type: number
           title: uint64Field
-          type: number
       title: ComplexType
       type: object
     flex.FlexReply:
       additionalProperties: false
       description: The response message containing the greetings
       properties:
-        message:
+        msg:
+          $ref: '#/components/schemas/flex.ComplexType'
           additionalProperties: false
           description: ""
-          title: message
-          type: string
+          title: msg
+          type: object
       title: FlexReply
       type: object
     flex.FlexRequest:
       additionalProperties: false
       description: The request message containing the user's name.
+      properties:
+        msg:
+          $ref: '#/components/schemas/flex.ComplexType'
+          additionalProperties: false
+          description: ""
+          title: msg
+          type: object
       title: FlexRequest
       type: object
     flex.Other:

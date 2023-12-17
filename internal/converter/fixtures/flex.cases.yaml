@@ -4,3 +4,47 @@ cases:
     body: ''
     headers:
       Content-Type: application/json
+
+  - name: "normalrpc-full"
+    path: "flex.FlexService/NormalRPC"
+    body: >
+      {
+        "msg": {
+          "doubleField": 12345000.123,
+          "floatField": 12345000.123,
+          "int32Field": 1000,
+          "int64Field": 1000000000,
+          "uint32Field": 1000000,
+          "uint64Field": 1000000,
+          "sint32Field": 10000,
+          "sint64Field": 100000,
+          "fixed32Field": 10000,
+          "fixed64Field": 1000,
+          "sfixed32Field": 10000,
+          "sfixed64Field": 1000000,
+          "boolField": true,
+          "stringField": "test",
+          "msgField": {},
+          "repeatedMsgField": [{}, {}, {}],
+          "optionalMsgField": {}
+        }
+      }
+    headers:
+      Content-Type: application/json
+
+  # 64bit numeric types can use strings (as they must if they're large enough)
+  - name: "normalrpc-strings"
+    path: "flex.FlexService/NormalRPC"
+    body: >
+      {
+        "msg": {
+          "doubleField": "12345000.123",
+          "int64Field": "1000000000",
+          "uint64Field": "1000000",
+          "sint64Field": "100000",
+          "fixed64Field": "1000",
+          "sfixed64Field": "1000000"
+        }
+      }
+    headers:
+      Content-Type: application/json
