@@ -150,8 +150,7 @@ func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschem
 	s.WithTitle(string(tt.Name()))
 	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
 	s.WithType(jsonschema.Object.Type())
-	falseVal := false
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: &falseVal})
+	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 
 	fields := tt.Fields()
 	children := make(map[string]jsonschema.SchemaOrBool, fields.Len())
@@ -207,12 +206,12 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 		wrapped := s
 		s = &jsonschema.Schema{}
 		s.WithType(jsonschema.Array.Type())
-		s.WithItems(jsonschema.Items{SchemaArray: []jsonschema.SchemaOrBool{{TypeObject: wrapped}}})
+		s.WithItems(jsonschema.Items{SchemaOrBool: &jsonschema.SchemaOrBool{TypeObject: wrapped}})
 	}
 
-	s.WithID(string(tt.FullName()))
 	s.WithTitle(string(tt.Name()))
 	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 	return s
 }
 

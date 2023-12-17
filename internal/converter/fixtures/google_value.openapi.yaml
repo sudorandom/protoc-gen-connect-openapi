@@ -10,8 +10,8 @@ components:
       $ref: '#/components/schemas/connect.error'
   schemas:
     connect.error:
-      $id: connect.error
-      description: null
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
       properties:
         code:
           enum:
@@ -35,10 +35,9 @@ components:
           type: string
         message:
           type: string
-      title: null
+      title: Connect Error
       type: object
     google.protobuf.ListValue:
-      $id: google.protobuf.ListValue
       additionalProperties: false
       description: |-
         `ListValue` is a wrapper around a repeated field of values.
@@ -46,17 +45,16 @@ components:
          The JSON representation for `ListValue` is JSON array.
       properties:
         values:
-          $id: google.protobuf.ListValue.values
+          additionalProperties: false
           description: Repeated field of dynamically typed values.
           items:
-          - $ref: '#/components/schemas/google.protobuf.Value'
+            $ref: '#/components/schemas/google.protobuf.Value'
             type: object
           title: values
           type: array
       title: ListValue
       type: object
     google.protobuf.NullValue:
-      $id: google.protobuf.NullValue
       description: |-
         `NullValue` is a singleton enumeration to represent the null value for the
          `Value` type union.
@@ -68,7 +66,6 @@ components:
       title: NullValue
       type: string
     google.protobuf.Struct:
-      $id: google.protobuf.Struct
       additionalProperties: false
       description: |-
         `Struct` represents a structured data value, consisting of fields
@@ -81,38 +78,31 @@ components:
          The JSON representation for `Struct` is JSON object.
       properties:
         fields:
-          $id: google.protobuf.Struct.fields
-          additionalProperties:
-            $id: google.protobuf.Struct.FieldsEntry.value
-            $ref: '#/components/schemas/google.protobuf.Value'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: Unordered map of dynamically typed values.
           title: fields
           type: object
       title: Struct
       type: object
     google.protobuf.Struct.FieldsEntry:
-      $id: google.protobuf.Struct.FieldsEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: google.protobuf.Struct.FieldsEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: google.protobuf.Struct.FieldsEntry.value
           $ref: '#/components/schemas/google.protobuf.Value'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: FieldsEntry
       type: object
     google.protobuf.Value:
-      $id: google.protobuf.Value
+      additionalProperties: false
       description: |-
         `Value` represents a dynamically typed value which can be either
          null, a number, a string, a boolean, a recursive struct value, or a
@@ -129,25 +119,24 @@ components:
       - additionalProperties: true
         type: object
     samples.GoogleValue:
-      $id: samples.GoogleValue
       additionalProperties: false
       description: ""
       properties:
         arg:
-          $id: samples.GoogleValue.arg
           $ref: '#/components/schemas/google.protobuf.Value'
+          additionalProperties: false
           description: ""
           title: arg
           type: object
         someList:
-          $id: samples.GoogleValue.some_list
           $ref: '#/components/schemas/google.protobuf.ListValue'
+          additionalProperties: false
           description: ""
           title: some_list
           type: object
         someStruct:
-          $id: samples.GoogleValue.some_struct
           $ref: '#/components/schemas/google.protobuf.Struct'
+          additionalProperties: false
           description: ""
           title: some_struct
           type: object

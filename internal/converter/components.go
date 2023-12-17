@@ -24,6 +24,8 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 		if err != nil {
 			return components, err
 		}
+		// We don't actually want to use the $id property so clear it out and just use it in the path
+		delete(m, "$id")
 		components.WithSchemasItem(*item.TypeObject.ID, m)
 	}
 
@@ -74,14 +76,16 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 	if err != nil {
 		return components, err
 	}
-	connectError.WithID("connect.error")
+	connectError.WithTitle("Connect Error")
+	connectError.WithDescription(`Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`)
+	connectError.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 
-	components.WithSchemasItem(*connectError.ID, map[string]interface{}{
-		"$id":         connectError.ID,
-		"description": connectError.Description,
-		"properties":  connectError.Properties,
-		"title":       connectError.Title,
-		"type":        connectError.Type,
+	components.WithSchemasItem("connect.error", map[string]interface{}{
+		"description":          connectError.Description,
+		"properties":           connectError.Properties,
+		"title":                connectError.Title,
+		"type":                 connectError.Type,
+		"additionalProperties": connectError.AdditionalProperties,
 	})
 
 	components.WithResponsesItem("connect.error", openapi31.ResponseOrReference{
@@ -93,6 +97,7 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 	return components, nil
 }
 
+// ConnectError is an error that
 type ConnectError struct {
 	Code    string `json:"code" example:"CodeNotFound" enum:"CodeCanceled,CodeUnknown,CodeInvalidArgument,CodeDeadlineExceeded,CodeNotFound,CodeAlreadyExists,CodePermissionDenied,CodeResourceExhausted,CodeFailedPrecondition,CodeAborted,CodeOutOfRange,CodeInternal,CodeUnavailable,CodeDataLoss,CodeUnauthenticated"`
 	Message string `json:"message,omitempty"`

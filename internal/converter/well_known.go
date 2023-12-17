@@ -31,6 +31,7 @@ func googleDuration(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	s.WithType(jsonschema.String.Type())
 	s.WithFormat("regex")
 	s.WithPattern(`^([0-9]+\.?[0-9]*|\.[0-9]+)s$`)
+	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 	return s
 }
 
@@ -40,6 +41,7 @@ func googleTimestamp(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	s.WithDescription(formatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
 	s.WithType(jsonschema.String.Type())
 	s.WithFormat("date-time")
+	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 	return s
 }
 
@@ -55,9 +57,6 @@ func googleValue(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Array.Type())},
 		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Object.Type()).WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(true)})},
 	}
+	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 	return s
-}
-
-func BoolPtr(b bool) *bool {
-	return &b
 }

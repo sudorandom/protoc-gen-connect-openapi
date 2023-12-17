@@ -69,8 +69,8 @@ components:
       $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
   schemas:
     connect.error:
-      $id: connect.error
-      description: null
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
       properties:
         code:
           enum:
@@ -94,10 +94,9 @@ components:
           type: string
         message:
           type: string
-      title: null
+      title: Connect Error
       type: object
     tensorflow.AttrValue:
-      $id: tensorflow.AttrValue
       additionalProperties: false
       description: |-
         Protocol buffer representing the value for an attr used to configure an Op.
@@ -105,18 +104,18 @@ components:
          attr type may be filled.
       properties:
         b:
-          $id: tensorflow.AttrValue.b
+          additionalProperties: false
           description: '"bool"'
           title: b
           type: boolean
         f:
-          $id: tensorflow.AttrValue.f
+          additionalProperties: false
           description: '"float"'
           title: f
           type: number
         func:
-          $id: tensorflow.AttrValue.func
           $ref: '#/components/schemas/tensorflow.NameAttrList'
+          additionalProperties: false
           description: |-
             "func" represents a function. func.name is a function's name or
              a primitive op's name. func.attr.first is the name of an attr
@@ -125,18 +124,18 @@ components:
           title: func
           type: object
         i:
-          $id: tensorflow.AttrValue.i
+          additionalProperties: false
           description: '"int"'
           title: i
           type: number
         list:
-          $id: tensorflow.AttrValue.list
           $ref: '#/components/schemas/tensorflow.AttrValue.ListValue'
+          additionalProperties: false
           description: any "list(...)"
           title: list
           type: object
         placeholder:
-          $id: tensorflow.AttrValue.placeholder
+          additionalProperties: false
           description: |-
             This is a placeholder only used in nodes defined inside a
              function.  It indicates the attr value will be supplied when
@@ -148,136 +147,132 @@ components:
           title: placeholder
           type: string
         s:
-          $id: tensorflow.AttrValue.s
+          additionalProperties: false
           description: '"string"'
           title: s
           type: string
         shape:
-          $id: tensorflow.AttrValue.shape
           $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          additionalProperties: false
           description: '"shape"'
           title: shape
           type: object
         tensor:
-          $id: tensorflow.AttrValue.tensor
           $ref: '#/components/schemas/tensorflow.TensorProto'
+          additionalProperties: false
           description: '"tensor"'
           title: tensor
           type: object
         type:
-          $id: tensorflow.AttrValue.type
           $ref: '#/components/schemas/tensorflow.DataType'
+          additionalProperties: false
           description: '"type"'
           title: type
       title: AttrValue
       type: object
     tensorflow.AttrValue.ListValue:
-      $id: tensorflow.AttrValue.ListValue
       additionalProperties: false
       description: LINT.IfChange
       properties:
         b:
-          $id: tensorflow.AttrValue.ListValue.b
+          additionalProperties: false
           description: '"list(bool)"'
           items:
-          - type: boolean
+            type: boolean
           title: b
           type: array
         f:
-          $id: tensorflow.AttrValue.ListValue.f
+          additionalProperties: false
           description: '"list(float)"'
           items:
-          - type: number
+            type: number
           title: f
           type: array
         func:
-          $id: tensorflow.AttrValue.ListValue.func
+          additionalProperties: false
           description: '"list(attr)"'
           items:
-          - $ref: '#/components/schemas/tensorflow.NameAttrList'
+            $ref: '#/components/schemas/tensorflow.NameAttrList'
             type: object
           title: func
           type: array
         i:
-          $id: tensorflow.AttrValue.ListValue.i
+          additionalProperties: false
           description: '"list(int)"'
           items:
-          - type: number
+            type: number
           title: i
           type: array
         s:
-          $id: tensorflow.AttrValue.ListValue.s
+          additionalProperties: false
           description: '"list(string)"'
           items:
-          - type: string
+            type: string
           title: s
           type: array
         shape:
-          $id: tensorflow.AttrValue.ListValue.shape
+          additionalProperties: false
           description: '"list(shape)"'
           items:
-          - $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+            $ref: '#/components/schemas/tensorflow.TensorShapeProto'
             type: object
           title: shape
           type: array
         tensor:
-          $id: tensorflow.AttrValue.ListValue.tensor
+          additionalProperties: false
           description: '"list(tensor)"'
           items:
-          - $ref: '#/components/schemas/tensorflow.TensorProto'
+            $ref: '#/components/schemas/tensorflow.TensorProto'
             type: object
           title: tensor
           type: array
         type:
-          $id: tensorflow.AttrValue.ListValue.type
+          additionalProperties: false
           description: '"list(type)"'
           items:
-          - $ref: '#/components/schemas/tensorflow.DataType'
+            $ref: '#/components/schemas/tensorflow.DataType'
           title: type
           type: array
       title: ListValue
       type: object
     tensorflow.AutoParallelOptions:
-      $id: tensorflow.AutoParallelOptions
       additionalProperties: false
       description: ""
       properties:
         enable:
-          $id: tensorflow.AutoParallelOptions.enable
+          additionalProperties: false
           description: ""
           title: enable
           type: boolean
         numReplicas:
-          $id: tensorflow.AutoParallelOptions.num_replicas
+          additionalProperties: false
           description: ""
           title: num_replicas
           type: integer
       title: AutoParallelOptions
       type: object
     tensorflow.ClusterDef:
-      $id: tensorflow.ClusterDef
       additionalProperties: false
       description: Defines a TensorFlow cluster as a set of jobs.
       properties:
         job:
-          $id: tensorflow.ClusterDef.job
+          additionalProperties: false
           description: The jobs that comprise the cluster.
           items:
-          - $ref: '#/components/schemas/tensorflow.JobDef'
+            $ref: '#/components/schemas/tensorflow.JobDef'
             type: object
           title: job
           type: array
       title: ClusterDef
       type: object
     tensorflow.ConfigProto:
-      $id: tensorflow.ConfigProto
       additionalProperties: false
       description: |-
         Session configuration parameters.
          The system picks appropriate values for fields that are not set.
       properties:
         allowSoftPlacement:
-          $id: tensorflow.ConfigProto.allow_soft_placement
+          additionalProperties: false
           description: |-
             Whether soft placement is allowed. If allow_soft_placement is true,
              an op will be placed on CPU if
@@ -289,18 +284,13 @@ components:
           title: allow_soft_placement
           type: boolean
         clusterDef:
-          $id: tensorflow.ConfigProto.cluster_def
           $ref: '#/components/schemas/tensorflow.ClusterDef'
+          additionalProperties: false
           description: Optional list of all workers to use in this session.
           title: cluster_def
           type: object
         deviceCount:
-          $id: tensorflow.ConfigProto.device_count
-          additionalProperties:
-            $id: tensorflow.ConfigProto.DeviceCountEntry.value
-            description: ""
-            title: value
-            type: integer
+          additionalProperties: false
           description: |-
             Map from device type name (e.g., "CPU" or "GPU" ) to maximum
              number of devices of that type to use.  If a particular device
@@ -309,35 +299,35 @@ components:
           title: device_count
           type: object
         deviceFilters:
-          $id: tensorflow.ConfigProto.device_filters
+          additionalProperties: false
           description: |-
             When any filters are present sessions will ignore all devices which do not
              match the filters. Each filter can be partially specified, e.g. "/job:ps"
              "/job:worker/replica:3", etc.
           items:
-          - type: string
+            type: string
           title: device_filters
           type: array
         experimental:
-          $id: tensorflow.ConfigProto.experimental
           $ref: '#/components/schemas/tensorflow.ConfigProto.Experimental'
+          additionalProperties: false
           description: ""
           title: experimental
           type: object
         gpuOptions:
-          $id: tensorflow.ConfigProto.gpu_options
           $ref: '#/components/schemas/tensorflow.GPUOptions'
+          additionalProperties: false
           description: Options that apply to all GPUs.
           title: gpu_options
           type: object
         graphOptions:
-          $id: tensorflow.ConfigProto.graph_options
           $ref: '#/components/schemas/tensorflow.GraphOptions'
+          additionalProperties: false
           description: Options that apply to all graphs.
           title: graph_options
           type: object
         interOpParallelismThreads:
-          $id: tensorflow.ConfigProto.inter_op_parallelism_threads
+          additionalProperties: false
           description: |-
             Nodes that perform blocking operations are enqueued on a pool of
              inter_op_parallelism_threads available in each process.
@@ -351,7 +341,7 @@ components:
           title: inter_op_parallelism_threads
           type: integer
         intraOpParallelismThreads:
-          $id: tensorflow.ConfigProto.intra_op_parallelism_threads
+          additionalProperties: false
           description: |-
             The execution of an individual op (for some op types) can be
              parallelized on a pool of intra_op_parallelism_threads.
@@ -370,7 +360,7 @@ components:
           title: intra_op_parallelism_threads
           type: integer
         isolateSessionState:
-          $id: tensorflow.ConfigProto.isolate_session_state
+          additionalProperties: false
           description: |-
             If true, any resources such as Variables used in the session will not be
              shared with other sessions. However, when clusterspec propagation is
@@ -378,12 +368,12 @@ components:
           title: isolate_session_state
           type: boolean
         logDevicePlacement:
-          $id: tensorflow.ConfigProto.log_device_placement
+          additionalProperties: false
           description: Whether device placements should be logged.
           title: log_device_placement
           type: boolean
         operationTimeoutInMs:
-          $id: tensorflow.ConfigProto.operation_timeout_in_ms
+          additionalProperties: false
           description: |-
             Global timeout for all blocking operations in this session.  If non-zero,
              and not overridden on a per-operation basis, this value will be used as the
@@ -391,7 +381,7 @@ components:
           title: operation_timeout_in_ms
           type: number
         placementPeriod:
-          $id: tensorflow.ConfigProto.placement_period
+          additionalProperties: false
           description: |-
             Assignment of Nodes to Devices is recomputed every placement_period
              steps until the system warms up (at which point the recomputation
@@ -399,13 +389,13 @@ components:
           title: placement_period
           type: integer
         rpcOptions:
-          $id: tensorflow.ConfigProto.rpc_options
           $ref: '#/components/schemas/tensorflow.RPCOptions'
+          additionalProperties: false
           description: Options that apply when this session uses the distributed runtime.
           title: rpc_options
           type: object
         sessionInterOpThreadPool:
-          $id: tensorflow.ConfigProto.session_inter_op_thread_pool
+          additionalProperties: false
           description: |-
             This option is experimental - it may be replaced with a different mechanism
              in the future.
@@ -427,12 +417,12 @@ components:
              run the non-low-priority work, even across sessions, in a single large
              pool.
           items:
-          - $ref: '#/components/schemas/tensorflow.ThreadPoolOptionProto'
+            $ref: '#/components/schemas/tensorflow.ThreadPoolOptionProto'
             type: object
           title: session_inter_op_thread_pool
           type: array
         shareClusterDevicesInSession:
-          $id: tensorflow.ConfigProto.share_cluster_devices_in_session
+          additionalProperties: false
           description: |-
             When true, WorkerSessions are created with device attributes from the
              full cluster.
@@ -441,7 +431,7 @@ components:
           title: share_cluster_devices_in_session
           type: boolean
         usePerSessionThreads:
-          $id: tensorflow.ConfigProto.use_per_session_threads
+          additionalProperties: false
           description: |-
             If true, use a new set of threads for this session rather than the global
              pool of threads. Only supported by direct sessions.
@@ -457,24 +447,22 @@ components:
       title: ConfigProto
       type: object
     tensorflow.ConfigProto.DeviceCountEntry:
-      $id: tensorflow.ConfigProto.DeviceCountEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.ConfigProto.DeviceCountEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.ConfigProto.DeviceCountEntry.value
+          additionalProperties: false
           description: ""
           title: value
           type: integer
       title: DeviceCountEntry
       type: object
     tensorflow.ConfigProto.Experimental:
-      $id: tensorflow.ConfigProto.Experimental
       additionalProperties: false
       description: |-
         Everything inside Experimental is subject to change and is not subject
@@ -482,32 +470,32 @@ components:
          https://www.tensorflow.org/guide/version_compat.
       properties:
         collectiveDeterministicSequentialExecution:
-          $id: tensorflow.ConfigProto.Experimental.collective_deterministic_sequential_execution
+          additionalProperties: false
           description: |-
             If true, make collective op execution order sequential and deterministic
              for potentially concurrent collective instances.
           title: collective_deterministic_sequential_execution
           type: boolean
         collectiveGroupLeader:
-          $id: tensorflow.ConfigProto.Experimental.collective_group_leader
+          additionalProperties: false
           description: Task name for group resolution.
           title: collective_group_leader
           type: string
         collectiveNccl:
-          $id: tensorflow.ConfigProto.Experimental.collective_nccl
+          additionalProperties: false
           description: |-
             If true, use NCCL for CollectiveOps.  This feature is highly
              experimental.
           title: collective_nccl
           type: boolean
         coordinationConfig:
-          $id: tensorflow.ConfigProto.Experimental.coordination_config
           $ref: '#/components/schemas/tensorflow.CoordinationServiceConfig'
+          additionalProperties: false
           description: Distributed coordination service configurations.
           title: coordination_config
           type: object
         disableFunctionalOpsLowering:
-          $id: tensorflow.ConfigProto.Experimental.disable_functional_ops_lowering
+          additionalProperties: false
           description: |-
             Whether functional control flow op lowering should be disabled. This is
              useful when executing within a portable runtime where control flow op
@@ -515,7 +503,7 @@ components:
           title: disable_functional_ops_lowering
           type: boolean
         disableOptimizeForStaticGraph:
-          $id: tensorflow.ConfigProto.Experimental.disable_optimize_for_static_graph
+          additionalProperties: false
           description: |-
             If true, the session will treat the graph as being non-static for
              optimization purposes.
@@ -529,7 +517,7 @@ components:
           title: disable_optimize_for_static_graph
           type: boolean
         disableOutputPartitionGraphs:
-          $id: tensorflow.ConfigProto.Experimental.disable_output_partition_graphs
+          additionalProperties: false
           description: |-
             If true, the session will not store an additional copy of the graph for
              each subgraph.
@@ -539,7 +527,7 @@ components:
           title: disable_output_partition_graphs
           type: boolean
         disableThreadSpinning:
-          $id: tensorflow.ConfigProto.Experimental.disable_thread_spinning
+          additionalProperties: false
           description: |-
             If using a direct session, disable spinning while waiting for work in
              the thread pool. This may result in higher latency for completing ops,
@@ -548,7 +536,7 @@ components:
           title: disable_thread_spinning
           type: boolean
         enableMlirBridge:
-          $id: tensorflow.ConfigProto.Experimental.enable_mlir_bridge
+          additionalProperties: false
           description: |-
             Whether to enable the MLIR-based TF->XLA bridge. This is only used if set
              to true. Default value or false is ignored. Use mlir_bridge_rollout for
@@ -564,7 +552,7 @@ components:
           title: enable_mlir_bridge
           type: boolean
         enableMlirGraphOptimization:
-          $id: tensorflow.ConfigProto.Experimental.enable_mlir_graph_optimization
+          additionalProperties: false
           description: |-
             Whether to enable the MLIR-based Graph optimizations.
 
@@ -574,19 +562,19 @@ components:
           title: enable_mlir_graph_optimization
           type: boolean
         executorType:
-          $id: tensorflow.ConfigProto.Experimental.executor_type
+          additionalProperties: false
           description: |-
             Which executor to use, the default executor will be used
              if it is an empty string or "DEFAULT"
           title: executor_type
           type: string
         mlirBridgeRollout:
-          $id: tensorflow.ConfigProto.Experimental.mlir_bridge_rollout
           $ref: '#/components/schemas/tensorflow.ConfigProto.Experimental.MlirBridgeRollout'
+          additionalProperties: false
           description: Whether to enable the MLIR-based TF->XLA bridge.
           title: mlir_bridge_rollout
         optimizeForStaticGraph:
-          $id: tensorflow.ConfigProto.Experimental.optimize_for_static_graph
+          additionalProperties: false
           description: |-
             If true, the session may treat the graph as being static for optimization
              purposes.
@@ -597,7 +585,7 @@ components:
           title: optimize_for_static_graph
           type: boolean
         recvBufMaxChunk:
-          $id: tensorflow.ConfigProto.Experimental.recv_buf_max_chunk
+          additionalProperties: false
           description: |-
             Guidance to formatting of large RecvBuf fields for transfer.
              Any positive value sets the max chunk size.  0 defaults to 4096.
@@ -605,8 +593,8 @@ components:
           title: recv_buf_max_chunk
           type: integer
         sessionMetadata:
-          $id: tensorflow.ConfigProto.Experimental.session_metadata
           $ref: '#/components/schemas/tensorflow.SessionMetadata'
+          additionalProperties: false
           description: |-
             Metadata about the session.
 
@@ -618,14 +606,14 @@ components:
           title: session_metadata
           type: object
         shareClusterDevicesInSession:
-          $id: tensorflow.ConfigProto.Experimental.share_cluster_devices_in_session
+          additionalProperties: false
           description: |-
             This was promoted to a non-experimental API. Please use
              ConfigProto.share_cluster_devices_in_session instead.
           title: share_cluster_devices_in_session
           type: boolean
         shareSessionStateInClusterspecPropagation:
-          $id: tensorflow.ConfigProto.Experimental.share_session_state_in_clusterspec_propagation
+          additionalProperties: false
           description: |-
             In the following, session state means the value of a variable, elements
              in a hash table, or any other resource, accessible by worker sessions
@@ -650,7 +638,7 @@ components:
           title: share_session_state_in_clusterspec_propagation
           type: boolean
         useNumaAffinity:
-          $id: tensorflow.ConfigProto.Experimental.use_numa_affinity
+          additionalProperties: false
           description: |-
             If true, and supported by the platform, the runtime will attempt to
              use NUMA affinity where applicable.  One consequence will be the
@@ -658,12 +646,12 @@ components:
           title: use_numa_affinity
           type: boolean
         useTfrt:
-          $id: tensorflow.ConfigProto.Experimental.use_tfrt
+          additionalProperties: false
           description: Whether runtime execution uses TFRT.
           title: use_tfrt
           type: boolean
         xlaFusionAutotunerThresh:
-          $id: tensorflow.ConfigProto.Experimental.xla_fusion_autotuner_thresh
+          additionalProperties: false
           description: |-
             Minimum number of batches run through the XLA graph before XLA fusion
              autotuner is enabled. Default value of zero disables the autotuner.
@@ -673,7 +661,7 @@ components:
           title: xla_fusion_autotuner_thresh
           type: number
         xlaPreferSingleGraphCluster:
-          $id: tensorflow.ConfigProto.Experimental.xla_prefer_single_graph_cluster
+          additionalProperties: false
           description: |-
             Provides a hint to XLA auto clustering to prefer forming a single large
              cluster that encompases most of the graph.
@@ -682,7 +670,6 @@ components:
       title: Experimental
       type: object
     tensorflow.ConfigProto.Experimental.MlirBridgeRollout:
-      $id: tensorflow.ConfigProto.Experimental.MlirBridgeRollout
       description: An enum that describes the state of the MLIR bridge rollout.
       enum:
       - - MLIR_BRIDGE_ROLLOUT_UNSPECIFIED
@@ -694,33 +681,31 @@ components:
       title: MlirBridgeRollout
       type: string
     tensorflow.CoordinatedJob:
-      $id: tensorflow.CoordinatedJob
       additionalProperties: false
       description: |-
         Represents a job type and the number of tasks under this job.
          For example, ("worker", 20) implies that there will be 20 worker tasks.
       properties:
         name:
-          $id: tensorflow.CoordinatedJob.name
+          additionalProperties: false
           description: ""
           title: name
           type: string
         numTasks:
-          $id: tensorflow.CoordinatedJob.num_tasks
+          additionalProperties: false
           description: ""
           title: num_tasks
           type: integer
       title: CoordinatedJob
       type: object
     tensorflow.CoordinationServiceConfig:
-      $id: tensorflow.CoordinationServiceConfig
       additionalProperties: false
       description: |-
         Coordination service configuration parameters.
          The system picks appropriate values for fields that are not set.
       properties:
         agentDestructionWithoutShutdown:
-          $id: tensorflow.CoordinationServiceConfig.agent_destruction_without_shutdown
+          additionalProperties: false
           description: |-
             If set, agents do not make an explicit Shutdown() call. Service will only
              find out about the disconnecte agent via stale heartbeats. Used for
@@ -728,7 +713,7 @@ components:
           title: agent_destruction_without_shutdown
           type: boolean
         allowNewIncarnationToReconnect:
-          $id: tensorflow.CoordinationServiceConfig.allow_new_incarnation_to_reconnect
+          additionalProperties: false
           description: |-
             If a task restarts with a new incarnation, we may allow it to reconnect
              silently. This is useful when we know that a task can immediately resume
@@ -736,25 +721,25 @@ components:
           title: allow_new_incarnation_to_reconnect
           type: boolean
         clusterRegisterTimeoutInMs:
-          $id: tensorflow.CoordinationServiceConfig.cluster_register_timeout_in_ms
+          additionalProperties: false
           description: Maximum wait time for all members in the cluster to be registered.
           title: cluster_register_timeout_in_ms
           type: number
         coordinatedJobList:
-          $id: tensorflow.CoordinationServiceConfig.coordinated_job_list
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.CoordinatedJob'
+            $ref: '#/components/schemas/tensorflow.CoordinatedJob'
             type: object
           title: coordinated_job_list
           type: array
         enableHealthCheck:
-          $id: tensorflow.CoordinationServiceConfig.enable_health_check
+          additionalProperties: false
           description: Whether to enable the health check mechanism.
           title: enable_health_check
           type: boolean
         heartbeatTimeoutInMs:
-          $id: tensorflow.CoordinationServiceConfig.heartbeat_timeout_in_ms
+          additionalProperties: false
           description: |-
             Heartbeat timeout, if a task does not record heartbeat in this time
              window, it will be considered disconnected.
@@ -764,23 +749,23 @@ components:
           title: heartbeat_timeout_in_ms
           type: number
         recoverableJobs:
-          $id: tensorflow.CoordinationServiceConfig.recoverable_jobs
+          additionalProperties: false
           description: |-
             The list of jobs which are recoverable. If a task in this list fails,
              it will not propagate error to other tasks.
              If empty, no jobs will be recoverable and every task failure will cause
              error propagation to other tasks.
           items:
-          - type: string
+            type: string
           title: recoverable_jobs
           type: array
         serviceLeader:
-          $id: tensorflow.CoordinationServiceConfig.service_leader
+          additionalProperties: false
           description: Address where the coordination service instance is hosted.
           title: service_leader
           type: string
         serviceType:
-          $id: tensorflow.CoordinationServiceConfig.service_type
+          additionalProperties: false
           description: |-
             Type of coordination service implementation to enable.
              For example, setting the service type as "standalone" starts a service
@@ -789,7 +774,7 @@ components:
           title: service_type
           type: string
         shutdownBarrierTimeoutInMs:
-          $id: tensorflow.CoordinationServiceConfig.shutdown_barrier_timeout_in_ms
+          additionalProperties: false
           description: |-
             Denotes how long to wait for all coordination agents to reach the barriers
              (after the first shutdown request) before disconnecting together. If
@@ -800,43 +785,41 @@ components:
       title: CoordinationServiceConfig
       type: object
     tensorflow.CreateSessionRequest:
-      $id: tensorflow.CreateSessionRequest
       additionalProperties: false
       description: ""
       properties:
         config:
-          $id: tensorflow.CreateSessionRequest.config
           $ref: '#/components/schemas/tensorflow.ConfigProto'
+          additionalProperties: false
           description: Configuration options.
           title: config
           type: object
         graphDef:
-          $id: tensorflow.CreateSessionRequest.graph_def
           $ref: '#/components/schemas/tensorflow.GraphDef'
+          additionalProperties: false
           description: The initial graph definition.
           title: graph_def
           type: object
         target:
-          $id: tensorflow.CreateSessionRequest.target
+          additionalProperties: false
           description: The target string used from the client's perspective.
           title: target
           type: string
       title: CreateSessionRequest
       type: object
     tensorflow.CreateSessionResponse:
-      $id: tensorflow.CreateSessionResponse
       additionalProperties: false
       description: ""
       properties:
         graphVersion:
-          $id: tensorflow.CreateSessionResponse.graph_version
+          additionalProperties: false
           description: |-
             The initial version number for the graph, to be used in the next call
              to ExtendSession.
           title: graph_version
           type: number
         sessionHandle:
-          $id: tensorflow.CreateSessionResponse.session_handle
+          additionalProperties: false
           description: |-
             The session handle to be used in subsequent calls for the created session.
 
@@ -847,7 +830,6 @@ components:
       title: CreateSessionResponse
       type: object
     tensorflow.DataType:
-      $id: tensorflow.DataType
       description: |-
         (== suppress_warning documentation-presence ==)
          LINT.IfChange
@@ -957,12 +939,11 @@ components:
       title: DataType
       type: string
     tensorflow.ExtendSessionRequest:
-      $id: tensorflow.ExtendSessionRequest
       additionalProperties: false
       description: ""
       properties:
         currentGraphVersion:
-          $id: tensorflow.ExtendSessionRequest.current_graph_version
+          additionalProperties: false
           description: |-
             REQUIRED: The version number of the graph to be extended. This will be
              tested against the current server-side version number, and the operation
@@ -970,8 +951,8 @@ components:
           title: current_graph_version
           type: number
         graphDef:
-          $id: tensorflow.ExtendSessionRequest.graph_def
           $ref: '#/components/schemas/tensorflow.GraphDef'
+          additionalProperties: false
           description: |-
             REQUIRED: The nodes to be added to the session's graph. If any node has
              the same name as an existing node, the operation will fail with
@@ -979,7 +960,7 @@ components:
           title: graph_def
           type: object
         sessionHandle:
-          $id: tensorflow.ExtendSessionRequest.session_handle
+          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -988,12 +969,11 @@ components:
       title: ExtendSessionRequest
       type: object
     tensorflow.ExtendSessionResponse:
-      $id: tensorflow.ExtendSessionResponse
       additionalProperties: false
       description: 'TODO(mrry): Return something about the operation?'
       properties:
         newGraphVersion:
-          $id: tensorflow.ExtendSessionResponse.new_graph_version
+          additionalProperties: false
           description: |-
             The new version number for the extended graph, to be used in the next call
              to ExtendSession.
@@ -1002,7 +982,6 @@ components:
       title: ExtendSessionResponse
       type: object
     tensorflow.FullTypeDef:
-      $id: tensorflow.FullTypeDef
       additionalProperties: false
       description: |-
         Highly experimental and very likely to change.
@@ -1011,27 +990,27 @@ components:
          type should be, which in particular needs to be true for type symbols.
       properties:
         args:
-          $id: tensorflow.FullTypeDef.args
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.FullTypeDef'
+            $ref: '#/components/schemas/tensorflow.FullTypeDef'
             type: object
           title: args
           type: array
         i:
-          $id: tensorflow.FullTypeDef.i
+          additionalProperties: false
           description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD,
             etc.'
           title: i
           type: number
         s:
-          $id: tensorflow.FullTypeDef.s
+          additionalProperties: false
           description: ""
           title: s
           type: string
         typeId:
-          $id: tensorflow.FullTypeDef.type_id
           $ref: '#/components/schemas/tensorflow.FullTypeId'
+          additionalProperties: false
           description: |-
             The principal type represented by this object. This may be a concrete type
              (Tensor, Dataset) a type variable (used for dependent types) a type
@@ -1040,7 +1019,6 @@ components:
       title: FullTypeDef
       type: object
     tensorflow.FullTypeId:
-      $id: tensorflow.FullTypeId
       description: |-
         LINT.IfChange
          Experimental. Represents the complete type information of a TensorFlow value.
@@ -1116,7 +1094,6 @@ components:
       title: FullTypeId
       type: string
     tensorflow.FunctionDef:
-      $id: tensorflow.FunctionDef
       additionalProperties: false
       description: |-
         A function can be instantiated when the runtime can bind every attr
@@ -1127,57 +1104,35 @@ components:
            * device spec, etc.
       properties:
         argAttr:
-          $id: tensorflow.FunctionDef.arg_attr
-          additionalProperties:
-            $id: tensorflow.FunctionDef.ArgAttrEntry.value
-            $ref: '#/components/schemas/tensorflow.FunctionDef.ArgAttrs'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: ""
           title: arg_attr
           type: object
         attr:
-          $id: tensorflow.FunctionDef.attr
-          additionalProperties:
-            $id: tensorflow.FunctionDef.AttrEntry.value
-            $ref: '#/components/schemas/tensorflow.AttrValue'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: Attributes specific to this function definition.
           title: attr
           type: object
         controlRet:
-          $id: tensorflow.FunctionDef.control_ret
-          additionalProperties:
-            $id: tensorflow.FunctionDef.ControlRetEntry.value
-            description: ""
-            title: value
-            type: string
+          additionalProperties: false
           description: |-
             A mapping from control output names from `signature` to node names in
              `node_def` which should be control outputs of this function.
           title: control_ret
           type: object
         nodeDef:
-          $id: tensorflow.FunctionDef.node_def
+          additionalProperties: false
           description: |-
             By convention, "op" in node_def is resolved by consulting with a
              user-defined library first. If not resolved, "func" is assumed to
              be a builtin op.
           items:
-          - $ref: '#/components/schemas/tensorflow.NodeDef'
+            $ref: '#/components/schemas/tensorflow.NodeDef'
             type: object
           title: node_def
           type: array
         resourceArgUniqueId:
-          $id: tensorflow.FunctionDef.resource_arg_unique_id
-          additionalProperties:
-            $id: tensorflow.FunctionDef.ResourceArgUniqueIdEntry.value
-            description: ""
-            title: value
-            type: integer
+          additionalProperties: false
           description: |-
             Unique IDs for each resource argument, used to track aliasing resources. If
              Argument A and Argument B alias each other, then
@@ -1191,20 +1146,15 @@ components:
           title: resource_arg_unique_id
           type: object
         ret:
-          $id: tensorflow.FunctionDef.ret
-          additionalProperties:
-            $id: tensorflow.FunctionDef.RetEntry.value
-            description: ""
-            title: value
-            type: string
+          additionalProperties: false
           description: |-
             A mapping from the output arg names from `signature` to the
              outputs from `node_def` that should be returned by the function.
           title: ret
           type: object
         signature:
-          $id: tensorflow.FunctionDef.signature
           $ref: '#/components/schemas/tensorflow.OpDef'
+          additionalProperties: false
           description: |-
             The definition of the function's name, arguments, return values,
              attrs etc.
@@ -1213,168 +1163,153 @@ components:
       title: FunctionDef
       type: object
     tensorflow.FunctionDef.ArgAttrEntry:
-      $id: tensorflow.FunctionDef.ArgAttrEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.FunctionDef.ArgAttrEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: integer
         value:
-          $id: tensorflow.FunctionDef.ArgAttrEntry.value
           $ref: '#/components/schemas/tensorflow.FunctionDef.ArgAttrs'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: ArgAttrEntry
       type: object
     tensorflow.FunctionDef.ArgAttrs:
-      $id: tensorflow.FunctionDef.ArgAttrs
       additionalProperties: false
       description: |-
         Attributes for function arguments. These attributes are the same set of
          valid attributes as to _Arg nodes.
       properties:
         attr:
-          $id: tensorflow.FunctionDef.ArgAttrs.attr
-          additionalProperties:
-            $id: tensorflow.FunctionDef.ArgAttrs.AttrEntry.value
-            $ref: '#/components/schemas/tensorflow.AttrValue'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: ""
           title: attr
           type: object
       title: ArgAttrs
       type: object
     tensorflow.FunctionDef.ArgAttrs.AttrEntry:
-      $id: tensorflow.FunctionDef.ArgAttrs.AttrEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.FunctionDef.ArgAttrs.AttrEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.FunctionDef.ArgAttrs.AttrEntry.value
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: AttrEntry
       type: object
     tensorflow.FunctionDef.AttrEntry:
-      $id: tensorflow.FunctionDef.AttrEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.FunctionDef.AttrEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.FunctionDef.AttrEntry.value
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: AttrEntry
       type: object
     tensorflow.FunctionDef.ControlRetEntry:
-      $id: tensorflow.FunctionDef.ControlRetEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.FunctionDef.ControlRetEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.FunctionDef.ControlRetEntry.value
+          additionalProperties: false
           description: ""
           title: value
           type: string
       title: ControlRetEntry
       type: object
     tensorflow.FunctionDef.ResourceArgUniqueIdEntry:
-      $id: tensorflow.FunctionDef.ResourceArgUniqueIdEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.FunctionDef.ResourceArgUniqueIdEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: integer
         value:
-          $id: tensorflow.FunctionDef.ResourceArgUniqueIdEntry.value
+          additionalProperties: false
           description: ""
           title: value
           type: integer
       title: ResourceArgUniqueIdEntry
       type: object
     tensorflow.FunctionDef.RetEntry:
-      $id: tensorflow.FunctionDef.RetEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.FunctionDef.RetEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.FunctionDef.RetEntry.value
+          additionalProperties: false
           description: ""
           title: value
           type: string
       title: RetEntry
       type: object
     tensorflow.FunctionDefLibrary:
-      $id: tensorflow.FunctionDefLibrary
       additionalProperties: false
       description: A library is a set of named functions.
       properties:
         function:
-          $id: tensorflow.FunctionDefLibrary.function
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.FunctionDef'
+            $ref: '#/components/schemas/tensorflow.FunctionDef'
             type: object
           title: function
           type: array
         gradient:
-          $id: tensorflow.FunctionDefLibrary.gradient
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.GradientDef'
+            $ref: '#/components/schemas/tensorflow.GradientDef'
             type: object
           title: gradient
           type: array
         registeredGradients:
-          $id: tensorflow.FunctionDefLibrary.registered_gradients
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.RegisteredGradient'
+            $ref: '#/components/schemas/tensorflow.RegisteredGradient'
             type: object
           title: registered_gradients
           type: array
       title: FunctionDefLibrary
       type: object
     tensorflow.GPUOptions:
-      $id: tensorflow.GPUOptions
       additionalProperties: false
       description: ""
       properties:
         allocatorType:
-          $id: tensorflow.GPUOptions.allocator_type
+          additionalProperties: false
           description: |-
             The type of GPU allocation strategy to use.
 
@@ -1387,14 +1322,14 @@ components:
           title: allocator_type
           type: string
         allowGrowth:
-          $id: tensorflow.GPUOptions.allow_growth
+          additionalProperties: false
           description: |-
             If true, the allocator does not pre-allocate the entire specified
              GPU memory region, instead starting small and growing as needed.
           title: allow_growth
           type: boolean
         deferredDeletionBytes:
-          $id: tensorflow.GPUOptions.deferred_deletion_bytes
+          additionalProperties: false
           description: |-
             Delay deletion of up to this many bytes to reduce the number of
              interactions with gpu driver code.  If 0, the system chooses
@@ -1402,8 +1337,8 @@ components:
           title: deferred_deletion_bytes
           type: number
         experimental:
-          $id: tensorflow.GPUOptions.experimental
           $ref: '#/components/schemas/tensorflow.GPUOptions.Experimental'
+          additionalProperties: false
           description: |-
             Everything inside experimental is subject to change and is not subject
              to API stability guarantees in
@@ -1411,7 +1346,7 @@ components:
           title: experimental
           type: object
         forceGpuCompatible:
-          $id: tensorflow.GPUOptions.force_gpu_compatible
+          additionalProperties: false
           description: |-
             Force all tensors to be gpu_compatible. On a GPU-enabled TensorFlow,
              enabling this option forces all CPU tensors to be allocated with Cuda
@@ -1426,7 +1361,7 @@ components:
           title: force_gpu_compatible
           type: boolean
         perProcessGpuMemoryFraction:
-          $id: tensorflow.GPUOptions.per_process_gpu_memory_fraction
+          additionalProperties: false
           description: |-
             Fraction of the total GPU memory to allocate for each process.
              1 means to allocate all of the GPU memory, 0.5 means the process
@@ -1448,7 +1383,7 @@ components:
           title: per_process_gpu_memory_fraction
           type: number
         pollingActiveDelayUsecs:
-          $id: tensorflow.GPUOptions.polling_active_delay_usecs
+          additionalProperties: false
           description: |-
             In the event polling loop sleep this many microseconds between
              PollEvents calls, when the queue is not empty.  If value is not
@@ -1456,12 +1391,12 @@ components:
           title: polling_active_delay_usecs
           type: integer
         pollingInactiveDelayMsecs:
-          $id: tensorflow.GPUOptions.polling_inactive_delay_msecs
+          additionalProperties: false
           description: This field is deprecated and ignored.
           title: polling_inactive_delay_msecs
           type: integer
         visibleDeviceList:
-          $id: tensorflow.GPUOptions.visible_device_list
+          additionalProperties: false
           description: |-
             A comma-separated list of GPU ids that determines the 'visible'
              to 'virtual' mapping of GPU devices.  For example, if TensorFlow
@@ -1489,12 +1424,11 @@ components:
       title: GPUOptions
       type: object
     tensorflow.GPUOptions.Experimental:
-      $id: tensorflow.GPUOptions.Experimental
       additionalProperties: false
       description: ""
       properties:
         collectiveRingOrder:
-          $id: tensorflow.GPUOptions.Experimental.collective_ring_order
+          additionalProperties: false
           description: |-
             If non-empty, defines a good GPU ring order on a single worker based on
              device interconnect.  This assumes that all workers have the same GPU
@@ -1505,7 +1439,7 @@ components:
           title: collective_ring_order
           type: string
         disallowRetryOnAllocationFailure:
-          $id: tensorflow.GPUOptions.Experimental.disallow_retry_on_allocation_failure
+          additionalProperties: false
           description: |-
             By default, BFCAllocator may sleep when it runs out of memory, in the
              hopes that another thread will free up memory in the meantime.  Setting
@@ -1513,7 +1447,7 @@ components:
           title: disallow_retry_on_allocation_failure
           type: boolean
         gpuHostMemDisallowGrowth:
-          $id: tensorflow.GPUOptions.Experimental.gpu_host_mem_disallow_growth
+          additionalProperties: false
           description: |-
             If true, then the host allocator allocates its max memory all upfront and
              never grows.  This can be useful for latency-sensitive systems, because
@@ -1525,14 +1459,14 @@ components:
           title: gpu_host_mem_disallow_growth
           type: boolean
         gpuHostMemLimitInMb:
-          $id: tensorflow.GPUOptions.Experimental.gpu_host_mem_limit_in_mb
+          additionalProperties: false
           description: |-
             Memory limit for "GPU host allocator", aka pinned memory allocator.  This
              can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB.
           title: gpu_host_mem_limit_in_mb
           type: number
         internalFragmentationFraction:
-          $id: tensorflow.GPUOptions.Experimental.internal_fragmentation_fraction
+          additionalProperties: false
           description: |-
             BFC Allocator can return an allocated chunk of memory upto 2x the
              requested size. For virtual devices with tight memory constraints, and
@@ -1546,7 +1480,7 @@ components:
           title: internal_fragmentation_fraction
           type: number
         kernelTrackerMaxBytes:
-          $id: tensorflow.GPUOptions.Experimental.kernel_tracker_max_bytes
+          additionalProperties: false
           description: |-
             If kernel_tracker_max_bytes = n > 0, then a tracking event is
              inserted after every series of kernels allocating a sum of
@@ -1556,7 +1490,7 @@ components:
           title: kernel_tracker_max_bytes
           type: integer
         kernelTrackerMaxInterval:
-          $id: tensorflow.GPUOptions.Experimental.kernel_tracker_max_interval
+          additionalProperties: false
           description: |-
             Parameters for GPUKernelTracker.  By default no kernel tracking is done.
              Note that timestamped_allocator is only effective if some tracking is
@@ -1567,7 +1501,7 @@ components:
           title: kernel_tracker_max_interval
           type: integer
         kernelTrackerMaxPending:
-          $id: tensorflow.GPUOptions.Experimental.kernel_tracker_max_pending
+          additionalProperties: false
           description: |-
             If kernel_tracker_max_pending > 0 then no more than this many
              tracking events can be outstanding at a time.  An attempt to
@@ -1576,7 +1510,7 @@ components:
           title: kernel_tracker_max_pending
           type: integer
         numDevToDevCopyStreams:
-          $id: tensorflow.GPUOptions.Experimental.num_dev_to_dev_copy_streams
+          additionalProperties: false
           description: |-
             If > 1, the number of device-to-device copy streams to create
              for each GPUDevice.  Default value is 0, which is automatically
@@ -1584,7 +1518,7 @@ components:
           title: num_dev_to_dev_copy_streams
           type: integer
         timestampedAllocator:
-          $id: tensorflow.GPUOptions.Experimental.timestamped_allocator
+          additionalProperties: false
           description: |-
             If true then extra work is done by GPUDevice and GPUBFCAllocator to
              keep track of when GPU memory is freed and when kernels actually
@@ -1593,12 +1527,12 @@ components:
           title: timestamped_allocator
           type: boolean
         useCudaMallocAsync:
-          $id: tensorflow.GPUOptions.Experimental.use_cuda_malloc_async
+          additionalProperties: false
           description: When true, use CUDA cudaMallocAsync API instead of TF gpu allocator.
           title: use_cuda_malloc_async
           type: boolean
         useUnifiedMemory:
-          $id: tensorflow.GPUOptions.Experimental.use_unified_memory
+          additionalProperties: false
           description: |-
             If true, uses CUDA unified memory for memory allocations. If
              per_process_gpu_memory_fraction option is greater than 1.0, then unified
@@ -1610,7 +1544,7 @@ components:
           title: use_unified_memory
           type: boolean
         virtualDevices:
-          $id: tensorflow.GPUOptions.Experimental.virtual_devices
+          additionalProperties: false
           description: |-
             The multi virtual device settings. If empty (not set), it will create
              single virtual device on each visible GPU, according to the settings
@@ -1651,32 +1585,31 @@ components:
                 different settings in different sessions within same process will
                 result in undefined behavior.
           items:
-          - $ref: '#/components/schemas/tensorflow.GPUOptions.Experimental.VirtualDevices'
+            $ref: '#/components/schemas/tensorflow.GPUOptions.Experimental.VirtualDevices'
             type: object
           title: virtual_devices
           type: array
       title: Experimental
       type: object
     tensorflow.GPUOptions.Experimental.VirtualDevices:
-      $id: tensorflow.GPUOptions.Experimental.VirtualDevices
       additionalProperties: false
       description: |-
         Configuration for breaking down a visible GPU into multiple "virtual"
          devices.
       properties:
         deviceOrdinal:
-          $id: tensorflow.GPUOptions.Experimental.VirtualDevices.device_ordinal
+          additionalProperties: false
           description: |-
             Virtual Device ordinal number determines the device ID of the device.
              A Virtual device with a lower ordinal number always receives the a
              smaller device id. The phyiscal device id and location in the
              virtual device list is used to break ties.
           items:
-          - type: integer
+            type: integer
           title: device_ordinal
           type: array
         memoryLimitMb:
-          $id: tensorflow.GPUOptions.Experimental.VirtualDevices.memory_limit_mb
+          additionalProperties: false
           description: |-
             Per "virtual" device memory limit, in MB. The number of elements in
              the list is the number of virtual devices to create on the
@@ -1687,11 +1620,11 @@ components:
              For the concept of "visible" and "virtual" GPU, see the comments for
              "visible_device_list" above for more information.
           items:
-          - type: number
+            type: number
           title: memory_limit_mb
           type: array
         priority:
-          $id: tensorflow.GPUOptions.Experimental.VirtualDevices.priority
+          additionalProperties: false
           description: |-
             Priority values to use with the virtual devices. Use the cuda function
              cudaDeviceGetStreamPriorityRange to query for valid range of values for
@@ -1704,13 +1637,12 @@ components:
              created with the default. If this field has values set, then the size
              of this must match with the above memory_limit_mb.
           items:
-          - type: integer
+            type: integer
           title: priority
           type: array
       title: VirtualDevices
       type: object
     tensorflow.GradientDef:
-      $id: tensorflow.GradientDef
       additionalProperties: false
       description: |-
         GradientDef defines the gradient function of a function defined in
@@ -1733,51 +1665,39 @@ components:
          to x_i.
       properties:
         functionName:
-          $id: tensorflow.GradientDef.function_name
+          additionalProperties: false
           description: The function name.
           title: function_name
           type: string
         gradientFunc:
-          $id: tensorflow.GradientDef.gradient_func
+          additionalProperties: false
           description: The gradient function's name.
           title: gradient_func
           type: string
       title: GradientDef
       type: object
     tensorflow.GraphDebugInfo:
-      $id: tensorflow.GraphDebugInfo
       additionalProperties: false
       description: ""
       properties:
         files:
-          $id: tensorflow.GraphDebugInfo.files
+          additionalProperties: false
           description: |-
             This stores all the source code file names and can be indexed by the
              `file_index`.
           items:
-          - type: string
+            type: string
           title: files
           type: array
         framesById:
-          $id: tensorflow.GraphDebugInfo.frames_by_id
-          additionalProperties:
-            $id: tensorflow.GraphDebugInfo.FramesByIdEntry.value
-            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: |-
             Stack traces and frames are uniqueified during construction. These maps
              index from the unique id for a frame/trace to the value.
           title: frames_by_id
           type: object
         nameToTraceId:
-          $id: tensorflow.GraphDebugInfo.name_to_trace_id
-          additionalProperties:
-            $id: tensorflow.GraphDebugInfo.NameToTraceIdEntry.value
-            description: ""
-            title: value
-            type: number
+          additionalProperties: false
           description: |-
             This maps a node name to a trace id contained in `traces_by_id`.
 
@@ -1794,170 +1714,151 @@ components:
           title: name_to_trace_id
           type: object
         traces:
-          $id: tensorflow.GraphDebugInfo.traces
-          additionalProperties:
-            $id: tensorflow.GraphDebugInfo.TracesEntry.value
-            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: Deprecated.
           title: traces
           type: object
         tracesById:
-          $id: tensorflow.GraphDebugInfo.traces_by_id
-          additionalProperties:
-            $id: tensorflow.GraphDebugInfo.TracesByIdEntry.value
-            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: ""
           title: traces_by_id
           type: object
       title: GraphDebugInfo
       type: object
     tensorflow.GraphDebugInfo.FileLineCol:
-      $id: tensorflow.GraphDebugInfo.FileLineCol
       additionalProperties: false
       description: This represents a file/line location in the source code.
       properties:
         code:
-          $id: tensorflow.GraphDebugInfo.FileLineCol.code
+          additionalProperties: false
           description: Source code contained in this file line.
           title: code
           type: string
         col:
-          $id: tensorflow.GraphDebugInfo.FileLineCol.col
+          additionalProperties: false
           description: Col number in the file line.
           title: col
           type: integer
         fileIndex:
-          $id: tensorflow.GraphDebugInfo.FileLineCol.file_index
+          additionalProperties: false
           description: |-
             File name index, which can be used to retrieve the file name string from
              `files`. The value should be between 0 and (len(files)-1)
           title: file_index
           type: integer
         func:
-          $id: tensorflow.GraphDebugInfo.FileLineCol.func
+          additionalProperties: false
           description: Name of function contains the file line.
           title: func
           type: string
         line:
-          $id: tensorflow.GraphDebugInfo.FileLineCol.line
+          additionalProperties: false
           description: Line number in the file.
           title: line
           type: integer
       title: FileLineCol
       type: object
     tensorflow.GraphDebugInfo.FramesByIdEntry:
-      $id: tensorflow.GraphDebugInfo.FramesByIdEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.GraphDebugInfo.FramesByIdEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: number
         value:
-          $id: tensorflow.GraphDebugInfo.FramesByIdEntry.value
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: FramesByIdEntry
       type: object
     tensorflow.GraphDebugInfo.NameToTraceIdEntry:
-      $id: tensorflow.GraphDebugInfo.NameToTraceIdEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.GraphDebugInfo.NameToTraceIdEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.GraphDebugInfo.NameToTraceIdEntry.value
+          additionalProperties: false
           description: ""
           title: value
           type: number
       title: NameToTraceIdEntry
       type: object
     tensorflow.GraphDebugInfo.StackTrace:
-      $id: tensorflow.GraphDebugInfo.StackTrace
       additionalProperties: false
       description: This represents a stack trace which is a ordered list of `FileLineCol`.
       properties:
         fileLineCols:
-          $id: tensorflow.GraphDebugInfo.StackTrace.file_line_cols
+          additionalProperties: false
           description: Deprecated.
           items:
-          - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
+            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
             type: object
           title: file_line_cols
           type: array
         frameId:
-          $id: tensorflow.GraphDebugInfo.StackTrace.frame_id
+          additionalProperties: false
           description: ""
           items:
-          - type: number
+            type: number
           title: frame_id
           type: array
       title: StackTrace
       type: object
     tensorflow.GraphDebugInfo.TracesByIdEntry:
-      $id: tensorflow.GraphDebugInfo.TracesByIdEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.GraphDebugInfo.TracesByIdEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: number
         value:
-          $id: tensorflow.GraphDebugInfo.TracesByIdEntry.value
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: TracesByIdEntry
       type: object
     tensorflow.GraphDebugInfo.TracesEntry:
-      $id: tensorflow.GraphDebugInfo.TracesEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.GraphDebugInfo.TracesEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.GraphDebugInfo.TracesEntry.value
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: TracesEntry
       type: object
     tensorflow.GraphDef:
-      $id: tensorflow.GraphDef
       additionalProperties: false
       description: Represents the graph of operations
       properties:
         debugInfo:
-          $id: tensorflow.GraphDef.debug_info
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo'
+          additionalProperties: false
           description: Stack traces for the nodes in this graph.
           title: debug_info
           type: object
         library:
-          $id: tensorflow.GraphDef.library
           $ref: '#/components/schemas/tensorflow.FunctionDefLibrary'
+          additionalProperties: false
           description: |-
             "library" provides user-defined functions.
 
@@ -1988,15 +1889,15 @@ components:
           title: library
           type: object
         node:
-          $id: tensorflow.GraphDef.node
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.NodeDef'
+            $ref: '#/components/schemas/tensorflow.NodeDef'
             type: object
           title: node
           type: array
         version:
-          $id: tensorflow.GraphDef.version
+          additionalProperties: false
           description: |-
             Deprecated single version field; use versions above instead.  Since all
              GraphDef changes before "versions" was introduced were forward
@@ -2004,8 +1905,8 @@ components:
           title: version
           type: integer
         versions:
-          $id: tensorflow.GraphDef.versions
           $ref: '#/components/schemas/tensorflow.VersionDef'
+          additionalProperties: false
           description: |-
             Compatibility versions of the graph.  See core/public/version.h for version
              history.  The GraphDef version is distinct from the TensorFlow version, and
@@ -2015,12 +1916,11 @@ components:
       title: GraphDef
       type: object
     tensorflow.GraphOptions:
-      $id: tensorflow.GraphOptions
       additionalProperties: false
       description: ""
       properties:
         buildCostModel:
-          $id: tensorflow.GraphOptions.build_cost_model
+          additionalProperties: false
           description: |-
             The number of steps to run before returning a cost model detailing
              the memory usage and performance of each node of the graph. 0 means
@@ -2028,39 +1928,39 @@ components:
           title: build_cost_model
           type: number
         buildCostModelAfter:
-          $id: tensorflow.GraphOptions.build_cost_model_after
+          additionalProperties: false
           description: |-
             The number of steps to skip before collecting statistics for the
              cost model.
           title: build_cost_model_after
           type: number
         enableBfloat16Sendrecv:
-          $id: tensorflow.GraphOptions.enable_bfloat16_sendrecv
+          additionalProperties: false
           description: If true, transfer float values between processes as bfloat16.
           title: enable_bfloat16_sendrecv
           type: boolean
         enableRecvScheduling:
-          $id: tensorflow.GraphOptions.enable_recv_scheduling
+          additionalProperties: false
           description: |-
             If true, use control flow to schedule the activation of Recv nodes.
              (Currently ignored.)
           title: enable_recv_scheduling
           type: boolean
         inferShapes:
-          $id: tensorflow.GraphOptions.infer_shapes
+          additionalProperties: false
           description: |-
             Annotate each Node with Op output shape data, to the extent it can
              be statically inferred.
           title: infer_shapes
           type: boolean
         optimizerOptions:
-          $id: tensorflow.GraphOptions.optimizer_options
           $ref: '#/components/schemas/tensorflow.OptimizerOptions'
+          additionalProperties: false
           description: Options controlling how graph is optimized.
           title: optimizer_options
           type: object
         placePrunedGraph:
-          $id: tensorflow.GraphOptions.place_pruned_graph
+          additionalProperties: false
           description: |-
             Only place the subgraphs that are run, rather than the entire graph.
 
@@ -2072,8 +1972,8 @@ components:
           title: place_pruned_graph
           type: boolean
         rewriteOptions:
-          $id: tensorflow.GraphOptions.rewrite_options
           $ref: '#/components/schemas/tensorflow.RewriterConfig'
+          additionalProperties: false
           description: |-
             Options that control the type and amount of graph rewriting.
              Not currently configurable via the public Python API (i.e. there is no API
@@ -2081,7 +1981,7 @@ components:
           title: rewrite_options
           type: object
         timelineStep:
-          $id: tensorflow.GraphOptions.timeline_step
+          additionalProperties: false
           description: |-
             If > 0, record a timeline every this many steps.
              EXPERIMENTAL: This currently has no effect in MasterSession.
@@ -2090,22 +1990,16 @@ components:
       title: GraphOptions
       type: object
     tensorflow.JobDef:
-      $id: tensorflow.JobDef
       additionalProperties: false
       description: Defines a single job in a TensorFlow cluster.
       properties:
         name:
-          $id: tensorflow.JobDef.name
+          additionalProperties: false
           description: The name of this job.
           title: name
           type: string
         tasks:
-          $id: tensorflow.JobDef.tasks
-          additionalProperties:
-            $id: tensorflow.JobDef.TasksEntry.value
-            description: ""
-            title: value
-            type: string
+          additionalProperties: false
           description: |-
             Mapping from task ID to "hostname:port" string.
 
@@ -2120,78 +2014,62 @@ components:
       title: JobDef
       type: object
     tensorflow.JobDef.TasksEntry:
-      $id: tensorflow.JobDef.TasksEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.JobDef.TasksEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: integer
         value:
-          $id: tensorflow.JobDef.TasksEntry.value
+          additionalProperties: false
           description: ""
           title: value
           type: string
       title: TasksEntry
       type: object
     tensorflow.NameAttrList:
-      $id: tensorflow.NameAttrList
       additionalProperties: false
       description: |-
         A list of attr names and their values. The whole list is attached
          with a string name.  E.g., MatMul[T=float].
       properties:
         attr:
-          $id: tensorflow.NameAttrList.attr
-          additionalProperties:
-            $id: tensorflow.NameAttrList.AttrEntry.value
-            $ref: '#/components/schemas/tensorflow.AttrValue'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: ""
           title: attr
           type: object
         name:
-          $id: tensorflow.NameAttrList.name
+          additionalProperties: false
           description: ""
           title: name
           type: string
       title: NameAttrList
       type: object
     tensorflow.NameAttrList.AttrEntry:
-      $id: tensorflow.NameAttrList.AttrEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.NameAttrList.AttrEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.NameAttrList.AttrEntry.value
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: AttrEntry
       type: object
     tensorflow.NodeDef:
-      $id: tensorflow.NodeDef
       additionalProperties: false
       description: ""
       properties:
         attr:
-          $id: tensorflow.NodeDef.attr
-          additionalProperties:
-            $id: tensorflow.NodeDef.AttrEntry.value
-            $ref: '#/components/schemas/tensorflow.AttrValue'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: |-
             Operation-specific graph-construction-time configuration.
              Note that this should include all attrs defined in the
@@ -2208,7 +2086,7 @@ components:
           title: attr
           type: object
         device:
-          $id: tensorflow.NodeDef.device
+          additionalProperties: false
           description: |-
             A (possibly partial) specification for the device on which this
              node should be placed.
@@ -2233,14 +2111,14 @@ components:
           title: device
           type: string
         experimentalDebugInfo:
-          $id: tensorflow.NodeDef.experimental_debug_info
           $ref: '#/components/schemas/tensorflow.NodeDef.ExperimentalDebugInfo'
+          additionalProperties: false
           description: This stores debug information associated with the node.
           title: experimental_debug_info
           type: object
         experimentalType:
-          $id: tensorflow.NodeDef.experimental_type
           $ref: '#/components/schemas/tensorflow.FullTypeDef'
+          additionalProperties: false
           description: |-
             The complete type of this node. Experimental and subject to change.
              Currently, the field only contains the return types of the node. That will
@@ -2249,7 +2127,7 @@ components:
           title: experimental_type
           type: object
         input:
-          $id: tensorflow.NodeDef.input
+          additionalProperties: false
           description: |-
             Each input is "node:src_output" with "node" being a string name and
              "src_output" indicating which output tensor to use from "node". If
@@ -2257,11 +2135,11 @@ components:
              may optionally be followed by control inputs that have the format
              "^node".
           items:
-          - type: string
+            type: string
           title: input
           type: array
         name:
-          $id: tensorflow.NodeDef.name
+          additionalProperties: false
           description: |-
             The name given to this operator. Used for naming inputs,
              logging, visualization, etc.  Unique within a single GraphDef.
@@ -2269,7 +2147,7 @@ components:
           title: name
           type: string
         op:
-          $id: tensorflow.NodeDef.op
+          additionalProperties: false
           description: |-
             The operation name.  There may be custom parameters in attrs.
              Op names starting with an underscore are reserved for internal use.
@@ -2278,30 +2156,28 @@ components:
       title: NodeDef
       type: object
     tensorflow.NodeDef.AttrEntry:
-      $id: tensorflow.NodeDef.AttrEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.NodeDef.AttrEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.NodeDef.AttrEntry.value
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: AttrEntry
       type: object
     tensorflow.NodeDef.ExperimentalDebugInfo:
-      $id: tensorflow.NodeDef.ExperimentalDebugInfo
       additionalProperties: false
       description: ""
       properties:
         originalFuncNames:
-          $id: tensorflow.NodeDef.ExperimentalDebugInfo.original_func_names
+          additionalProperties: false
           description: |-
             This is intended to store the list of names of the functions from the
              original graph that this node was derived. For example if this node, say
@@ -2311,11 +2187,11 @@ components:
              `original_node_names` can be used to map errors originating at the
              current ndoe to some top level source code.
           items:
-          - type: string
+            type: string
           title: original_func_names
           type: array
         originalNodeNames:
-          $id: tensorflow.NodeDef.ExperimentalDebugInfo.original_node_names
+          additionalProperties: false
           description: |-
             Opaque string inserted into error messages created by the runtime.
 
@@ -2325,13 +2201,12 @@ components:
              be {A, B}. This information can be used to map errors originating at the
              current node to some top level source code.
           items:
-          - type: string
+            type: string
           title: original_node_names
           type: array
       title: ExperimentalDebugInfo
       type: object
     tensorflow.OpDef:
-      $id: tensorflow.OpDef
       additionalProperties: false
       description: |-
         Defines an operation. A NodeDef in a GraphDef specifies an Op by
@@ -2339,7 +2214,7 @@ components:
          LINT.IfChange
       properties:
         allowsUninitializedInput:
-          $id: tensorflow.OpDef.allows_uninitialized_input
+          additionalProperties: false
           description: |-
             By default, all inputs to an Op must be initialized Tensors.  Ops
              that may initialize tensors for the first time should set this
@@ -2348,44 +2223,44 @@ components:
           title: allows_uninitialized_input
           type: boolean
         attr:
-          $id: tensorflow.OpDef.attr
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/tensorflow.OpDef.AttrDef'
+            $ref: '#/components/schemas/tensorflow.OpDef.AttrDef'
             type: object
           title: attr
           type: array
         controlOutput:
-          $id: tensorflow.OpDef.control_output
+          additionalProperties: false
           description: |-
             Named control outputs for this operation. Useful only for composite
              operations (i.e. functions) which want to name different control outputs.
           items:
-          - type: string
+            type: string
           title: control_output
           type: array
         deprecation:
-          $id: tensorflow.OpDef.deprecation
           $ref: '#/components/schemas/tensorflow.OpDeprecation'
+          additionalProperties: false
           description: Optional deprecation based on GraphDef versions.
           title: deprecation
           type: object
         description:
-          $id: tensorflow.OpDef.description
+          additionalProperties: false
           description: Additional, longer human-readable description of what the Op
             does.
           title: description
           type: string
         inputArg:
-          $id: tensorflow.OpDef.input_arg
+          additionalProperties: false
           description: Description of the input(s).
           items:
-          - $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
+            $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
             type: object
           title: input_arg
           type: array
         isAggregate:
-          $id: tensorflow.OpDef.is_aggregate
+          additionalProperties: false
           description: |-
             If is_aggregate is true, then this operation accepts N >= 2
              inputs and produces 1 output all of the same type.  Should be
@@ -2398,13 +2273,13 @@ components:
           title: is_aggregate
           type: boolean
         isCommutative:
-          $id: tensorflow.OpDef.is_commutative
+          additionalProperties: false
           description: True if the operation is commutative ("op(a,b) == op(b,a)"
             for all inputs)
           title: is_commutative
           type: boolean
         isDistributedCommunication:
-          $id: tensorflow.OpDef.is_distributed_communication
+          additionalProperties: false
           description: |-
             Indicates whether the op implementation uses distributed communication.
              If True, the op is allowed to return errors for network disconnection and
@@ -2412,7 +2287,7 @@ components:
           title: is_distributed_communication
           type: boolean
         isStateful:
-          $id: tensorflow.OpDef.is_stateful
+          additionalProperties: false
           description: |-
             Ops are marked as stateful if their behavior depends on some state beyond
              their input tensors (e.g. variable reading op) or if they have
@@ -2428,40 +2303,39 @@ components:
           title: is_stateful
           type: boolean
         name:
-          $id: tensorflow.OpDef.name
+          additionalProperties: false
           description: |-
             Op names starting with an underscore are reserved for internal use.
              Names should be CamelCase and match the regexp "[A-Z][a-zA-Z0-9>_]*".
           title: name
           type: string
         outputArg:
-          $id: tensorflow.OpDef.output_arg
+          additionalProperties: false
           description: Description of the output(s).
           items:
-          - $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
+            $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
             type: object
           title: output_arg
           type: array
         summary:
-          $id: tensorflow.OpDef.summary
+          additionalProperties: false
           description: One-line human-readable description of what the Op does.
           title: summary
           type: string
       title: OpDef
       type: object
     tensorflow.OpDef.ArgDef:
-      $id: tensorflow.OpDef.ArgDef
       additionalProperties: false
       description: For describing inputs and outputs.
       properties:
         description:
-          $id: tensorflow.OpDef.ArgDef.description
+          additionalProperties: false
           description: Human readable description.
           title: description
           type: string
         experimentalFullType:
-          $id: tensorflow.OpDef.ArgDef.experimental_full_type
           $ref: '#/components/schemas/tensorflow.FullTypeDef'
+          additionalProperties: false
           description: |-
             Experimental. Full type declaration for this argument.
              The full type specification combines type, type_attr, type_list_attr,
@@ -2475,15 +2349,15 @@ components:
           title: experimental_full_type
           type: object
         handleData:
-          $id: tensorflow.OpDef.ArgDef.handle_data
+          additionalProperties: false
           description: The handle data for resource inputs.
           items:
-          - $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
+            $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
             type: object
           title: handle_data
           type: array
         isRef:
-          $id: tensorflow.OpDef.ArgDef.is_ref
+          additionalProperties: false
           description: |-
             For inputs: if true, the inputs are required to be refs.
                By default, inputs can be either refs or non-refs.
@@ -2491,18 +2365,18 @@ components:
           title: is_ref
           type: boolean
         name:
-          $id: tensorflow.OpDef.ArgDef.name
+          additionalProperties: false
           description: Name for the input/output.  Should match the regexp "[a-z][a-z0-9_]*".
           title: name
           type: string
         numberAttr:
-          $id: tensorflow.OpDef.ArgDef.number_attr
+          additionalProperties: false
           description: if specified, attr must have type "int"
           title: number_attr
           type: string
         type:
-          $id: tensorflow.OpDef.ArgDef.type
           $ref: '#/components/schemas/tensorflow.DataType'
+          additionalProperties: false
           description: |-
             Describes the type of one or more tensors that are accepted/produced
              by this input/output arg.  The only legal combinations are:
@@ -2516,12 +2390,12 @@ components:
                to the name of an attr with type "list(type)".
           title: type
         typeAttr:
-          $id: tensorflow.OpDef.ArgDef.type_attr
+          additionalProperties: false
           description: if specified, attr must have type "type"
           title: type_attr
           type: string
         typeListAttr:
-          $id: tensorflow.OpDef.ArgDef.type_list_attr
+          additionalProperties: false
           description: |-
             If specified, attr must have type "list(type)", and none of
              type, type_attr, and number_attr may be specified.
@@ -2530,7 +2404,6 @@ components:
       title: ArgDef
       type: object
     tensorflow.OpDef.AttrDef:
-      $id: tensorflow.OpDef.AttrDef
       additionalProperties: false
       description: |-
         Description of the graph-construction-time configuration of this
@@ -2538,8 +2411,8 @@ components:
          be specified in the NodeDef.
       properties:
         allowedValues:
-          $id: tensorflow.OpDef.AttrDef.allowed_values
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: |-
             The set of allowed values.  Has type that is the "list" version
              of the "type" field above (uses the "list" field of AttrValue).
@@ -2550,32 +2423,32 @@ components:
           title: allowed_values
           type: object
         defaultValue:
-          $id: tensorflow.OpDef.AttrDef.default_value
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: |-
             A reasonable default for this attribute if the user does not supply
              a value.  If not specified, the user must supply a value.
           title: default_value
           type: object
         description:
-          $id: tensorflow.OpDef.AttrDef.description
+          additionalProperties: false
           description: Human-readable description.
           title: description
           type: string
         hasMinimum:
-          $id: tensorflow.OpDef.AttrDef.has_minimum
+          additionalProperties: false
           description: |-
             For type == "int", this is a minimum value.  For "list(___)"
              types, this is the minimum length.
           title: has_minimum
           type: boolean
         minimum:
-          $id: tensorflow.OpDef.AttrDef.minimum
+          additionalProperties: false
           description: ""
           title: minimum
           type: number
         name:
-          $id: tensorflow.OpDef.AttrDef.name
+          additionalProperties: false
           description: |-
             A descriptive name for the argument.  May be used, e.g. by the
              Python client, as a keyword argument name, and so should match
@@ -2583,7 +2456,7 @@ components:
           title: name
           type: string
         type:
-          $id: tensorflow.OpDef.AttrDef.type
+          additionalProperties: false
           description: |-
             One of the type names from attr_value.proto ("string", "list(string)",
              "int", etc.).
@@ -2592,29 +2465,27 @@ components:
       title: AttrDef
       type: object
     tensorflow.OpDeprecation:
-      $id: tensorflow.OpDeprecation
       additionalProperties: false
       description: Information about version-dependent deprecation of an op
       properties:
         explanation:
-          $id: tensorflow.OpDeprecation.explanation
+          additionalProperties: false
           description: Explanation of why it was deprecated and what to use instead.
           title: explanation
           type: string
         version:
-          $id: tensorflow.OpDeprecation.version
+          additionalProperties: false
           description: First GraphDef version at which the op is disallowed.
           title: version
           type: integer
       title: OpDeprecation
       type: object
     tensorflow.OptimizerOptions:
-      $id: tensorflow.OptimizerOptions
       additionalProperties: false
       description: Options passed to the graph optimizer
       properties:
         cpuGlobalJit:
-          $id: tensorflow.OptimizerOptions.cpu_global_jit
+          additionalProperties: false
           description: |-
             CPU code will be autoclustered only if global_jit_level >= ON_1 and either:
               - this flag is true, or
@@ -2622,7 +2493,7 @@ components:
           title: cpu_global_jit
           type: boolean
         doCommonSubexpressionElimination:
-          $id: tensorflow.OptimizerOptions.do_common_subexpression_elimination
+          additionalProperties: false
           description: |-
             If true, optimize the graph using common subexpression elimination.
              Note: the optimization Level L1 will override this setting to true. So in
@@ -2631,7 +2502,7 @@ components:
           title: do_common_subexpression_elimination
           type: boolean
         doConstantFolding:
-          $id: tensorflow.OptimizerOptions.do_constant_folding
+          additionalProperties: false
           description: |-
             If true, perform constant folding optimization on the graph.
              Note: the optimization Level L1 will override this setting to true. So in
@@ -2639,17 +2510,17 @@ components:
           title: do_constant_folding
           type: boolean
         doFunctionInlining:
-          $id: tensorflow.OptimizerOptions.do_function_inlining
+          additionalProperties: false
           description: If true, perform function inlining on the graph.
           title: do_function_inlining
           type: boolean
         globalJitLevel:
-          $id: tensorflow.OptimizerOptions.global_jit_level
           $ref: '#/components/schemas/tensorflow.OptimizerOptions.GlobalJitLevel'
+          additionalProperties: false
           description: ""
           title: global_jit_level
         maxFoldedConstantInBytes:
-          $id: tensorflow.OptimizerOptions.max_folded_constant_in_bytes
+          additionalProperties: false
           description: |-
             Constant folding optimization replaces tensors whose values can be
              predetermined, with constant nodes. To avoid inserting too large constants,
@@ -2659,8 +2530,8 @@ components:
           title: max_folded_constant_in_bytes
           type: number
         optLevel:
-          $id: tensorflow.OptimizerOptions.opt_level
           $ref: '#/components/schemas/tensorflow.OptimizerOptions.Level'
+          additionalProperties: false
           description: |-
             Overall optimization level. The actual optimizations applied will be the
              logical OR of the flags that this level implies and any flags already set.
@@ -2668,7 +2539,6 @@ components:
       title: OptimizerOptions
       type: object
     tensorflow.OptimizerOptions.GlobalJitLevel:
-      $id: tensorflow.OptimizerOptions.GlobalJitLevel
       description: Control the use of the compiler/jit.  Experimental.
       enum:
       - - DEFAULT
@@ -2682,7 +2552,6 @@ components:
       title: GlobalJitLevel
       type: string
     tensorflow.OptimizerOptions.Level:
-      $id: tensorflow.OptimizerOptions.Level
       description: Optimization level
       enum:
       - - L1
@@ -2692,12 +2561,11 @@ components:
       title: Level
       type: string
     tensorflow.RPCOptions:
-      $id: tensorflow.RPCOptions
       additionalProperties: false
       description: RPC options for distributed runtime.
       properties:
         cacheRpcResponse:
-          $id: tensorflow.RPCOptions.cache_rpc_response
+          additionalProperties: false
           description: |-
             Setting cache_rpc_response to true will enable sender side caching of
              response for RecvTensorAsync and RecvBufAsync to allow receiver to retry
@@ -2708,24 +2576,24 @@ components:
           title: cache_rpc_response
           type: boolean
         compressionAlgorithm:
-          $id: tensorflow.RPCOptions.compression_algorithm
+          additionalProperties: false
           description: The compression algorithm to be used. One of "deflate", "gzip".
           title: compression_algorithm
           type: string
         compressionLevel:
-          $id: tensorflow.RPCOptions.compression_level
+          additionalProperties: false
           description: |-
             If compression_algorithm is set, the compression level to be used.
              From 0 (no compression), up to 3.
           title: compression_level
           type: integer
         disableSessionConnectionSharing:
-          $id: tensorflow.RPCOptions.disable_session_connection_sharing
+          additionalProperties: false
           description: Disables TCP connection sharing when opening a new RPC channel.
           title: disable_session_connection_sharing
           type: boolean
         numChannelsPerTarget:
-          $id: tensorflow.RPCOptions.num_channels_per_target
+          additionalProperties: false
           description: |-
             Setting num_channels_per_target > 0 allows uses of multiple channels to
              communicate to the same target. This can be used to improve the aggregate
@@ -2736,7 +2604,7 @@ components:
           title: num_channels_per_target
           type: integer
         useRpcForInprocessMaster:
-          $id: tensorflow.RPCOptions.use_rpc_for_inprocess_master
+          additionalProperties: false
           description: |-
             If true, always use RPC to contact the session target.
 
@@ -2748,7 +2616,6 @@ components:
       title: RPCOptions
       type: object
     tensorflow.RegisteredGradient:
-      $id: tensorflow.RegisteredGradient
       additionalProperties: false
       description: |-
         RegisteredGradient stores a gradient function that is registered in the
@@ -2757,19 +2624,18 @@ components:
          directly linked to any function.
       properties:
         gradientFunc:
-          $id: tensorflow.RegisteredGradient.gradient_func
+          additionalProperties: false
           description: The gradient function's name.
           title: gradient_func
           type: string
         registeredOpType:
-          $id: tensorflow.RegisteredGradient.registered_op_type
+          additionalProperties: false
           description: The gradient function's registered op type.
           title: registered_op_type
           type: string
       title: RegisteredGradient
       type: object
     tensorflow.ResourceHandleProto:
-      $id: tensorflow.ResourceHandleProto
       additionalProperties: false
       description: |-
         Protocol buffer representing a handle to a tensorflow resource. Handles are
@@ -2777,79 +2643,77 @@ components:
          a single run.
       properties:
         container:
-          $id: tensorflow.ResourceHandleProto.container
+          additionalProperties: false
           description: Container in which this resource is placed.
           title: container
           type: string
         device:
-          $id: tensorflow.ResourceHandleProto.device
+          additionalProperties: false
           description: Unique name for the device containing the resource.
           title: device
           type: string
         dtypesAndShapes:
-          $id: tensorflow.ResourceHandleProto.dtypes_and_shapes
+          additionalProperties: false
           description: Data types and shapes for the underlying resource.
           items:
-          - $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
+            $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
             type: object
           title: dtypes_and_shapes
           type: array
         hashCode:
-          $id: tensorflow.ResourceHandleProto.hash_code
+          additionalProperties: false
           description: |-
             Hash code for the type of the resource. Is only valid in the same device
              and in the same execution.
           title: hash_code
           type: number
         maybeTypeName:
-          $id: tensorflow.ResourceHandleProto.maybe_type_name
+          additionalProperties: false
           description: |-
             For debug-only, the name of the type pointed to by this handle, if
              available.
           title: maybe_type_name
           type: string
         name:
-          $id: tensorflow.ResourceHandleProto.name
+          additionalProperties: false
           description: Unique name of this resource.
           title: name
           type: string
       title: ResourceHandleProto
       type: object
     tensorflow.ResourceHandleProto.DtypeAndShape:
-      $id: tensorflow.ResourceHandleProto.DtypeAndShape
       additionalProperties: false
       description: Protocol buffer representing a pair of (data type, tensor shape).
       properties:
         dtype:
-          $id: tensorflow.ResourceHandleProto.DtypeAndShape.dtype
           $ref: '#/components/schemas/tensorflow.DataType'
+          additionalProperties: false
           description: ""
           title: dtype
         shape:
-          $id: tensorflow.ResourceHandleProto.DtypeAndShape.shape
           $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          additionalProperties: false
           description: ""
           title: shape
           type: object
       title: DtypeAndShape
       type: object
     tensorflow.RewriterConfig:
-      $id: tensorflow.RewriterConfig
       additionalProperties: false
       description: |-
         Graph rewriting is experimental and subject to change, not covered by any
          API stability guarantees.
       properties:
         arithmeticOptimization:
-          $id: tensorflow.RewriterConfig.arithmetic_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Arithmetic optimizations (default is ON)
              e.g. Simplify arithmetic ops; merge ops with same value (like constants).
           title: arithmetic_optimization
         autoMixedPrecision:
-          $id: tensorflow.RewriterConfig.auto_mixed_precision
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Optimize data types for CUDA (default is OFF).
              This will try to use float16 on GPU which is faster.
@@ -2857,8 +2721,8 @@ components:
              require the use of loss scaling to maintain model convergence.
           title: auto_mixed_precision
         autoMixedPrecisionCpu:
-          $id: tensorflow.RewriterConfig.auto_mixed_precision_cpu
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Emulate a model using data type float16 on CPU (default is OFF).
              This will try to emulate the float16 inputs and outputs of an operator
@@ -2867,8 +2731,8 @@ components:
              Note that this can change the numerical stability of the graph.
           title: auto_mixed_precision_cpu
         autoMixedPrecisionMkl:
-          $id: tensorflow.RewriterConfig.auto_mixed_precision_mkl
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Optimize data types for oneDNN (default is OFF).
              This will try to use bfloat16 on CPUs, which is faster.
@@ -2877,8 +2741,8 @@ components:
              It is replaced by auto_mixed_precision_onednn_bfloat16
           title: auto_mixed_precision_mkl
         autoMixedPrecisionOnednnBfloat16:
-          $id: tensorflow.RewriterConfig.auto_mixed_precision_onednn_bfloat16
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Optimize data types for oneDNN (default is OFF).
              This will try to use bfloat16 on CPUs, which is faster.
@@ -2886,82 +2750,82 @@ components:
              Note: this is equivalent to the deprecated option auto_mixed_precision_mkl
           title: auto_mixed_precision_onednn_bfloat16
         autoParallel:
-          $id: tensorflow.RewriterConfig.auto_parallel
           $ref: '#/components/schemas/tensorflow.AutoParallelOptions'
+          additionalProperties: false
           description: |-
             Configures AutoParallel optimization passes either through the
              meta-optimizer or when manually specified through the optimizers field.
           title: auto_parallel
           type: object
         commonSubgraphElimination:
-          $id: tensorflow.RewriterConfig.common_subgraph_elimination
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Common subgraph elimination (default is ON)
              e.g. Simplify arithmetic ops; merge ops with same value (like constants).
           title: common_subgraph_elimination
         constantFolding:
-          $id: tensorflow.RewriterConfig.constant_folding
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Fold constants (default is ON)
              Statically infer the value of tensors when possible, and materialize the
              result using constants.
           title: constant_folding
         cpuLayoutConversion:
-          $id: tensorflow.RewriterConfig.cpu_layout_conversion
           $ref: '#/components/schemas/tensorflow.RewriterConfig.CpuLayout'
+          additionalProperties: false
           description: CPU Conversion settings between NHCW and NCHW.
           title: cpu_layout_conversion
         customOptimizers:
-          $id: tensorflow.RewriterConfig.custom_optimizers
+          additionalProperties: false
           description: list of CustomGraphOptimizers to apply.
           items:
-          - $ref: '#/components/schemas/tensorflow.RewriterConfig.CustomGraphOptimizer'
+            $ref: '#/components/schemas/tensorflow.RewriterConfig.CustomGraphOptimizer'
             type: object
           title: custom_optimizers
           type: array
         debugStripper:
-          $id: tensorflow.RewriterConfig.debug_stripper
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: Strips debug-related nodes from the graph (off by default).
           title: debug_stripper
         dependencyOptimization:
-          $id: tensorflow.RewriterConfig.dependency_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Control dependency optimizations (default is ON).
              Remove redundant control dependencies, which may enable other optimization.
           title: dependency_optimization
         disableMetaOptimizer:
-          $id: tensorflow.RewriterConfig.disable_meta_optimizer
+          additionalProperties: false
           description: Disable the entire meta optimizer (off by default).
           title: disable_meta_optimizer
           type: boolean
         disableModelPruning:
-          $id: tensorflow.RewriterConfig.disable_model_pruning
+          additionalProperties: false
           description: If true, don't remove unnecessary ops from the graph
           title: disable_model_pruning
           type: boolean
         disableTfgOptimizer:
-          $id: tensorflow.RewriterConfig.disable_tfg_optimizer
+          additionalProperties: false
           description: Disable the TFG optimizer (off by default).
           title: disable_tfg_optimizer
           type: boolean
         experimentalConditionalCodeMotion:
-          $id: tensorflow.RewriterConfig.experimental_conditional_code_motion
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: Conditional code motion (default is ON).
           title: experimental_conditional_code_motion
         experimentalDisableCompressedTensorOptimization:
-          $id: tensorflow.RewriterConfig.experimental_disable_compressed_tensor_optimization
+          additionalProperties: false
           description: |-
             Disable optimizations that assume compressed tensors. Note that this flag
              is experimental and may be removed in the future.
           title: experimental_disable_compressed_tensor_optimization
           type: boolean
         experimentalDisableFoldingQuantizationEmulation:
-          $id: tensorflow.RewriterConfig.experimental_disable_folding_quantization_emulation
+          additionalProperties: false
           description: |-
             Disable folding quantization emulation ops such as FakeQuantWithMinMax* and
              QuantizeAndDequantize*. Some compilers (e.g. the TF-to-tflite converter)
@@ -2972,7 +2836,7 @@ components:
           title: experimental_disable_folding_quantization_emulation
           type: boolean
         failOnOptimizerErrors:
-          $id: tensorflow.RewriterConfig.fail_on_optimizer_errors
+          additionalProperties: false
           description: |-
             If true, any optimization pass failing will cause the MetaOptimizer to
              stop with an error. By default - or when set to false, failing passes are
@@ -2980,46 +2844,46 @@ components:
           title: fail_on_optimizer_errors
           type: boolean
         functionOptimization:
-          $id: tensorflow.RewriterConfig.function_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: Function optimizations (default is ON).
           title: function_optimization
         implementationSelector:
-          $id: tensorflow.RewriterConfig.implementation_selector
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Enable the swap of kernel implementations based on the device placement
              (default is ON).
           title: implementation_selector
         interOptimizerVerifierConfig:
-          $id: tensorflow.RewriterConfig.inter_optimizer_verifier_config
           $ref: '#/components/schemas/tensorflow.VerifierConfig'
+          additionalProperties: false
           description: VerifierConfig specifying the verifiers to be run after every
             optimizer.
           title: inter_optimizer_verifier_config
           type: object
         layoutOptimizer:
-          $id: tensorflow.RewriterConfig.layout_optimizer
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Optimize tensor layouts (default is ON)
              e.g. This will try to use NCHW layout on GPU which is faster.
           title: layout_optimizer
         loopOptimization:
-          $id: tensorflow.RewriterConfig.loop_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: Loop optimizations (default is ON).
           title: loop_optimization
         memoryOptimization:
-          $id: tensorflow.RewriterConfig.memory_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.MemOptType'
+          additionalProperties: false
           description: |-
             Configures memory optimization passes through the meta-optimizer. Has no
              effect on manually requested memory optimization passes in the optimizers
              field.
           title: memory_optimization
         memoryOptimizerTargetNodeNameScope:
-          $id: tensorflow.RewriterConfig.memory_optimizer_target_node_name_scope
+          additionalProperties: false
           description: |-
             A node name scope for node names which are valid outputs of recomputations.
              Inputs to nodes that match this scope may be recomputed (subject either to
@@ -3032,14 +2896,14 @@ components:
           title: memory_optimizer_target_node_name_scope
           type: string
         metaOptimizerIterations:
-          $id: tensorflow.RewriterConfig.meta_optimizer_iterations
           $ref: '#/components/schemas/tensorflow.RewriterConfig.NumIterationsType'
+          additionalProperties: false
           description: |-
             Controls how many times we run the optimizers in meta optimizer (default
              is once).
           title: meta_optimizer_iterations
         metaOptimizerTimeoutMs:
-          $id: tensorflow.RewriterConfig.meta_optimizer_timeout_ms
+          additionalProperties: false
           description: |-
             Maximum number of milliseconds to spend optimizing a single graph before
              timing out. If less than or equal to 0 (default value) the optimizer will
@@ -3047,7 +2911,7 @@ components:
           title: meta_optimizer_timeout_ms
           type: number
         minGraphNodes:
-          $id: tensorflow.RewriterConfig.min_graph_nodes
+          additionalProperties: false
           description: |-
             The minimum number of nodes in a graph to optimizer. For smaller graphs,
              optimization is skipped.
@@ -3056,7 +2920,7 @@ components:
           title: min_graph_nodes
           type: integer
         optimizers:
-          $id: tensorflow.RewriterConfig.optimizers
+          additionalProperties: false
           description: |-
             If non-empty, will use this as an alternative way to specify a list of
              optimizations to turn on and the order of the optimizations (replacing the
@@ -3071,58 +2935,57 @@ components:
              Custom optimizers (see custom_optimizers) that are not part of this
              schedule will be run after - in the order that they were specified.
           items:
-          - type: string
+            type: string
           title: optimizers
           type: array
         pinToHostOptimization:
-          $id: tensorflow.RewriterConfig.pin_to_host_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: Force small ops onto the CPU (default is OFF).
           title: pin_to_host_optimization
         postOptimizationVerifierConfig:
-          $id: tensorflow.RewriterConfig.post_optimization_verifier_config
           $ref: '#/components/schemas/tensorflow.VerifierConfig'
+          additionalProperties: false
           description: |-
             VerifierConfig specifying the verifiers to be run at the end, after all
              optimizers have run.
           title: post_optimization_verifier_config
           type: object
         remapping:
-          $id: tensorflow.RewriterConfig.remapping
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Remapping (default is ON)
              Remap subgraphs onto more efficient implementations.
           title: remapping
         scopedAllocatorOptimization:
-          $id: tensorflow.RewriterConfig.scoped_allocator_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Try to allocate some independent Op outputs contiguously in order to
              merge or eliminate downstream Ops (off by default).
           title: scoped_allocator_optimization
         scopedAllocatorOpts:
-          $id: tensorflow.RewriterConfig.scoped_allocator_opts
           $ref: '#/components/schemas/tensorflow.ScopedAllocatorOptions'
+          additionalProperties: false
           description: ""
           title: scoped_allocator_opts
           type: object
         shapeOptimization:
-          $id: tensorflow.RewriterConfig.shape_optimization
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: |-
             Shape optimizations (default is ON)
              Simplify computations made on shapes.
           title: shape_optimization
         usePluginOptimizers:
-          $id: tensorflow.RewriterConfig.use_plugin_optimizers
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
+          additionalProperties: false
           description: Optimizers registered by plugin (default is ON)
           title: use_plugin_optimizers
       title: RewriterConfig
       type: object
     tensorflow.RewriterConfig.CpuLayout:
-      $id: tensorflow.RewriterConfig.CpuLayout
       description: Enum for layout conversion between NCHW and NHWC on CPU. Default
         is OFF.
       enum:
@@ -3135,48 +2998,39 @@ components:
       title: CpuLayout
       type: string
     tensorflow.RewriterConfig.CustomGraphOptimizer:
-      $id: tensorflow.RewriterConfig.CustomGraphOptimizer
       additionalProperties: false
       description: Message to describe custom graph optimizer and its parameters
       properties:
         name:
-          $id: tensorflow.RewriterConfig.CustomGraphOptimizer.name
+          additionalProperties: false
           description: ""
           title: name
           type: string
         parameterMap:
-          $id: tensorflow.RewriterConfig.CustomGraphOptimizer.parameter_map
-          additionalProperties:
-            $id: tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry.value
-            $ref: '#/components/schemas/tensorflow.AttrValue'
-            description: ""
-            title: value
-            type: object
+          additionalProperties: false
           description: ""
           title: parameter_map
           type: object
       title: CustomGraphOptimizer
       type: object
     tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry:
-      $id: tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry
       additionalProperties: false
       description: ""
       properties:
         key:
-          $id: tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry.key
+          additionalProperties: false
           description: ""
           title: key
           type: string
         value:
-          $id: tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry.value
           $ref: '#/components/schemas/tensorflow.AttrValue'
+          additionalProperties: false
           description: ""
           title: value
           type: object
       title: ParameterMapEntry
       type: object
     tensorflow.RewriterConfig.MemOptType:
-      $id: tensorflow.RewriterConfig.MemOptType
       description: ""
       enum:
       - - DEFAULT_MEM_OPT
@@ -3196,7 +3050,6 @@ components:
       title: MemOptType
       type: string
     tensorflow.RewriterConfig.NumIterationsType:
-      $id: tensorflow.RewriterConfig.NumIterationsType
       description: |-
         Enum controlling the number of times to run optimizers. The default is to
          run them twice.
@@ -3210,7 +3063,6 @@ components:
       title: NumIterationsType
       type: string
     tensorflow.RewriterConfig.Toggle:
-      $id: tensorflow.RewriterConfig.Toggle
       description: ""
       enum:
       - - DEFAULT
@@ -3228,21 +3080,19 @@ components:
       title: Toggle
       type: string
     tensorflow.ScopedAllocatorOptions:
-      $id: tensorflow.ScopedAllocatorOptions
       additionalProperties: false
       description: ""
       properties:
         enableOp:
-          $id: tensorflow.ScopedAllocatorOptions.enable_op
+          additionalProperties: false
           description: If present, only perform optimization for these ops.
           items:
-          - type: string
+            type: string
           title: enable_op
           type: array
       title: ScopedAllocatorOptions
       type: object
     tensorflow.SessionMetadata:
-      $id: tensorflow.SessionMetadata
       additionalProperties: false
       description: |-
         Metadata about the session.
@@ -3255,113 +3105,112 @@ components:
          NOTE: This is currently used and propagated only by the direct session.
       properties:
         name:
-          $id: tensorflow.SessionMetadata.name
+          additionalProperties: false
           description: ""
           title: name
           type: string
         version:
-          $id: tensorflow.SessionMetadata.version
+          additionalProperties: false
           description: The version is optional. If set, needs to be >= 0.
           title: version
           type: number
       title: SessionMetadata
       type: object
     tensorflow.TensorProto:
-      $id: tensorflow.TensorProto
       additionalProperties: false
       description: Protocol buffer representing a tensor.
       properties:
         boolVal:
-          $id: tensorflow.TensorProto.bool_val
+          additionalProperties: false
           description: DT_BOOL
           items:
-          - type: boolean
+            type: boolean
           title: bool_val
           type: array
         dcomplexVal:
-          $id: tensorflow.TensorProto.dcomplex_val
+          additionalProperties: false
           description: |-
             DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
              and imaginary parts of i-th double precision complex.
           items:
-          - type: number
+            type: number
           title: dcomplex_val
           type: array
         doubleVal:
-          $id: tensorflow.TensorProto.double_val
+          additionalProperties: false
           description: DT_DOUBLE.
           items:
-          - type: number
+            type: number
           title: double_val
           type: array
         dtype:
-          $id: tensorflow.TensorProto.dtype
           $ref: '#/components/schemas/tensorflow.DataType'
+          additionalProperties: false
           description: ""
           title: dtype
         float8Val:
-          $id: tensorflow.TensorProto.float8_val
+          additionalProperties: false
           description: |-
             DT_FLOAT8_*, use variable-sized set of bytes
              (i.e. the equivalent of repeated uint8, if such a thing existed).
           title: float8_val
           type: string
         floatVal:
-          $id: tensorflow.TensorProto.float_val
+          additionalProperties: false
           description: DT_FLOAT.
           items:
-          - type: number
+            type: number
           title: float_val
           type: array
         halfVal:
-          $id: tensorflow.TensorProto.half_val
+          additionalProperties: false
           description: |-
             DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll
              have some pointless zero padding for each value here.
           items:
-          - type: integer
+            type: integer
           title: half_val
           type: array
         int64Val:
-          $id: tensorflow.TensorProto.int64_val
+          additionalProperties: false
           description: DT_INT64
           items:
-          - type: number
+            type: number
           title: int64_val
           type: array
         intVal:
-          $id: tensorflow.TensorProto.int_val
+          additionalProperties: false
           description: DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8.
           items:
-          - type: integer
+            type: integer
           title: int_val
           type: array
         resourceHandleVal:
-          $id: tensorflow.TensorProto.resource_handle_val
+          additionalProperties: false
           description: DT_RESOURCE
           items:
-          - $ref: '#/components/schemas/tensorflow.ResourceHandleProto'
+            $ref: '#/components/schemas/tensorflow.ResourceHandleProto'
             type: object
           title: resource_handle_val
           type: array
         scomplexVal:
-          $id: tensorflow.TensorProto.scomplex_val
+          additionalProperties: false
           description: |-
             DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
              and imaginary parts of i-th single precision complex.
           items:
-          - type: number
+            type: number
           title: scomplex_val
           type: array
         stringVal:
-          $id: tensorflow.TensorProto.string_val
+          additionalProperties: false
           description: DT_STRING
           items:
-          - type: string
+            type: string
           title: string_val
           type: array
         tensorContent:
-          $id: tensorflow.TensorProto.tensor_content
+          additionalProperties: false
           description: |-
             Serialized raw tensor content from either Tensor::AsProtoTensorContent or
              memcpy in tensorflow::grpc::EncodeTensorToByteBuffer. This representation
@@ -3371,35 +3220,35 @@ components:
           title: tensor_content
           type: string
         tensorShape:
-          $id: tensorflow.TensorProto.tensor_shape
           $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          additionalProperties: false
           description: 'Shape of the tensor.  TODO(touts): sort out the 0-rank issues.'
           title: tensor_shape
           type: object
         uint32Val:
-          $id: tensorflow.TensorProto.uint32_val
+          additionalProperties: false
           description: DT_UINT32
           items:
-          - type: integer
+            type: integer
           title: uint32_val
           type: array
         uint64Val:
-          $id: tensorflow.TensorProto.uint64_val
+          additionalProperties: false
           description: DT_UINT64
           items:
-          - type: number
+            type: number
           title: uint64_val
           type: array
         variantVal:
-          $id: tensorflow.TensorProto.variant_val
+          additionalProperties: false
           description: DT_VARIANT
           items:
-          - $ref: '#/components/schemas/tensorflow.VariantTensorDataProto'
+            $ref: '#/components/schemas/tensorflow.VariantTensorDataProto'
             type: object
           title: variant_val
           type: array
         versionNumber:
-          $id: tensorflow.TensorProto.version_number
+          additionalProperties: false
           description: |-
             Version number.
 
@@ -3411,12 +3260,11 @@ components:
       title: TensorProto
       type: object
     tensorflow.TensorShapeProto:
-      $id: tensorflow.TensorShapeProto
       additionalProperties: false
       description: Dimensions of a tensor.
       properties:
         dim:
-          $id: tensorflow.TensorShapeProto.dim
+          additionalProperties: false
           description: |-
             Dimensions of the tensor, such as {"input", 30}, {"output", 40}
              for a 30 x 40 2D tensor.  If an entry has size -1, this
@@ -3432,12 +3280,12 @@ components:
 
              If "dim.size()" > 0, "unknown_rank" must be false.
           items:
-          - $ref: '#/components/schemas/tensorflow.TensorShapeProto.Dim'
+            $ref: '#/components/schemas/tensorflow.TensorShapeProto.Dim'
             type: object
           title: dim
           type: array
         unknownRank:
-          $id: tensorflow.TensorShapeProto.unknown_rank
+          additionalProperties: false
           description: |-
             If true, the number of dimensions in the shape is unknown.
 
@@ -3447,17 +3295,16 @@ components:
       title: TensorShapeProto
       type: object
     tensorflow.TensorShapeProto.Dim:
-      $id: tensorflow.TensorShapeProto.Dim
       additionalProperties: false
       description: One dimension of the tensor.
       properties:
         name:
-          $id: tensorflow.TensorShapeProto.Dim.name
+          additionalProperties: false
           description: Optional name of the tensor dimension.
           title: name
           type: string
         size:
-          $id: tensorflow.TensorShapeProto.Dim.size
+          additionalProperties: false
           description: |-
             Size of the tensor in that dimension.
              This value must be >= -1, but values of -1 are reserved for "unknown"
@@ -3469,12 +3316,11 @@ components:
       title: Dim
       type: object
     tensorflow.ThreadPoolOptionProto:
-      $id: tensorflow.ThreadPoolOptionProto
       additionalProperties: false
       description: ""
       properties:
         globalName:
-          $id: tensorflow.ThreadPoolOptionProto.global_name
+          additionalProperties: false
           description: |-
             The global name of the threadpool.
 
@@ -3494,7 +3340,7 @@ components:
           title: global_name
           type: string
         numThreads:
-          $id: tensorflow.ThreadPoolOptionProto.num_threads
+          additionalProperties: false
           description: |-
             The number of threads in the pool.
 
@@ -3505,44 +3351,42 @@ components:
       title: ThreadPoolOptionProto
       type: object
     tensorflow.VariantTensorDataProto:
-      $id: tensorflow.VariantTensorDataProto
       additionalProperties: false
       description: Protocol buffer representing the serialization format of DT_VARIANT
         tensors.
       properties:
         metadata:
-          $id: tensorflow.VariantTensorDataProto.metadata
+          additionalProperties: false
           description: Portions of the object that are not Tensors.
           title: metadata
           type: string
         tensors:
-          $id: tensorflow.VariantTensorDataProto.tensors
+          additionalProperties: false
           description: Tensors contained within objects being serialized.
           items:
-          - $ref: '#/components/schemas/tensorflow.TensorProto'
+            $ref: '#/components/schemas/tensorflow.TensorProto'
             type: object
           title: tensors
           type: array
         typeName:
-          $id: tensorflow.VariantTensorDataProto.type_name
+          additionalProperties: false
           description: Name of the type of objects being serialized.
           title: type_name
           type: string
       title: VariantTensorDataProto
       type: object
     tensorflow.VerifierConfig:
-      $id: tensorflow.VerifierConfig
       additionalProperties: false
       description: The config for graph verifiers.
       properties:
         structureVerifier:
-          $id: tensorflow.VerifierConfig.structure_verifier
           $ref: '#/components/schemas/tensorflow.VerifierConfig.Toggle'
+          additionalProperties: false
           description: Perform structural validation on a tensorflow graph. Default
             is OFF.
           title: structure_verifier
         verificationTimeoutInMs:
-          $id: tensorflow.VerifierConfig.verification_timeout_in_ms
+          additionalProperties: false
           description: |-
             Deadline for completion of all verification i.e. all the Toggle ON
              verifiers must complete execution within this time.
@@ -3551,7 +3395,6 @@ components:
       title: VerifierConfig
       type: object
     tensorflow.VerifierConfig.Toggle:
-      $id: tensorflow.VerifierConfig.Toggle
       description: ""
       enum:
       - - DEFAULT
@@ -3563,7 +3406,6 @@ components:
       title: Toggle
       type: string
     tensorflow.VersionDef:
-      $id: tensorflow.VersionDef
       additionalProperties: false
       description: |-
         Version information for a piece of serialized data
@@ -3580,21 +3422,21 @@ components:
            consumer not in bad_consumers
       properties:
         badConsumers:
-          $id: tensorflow.VersionDef.bad_consumers
+          additionalProperties: false
           description: Specific consumer versions which are disallowed (e.g. due to
             bugs).
           items:
-          - type: integer
+            type: integer
           title: bad_consumers
           type: array
         minConsumer:
-          $id: tensorflow.VersionDef.min_consumer
+          additionalProperties: false
           description: Any consumer below this version is not allowed to consume this
             data.
           title: min_consumer
           type: integer
         producer:
-          $id: tensorflow.VersionDef.producer
+          additionalProperties: false
           description: The version of the code that produced this data.
           title: producer
           type: integer

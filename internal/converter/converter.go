@@ -170,3 +170,7 @@ func formatComments(loc protoreflect.SourceLocation) string {
 	}
 	return strings.TrimSpace(builder.String())
 }
+
+func BoolPtr(b bool) *bool {
+	return &b
+}

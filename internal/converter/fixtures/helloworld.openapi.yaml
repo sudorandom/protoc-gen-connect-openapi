@@ -40,8 +40,8 @@ components:
       $ref: '#/components/schemas/helloworld.HelloReply'
   schemas:
     connect.error:
-      $id: connect.error
-      description: null
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
       properties:
         code:
           enum:
@@ -65,27 +65,25 @@ components:
           type: string
         message:
           type: string
-      title: null
+      title: Connect Error
       type: object
     helloworld.HelloReply:
-      $id: helloworld.HelloReply
       additionalProperties: false
       description: The response message containing the greetings
       properties:
         message:
-          $id: helloworld.HelloReply.message
+          additionalProperties: false
           description: ""
           title: message
           type: string
       title: HelloReply
       type: object
     helloworld.HelloRequest:
-      $id: helloworld.HelloRequest
       additionalProperties: false
       description: The request message containing the user's name.
       properties:
         name:
-          $id: helloworld.HelloRequest.name
+          additionalProperties: false
           description: ""
           title: name
           type: string

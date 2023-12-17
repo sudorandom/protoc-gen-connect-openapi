@@ -10,8 +10,8 @@ components:
       $ref: '#/components/schemas/connect.error'
   schemas:
     connect.error:
-      $id: connect.error
-      description: null
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
       properties:
         code:
           enum:
@@ -35,35 +35,33 @@ components:
           type: string
         message:
           type: string
-      title: null
+      title: Connect Error
       type: object
     messages.ArrayOfMessages:
-      $id: messages.ArrayOfMessages
       additionalProperties: false
       description: ""
       properties:
         description:
-          $id: messages.ArrayOfMessages.description
+          additionalProperties: false
           description: ""
           title: description
           type: string
         things:
-          $id: messages.ArrayOfMessages.things
+          additionalProperties: false
           description: ""
           items:
-          - $ref: '#/components/schemas/messages.Thing'
+            $ref: '#/components/schemas/messages.Thing'
             type: object
           title: things
           type: array
       title: ArrayOfMessages
       type: object
     messages.Thing:
-      $id: messages.Thing
       additionalProperties: false
       description: ""
       properties:
         name:
-          $id: messages.Thing.name
+          additionalProperties: false
           description: ""
           title: name
           type: string
