@@ -11,9 +11,6 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
-		loc := fd.SourceLocations().ByDescriptor(service)
-		description := formatComments(loc)
-
 		methods := service.Methods()
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
@@ -35,28 +32,15 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 			// Responses
 			responses := openapi31.Responses{
 				Default: &openapi31.ResponseOrReference{
-					Response: &openapi31.Response{
-						Content: map[string]openapi31.MediaType{
-							"application/json": {
-								Schema: map[string]interface{}{
-									"$ref": "#/components/responses/connect.error",
-								},
-							},
-						},
+					Reference: &openapi31.Reference{
+						Ref: "#/components/responses/connect.error",
 					},
 				},
 			}
 			if !IsEmpty(method.Input()) {
 				responses.WithMapOfResponseOrReferenceValuesItem("200", openapi31.ResponseOrReference{
-					Response: &openapi31.Response{
-						Description: description,
-						Content: map[string]openapi31.MediaType{
-							"application/json": {
-								Schema: map[string]interface{}{
-									"$ref": "#/components/responses/" + formatTypeRef(string(method.Output().FullName())),
-								},
-							},
-						},
+					Reference: &openapi31.Reference{
+						Ref: "#/components/responses/" + formatTypeRef(string(method.Output().FullName())),
 					},
 				})
 			}

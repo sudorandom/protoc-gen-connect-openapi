@@ -22,15 +22,13 @@ import (
 type Options struct {
 	// Format can be either "yaml" or "json"
 	Format              string
-	Version             string
 	BaseOpenAPIYAMLPath string
 	BaseOpenAPIJSONPath string
 }
 
 func parseOptions(s string) (Options, error) {
 	opts := Options{
-		Version: "v1.0.0",
-		Format:  "yaml",
+		Format: "yaml",
 	}
 
 	for _, param := range strings.Split(s, ",") {
@@ -57,8 +55,6 @@ func parseOptions(s string) (Options, error) {
 			default:
 				return opts, fmt.Errorf("the file extention for 'base' should end with yaml or json, not '%s'", ext)
 			}
-		case strings.HasPrefix(param, "version="):
-			opts.Version = param[8:]
 		default:
 			return opts, fmt.Errorf("invalid parameter: %s", param)
 		}
@@ -122,7 +118,6 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		spec := openapi31.Spec{Openapi: "3.1.0"}
 		spec.SetTitle(string(fd.FullName()))
 		spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
-		spec.SetVersion(opts.Version)
 
 		if opts.BaseOpenAPIJSONPath != "" {
 			baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
