@@ -114,6 +114,7 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
 			isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
+
 			op := &openapi31.Operation{}
 			op.WithTags(string(service.FullName()))
 			loc := fd.SourceLocations().ByDescriptor(method)
@@ -121,11 +122,11 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 
 			// Request Body
 			if !IsEmpty(method.Input()) {
-				inputRef := "#/components/schemas/" + formatTypeRef(string(method.Input().FullName()))
-				components.WithRequestBodiesItem(formatTypeRef(string(method.Input().FullName())),
+				inputName := string(method.Input().FullName())
+				components.WithRequestBodiesItem(formatTypeRef(string(method.FullName())+"."+inputName),
 					openapi31.RequestBodyOrReference{
 						RequestBody: &openapi31.RequestBody{
-							Content:  makeMediaTypes(inputRef, true, isStreaming),
+							Content:  makeMediaTypes("#/components/schemas/"+formatTypeRef(inputName), true, isStreaming),
 							Required: BoolPtr(true),
 						},
 					},
@@ -133,11 +134,11 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 			}
 
 			if !IsEmpty(method.Output()) {
-				outputRef := "#/components/schemas/" + formatTypeRef(string(method.Output().FullName()))
-				components.WithResponsesItem(formatTypeRef(string(method.Output().FullName())),
+				outputName := string(method.Output().FullName())
+				components.WithResponsesItem(formatTypeRef(string(method.FullName())+"."+outputName),
 					openapi31.ResponseOrReference{
 						Response: &openapi31.Response{
-							Content: makeMediaTypes(outputRef, false, isStreaming),
+							Content: makeMediaTypes("#/components/schemas/"+formatTypeRef(outputName), false, isStreaming),
 						},
 					},
 				)
@@ -177,7 +178,7 @@ func makeMediaTypes(ref string, isRequest, isStreaming bool) map[string]openapi3
 	mediaTypes := map[string]openapi31.MediaType{}
 	for _, protocol := range Protocols {
 		// Make sure the protocol supports streaming if this is a streaming RPC
-		if isStreaming && !protocol.IsStreaming {
+		if isStreaming != protocol.IsStreaming {
 			continue
 		}
 
@@ -192,10 +193,10 @@ func makeMediaTypes(ref string, isRequest, isStreaming bool) map[string]openapi3
 		if description != "" {
 			mediaTypes[protocol.ContentType] = openapi31.MediaType{
 				Schema: map[string]interface{}{
-					"type":   jsonschema.String.Type(),
 					"format": "binary",
+					"type":   jsonschema.Object.Type(),
 					"properties": map[string]jsonschema.SchemaOrBool{
-						"contents": {
+						"protobufBinaryContents": {
 							TypeObject: (&jsonschema.Schema{}).WithRef(ref),
 						},
 					},

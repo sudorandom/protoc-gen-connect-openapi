@@ -2,41 +2,71 @@ openapi: 3.1.0
 info:
   description: ""
   title: helloworld
-  version: v1.0.0
+  version: ""
 paths:
   /helloworld.Greeter/SayHello:
     post:
       description: Sends a greeting
       requestBody:
-        $ref: '#/components/requestBodies/helloworld.HelloRequest'
+        $ref: '#/components/requestBodies/helloworld.Greeter.SayHello.helloworld.HelloRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/helloworld.HelloReply'
-          description: The greeting service definition.
+          $ref: '#/components/responses/helloworld.Greeter.SayHello.helloworld.HelloReply'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - helloworld.Greeter
 components:
   requestBodies:
-    helloworld.HelloRequest:
+    helloworld.Greeter.SayHello.helloworld.HelloRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/helloworld.HelloRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/helloworld.HelloRequest'
+            type: object
       required: true
   responses:
     connect.error:
-      $ref: '#/components/schemas/connect.error'
-    helloworld.HelloReply:
-      $ref: '#/components/schemas/helloworld.HelloReply'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/connect.error'
+            type: object
+      description: ""
+    helloworld.Greeter.SayHello.helloworld.HelloReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/helloworld.HelloReply'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/helloworld.HelloReply'
+            type: object
+      description: ""
   schemas:
     connect.error:
       additionalProperties: false

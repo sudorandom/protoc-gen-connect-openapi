@@ -3,7 +3,7 @@
   "info": {
     "title": "helloworld",
     "description": "",
-    "version": "v1.0.0"
+    "version": ""
   },
   "paths": {
     "/helloworld.Greeter/SayHello": {
@@ -13,28 +13,14 @@
         ],
         "description": "Sends a greeting",
         "requestBody": {
-          "$ref": "#/components/requestBodies/helloworld.HelloRequest"
+          "$ref": "#/components/requestBodies/helloworld.Greeter.SayHello.helloworld.HelloRequest"
         },
         "responses": {
           "default": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/connect.error"
-                }
-              }
-            }
+            "$ref": "#/components/responses/connect.error"
           },
           "200": {
-            "description": "The greeting service definition.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/responses/helloworld.HelloReply"
-                }
-              }
-            }
+            "$ref": "#/components/responses/helloworld.Greeter.SayHello.helloworld.HelloReply"
           }
         }
       }
@@ -107,18 +93,68 @@
     },
     "responses": {
       "connect.error": {
-        "$ref": "#/components/schemas/connect.error"
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/connect.error"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "description": "The response is binary-concoded protobuf without gRPC framing. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
+              "format": "binary",
+              "properties": {
+                "protobufBinaryContents": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "type": "object"
+            }
+          }
+        }
       },
-      "helloworld.HelloReply": {
-        "$ref": "#/components/schemas/helloworld.HelloReply"
+      "helloworld.Greeter.SayHello.helloworld.HelloReply": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/helloworld.HelloReply"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "description": "The response is binary-concoded protobuf without gRPC framing. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
+              "format": "binary",
+              "properties": {
+                "protobufBinaryContents": {
+                  "$ref": "#/components/schemas/helloworld.HelloReply"
+                }
+              },
+              "type": "object"
+            }
+          }
+        }
       }
     },
     "requestBodies": {
-      "helloworld.HelloRequest": {
+      "helloworld.Greeter.SayHello.helloworld.HelloRequest": {
         "content": {
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/helloworld.HelloRequest"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "description": "The request is binary-concoded protobuf without gRPC framing. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
+              "format": "binary",
+              "properties": {
+                "protobufBinaryContents": {
+                  "$ref": "#/components/schemas/helloworld.HelloRequest"
+                }
+              },
+              "type": "object"
             }
           }
         },

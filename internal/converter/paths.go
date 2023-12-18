@@ -22,9 +22,10 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 			// Request Body
 			item := openapi31.PathItem{}
 			if !IsEmpty(method.Input()) {
+				id := formatTypeRef(string(method.FullName() + "." + method.Input().FullName()))
 				op.WithRequestBody(openapi31.RequestBodyOrReference{
 					Reference: &openapi31.Reference{
-						Ref: "#/components/requestBodies/" + formatTypeRef(string(method.Input().FullName())),
+						Ref: "#/components/requestBodies/" + id,
 					},
 				})
 			}
@@ -37,17 +38,19 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 					},
 				},
 			}
-			if !IsEmpty(method.Input()) {
+			if !IsEmpty(method.Output()) {
+				id := formatTypeRef(string(method.FullName() + "." + method.Output().FullName()))
 				responses.WithMapOfResponseOrReferenceValuesItem("200", openapi31.ResponseOrReference{
 					Reference: &openapi31.Reference{
-						Ref: "#/components/responses/" + formatTypeRef(string(method.Output().FullName())),
+						Ref: "#/components/responses/" + id,
 					},
 				})
 			}
 			op.WithResponses(responses)
 
+			isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
 			options := method.Options().(*descriptorpb.MethodOptions)
-			if options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS {
+			if options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS && !isStreaming {
 				item.Get = op
 			} else {
 				item.Post = op

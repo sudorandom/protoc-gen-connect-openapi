@@ -2,89 +2,427 @@ openapi: 3.1.0
 info:
   description: ""
   title: envoy.test
-  version: v1.0.0
+  version: ""
 paths:
   /envoy.test.ClusterDiscoveryService/DeltaClusters:
     post:
       description: ""
       requestBody:
-        $ref: '#/components/requestBodies/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+        $ref: '#/components/requestBodies/envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/envoy.service.discovery.v3.DeltaDiscoveryResponse'
-          description: ""
+          $ref: '#/components/responses/envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - envoy.test.ClusterDiscoveryService
   /envoy.test.ClusterDiscoveryService/FetchClusters:
     post:
       description: ""
       requestBody:
-        $ref: '#/components/requestBodies/envoy.service.discovery.v3.DiscoveryRequest'
+        $ref: '#/components/requestBodies/envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/envoy.service.discovery.v3.DiscoveryResponse'
-          description: ""
+          $ref: '#/components/responses/envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - envoy.test.ClusterDiscoveryService
   /envoy.test.ClusterDiscoveryService/StreamClusters:
     post:
       description: ""
       requestBody:
-        $ref: '#/components/requestBodies/envoy.service.discovery.v3.DiscoveryRequest'
+        $ref: '#/components/requestBodies/envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/envoy.service.discovery.v3.DiscoveryResponse'
-          description: ""
+          $ref: '#/components/responses/envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - envoy.test.ClusterDiscoveryService
 components:
   requestBodies:
-    envoy.service.discovery.v3.DeltaDiscoveryRequest:
+    envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryRequest:
       content:
-        application/json:
+        application/connect+json:
           schema:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            description: The request is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The request is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/grpc:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The request is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The request is uses the gRPC-Web protocol but with JSON encoding.
+              See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+            type: object
       required: true
-    envoy.service.discovery.v3.DiscoveryRequest:
+    envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+      required: true
+    envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryRequest:
+      content:
+        application/connect+json:
+          schema:
+            description: The request is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The request is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/grpc:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The request is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The request is uses the gRPC-Web protocol but with JSON encoding.
+              See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+            type: object
       required: true
   responses:
     connect.error:
-      $ref: '#/components/schemas/connect.error'
-    envoy.service.discovery.v3.DeltaDiscoveryResponse:
-      $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
-    envoy.service.discovery.v3.DiscoveryResponse:
-      $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/connect.error'
+            type: object
+      description: ""
+    envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryResponse:
+      content:
+        application/connect+json:
+          schema:
+            description: The response is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The response is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/grpc:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The response is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The response is uses the gRPC-Web protocol but with JSON
+              encoding. See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            type: object
+      description: ""
+    envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+      description: ""
+    envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryResponse:
+      content:
+        application/connect+json:
+          schema:
+            description: The response is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The response is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/grpc:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The response is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The response is uses the gRPC-Web protocol but with JSON
+              encoding. See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            type: object
+      description: ""
   schemas:
     connect.error:
       additionalProperties: false

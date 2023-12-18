@@ -2,146 +2,90 @@ openapi: 3.1.0
 info:
   description: ""
   title: tensorflowtest
-  version: v1.0.0
+  version: ""
 paths:
   /tensorflowtest.MasterService/CloseSession:
     post:
       description: Closes a session.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.CloseSessionRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.CloseSession.tensorflow.CloseSessionRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.CloseSessionResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.CloseSession.tensorflow.CloseSessionResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/CreateSession:
     post:
       description: Creates a session.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.CreateSessionRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.CreateSession.tensorflow.CreateSessionRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.CreateSessionResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.CreateSession.tensorflow.CreateSessionResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/ExtendSession:
     post:
       description: Extends a session.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.ExtendSessionRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.ExtendSession.tensorflow.ExtendSessionRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.ExtendSessionResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.ExtendSession.tensorflow.ExtendSessionResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/ListDevices:
     post:
       description: List the devices usable by the master.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.ListDevicesRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.ListDevices.tensorflow.ListDevicesRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.ListDevicesResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.ListDevices.tensorflow.ListDevicesResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/MakeCallable:
     post:
       description: Registers a callable for execution with RunCallable.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.MakeCallableRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.MakeCallable.tensorflow.MakeCallableRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.MakeCallableResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.MakeCallable.tensorflow.MakeCallableResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/PartialRunSetup:
     post:
       description: Prepares future partial run calls.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.PartialRunSetupRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.PartialRunSetup.tensorflow.PartialRunSetupRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.PartialRunSetupResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.PartialRunSetup.tensorflow.PartialRunSetupResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/ReleaseCallable:
     post:
       description: Frees resources associated with a callable registered with MakeCallable.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.ReleaseCallableRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.ReleaseCallable.tensorflow.ReleaseCallableRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.ReleaseCallableResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.ReleaseCallable.tensorflow.ReleaseCallableResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/Reset:
@@ -151,147 +95,377 @@ paths:
          will no longer affect fresh ones via the resources in containers listed in
          the ResetRequest.  See ResetRequest for more details.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.ResetRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.Reset.tensorflow.ResetRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.ResetResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.Reset.tensorflow.ResetResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/RunCallable:
     post:
       description: Executes a callable registered with MakeCallable.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.RunCallableRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.RunCallable.tensorflow.RunCallableRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.RunCallableResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.RunCallable.tensorflow.RunCallableResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
   /tensorflowtest.MasterService/RunStep:
     post:
       description: Drives the graph computation.
       requestBody:
-        $ref: '#/components/requestBodies/tensorflow.RunStepRequest'
+        $ref: '#/components/requestBodies/tensorflowtest.MasterService.RunStep.tensorflow.RunStepRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/tensorflow.RunStepResponse'
-          description: ""
+          $ref: '#/components/responses/tensorflowtest.MasterService.RunStep.tensorflow.RunStepResponse'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - tensorflowtest.MasterService
 components:
   requestBodies:
-    tensorflow.CloseSessionRequest:
+    tensorflowtest.MasterService.CloseSession.tensorflow.CloseSessionRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.CloseSessionRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.CloseSessionRequest'
+            type: object
       required: true
-    tensorflow.CreateSessionRequest:
+    tensorflowtest.MasterService.CreateSession.tensorflow.CreateSessionRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.CreateSessionRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.CreateSessionRequest'
+            type: object
       required: true
-    tensorflow.ExtendSessionRequest:
+    tensorflowtest.MasterService.ExtendSession.tensorflow.ExtendSessionRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ExtendSessionRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ExtendSessionRequest'
+            type: object
       required: true
-    tensorflow.ListDevicesRequest:
+    tensorflowtest.MasterService.ListDevices.tensorflow.ListDevicesRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ListDevicesRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ListDevicesRequest'
+            type: object
       required: true
-    tensorflow.MakeCallableRequest:
+    tensorflowtest.MasterService.MakeCallable.tensorflow.MakeCallableRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.MakeCallableRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.MakeCallableRequest'
+            type: object
       required: true
-    tensorflow.PartialRunSetupRequest:
+    tensorflowtest.MasterService.PartialRunSetup.tensorflow.PartialRunSetupRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.PartialRunSetupRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.PartialRunSetupRequest'
+            type: object
       required: true
-    tensorflow.ReleaseCallableRequest:
+    tensorflowtest.MasterService.ReleaseCallable.tensorflow.ReleaseCallableRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ReleaseCallableRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ReleaseCallableRequest'
+            type: object
       required: true
-    tensorflow.ResetRequest:
+    tensorflowtest.MasterService.Reset.tensorflow.ResetRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.ResetRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ResetRequest'
+            type: object
       required: true
-    tensorflow.RunCallableRequest:
+    tensorflowtest.MasterService.RunCallable.tensorflow.RunCallableRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.RunCallableRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.RunCallableRequest'
+            type: object
       required: true
-    tensorflow.RunStepRequest:
+    tensorflowtest.MasterService.RunStep.tensorflow.RunStepRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/tensorflow.RunStepRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.RunStepRequest'
+            type: object
       required: true
   responses:
     connect.error:
-      $ref: '#/components/schemas/connect.error'
-    tensorflow.CloseSessionResponse:
-      $ref: '#/components/schemas/tensorflow.CloseSessionResponse'
-    tensorflow.CreateSessionResponse:
-      $ref: '#/components/schemas/tensorflow.CreateSessionResponse'
-    tensorflow.ExtendSessionResponse:
-      $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
-    tensorflow.ListDevicesResponse:
-      $ref: '#/components/schemas/tensorflow.ListDevicesResponse'
-    tensorflow.MakeCallableResponse:
-      $ref: '#/components/schemas/tensorflow.MakeCallableResponse'
-    tensorflow.PartialRunSetupResponse:
-      $ref: '#/components/schemas/tensorflow.PartialRunSetupResponse'
-    tensorflow.ReleaseCallableResponse:
-      $ref: '#/components/schemas/tensorflow.ReleaseCallableResponse'
-    tensorflow.ResetResponse:
-      $ref: '#/components/schemas/tensorflow.ResetResponse'
-    tensorflow.RunCallableResponse:
-      $ref: '#/components/schemas/tensorflow.RunCallableResponse'
-    tensorflow.RunStepResponse:
-      $ref: '#/components/schemas/tensorflow.RunStepResponse'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/connect.error'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.CloseSession.tensorflow.CloseSessionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.CloseSessionResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.CloseSessionResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.CreateSession.tensorflow.CreateSessionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.CreateSessionResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.CreateSessionResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.ExtendSession.tensorflow.ExtendSessionResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.ListDevices.tensorflow.ListDevicesResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ListDevicesResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ListDevicesResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.MakeCallable.tensorflow.MakeCallableResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.MakeCallableResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.MakeCallableResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.PartialRunSetup.tensorflow.PartialRunSetupResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.PartialRunSetupResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.PartialRunSetupResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.ReleaseCallable.tensorflow.ReleaseCallableResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ReleaseCallableResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ReleaseCallableResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.Reset.tensorflow.ResetResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.ResetResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.ResetResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.RunCallable.tensorflow.RunCallableResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.RunCallableResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.RunCallableResponse'
+            type: object
+      description: ""
+    tensorflowtest.MasterService.RunStep.tensorflow.RunStepResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/tensorflow.RunStepResponse'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/tensorflow.RunStepResponse'
+            type: object
+      description: ""
   schemas:
     connect.error:
       additionalProperties: false

@@ -2,12 +2,26 @@ openapi: 3.1.0
 info:
   description: ""
   title: samples
-  version: v1.0.0
+  version: ""
 paths: {}
 components:
   responses:
     connect.error:
-      $ref: '#/components/schemas/connect.error'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/connect.error'
+            type: object
+      description: ""
   schemas:
     connect.error:
       additionalProperties: false

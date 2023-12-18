@@ -2,46 +2,30 @@ openapi: 3.1.0
 info:
   description: ""
   title: flex
-  version: v1.0.0
+  version: ""
 paths:
   /flex.FlexService/BiDirectorionalStream:
     post:
       description: Stream both ways
       requestBody:
-        $ref: '#/components/requestBodies/flex.FlexRequest'
+        $ref: '#/components/requestBodies/flex.FlexService.BiDirectorionalStream.flex.FlexRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/flex.FlexReply'
-          description: This service tries to flex the different options
+          $ref: '#/components/responses/flex.FlexService.BiDirectorionalStream.flex.FlexReply'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - flex.FlexService
   /flex.FlexService/ClientStream:
     post:
       description: Stream from client to server
       requestBody:
-        $ref: '#/components/requestBodies/flex.FlexRequest'
+        $ref: '#/components/requestBodies/flex.FlexService.ClientStream.flex.FlexRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/flex.FlexReply'
-          description: This service tries to flex the different options
+          $ref: '#/components/responses/flex.FlexService.ClientStream.flex.FlexReply'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - flex.FlexService
   /flex.FlexService/EmptyRPC:
@@ -49,66 +33,582 @@ paths:
       description: Don't send or receive anything
       responses:
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - flex.FlexService
   /flex.FlexService/NormalRPC:
     post:
       description: Normal RPC method
       requestBody:
-        $ref: '#/components/requestBodies/flex.FlexRequest'
+        $ref: '#/components/requestBodies/flex.FlexService.NormalRPC.flex.FlexRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/flex.FlexReply'
-          description: This service tries to flex the different options
+          $ref: '#/components/responses/flex.FlexService.NormalRPC.flex.FlexReply'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - flex.FlexService
   /flex.FlexService/ServerStream:
     post:
       description: Stream from server to client
       requestBody:
-        $ref: '#/components/requestBodies/flex.FlexRequest'
+        $ref: '#/components/requestBodies/flex.FlexService.ServerStream.flex.FlexRequest'
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/flex.FlexReply'
-          description: This service tries to flex the different options
+          $ref: '#/components/responses/flex.FlexService.ServerStream.flex.FlexReply'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/connect.error'
-          description: ""
+          $ref: '#/components/responses/connect.error'
       tags:
       - flex.FlexService
 components:
   requestBodies:
-    flex.FlexRequest:
+    flex.FlexService.BiDirectorionalStream.flex.FlexRequest:
+      content:
+        application/connect+json:
+          schema:
+            description: The request is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The request is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The request is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The request is uses the gRPC-Web protocol but with JSON encoding.
+              See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+      required: true
+    flex.FlexService.ClientStream.flex.FlexRequest:
+      content:
+        application/connect+json:
+          schema:
+            description: The request is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The request is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The request is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The request is uses the gRPC-Web protocol but with JSON encoding.
+              See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+      required: true
+    flex.FlexService.NormalRPC.flex.FlexRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/flex.FlexRequest'
+        application/proto:
+          schema:
+            description: The request is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+      required: true
+    flex.FlexService.ServerStream.flex.FlexRequest:
+      content:
+        application/connect+json:
+          schema:
+            description: The request is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The request is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The request is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The request is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The request is uses the gRPC-Web protocol but with JSON encoding.
+              See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The request is uses the gRPC-Web protocol. See the [the gRPC-Web
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexRequest'
+            type: object
       required: true
   responses:
     connect.error:
-      $ref: '#/components/schemas/connect.error'
-    flex.FlexReply:
-      $ref: '#/components/schemas/flex.FlexReply'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/connect.error'
+            type: object
+      description: ""
+    flex.FlexService.BiDirectorionalStream.flex.FlexReply:
+      content:
+        application/connect+json:
+          schema:
+            description: The response is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The response is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The response is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The response is uses the gRPC-Web protocol but with JSON
+              encoding. See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+      description: ""
+    flex.FlexService.ClientStream.flex.FlexReply:
+      content:
+        application/connect+json:
+          schema:
+            description: The response is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The response is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The response is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The response is uses the gRPC-Web protocol but with JSON
+              encoding. See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+      description: ""
+    flex.FlexService.NormalRPC.flex.FlexReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/flex.FlexReply'
+        application/proto:
+          schema:
+            description: The response is binary-concoded protobuf without gRPC framing.
+              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
+              more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+      description: ""
+    flex.FlexService.ServerStream.flex.FlexReply:
+      content:
+        application/connect+json:
+          schema:
+            description: The response is JSON with Connect protocol framing to support
+              streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/connect+proto:
+          schema:
+            description: The response is binary-concoded protobuf with Connect protocol
+              framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc+json:
+          schema:
+            description: The response is uses the gRPC protocol but with JSON encoding.
+              See the [the gRPC documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc+proto:
+          schema:
+            description: The response is uses the gRPC protocol. See the [the gRPC
+              documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web+json:
+          schema:
+            description: The response is uses the gRPC-Web protocol but with JSON
+              encoding. See the [the gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+        application/grpc-web+proto:
+          schema:
+            description: The response is uses the gRPC-Web protocol. See the [the
+              gRPC-Web documentation](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md)
+              for more.
+            format: binary
+            properties:
+              protobufBinaryContents:
+                $ref: '#/components/schemas/flex.FlexReply'
+            type: object
+      description: ""
   schemas:
     connect.error:
       additionalProperties: false
