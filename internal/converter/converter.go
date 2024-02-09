@@ -107,7 +107,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 			continue
 		}
 
-		slog.Info("generating file", slog.String("name", fileDesc.GetName()))
+		slog.Debug("generating file", slog.String("name", fileDesc.GetName()))
 
 		fd, err := protodesc.NewFile(fileDesc, resolver)
 		if err != nil {

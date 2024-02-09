@@ -123,7 +123,7 @@ func (st *State) SortedMessages() []protoreflect.MessageDescriptor {
 }
 
 func enumToSchema(state *State, tt protoreflect.EnumDescriptor) *jsonschema.Schema {
-	slog.Info("enumToSchema", slog.Any("descriptor", tt.FullName()))
+	slog.Debug("enumToSchema", slog.Any("descriptor", tt.FullName()))
 	s := &jsonschema.Schema{}
 	s.WithID(string(tt.FullName()))
 	s.WithTitle(string(tt.Name()))
@@ -141,7 +141,7 @@ func enumToSchema(state *State, tt protoreflect.EnumDescriptor) *jsonschema.Sche
 }
 
 func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschema.Schema {
-	slog.Info("messageToSchema", slog.Any("descriptor", tt.FullName()))
+	slog.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
 	if isWellKnown(tt) {
 		return wellKnownToSchema(tt)
 	}
@@ -165,7 +165,7 @@ func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschem
 }
 
 func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Schema {
-	slog.Info("fieldToSchema", slog.Any("descriptor", tt.FullName()))
+	slog.Debug("fieldToSchema", slog.Any("descriptor", tt.FullName()))
 	s := &jsonschema.Schema{}
 
 	// TODO: 64-bit types can be strings or numbers because they sometimes

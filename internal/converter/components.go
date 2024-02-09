@@ -89,9 +89,9 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 	// Add schema from messages/enums
 	components := openapi31.Components{}
 	st := NewState()
-	slog.Info("start collection")
+	slog.Debug("start collection")
 	st.CollectFile(fd)
-	slog.Info("collection complete", slog.String("file", string(fd.Name())), slog.Int("messages", len(st.Messages)), slog.Int("enum", len(st.Enums)))
+	slog.Debug("collection complete", slog.String("file", string(fd.Name())), slog.Int("messages", len(st.Messages)), slog.Int("enum", len(st.Enums)))
 	rootSchema := stateToSchema(st)
 	for _, item := range rootSchema.Items.SchemaArray {
 		if item.TypeObject == nil {
