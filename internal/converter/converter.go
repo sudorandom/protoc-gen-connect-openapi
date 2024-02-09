@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
+	"github.com/lmittmann/tint"
 	"github.com/swaggest/openapi-go/openapi31"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
@@ -25,6 +26,7 @@ type Options struct {
 	BaseOpenAPIYAMLPath string
 	BaseOpenAPIJSONPath string
 	WithStreaming       bool
+	Debug               bool
 }
 
 func parseOptions(s string) (Options, error) {
@@ -35,6 +37,8 @@ func parseOptions(s string) (Options, error) {
 	for _, param := range strings.Split(s, ",") {
 		switch {
 		case param == "":
+		case param == "debug":
+			opts.Debug = true
 		case param == "with-streaming":
 			opts.WithStreaming = true
 		case strings.HasPrefix(param, "format="):
@@ -89,6 +93,16 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 	if err != nil {
 		return nil, err
 	}
+
+	logLevel := slog.LevelInfo
+	if opts.Debug {
+		logLevel = slog.LevelDebug
+	}
+	slog.SetDefault(slog.New(
+		tint.NewHandler(os.Stderr, &tint.Options{
+			Level: logLevel,
+		}),
+	))
 
 	files := []*pluginpb.CodeGeneratorResponse_File{}
 	genFiles := make(map[string]struct{}, len(req.FileToGenerate))

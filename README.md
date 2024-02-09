@@ -62,7 +62,8 @@ And then run `buf generate`. See [the documentation on buf generate](https://buf
 |---|---|---|
 | format | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`. |
 | base | `{filepath}` | The path to a base OpenAPI file to populate fienlds that this tool doesn't populate. |
-| with-streaming | - | Generate OpenAPI with content types related to streaming. |
+| with-streaming | - | Generate OpenAPI with content types related to streaming (can be messy). |
+| debug | - | Emit debug logs |
 
 
 ## Why?
