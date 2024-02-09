@@ -6,6 +6,11 @@ Options:
  - format=json
  - base=[path]
 
+## Install
+
+```
+go install github.com/sudorandom/protoc-gen-connect-openapi@latest
+```
 
 ## Build using `buf generate`
 Simple example, should result in a OpenAPI file in the `out/` directory.
