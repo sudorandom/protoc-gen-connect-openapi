@@ -115,7 +115,11 @@ func TestConvert(t *testing.T) {
 						if len(testCase.Body) > 0 {
 							body = strings.NewReader(testCase.Body)
 						}
-						req, err := http.NewRequest(testCase.Method, testCase.Path, body)
+						path := testCase.Path
+						if len(testCase.Query) > 0 {
+							path += "?" + testCase.Query
+						}
+						req, err := http.NewRequest(testCase.Method, path, body)
 						for k, v := range testCase.Headers {
 							req.Header.Add(k, v)
 						}
@@ -145,6 +149,7 @@ type TestCase struct {
 	Path    string            `yaml:"path"`
 	Headers map[string]string `yaml:"headers"`
 	Body    string            `yaml:"body"`
+	Query   string            `yaml:"query"`
 	Errors  []string          `yaml:"errors"`
 }
 

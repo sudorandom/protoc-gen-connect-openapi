@@ -19,15 +19,23 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 			loc := fd.SourceLocations().ByDescriptor(method)
 			op.WithDescription(formatComments(loc))
 
-			// Request Body
+			hasGetSupport := methodHasGet(method)
+
+			// Request parameters
+			parameters := []openapi31.ParameterOrReference{}
 			item := openapi31.PathItem{}
 			if !IsEmpty(method.Input()) {
 				id := formatTypeRef(string(method.FullName() + "." + method.Input().FullName()))
-				op.WithRequestBody(openapi31.RequestBodyOrReference{
-					Reference: &openapi31.Reference{
-						Ref: "#/components/requestBodies/" + id,
-					},
-				})
+				if hasGetSupport {
+					ref := "#/components/parameters/" + id
+					parameters = append(parameters, openapi31.ParameterOrReference{Reference: &openapi31.Reference{Ref: ref}})
+				} else {
+					op.WithRequestBody(openapi31.RequestBodyOrReference{
+						Reference: &openapi31.Reference{
+							Ref: "#/components/requestBodies/" + id,
+						},
+					})
+				}
 			}
 
 			// Responses
@@ -48,16 +56,27 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 			}
 			op.WithResponses(responses)
 
-			isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
-			options := method.Options().(*descriptorpb.MethodOptions)
-			if options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS && !isStreaming {
+			if hasGetSupport {
 				item.Get = op
+				parameters = append(parameters,
+					openapi31.ParameterOrReference{Reference: &openapi31.Reference{Ref: "#/components/parameters/encoding"}},
+					openapi31.ParameterOrReference{Reference: &openapi31.Reference{Ref: "#/components/parameters/base64"}},
+					openapi31.ParameterOrReference{Reference: &openapi31.Reference{Ref: "#/components/parameters/compression"}},
+					openapi31.ParameterOrReference{Reference: &openapi31.Reference{Ref: "#/components/parameters/connect"}},
+				)
 			} else {
 				item.Post = op
 			}
+			item.WithParameters(parameters...)
 			items["/"+string(service.FullName())+"/"+string(method.Name())] = item
 		}
 	}
 
 	return items, nil
+}
+
+func methodHasGet(method protoreflect.MethodDescriptor) bool {
+	isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
+	options := method.Options().(*descriptorpb.MethodOptions)
+	return options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS && !isStreaming
 }

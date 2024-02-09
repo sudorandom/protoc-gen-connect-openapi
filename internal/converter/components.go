@@ -22,10 +22,8 @@ var Protocols = []Protocol{
 		ContentType: "application/json",
 	},
 	{
-		ContentType:  "application/proto",
-		RequestDesc:  "The request is binary-concoded protobuf without gRPC framing. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
-		ResponseDesc: "The response is binary-concoded protobuf without gRPC framing. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
-		IsBinary:     true,
+		ContentType: "application/proto",
+		IsBinary:    true,
 	},
 	{
 		ContentType:  "application/connect+json",
@@ -85,7 +83,7 @@ var Protocols = []Protocol{
 	},
 }
 
-func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, error) {
+func fileToComponents(opts Options, fd protoreflect.FileDescriptor) (openapi31.Components, error) {
 	// Add schema from messages/enums
 	components := openapi31.Components{}
 	st := NewState()
@@ -106,6 +104,8 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 		components.WithSchemasItem(*item.TypeObject.ID, m)
 	}
 
+	hasGetRequests := false
+
 	// Add requestBodies and responses for methods
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
@@ -114,6 +114,10 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
 			isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
+			hasGet := methodHasGet(method)
+			if hasGet {
+				hasGetRequests = true
+			}
 
 			op := &openapi31.Operation{}
 			op.WithTags(string(service.FullName()))
@@ -123,14 +127,24 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 			// Request Body
 			if !IsEmpty(method.Input()) {
 				inputName := string(method.Input().FullName())
-				components.WithRequestBodiesItem(formatTypeRef(string(method.FullName())+"."+inputName),
-					openapi31.RequestBodyOrReference{
-						RequestBody: &openapi31.RequestBody{
-							Content:  makeMediaTypes("#/components/schemas/"+formatTypeRef(inputName), true, isStreaming),
-							Required: BoolPtr(true),
+				if hasGet {
+					components.WithParametersItem(string(method.FullName())+"."+inputName, openapi31.ParameterOrReference{
+						Parameter: &openapi31.Parameter{
+							Name:    "message",
+							In:      openapi31.ParameterInQuery,
+							Content: makeMediaTypes(opts, "#/components/schemas/"+formatTypeRef(inputName), true, isStreaming),
 						},
-					},
-				)
+					})
+				} else {
+					components.WithRequestBodiesItem(string(method.FullName())+"."+inputName,
+						openapi31.RequestBodyOrReference{
+							RequestBody: &openapi31.RequestBody{
+								Content:  makeMediaTypes(opts, "#/components/schemas/"+formatTypeRef(inputName), true, isStreaming),
+								Required: BoolPtr(true),
+							},
+						},
+					)
+				}
 			}
 
 			if !IsEmpty(method.Output()) {
@@ -138,12 +152,66 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 				components.WithResponsesItem(formatTypeRef(string(method.FullName())+"."+outputName),
 					openapi31.ResponseOrReference{
 						Response: &openapi31.Response{
-							Content: makeMediaTypes("#/components/schemas/"+formatTypeRef(outputName), false, isStreaming),
+							Content: makeMediaTypes(opts, "#/components/schemas/"+formatTypeRef(outputName), false, isStreaming),
 						},
 					},
 				)
 			}
 		}
+	}
+
+	if hasGetRequests {
+		components.WithParametersItem("encoding", openapi31.ParameterOrReference{
+			Parameter: &openapi31.Parameter{
+				Name:    "encoding",
+				In:      openapi31.ParameterInQuery,
+				Content: makeMediaTypes(opts, "#/components/schemas/encoding", true, false),
+			},
+		})
+		components.WithSchemasItem("encoding", map[string]interface{}{
+			"title":       "encoding",
+			"description": "Define which encoding or 'Message-Codec' to use",
+			"enum":        []string{"proto", "json"},
+		})
+
+		components.WithParametersItem("base64", openapi31.ParameterOrReference{
+			Parameter: &openapi31.Parameter{
+				Name:    "base64",
+				In:      openapi31.ParameterInQuery,
+				Content: makeMediaTypes(opts, "#/components/schemas/base64", true, false),
+			},
+		})
+		components.WithSchemasItem("base64", map[string]interface{}{
+			"title":       "base64",
+			"description": "Specifies if the message query param is base64 encoded, which may be required for binary data",
+			"type":        jsonschema.Boolean.Type(),
+		})
+
+		components.WithParametersItem("compression", openapi31.ParameterOrReference{
+			Parameter: &openapi31.Parameter{
+				Name:    "compression",
+				In:      openapi31.ParameterInQuery,
+				Content: makeMediaTypes(opts, "#/components/schemas/compression", true, false),
+			},
+		})
+		components.WithSchemasItem("compression", map[string]interface{}{
+			"title":       "compression",
+			"description": "Which compression algorithm to use for this request",
+			"enum":        []string{"identity", "gzip", "br", "zstd"},
+		})
+
+		components.WithParametersItem("connect", openapi31.ParameterOrReference{
+			Parameter: &openapi31.Parameter{
+				Name:    "connect",
+				In:      openapi31.ParameterInQuery,
+				Content: makeMediaTypes(opts, "#/components/schemas/connect", true, false),
+			},
+		})
+		components.WithSchemasItem("connect", map[string]interface{}{
+			"title":       "connect",
+			"description": "Which version of connect to use.",
+			"enum":        []string{"1"},
+		})
 	}
 
 	// Add our own type for errors
@@ -166,7 +234,7 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 
 	components.WithResponsesItem("connect.error", openapi31.ResponseOrReference{
 		Response: &openapi31.Response{
-			Content: makeMediaTypes("#/components/schemas/connect.error", false, false),
+			Content: makeMediaTypes(opts, "#/components/schemas/connect.error", false, false),
 		},
 	})
 
@@ -174,11 +242,12 @@ func fileToComponents(fd protoreflect.FileDescriptor) (openapi31.Components, err
 }
 
 // makeMediaTypes generates media types with references to the bodies
-func makeMediaTypes(ref string, isRequest, isStreaming bool) map[string]openapi31.MediaType {
+func makeMediaTypes(opts Options, ref string, isRequest, isStreaming bool) map[string]openapi31.MediaType {
 	mediaTypes := map[string]openapi31.MediaType{}
 	for _, protocol := range Protocols {
-		// Make sure the protocol supports streaming if this is a streaming RPC
-		if isStreaming != protocol.IsStreaming {
+		isNotAStreamingMethod := isStreaming != protocol.IsStreaming
+		isStreamingDisabled := isStreaming && !opts.WithStreaming
+		if isNotAStreamingMethod || isStreamingDisabled {
 			continue
 		}
 

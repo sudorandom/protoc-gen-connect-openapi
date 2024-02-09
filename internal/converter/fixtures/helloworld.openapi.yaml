@@ -5,10 +5,8 @@ info:
   version: ""
 paths:
   /helloworld.Greeter/SayHello:
-    post:
+    get:
       description: Sends a greeting
-      requestBody:
-        $ref: '#/components/requestBodies/helloworld.Greeter.SayHello.helloworld.HelloRequest'
       responses:
         "200":
           $ref: '#/components/responses/helloworld.Greeter.SayHello.helloworld.HelloReply'
@@ -16,8 +14,54 @@ paths:
           $ref: '#/components/responses/connect.error'
       tags:
       - helloworld.Greeter
+    parameters:
+    - $ref: '#/components/parameters/helloworld.Greeter.SayHello.helloworld.HelloRequest'
+    - $ref: '#/components/parameters/encoding'
+    - $ref: '#/components/parameters/base64'
+    - $ref: '#/components/parameters/compression'
+    - $ref: '#/components/parameters/connect'
 components:
-  requestBodies:
+  parameters:
+    base64:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/base64'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/base64'
+      in: query
+      name: base64
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/compression'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/compression'
+      in: query
+      name: compression
+    connect:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect'
+      in: query
+      name: connect
+    encoding:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/encoding'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/encoding'
+      in: query
+      name: encoding
     helloworld.Greeter.SayHello.helloworld.HelloRequest:
       content:
         application/json:
@@ -25,15 +69,9 @@ components:
             $ref: '#/components/schemas/helloworld.HelloRequest'
         application/proto:
           schema:
-            description: The request is binary-concoded protobuf without gRPC framing.
-              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
-              more.
-            format: binary
-            properties:
-              protobufBinaryContents:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
-            type: object
-      required: true
+            $ref: '#/components/schemas/helloworld.HelloRequest'
+      in: query
+      name: message
   responses:
     connect.error:
       content:
@@ -42,14 +80,7 @@ components:
             $ref: '#/components/schemas/connect.error'
         application/proto:
           schema:
-            description: The response is binary-concoded protobuf without gRPC framing.
-              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
-              more.
-            format: binary
-            properties:
-              protobufBinaryContents:
-                $ref: '#/components/schemas/connect.error'
-            type: object
+            $ref: '#/components/schemas/connect.error'
       description: ""
     helloworld.Greeter.SayHello.helloworld.HelloReply:
       content:
@@ -58,16 +89,27 @@ components:
             $ref: '#/components/schemas/helloworld.HelloReply'
         application/proto:
           schema:
-            description: The response is binary-concoded protobuf without gRPC framing.
-              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
-              more.
-            format: binary
-            properties:
-              protobufBinaryContents:
-                $ref: '#/components/schemas/helloworld.HelloReply'
-            type: object
+            $ref: '#/components/schemas/helloworld.HelloReply'
       description: ""
   schemas:
+    base64:
+      description: Specifies if the message query param is base64 encoded, which may
+        be required for binary data
+      title: base64
+      type: boolean
+    compression:
+      description: Which compression algorithm to use for this request
+      enum:
+      - identity
+      - gzip
+      - br
+      - zstd
+      title: compression
+    connect:
+      description: Which version of connect to use.
+      enum:
+      - "1"
+      title: connect
     connect.error:
       additionalProperties: false
       description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
@@ -96,6 +138,12 @@ components:
           type: string
       title: Connect Error
       type: object
+    encoding:
+      description: Define which encoding or 'Message-Codec' to use
+      enum:
+      - proto
+      - json
+      title: encoding
     helloworld.HelloReply:
       additionalProperties: false
       description: The response message containing the greetings

@@ -24,6 +24,7 @@ type Options struct {
 	Format              string
 	BaseOpenAPIYAMLPath string
 	BaseOpenAPIJSONPath string
+	WithStreaming       bool
 }
 
 func parseOptions(s string) (Options, error) {
@@ -34,6 +35,8 @@ func parseOptions(s string) (Options, error) {
 	for _, param := range strings.Split(s, ",") {
 		switch {
 		case param == "":
+		case param == "with-streaming":
+			opts.WithStreaming = true
 		case strings.HasPrefix(param, "format="):
 			format := param[7:]
 			switch format {
@@ -140,7 +143,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		}
 
 		// Add all messages/enums as top-level types
-		components, err := fileToComponents(fd)
+		components, err := fileToComponents(opts, fd)
 		if err != nil {
 			return nil, err
 		}

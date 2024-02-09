@@ -1,29 +1,33 @@
 cases:
   - name: "hello"
+    method: GET
     path: "helloworld.Greeter/SayHello"
-    body: '{"name": "kevin"}'
+    query: 'message=%7B%22name%22%3A%20%22kevin%22%7D'
     headers:
       Content-Type: application/json
 
   - name: "hello-wrong-value-type"
+    method: GET
     path: "helloworld.Greeter/SayHello"
-    body: '{"name": 1}'
+    query: 'message=%7B%22name%22%3A%201%7D'
     headers:
       Content-Type: application/json
     errors:
       - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
 
   - name: "hello-wrong-key"
+    method: GET
     path: "helloworld.Greeter/SayHello"
-    body: '{"nane": "kevin"}'
+    query: 'message=%7B%22nane%22%3A%20%22kevin%22%7D'
     headers:
       Content-Type: application/json
     errors:
       - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
 
   - name: "with-extra-keys"
+    method: GET
     path: "helloworld.Greeter/SayHello"
-    body: '{"name": "kevin", "extra": 1234}'
+    query: 'message=%7B%22name%22%3A%20%22kevin%22%2C%20%22extra%22%3A%201234%7D'
     headers:
       Content-Type: application/json
     errors:

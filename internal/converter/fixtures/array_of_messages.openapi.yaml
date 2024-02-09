@@ -13,14 +13,7 @@ components:
             $ref: '#/components/schemas/connect.error'
         application/proto:
           schema:
-            description: The response is binary-concoded protobuf without gRPC framing.
-              See the [Connect Protocol](https://connectrpc.com/docs/protocol) for
-              more.
-            format: binary
-            properties:
-              protobufBinaryContents:
-                $ref: '#/components/schemas/connect.error'
-            type: object
+            $ref: '#/components/schemas/connect.error'
       description: ""
   schemas:
     connect.error:
