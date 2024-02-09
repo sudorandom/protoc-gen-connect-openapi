@@ -38,6 +38,25 @@
           }
         }
       }
+    },
+    "/helloworld.Greeter/WriteHello": {
+      "post": {
+        "tags": [
+          "helloworld.Greeter"
+        ],
+        "description": "Writes a greeting (has side effects)",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/helloworld.Greeter.WriteHello.helloworld.HelloRequest"
+        },
+        "responses": {
+          "default": {
+            "$ref": "#/components/responses/connect.error"
+          },
+          "200": {
+            "$ref": "#/components/responses/helloworld.Greeter.WriteHello.helloworld.HelloReply"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -165,6 +184,21 @@
             }
           }
         }
+      },
+      "helloworld.Greeter.WriteHello.helloworld.HelloReply": {
+        "description": "",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/helloworld.HelloReply"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "$ref": "#/components/schemas/helloworld.HelloReply"
+            }
+          }
+        }
       }
     },
     "parameters": {
@@ -247,6 +281,23 @@
             }
           }
         }
+      }
+    },
+    "requestBodies": {
+      "helloworld.Greeter.WriteHello.helloworld.HelloRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/helloworld.HelloRequest"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "$ref": "#/components/schemas/helloworld.HelloRequest"
+            }
+          }
+        },
+        "required": true
       }
     }
   },

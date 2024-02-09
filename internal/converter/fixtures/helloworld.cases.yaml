@@ -24,10 +24,40 @@ cases:
     errors:
       - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
 
-  - name: "with-extra-keys"
+  - name: "hello-with-extra-keys"
     method: GET
     path: "helloworld.Greeter/SayHello"
     query: 'message=%7B%22name%22%3A%20%22kevin%22%2C%20%22extra%22%3A%201234%7D'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*additionalProperties 'extra' not allowed, Location: /additionalProperties.*"
+
+  - name: "writehello"
+    path: "helloworld.Greeter/WriteHello"
+    body: '{"name": "kevin"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "writehello-wrong-value-type"
+    path: "helloworld.Greeter/WriteHello"
+    body: '{"name": 1}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
+
+  - name: "writehello-wrong-key"
+    path: "helloworld.Greeter/WriteHello"
+    body: '{"nane": "kevin"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
+
+  - name: "writehello-with-extra-keys"
+    path: "helloworld.Greeter/WriteHello"
+    body: '{"name": "kevin", "extra": 1234}'
     headers:
       Content-Type: application/json
     errors:

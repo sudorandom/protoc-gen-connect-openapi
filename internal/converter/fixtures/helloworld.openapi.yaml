@@ -20,6 +20,18 @@ paths:
     - $ref: '#/components/parameters/base64'
     - $ref: '#/components/parameters/compression'
     - $ref: '#/components/parameters/connect'
+  /helloworld.Greeter/WriteHello:
+    post:
+      description: Writes a greeting (has side effects)
+      requestBody:
+        $ref: '#/components/requestBodies/helloworld.Greeter.WriteHello.helloworld.HelloRequest'
+      responses:
+        "200":
+          $ref: '#/components/responses/helloworld.Greeter.WriteHello.helloworld.HelloReply'
+        default:
+          $ref: '#/components/responses/connect.error'
+      tags:
+      - helloworld.Greeter
 components:
   parameters:
     base64:
@@ -72,6 +84,16 @@ components:
             $ref: '#/components/schemas/helloworld.HelloRequest'
       in: query
       name: message
+  requestBodies:
+    helloworld.Greeter.WriteHello.helloworld.HelloRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/helloworld.HelloRequest'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/helloworld.HelloRequest'
+      required: true
   responses:
     connect.error:
       content:
@@ -83,6 +105,15 @@ components:
             $ref: '#/components/schemas/connect.error'
       description: ""
     helloworld.Greeter.SayHello.helloworld.HelloReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/helloworld.HelloReply'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/helloworld.HelloReply'
+      description: ""
+    helloworld.Greeter.WriteHello.helloworld.HelloReply:
       content:
         application/json:
           schema:

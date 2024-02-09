@@ -14,6 +14,9 @@ service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply) {
     option idempotency_level = NO_SIDE_EFFECTS;
   }
+
+  // Writes a greeting (has side effects)
+  rpc WriteHello (HelloRequest) returns (HelloReply) {}
 }
 
 // The request message containing the user's name.

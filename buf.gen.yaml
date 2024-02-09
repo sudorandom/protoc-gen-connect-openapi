@@ -5,3 +5,9 @@ plugins:
     # opt:
     # - base=base.yaml
     # - format=json
+
+  - plugin: connect-openapi
+    out: out
+    opt:
+    # - base=base.yaml
+    - format=json
