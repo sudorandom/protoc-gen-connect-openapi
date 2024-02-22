@@ -86,7 +86,7 @@ var Protocols = []Protocol{
 func fileToComponents(opts Options, fd protoreflect.FileDescriptor) (openapi31.Components, error) {
 	// Add schema from messages/enums
 	components := openapi31.Components{}
-	st := NewState()
+	st := NewState(opts)
 	slog.Debug("start collection")
 	st.CollectFile(fd)
 	slog.Debug("collection complete", slog.String("file", string(fd.Name())), slog.Int("messages", len(st.Messages)), slog.Int("enum", len(st.Enums)))

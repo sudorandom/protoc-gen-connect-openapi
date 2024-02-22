@@ -22,11 +22,12 @@ import (
 
 type Options struct {
 	// Format can be either "yaml" or "json"
-	Format              string
-	BaseOpenAPIYAMLPath string
-	BaseOpenAPIJSONPath string
-	WithStreaming       bool
-	Debug               bool
+	Format               string
+	BaseOpenAPIYAMLPath  string
+	BaseOpenAPIJSONPath  string
+	WithStreaming        bool
+	Debug                bool
+	OnlyStringEnumValues bool
 }
 
 func parseOptions(s string) (Options, error) {
@@ -39,6 +40,8 @@ func parseOptions(s string) (Options, error) {
 		case param == "":
 		case param == "debug":
 			opts.Debug = true
+		case param == "only-string-enum-values":
+			opts.OnlyStringEnumValues = true
 		case param == "with-streaming":
 			opts.WithStreaming = true
 		case strings.HasPrefix(param, "format="):

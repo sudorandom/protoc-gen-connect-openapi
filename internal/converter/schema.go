@@ -9,13 +9,15 @@ import (
 )
 
 type State struct {
+	Opts        Options
 	CurrentFile protoreflect.FileDescriptor
 	Messages    map[protoreflect.MessageDescriptor]struct{}
 	Enums       map[protoreflect.EnumDescriptor]struct{}
 }
 
-func NewState() *State {
+func NewState(opts Options) *State {
 	return &State{
+		Opts:     opts,
 		Messages: map[protoreflect.MessageDescriptor]struct{}{},
 		Enums:    map[protoreflect.EnumDescriptor]struct{}{},
 	}
@@ -134,7 +136,9 @@ func enumToSchema(state *State, tt protoreflect.EnumDescriptor) *jsonschema.Sche
 	for i := 0; i < values.Len(); i++ {
 		value := values.Get(i)
 		children = append(children, string(value.Name()))
-		children = append(children, value.Number())
+		if !state.Opts.OnlyStringEnumValues {
+			children = append(children, value.Number())
+		}
 	}
 	s.WithEnum(children)
 	return s
