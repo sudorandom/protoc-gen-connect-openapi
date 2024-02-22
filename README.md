@@ -60,6 +60,7 @@ And then run `buf generate`. See [the documentation on buf generate](https://buf
 ## Options
 | Option | Values | Description |
 |---|---|---|
+| path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | format | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`. |
 | base | `{filepath}` | The path to a base OpenAPI file to populate fienlds that this tool doesn't populate. |
 | with-streaming | - | Generate OpenAPI with content types related to streaming (can be messy). |

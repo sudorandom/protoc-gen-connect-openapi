@@ -22,6 +22,7 @@ import (
 
 type Options struct {
 	// Format can be either "yaml" or "json"
+	Path                 string
 	Format               string
 	BaseOpenAPIYAMLPath  string
 	BaseOpenAPIJSONPath  string
@@ -44,6 +45,8 @@ func parseOptions(s string) (Options, error) {
 			opts.OnlyStringEnumValues = true
 		case param == "with-streaming":
 			opts.WithStreaming = true
+		case strings.HasPrefix(param, "path="):
+			opts.Path = param[5:]
 		case strings.HasPrefix(param, "format="):
 			format := param[7:]
 			switch format {
@@ -121,6 +124,32 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		return nil, err
 	}
 
+	newSpec := func() openapi31.Spec {
+		return openapi31.Spec{
+			Openapi: "3.1.0",
+			Info:    openapi31.Info{},
+			Paths: &openapi31.Paths{
+				MapOfPathItemValues: map[string]openapi31.PathItem{},
+				MapOfAnything:       map[string]interface{}{},
+			},
+			Components: &openapi31.Components{
+				Schemas:         map[string]map[string]interface{}{},
+				Responses:       map[string]openapi31.ResponseOrReference{},
+				Parameters:      map[string]openapi31.ParameterOrReference{},
+				Examples:        map[string]openapi31.ExampleOrReference{},
+				RequestBodies:   map[string]openapi31.RequestBodyOrReference{},
+				Headers:         map[string]openapi31.HeaderOrReference{},
+				SecuritySchemes: map[string]openapi31.SecuritySchemeOrReference{},
+				Links:           map[string]openapi31.LinkOrReference{},
+				Callbacks:       map[string]openapi31.CallbacksOrReference{},
+				PathItems:       map[string]openapi31.PathItemOrReference{},
+			},
+		}
+	}
+
+	spec := newSpec()
+	outFiles := map[string]openapi31.Spec{}
+
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
 			slog.Debug("skip generating file because it wasn't requested", slog.String("name", fileDesc.GetName()))
@@ -135,10 +164,31 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 			return nil, err
 		}
 
-		spec := openapi31.Spec{Openapi: "3.1.0"}
-		spec.SetTitle(string(fd.FullName()))
-		spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
+		// Create a per-file openapi spec if we're not merging all into one
+		if opts.Path == "" {
+			spec = newSpec()
+			spec.SetTitle(string(fd.FullName()))
+			spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
+		}
 
+		if err := appendToSpec(opts, &spec, fd); err != nil {
+			return nil, err
+		}
+
+		if opts.Path == "" {
+			name := fileDesc.GetName()
+			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi." + opts.Format
+			outFiles[filename] = spec
+		}
+	}
+
+	if opts.Path != "" {
+		outFiles[opts.Path] = spec
+	}
+
+	for path, spec := range outFiles {
+		path := path
+		slog.Info("OUTPATH:", slog.String("path", path))
 		if opts.BaseOpenAPIJSONPath != "" {
 			baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
 			if err != nil {
@@ -159,20 +209,6 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 			}
 		}
 
-		// Add all messages/enums as top-level types
-		components, err := fileToComponents(opts, fd)
-		if err != nil {
-			return nil, err
-		}
-		spec.WithComponents(components)
-
-		pathItems, err := fileToPathItems(fd)
-		if err != nil {
-			return nil, err
-		}
-		spec.WithPaths(openapi31.Paths{MapOfPathItemValues: pathItems})
-		spec.WithTags(fileToTags(fd)...)
-
 		switch opts.Format {
 		case "yaml":
 			b, err := spec.MarshalYAML()
@@ -181,11 +217,8 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 			}
 
 			content := string(b)
-			name := fileDesc.GetName()
-			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi.yaml"
-
 			files = append(files, &pluginpb.CodeGeneratorResponse_File{
-				Name:              &filename,
+				Name:              &path,
 				Content:           &content,
 				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
 			})
@@ -196,11 +229,8 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 			}
 
 			content := string(b)
-			name := fileDesc.GetName()
-			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi.json"
-
 			files = append(files, &pluginpb.CodeGeneratorResponse_File{
-				Name:              &filename,
+				Name:              &path,
 				Content:           &content,
 				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
 			})
@@ -212,6 +242,53 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		File:              files,
 		SupportedFeatures: &features,
 	}, nil
+}
+
+func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescriptor) error {
+	components, err := fileToComponents(opts, fd)
+	if err != nil {
+		return err
+	}
+	for k, v := range components.Schemas {
+		spec.Components.Schemas[k] = v
+	}
+	for k, v := range components.Responses {
+		spec.Components.Responses[k] = v
+	}
+	for k, v := range components.Parameters {
+		spec.Components.Parameters[k] = v
+	}
+	for k, v := range components.Examples {
+		spec.Components.Examples[k] = v
+	}
+	for k, v := range components.RequestBodies {
+		spec.Components.RequestBodies[k] = v
+	}
+	for k, v := range components.Headers {
+		spec.Components.Headers[k] = v
+	}
+	for k, v := range components.SecuritySchemes {
+		spec.Components.SecuritySchemes[k] = v
+	}
+	for k, v := range components.Links {
+		spec.Components.Links[k] = v
+	}
+	for k, v := range components.Callbacks {
+		spec.Components.Callbacks[k] = v
+	}
+	for k, v := range components.PathItems {
+		spec.Components.PathItems[k] = v
+	}
+
+	pathItems, err := fileToPathItems(fd)
+	if err != nil {
+		return err
+	}
+	for k, v := range pathItems {
+		spec.Paths.MapOfPathItemValues[k] = v
+	}
+	spec.Tags = append(spec.Tags, fileToTags(fd)...)
+	return nil
 }
 
 func formatComments(loc protoreflect.SourceLocation) string {

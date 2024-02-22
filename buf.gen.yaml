@@ -8,7 +8,9 @@ plugins:
 
   - plugin: connect-openapi
     out: out
+    strategy: all
     opt:
     # - base=base.yaml
     - format=json
     - only-string-enum-values
+    - path=openapi.yaml
