@@ -19,7 +19,7 @@ click openapi-generator "https://github.com/OpenAPITools/openapi-generator" _bla
 
 ## Install
 ```
-go install github.com/sudorandom/protoc-gen-connectopenapi@main
+go install github.com/sudorandom/protoc-gen-connect-openapi@main
 ```
 
 ## Usage
