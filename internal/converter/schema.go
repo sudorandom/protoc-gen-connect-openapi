@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"sort"
 
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/swaggest/jsonschema-go"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -165,7 +166,7 @@ func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschem
 	}
 
 	s.WithProperties(children)
-	return s
+	return gnostic.SchemaWithSchemaAnnotations(s, tt)
 }
 
 func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Schema {
@@ -218,7 +219,7 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 	s.WithTitle(string(tt.Name()))
 	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
 	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
+	return gnostic.SchemaWithPropertyAnnotations(s, tt)
 }
 
 func stateToSchema(st *State) *jsonschema.Schema {

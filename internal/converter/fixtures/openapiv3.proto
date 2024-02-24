@@ -69,7 +69,13 @@ service Greeter {
 
 // The request message containing the user's name.
 message HelloRequest {
-  string name = 1;
+  option (gnostic.openapi.v3.schema) = {
+    title: "Custom title for a message";
+  };
+
+  string name = 1 [(gnostic.openapi.v3.property) = {
+    title: "Custom title for a field";
+  }];
 }
 
 // The response message containing the greetings

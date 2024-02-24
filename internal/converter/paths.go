@@ -1,6 +1,7 @@
 package converter
 
 import (
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/swaggest/openapi-go/openapi31"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -68,7 +69,8 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 				item.Post = op
 			}
 			item.WithParameters(parameters...)
-			items["/"+string(service.FullName())+"/"+string(method.Name())] = pathItemWithMethodAnnotations(item, method)
+			item = gnostic.PathItemWithMethodAnnotations(item, method)
+			items["/"+string(service.FullName())+"/"+string(method.Name())] = item
 		}
 	}
 

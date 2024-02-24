@@ -12,6 +12,7 @@ import (
 
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/lmittmann/tint"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/swaggest/openapi-go/openapi31"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
@@ -244,7 +245,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 }
 
 func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescriptor) error {
-	spec = specWithFileAnnotations(spec, fd)
+	spec = gnostic.SpecWithFileAnnotations(spec, fd)
 	components, err := fileToComponents(opts, fd)
 	if err != nil {
 		return err
