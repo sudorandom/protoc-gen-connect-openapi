@@ -8,15 +8,15 @@ import "google/protobuf/empty.proto";
 // This service tries to flex the different options
 service FlexService {
   // Normal RPC method
-  rpc NormalRPC (FlexRequest) returns (FlexReply) {}
+  rpc NormalRPC(FlexRequest) returns (FlexReply) {}
   // Stream from client to server
-  rpc ClientStream (stream FlexRequest) returns (FlexReply) {}
+  rpc ClientStream(stream FlexRequest) returns (FlexReply) {}
   // Stream from server to client
-  rpc ServerStream (FlexRequest) returns (stream FlexReply) {}
+  rpc ServerStream(FlexRequest) returns (stream FlexReply) {}
   // Stream both ways
-  rpc BiDirectorionalStream (FlexRequest) returns (stream FlexReply) {}
+  rpc BiDirectorionalStream(FlexRequest) returns (stream FlexReply) {}
   // Don't send or receive anything
-  rpc EmptyRPC (google.protobuf.Empty) returns (google.protobuf.Empty) {}
+  rpc EmptyRPC(google.protobuf.Empty) returns (google.protobuf.Empty) {}
 }
 
 // The request message containing the user's name.
@@ -50,5 +50,4 @@ message ComplexType {
   optional Other optionalMsgField = 17;
 }
 
-message Other {
-}
+message Other {}

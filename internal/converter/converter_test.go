@@ -41,7 +41,7 @@ func TestConvert(t *testing.T) {
 			formats = append(formats, format)
 		}
 
-		require.NotZero(t, len(formats), "at least one output format has to exist")
+		require.NotZero(t, len(formats), "at least one output (json or yaml) format has to exist to run this test: %s", protofile)
 
 		relPath := path.Join("internal", "converter", protofile)
 		for _, format := range formats {

@@ -1,0 +1,218 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: gnostic@google.com
+    name: Contact Name
+    url: https://github.com/google/gnostic
+  description: Description from annotation
+  license:
+    name: Apache License
+    url: https://github.com/google/gnostic/blob/master/LICENSE
+  summary: ""
+  termsOfService: ""
+  title: Title from annotation
+  version: Version from annotation
+paths:
+  /openapiv2.Greeter/SayHello:
+    get:
+      deprecated: true
+      description: Sends a greeting
+      responses:
+        "200":
+          $ref: '#/components/responses/openapiv2.Greeter.SayHello.openapiv2.HelloReply'
+        default:
+          $ref: '#/components/responses/connect.error'
+      security:
+      - BasicAuth: null
+      tags:
+      - openapiv2.Greeter
+    parameters:
+    - $ref: '#/components/parameters/openapiv2.Greeter.SayHello.openapiv2.HelloRequest'
+    - $ref: '#/components/parameters/encoding'
+    - $ref: '#/components/parameters/base64'
+    - $ref: '#/components/parameters/compression'
+    - $ref: '#/components/parameters/connect'
+  /openapiv2.Greeter/WriteHello:
+    post:
+      description: Writes a greeting (has side effects)
+      requestBody:
+        $ref: '#/components/requestBodies/openapiv2.Greeter.WriteHello.openapiv2.HelloRequest'
+      responses:
+        "200":
+          $ref: '#/components/responses/openapiv2.Greeter.WriteHello.openapiv2.HelloReply'
+        default:
+          $ref: '#/components/responses/connect.error'
+      tags:
+      - openapiv2.Greeter
+components:
+  parameters:
+    base64:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/base64'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/base64'
+      in: query
+      name: base64
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/compression'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/compression'
+      in: query
+      name: compression
+    connect:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect'
+      in: query
+      name: connect
+    encoding:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/encoding'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/encoding'
+      in: query
+      name: encoding
+    openapiv2.Greeter.SayHello.openapiv2.HelloRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloRequest'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloRequest'
+      in: query
+      name: message
+  requestBodies:
+    openapiv2.Greeter.WriteHello.openapiv2.HelloRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloRequest'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloRequest'
+      required: true
+  responses:
+    connect.error:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+      description: ""
+    openapiv2.Greeter.SayHello.openapiv2.HelloReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloReply'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloReply'
+      description: ""
+    openapiv2.Greeter.WriteHello.openapiv2.HelloReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloReply'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/openapiv2.HelloReply'
+      description: ""
+  schemas:
+    base64:
+      description: Specifies if the message query param is base64 encoded, which may
+        be required for binary data
+      title: base64
+      type: boolean
+    compression:
+      description: Which compression algorithm to use for this request
+      enum:
+      - identity
+      - gzip
+      - br
+      - zstd
+      title: compression
+    connect:
+      description: Which version of connect to use.
+      enum:
+      - "1"
+      title: connect
+    connect.error:
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      title: Connect Error
+      type: object
+    encoding:
+      description: Define which encoding or 'Message-Codec' to use
+      enum:
+      - proto
+      - json
+      title: encoding
+    openapiv2.HelloReply:
+      additionalProperties: false
+      description: The response message containing the greetings
+      properties:
+        message:
+          additionalProperties: false
+          description: ""
+          title: message
+          type: string
+      title: HelloReply
+      type: object
+    openapiv2.HelloRequest:
+      additionalProperties: false
+      description: The request message containing the user's name.
+      properties:
+        name:
+          additionalProperties: false
+          description: ""
+          title: name
+          type: string
+      title: HelloRequest
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http
+tags:
+- description: The greeting service definition.
+  name: openapiv2.Greeter

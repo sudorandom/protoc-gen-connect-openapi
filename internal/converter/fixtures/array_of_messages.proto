@@ -2,10 +2,10 @@ syntax = "proto3";
 package messages;
 
 message Thing {
-    string name = 1;
+  string name = 1;
 }
 
 message ArrayOfMessages {
-    string description    = 1;
-    repeated Thing things = 2;
+  string description = 1;
+  repeated Thing things = 2;
 }

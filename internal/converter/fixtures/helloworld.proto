@@ -1,22 +1,22 @@
 // Example description
 syntax = "proto3";
 
+package helloworld;
+
 option go_package = "google.golang.org/grpc/examples/helloworld/helloworld";
 option java_multiple_files = true;
-option java_package = "io.grpc.examples.helloworld";
 option java_outer_classname = "HelloWorldProto";
-
-package helloworld;
+option java_package = "io.grpc.examples.helloworld";
 
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {
+  rpc SayHello(HelloRequest) returns (HelloReply) {
     option idempotency_level = NO_SIDE_EFFECTS;
   }
 
   // Writes a greeting (has side effects)
-  rpc WriteHello (HelloRequest) returns (HelloReply) {}
+  rpc WriteHello(HelloRequest) returns (HelloReply) {}
 }
 
 // The request message containing the user's name.

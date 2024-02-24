@@ -1,9 +1,9 @@
 syntax = "proto3";
-package samples; 
-
-option go_package = "github.com/sudorandom/protoc-gen-connect-openapi";
+package samples;
 
 import "google/protobuf/struct.proto";
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi";
 
 message GoogleValue {
   google.protobuf.Value arg = 1;

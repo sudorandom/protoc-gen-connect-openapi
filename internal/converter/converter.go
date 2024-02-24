@@ -188,7 +188,6 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 
 	for path, spec := range outFiles {
 		path := path
-		slog.Info("OUTPATH:", slog.String("path", path))
 		if opts.BaseOpenAPIJSONPath != "" {
 			baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
 			if err != nil {
@@ -245,6 +244,7 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 }
 
 func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescriptor) error {
+	spec = specWithFileAnnotations(spec, fd)
 	components, err := fileToComponents(opts, fd)
 	if err != nil {
 		return err

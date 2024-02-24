@@ -68,7 +68,7 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 				item.Post = op
 			}
 			item.WithParameters(parameters...)
-			items["/"+string(service.FullName())+"/"+string(method.Name())] = item
+			items["/"+string(service.FullName())+"/"+string(method.Name())] = pathItemWithMethodAnnotations(item, method)
 		}
 	}
 
