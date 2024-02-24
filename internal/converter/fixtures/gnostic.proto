@@ -1,14 +1,9 @@
-// Example description
 syntax = "proto3";
 
-package openapiv2;
+package example_with_gnostic;
 
 import "gnostic/openapi/v3/annotations.proto";
 
-option go_package = "google.golang.org/grpc/examples/helloworld/helloworld";
-option java_multiple_files = true;
-option java_outer_classname = "HelloWorldProto";
-option java_package = "io.grpc.examples.helloworld";
 option (gnostic.openapi.v3.document) = {
   info: {
     title: "Title from annotation";
@@ -16,12 +11,12 @@ option (gnostic.openapi.v3.document) = {
     description: "Description from annotation";
     contact: {
       name: "Contact Name";
-      url: "https://github.com/google/gnostic";
-      email: "gnostic@google.com";
+      url: "https://github.com/sudorandom/protoc-gen-connect-openapi";
+      email: "hello@sudorandom.com";
     }
     license: {
-      name: "Apache License";
-      url: "https://github.com/google/gnostic/blob/master/LICENSE";
+      name: "MIT License";
+      url: "https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE";
     }
   }
   components: {
@@ -62,20 +57,13 @@ service Greeter {
       ]
     };
   }
-
-  // Writes a greeting (has side effects)
-  rpc WriteHello(HelloRequest) returns (HelloReply) {}
 }
 
 // The request message containing the user's name.
 message HelloRequest {
-  option (gnostic.openapi.v3.schema) = {
-    title: "Custom title for a message";
-  };
+  option (gnostic.openapi.v3.schema) = {title: "Custom title for a message"};
 
-  string name = 1 [(gnostic.openapi.v3.property) = {
-    title: "Custom title for a field";
-  }];
+  string name = 1 [(gnostic.openapi.v3.property) = {title: "Custom title for a field"}];
 }
 
 // The response message containing the greetings

@@ -1,49 +1,37 @@
 openapi: 3.1.0
 info:
   contact:
-    email: gnostic@google.com
+    email: hello@sudorandom.com
     name: Contact Name
-    url: https://github.com/google/gnostic
+    url: https://github.com/sudorandom/protoc-gen-connect-openapi
   description: Description from annotation
   license:
-    name: Apache License
-    url: https://github.com/google/gnostic/blob/master/LICENSE
+    name: MIT License
+    url: https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE
   summary: ""
   termsOfService: ""
   title: Title from annotation
   version: Version from annotation
 paths:
-  /openapiv2.Greeter/SayHello:
+  /example_with_gnostic.Greeter/SayHello:
     get:
       deprecated: true
       description: Sends a greeting
       responses:
         "200":
-          $ref: '#/components/responses/openapiv2.Greeter.SayHello.openapiv2.HelloReply'
+          $ref: '#/components/responses/example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloReply'
         default:
           $ref: '#/components/responses/connect.error'
       security:
       - BasicAuth: null
       tags:
-      - openapiv2.Greeter
+      - example_with_gnostic.Greeter
     parameters:
-    - $ref: '#/components/parameters/openapiv2.Greeter.SayHello.openapiv2.HelloRequest'
+    - $ref: '#/components/parameters/example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloRequest'
     - $ref: '#/components/parameters/encoding'
     - $ref: '#/components/parameters/base64'
     - $ref: '#/components/parameters/compression'
     - $ref: '#/components/parameters/connect'
-  /openapiv2.Greeter/WriteHello:
-    post:
-      description: Writes a greeting (has side effects)
-      requestBody:
-        $ref: '#/components/requestBodies/openapiv2.Greeter.WriteHello.openapiv2.HelloRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/openapiv2.Greeter.WriteHello.openapiv2.HelloReply'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - openapiv2.Greeter
 components:
   parameters:
     base64:
@@ -86,26 +74,16 @@ components:
             $ref: '#/components/schemas/encoding'
       in: query
       name: encoding
-    openapiv2.Greeter.SayHello.openapiv2.HelloRequest:
+    example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/openapiv2.HelloRequest'
+            $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
         application/proto:
           schema:
-            $ref: '#/components/schemas/openapiv2.HelloRequest'
+            $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
       in: query
       name: message
-  requestBodies:
-    openapiv2.Greeter.WriteHello.openapiv2.HelloRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/openapiv2.HelloRequest'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/openapiv2.HelloRequest'
-      required: true
   responses:
     connect.error:
       content:
@@ -116,23 +94,14 @@ components:
           schema:
             $ref: '#/components/schemas/connect.error'
       description: ""
-    openapiv2.Greeter.SayHello.openapiv2.HelloReply:
+    example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloReply:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/openapiv2.HelloReply'
+            $ref: '#/components/schemas/example_with_gnostic.HelloReply'
         application/proto:
           schema:
-            $ref: '#/components/schemas/openapiv2.HelloReply'
-      description: ""
-    openapiv2.Greeter.WriteHello.openapiv2.HelloReply:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/openapiv2.HelloReply'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/openapiv2.HelloReply'
+            $ref: '#/components/schemas/example_with_gnostic.HelloReply'
       description: ""
   schemas:
     base64:
@@ -187,7 +156,7 @@ components:
       - proto
       - json
       title: encoding
-    openapiv2.HelloReply:
+    example_with_gnostic.HelloReply:
       additionalProperties: false
       description: The response message containing the greetings
       properties:
@@ -198,7 +167,7 @@ components:
           type: string
       title: HelloReply
       type: object
-    openapiv2.HelloRequest:
+    example_with_gnostic.HelloRequest:
       additionalProperties: false
       description: The request message containing the user's name.
       properties:
@@ -215,4 +184,4 @@ components:
       type: http
 tags:
 - description: The greeting service definition.
-  name: openapiv2.Greeter
+  name: example_with_gnostic.Greeter
