@@ -150,6 +150,7 @@ message HelloReply {
 }
 
 ```
+
 #### File Options
 | Option | Supported? | Notes |
 |---|---|---|
@@ -208,13 +209,13 @@ message HelloReply {
 | gnostic.openapi.v3.schema.string required | ✅ |
 | gnostic.openapi.v3.schema.Any enum | ✅ |
 | gnostic.openapi.v3.schema.type | ✅ |
-| gnostic.openapi.v3.schema.all_of | ❌ |
-| gnostic.openapi.v3.schema.one_of | ❌ |
-| gnostic.openapi.v3.schema.any_of | ❌ |
-| gnostic.openapi.v3.schema.not | ❌ |
-| gnostic.openapi.v3.schema.items | ❌ |
-| gnostic.openapi.v3.schema.properties | ❌ |
-| gnostic.openapi.v3.schema.additional_properties | ❌ |
+| gnostic.openapi.v3.schema.all_of | ✅ |
+| gnostic.openapi.v3.schema.one_of | ✅ |
+| gnostic.openapi.v3.schema.any_of | ✅ |
+| gnostic.openapi.v3.schema.not | ✅ |
+| gnostic.openapi.v3.schema.items | ✅ |
+| gnostic.openapi.v3.schema.properties | ✅ |
+| gnostic.openapi.v3.schema.additional_properties | ✅ |
 | gnostic.openapi.v3.schema.default | ✅ |
 | gnostic.openapi.v3.schema.description | ✅ |
 | gnostic.openapi.v3.schema.format | ✅ |
@@ -248,13 +249,13 @@ message HelloReply {
 | gnostic.openapi.v3.property.string required | ✅ |
 | gnostic.openapi.v3.property.Any enum | ✅ |
 | gnostic.openapi.v3.property.type | ✅ |
-| gnostic.openapi.v3.property.all_of | ❌ |
-| gnostic.openapi.v3.property.one_of | ❌ |
-| gnostic.openapi.v3.property.any_of | ❌ |
-| gnostic.openapi.v3.property.not | ❌ |
-| gnostic.openapi.v3.property.items | ❌ |
-| gnostic.openapi.v3.property.properties | ❌ |
-| gnostic.openapi.v3.property.additional_properties | ❌ |
+| gnostic.openapi.v3.property.all_of | ✅ |
+| gnostic.openapi.v3.property.one_of | ✅ |
+| gnostic.openapi.v3.property.any_of | ✅ |
+| gnostic.openapi.v3.property.not | ✅ |
+| gnostic.openapi.v3.property.items | ✅ |
+| gnostic.openapi.v3.property.properties | ✅ |
+| gnostic.openapi.v3.property.additional_properties | ✅ |
 | gnostic.openapi.v3.property.default | ✅ |
 | gnostic.openapi.v3.property.description | ✅ |
 | gnostic.openapi.v3.property.format | ✅ |

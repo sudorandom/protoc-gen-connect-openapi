@@ -1,8 +1,6 @@
 package gnostic
 
 import (
-	"log/slog"
-
 	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/swaggest/jsonschema-go"
 	"google.golang.org/protobuf/proto"
@@ -115,35 +113,47 @@ func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonsc
 		schema.Type = &jsonschema.Type{SimpleTypes: &t}
 	}
 
-	if opts.AdditionalProperties.GetBoolean() {
-		b := opts.AdditionalProperties.GetBoolean()
-		schema.AdditionalItems = &jsonschema.SchemaOrBool{
-			TypeBoolean: &b,
+	if opts.AdditionalProperties != nil {
+		switch v := opts.AdditionalProperties.GetOneof().(type) {
+		case *goa3.AdditionalPropertiesItem_SchemaOrReference:
+			vv := toSchemaOrBool(v.SchemaOrReference)
+			schema.AdditionalProperties = &vv
+		case *goa3.AdditionalPropertiesItem_Boolean:
+			schema.AdditionalItems = &jsonschema.SchemaOrBool{TypeBoolean: &v.Boolean}
 		}
-	} else if s := opts.AdditionalProperties.GetSchemaOrReference(); s != nil {
-		slog.Warn("additional_properties with a schema is not yet supported", slog.Any("additional_properties", opts.AdditionalProperties))
 	}
 
 	if len(opts.AllOf) > 0 {
-		slog.Warn("all_of is not supported", slog.Any("all_of", opts.AllOf))
+		schema.AllOf = toSchemaOrBools(opts.AllOf)
 	}
 	if len(opts.OneOf) > 0 {
-		slog.Warn("one_of is not supported", slog.Any("one_of", opts.OneOf))
+		schema.OneOf = toSchemaOrBools(opts.OneOf)
 	}
 	if len(opts.AnyOf) > 0 {
-		slog.Warn("any_of is not supported", slog.Any("any_of", opts.AnyOf))
+		schema.AnyOf = toSchemaOrBools(opts.AnyOf)
 	}
 	if opts.Not != nil {
-		slog.Warn("not is not supported", slog.Any("items", opts.Not))
+		v := toSchemaOrBool(&goa3.SchemaOrReference{
+			Oneof: &goa3.SchemaOrReference_Schema{
+				Schema: opts.Not,
+			},
+		})
+		schema.Not = &v
 	}
 	if opts.Items != nil {
-		slog.Warn("items is not supported", slog.Any("items", opts.Items))
+		schema.Items = &jsonschema.Items{
+			SchemaOrBool: &jsonschema.SchemaOrBool{},
+			SchemaArray:  toSchemaOrBools(opts.Items.GetSchemaOrReference()),
+		}
 	}
 	if opts.Properties != nil {
-		slog.Warn("properties is not supported", slog.Any("properties", opts.Properties))
+		schema.Properties = toSchemaOrBoolMap(opts.Properties.GetAdditionalProperties())
 	}
 	if opts.Default != nil {
-		slog.Warn("default is not supported", slog.Any("default", opts.Default))
+		schema.Default = toDefault(opts.Default)
+	}
+	if opts.AdditionalProperties != nil {
+		schema.AdditionalProperties = toAdditionalPropertiesItem(opts.AdditionalProperties)
 	}
 
 	return schema

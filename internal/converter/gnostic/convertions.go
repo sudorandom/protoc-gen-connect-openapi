@@ -2,6 +2,7 @@ package gnostic
 
 import (
 	goa3 "github.com/google/gnostic/openapiv3"
+	"github.com/swaggest/jsonschema-go"
 	"github.com/swaggest/openapi-go/openapi31"
 )
 
@@ -169,4 +170,115 @@ func toTags(tags []*goa3.Tag) []openapi31.Tag {
 		}
 	}
 	return result
+}
+
+func toSchemaOrBools(items []*goa3.SchemaOrReference) []jsonschema.SchemaOrBool {
+	result := make([]jsonschema.SchemaOrBool, len(items))
+	for i, s := range items {
+		result[i] = toSchemaOrBool(s)
+	}
+	return result
+}
+
+func toSchemaOrBool(s *goa3.SchemaOrReference) jsonschema.SchemaOrBool {
+	sOrB := jsonschema.SchemaOrBool{}
+	if ref := s.GetReference(); ref != nil {
+		sOrB.TypeObject = &jsonschema.Schema{
+			Ref:         &ref.XRef,
+			Description: &ref.Description,
+		}
+	} else if schema := s.GetSchema(); schema != nil {
+		sOrB.TypeObject = toSchema(schema)
+	}
+	return sOrB
+}
+
+func toSchemaOrBoolMap(items []*goa3.NamedSchemaOrReference) map[string]jsonschema.SchemaOrBool {
+	m := make(map[string]jsonschema.SchemaOrBool, len(items))
+	for _, item := range items {
+		m[item.Name] = toSchemaOrBool(item.Value)
+	}
+	return m
+}
+
+func toSchema(s *goa3.Schema) *jsonschema.Schema {
+	schema := &jsonschema.Schema{
+		Title:         &s.Title,
+		Description:   &s.Description,
+		Default:       toDefault(s.Default),
+		ReadOnly:      &s.ReadOnly,
+		MultipleOf:    &s.MultipleOf,
+		MaxLength:     &s.MaxLength,
+		MinLength:     s.MinLength,
+		Pattern:       &s.Pattern,
+		MaxItems:      &s.MaxItems,
+		MinItems:      s.MinItems,
+		UniqueItems:   &s.UniqueItems,
+		MaxProperties: &s.MaxProperties,
+		MinProperties: s.MinProperties,
+		Required:      s.Required,
+		Format:        &s.Format,
+	}
+	if s.Type != "" {
+		t := jsonschema.SimpleType(s.Type)
+		schema.Type = &jsonschema.Type{SimpleTypes: &t}
+	}
+
+	if s.ExclusiveMaximum {
+		schema.ExclusiveMaximum = &s.Maximum
+	} else {
+		schema.Maximum = &s.Maximum
+	}
+	if s.ExclusiveMinimum {
+		schema.ExclusiveMinimum = &s.Minimum
+	} else {
+		schema.Minimum = &s.Minimum
+	}
+
+	// Not Supported:
+	// Items
+	// Contains
+	// AdditionalProperties
+	// Definitions
+	// Properties
+	// PatternProperties
+	// Dependencies
+	// PropertyNames
+	// Enum
+	// If
+	// Then
+	// Else
+	// AllOf
+	// AnyOf
+	// OneOf
+	// Not
+	// Parent
+	return schema
+}
+
+func toDefault(dt *goa3.DefaultType) *interface{} {
+	if dt == nil {
+		return nil
+	}
+	var v interface{}
+	switch dt.GetOneof().(type) {
+	case *goa3.DefaultType_Number:
+		v = dt.GetNumber()
+	case *goa3.DefaultType_String_:
+		v = dt.GetString_()
+	case *goa3.DefaultType_Boolean:
+		v = dt.GetBoolean()
+	}
+	return &v
+}
+
+func toAdditionalPropertiesItem(item *goa3.AdditionalPropertiesItem) *jsonschema.SchemaOrBool {
+	switch v := item.Oneof.(type) {
+	case *goa3.AdditionalPropertiesItem_SchemaOrReference:
+		vv := toSchemaOrBool(v.SchemaOrReference)
+		return &vv
+	case *goa3.AdditionalPropertiesItem_Boolean:
+		return &jsonschema.SchemaOrBool{TypeBoolean: &v.Boolean}
+	}
+	return nil
 }
