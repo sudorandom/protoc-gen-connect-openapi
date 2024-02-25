@@ -10,7 +10,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"github.com/lmittmann/tint"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/swaggest/openapi-go/openapi31"
@@ -18,7 +17,7 @@ import (
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
-	"google.golang.org/protobuf/types/pluginpb"
+	pluginpb "google.golang.org/protobuf/types/pluginpb"
 )
 
 type Options struct {
@@ -76,13 +75,13 @@ func parseOptions(s string) (Options, error) {
 	return opts, nil
 }
 
-func ConvertFrom(rd io.Reader) (*plugin.CodeGeneratorResponse, error) {
+func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
 	input, err := io.ReadAll(rd)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read request: %w", err)
 	}
 
-	req := &plugin.CodeGeneratorRequest{}
+	req := &pluginpb.CodeGeneratorRequest{}
 	err = proto.Unmarshal(input, req)
 	if err != nil {
 		return nil, fmt.Errorf("can't unmarshal input: %w", err)
@@ -95,7 +94,7 @@ func formatTypeRef(t string) string {
 	return strings.TrimPrefix(t, ".")
 }
 
-func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, error) {
+func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
 	opts, err := parseOptions(req.GetParameter())
 	if err != nil {
 		return nil, err
@@ -237,8 +236,8 @@ func Convert(req *plugin.CodeGeneratorRequest) (*plugin.CodeGeneratorResponse, e
 		}
 	}
 
-	features := uint64(plugin.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
-	return &plugin.CodeGeneratorResponse{
+	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
+	return &pluginpb.CodeGeneratorResponse{
 		File:              files,
 		SupportedFeatures: &features,
 	}, nil

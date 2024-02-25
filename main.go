@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"os"
 
-	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
 	"google.golang.org/protobuf/proto"
+	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 )
@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		message := fmt.Sprintf("Failed to read input: %v", err)
 		slog.Error(message)
-		renderResponse(&plugin.CodeGeneratorResponse{
+		renderResponse(&pluginpb.CodeGeneratorResponse{
 			Error: &message,
 		})
 		os.Exit(1)
@@ -25,7 +25,7 @@ func main() {
 	renderResponse(resp)
 }
 
-func renderResponse(resp *plugin.CodeGeneratorResponse) {
+func renderResponse(resp *pluginpb.CodeGeneratorResponse) {
 	data, err := proto.Marshal(resp)
 	if err != nil {
 		slog.Error("failed to marshal response", slog.Any("error", err))
