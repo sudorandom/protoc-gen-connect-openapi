@@ -208,9 +208,9 @@ message HelloReply {
 | gnostic.openapi.v3.schema.string required | ✅ |
 | gnostic.openapi.v3.schema.Any enum | ✅ |
 | gnostic.openapi.v3.schema.type | ✅ |
-| gnostic.openapi.v3.schema.SchemaOrReference all_of | ❌ |
-| gnostic.openapi.v3.schema.SchemaOrReference one_of | ❌ |
-| gnostic.openapi.v3.schema.SchemaOrReference any_of | ❌ |
+| gnostic.openapi.v3.schema.all_of | ❌ |
+| gnostic.openapi.v3.schema.one_of | ❌ |
+| gnostic.openapi.v3.schema.any_of | ❌ |
 | gnostic.openapi.v3.schema.not | ❌ |
 | gnostic.openapi.v3.schema.items | ❌ |
 | gnostic.openapi.v3.schema.properties | ❌ |
@@ -218,7 +218,7 @@ message HelloReply {
 | gnostic.openapi.v3.schema.default | ✅ |
 | gnostic.openapi.v3.schema.description | ✅ |
 | gnostic.openapi.v3.schema.format | ✅ |
-| gnostic.openapi.v3.schema.NamedAny specification_extension | ❌ |
+| gnostic.openapi.v3.schema.specification_extension | ❌ |
 
 #### Field Options
 | Option | Supported? |
@@ -248,9 +248,9 @@ message HelloReply {
 | gnostic.openapi.v3.property.string required | ✅ |
 | gnostic.openapi.v3.property.Any enum | ✅ |
 | gnostic.openapi.v3.property.type | ✅ |
-| gnostic.openapi.v3.property.SchemaOrReference all_of | ❌ |
-| gnostic.openapi.v3.property.SchemaOrReference one_of | ❌ |
-| gnostic.openapi.v3.property.SchemaOrReference any_of | ❌ |
+| gnostic.openapi.v3.property.all_of | ❌ |
+| gnostic.openapi.v3.property.one_of | ❌ |
+| gnostic.openapi.v3.property.any_of | ❌ |
 | gnostic.openapi.v3.property.not | ❌ |
 | gnostic.openapi.v3.property.items | ❌ |
 | gnostic.openapi.v3.property.properties | ❌ |
@@ -258,7 +258,7 @@ message HelloReply {
 | gnostic.openapi.v3.property.default | ✅ |
 | gnostic.openapi.v3.property.description | ✅ |
 | gnostic.openapi.v3.property.format | ✅ |
-| gnostic.openapi.v3.property.NamedAny specification_extension | ❌ |
+| gnostic.openapi.v3.property.specification_extension | ❌ |
 
 For more information on how to use each option in your Protobuf file, you can reference [the gnostic.openapi.v3 module documentation](https://buf.build/gnostic/gnostic/docs/main:gnostic.openapi.v3) and the [google/gnostic repo](https://github.com/google/gnostic). Note that this is a new feature, so if find something that isn't supported that you need, please [create an issue](https://github.com/sudorandom/protoc-gen-connect-openapi/issues/new).
 
