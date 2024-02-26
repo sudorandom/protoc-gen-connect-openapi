@@ -1,10 +1,16 @@
 # protoc-gen-connect-openapi
-Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://connectrpc.com/docs/protocol).
-
-With this OpenAPI file, you can:
+Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://connectrpc.com/docs/protocol). With these [OpenAPI](https://www.openapis.org/what-is-openapi), you can:
 
 - Generate Documentation (Elements, redoc, etc.)
 - Generate HTTP Clients for places where you cannot use gRPC (openapi-generator)
+- Datasource for automated endpoint validation/security testing
+- Datasource for monitoring dashboards
+- Many other things
+
+Features:
+- Support for OpenAPIv3.1 (which has support for jsonschema)
+- Support for many [protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
+- Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
 
 ```mermaid
 flowchart LR
@@ -72,16 +78,15 @@ plugins:
 ```
 And then run `buf generate`. See [the documentation on buf generate](https://buf.build/docs/reference/cli/buf/generate#usage) for more help.
 
-### Gnostic Support
-protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) provided by the [google/gnostic project](https://github.com/google/gnostic).
-
-[See the gnostic documentation page for more information](gnostic.md)
-
 ### Proto Validate Support
 protoc-gen-connect-openapi also has support for many [protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every protovalidate constraint translates clearly to OpenAPI.
 
 [See the protovalidate documentation page for more information](protovalidate.md)
 
+### Gnostic Support
+protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) provided by the [google/gnostic project](https://github.com/google/gnostic).
+
+[See the gnostic documentation page for more information](gnostic.md)
 
 ## Options
 | Option | Values | Description |
