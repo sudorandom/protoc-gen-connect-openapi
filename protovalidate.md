@@ -66,13 +66,13 @@ components:
 ## Message Options
 | Option | Supported? | Notes |
 |---|---|---|
-| (buf.validate.message).cel | ✅ | Put into 'comment' field |
+| (buf.validate.message).cel | ✅ | Appended to the 'description' field |
 | (buf.validate.message).disabled | ✅ | |
 
 ## Field Options
 | Option | Supported? | Notes |
 |---|---|---|
-| (buf.validate.field).cel | ✅ | Put into 'comment' field |
+| (buf.validate.field).cel | ✅ | Appended to the 'description' field |
 | (buf.validate.field).any.in | ✅ | |
 | (buf.validate.field).any.not_in | ❌ | |
 | (buf.validate.field).bool.const | ✅ | |
