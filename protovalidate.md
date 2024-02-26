@@ -24,8 +24,6 @@ components:
           minimum: 18
           title: age
           type: integer
-      title: User
-      type: object
 ```
 
 For custom CEL expressions, it will be added as a comment.
@@ -50,8 +48,6 @@ Result:
 components:
   schemas:
     custom.User:
-      additionalProperties: false
-      description: ""
       properties:
         age:
           $comment: |+
@@ -62,8 +58,6 @@ components:
           description: ""
           title: age
           type: integer
-      title: User
-      type: object
 ```
 
 
