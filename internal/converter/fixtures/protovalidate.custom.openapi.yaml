@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  description: ""
+  title: custom
+  version: ""
+paths: {}
+components:
+  responses:
+    connect.error:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+      description: ""
+  schemas:
+    connect.error:
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      title: Connect Error
+      type: object
+    custom.User:
+      additionalProperties: false
+      description: ""
+      properties:
+        age:
+          $comment: |+
+            The user can't be a minor (younger than 18 years old):
+            this < 18 ? 'User must be at least 18 years old': ''
+
+          additionalProperties: false
+          description: ""
+          title: age
+          type: integer
+      title: User
+      type: object

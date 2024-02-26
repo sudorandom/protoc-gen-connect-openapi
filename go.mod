@@ -3,6 +3,8 @@ module github.com/sudorandom/protoc-gen-connect-openapi
 go 1.21.1
 
 require (
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.32.0-20240212200630-3014d81c3a48.1
+	github.com/bufbuild/protovalidate-go v0.5.2
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.0.4
 	github.com/pb33f/libopenapi v0.15.13

@@ -5,6 +5,7 @@ import (
 	"sort"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/protovalidate"
 	"github.com/swaggest/jsonschema-go"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -161,17 +162,21 @@ func messageToSchema(state *State, tt protoreflect.MessageDescriptor) *jsonschem
 	children := make(map[string]jsonschema.SchemaOrBool, fields.Len())
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
-		child := fieldToSchema(state, field)
+		child := fieldToSchema(state, s, field)
 		children[field.JSONName()] = jsonschema.SchemaOrBool{TypeObject: child}
 	}
 
 	s.WithProperties(children)
-	return gnostic.SchemaWithSchemaAnnotations(s, tt)
+
+	// Apply Updates from Options
+	s = protovalidate.SchemaWithMessageAnnotations(s, tt)
+	s = gnostic.SchemaWithSchemaAnnotations(s, tt)
+	return s
 }
 
-func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Schema {
+func fieldToSchema(state *State, parent *jsonschema.Schema, tt protoreflect.FieldDescriptor) *jsonschema.Schema {
 	slog.Debug("fieldToSchema", slog.Any("descriptor", tt.FullName()))
-	s := &jsonschema.Schema{}
+	s := &jsonschema.Schema{Parent: parent}
 
 	// TODO: 64-bit types can be strings or numbers because they sometimes
 	//       cannot fit into a JSON number type
@@ -203,7 +208,7 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 
 	// Handle maps
 	if tt.IsMap() {
-		s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: fieldToSchema(state, tt.MapValue())}
+		s.AdditionalProperties = &jsonschema.SchemaOrBool{TypeObject: fieldToSchema(state, s, tt.MapValue())}
 		s.WithType(jsonschema.Object.Type())
 		s.Ref = nil
 	}
@@ -212,6 +217,7 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 	if tt.IsList() {
 		wrapped := s
 		s = &jsonschema.Schema{}
+		wrapped.Parent = s
 		s.WithType(jsonschema.Array.Type())
 		s.WithItems(jsonschema.Items{SchemaOrBool: &jsonschema.SchemaOrBool{TypeObject: wrapped}})
 	}
@@ -219,7 +225,11 @@ func fieldToSchema(state *State, tt protoreflect.FieldDescriptor) *jsonschema.Sc
 	s.WithTitle(string(tt.Name()))
 	s.WithDescription(formatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
 	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return gnostic.SchemaWithPropertyAnnotations(s, tt)
+
+	// Apply Updates from Options
+	s = protovalidate.SchemaWithFieldAnnotations(s, tt)
+	s = gnostic.SchemaWithPropertyAnnotations(s, tt)
+	return s
 }
 
 func stateToSchema(st *State) *jsonschema.Schema {

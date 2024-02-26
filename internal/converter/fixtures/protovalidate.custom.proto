@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "buf/validate/validate.proto";
+
+package custom;
+
+message User {
+  int32 age = 1 [(buf.validate.field).cel = {
+    id: "user.age",
+    message: "The user can't be a minor (younger than 18 years old)",
+    expression: "this < 18 ? 'User must be at least 18 years old': ''"
+  }];
+}

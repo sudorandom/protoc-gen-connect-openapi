@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+message Allocation {
+  uint64 total_size = 1;
+  uint64 used = 2;
+
+  option (buf.validate.message).cel = {
+    id: "allocation.used"
+    message: "Used should be less or equal to the total size"
+    expression: "this.used <= this.total_size"
+  };
+}

@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "buf/validate/validate.proto";
+
+message User {
+  int32 age = 1 [(buf.validate.field).int32.gte = 18];
+}
