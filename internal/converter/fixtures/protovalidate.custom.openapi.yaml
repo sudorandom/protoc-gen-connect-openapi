@@ -49,12 +49,13 @@ components:
       description: ""
       properties:
         age:
-          $comment: |+
-            The user can't be a minor (younger than 18 years old):
-            this < 18 ? 'User must be at least 18 years old': ''
-
           additionalProperties: false
-          description: ""
+          description: |+
+            The user can't be a minor (younger than 18 years old):
+            ```
+            this < 18 ? 'User must be at least 18 years old': ''
+            ```
+
           title: age
           type: integer
       title: User

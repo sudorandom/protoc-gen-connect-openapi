@@ -15,12 +15,7 @@ func SchemaWithMessageAnnotations(schema *jsonschema.Schema, desc protoreflect.M
 	if constraints == nil || constraints.GetDisabled() {
 		return schema
 	}
-	b := strings.Builder{}
-	if schema.Comment != nil {
-		b.WriteString(*schema.Comment)
-		b.WriteByte('\n')
-	}
-	schema.Comment = getComment(schema, constraints.GetCel())
+	updateWithCEL(schema, constraints.GetCel())
 	return schema
 }
 
@@ -30,7 +25,7 @@ func SchemaWithFieldAnnotations(schema *jsonschema.Schema, desc protoreflect.Fie
 	if constraints == nil {
 		return schema
 	}
-	schema.Comment = getComment(schema, constraints.GetCel())
+	updateWithCEL(schema, constraints.GetCel())
 	if constraints.Required {
 		schema.Parent.Required = append(schema.Parent.Required, desc.JSONName())
 	}
@@ -88,25 +83,23 @@ func updateSchemaWithFieldConstraints(schema *jsonschema.Schema, constraints *va
 	}
 }
 
-func getComment(schema *jsonschema.Schema, constraints []*validate.Constraint) *string {
+func updateWithCEL(schema *jsonschema.Schema, constraints []*validate.Constraint) {
 	if len(constraints) == 0 {
-		return schema.Comment
+		return
 	}
 	b := strings.Builder{}
-	if schema.Comment != nil {
-		b.WriteString(*schema.Comment)
+	if schema.Description != nil && *schema.Description != "" {
+		b.WriteString(*schema.Description)
 		b.WriteByte('\n')
 	}
 	for _, cel := range constraints {
 		b.WriteString(cel.Message)
-		b.WriteByte(':')
-		b.WriteByte('\n')
+		b.WriteString(":\n```\n")
 		b.WriteString(cel.Expression)
-		b.WriteByte('\n')
-		b.WriteByte('\n')
+		b.WriteString("\n```\n\n")
 	}
 	s := b.String()
-	return &s
+	schema.Description = &s
 }
 
 func updateSchemaFloat(schema *jsonschema.Schema, constraint *validate.FloatRules) {

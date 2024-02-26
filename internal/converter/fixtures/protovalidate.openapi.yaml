@@ -532,12 +532,13 @@ components:
           title: bytes_suffix
           type: string
         celField:
-          $comment: |+
-            value must be greater than 42:
-            this > 42
-
           additionalProperties: false
-          description: ""
+          description: |+
+            value must be greater than 42:
+            ```
+            this > 42
+            ```
+
           title: cel_field
           type: integer
         doubleBounds:

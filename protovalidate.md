@@ -26,7 +26,7 @@ components:
           type: integer
 ```
 
-For custom CEL expressions, it will be added as a comment.
+For custom CEL expressions, it will be added at the end of the description.
 ```protobuf
 syntax = "proto3";
 
@@ -50,9 +50,11 @@ components:
     custom.User:
       properties:
         age:
-          $comment: |+
+          description: |+
             The user can't be a minor (younger than 18 years old):
+            ```
             this < 18 ? 'User must be at least 18 years old': ''
+            ```
 
           additionalProperties: false
           description: ""

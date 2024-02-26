@@ -17,12 +17,13 @@ components:
       description: ""
   schemas:
     Allocation:
-      $comment: |+
-        Used should be less or equal to the total size:
-        this.used <= this.total_size
-
       additionalProperties: false
-      description: ""
+      description: |+
+        Used should be less or equal to the total size:
+        ```
+        this.used <= this.total_size
+        ```
+
       properties:
         totalSize:
           additionalProperties: false
