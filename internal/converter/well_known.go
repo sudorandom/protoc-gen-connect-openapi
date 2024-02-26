@@ -31,7 +31,7 @@ func googleDuration(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	s.WithDescription(formatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
 	s.WithType(jsonschema.String.Type())
 	s.WithFormat("regex")
-	s.WithPattern(`^([0-9]+\.?[0-9]*|\.[0-9]+)s$`)
+	s.WithPattern(`^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`)
 	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
 	return s
 }
