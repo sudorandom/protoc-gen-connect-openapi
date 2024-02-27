@@ -12,6 +12,11 @@ Features:
 - Support for many [protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
 - Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
 
+Example Pipeline:
+- Protobuf file: [example](examples/basic.proto)
+- OpenAPI file: [example](examples/basic.openapi.yaml)
+- Generate documentation: [redocly example](examples/basic.png)
+
 ```mermaid
 flowchart LR
 
