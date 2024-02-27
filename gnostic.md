@@ -133,7 +133,7 @@ message HelloReply {
 | (gnostic.openapi.v3.schema).max_properties | ✅ |
 | (gnostic.openapi.v3.schema).min_properties | ✅ |
 | (gnostic.openapi.v3.schema).string required | ✅ |
-| (gnostic.openapi.v3.schema).Any enum | ✅ |
+| (gnostic.openapi.v3.schema).Any | ✅ |
 | (gnostic.openapi.v3.schema).type | ✅ |
 | (gnostic.openapi.v3.schema).all_of | ✅ |
 | (gnostic.openapi.v3.schema).one_of | ✅ |
@@ -173,7 +173,7 @@ message HelloReply {
 | (gnostic.openapi.v3.property).max_properties | ✅ |
 | (gnostic.openapi.v3.property).min_properties | ✅ |
 | (gnostic.openapi.v3.property).string required | ✅ |
-| (gnostic.openapi.v3.property).Any enum | ✅ |
+| (gnostic.openapi.v3.property).Any | ✅ |
 | (gnostic.openapi.v3.property).type | ✅ |
 | (gnostic.openapi.v3.property).all_of | ✅ |
 | (gnostic.openapi.v3.property).one_of | ✅ |
