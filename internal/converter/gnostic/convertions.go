@@ -46,6 +46,7 @@ func toSecurityRequirements(securityReq []*goa3.SecurityRequirement) []map[strin
 	return result
 }
 
+//gocyclo:ignore
 func toSecuritySchemes(components *goa3.Components) map[string]openapi31.SecuritySchemeOrReference {
 	if components.SecuritySchemes == nil {
 		return nil

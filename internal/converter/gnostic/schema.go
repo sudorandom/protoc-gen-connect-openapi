@@ -37,6 +37,7 @@ func SchemaWithPropertyAnnotations(schema *jsonschema.Schema, desc protoreflect.
 	return schemaWithAnnotations(schema, opts)
 }
 
+//gocyclo:ignore
 func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonschema.Schema {
 	if opts.Description != "" {
 		schema.Description = &opts.Description

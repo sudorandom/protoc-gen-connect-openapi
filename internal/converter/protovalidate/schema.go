@@ -33,6 +33,7 @@ func SchemaWithFieldAnnotations(schema *jsonschema.Schema, desc protoreflect.Fie
 	return schema
 }
 
+//gocyclo:ignore
 func updateSchemaWithFieldConstraints(schema *jsonschema.Schema, constraints *validate.FieldConstraints) {
 	if constraints == nil {
 		return
@@ -469,6 +470,7 @@ func updateSchemaBool(schema *jsonschema.Schema, constraint *validate.BoolRules)
 	}
 }
 
+//gocyclo:ignore
 func updateSchemaString(schema *jsonschema.Schema, constraint *validate.StringRules) {
 	if constraint.Const != nil {
 		v := interface{}(constraint.Const)

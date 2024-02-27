@@ -66,7 +66,7 @@ func parseOptions(s string) (Options, error) {
 			case ".json":
 				opts.BaseOpenAPIJSONPath = basePath
 			default:
-				return opts, fmt.Errorf("the file extention for 'base' should end with yaml or json, not '%s'", ext)
+				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
 			}
 		default:
 			return opts, fmt.Errorf("invalid parameter: %s", param)
@@ -187,53 +187,15 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	}
 
 	for path, spec := range outFiles {
-		path := path
-		if opts.BaseOpenAPIJSONPath != "" {
-			baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
-			if err != nil {
-				return nil, err
-			}
-			if err := spec.UnmarshalJSON(baseJSON); err != nil {
-				return nil, err
-			}
+		content, err := specToFile(opts, spec)
+		if err != nil {
+			return nil, err
 		}
-
-		if opts.BaseOpenAPIYAMLPath != "" {
-			baseYAML, err := os.ReadFile(opts.BaseOpenAPIYAMLPath)
-			if err != nil {
-				return nil, err
-			}
-			if err := spec.UnmarshalYAML(baseYAML); err != nil {
-				return nil, err
-			}
-		}
-
-		switch opts.Format {
-		case "yaml":
-			b, err := spec.MarshalYAML()
-			if err != nil {
-				return nil, err
-			}
-
-			content := string(b)
-			files = append(files, &pluginpb.CodeGeneratorResponse_File{
-				Name:              &path,
-				Content:           &content,
-				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
-			})
-		case "json":
-			b, err := json.MarshalIndent(spec, "", "  ")
-			if err != nil {
-				return nil, err
-			}
-
-			content := string(b)
-			files = append(files, &pluginpb.CodeGeneratorResponse_File{
-				Name:              &path,
-				Content:           &content,
-				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
-			})
-		}
+		files = append(files, &pluginpb.CodeGeneratorResponse_File{
+			Name:              &path,
+			Content:           &content,
+			GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
+		})
 	}
 
 	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
@@ -241,6 +203,47 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		File:              files,
 		SupportedFeatures: &features,
 	}, nil
+}
+
+func specToFile(opts Options, spec openapi31.Spec) (string, error) {
+	if opts.BaseOpenAPIJSONPath != "" {
+		baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
+		if err != nil {
+			return "", err
+		}
+		if err := spec.UnmarshalJSON(baseJSON); err != nil {
+			return "", err
+		}
+	}
+
+	if opts.BaseOpenAPIYAMLPath != "" {
+		baseYAML, err := os.ReadFile(opts.BaseOpenAPIYAMLPath)
+		if err != nil {
+			return "", err
+		}
+		if err := spec.UnmarshalYAML(baseYAML); err != nil {
+			return "", err
+		}
+	}
+
+	switch opts.Format {
+	case "yaml":
+		b, err := spec.MarshalYAML()
+		if err != nil {
+			return "", err
+		}
+
+		return string(b), nil
+	case "json":
+		b, err := json.MarshalIndent(spec, "", "  ")
+		if err != nil {
+			return "", err
+		}
+
+		return string(b), nil
+	default:
+		return "", fmt.Errorf("unknown format: %s", opts.Format)
+	}
 }
 
 func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescriptor) error {
