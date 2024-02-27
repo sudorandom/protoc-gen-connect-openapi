@@ -110,10 +110,10 @@ func updateSchemaFloat(schema *jsonschema.Schema, constraint *validate.FloatRule
 	switch tt := constraint.LessThan.(type) {
 	case *validate.FloatRules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.FloatRules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.FloatRules_Gt:
@@ -140,10 +140,10 @@ func updateSchemaDouble(schema *jsonschema.Schema, constraint *validate.DoubleRu
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DoubleRules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.DoubleRules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.DoubleRules_Gt:
@@ -170,10 +170,10 @@ func updateSchemaInt32(schema *jsonschema.Schema, constraint *validate.Int32Rule
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.Int32Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Int32Rules_Gt:
@@ -200,10 +200,10 @@ func updateSchemaInt64(schema *jsonschema.Schema, constraint *validate.Int64Rule
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.Int64Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Int64Rules_Gt:
@@ -230,10 +230,10 @@ func updateSchemaUint32(schema *jsonschema.Schema, constraint *validate.UInt32Ru
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.UInt32Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.UInt32Rules_Gt:
@@ -260,10 +260,10 @@ func updateSchemaUint64(schema *jsonschema.Schema, constraint *validate.UInt64Ru
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.UInt64Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.UInt64Rules_Gt:
@@ -290,10 +290,10 @@ func updateSchemaSint32(schema *jsonschema.Schema, constraint *validate.SInt32Ru
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.SInt32Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SInt32Rules_Gt:
@@ -320,10 +320,10 @@ func updateSchemaSint64(schema *jsonschema.Schema, constraint *validate.SInt64Ru
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.SInt64Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SInt64Rules_Gt:
@@ -350,10 +350,10 @@ func updateSchemaFixed32(schema *jsonschema.Schema, constraint *validate.Fixed32
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.Fixed32Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Fixed32Rules_Gt:
@@ -380,10 +380,10 @@ func updateSchemaFixed64(schema *jsonschema.Schema, constraint *validate.Fixed64
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.Fixed64Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Fixed64Rules_Gt:
@@ -410,10 +410,10 @@ func updateSchemaSfixed32(schema *jsonschema.Schema, constraint *validate.SFixed
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.SFixed32Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SFixed32Rules_Gt:
@@ -440,10 +440,10 @@ func updateSchemaSfixed64(schema *jsonschema.Schema, constraint *validate.SFixed
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMinimum = &v
+		schema.ExclusiveMaximum = &v
 	case *validate.SFixed64Rules_Lte:
 		v := float64(tt.Lte)
-		schema.Minimum = &v
+		schema.Maximum = &v
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SFixed64Rules_Gt:

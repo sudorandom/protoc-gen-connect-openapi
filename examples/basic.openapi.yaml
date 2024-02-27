@@ -1,0 +1,225 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: ein@sudorandom.com
+    name: Ein
+    url: https://github.com/sudorandom/protoc-gen-connect-openapi
+  description: This is a service which says hello to you!
+  license:
+    name: MIT License
+    url: https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE
+  summary: ""
+  termsOfService: ""
+  title: Hello World
+  version: v2
+paths:
+  /example.basic.Greeter/SayHello:
+    get:
+      description: This is a description just for OpenAPI
+      responses:
+        "200":
+          $ref: '#/components/responses/example.basic.Greeter.SayHello.example.basic.HelloReply'
+        default:
+          $ref: '#/components/responses/connect.error'
+      tags:
+      - example.basic.Greeter
+    parameters:
+    - $ref: '#/components/parameters/example.basic.Greeter.SayHello.example.basic.HelloRequest'
+    - $ref: '#/components/parameters/encoding'
+    - $ref: '#/components/parameters/base64'
+    - $ref: '#/components/parameters/compression'
+    - $ref: '#/components/parameters/connect'
+  /example.basic.Greeter/WriteHello:
+    post:
+      description: Writes a greeting (has side effects)
+      requestBody:
+        $ref: '#/components/requestBodies/example.basic.Greeter.WriteHello.example.basic.HelloRequest'
+      responses:
+        "200":
+          $ref: '#/components/responses/example.basic.Greeter.WriteHello.example.basic.HelloReply'
+        default:
+          $ref: '#/components/responses/connect.error'
+      tags:
+      - example.basic.Greeter
+components:
+  parameters:
+    base64:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/base64'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/base64'
+      in: query
+      name: base64
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/compression'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/compression'
+      in: query
+      name: compression
+    connect:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect'
+      in: query
+      name: connect
+    encoding:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/encoding'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/encoding'
+      in: query
+      name: encoding
+    example.basic.Greeter.SayHello.example.basic.HelloRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloRequest'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloRequest'
+      in: query
+      name: message
+  requestBodies:
+    example.basic.Greeter.WriteHello.example.basic.HelloRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloRequest'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloRequest'
+      required: true
+  responses:
+    connect.error:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+      description: ""
+    example.basic.Greeter.SayHello.example.basic.HelloReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloReply'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloReply'
+      description: ""
+    example.basic.Greeter.WriteHello.example.basic.HelloReply:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloReply'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/example.basic.HelloReply'
+      description: ""
+  schemas:
+    base64:
+      description: Specifies if the message query param is base64 encoded, which may
+        be required for binary data
+      title: base64
+      type: boolean
+    compression:
+      description: Which compression algorithm to use for this request
+      enum:
+      - identity
+      - gzip
+      - br
+      - zstd
+      title: compression
+    connect:
+      description: Which version of connect to use.
+      enum:
+      - "1"
+      title: connect
+    connect.error:
+      additionalProperties: false
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+      properties:
+        code:
+          enum:
+          - CodeCanceled
+          - CodeUnknown
+          - CodeInvalidArgument
+          - CodeDeadlineExceeded
+          - CodeNotFound
+          - CodeAlreadyExists
+          - CodePermissionDenied
+          - CodeResourceExhausted
+          - CodeFailedPrecondition
+          - CodeAborted
+          - CodeOutOfRange
+          - CodeInternal
+          - CodeUnavailable
+          - CodeDataLoss
+          - CodeUnauthenticated
+          examples:
+          - CodeNotFound
+          type: string
+        message:
+          type: string
+      title: Connect Error
+      type: object
+    encoding:
+      description: Define which encoding or 'Message-Codec' to use
+      enum:
+      - proto
+      - json
+      title: encoding
+    example.basic.HelloReply:
+      additionalProperties: false
+      description: The response message containing the greetings
+      properties:
+        message:
+          additionalProperties: false
+          description: ""
+          title: message
+          type: string
+      title: HelloReply
+      type: object
+    example.basic.HelloRequest:
+      additionalProperties: false
+      description: The request message containing the user's name.
+      properties:
+        helloCount:
+          additionalProperties: false
+          description: ""
+          exclusiveMaximum: 42
+          title: hello_count
+          type: integer
+        name:
+          additionalProperties: false
+          description: ""
+          examples:
+          - - Ein
+          maxLength: 100
+          minLength: 3
+          title: name
+          type: string
+      title: HelloRequest
+      type: object
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
+      type: http
+tags:
+- description: The greeting service definition.
+  name: example.basic.Greeter

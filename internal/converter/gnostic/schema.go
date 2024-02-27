@@ -1,10 +1,14 @@
 package gnostic
 
 import (
+	"log/slog"
+
 	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/swaggest/jsonschema-go"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/types/known/anypb"
+	"gopkg.in/yaml.v2"
 )
 
 func SchemaWithSchemaAnnotations(schema *jsonschema.Schema, desc protoreflect.MessageDescriptor) *jsonschema.Schema {
@@ -53,7 +57,24 @@ func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonsc
 		schema.ExtraProperties["writeOnly"] = opts.WriteOnly
 	}
 	if opts.Example != nil {
-		schema.Examples = []interface{}{opts.Example}
+		// If the example is defined with the YAML option
+		if opts.Example.Yaml != "" {
+			var v interface{}
+			if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &v); err != nil {
+				slog.Warn("unable to unmarshal example", slog.Any("error", err))
+			} else {
+				schema.Examples = append(schema.Examples, []interface{}{v})
+			}
+		}
+		// If the example is defined with google.protobuf.Any
+		if opts.Example.Value != nil {
+			m, err := anypb.UnmarshalNew(opts.Example.GetValue(), proto.UnmarshalOptions{})
+			if err != nil {
+				slog.Warn("unable to unmarshal example", slog.Any("error", err))
+			} else {
+				schema.Examples = append(schema.Examples, []interface{}{m})
+			}
+		}
 	}
 	if opts.ExternalDocs != nil {
 		schema.ExtraProperties["externalDocs"] = toExternalDocs(opts.ExternalDocs)

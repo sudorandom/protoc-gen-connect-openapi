@@ -1,0 +1,77 @@
+// Example description, used in
+syntax = "proto3";
+
+package example.basic;
+
+import "buf/validate/validate.proto";
+import "gnostic/openapi/v3/annotations.proto";
+
+option go_package = "google.golang.org/grpc/examples/helloworld/helloworld";
+option java_multiple_files = true;
+option java_outer_classname = "HelloWorldProto";
+option java_package = "io.grpc.examples.helloworld";
+// Full list of options can be seen here: https://github.com/google/gnostic/blob/main/openapiv3/OpenAPIv3.proto
+// File options (gnostic.openapi.v3.document): Document message
+// Method options (gnostic.openapi.v3.operation): Operation message
+// Message options (gnostic.openapi.v3.schema): Schema message
+// Field options (gnostic.openapi.v3.property): Schema message
+option (gnostic.openapi.v3.document) = {
+  info: {
+    title: "Hello World";
+    version: "v2";
+    description: "This is a service which says hello to you!";
+    contact: {
+      name: "Ein";
+      url: "https://github.com/sudorandom/protoc-gen-connect-openapi";
+      email: "ein@sudorandom.com";
+    }
+    license: {
+      name: "MIT License";
+      url: "https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE";
+    }
+  }
+  components: {
+    security_schemes: {
+      additional_properties: [
+        {
+          name: "BasicAuth";
+          value: {
+            security_scheme: {
+              type: "http";
+              scheme: "basic";
+            }
+          }
+        }
+      ]
+    }
+  }
+};
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello(HelloRequest) returns (HelloReply) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (gnostic.openapi.v3.operation).description = "This is a description just for OpenAPI";
+  }
+
+  // Writes a greeting (has side effects)
+  rpc WriteHello(HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1 [
+    (buf.validate.field).string = {
+      min_len: 3,
+      max_len: 100
+    },
+    (gnostic.openapi.v3.property) = {example: {yaml: "Ein"}}
+  ];
+  uint32 hello_count = 2 [(buf.validate.field).uint32.lt = 42];
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}

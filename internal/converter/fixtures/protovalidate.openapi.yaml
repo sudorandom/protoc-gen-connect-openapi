@@ -544,7 +544,7 @@ components:
         doubleBounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           oneOf:
           - type: string
@@ -599,7 +599,7 @@ components:
         doubleLt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           oneOf:
           - type: string
           - type: number
@@ -607,7 +607,7 @@ components:
         doubleLte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           oneOf:
           - type: string
           - type: number
@@ -708,7 +708,7 @@ components:
         fixed32Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           title: fixed32_bounds
           type: integer
@@ -744,13 +744,13 @@ components:
         fixed32Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           title: fixed32_lt
           type: integer
         fixed32Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           title: fixed32_lte
           type: integer
         fixed32NotIn:
@@ -763,7 +763,7 @@ components:
         fixed64Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           oneOf:
           - type: string
@@ -809,7 +809,7 @@ components:
         fixed64Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           oneOf:
           - type: string
           - type: number
@@ -817,7 +817,7 @@ components:
         fixed64Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           oneOf:
           - type: string
           - type: number
@@ -834,7 +834,7 @@ components:
         floatBounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           title: float_bounds
           type: number
@@ -877,13 +877,13 @@ components:
         floatLt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           title: float_lt
           type: number
         floatLte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           title: float_lte
           type: number
         floatNotIn:
@@ -896,7 +896,7 @@ components:
         int32Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           title: int32_bounds
           type: integer
@@ -932,13 +932,13 @@ components:
         int32Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           title: int32_lt
           type: integer
         int32Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           title: int32_lte
           type: integer
         int32NotIn:
@@ -951,7 +951,7 @@ components:
         int64Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           oneOf:
           - type: string
@@ -997,7 +997,7 @@ components:
         int64Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           oneOf:
           - type: string
           - type: number
@@ -1005,7 +1005,7 @@ components:
         int64Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           oneOf:
           - type: string
           - type: number
@@ -1083,7 +1083,7 @@ components:
         sfixed32Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           title: sfixed32_bounds
           type: integer
@@ -1119,13 +1119,13 @@ components:
         sfixed32Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           title: sfixed32_lt
           type: integer
         sfixed32Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           title: sfixed32_lte
           type: integer
         sfixed32NotIn:
@@ -1138,7 +1138,7 @@ components:
         sfixed64Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           oneOf:
           - type: string
@@ -1184,7 +1184,7 @@ components:
         sfixed64Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           oneOf:
           - type: string
           - type: number
@@ -1192,7 +1192,7 @@ components:
         sfixed64Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           oneOf:
           - type: string
           - type: number
@@ -1209,7 +1209,7 @@ components:
         sint32Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           title: sint32_bounds
           type: integer
@@ -1245,13 +1245,13 @@ components:
         sint32Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           title: sint32_lt
           type: integer
         sint32Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           title: sint32_lte
           type: integer
         sint32NotIn:
@@ -1264,7 +1264,7 @@ components:
         sint64Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           oneOf:
           - type: string
@@ -1310,7 +1310,7 @@ components:
         sint64Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           oneOf:
           - type: string
           - type: number
@@ -1318,7 +1318,7 @@ components:
         sint64Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           oneOf:
           - type: string
           - type: number
@@ -1573,7 +1573,7 @@ components:
         uint32Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           title: uint32_bounds
           type: integer
@@ -1609,13 +1609,13 @@ components:
         uint32Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           title: uint32_lt
           type: integer
         uint32Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           title: uint32_lte
           type: integer
         uint32NotIn:
@@ -1628,7 +1628,7 @@ components:
         uint64Bounds:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 10
+          exclusiveMaximum: 10
           minimum: 5
           oneOf:
           - type: string
@@ -1674,7 +1674,7 @@ components:
         uint64Lt:
           additionalProperties: false
           description: ""
-          exclusiveMinimum: 42
+          exclusiveMaximum: 42
           oneOf:
           - type: string
           - type: number
@@ -1682,7 +1682,7 @@ components:
         uint64Lte:
           additionalProperties: false
           description: ""
-          minimum: 420
+          maximum: 420
           oneOf:
           - type: string
           - type: number
