@@ -46,7 +46,7 @@ This is what a GET request looks like. Note that GET requests are available for 
 We can document this API as if it's a real JSON/HTTP API... because it is, and the gRPC "flavor" isn't so noticable due to Connect. With protoc-gen-connect-openapi you can declare your API using protobuf, serve it using gRPC and Connect and fully document it without the API consumers ever knowing what protobuf is or how to read it.
 
 ## Install
-```
+```shell
 go install github.com/sudorandom/protoc-gen-connect-openapi@main
 ```
 
@@ -75,7 +75,7 @@ See `protoc --help` for more protoc options.
 
 ### Using buf
 With buf you can make a `buf.gen.yaml` with your options, like this:
-```
+```yaml
 version: v1
 plugins:
   - plugin: connect-openapi

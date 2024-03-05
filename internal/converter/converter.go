@@ -212,7 +212,7 @@ func specToFile(opts Options, spec openapi31.Spec) (string, error) {
 			return "", err
 		}
 		if err := spec.UnmarshalJSON(baseJSON); err != nil {
-			return "", err
+			return "", fmt.Errorf("unmarshalling base: %w", err)
 		}
 	}
 
@@ -222,7 +222,7 @@ func specToFile(opts Options, spec openapi31.Spec) (string, error) {
 			return "", err
 		}
 		if err := spec.UnmarshalYAML(baseYAML); err != nil {
-			return "", err
+			return "", fmt.Errorf("unmarshalling base: %w", err)
 		}
 	}
 
@@ -230,14 +230,14 @@ func specToFile(opts Options, spec openapi31.Spec) (string, error) {
 	case "yaml":
 		b, err := spec.MarshalYAML()
 		if err != nil {
-			return "", err
+			return "", fmt.Errorf("marshalling: %w", err)
 		}
 
 		return string(b), nil
 	case "json":
 		b, err := json.MarshalIndent(spec, "", "  ")
 		if err != nil {
-			return "", err
+			return "", fmt.Errorf("marshalling: %w", err)
 		}
 
 		return string(b), nil
