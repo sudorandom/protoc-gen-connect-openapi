@@ -187,6 +187,8 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	}
 
 	for path, spec := range outFiles {
+		path := path
+		spec := spec
 		content, err := specToFile(opts, spec)
 		if err != nil {
 			return nil, err
