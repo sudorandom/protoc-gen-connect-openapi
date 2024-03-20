@@ -7,28 +7,28 @@
   },
   "paths": {
     "/helloworld.Greeter/SayHello": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/helloworld.Greeter.SayHello.helloworld.HelloRequest"
-        },
-        {
-          "$ref": "#/components/parameters/encoding"
-        },
-        {
-          "$ref": "#/components/parameters/base64"
-        },
-        {
-          "$ref": "#/components/parameters/compression"
-        },
-        {
-          "$ref": "#/components/parameters/connect"
-        }
-      ],
       "get": {
         "tags": [
           "helloworld.Greeter"
         ],
         "description": "Sends a greeting",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/helloworld.Greeter.SayHello.helloworld.HelloRequest"
+          },
+          {
+            "$ref": "#/components/parameters/encoding"
+          },
+          {
+            "$ref": "#/components/parameters/base64"
+          },
+          {
+            "$ref": "#/components/parameters/compression"
+          },
+          {
+            "$ref": "#/components/parameters/connect"
+          }
+        ],
         "responses": {
           "default": {
             "$ref": "#/components/responses/connect.error"

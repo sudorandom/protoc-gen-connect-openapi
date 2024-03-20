@@ -13,6 +13,7 @@ Features:
 - Support for OpenAPIv3.1 (which has support for jsonschema)
 - Support for many [protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
 - Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
+- Support for [gRPC-Gateway annotations](https://github.com/grpc-ecosystem/grpc-gateway) ([more info](grpcgateway.md))
 
 Example Pipeline:
 - Protobuf file: [example](examples/basic.proto)
@@ -90,6 +91,11 @@ protoc-gen-connect-openapi also has support for many [protovalidate](https://git
 
 [See the protovalidate documentation page for more information](protovalidate.md)
 
+### gRPC-Gateway annotations
+protoc-gen-connect-openapi also has support for the [gRPC-Gateway annotations](https://grpc-ecosystem.github.io/grpc-gateway/docs/tutorials/adding_annotations/) provided by the [google/api/annotations.proto](https://github.com/googleapis/googleapis/blob/master/google/api/annotations.proto).
+
+[See the gRPC-Gateway annotation documentation page for more information](grpcgateway.md)
+
 ### Gnostic Support
 protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) provided by the [google/gnostic project](https://github.com/google/gnostic).
 
@@ -101,6 +107,8 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | format | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`. |
 | base | `{filepath}` | The path to a base OpenAPI file to populate fienlds that this tool doesn't populate. |
+| content-types | `json;proto` | Semicolon-separated content types to generate requests/repsonses |
+| proto | - | Generate requests/repsonses with the protobuf content type |
 | with-streaming | - | Generate OpenAPI with content types related to streaming (can be messy). |
-| only-string-enum-values | - | Only use strings for enum values, defaults to showing integers and strings |
+| include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings |
 | debug | - | Emit debug logs |

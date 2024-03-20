@@ -1,4 +1,4 @@
-package converter
+package util
 
 import (
 	"github.com/swaggest/jsonschema-go"
@@ -12,7 +12,7 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *json
 	"google.protobuf.Empty":     googleEmpty,
 }
 
-func isWellKnown(msg protoreflect.MessageDescriptor) bool {
+func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
 	_, ok := wellKnownToSchemaFns[string(msg.FullName())]
 	return ok
 }
@@ -28,7 +28,7 @@ func wellKnownToSchema(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 func googleDuration(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	s := &jsonschema.Schema{}
 	s.WithID(string(msg.FullName()))
-	s.WithDescription(formatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
+	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
 	s.WithType(jsonschema.String.Type())
 	s.WithFormat("regex")
 	s.WithPattern(`^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`)
@@ -39,7 +39,7 @@ func googleDuration(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 func googleTimestamp(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	s := &jsonschema.Schema{}
 	s.WithID(string(msg.FullName()))
-	s.WithDescription(formatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
+	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
 	s.WithType(jsonschema.String.Type())
 	s.WithFormat("date-time")
 	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
@@ -49,7 +49,7 @@ func googleTimestamp(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 func googleValue(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	s := &jsonschema.Schema{}
 	s.WithID(string(msg.FullName()))
-	s.WithDescription(formatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
+	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
 	s.OneOf = []jsonschema.SchemaOrBool{
 		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Null.Type())},
 		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Number.Type())},

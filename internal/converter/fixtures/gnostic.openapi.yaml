@@ -17,6 +17,12 @@ paths:
     get:
       deprecated: true
       description: Sends a greeting
+      parameters:
+      - $ref: '#/components/parameters/example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloRequest'
+      - $ref: '#/components/parameters/encoding'
+      - $ref: '#/components/parameters/base64'
+      - $ref: '#/components/parameters/compression'
+      - $ref: '#/components/parameters/connect'
       responses:
         "200":
           $ref: '#/components/responses/example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloReply'
@@ -26,12 +32,6 @@ paths:
       - BasicAuth: null
       tags:
       - example_with_gnostic.Greeter
-    parameters:
-    - $ref: '#/components/parameters/example_with_gnostic.Greeter.SayHello.example_with_gnostic.HelloRequest'
-    - $ref: '#/components/parameters/encoding'
-    - $ref: '#/components/parameters/base64'
-    - $ref: '#/components/parameters/compression'
-    - $ref: '#/components/parameters/connect'
 components:
   parameters:
     base64:

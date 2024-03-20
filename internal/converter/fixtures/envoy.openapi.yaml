@@ -585,9 +585,7 @@ components:
       description: ""
       enum:
       - - TCP
-        - 0
         - UDP
-        - 1
       title: Protocol
       type: string
     envoy.service.discovery.v3.DeltaDiscoveryRequest:
@@ -1441,7 +1439,6 @@ components:
          The JSON representation for `NullValue` is JSON `null`.
       enum:
       - - NULL_VALUE
-        - 0
       title: NullValue
       type: string
     google.protobuf.Struct:
