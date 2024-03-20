@@ -16,7 +16,7 @@ require (
 	github.com/swaggest/jsonschema-go v0.3.66
 	github.com/swaggest/openapi-go v0.2.49
 	google.golang.org/genproto/googleapis/api v0.0.0-20230913181813-007df8e322eb
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.33.0
 	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1
 )
