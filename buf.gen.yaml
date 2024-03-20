@@ -2,8 +2,10 @@ version: v1
 plugins:
   - plugin: connect-openapi
     out: out
-    # opt:
-    # - base=base.yaml
+    opt:
+    - base=auth-base.yaml
+    - content-types=json
+    - debug
     # - format=json
 
   - plugin: connect-openapi
@@ -12,5 +14,4 @@ plugins:
     opt:
     # - base=base.yaml
     - format=json
-    - only-string-enum-values
     - path=openapi.yaml

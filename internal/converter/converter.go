@@ -11,29 +11,38 @@ import (
 	"strings"
 
 	"github.com/lmittmann/tint"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/swaggest/openapi-go/openapi31"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
+
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
 type Options struct {
 	// Format can be either "yaml" or "json"
-	Path                 string
-	Format               string
-	BaseOpenAPIYAMLPath  string
-	BaseOpenAPIJSONPath  string
-	WithStreaming        bool
-	Debug                bool
-	OnlyStringEnumValues bool
+	Path                    string
+	Format                  string
+	BaseOpenAPIYAMLPath     string
+	BaseOpenAPIJSONPath     string
+	WithStreaming           bool
+	ContentTypes            map[string]struct{}
+	Debug                   bool
+	IncludeNumberEnumValues bool
 }
 
 func parseOptions(s string) (Options, error) {
 	opts := Options{
-		Format: "yaml",
+		Format:       "yaml",
+		ContentTypes: map[string]struct{}{},
+	}
+
+	supportedProtocols := map[string]struct{}{}
+	for _, proto := range Protocols {
+		supportedProtocols[proto.Name] = struct{}{}
 	}
 
 	for _, param := range strings.Split(s, ",") {
@@ -41,10 +50,19 @@ func parseOptions(s string) (Options, error) {
 		case param == "":
 		case param == "debug":
 			opts.Debug = true
-		case param == "only-string-enum-values":
-			opts.OnlyStringEnumValues = true
+		case param == "include-number-enum-values":
+			opts.IncludeNumberEnumValues = true
 		case param == "with-streaming":
 			opts.WithStreaming = true
+		case strings.HasPrefix(param, "content-types="):
+			for _, contentType := range strings.Split(param[14:], ";") {
+				contentType = strings.TrimSpace(contentType)
+				_, isSupportedProtocol := supportedProtocols[contentType]
+				if !isSupportedProtocol {
+					return opts, fmt.Errorf("invalid content type: '%s'", contentType)
+				}
+				opts.ContentTypes[contentType] = struct{}{}
+			}
 		case strings.HasPrefix(param, "path="):
 			opts.Path = param[5:]
 		case strings.HasPrefix(param, "format="):
@@ -72,6 +90,12 @@ func parseOptions(s string) (Options, error) {
 			return opts, fmt.Errorf("invalid parameter: %s", param)
 		}
 	}
+	if len(opts.ContentTypes) == 0 {
+		opts.ContentTypes = map[string]struct{}{
+			"json":  {},
+			"proto": {},
+		}
+	}
 	return opts, nil
 }
 
@@ -88,10 +112,6 @@ func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
 	}
 
 	return Convert(req)
-}
-
-func formatTypeRef(t string) string {
-	return strings.TrimPrefix(t, ".")
 }
 
 func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
@@ -168,7 +188,7 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		if opts.Path == "" {
 			spec = newSpec()
 			spec.SetTitle(string(fd.FullName()))
-			spec.SetDescription(formatComments(fd.SourceLocations().ByDescriptor(fd)))
+			spec.SetDescription(util.FormatComments(fd.SourceLocations().ByDescriptor(fd)))
 		}
 
 		if err := appendToSpec(opts, &spec, fd); err != nil {
@@ -294,21 +314,4 @@ func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescri
 	}
 	spec.Tags = append(spec.Tags, fileToTags(fd)...)
 	return nil
-}
-
-func formatComments(loc protoreflect.SourceLocation) string {
-	var builder strings.Builder
-	if loc.LeadingComments != "" {
-		builder.WriteString(strings.TrimSpace(loc.LeadingComments))
-		builder.WriteString(" ")
-	}
-	if loc.TrailingComments != "" {
-		builder.WriteString(strings.TrimSpace(loc.TrailingComments))
-		builder.WriteString(" ")
-	}
-	return strings.TrimSpace(builder.String())
-}
-
-func BoolPtr(b bool) *bool {
-	return &b
 }

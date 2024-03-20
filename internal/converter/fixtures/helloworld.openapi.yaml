@@ -7,6 +7,12 @@ paths:
   /helloworld.Greeter/SayHello:
     get:
       description: Sends a greeting
+      parameters:
+      - $ref: '#/components/parameters/helloworld.Greeter.SayHello.helloworld.HelloRequest'
+      - $ref: '#/components/parameters/encoding'
+      - $ref: '#/components/parameters/base64'
+      - $ref: '#/components/parameters/compression'
+      - $ref: '#/components/parameters/connect'
       responses:
         "200":
           $ref: '#/components/responses/helloworld.Greeter.SayHello.helloworld.HelloReply'
@@ -14,12 +20,6 @@ paths:
           $ref: '#/components/responses/connect.error'
       tags:
       - helloworld.Greeter
-    parameters:
-    - $ref: '#/components/parameters/helloworld.Greeter.SayHello.helloworld.HelloRequest'
-    - $ref: '#/components/parameters/encoding'
-    - $ref: '#/components/parameters/base64'
-    - $ref: '#/components/parameters/compression'
-    - $ref: '#/components/parameters/connect'
   /helloworld.Greeter/WriteHello:
     post:
       description: Writes a greeting (has side effects)
