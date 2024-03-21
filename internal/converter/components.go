@@ -236,6 +236,26 @@ func fileToComponents(opts Options, fd protoreflect.FileDescriptor) (openapi31.C
 	connectError.WithTitle("Connect Error")
 	connectError.WithDescription(`Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`)
 	connectError.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: util.BoolPtr(false)})
+	detailSchema := &jsonschema.Schema{}
+	detailSchema.WithType(jsonschema.Array.Type())
+	googleAnyRef := "#/components/schemas/google.protobuf.Any"
+	detailSchema.WithItems(jsonschema.Items{
+		SchemaOrBool: &jsonschema.SchemaOrBool{
+			TypeObject: &jsonschema.Schema{
+				Ref: &googleAnyRef,
+			},
+		},
+	})
+	connectError.Properties["detail"] = jsonschema.SchemaOrBool{TypeObject: detailSchema}
+
+	googleAny := util.NewGoogleAny()
+	components.WithSchemasItem(*googleAny.ID, map[string]interface{}{
+		"id":                   googleAny.ID,
+		"type":                 googleAny.Type,
+		"description":          googleAny.Description,
+		"properties":           googleAny.Properties,
+		"additionalProperties": googleAny.AdditionalProperties,
+	})
 
 	components.WithSchemasItem("connect.error", map[string]interface{}{
 		"description":          connectError.Description,
@@ -303,6 +323,6 @@ func makeMediaTypes(opts Options, ref string, isRequest, isStreaming bool) map[s
 
 // ConnectError is an error that
 type ConnectError struct {
-	Code    string `json:"code" example:"CodeNotFound" enum:"CodeCanceled,CodeUnknown,CodeInvalidArgument,CodeDeadlineExceeded,CodeNotFound,CodeAlreadyExists,CodePermissionDenied,CodeResourceExhausted,CodeFailedPrecondition,CodeAborted,CodeOutOfRange,CodeInternal,CodeUnavailable,CodeDataLoss,CodeUnauthenticated"`
-	Message string `json:"message,omitempty"`
+	Code    string `json:"code" example:"CodeNotFound" enum:"CodeCanceled,CodeUnknown,CodeInvalidArgument,CodeDeadlineExceeded,CodeNotFound,CodeAlreadyExists,CodePermissionDenied,CodeResourceExhausted,CodeFailedPrecondition,CodeAborted,CodeOutOfRange,CodeInternal,CodeUnavailable,CodeDataLoss,CodeUnauthenticated" description:"The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."`
+	Message string `json:"message,omitempty" description:"A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."`
 }

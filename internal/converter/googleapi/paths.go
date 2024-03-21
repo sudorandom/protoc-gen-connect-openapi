@@ -230,5 +230,4 @@ func schemaToMap(schema *jsonschema.Schema) map[string]interface{} {
 		"title":       schema.Title,
 		"description": schema.Description,
 	}
-
 }

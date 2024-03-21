@@ -10,6 +10,7 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *json
 	"google.protobuf.Timestamp": googleTimestamp,
 	"google.protobuf.Value":     googleValue,
 	"google.protobuf.Empty":     googleEmpty,
+	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *jsonschema.Schema { return NewGoogleAny() },
 }
 
 func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
@@ -64,6 +65,19 @@ func googleValue(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 
 func googleEmpty(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	return nil
+}
+
+func NewGoogleAny() *jsonschema.Schema {
+	typeS := &jsonschema.Schema{}
+	typeS.WithType(jsonschema.String.Type())
+	typeS.WithDescription("The type of the serialized message.")
+	s := &jsonschema.Schema{}
+	s.WithID("google.protobuf.Any")
+	s.WithDescription("Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.")
+	s.WithType(jsonschema.Object.Type())
+	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(true)})
+	s.WithProperties(map[string]jsonschema.SchemaOrBool{"@type": {TypeObject: typeS}})
+	return s
 }
 
 func IsEmpty(msg protoreflect.MessageDescriptor) bool {

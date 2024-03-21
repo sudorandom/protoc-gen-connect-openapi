@@ -325,6 +325,7 @@ components:
       description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
       properties:
         code:
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
           enum:
           - CodeCanceled
           - CodeUnknown
@@ -344,9 +345,26 @@ components:
           examples:
           - CodeNotFound
           type: string
+        detail:
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          type: array
         message:
+          description: A developer-facing error message, which should be in English.
+            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
+            field, or localized by the client.
           type: string
       title: Connect Error
+      type: object
+    google.protobuf.Any:
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that
+        describes the type of the serialized message.
+      id: google.protobuf.Any
+      properties:
+        '@type':
+          description: The type of the serialized message.
+          type: string
       type: object
     tensorflow.AllocationDescription:
       additionalProperties: false
