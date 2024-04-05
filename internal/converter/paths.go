@@ -10,7 +10,7 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathItem, error) {
+func fileToPathItems(opts Options, fd protoreflect.FileDescriptor) (map[string]openapi31.PathItem, error) {
 	items := map[string]openapi31.PathItem{}
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
@@ -49,7 +49,7 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 			}
 			if len(pathItems) == 0 {
 				// Default ConnectRPC/gRPC path
-				items["/"+string(service.FullName())+"/"+string(method.Name())] = methodToPathItem(method)
+				items["/"+string(service.FullName())+"/"+string(method.Name())] = methodToPathItem(opts, method)
 			}
 		}
 	}
@@ -57,7 +57,7 @@ func fileToPathItems(fd protoreflect.FileDescriptor) (map[string]openapi31.PathI
 	return items, nil
 }
 
-func methodToPathItem(method protoreflect.MethodDescriptor) openapi31.PathItem {
+func methodToPathItem(opts Options, method protoreflect.MethodDescriptor) openapi31.PathItem {
 	fd := method.ParentFile()
 	service := method.Parent().(protoreflect.ServiceDescriptor)
 	op := &openapi31.Operation{
@@ -67,7 +67,7 @@ func methodToPathItem(method protoreflect.MethodDescriptor) openapi31.PathItem {
 	loc := fd.SourceLocations().ByDescriptor(method)
 	op.WithDescription(util.FormatComments(loc))
 
-	hasGetSupport := methodHasGet(method)
+	hasGetSupport := methodHasGet(opts, method)
 
 	// Responses
 	responses := openapi31.Responses{
@@ -114,7 +114,11 @@ func methodToPathItem(method protoreflect.MethodDescriptor) openapi31.PathItem {
 	return item
 }
 
-func methodHasGet(method protoreflect.MethodDescriptor) bool {
+func methodHasGet(opts Options, method protoreflect.MethodDescriptor) bool {
+	if !opts.AllowGET {
+		return false
+	}
+
 	if method.IsStreamingClient() || method.IsStreamingServer() {
 		return false
 	}

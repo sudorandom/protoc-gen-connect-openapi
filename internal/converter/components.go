@@ -127,7 +127,7 @@ func fileToComponents(opts Options, fd protoreflect.FileDescriptor) (openapi31.C
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
 			isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
-			hasGet := methodHasGet(method)
+			hasGet := methodHasGet(opts, method)
 			if hasGet {
 				hasGetRequests = true
 			}

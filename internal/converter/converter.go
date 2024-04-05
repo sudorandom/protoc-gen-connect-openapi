@@ -29,6 +29,7 @@ type Options struct {
 	BaseOpenAPIYAMLPath     string
 	BaseOpenAPIJSONPath     string
 	WithStreaming           bool
+	AllowGET                bool
 	ContentTypes            map[string]struct{}
 	Debug                   bool
 	IncludeNumberEnumValues bool
@@ -52,6 +53,8 @@ func parseOptions(s string) (Options, error) {
 			opts.Debug = true
 		case param == "include-number-enum-values":
 			opts.IncludeNumberEnumValues = true
+		case param == "allow-get":
+			opts.AllowGET = true
 		case param == "with-streaming":
 			opts.WithStreaming = true
 		case strings.HasPrefix(param, "content-types="):
@@ -305,7 +308,7 @@ func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescri
 		spec.Components.PathItems[k] = v
 	}
 
-	pathItems, err := fileToPathItems(fd)
+	pathItems, err := fileToPathItems(opts, fd)
 	if err != nil {
 		return err
 	}
