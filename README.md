@@ -69,7 +69,7 @@ With a base OpenAPI file and without all of the streaming content type:
 ```shell
 protoc internal/converter/fixtures/helloworld.proto \
     --connect-openapi_out=gen \
-    --connect-openapi_opt=base=example.base.yaml,without-streaming
+    --connect-openapi_opt=base=example.base.yaml,content-types=json
 ```
 
 See `protoc --help` for more protoc options.
