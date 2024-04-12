@@ -49,13 +49,13 @@ func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonsc
 		schema.Format = &opts.Format
 	}
 	if opts.Nullable {
-		schema.ExtraProperties["nullable"] = opts.Nullable
+		schema.WithExtraPropertiesItem("nullable", opts.Nullable)
 	}
 	if opts.ReadOnly {
 		schema.ReadOnly = &opts.ReadOnly
 	}
 	if opts.WriteOnly {
-		schema.ExtraProperties["writeOnly"] = opts.WriteOnly
+		schema.WithExtraPropertiesItem("writeOnly", opts.WriteOnly)
 	}
 	if opts.Example != nil {
 		// If the example is defined with the YAML option
@@ -78,10 +78,10 @@ func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonsc
 		}
 	}
 	if opts.ExternalDocs != nil {
-		schema.ExtraProperties["externalDocs"] = toExternalDocs(opts.ExternalDocs)
+		schema.WithExtraPropertiesItem("externalDocs", toExternalDocs(opts.ExternalDocs))
 	}
 	if opts.Deprecated {
-		schema.ExtraProperties["deprecated"] = opts.Deprecated
+		schema.WithExtraPropertiesItem("deprecated", opts.Deprecated)
 	}
 	if opts.MultipleOf != 0 {
 		schema.MultipleOf = &opts.MultipleOf
