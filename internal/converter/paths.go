@@ -69,14 +69,12 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
-	if !util.IsEmpty(method.Output()) {
-		id := util.FormatTypeRef(string(method.Output().FullName()))
-		mediaType := orderedmap.New[string, *v3.MediaType]()
-		mediaType.Set("application/json", &v3.MediaType{
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
-		})
-		codeMap.Set("200", &v3.Response{Content: mediaType})
-	}
+	id := util.FormatTypeRef(string(method.Output().FullName()))
+	mediaType := orderedmap.New[string, *v3.MediaType]()
+	mediaType.Set("application/json", &v3.MediaType{
+		Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
+	})
+	codeMap.Set("200", &v3.Response{Content: mediaType})
 	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
 	errMediaTypes.Set("application/json", &v3.MediaType{
 		Schema: base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
@@ -92,24 +90,22 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 
 	// Request parameters
 	item := &v3.PathItem{}
-	if !util.IsEmpty(method.Input()) {
-		id := util.FormatTypeRef(string(method.Input().FullName()))
-		if hasGetSupport {
-			op.Parameters = append(op.Parameters,
-				&v3.Parameter{
-					Name:    "message",
-					In:      "query",
-					Content: util.MakeMediaTypes(opts, "#/components/schemas/"+util.FormatTypeRef(id), true, isStreaming),
-				})
-		} else {
-			mediaTypes := orderedmap.New[string, *v3.MediaType]()
-			mediaTypes.Set("application/json", &v3.MediaType{
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
+	inputId := util.FormatTypeRef(string(method.Input().FullName()))
+	if hasGetSupport {
+		op.Parameters = append(op.Parameters,
+			&v3.Parameter{
+				Name:    "message",
+				In:      "query",
+				Content: util.MakeMediaTypes(opts, "#/components/schemas/"+util.FormatTypeRef(inputId), true, isStreaming),
 			})
-			op.RequestBody = &v3.RequestBody{
-				Content:  mediaTypes,
-				Required: util.BoolPtr(true),
-			}
+	} else {
+		mediaTypes := orderedmap.New[string, *v3.MediaType]()
+		mediaTypes.Set("application/json", &v3.MediaType{
+			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + inputId),
+		})
+		op.RequestBody = &v3.RequestBody{
+			Content:  mediaTypes,
+			Required: util.BoolPtr(true),
 		}
 	}
 

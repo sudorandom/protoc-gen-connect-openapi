@@ -12,7 +12,7 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSc
 	"google.protobuf.Empty":     googleEmpty,
 	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *IDSchema { return NewGoogleAny() },
 
-	// XValue
+	// google.protobuf.[Type]Value
 	"google.protobuf.Value":       googleValue,
 	"google.protobuf.NullValue":   googleNullValue,
 	"google.protobuf.StringValue": googleStringValue,

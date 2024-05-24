@@ -119,14 +119,13 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
 
-	if !util.IsEmpty(md.Output()) {
-		id := util.FormatTypeRef(string(md.Output().FullName()))
-		mediaType := orderedmap.New[string, *v3.MediaType]()
-		mediaType.Set("application/json", &v3.MediaType{
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
-		})
-		codeMap.Set("200", &v3.Response{Content: mediaType})
-	}
+	id := util.FormatTypeRef(string(md.Output().FullName()))
+	mediaType := orderedmap.New[string, *v3.MediaType]()
+	mediaType.Set("application/json", &v3.MediaType{
+		Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
+	})
+	codeMap.Set("200", &v3.Response{Content: mediaType})
+
 	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
 	errMediaTypes.Set("application/json", &v3.MediaType{
 		Schema: base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
