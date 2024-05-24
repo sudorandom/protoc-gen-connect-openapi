@@ -1,218 +1,160 @@
 openapi: 3.1.0
 info:
-  description: ""
   title: envoy.test
-  version: ""
 paths:
-  /envoy.test.ClusterDiscoveryService/DeltaClusters:
-    post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryResponse'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - envoy.test.ClusterDiscoveryService
-  /envoy.test.ClusterDiscoveryService/FetchClusters:
-    post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryResponse'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - envoy.test.ClusterDiscoveryService
   /envoy.test.ClusterDiscoveryService/StreamClusters:
     post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryResponse'
-        default:
-          $ref: '#/components/responses/connect.error'
       tags:
-      - envoy.test.ClusterDiscoveryService
+        - envoy.test.ClusterDiscoveryService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+  /envoy.test.ClusterDiscoveryService/DeltaClusters:
+    post:
+      tags:
+        - envoy.test.ClusterDiscoveryService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+  /envoy.test.ClusterDiscoveryService/FetchClusters:
+    post:
+      tags:
+        - envoy.test.ClusterDiscoveryService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
 components:
-  requestBodies:
-    envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryRequest:
-      content: {}
-      required: true
-    envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
-      required: true
-    envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryRequest:
-      content: {}
-      required: true
-  responses:
-    connect.error:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-      description: ""
-    envoy.test.ClusterDiscoveryService.DeltaClusters.envoy.service.discovery.v3.DeltaDiscoveryResponse:
-      description: ""
-    envoy.test.ClusterDiscoveryService.FetchClusters.envoy.service.discovery.v3.DiscoveryResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
-      description: ""
-    envoy.test.ClusterDiscoveryService.StreamClusters.envoy.service.discovery.v3.DiscoveryResponse:
-      description: ""
   schemas:
-    connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-      properties:
-        code:
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
-        message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
-          type: string
-      title: Connect Error
-      type: object
+    envoy.config.core.v3.SocketAddress.Protocol:
+      type: string
+      title: Protocol
+    google.protobuf.NullValue:
+      type: string
+      title: NullValue
+      description: |-
+        `NullValue` is a singleton enumeration to represent the null value for the
+         `Value` type union.
+
+         The JSON representation for `NullValue` is JSON `null`.
     envoy.config.core.v3.Address:
+      type: object
+      properties:
+        socketAddress:
+          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
+        pipe:
+          $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
+        envoyInternalAddress:
+          $ref: '#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress'
+      title: Address
       additionalProperties: false
       description: |-
         Addresses specify either a logical or physical address and port, which are
          used to tell Envoy where to bind/listen, connect to upstream and find
          management servers.
-      properties:
-        envoyInternalAddress:
-          $ref: '#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress'
-          additionalProperties: false
-          description: |-
-            Specifies a user-space address handled by :ref:`internal listeners
-             <envoy_v3_api_field_config.listener.v3.Listener.internal_listener>`.
-          title: envoy_internal_address
-          type: object
-        pipe:
-          $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
-          additionalProperties: false
-          description: ""
-          title: pipe
-          type: object
-        socketAddress:
-          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
-          additionalProperties: false
-          description: ""
-          title: socket_address
-          type: object
-      title: Address
-      type: object
     envoy.config.core.v3.BuildVersion:
+      type: object
+      properties:
+        version:
+          $ref: '#/components/schemas/envoy.type.v3.SemanticVersion'
+        metadata:
+          $ref: '#/components/schemas/google.protobuf.Struct'
+      title: BuildVersion
       additionalProperties: false
       description: |-
         BuildVersion combines SemVer version of extension with free-form build information
          (i.e. 'alpha', 'private-build') as a set of strings.
-      properties:
-        metadata:
-          $ref: '#/components/schemas/google.protobuf.Struct'
-          additionalProperties: false
-          description: |-
-            Free-form build information.
-             Envoy defines several well known keys in the source/common/version/version.h file
-          title: metadata
-          type: object
-        version:
-          $ref: '#/components/schemas/envoy.type.v3.SemanticVersion'
-          additionalProperties: false
-          description: SemVer version of extension.
-          title: version
-          type: object
-      title: BuildVersion
-      type: object
     envoy.config.core.v3.ControlPlane:
-      additionalProperties: false
-      description: Identifies a specific ControlPlane instance that Envoy is connected
-        to.
+      type: object
       properties:
         identifier:
+          type: string
+          title: identifier
           additionalProperties: false
           description: |-
             An opaque control plane identifier that uniquely identifies an instance
              of control plane. This can be used to identify which control plane instance,
              the Envoy is connected to.
-          title: identifier
-          type: string
       title: ControlPlane
-      type: object
-    envoy.config.core.v3.EnvoyInternalAddress:
       additionalProperties: false
-      description: |-
-        The address represents an envoy internal listener.
-         [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]
+      description: Identifies a specific ControlPlane instance that Envoy is connected to.
+    envoy.config.core.v3.EnvoyInternalAddress:
+      type: object
       properties:
+        serverListenerName:
+          type: string
+          title: server_listener_name
+          additionalProperties: false
+          description: |-
+            Specifies the :ref:`name <envoy_v3_api_field_config.listener.v3.Listener.name>` of the
+             internal listener.
         endpointId:
+          type: string
+          title: endpoint_id
           additionalProperties: false
           description: |-
             Specifies an endpoint identifier to distinguish between multiple endpoints for the same internal listener in a
              single upstream pool. Only used in the upstream addresses for tracking changes to individual endpoints. This, for
              example, may be set to the final destination IP for the target internal listener.
-          title: endpoint_id
-          type: string
-        serverListenerName:
-          additionalProperties: false
-          description: |-
-            Specifies the :ref:`name <envoy_v3_api_field_config.listener.v3.Listener.name>` of the
-             internal listener.
-          title: server_listener_name
-          type: string
       title: EnvoyInternalAddress
-      type: object
-    envoy.config.core.v3.Extension:
       additionalProperties: false
       description: |-
-        Version and identification for an Envoy extension.
-         [#next-free-field: 7]
+        The address represents an envoy internal listener.
+         [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]
+    envoy.config.core.v3.Extension:
+      type: object
       properties:
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+          description: |-
+            This is the name of the Envoy filter as specified in the Envoy
+             configuration, e.g. envoy.filters.http.router, com.acme.widget.
         category:
+          type: string
+          title: category
           additionalProperties: false
           description: |-
             Category of the extension.
@@ -220,67 +162,44 @@ components:
              for Envoy's built-in listener filters or "com.acme.filters.http" for HTTP filters from
              acme.com vendor.
              [#comment:TODO(yanavlasov): Link to the doc with existing envoy category names.]
-          title: category
-          type: string
-        disabled:
-          additionalProperties: false
-          description: Indicates that the extension is present but was disabled via
-            dynamic configuration.
-          title: disabled
-          type: boolean
-        name:
-          additionalProperties: false
-          description: |-
-            This is the name of the Envoy filter as specified in the Envoy
-             configuration, e.g. envoy.filters.http.router, com.acme.widget.
-          title: name
-          type: string
         typeDescriptor:
+          type: string
+          title: type_descriptor
           additionalProperties: false
           description: |-
             [#not-implemented-hide:] Type descriptor of extension configuration proto.
              [#comment:TODO(yanavlasov): Link to the doc with existing configuration protos.]
              [#comment:TODO(yanavlasov): Add tests when PR #9391 lands.]
-          title: type_descriptor
-          type: string
-        typeUrls:
-          additionalProperties: false
-          description: Type URLs of extension configuration protos.
-          items:
-            type: string
-          title: type_urls
-          type: array
         version:
           $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
+        disabled:
+          type: boolean
+          title: disabled
           additionalProperties: false
-          description: |-
-            The version is a property of the extension and maintained independently
-             of other extensions and the Envoy API.
-             This field is not set when extension did not provide version information.
-          title: version
-          type: object
+          description: Indicates that the extension is present but was disabled via dynamic configuration.
+        typeUrls:
+          type: array
+          items:
+            type: string
+            title: type_urls
+            additionalProperties: false
+            description: Type URLs of extension configuration protos.
       title: Extension
-      type: object
-    envoy.config.core.v3.Locality:
       additionalProperties: false
-      description: Identifies location of where either Envoy runs or where upstream
-        hosts run.
+      description: |-
+        Version and identification for an Envoy extension.
+         [#next-free-field: 7]
+    envoy.config.core.v3.Locality:
+      type: object
       properties:
         region:
-          additionalProperties: false
-          description: Region this :ref:`zone <envoy_v3_api_field_config.core.v3.Locality.zone>`
-            belongs to.
+          type: string
           title: region
-          type: string
-        subZone:
           additionalProperties: false
-          description: |-
-            When used for locality of upstream hosts, this field further splits zone
-             into smaller chunks of sub-zones so they can be load balanced
-             independently.
-          title: sub_zone
-          type: string
+          description: Region this :ref:`zone <envoy_v3_api_field_config.core.v3.Locality.zone>` belongs to.
         zone:
+          type: string
+          title: zone
           additionalProperties: false
           description: |-
             Defines the local service zone where Envoy is running. Though optional, it
@@ -291,11 +210,45 @@ components:
              <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html>`_
              on AWS, `Zone <https://cloud.google.com/compute/docs/regions-zones/>`_ on
              GCP, etc.
-          title: zone
+        subZone:
           type: string
+          title: sub_zone
+          additionalProperties: false
+          description: |-
+            When used for locality of upstream hosts, this field further splits zone
+             into smaller chunks of sub-zones so they can be load balanced
+             independently.
       title: Locality
-      type: object
+      additionalProperties: false
+      description: Identifies location of where either Envoy runs or where upstream hosts run.
     envoy.config.core.v3.Metadata:
+      type: object
+      properties:
+        filterMetadata:
+          type: object
+          title: filter_metadata
+          additionalProperties:
+            $ref: '#/components/schemas/google.protobuf.Struct'
+          description: |-
+            Key is the reverse DNS filter name, e.g. com.acme.widget. The ``envoy.*``
+             namespace is reserved for Envoy's built-in filters.
+             If both ``filter_metadata`` and
+             :ref:`typed_filter_metadata <envoy_v3_api_field_config.core.v3.Metadata.typed_filter_metadata>`
+             fields are present in the metadata with same keys,
+             only ``typed_filter_metadata`` field will be parsed.
+        typedFilterMetadata:
+          type: object
+          title: typed_filter_metadata
+          additionalProperties:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: |-
+            Key is the reverse DNS filter name, e.g. com.acme.widget. The ``envoy.*``
+             namespace is reserved for Envoy's built-in filters.
+             The value is encoded as google.protobuf.Any.
+             If both :ref:`filter_metadata <envoy_v3_api_field_config.core.v3.Metadata.filter_metadata>`
+             and ``typed_filter_metadata`` fields are present in the metadata with same keys,
+             only ``typed_filter_metadata`` field will be parsed.
+      title: Metadata
       additionalProperties: false
       description: |-
         Metadata provides additional inputs to filters based on matched listeners,
@@ -320,86 +273,45 @@ components:
            endpoint and is also used during header processing
            (x-envoy-upstream-canary) and for stats purposes.
          [#next-major-version: move to type/metadata/v2]
-      properties:
-        filterMetadata:
-          additionalProperties: false
-          description: |-
-            Key is the reverse DNS filter name, e.g. com.acme.widget. The ``envoy.*``
-             namespace is reserved for Envoy's built-in filters.
-             If both ``filter_metadata`` and
-             :ref:`typed_filter_metadata <envoy_v3_api_field_config.core.v3.Metadata.typed_filter_metadata>`
-             fields are present in the metadata with same keys,
-             only ``typed_filter_metadata`` field will be parsed.
-          title: filter_metadata
-          type: object
-        typedFilterMetadata:
-          additionalProperties: false
-          description: |-
-            Key is the reverse DNS filter name, e.g. com.acme.widget. The ``envoy.*``
-             namespace is reserved for Envoy's built-in filters.
-             The value is encoded as google.protobuf.Any.
-             If both :ref:`filter_metadata <envoy_v3_api_field_config.core.v3.Metadata.filter_metadata>`
-             and ``typed_filter_metadata`` fields are present in the metadata with same keys,
-             only ``typed_filter_metadata`` field will be parsed.
-          title: typed_filter_metadata
-          type: object
-      title: Metadata
-      type: object
     envoy.config.core.v3.Metadata.FilterMetadataEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
-          title: key
           type: string
+          title: key
+          additionalProperties: false
         value:
           $ref: '#/components/schemas/google.protobuf.Struct'
-          additionalProperties: false
-          description: ""
-          title: value
-          type: object
       title: FilterMetadataEntry
-      type: object
-    envoy.config.core.v3.Metadata.TypedFilterMetadataEntry:
       additionalProperties: false
-      description: ""
+    envoy.config.core.v3.Metadata.TypedFilterMetadataEntry:
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
-          title: key
           type: string
+          title: key
+          additionalProperties: false
         value:
           $ref: '#/components/schemas/google.protobuf.Any'
-          additionalProperties: false
-          description: ""
-          title: value
-          type: object
       title: TypedFilterMetadataEntry
-      type: object
-    envoy.config.core.v3.Node:
       additionalProperties: false
-      description: |-
-        Identifies a specific Envoy instance. The node identifier is presented to the
-         management server, which may use this identifier to distinguish per Envoy
-         configuration for serving.
-         [#next-free-field: 13]
+    envoy.config.core.v3.Node:
+      type: object
       properties:
-        clientFeatures:
+        id:
+          type: string
+          title: id
           additionalProperties: false
           description: |-
-            Client feature support list. These are well known features described
-             in the Envoy API repository for a given major version of an API. Client features
-             use reverse DNS naming scheme, for example ``com.acme.feature``.
-             See :ref:`the list of features <client_features>` that xDS client may
-             support.
-          items:
-            type: string
-          title: client_features
-          type: array
+            An opaque node identifier for the Envoy node. This also provides the local
+             service node name. It should be set if any of the following features are
+             used: :ref:`statsd <arch_overview_statistics>`, :ref:`CDS
+             <config_cluster_manager_cds>`, and :ref:`HTTP tracing
+             <arch_overview_tracing>`, either in this message or via
+             :option:`--service-node`.
         cluster:
+          type: string
+          title: cluster
           additionalProperties: false
           description: |-
             Defines the local service cluster name where Envoy is running. Though
@@ -414,127 +326,102 @@ components:
              :ref:`CDS <config_cluster_manager_cds>`, and :ref:`HTTP tracing
              <arch_overview_tracing>`, either in this message or via
              :option:`--service-cluster`.
-          title: cluster
-          type: string
+        metadata:
+          $ref: '#/components/schemas/google.protobuf.Struct'
         dynamicParameters:
-          additionalProperties: false
+          type: object
+          title: dynamic_parameters
+          additionalProperties:
+            $ref: '#/components/schemas/xds.core.v3.ContextParams'
           description: |-
             Map from xDS resource type URL to dynamic context parameters. These may vary at runtime (unlike
              other fields in this message). For example, the xDS client may have a shard identifier that
              changes during the lifetime of the xDS client. In Envoy, this would be achieved by updating the
              dynamic context on the Server::Instance's LocalInfo context provider. The shard ID dynamic
              parameter then appears in this field during future discovery requests.
-          title: dynamic_parameters
-          type: object
-        extensions:
-          additionalProperties: false
-          description: List of extensions and their versions supported by the node.
-          items:
-            $ref: '#/components/schemas/envoy.config.core.v3.Extension'
-            type: object
-          title: extensions
-          type: array
-        id:
-          additionalProperties: false
-          description: |-
-            An opaque node identifier for the Envoy node. This also provides the local
-             service node name. It should be set if any of the following features are
-             used: :ref:`statsd <arch_overview_statistics>`, :ref:`CDS
-             <config_cluster_manager_cds>`, and :ref:`HTTP tracing
-             <arch_overview_tracing>`, either in this message or via
-             :option:`--service-node`.
-          title: id
-          type: string
-        listeningAddresses:
-          additionalProperties: false
-          description: |-
-            Known listening ports on the node as a generic hint to the management server
-             for filtering :ref:`listeners <config_listeners>` to be returned. For example,
-             if there is a listener bound to port 80, the list can optionally contain the
-             SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.
-          items:
-            $ref: '#/components/schemas/envoy.config.core.v3.Address'
-            type: object
-          title: listening_addresses
-          type: array
         locality:
           $ref: '#/components/schemas/envoy.config.core.v3.Locality'
-          additionalProperties: false
-          description: Locality specifying where the Envoy instance is running.
-          title: locality
-          type: object
-        metadata:
-          $ref: '#/components/schemas/google.protobuf.Struct'
-          additionalProperties: false
-          description: |-
-            Opaque metadata extending the node identifier. Envoy will pass this
-             directly to the management server.
-          title: metadata
-          type: object
-        userAgentBuildVersion:
-          $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
-          additionalProperties: false
-          description: Structured version of the entity requesting config.
-          title: user_agent_build_version
-          type: object
         userAgentName:
+          type: string
+          title: user_agent_name
           additionalProperties: false
           description: |-
             Free-form string that identifies the entity requesting config.
              E.g. "envoy" or "grpc"
-          title: user_agent_name
-          type: string
         userAgentVersion:
+          type: string
+          title: user_agent_version
           additionalProperties: false
           description: |-
             Free-form string that identifies the version of the entity requesting config.
              E.g. "1.12.2" or "abcd1234", or "SpecialEnvoyBuild"
-          title: user_agent_version
-          type: string
+        userAgentBuildVersion:
+          $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
+        extensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/envoy.config.core.v3.Extension'
+        clientFeatures:
+          type: array
+          items:
+            type: string
+            title: client_features
+            additionalProperties: false
+            description: |-
+              Client feature support list. These are well known features described
+               in the Envoy API repository for a given major version of an API. Client features
+               use reverse DNS naming scheme, for example ``com.acme.feature``.
+               See :ref:`the list of features <client_features>` that xDS client may
+               support.
+        listeningAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/envoy.config.core.v3.Address'
       title: Node
-      type: object
-    envoy.config.core.v3.Node.DynamicParametersEntry:
       additionalProperties: false
-      description: ""
+      description: |-
+        Identifies a specific Envoy instance. The node identifier is presented to the
+         management server, which may use this identifier to distinguish per Envoy
+         configuration for serving.
+         [#next-free-field: 13]
+    envoy.config.core.v3.Node.DynamicParametersEntry:
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
-          title: key
           type: string
+          title: key
+          additionalProperties: false
         value:
           $ref: '#/components/schemas/xds.core.v3.ContextParams'
-          additionalProperties: false
-          description: ""
-          title: value
-          type: object
       title: DynamicParametersEntry
-      type: object
-    envoy.config.core.v3.Pipe:
       additionalProperties: false
-      description: ""
+    envoy.config.core.v3.Pipe:
+      type: object
       properties:
-        mode:
-          additionalProperties: false
-          description: The mode for the Pipe. Not applicable for abstract sockets.
-          title: mode
-          type: integer
         path:
+          type: string
+          title: path
           additionalProperties: false
           description: |-
             Unix Domain Socket path. On Linux, paths starting with '@' will use the
              abstract namespace. The starting '@' is replaced by a null byte by Envoy.
              Paths starting with '@' will result in an error in environments other than
              Linux.
-          title: path
-          type: string
+        mode:
+          type: integer
+          title: mode
+          additionalProperties: false
+          description: The mode for the Pipe. Not applicable for abstract sockets.
       title: Pipe
-      type: object
-    envoy.config.core.v3.SocketAddress:
       additionalProperties: false
-      description: '[#next-free-field: 7]'
+    envoy.config.core.v3.SocketAddress:
+      type: object
       properties:
+        protocol:
+          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol'
         address:
+          type: string
+          title: address
           additionalProperties: false
           description: |-
             The address for this socket. :ref:`Listeners <config_listeners>` will bind
@@ -548,36 +435,21 @@ components:
              address must be an IP (``STATIC`` or ``EDS`` clusters) or a hostname resolved by DNS
              (``STRICT_DNS`` or ``LOGICAL_DNS`` clusters). Address resolution can be customized
              via :ref:`resolver_name <envoy_v3_api_field_config.core.v3.SocketAddress.resolver_name>`.
-          title: address
-          type: string
-        ipv4Compat:
+        portValue:
+          type: integer
+          title: port_value
           additionalProperties: false
-          description: |-
-            When binding to an IPv6 address above, this enables `IPv4 compatibility
-             <https://tools.ietf.org/html/rfc3493#page-11>`_. Binding to ``::`` will
-             allow both IPv4 and IPv6 connections, with peer IPv4 addresses mapped into
-             IPv6 space as ``::FFFF:<IPv4-address>``.
-          title: ipv4_compat
-          type: boolean
         namedPort:
+          type: string
+          title: named_port
           additionalProperties: false
           description: |-
             This is only valid if :ref:`resolver_name
              <envoy_v3_api_field_config.core.v3.SocketAddress.resolver_name>` is specified below and the
              named resolver is capable of named port resolution.
-          title: named_port
-          type: string
-        portValue:
-          additionalProperties: false
-          description: ""
-          title: port_value
-          type: integer
-        protocol:
-          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol'
-          additionalProperties: false
-          description: ""
-          title: protocol
         resolverName:
+          type: string
+          title: resolver_name
           additionalProperties: false
           description: |-
             The name of the custom resolver. This must have been registered with Envoy. If
@@ -585,18 +457,103 @@ components:
              IP address, no resolution will occur. If address is a hostname this
              should be set for resolution other than DNS. Specifying a custom resolver with
              ``STRICT_DNS`` or ``LOGICAL_DNS`` will generate an error at runtime.
-          title: resolver_name
-          type: string
+        ipv4Compat:
+          type: boolean
+          title: ipv4_compat
+          additionalProperties: false
+          description: |-
+            When binding to an IPv6 address above, this enables `IPv4 compatibility
+             <https://tools.ietf.org/html/rfc3493#page-11>`_. Binding to ``::`` will
+             allow both IPv4 and IPv6 connections, with peer IPv4 addresses mapped into
+             IPv6 space as ``::FFFF:<IPv4-address>``.
       title: SocketAddress
-      type: object
-    envoy.config.core.v3.SocketAddress.Protocol:
-      description: ""
-      enum:
-      - - TCP
-        - UDP
-      title: Protocol
-      type: string
+      additionalProperties: false
+      description: '[#next-free-field: 7]'
     envoy.service.discovery.v3.DeltaDiscoveryRequest:
+      type: object
+      properties:
+        node:
+          $ref: '#/components/schemas/envoy.config.core.v3.Node'
+        typeUrl:
+          type: string
+          title: type_url
+          additionalProperties: false
+          description: |-
+            Type of the resource that is being requested, e.g.
+             ``type.googleapis.com/envoy.api.v2.ClusterLoadAssignment``. This does not need to be set if
+             resources are only referenced via ``xds_resource_subscribe`` and
+             ``xds_resources_unsubscribe``.
+        resourceNamesSubscribe:
+          type: array
+          items:
+            type: string
+            title: resource_names_subscribe
+            additionalProperties: false
+            description: |-
+              DeltaDiscoveryRequests allow the client to add or remove individual
+               resources to the set of tracked resources in the context of a stream.
+               All resource names in the resource_names_subscribe list are added to the
+               set of tracked resources and all resource names in the resource_names_unsubscribe
+               list are removed from the set of tracked resources.
+
+               *Unlike* state-of-the-world xDS, an empty resource_names_subscribe or
+               resource_names_unsubscribe list simply means that no resources are to be
+               added or removed to the resource list.
+               *Like* state-of-the-world xDS, the server must send updates for all tracked
+               resources, but can also send updates for resources the client has not subscribed to.
+
+               NOTE: the server must respond with all resources listed in resource_names_subscribe,
+               even if it believes the client has the most recent version of them. The reason:
+               the client may have dropped them, but then regained interest before it had a chance
+               to send the unsubscribe message. See DeltaSubscriptionStateTest.RemoveThenAdd.
+
+               These two fields can be set in any DeltaDiscoveryRequest, including ACKs
+               and initial_resource_versions.
+
+               A list of Resource names to add to the list of tracked resources.
+        resourceNamesUnsubscribe:
+          type: array
+          items:
+            type: string
+            title: resource_names_unsubscribe
+            additionalProperties: false
+            description: A list of Resource names to remove from the list of tracked resources.
+        resourceLocatorsSubscribe:
+          type: array
+          items:
+            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
+        resourceLocatorsUnsubscribe:
+          type: array
+          items:
+            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
+        initialResourceVersions:
+          type: object
+          title: initial_resource_versions
+          additionalProperties:
+            type: string
+            title: value
+            additionalProperties: false
+          description: |-
+            Informs the server of the versions of the resources the xDS client knows of, to enable the
+             client to continue the same logical xDS session even in the face of gRPC stream reconnection.
+             It will not be populated: [1] in the very first stream of a session, since the client will
+             not yet have any resources,  [2] in any message after the first in a stream (for a given
+             type_url), since the server will already be correctly tracking the client's state.
+             (In ADS, the first message *of each type_url* of a reconnected stream populates this map.)
+             The map's keys are names of xDS resources known to the xDS client.
+             The map's values are opaque resource versions.
+        responseNonce:
+          type: string
+          title: response_nonce
+          additionalProperties: false
+          description: |-
+            When the DeltaDiscoveryRequest is a ACK or NACK message in response
+             to a previous DeltaDiscoveryResponse, the response_nonce must be the
+             nonce in the DeltaDiscoveryResponse.
+             Otherwise (unlike in DiscoveryRequest) response_nonce must be omitted.
+        errorDetail:
+          $ref: '#/components/schemas/google.rpc.Status'
+      title: DeltaDiscoveryRequest
       additionalProperties: false
       description: |-
         DeltaDiscoveryRequest and DeltaDiscoveryResponse are used in a new gRPC
@@ -632,267 +589,69 @@ components:
          gRPC stream actually entails a message for each type_url, each with its own
          initial_resource_versions.
          [#next-free-field: 10]
-      properties:
-        errorDetail:
-          $ref: '#/components/schemas/google.rpc.Status'
-          additionalProperties: false
-          description: |-
-            This is populated when the previous :ref:`DiscoveryResponse <envoy_v3_api_msg_service.discovery.v3.DiscoveryResponse>`
-             failed to update configuration. The ``message`` field in ``error_details``
-             provides the Envoy internal exception related to the failure.
-          title: error_detail
-          type: object
-        initialResourceVersions:
-          additionalProperties: false
-          description: |-
-            Informs the server of the versions of the resources the xDS client knows of, to enable the
-             client to continue the same logical xDS session even in the face of gRPC stream reconnection.
-             It will not be populated: [1] in the very first stream of a session, since the client will
-             not yet have any resources,  [2] in any message after the first in a stream (for a given
-             type_url), since the server will already be correctly tracking the client's state.
-             (In ADS, the first message *of each type_url* of a reconnected stream populates this map.)
-             The map's keys are names of xDS resources known to the xDS client.
-             The map's values are opaque resource versions.
-          title: initial_resource_versions
-          type: object
-        node:
-          $ref: '#/components/schemas/envoy.config.core.v3.Node'
-          additionalProperties: false
-          description: The node making the request.
-          title: node
-          type: object
-        resourceLocatorsSubscribe:
-          additionalProperties: false
-          description: |-
-            [#not-implemented-hide:]
-             Alternative to ``resource_names_subscribe`` field that allows specifying dynamic parameters
-             along with each resource name.
-             Note that it is legal for a request to have some resources listed
-             in ``resource_names_subscribe`` and others in ``resource_locators_subscribe``.
-          items:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
-            type: object
-          title: resource_locators_subscribe
-          type: array
-        resourceLocatorsUnsubscribe:
-          additionalProperties: false
-          description: |-
-            [#not-implemented-hide:]
-             Alternative to ``resource_names_unsubscribe`` field that allows specifying dynamic parameters
-             along with each resource name.
-             Note that it is legal for a request to have some resources listed
-             in ``resource_names_unsubscribe`` and others in ``resource_locators_unsubscribe``.
-          items:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
-            type: object
-          title: resource_locators_unsubscribe
-          type: array
-        resourceNamesSubscribe:
-          additionalProperties: false
-          description: |-
-            DeltaDiscoveryRequests allow the client to add or remove individual
-             resources to the set of tracked resources in the context of a stream.
-             All resource names in the resource_names_subscribe list are added to the
-             set of tracked resources and all resource names in the resource_names_unsubscribe
-             list are removed from the set of tracked resources.
-
-             *Unlike* state-of-the-world xDS, an empty resource_names_subscribe or
-             resource_names_unsubscribe list simply means that no resources are to be
-             added or removed to the resource list.
-             *Like* state-of-the-world xDS, the server must send updates for all tracked
-             resources, but can also send updates for resources the client has not subscribed to.
-
-             NOTE: the server must respond with all resources listed in resource_names_subscribe,
-             even if it believes the client has the most recent version of them. The reason:
-             the client may have dropped them, but then regained interest before it had a chance
-             to send the unsubscribe message. See DeltaSubscriptionStateTest.RemoveThenAdd.
-
-             These two fields can be set in any DeltaDiscoveryRequest, including ACKs
-             and initial_resource_versions.
-
-             A list of Resource names to add to the list of tracked resources.
-          items:
-            type: string
-          title: resource_names_subscribe
-          type: array
-        resourceNamesUnsubscribe:
-          additionalProperties: false
-          description: A list of Resource names to remove from the list of tracked
-            resources.
-          items:
-            type: string
-          title: resource_names_unsubscribe
-          type: array
-        responseNonce:
-          additionalProperties: false
-          description: |-
-            When the DeltaDiscoveryRequest is a ACK or NACK message in response
-             to a previous DeltaDiscoveryResponse, the response_nonce must be the
-             nonce in the DeltaDiscoveryResponse.
-             Otherwise (unlike in DiscoveryRequest) response_nonce must be omitted.
-          title: response_nonce
-          type: string
-        typeUrl:
-          additionalProperties: false
-          description: |-
-            Type of the resource that is being requested, e.g.
-             ``type.googleapis.com/envoy.api.v2.ClusterLoadAssignment``. This does not need to be set if
-             resources are only referenced via ``xds_resource_subscribe`` and
-             ``xds_resources_unsubscribe``.
-          title: type_url
-          type: string
-      title: DeltaDiscoveryRequest
-      type: object
     envoy.service.discovery.v3.DeltaDiscoveryRequest.InitialResourceVersionsEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
+          additionalProperties: false
         value:
-          additionalProperties: false
-          description: ""
+          type: string
           title: value
-          type: string
+          additionalProperties: false
       title: InitialResourceVersionsEntry
-      type: object
-    envoy.service.discovery.v3.DeltaDiscoveryResponse:
       additionalProperties: false
-      description: '[#next-free-field: 9]'
+    envoy.service.discovery.v3.DeltaDiscoveryResponse:
+      type: object
       properties:
-        controlPlane:
-          $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
-          additionalProperties: false
-          description: |-
-            [#not-implemented-hide:]
-             The control plane instance that sent the response.
-          title: control_plane
-          type: object
-        nonce:
-          additionalProperties: false
-          description: |-
-            The nonce provides a way for DeltaDiscoveryRequests to uniquely
-             reference a DeltaDiscoveryResponse when (N)ACKing. The nonce is required.
-          title: nonce
-          type: string
-        removedResourceNames:
-          additionalProperties: false
-          description: |-
-            Alternative to removed_resources that allows specifying which variant of
-             a resource is being removed. This variant must be used for any resource
-             for which dynamic parameter constraints were sent to the client.
-          items:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceName'
-            type: object
-          title: removed_resource_names
-          type: array
-        removedResources:
-          additionalProperties: false
-          description: |-
-            Resources names of resources that have be deleted and to be removed from the xDS Client.
-             Removed resources for missing resources can be ignored.
-          items:
-            type: string
-          title: removed_resources
-          type: array
-        resources:
-          additionalProperties: false
-          description: |-
-            The response resources. These are typed resources, whose types must match
-             the type_url field.
-          items:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.Resource'
-            type: object
-          title: resources
-          type: array
         systemVersionInfo:
+          type: string
+          title: system_version_info
           additionalProperties: false
           description: The version of the response data (used for debugging).
-          title: system_version_info
-          type: string
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/envoy.service.discovery.v3.Resource'
         typeUrl:
+          type: string
+          title: type_url
           additionalProperties: false
           description: |-
             Type URL for resources. Identifies the xDS API when muxing over ADS.
              Must be consistent with the type_url in the Any within 'resources' if 'resources' is non-empty.
-          title: type_url
-          type: string
-      title: DeltaDiscoveryResponse
-      type: object
-    envoy.service.discovery.v3.DiscoveryRequest:
-      additionalProperties: false
-      description: |-
-        A DiscoveryRequest requests a set of versioned resources of the same type for
-         a given Envoy node on some API.
-         [#next-free-field: 8]
-      properties:
-        errorDetail:
-          $ref: '#/components/schemas/google.rpc.Status'
-          additionalProperties: false
-          description: |-
-            This is populated when the previous :ref:`DiscoveryResponse <envoy_v3_api_msg_service.discovery.v3.DiscoveryResponse>`
-             failed to update configuration. The ``message`` field in ``error_details`` provides the Envoy
-             internal exception related to the failure. It is only intended for consumption during manual
-             debugging, the string provided is not guaranteed to be stable across Envoy versions.
-          title: error_detail
-          type: object
-        node:
-          $ref: '#/components/schemas/envoy.config.core.v3.Node'
-          additionalProperties: false
-          description: The node making the request.
-          title: node
-          type: object
-        resourceLocators:
-          additionalProperties: false
-          description: |-
-            [#not-implemented-hide:]
-             Alternative to ``resource_names`` field that allows specifying dynamic
-             parameters along with each resource name. Clients that populate this
-             field must be able to handle responses from the server where resources
-             are wrapped in a Resource message.
-             Note that it is legal for a request to have some resources listed
-             in ``resource_names`` and others in ``resource_locators``.
-          items:
-            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
-            type: object
-          title: resource_locators
+        removedResources:
           type: array
-        resourceNames:
-          additionalProperties: false
-          description: |-
-            List of resources to subscribe to, e.g. list of cluster names or a route
-             configuration name. If this is empty, all resources for the API are
-             returned. LDS/CDS may have empty resource_names, which will cause all
-             resources for the Envoy instance to be returned. The LDS and CDS responses
-             will then imply a number of resources that need to be fetched via EDS/RDS,
-             which will be explicitly enumerated in resource_names.
           items:
             type: string
-          title: resource_names
+            title: removed_resources
+            additionalProperties: false
+            description: |-
+              Resources names of resources that have be deleted and to be removed from the xDS Client.
+               Removed resources for missing resources can be ignored.
+        removedResourceNames:
           type: array
-        responseNonce:
+          items:
+            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceName'
+        nonce:
+          type: string
+          title: nonce
           additionalProperties: false
           description: |-
-            nonce corresponding to DiscoveryResponse being ACK/NACKed. See above
-             discussion on version_info and the DiscoveryResponse nonce comment. This
-             may be empty only if 1) this is a non-persistent-stream xDS such as HTTP,
-             or 2) the client has not yet accepted an update in this xDS stream (unlike
-             delta, where it is populated only for new explicit ACKs).
-          title: response_nonce
-          type: string
-        typeUrl:
-          additionalProperties: false
-          description: |-
-            Type of the resource that is being requested, e.g.
-             "type.googleapis.com/envoy.api.v2.ClusterLoadAssignment". This is implicit
-             in requests made via singleton xDS APIs such as CDS, LDS, etc. but is
-             required for ADS.
-          title: type_url
-          type: string
+            The nonce provides a way for DeltaDiscoveryRequests to uniquely
+             reference a DeltaDiscoveryResponse when (N)ACKing. The nonce is required.
+        controlPlane:
+          $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
+      title: DeltaDiscoveryResponse
+      additionalProperties: false
+      description: '[#next-free-field: 9]'
+    envoy.service.discovery.v3.DiscoveryRequest:
+      type: object
+      properties:
         versionInfo:
+          type: string
+          title: version_info
           additionalProperties: false
           description: |-
             The version_info provided in the request messages will be the version_info
@@ -902,15 +661,67 @@ components:
              configuration. ACK/NACK takes place by returning the new API config version
              as applied or the previous API config version respectively. Each type_url
              (see below) has an independent version associated with it.
-          title: version_info
+        node:
+          $ref: '#/components/schemas/envoy.config.core.v3.Node'
+        resourceNames:
+          type: array
+          items:
+            type: string
+            title: resource_names
+            additionalProperties: false
+            description: |-
+              List of resources to subscribe to, e.g. list of cluster names or a route
+               configuration name. If this is empty, all resources for the API are
+               returned. LDS/CDS may have empty resource_names, which will cause all
+               resources for the Envoy instance to be returned. The LDS and CDS responses
+               will then imply a number of resources that need to be fetched via EDS/RDS,
+               which will be explicitly enumerated in resource_names.
+        resourceLocators:
+          type: array
+          items:
+            $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
+        typeUrl:
           type: string
+          title: type_url
+          additionalProperties: false
+          description: |-
+            Type of the resource that is being requested, e.g.
+             "type.googleapis.com/envoy.api.v2.ClusterLoadAssignment". This is implicit
+             in requests made via singleton xDS APIs such as CDS, LDS, etc. but is
+             required for ADS.
+        responseNonce:
+          type: string
+          title: response_nonce
+          additionalProperties: false
+          description: |-
+            nonce corresponding to DiscoveryResponse being ACK/NACKed. See above
+             discussion on version_info and the DiscoveryResponse nonce comment. This
+             may be empty only if 1) this is a non-persistent-stream xDS such as HTTP,
+             or 2) the client has not yet accepted an update in this xDS stream (unlike
+             delta, where it is populated only for new explicit ACKs).
+        errorDetail:
+          $ref: '#/components/schemas/google.rpc.Status'
       title: DiscoveryRequest
-      type: object
-    envoy.service.discovery.v3.DiscoveryResponse:
       additionalProperties: false
-      description: '[#next-free-field: 7]'
+      description: |-
+        A DiscoveryRequest requests a set of versioned resources of the same type for
+         a given Envoy node on some API.
+         [#next-free-field: 8]
+    envoy.service.discovery.v3.DiscoveryResponse:
+      type: object
       properties:
+        versionInfo:
+          type: string
+          title: version_info
+          additionalProperties: false
+          description: The version of the response data.
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
         canary:
+          type: boolean
+          title: canary
           additionalProperties: false
           description: |-
             [#not-implemented-hide:]
@@ -927,15 +738,16 @@ components:
                clean slate.
              * --dry-run-canary. When set, a canary response will never be applied, only
                validated via a dry run.
-          title: canary
-          type: boolean
-        controlPlane:
-          $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
+        typeUrl:
+          type: string
+          title: type_url
           additionalProperties: false
-          description: The control plane instance that sent the response.
-          title: control_plane
-          type: object
+          description: |-
+            Type URL for resources. Identifies the xDS API when muxing over ADS.
+             Must be consistent with the type_url in the 'resources' repeated Any (if non-empty).
         nonce:
+          type: string
+          title: nonce
           additionalProperties: false
           description: |-
             For gRPC based subscriptions, the nonce provides a way to explicitly ack a
@@ -946,32 +758,23 @@ components:
              to ignore any further DiscoveryRequests for the previous version until a
              DiscoveryRequest bearing the nonce. The nonce is optional and is not
              required for non-stream based xDS implementations.
-          title: nonce
-          type: string
-        resources:
-          additionalProperties: false
-          description: The response resources. These resources are typed and depend
-            on the API being called.
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-            type: object
-          title: resources
-          type: array
-        typeUrl:
-          additionalProperties: false
-          description: |-
-            Type URL for resources. Identifies the xDS API when muxing over ADS.
-             Must be consistent with the type_url in the 'resources' repeated Any (if non-empty).
-          title: type_url
-          type: string
-        versionInfo:
-          additionalProperties: false
-          description: The version of the response data.
-          title: version_info
-          type: string
+        controlPlane:
+          $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
       title: DiscoveryResponse
-      type: object
+      additionalProperties: false
+      description: '[#next-free-field: 7]'
     envoy.service.discovery.v3.DynamicParameterConstraints:
+      type: object
+      properties:
+        constraint:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint'
+        orConstraints:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
+        andConstraints:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
+        notConstraints:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
+      title: DynamicParameterConstraints
       additionalProperties: false
       description: |-
         A set of dynamic parameter constraints associated with a variant of an individual xDS resource.
@@ -980,264 +783,171 @@ components:
          :ref:`ResourceLocator.dynamic_parameters<envoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters>`
          field. This allows xDS implementations (clients, servers, and caching proxies) to determine
          which variant of a resource is appropriate for a given client.
-      properties:
-        andConstraints:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
-          additionalProperties: false
-          description: A list of constraints that must all match.
-          title: and_constraints
-          type: object
-        constraint:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint'
-          additionalProperties: false
-          description: A single constraint to evaluate.
-          title: constraint
-          type: object
-        notConstraints:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
-          additionalProperties: false
-          description: The inverse (NOT) of a set of constraints.
-          title: not_constraints
-          type: object
-        orConstraints:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
-          additionalProperties: false
-          description: |-
-            A list of constraints that match if any one constraint in the list
-             matches.
-          title: or_constraints
-          type: object
-      title: DynamicParameterConstraints
-      type: object
     envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         constraints:
-          additionalProperties: false
-          description: ""
+          type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
-            type: object
-          title: constraints
-          type: array
       title: ConstraintList
-      type: object
-    envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint:
       additionalProperties: false
-      description: A single constraint for a given key.
+    envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint:
+      type: object
       properties:
-        exists:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
-          additionalProperties: false
-          description: |-
-            Key is present (matches any value except for the key being absent).
-             This allows setting a default constraint for clients that do
-             not send a key at all, while there may be other clients that need
-             special configuration based on that key.
-          title: exists
-          type: object
         key:
+          type: string
+          title: key
           additionalProperties: false
           description: The key to match against.
-          title: key
-          type: string
         value:
+          type: string
+          title: value
           additionalProperties: false
           description: Matches this exact value.
-          title: value
-          type: string
+        exists:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
       title: SingleConstraint
-      type: object
+      additionalProperties: false
+      description: A single constraint for a given key.
     envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists:
-      additionalProperties: false
-      description: ""
-      title: Exists
       type: object
-    envoy.service.discovery.v3.Resource:
+      title: Exists
       additionalProperties: false
-      description: '[#next-free-field: 10]'
+    envoy.service.discovery.v3.Resource:
+      type: object
       properties:
-        aliases:
-          additionalProperties: false
-          description: The aliases are a list of other names that this resource can
-            go by.
-          items:
-            type: string
-          title: aliases
-          type: array
-        cacheControl:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.Resource.CacheControl'
-          additionalProperties: false
-          description: |-
-            Cache control properties for the resource.
-             [#not-implemented-hide:]
-          title: cache_control
-          type: object
-        metadata:
-          $ref: '#/components/schemas/envoy.config.core.v3.Metadata'
-          additionalProperties: false
-          description: |-
-            The Metadata field can be used to provide additional information for the resource.
-             E.g. the trace data for debugging.
-          title: metadata
-          type: object
         name:
+          type: string
+          title: name
           additionalProperties: false
           description: |-
             The resource's name, to distinguish it from others of the same type of resource.
              Only one of ``name`` or ``resource_name`` may be set.
-          title: name
-          type: string
-        resource:
-          $ref: '#/components/schemas/google.protobuf.Any'
-          additionalProperties: false
-          description: The resource being tracked.
-          title: resource
-          type: object
         resourceName:
           $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceName'
-          additionalProperties: false
-          description: |-
-            Alternative to the ``name`` field, to be used when the server supports
-             multiple variants of the named resource that are differentiated by
-             dynamic parameter constraints.
-             Only one of ``name`` or ``resource_name`` may be set.
-          title: resource_name
-          type: object
-        ttl:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: |-
-            Time-to-live value for the resource. For each resource, a timer is started. The timer is
-             reset each time the resource is received with a new TTL. If the resource is received with
-             no TTL set, the timer is removed for the resource. Upon expiration of the timer, the
-             configuration for the resource will be removed.
-
-             The TTL can be refreshed or changed by sending a response that doesn't change the resource
-             version. In this case the resource field does not need to be populated, which allows for
-             light-weight "heartbeat" updates to keep a resource with a TTL alive.
-
-             The TTL feature is meant to support configurations that should be removed in the event of
-             a management server failure. For example, the feature may be used for fault injection
-             testing where the fault injection should be terminated in the event that Envoy loses contact
-             with the management server.
-          title: ttl
-          type: object
+        aliases:
+          type: array
+          items:
+            type: string
+            title: aliases
+            additionalProperties: false
+            description: The aliases are a list of other names that this resource can go by.
         version:
+          type: string
+          title: version
           additionalProperties: false
           description: |-
             The resource level version. It allows xDS to track the state of individual
              resources.
-          title: version
-          type: string
+        resource:
+          $ref: '#/components/schemas/google.protobuf.Any'
+        ttl:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        cacheControl:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.Resource.CacheControl'
+        metadata:
+          $ref: '#/components/schemas/envoy.config.core.v3.Metadata'
       title: Resource
-      type: object
-    envoy.service.discovery.v3.Resource.CacheControl:
       additionalProperties: false
-      description: |-
-        Cache control properties for the resource.
-         [#not-implemented-hide:]
+      description: '[#next-free-field: 10]'
+    envoy.service.discovery.v3.Resource.CacheControl:
+      type: object
       properties:
         doNotCache:
+          type: boolean
+          title: do_not_cache
           additionalProperties: false
           description: |-
             If true, xDS proxies may not cache this resource.
              Note that this does not apply to clients other than xDS proxies, which must cache resources
              for their own use, regardless of the value of this field.
-          title: do_not_cache
-          type: boolean
       title: CacheControl
-      type: object
-    envoy.service.discovery.v3.ResourceLocator:
       additionalProperties: false
-      description: Specifies a resource to be subscribed to.
+      description: |-
+        Cache control properties for the resource.
+         [#not-implemented-hide:]
+    envoy.service.discovery.v3.ResourceLocator:
+      type: object
       properties:
-        dynamicParameters:
+        name:
+          type: string
+          title: name
           additionalProperties: false
+          description: The resource name to subscribe to.
+        dynamicParameters:
+          type: object
+          title: dynamic_parameters
+          additionalProperties:
+            type: string
+            title: value
+            additionalProperties: false
           description: |-
             A set of dynamic parameters used to match against the dynamic parameter
              constraints on the resource. This allows clients to select between
              multiple variants of the same resource.
-          title: dynamic_parameters
-          type: object
-        name:
-          additionalProperties: false
-          description: The resource name to subscribe to.
-          title: name
-          type: string
       title: ResourceLocator
-      type: object
-    envoy.service.discovery.v3.ResourceLocator.DynamicParametersEntry:
       additionalProperties: false
-      description: ""
+      description: Specifies a resource to be subscribed to.
+    envoy.service.discovery.v3.ResourceLocator.DynamicParametersEntry:
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
+          additionalProperties: false
         value:
-          additionalProperties: false
-          description: ""
-          title: value
           type: string
-      title: DynamicParametersEntry
-      type: object
-    envoy.service.discovery.v3.ResourceName:
-      additionalProperties: false
-      description: Specifies a concrete resource name.
-      properties:
-        dynamicParameterConstraints:
-          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
+          title: value
           additionalProperties: false
-          description: |-
-            Dynamic parameter constraints associated with this resource. To be used by client-side caches
-             (including xDS proxies) when matching subscribed resource locators.
-          title: dynamic_parameter_constraints
-          type: object
+      title: DynamicParametersEntry
+      additionalProperties: false
+    envoy.service.discovery.v3.ResourceName:
+      type: object
+      properties:
         name:
+          type: string
+          title: name
           additionalProperties: false
           description: The name of the resource.
-          title: name
-          type: string
+        dynamicParameterConstraints:
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
       title: ResourceName
-      type: object
+      additionalProperties: false
+      description: Specifies a concrete resource name.
     envoy.type.v3.SemanticVersion:
+      type: object
+      properties:
+        majorNumber:
+          type: integer
+          title: major_number
+          additionalProperties: false
+        minorNumber:
+          type: integer
+          title: minor_number
+          additionalProperties: false
+        patch:
+          type: integer
+          title: patch
+          additionalProperties: false
+      title: SemanticVersion
       additionalProperties: false
       description: |-
         Envoy uses SemVer (https://semver.org/). Major/minor versions indicate
          expected behaviors and APIs, the patch version field is used only
          for security fixes and can be generally ignored.
-      properties:
-        majorNumber:
-          additionalProperties: false
-          description: ""
-          title: major_number
-          type: integer
-        minorNumber:
-          additionalProperties: false
-          description: ""
-          title: minor_number
-          type: integer
-        patch:
-          additionalProperties: false
-          description: ""
-          title: patch
-          type: integer
-      title: SemanticVersion
-      type: object
     google.protobuf.Any:
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
+      type: object
       properties:
         '@type':
-          description: The type of the serialized message.
           type: string
-      type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     google.protobuf.Duration:
+      type: string
+      pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
+      format: regex
       additionalProperties: false
       description: |-
         A Duration represents a signed, fixed-length span of time represented
@@ -1298,37 +1008,29 @@ components:
          encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
          be expressed in JSON format as "3.000000001s", and 3 seconds and 1
          microsecond should be expressed in JSON format as "3.000001s".
-      format: regex
-      pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
-      type: string
     google.protobuf.ListValue:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Value'
+      title: ListValue
       additionalProperties: false
       description: |-
         `ListValue` is a wrapper around a repeated field of values.
 
          The JSON representation for `ListValue` is JSON array.
-      properties:
-        values:
-          additionalProperties: false
-          description: Repeated field of dynamically typed values.
-          items:
-            $ref: '#/components/schemas/google.protobuf.Value'
-            type: object
-          title: values
-          type: array
-      title: ListValue
-      type: object
-    google.protobuf.NullValue:
-      description: |-
-        `NullValue` is a singleton enumeration to represent the null value for the
-         `Value` type union.
-
-         The JSON representation for `NullValue` is JSON `null`.
-      enum:
-      - - NULL_VALUE
-      title: NullValue
-      type: string
     google.protobuf.Struct:
+      type: object
+      properties:
+        fields:
+          type: object
+          title: fields
+          additionalProperties:
+            $ref: '#/components/schemas/google.protobuf.Value'
+          description: Unordered map of dynamically typed values.
+      title: Struct
       additionalProperties: false
       description: |-
         `Struct` represents a structured data value, consisting of fields
@@ -1339,33 +1041,26 @@ components:
          with the proto support for the language.
 
          The JSON representation for `Struct` is JSON object.
-      properties:
-        fields:
-          additionalProperties: false
-          description: Unordered map of dynamically typed values.
-          title: fields
-          type: object
-      title: Struct
-      type: object
     google.protobuf.Struct.FieldsEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
-          title: key
           type: string
+          title: key
+          additionalProperties: false
         value:
           $ref: '#/components/schemas/google.protobuf.Value'
-          additionalProperties: false
-          description: ""
-          title: value
-          type: object
       title: FieldsEntry
-      type: object
-    google.protobuf.Value:
       additionalProperties: false
+    google.protobuf.Value:
+      oneOf:
+        - type: "null"
+        - type: number
+        - type: string
+        - type: boolean
+        - type: array
+        - type: object
+          additionalProperties: false
       description: |-
         `Value` represents a dynamically typed value which can be either
          null, a number, a string, a boolean, a recursive struct value, or a
@@ -1373,15 +1068,30 @@ components:
          variants. Absence of any variant indicates an error.
 
          The JSON representation for `Value` is JSON value.
-      oneOf:
-      - type: "null"
-      - type: number
-      - type: string
-      - type: boolean
-      - type: array
-      - additionalProperties: true
-        type: object
     google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          title: code
+          additionalProperties: false
+          description: |-
+            The status code, which should be an enum value of
+             [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          title: message
+          additionalProperties: false
+          description: |-
+            A developer-facing error message, which should be in English. Any
+             user-facing error message should be localized and sent in the
+             [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+             by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+      title: Status
       additionalProperties: false
       description: |-
         The `Status` type defines a logical error model that is suitable for
@@ -1391,36 +1101,17 @@ components:
 
          You can find out more about this error model and how to work with it in the
          [API Design Guide](https://cloud.google.com/apis/design/errors).
-      properties:
-        code:
-          additionalProperties: false
-          description: |-
-            The status code, which should be an enum value of
-             [google.rpc.Code][google.rpc.Code].
-          title: code
-          type: integer
-        details:
-          additionalProperties: false
-          description: |-
-            A list of messages that carry the error details.  There is a common set of
-             message types for APIs to use.
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-            type: object
-          title: details
-          type: array
-        message:
-          additionalProperties: false
-          description: |-
-            A developer-facing error message, which should be in English. Any
-             user-facing error message should be localized and sent in the
-             [google.rpc.Status.details][google.rpc.Status.details] field, or localized
-             by the client.
-          title: message
-          type: string
-      title: Status
-      type: object
     xds.core.v3.ContextParams:
+      type: object
+      properties:
+        params:
+          type: object
+          title: params
+          additionalProperties:
+            type: string
+            title: value
+            additionalProperties: false
+      title: ContextParams
       additionalProperties: false
       description: |-
         Additional parameters that can be used to select resource variants. These include any
@@ -1430,30 +1121,43 @@ components:
 
          `xds.resource.listening_address`: The value is "IP:port" (e.g. "10.1.1.3:8080") which is
            the listening address of a Listener. Used in a Listener resource query.
-      properties:
-        params:
-          additionalProperties: false
-          description: ""
-          title: params
-          type: object
-      title: ContextParams
-      type: object
     xds.core.v3.ContextParams.ParamsEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
-        value:
           additionalProperties: false
-          description: ""
-          title: value
+        value:
           type: string
+          title: value
+          additionalProperties: false
       title: ParamsEntry
+      additionalProperties: false
+    connect.error:
       type: object
+      properties:
+        code:
+          type: string
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+  responses:
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+security: []
 tags:
-- description: ""
-  name: envoy.test.ClusterDiscoveryService
+  - name: envoy.test.ClusterDiscoveryService
+externalDocs: {}

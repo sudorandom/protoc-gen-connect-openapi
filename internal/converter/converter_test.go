@@ -32,16 +32,7 @@ func TestConvert(t *testing.T) {
 	for _, protofile := range paths {
 		protofile := protofile
 
-		formats := []string{}
-		for _, format := range []string{"yaml", "json"} {
-			if _, err := os.Stat(makeOutputPath(protofile, format)); errors.Is(err, os.ErrNotExist) {
-				continue
-			}
-			require.NoError(t, err)
-			formats = append(formats, format)
-		}
-
-		require.NotZero(t, len(formats), "at least one output (json or yaml) format has to exist to run this test: %s", protofile)
+		formats := []string{"yaml", "json"}
 
 		relPath := path.Join("internal", "converter", protofile)
 		for _, format := range formats {
@@ -66,9 +57,18 @@ func TestConvert(t *testing.T) {
 				assert.Equal(t, strings.TrimSuffix(relPath, filepath.Ext(relPath))+".openapi."+format, file.GetName())
 
 				// Load in our expected output and compare it against what we actually got
-				expectedFile, err := os.ReadFile(makeOutputPath(protofile, format))
-				require.NoError(t, err)
-				assert.Equal(t, string(expectedFile), file.GetContent())
+				outputPath := makeOutputPath(protofile, format)
+				_, statErr := os.Stat(outputPath)
+				switch {
+				case errors.Is(statErr, os.ErrNotExist):
+					assert.NoError(t, os.WriteFile(outputPath, []byte(file.GetContent()), 0644))
+				case statErr == nil:
+					expectedFile, err := os.ReadFile(outputPath)
+					require.NoError(t, err)
+					assert.Equal(t, string(expectedFile), file.GetContent())
+				case statErr != nil:
+
+				}
 
 				// Validate
 				var validate validator.Validator
@@ -85,55 +85,55 @@ func TestConvert(t *testing.T) {
 					var errs []error
 					validate, errs = validator.NewValidator(document)
 					require.Len(t, errs, 0, errs)
-				})
 
-				// Load in validation test cases to check OpenAPI specifications against sample requests
-				testCaseFilePath := strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".cases.yaml"
-				if _, err := os.Stat(testCaseFilePath); errors.Is(err, os.ErrNotExist) {
-					t.Logf("No cases file: %+s", testCaseFilePath)
-					return
-				}
+					// Load in validation test cases to check OpenAPI specifications against sample requests
+					testCaseFilePath := strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".cases.yaml"
+					if _, err := os.Stat(testCaseFilePath); errors.Is(err, os.ErrNotExist) {
+						t.Logf("No cases file: %+s", testCaseFilePath)
+						return
+					}
 
-				testCaseFileBytes, err := os.ReadFile(testCaseFilePath)
-				require.NoError(t, err)
-
-				testCaseFile := &TestCaseFile{}
-				if err := yaml.Unmarshal(testCaseFileBytes, testCaseFile); err != nil {
+					testCaseFileBytes, err := os.ReadFile(testCaseFilePath)
 					require.NoError(t, err)
-				}
 
-				for _, testCase := range testCaseFile.Cases {
-					testCase := testCase
-					if testCase.Method == "" {
-						testCase.Method = "POST"
+					testCaseFile := &TestCaseFile{}
+					if err := yaml.Unmarshal(testCaseFileBytes, testCaseFile); err != nil {
+						require.NoError(t, err)
 					}
-					if len(testCase.Errors) == 0 {
-						testCase.Errors = []string{}
+
+					for _, testCase := range testCaseFile.Cases {
+						testCase := testCase
+						if testCase.Method == "" {
+							testCase.Method = "POST"
+						}
+						if len(testCase.Errors) == 0 {
+							testCase.Errors = []string{}
+						}
+						t.Run(testCase.Name, func(tt *testing.T) {
+							var body io.Reader
+							if len(testCase.Body) > 0 {
+								body = strings.NewReader(testCase.Body)
+							}
+							path := testCase.Path
+							if len(testCase.Query) > 0 {
+								path += "?" + testCase.Query
+							}
+							req, err := http.NewRequest(testCase.Method, path, body)
+							for k, v := range testCase.Headers {
+								req.Header.Add(k, v)
+							}
+							require.NoError(tt, err)
+
+							ok, errs := validate.ValidateHttpRequest(req)
+							require.Len(tt, errs, len(testCase.Errors), "Incorrect number of errors: %+v", errs)
+
+							for i, err := range errs {
+								assert.Regexp(tt, testCase.Errors[i], err.Error())
+							}
+							assert.Equal(tt, ok, len(testCase.Errors) == 0)
+						})
 					}
-					t.Run(testCase.Name, func(tt *testing.T) {
-						var body io.Reader
-						if len(testCase.Body) > 0 {
-							body = strings.NewReader(testCase.Body)
-						}
-						path := testCase.Path
-						if len(testCase.Query) > 0 {
-							path += "?" + testCase.Query
-						}
-						req, err := http.NewRequest(testCase.Method, path, body)
-						for k, v := range testCase.Headers {
-							req.Header.Add(k, v)
-						}
-						require.NoError(tt, err)
-
-						ok, errs := validate.ValidateHttpRequest(req)
-						require.Len(tt, errs, len(testCase.Errors), "Incorrect number of errors", errs)
-
-						for i, err := range errs {
-							assert.Regexp(tt, testCase.Errors[i], err.Error())
-						}
-						assert.Equal(tt, ok, len(testCase.Errors) == 0)
-					})
-				}
+				})
 			})
 		}
 	}

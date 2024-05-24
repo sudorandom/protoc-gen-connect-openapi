@@ -1,22 +1,24 @@
 openapi: 3.1.0
-info:
-  description: ""
-  title: ""
-  version: ""
+info: {}
 paths: {}
 components:
-  responses:
-    connect.error:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-      description: ""
   schemas:
     Allocation:
+      type: object
+      properties:
+        totalSize:
+          oneOf:
+            - type: string
+            - type: number
+          title: total_size
+          additionalProperties: false
+        used:
+          oneOf:
+            - type: string
+            - type: number
+          title: used
+          additionalProperties: false
+      title: Allocation
       additionalProperties: false
       description: |+
         Used should be less or equal to the total size:
@@ -24,66 +26,36 @@ components:
         this.used <= this.total_size
         ```
 
-      properties:
-        totalSize:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: total_size
-        used:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: used
-      title: Allocation
-      type: object
     connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+      type: object
       properties:
         code:
+          type: string
           description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
         message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
           type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
       title: Connect Error
-      type: object
-    google.protobuf.Any:
       additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
       properties:
         '@type':
-          description: The type of the serialized message.
           type: string
-      type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  responses:
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+security: []
+externalDocs: {}

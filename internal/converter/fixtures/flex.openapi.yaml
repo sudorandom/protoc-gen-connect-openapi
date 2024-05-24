@@ -1,294 +1,243 @@
 openapi: 3.1.0
 info:
-  description: ""
   title: flex
-  version: ""
 paths:
-  /flex.FlexService/BiDirectorionalStream:
+  /flex.FlexService/NormalRPC:
     post:
-      description: Stream both ways
-      requestBody:
-        $ref: '#/components/requestBodies/flex.FlexService.BiDirectorionalStream.flex.FlexRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/flex.FlexService.BiDirectorionalStream.flex.FlexReply'
-        default:
-          $ref: '#/components/responses/connect.error'
       tags:
-      - flex.FlexService
+        - flex.FlexService
+      description: Normal RPC method
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
   /flex.FlexService/ClientStream:
     post:
+      tags:
+        - flex.FlexService
       description: Stream from client to server
       requestBody:
-        $ref: '#/components/requestBodies/flex.FlexService.ClientStream.flex.FlexRequest'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+        required: true
       responses:
-        "200":
-          $ref: '#/components/responses/flex.FlexService.ClientStream.flex.FlexReply'
         default:
-          $ref: '#/components/responses/connect.error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+  /flex.FlexService/ServerStream:
+    post:
       tags:
-      - flex.FlexService
+        - flex.FlexService
+      description: Stream from server to client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+  /flex.FlexService/BiDirectorionalStream:
+    post:
+      tags:
+        - flex.FlexService
+      description: Stream both ways
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
   /flex.FlexService/EmptyRPC:
     post:
+      tags:
+        - flex.FlexService
       description: Don't send or receive anything
       responses:
         default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - flex.FlexService
-  /flex.FlexService/NormalRPC:
-    post:
-      description: Normal RPC method
-      requestBody:
-        $ref: '#/components/requestBodies/flex.FlexService.NormalRPC.flex.FlexRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/flex.FlexService.NormalRPC.flex.FlexReply'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - flex.FlexService
-  /flex.FlexService/ServerStream:
-    post:
-      description: Stream from server to client
-      requestBody:
-        $ref: '#/components/requestBodies/flex.FlexService.ServerStream.flex.FlexRequest'
-      responses:
-        "200":
-          $ref: '#/components/responses/flex.FlexService.ServerStream.flex.FlexReply'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - flex.FlexService
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
 components:
-  requestBodies:
-    flex.FlexService.BiDirectorionalStream.flex.FlexRequest:
-      content: {}
-      required: true
-    flex.FlexService.ClientStream.flex.FlexRequest:
-      content: {}
-      required: true
-    flex.FlexService.NormalRPC.flex.FlexRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/flex.FlexRequest'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/flex.FlexRequest'
-      required: true
-    flex.FlexService.ServerStream.flex.FlexRequest:
-      content: {}
-      required: true
-  responses:
-    connect.error:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-      description: ""
-    flex.FlexService.BiDirectorionalStream.flex.FlexReply:
-      description: ""
-    flex.FlexService.ClientStream.flex.FlexReply:
-      description: ""
-    flex.FlexService.NormalRPC.flex.FlexReply:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/flex.FlexReply'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/flex.FlexReply'
-      description: ""
-    flex.FlexService.ServerStream.flex.FlexReply:
-      description: ""
   schemas:
-    connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-      properties:
-        code:
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
-        message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
-          type: string
-      title: Connect Error
-      type: object
     flex.ComplexType:
-      additionalProperties: false
-      description: Type that has a bunch of different types
+      type: object
       properties:
-        boolField:
-          additionalProperties: false
-          description: ""
-          title: boolField
-          type: boolean
         doubleField:
-          additionalProperties: false
-          description: ""
           oneOf:
-          - type: string
-          - type: number
+            - type: string
+            - type: number
           title: doubleField
-        fixed32Field:
           additionalProperties: false
-          description: ""
-          title: fixed32Field
-          type: integer
-        fixed64Field:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64Field
         floatField:
-          additionalProperties: false
-          description: ""
-          title: floatField
           type: number
+          title: floatField
+          additionalProperties: false
         int32Field:
-          additionalProperties: false
-          description: ""
-          title: int32Field
           type: integer
-        int64Field:
+          title: int32Field
           additionalProperties: false
-          description: ""
+        int64Field:
           oneOf:
-          - type: string
-          - type: number
+            - type: string
+            - type: number
           title: int64Field
+          additionalProperties: false
+        uint32Field:
+          type: integer
+          title: uint32Field
+          additionalProperties: false
+        uint64Field:
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64Field
+          additionalProperties: false
+        sint32Field:
+          type: integer
+          title: sint32Field
+          additionalProperties: false
+        sint64Field:
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64Field
+          additionalProperties: false
+        fixed32Field:
+          type: integer
+          title: fixed32Field
+          additionalProperties: false
+        fixed64Field:
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64Field
+          additionalProperties: false
+        sfixed32Field:
+          type: integer
+          title: sfixed32Field
+          additionalProperties: false
+        sfixed64Field:
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64Field
+          additionalProperties: false
+        boolField:
+          type: boolean
+          title: boolField
+          additionalProperties: false
+        stringField:
+          type: string
+          title: stringField
+          additionalProperties: false
         msgField:
           $ref: '#/components/schemas/flex.Other'
-          additionalProperties: false
-          description: ""
-          title: msgField
-          type: object
-        optionalMsgField:
-          $ref: '#/components/schemas/flex.Other'
-          additionalProperties: false
-          description: ""
-          title: optionalMsgField
-          type: object
         repeatedMsgField:
-          additionalProperties: false
-          description: ""
+          type: array
           items:
             $ref: '#/components/schemas/flex.Other'
-            type: object
-          title: repeatedMsgField
-          type: array
-        sfixed32Field:
-          additionalProperties: false
-          description: ""
-          title: sfixed32Field
-          type: integer
-        sfixed64Field:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64Field
-        sint32Field:
-          additionalProperties: false
-          description: ""
-          title: sint32Field
-          type: integer
-        sint64Field:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64Field
-        stringField:
-          additionalProperties: false
-          description: ""
-          title: stringField
-          type: string
-        uint32Field:
-          additionalProperties: false
-          description: ""
-          title: uint32Field
-          type: integer
-        uint64Field:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64Field
+        optionalMsgField:
+          $ref: '#/components/schemas/flex.Other'
       title: ComplexType
-      type: object
+      additionalProperties: false
+      description: Type that has a bunch of different types
     flex.FlexReply:
+      type: object
+      properties:
+        msg:
+          $ref: '#/components/schemas/flex.ComplexType'
+      title: FlexReply
       additionalProperties: false
       description: The response message containing the greetings
+    flex.FlexRequest:
+      type: object
       properties:
         msg:
           $ref: '#/components/schemas/flex.ComplexType'
-          additionalProperties: false
-          description: ""
-          title: msg
-          type: object
-      title: FlexReply
-      type: object
-    flex.FlexRequest:
+      title: FlexRequest
       additionalProperties: false
       description: The request message containing the user's name.
-      properties:
-        msg:
-          $ref: '#/components/schemas/flex.ComplexType'
-          additionalProperties: false
-          description: ""
-          title: msg
-          type: object
-      title: FlexRequest
-      type: object
     flex.Other:
-      additionalProperties: false
-      description: ""
-      title: Other
       type: object
-    google.protobuf.Any:
+      title: Other
+      additionalProperties: false
+    connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
       additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
       properties:
         '@type':
-          description: The type of the serialized message.
           type: string
-      type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  responses:
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+security: []
 tags:
-- description: This service tries to flex the different options
-  name: flex.FlexService
+  - name: flex.FlexService
+    description: This service tries to flex the different options
+externalDocs: {}

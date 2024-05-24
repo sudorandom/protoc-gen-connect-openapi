@@ -5,28 +5,30 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/swaggest/jsonschema-go"
-	"github.com/swaggest/openapi-go/openapi31"
+	"github.com/pb33f/libopenapi/datamodel/high/base"
+	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-func MakePathItems(md protoreflect.MethodDescriptor) map[string]openapi31.PathItem {
-	opts := md.Options()
-	if !proto.HasExtension(opts, annotations.E_Http) {
+func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) *orderedmap.Map[string, *v3.PathItem] {
+	mdopts := md.Options()
+	if !proto.HasExtension(mdopts, annotations.E_Http) {
 		return nil
 	}
-	rule, ok := proto.GetExtension(opts, annotations.E_Http).(*annotations.HttpRule)
+	rule, ok := proto.GetExtension(mdopts, annotations.E_Http).(*annotations.HttpRule)
 	if !ok {
 		return nil
 	}
-	return httpRuleToPathMap(md, rule)
+	return httpRuleToPathMap(opts, md, rule)
 }
 
-func httpRuleToPathMap(md protoreflect.MethodDescriptor, rule *annotations.HttpRule) map[string]openapi31.PathItem {
+func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule) *orderedmap.Map[string, *v3.PathItem] {
 	var method, template string
 	switch pattern := rule.GetPattern().(type) {
 	case *annotations.HttpRule_Get:
@@ -60,17 +62,17 @@ func httpRuleToPathMap(md protoreflect.MethodDescriptor, rule *annotations.HttpR
 		return nil
 	}
 
-	paths := map[string]openapi31.PathItem{}
-	pathItem := openapi31.PathItem{}
+	paths := orderedmap.New[string, *v3.PathItem]()
+	pathItem := &v3.PathItem{}
 
 	fd := md.ParentFile()
 	service := md.Parent().(protoreflect.ServiceDescriptor)
-	op := &openapi31.Operation{}
-	op.WithTags(string(service.FullName()))
 	loc := fd.SourceLocations().ByDescriptor(md)
-	op.WithDescription(util.FormatComments(loc))
+	op := &v3.Operation{
+		Tags:        []string{string(service.FullName())},
+		Description: util.FormatComments(loc),
+	}
 
-	parameters := []openapi31.ParameterOrReference{}
 	switch rule.Body {
 	case "":
 		fields := md.Input().Fields()
@@ -78,20 +80,15 @@ func httpRuleToPathMap(md protoreflect.MethodDescriptor, rule *annotations.HttpR
 			loc := fd.SourceLocations().ByDescriptor(md)
 			desc := util.FormatComments(loc)
 			field := fields.Get(i)
-			parameters = append(parameters, openapi31.ParameterOrReference{
-				Parameter: &openapi31.Parameter{
-					Name:        field.JSONName(),
-					In:          "query",
-					Description: &desc,
-					Schema:      schemaToMap(util.FieldToSchema(nil, field)),
-				},
+			op.Parameters = append(op.Parameters, &v3.Parameter{
+				Name:        field.JSONName(),
+				In:          "query",
+				Description: desc,
+				Schema:      util.FieldToSchema(nil, field),
 			})
 		}
 	case "*":
-		id := util.FormatTypeRef(string(md.FullName() + "." + md.Input().FullName()))
-		op.WithRequestBody(openapi31.RequestBodyOrReference{
-			Reference: &openapi31.Reference{Ref: "#/components/requestBodies/" + id},
-		})
+		op.RequestBody = util.MethodToRequestBody(opts, md, false)
 	default:
 		fields := md.Input().Fields()
 		for i := 0; i < fields.Len(); i++ {
@@ -100,12 +97,9 @@ func httpRuleToPathMap(md protoreflect.MethodDescriptor, rule *annotations.HttpR
 				continue
 			}
 			loc := fd.SourceLocations().ByDescriptor(md)
-			desc := util.FormatComments(loc)
-			op.WithRequestBody(openapi31.RequestBodyOrReference{
-				RequestBody: &openapi31.RequestBody{
-					Description: &desc,
-				},
-			})
+			op.RequestBody = &v3.RequestBody{
+				Description: util.FormatComments(loc),
+			}
 		}
 	}
 
@@ -113,32 +107,36 @@ func httpRuleToPathMap(md protoreflect.MethodDescriptor, rule *annotations.HttpR
 		field := resolveField(md.Input(), param)
 		if field != nil {
 			loc := fd.SourceLocations().ByDescriptor(field)
-			desc := util.FormatComments(loc)
-			parameters = append(parameters, openapi31.ParameterOrReference{
-				Parameter: &openapi31.Parameter{
-					Name:        param,
-					In:          "path",
-					Description: &desc,
-					Schema:      schemaToMap(util.FieldToSchema(nil, field)),
-				},
+			op.Parameters = append(op.Parameters, &v3.Parameter{
+				Name:        param,
+				In:          "path",
+				Description: util.FormatComments(loc),
+				Schema:      util.FieldToSchema(nil, field),
 			})
 		}
 	}
-	op.WithParameters(parameters...)
 
 	// Responses
-	responses := openapi31.Responses{
-		Default: &openapi31.ResponseOrReference{
-			Reference: &openapi31.Reference{Ref: "#/components/responses/connect.error"},
+	codeMap := orderedmap.New[string, *v3.Response]()
+
+	if !util.IsEmpty(md.Output()) {
+		id := util.FormatTypeRef(string(md.Output().FullName()))
+		mediaType := orderedmap.New[string, *v3.MediaType]()
+		mediaType.Set("application/json", &v3.MediaType{
+			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
+		})
+		codeMap.Set("200", &v3.Response{Content: mediaType})
+	}
+	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
+	errMediaTypes.Set("application/json", &v3.MediaType{
+		Schema: base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
+	})
+	op.Responses = &v3.Responses{
+		Codes: codeMap,
+		Default: &v3.Response{
+			Content: errMediaTypes,
 		},
 	}
-	if !util.IsEmpty(md.Output()) {
-		id := util.FormatTypeRef(string(md.FullName() + "." + md.Output().FullName()))
-		responses.WithMapOfResponseOrReferenceValuesItem("200", openapi31.ResponseOrReference{
-			Reference: &openapi31.Reference{Ref: "#/components/responses/" + id},
-		})
-	}
-	op.WithResponses(responses)
 
 	switch method {
 	case http.MethodGet:
@@ -152,13 +150,13 @@ func httpRuleToPathMap(md protoreflect.MethodDescriptor, rule *annotations.HttpR
 	case http.MethodPatch:
 		pathItem.Patch = op
 	default:
-		pathItem.MapOfAnything[method] = op
 	}
-	paths[partsToOpenAPIPath(tokens)] = pathItem
+	paths.Set(partsToOpenAPIPath(tokens), pathItem)
 
 	for _, binding := range rule.AdditionalBindings {
-		for k, v := range httpRuleToPathMap(md, binding) {
-			paths[k] = v
+		pathMap := httpRuleToPathMap(opts, md, binding)
+		for pair := pathMap.First(); pair != nil; pair = pair.Next() {
+			paths.Set(pair.Key(), pair.Value())
 		}
 	}
 	return paths
@@ -216,18 +214,4 @@ func partsToOpenAPIPath(tokens []Token) string {
 		}
 	}
 	return b.String()
-}
-
-func schemaToMap(schema *jsonschema.Schema) map[string]interface{} {
-	if schema == nil {
-		return nil
-	}
-	return map[string]interface{}{
-		"type":        schema.Type,
-		"format":      schema.Format,
-		"oneOf":       schema.OneOf,
-		"ref":         schema.Ref,
-		"title":       schema.Title,
-		"description": schema.Description,
-	}
 }

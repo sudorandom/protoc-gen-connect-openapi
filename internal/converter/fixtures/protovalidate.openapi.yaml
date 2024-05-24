@@ -1,137 +1,77 @@
 openapi: 3.1.0
 info:
-  description: ""
   title: protovalidate
-  version: ""
 paths:
-  /protovalidate.FieldsService/CELRPC:
-    post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/protovalidate.FieldsService.CELRPC.protovalidate.LotsOfValidationRules'
-      responses:
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - protovalidate.FieldsService
-  /protovalidate.MessageFields/CELRPC:
-    post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/protovalidate.MessageFields.CELRPC.protovalidate.CELMessage'
-      responses:
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - protovalidate.MessageFields
   /protovalidate.MessageFields/OneOfRPC:
     post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/protovalidate.MessageFields.OneOfRPC.protovalidate.OneOfMessage'
-      responses:
-        "200":
-          $ref: '#/components/responses/protovalidate.MessageFields.OneOfRPC.protovalidate.DisabledMessage'
-        default:
-          $ref: '#/components/responses/connect.error'
       tags:
-      - protovalidate.MessageFields
+        - protovalidate.MessageFields
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/protovalidate.OneOfMessage'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/protovalidate.DisabledMessage'
+  /protovalidate.MessageFields/CELRPC:
+    post:
+      tags:
+        - protovalidate.MessageFields
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/protovalidate.CELMessage'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+  /protovalidate.FieldsService/CELRPC:
+    post:
+      tags:
+        - protovalidate.FieldsService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/protovalidate.LotsOfValidationRules'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
 components:
-  requestBodies:
-    protovalidate.FieldsService.CELRPC.protovalidate.LotsOfValidationRules:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/protovalidate.LotsOfValidationRules'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/protovalidate.LotsOfValidationRules'
-      required: true
-    protovalidate.MessageFields.CELRPC.protovalidate.CELMessage:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/protovalidate.CELMessage'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/protovalidate.CELMessage'
-      required: true
-    protovalidate.MessageFields.OneOfRPC.protovalidate.OneOfMessage:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/protovalidate.OneOfMessage'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/protovalidate.OneOfMessage'
-      required: true
-  responses:
-    connect.error:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-      description: ""
-    protovalidate.MessageFields.OneOfRPC.protovalidate.DisabledMessage:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/protovalidate.DisabledMessage'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/protovalidate.DisabledMessage'
-      description: ""
   schemas:
-    connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-      properties:
-        code:
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
-        message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
-          type: string
-      title: Connect Error
-      type: object
+    protovalidate.MyEnum:
+      type: string
+      title: MyEnum
     google.protobuf.Any:
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
+      type: object
       properties:
         '@type':
-          description: The type of the serialized message.
           type: string
-      type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     google.protobuf.Duration:
+      type: string
+      pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
+      format: regex
       additionalProperties: false
       description: |-
         A Duration represents a signed, fixed-length span of time represented
@@ -192,10 +132,9 @@ components:
          encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
          be expressed in JSON format as "3.000000001s", and 3 seconds and 1
          microsecond should be expressed in JSON format as "3.000001s".
-      format: regex
-      pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
-      type: string
     google.protobuf.Timestamp:
+      type: string
+      format: date-time
       additionalProperties: false
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
@@ -287,138 +226,30 @@ components:
          the Joda Time's [`ISODateTimeFormat.dateTime()`](
          http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
          ) to obtain a formatter capable of generating timestamps in this format.
-      format: date-time
-      type: string
     protovalidate.CELMessage:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         a:
-          additionalProperties: false
-          description: ""
-          minLength: 1
+          type: string
           title: a
-          type: string
+          minLength: 1
+          additionalProperties: false
         b:
-          additionalProperties: false
-          description: ""
+          type: string
           title: b
-          type: string
+          additionalProperties: false
       title: CELMessage
-      type: object
+      additionalProperties: false
     protovalidate.DisabledMessage:
-      additionalProperties: false
-      description: ""
-      title: DisabledMessage
       type: object
-    protovalidate.LotsOfValidationRules:
+      title: DisabledMessage
       additionalProperties: false
-      description: ""
+    protovalidate.LotsOfValidationRules:
+      type: object
       properties:
-        anyIn:
-          $ref: '#/components/schemas/google.protobuf.Any'
-          additionalProperties: false
-          description: ""
-          enum:
-          - type.googleapis.com/MyType1
-          - type.googleapis.com/MyType2
-          title: any_in
-          type: object
-        anyNotIn:
-          $ref: '#/components/schemas/google.protobuf.Any'
-          additionalProperties: false
-          description: ""
-          title: any_not_in
-          type: object
-        byteConst:
-          additionalProperties: false
-          const: AQIDBA==
-          description: ""
-          format: byte
-          title: byte_const
-          type: string
-        byteLen:
-          additionalProperties: false
-          description: ""
-          format: byte
-          maxLength: 4
-          minLength: 4
-          title: byte_len
-          type: string
-        bytesContains:
-          additionalProperties: false
-          description: ""
-          format: byte
-          title: bytes_contains
-          type: string
-        bytesIn:
-          additionalProperties: false
-          description: ""
-          enum:
-          - AQI=
-          - AgM=
-          - AwQ=
-          format: byte
-          title: bytes_in
-          type: string
-        bytesIp:
-          additionalProperties: false
-          description: ""
-          format: ip
-          title: bytes_ip
-          type: string
-        bytesIpv4:
-          additionalProperties: false
-          description: ""
-          format: ipv4
-          title: bytes_ipv4
-          type: string
-        bytesIpv6:
-          additionalProperties: false
-          description: ""
-          format: ipv6
-          title: bytes_ipv6
-          type: string
-        bytesMaxLen:
-          additionalProperties: false
-          description: ""
-          format: byte
-          maxLength: 6
-          title: bytes_max_len
-          type: string
-        bytesMinLen:
-          additionalProperties: false
-          description: ""
-          format: byte
-          minLength: 2
-          title: bytes_min_len
-          type: string
-        bytesNotIn:
-          additionalProperties: false
-          description: ""
-          format: byte
-          title: bytes_not_in
-          type: string
-        bytesPattern:
-          additionalProperties: false
-          description: ""
-          format: byte
-          pattern: ^[a-zA-Z0-9]+$
-          title: bytes_pattern
-          type: string
-        bytesPrefix:
-          additionalProperties: false
-          description: ""
-          format: byte
-          title: bytes_prefix
-          type: string
-        bytesSuffix:
-          additionalProperties: false
-          description: ""
-          format: byte
-          title: bytes_suffix
-          type: string
         celField:
+          type: integer
+          title: cel_field
           additionalProperties: false
           description: |+
             value must be greater than 42:
@@ -426,1269 +257,1059 @@ components:
             this > 42
             ```
 
-          title: cel_field
-          type: integer
-        doubleBounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          oneOf:
-          - type: string
-          - type: number
-          title: double_bounds
-        doubleConst:
-          additionalProperties: false
-          const: 42
-          description: Double
-          oneOf:
-          - type: string
-          - type: number
-          title: double_const
-        doubleFinite:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: double_finite
-          type: array
-        doubleGt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6.9
-          oneOf:
-          - type: string
-          - type: number
-          title: double_gt
-        doubleGte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          oneOf:
-          - type: string
-          - type: number
-          title: double_gte
-        doubleIn:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: double_in
-          type: array
-        doubleLt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          oneOf:
-          - type: string
-          - type: number
-          title: double_lt
-        doubleLte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          oneOf:
-          - type: string
-          - type: number
-          title: double_lte
-        doubleNotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: double_not_in
-          type: array
-        durationConst:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          const:
-            seconds: 2000
-          description: ""
-          title: duration_const
-          type: object
-        durationGt:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_gt
-          type: object
-        durationGte:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_gte
-          type: object
-        durationIn:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          enum:
-          - seconds: 1
-          - seconds: 2
-          - seconds: 3
-          title: duration_in
-          type: object
-        durationLt:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_lt
-          type: object
-        durationLtSeconds:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_lt_seconds
-          type: object
-        durationLte:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_lte
-          type: object
-        durationNotIn:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_not_in
-          type: object
-        durationRange:
-          $ref: '#/components/schemas/google.protobuf.Duration'
-          additionalProperties: false
-          description: ""
-          title: duration_range
-          type: object
-        enumCost:
-          $ref: '#/components/schemas/protovalidate.MyEnum'
-          additionalProperties: false
-          const: 1
-          description: ""
-          title: enum_cost
-        enumDefinedOnly:
-          $ref: '#/components/schemas/protovalidate.MyEnum'
-          additionalProperties: false
-          description: ""
-          title: enum_defined_only
-        enumIn:
-          $ref: '#/components/schemas/protovalidate.MyEnum'
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          title: enum_in
-        enumNotIn:
-          $ref: '#/components/schemas/protovalidate.MyEnum'
-          additionalProperties: false
-          description: ""
-          title: enum_not_in
-        fixed32Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          title: fixed32_bounds
-          type: integer
-        fixed32Const:
-          additionalProperties: false
-          const: 42
-          description: fixed32
-          title: fixed32_const
-          type: integer
-        fixed32Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          title: fixed32_gt
-          type: integer
-        fixed32Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          title: fixed32_gte
-          type: integer
-        fixed32In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            type: integer
-          title: fixed32_in
-          type: array
-        fixed32Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          title: fixed32_lt
-          type: integer
-        fixed32Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          title: fixed32_lte
-          type: integer
-        fixed32NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            type: integer
-          title: fixed32_not_in
-          type: array
-        fixed64Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64_bounds
-        fixed64Const:
-          additionalProperties: false
-          const: 42
-          description: fixed64
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64_const
-        fixed64Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 10
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64_gt
-        fixed64Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 109
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64_gte
-        fixed64In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: fixed64_in
-          type: array
-        fixed64Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64_lt
-        fixed64Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          oneOf:
-          - type: string
-          - type: number
-          title: fixed64_lte
-        fixed64NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: fixed64_not_in
-          type: array
-        floatBounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          title: float_bounds
-          type: number
-        floatConst:
-          additionalProperties: false
-          const: 42
-          description: Floats
-          title: float_const
-          type: number
-        floatFinite:
-          additionalProperties: false
-          description: ""
-          items:
-            type: number
-          title: float_finite
-          type: array
-        floatGt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6.900000095367432
-          title: float_gt
-          type: number
-        floatGte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          title: float_gte
-          type: number
-        floatIn:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            type: number
-          title: float_in
-          type: array
-        floatLt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          title: float_lt
-          type: number
-        floatLte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          title: float_lte
-          type: number
-        floatNotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            type: number
-          title: float_not_in
-          type: array
-        int32Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          title: int32_bounds
-          type: integer
-        int32Const:
-          additionalProperties: false
-          const: 42
-          description: int32
-          title: int32_const
-          type: integer
-        int32Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          title: int32_gt
-          type: integer
-        int32Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          title: int32_gte
-          type: integer
-        int32In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            type: integer
-          title: int32_in
-          type: array
-        int32Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          title: int32_lt
-          type: integer
-        int32Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          title: int32_lte
-          type: integer
-        int32NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            type: integer
-          title: int32_not_in
-          type: array
-        int64Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          oneOf:
-          - type: string
-          - type: number
-          title: int64_bounds
-        int64Const:
-          additionalProperties: false
-          const: 42
-          description: int64
-          oneOf:
-          - type: string
-          - type: number
-          title: int64_const
-        int64Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          oneOf:
-          - type: string
-          - type: number
-          title: int64_gt
-        int64Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          oneOf:
-          - type: string
-          - type: number
-          title: int64_gte
-        int64In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: int64_in
-          type: array
-        int64Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          oneOf:
-          - type: string
-          - type: number
-          title: int64_lt
-        int64Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          oneOf:
-          - type: string
-          - type: number
-          title: int64_lte
-        int64NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: int64_not_in
-          type: array
-        mapKeys:
-          additionalProperties: false
-          description: ""
-          maxLength: 10
-          minLength: 3
-          title: map_keys
-          type: object
-        mapMaxPairs:
-          additionalProperties: false
-          description: ""
-          maxItems: 3
-          title: map_max_pairs
-          type: object
-        mapMinPairs:
-          additionalProperties: false
-          description: ""
-          minItems: 2
-          title: map_min_pairs
-          type: object
-        mapValues:
-          additionalProperties: false
-          description: ""
-          title: map_values
-          type: object
-        repeatedItems:
-          additionalProperties: false
-          description: ""
-          items:
-            type: string
-          title: repeated_items
-          type: array
-        repeatedMaxItems:
-          additionalProperties: false
-          description: ""
-          items:
-            type: string
-          maxItems: 3
-          title: repeated_max_items
-          type: array
-        repeatedMinItems:
-          additionalProperties: false
-          description: ""
-          items:
-            type: string
-          minItems: 2
-          title: repeated_min_items
-          type: array
-        repeatedUnique:
-          additionalProperties: false
-          description: ""
-          items:
-            type: string
-          title: repeated_unique
-          type: array
-          uniqueItems: true
-        requiredField:
-          $ref: '#/components/schemas/protovalidate.MyOtherMessage'
-          additionalProperties: false
-          description: ""
-          title: required_field
-          type: object
-        sfixed32Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          title: sfixed32_bounds
-          type: integer
-        sfixed32Const:
-          additionalProperties: false
-          const: 42
-          description: sfixed32
-          title: sfixed32_const
-          type: integer
-        sfixed32Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          title: sfixed32_gt
-          type: integer
-        sfixed32Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          title: sfixed32_gte
-          type: integer
-        sfixed32In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            type: integer
-          title: sfixed32_in
-          type: array
-        sfixed32Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          title: sfixed32_lt
-          type: integer
-        sfixed32Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          title: sfixed32_lte
-          type: integer
-        sfixed32NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            type: integer
-          title: sfixed32_not_in
-          type: array
-        sfixed64Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64_bounds
-        sfixed64Const:
-          additionalProperties: false
-          const: 42
-          description: sfixed64
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64_const
-        sfixed64Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 10
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64_gt
-        sfixed64Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 109
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64_gte
-        sfixed64In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: sfixed64_in
-          type: array
-        sfixed64Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64_lt
-        sfixed64Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          oneOf:
-          - type: string
-          - type: number
-          title: sfixed64_lte
-        sfixed64NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: sfixed64_not_in
-          type: array
-        sint32Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          title: sint32_bounds
-          type: integer
-        sint32Const:
-          additionalProperties: false
-          const: 42
-          description: sint32
-          title: sint32_const
-          type: integer
-        sint32Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          title: sint32_gt
-          type: integer
-        sint32Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          title: sint32_gte
-          type: integer
-        sint32In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            type: integer
-          title: sint32_in
-          type: array
-        sint32Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          title: sint32_lt
-          type: integer
-        sint32Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          title: sint32_lte
-          type: integer
-        sint32NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            type: integer
-          title: sint32_not_in
-          type: array
-        sint64Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64_bounds
-        sint64Const:
-          additionalProperties: false
-          const: 42
-          description: sint64
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64_const
-        sint64Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 8
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64_gt
-        sint64Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 89
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64_gte
-        sint64In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: sint64_in
-          type: array
-        sint64Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64_lt
-        sint64Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          oneOf:
-          - type: string
-          - type: number
-          title: sint64_lte
-        sint64NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: sint64_not_in
-          type: array
         skippedField:
           $ref: '#/components/schemas/protovalidate.MyOtherMessage'
-          additionalProperties: false
-          description: ""
-          title: skipped_field
-          type: object
-        stringAddress:
-          additionalProperties: false
-          description: ""
-          format: address
-          title: string_address
+        requiredField:
+          $ref: '#/components/schemas/protovalidate.MyOtherMessage'
+        uriField:
           type: string
+          title: uri_field
+          format: uri
+          additionalProperties: false
+        floatConst:
+          type: number
+          title: float_const
+          additionalProperties: false
+          description: Floats
+        floatIn:
+          type: array
+          items:
+            type: number
+            title: float_in
+            additionalProperties: false
+        floatNotIn:
+          type: array
+          items:
+            type: number
+            title: float_not_in
+            additionalProperties: false
+        floatFinite:
+          type: array
+          items:
+            type: number
+            title: float_finite
+            additionalProperties: false
+        floatLt:
+          exclusiveMaximum: false
+          type: number
+          title: float_lt
+          additionalProperties: false
+        floatLte:
+          type: number
+          title: float_lte
+          maximum: 420
+          additionalProperties: false
+        floatGt:
+          exclusiveMinimum: false
+          type: number
+          title: float_gt
+          additionalProperties: false
+        floatGte:
+          type: number
+          title: float_gte
+          minimum: 69
+          additionalProperties: false
+        floatBounds:
+          exclusiveMaximum: false
+          type: number
+          title: float_bounds
+          minimum: 5
+          additionalProperties: false
+        doubleConst:
+          oneOf:
+            - type: string
+            - type: number
+          title: double_const
+          additionalProperties: false
+          description: Double
+        doubleIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: double_in
+            additionalProperties: false
+        doubleNotIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: double_not_in
+            additionalProperties: false
+        doubleFinite:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: double_finite
+            additionalProperties: false
+        doubleLt:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: double_lt
+          additionalProperties: false
+        doubleLte:
+          oneOf:
+            - type: string
+            - type: number
+          title: double_lte
+          maximum: 420
+          additionalProperties: false
+        doubleGt:
+          exclusiveMinimum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: double_gt
+          additionalProperties: false
+        doubleGte:
+          oneOf:
+            - type: string
+            - type: number
+          title: double_gte
+          minimum: 69
+          additionalProperties: false
+        doubleBounds:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: double_bounds
+          minimum: 5
+          additionalProperties: false
+        int32Const:
+          type: integer
+          title: int32_const
+          additionalProperties: false
+          description: int32
+        int32In:
+          type: array
+          items:
+            type: integer
+            title: int32_in
+            additionalProperties: false
+        int32NotIn:
+          type: array
+          items:
+            type: integer
+            title: int32_not_in
+            additionalProperties: false
+        int32Lt:
+          exclusiveMaximum: false
+          type: integer
+          title: int32_lt
+          additionalProperties: false
+        int32Lte:
+          type: integer
+          title: int32_lte
+          maximum: 420
+          additionalProperties: false
+        int32Gt:
+          exclusiveMinimum: false
+          type: integer
+          title: int32_gt
+          additionalProperties: false
+        int32Gte:
+          type: integer
+          title: int32_gte
+          minimum: 69
+          additionalProperties: false
+        int32Bounds:
+          exclusiveMaximum: false
+          type: integer
+          title: int32_bounds
+          minimum: 5
+          additionalProperties: false
+        int64Const:
+          oneOf:
+            - type: string
+            - type: number
+          title: int64_const
+          additionalProperties: false
+          description: int64
+        int64In:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: int64_in
+            additionalProperties: false
+        int64NotIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: int64_not_in
+            additionalProperties: false
+        int64Lt:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: int64_lt
+          additionalProperties: false
+        int64Lte:
+          oneOf:
+            - type: string
+            - type: number
+          title: int64_lte
+          maximum: 420
+          additionalProperties: false
+        int64Gt:
+          exclusiveMinimum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: int64_gt
+          additionalProperties: false
+        int64Gte:
+          oneOf:
+            - type: string
+            - type: number
+          title: int64_gte
+          minimum: 69
+          additionalProperties: false
+        int64Bounds:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: int64_bounds
+          minimum: 5
+          additionalProperties: false
+        uint32Const:
+          type: integer
+          title: uint32_const
+          additionalProperties: false
+          description: uint32
+        uint32In:
+          type: array
+          items:
+            type: integer
+            title: uint32_in
+            additionalProperties: false
+        uint32NotIn:
+          type: array
+          items:
+            type: integer
+            title: uint32_not_in
+            additionalProperties: false
+        uint32Lt:
+          exclusiveMaximum: false
+          type: integer
+          title: uint32_lt
+          additionalProperties: false
+        uint32Lte:
+          type: integer
+          title: uint32_lte
+          maximum: 420
+          additionalProperties: false
+        uint32Gt:
+          exclusiveMinimum: false
+          type: integer
+          title: uint32_gt
+          additionalProperties: false
+        uint32Gte:
+          type: integer
+          title: uint32_gte
+          minimum: 69
+          additionalProperties: false
+        uint32Bounds:
+          exclusiveMaximum: false
+          type: integer
+          title: uint32_bounds
+          minimum: 5
+          additionalProperties: false
+        uint64Const:
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64_const
+          additionalProperties: false
+          description: uint64
+        uint64In:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: uint64_in
+            additionalProperties: false
+        uint64NotIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: uint64_not_in
+            additionalProperties: false
+        uint64Lt:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64_lt
+          additionalProperties: false
+        uint64Lte:
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64_lte
+          maximum: 420
+          additionalProperties: false
+        uint64Gt:
+          exclusiveMinimum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64_gt
+          additionalProperties: false
+        uint64Gte:
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64_gte
+          minimum: 69
+          additionalProperties: false
+        uint64Bounds:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: uint64_bounds
+          minimum: 5
+          additionalProperties: false
+        sint32Const:
+          type: integer
+          title: sint32_const
+          additionalProperties: false
+          description: sint32
+        sint32In:
+          type: array
+          items:
+            type: integer
+            title: sint32_in
+            additionalProperties: false
+        sint32NotIn:
+          type: array
+          items:
+            type: integer
+            title: sint32_not_in
+            additionalProperties: false
+        sint32Lt:
+          exclusiveMaximum: false
+          type: integer
+          title: sint32_lt
+          additionalProperties: false
+        sint32Lte:
+          type: integer
+          title: sint32_lte
+          maximum: 420
+          additionalProperties: false
+        sint32Gt:
+          exclusiveMinimum: false
+          type: integer
+          title: sint32_gt
+          additionalProperties: false
+        sint32Gte:
+          type: integer
+          title: sint32_gte
+          minimum: 69
+          additionalProperties: false
+        sint32Bounds:
+          exclusiveMaximum: false
+          type: integer
+          title: sint32_bounds
+          minimum: 5
+          additionalProperties: false
+        sint64Const:
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64_const
+          additionalProperties: false
+          description: sint64
+        sint64In:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: sint64_in
+            additionalProperties: false
+        sint64NotIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: sint64_not_in
+            additionalProperties: false
+        sint64Lt:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64_lt
+          additionalProperties: false
+        sint64Lte:
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64_lte
+          maximum: 420
+          additionalProperties: false
+        sint64Gt:
+          exclusiveMinimum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64_gt
+          additionalProperties: false
+        sint64Gte:
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64_gte
+          minimum: 89
+          additionalProperties: false
+        sint64Bounds:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: sint64_bounds
+          minimum: 5
+          additionalProperties: false
+        fixed32Const:
+          type: integer
+          title: fixed32_const
+          additionalProperties: false
+          description: fixed32
+        fixed32In:
+          type: array
+          items:
+            type: integer
+            title: fixed32_in
+            additionalProperties: false
+        fixed32NotIn:
+          type: array
+          items:
+            type: integer
+            title: fixed32_not_in
+            additionalProperties: false
+        fixed32Lt:
+          exclusiveMaximum: false
+          type: integer
+          title: fixed32_lt
+          additionalProperties: false
+        fixed32Lte:
+          type: integer
+          title: fixed32_lte
+          maximum: 420
+          additionalProperties: false
+        fixed32Gt:
+          exclusiveMinimum: false
+          type: integer
+          title: fixed32_gt
+          additionalProperties: false
+        fixed32Gte:
+          type: integer
+          title: fixed32_gte
+          minimum: 69
+          additionalProperties: false
+        fixed32Bounds:
+          exclusiveMaximum: false
+          type: integer
+          title: fixed32_bounds
+          minimum: 5
+          additionalProperties: false
+        fixed64Const:
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64_const
+          additionalProperties: false
+          description: fixed64
+        fixed64In:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: fixed64_in
+            additionalProperties: false
+        fixed64NotIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: fixed64_not_in
+            additionalProperties: false
+        fixed64Lt:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64_lt
+          additionalProperties: false
+        fixed64Lte:
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64_lte
+          maximum: 420
+          additionalProperties: false
+        fixed64Gt:
+          exclusiveMinimum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64_gt
+          additionalProperties: false
+        fixed64Gte:
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64_gte
+          minimum: 109
+          additionalProperties: false
+        fixed64Bounds:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: fixed64_bounds
+          minimum: 5
+          additionalProperties: false
+        sfixed32Const:
+          type: integer
+          title: sfixed32_const
+          additionalProperties: false
+          description: sfixed32
+        sfixed32In:
+          type: array
+          items:
+            type: integer
+            title: sfixed32_in
+            additionalProperties: false
+        sfixed32NotIn:
+          type: array
+          items:
+            type: integer
+            title: sfixed32_not_in
+            additionalProperties: false
+        sfixed32Lt:
+          exclusiveMaximum: false
+          type: integer
+          title: sfixed32_lt
+          additionalProperties: false
+        sfixed32Lte:
+          type: integer
+          title: sfixed32_lte
+          maximum: 420
+          additionalProperties: false
+        sfixed32Gt:
+          exclusiveMinimum: false
+          type: integer
+          title: sfixed32_gt
+          additionalProperties: false
+        sfixed32Gte:
+          type: integer
+          title: sfixed32_gte
+          minimum: 69
+          additionalProperties: false
+        sfixed32Bounds:
+          exclusiveMaximum: false
+          type: integer
+          title: sfixed32_bounds
+          minimum: 5
+          additionalProperties: false
+        sfixed64Const:
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64_const
+          additionalProperties: false
+          description: sfixed64
+        sfixed64In:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: sfixed64_in
+            additionalProperties: false
+        sfixed64NotIn:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: number
+            title: sfixed64_not_in
+            additionalProperties: false
+        sfixed64Lt:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64_lt
+          additionalProperties: false
+        sfixed64Lte:
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64_lte
+          maximum: 420
+          additionalProperties: false
+        sfixed64Gt:
+          exclusiveMinimum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64_gt
+          additionalProperties: false
+        sfixed64Gte:
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64_gte
+          minimum: 109
+          additionalProperties: false
+        sfixed64Bounds:
+          exclusiveMaximum: false
+          oneOf:
+            - type: string
+            - type: number
+          title: sfixed64_bounds
+          minimum: 5
+          additionalProperties: false
         stringConst:
-          additionalProperties: false
-          const: hello
-          description: string
+          type: string
           title: string_const
-          type: string
-        stringContains:
           additionalProperties: false
-          description: ""
-          title: string_contains
-          type: string
-        stringEmail:
-          additionalProperties: false
-          description: ""
-          format: email
-          title: string_email
-          type: string
-        stringHostAndPort:
-          additionalProperties: false
-          description: ""
-          title: string_host_and_port
-          type: string
-        stringHostname:
-          additionalProperties: false
-          description: ""
-          format: hostname
-          title: string_hostname
-          type: string
+          description: string
         stringIn:
-          additionalProperties: false
-          description: ""
-          enum:
-          - orange
-          - grape
+          type: array
           items:
             type: string
-          title: string_in
+            title: string_in
+            additionalProperties: false
+        stringNotIn:
           type: array
-        stringIp:
-          additionalProperties: false
-          description: ""
-          format: ip
-          title: string_ip
+          items:
+            type: string
+            title: string_not_in
+            additionalProperties: false
+        stringMinLen:
           type: string
-        stringIpPrefix:
+          title: string_min_len
+          minLength: 3
           additionalProperties: false
-          description: ""
-          title: string_ip_prefix
+        stringMaxLen:
           type: string
-        stringIpWithPrefixlen:
+          title: string_max_len
+          maxLength: 10
           additionalProperties: false
-          description: ""
-          title: string_ip_with_prefixlen
-          type: string
-        stringIpv4:
-          additionalProperties: false
-          description: ""
-          format: ipv4
-          title: string_ipv4
-          type: string
-        stringIpv4Prefix:
-          additionalProperties: false
-          description: ""
-          title: string_ipv4_prefix
-          type: string
-        stringIpv4WithPrefixlen:
-          additionalProperties: false
-          description: ""
-          title: string_ipv4_with_prefixlen
-          type: string
-        stringIpv6:
-          additionalProperties: false
-          description: ""
-          format: ipv6
-          title: string_ipv6
-          type: string
-        stringIpv6Prefix:
-          additionalProperties: false
-          description: ""
-          title: string_ipv6_prefix
-          type: string
-        stringIpv6WithPrefixlen:
-          additionalProperties: false
-          description: ""
-          title: string_ipv6_with_prefixlen
-          type: string
         stringLen:
-          additionalProperties: false
-          description: ""
+          type: string
+          title: string_len
           maxLength: 10
           minLength: 10
-          title: string_len
-          type: string
+          additionalProperties: false
         stringLenBytes:
-          additionalProperties: false
-          description: ""
+          type: string
           title: string_len_bytes
-          type: string
-        stringMaxBytes:
           additionalProperties: false
-          description: ""
-          title: string_max_bytes
-          type: string
-        stringMaxLen:
-          additionalProperties: false
-          description: ""
-          maxLength: 10
-          title: string_max_len
-          type: string
         stringMinBytes:
-          additionalProperties: false
-          description: ""
+          type: string
           title: string_min_bytes
-          type: string
-        stringMinLen:
           additionalProperties: false
-          description: ""
-          minLength: 3
-          title: string_min_len
+        stringMaxBytes:
           type: string
+          title: string_max_bytes
+          additionalProperties: false
+        stringPrefix:
+          type: string
+          title: string_prefix
+          additionalProperties: false
+        stringSuffix:
+          type: string
+          title: string_suffix
+          additionalProperties: false
+        stringContains:
+          type: string
+          title: string_contains
+          additionalProperties: false
         stringNotContains:
-          additionalProperties: false
-          description: ""
-          title: string_not_contains
           type: string
-        stringNotIn:
+          title: string_not_contains
           additionalProperties: false
-          description: ""
+        stringStrict:
+          type: string
+          title: string_strict
+          additionalProperties: false
+        stringEmail:
+          type: string
+          title: string_email
+          format: email
+          additionalProperties: false
+        stringHostname:
+          type: string
+          title: string_hostname
+          format: hostname
+          additionalProperties: false
+        stringIp:
+          type: string
+          title: string_ip
+          format: ip
+          additionalProperties: false
+        stringIpv4:
+          type: string
+          title: string_ipv4
+          format: ipv4
+          additionalProperties: false
+        stringIpv6:
+          type: string
+          title: string_ipv6
+          format: ipv6
+          additionalProperties: false
+        stringUri:
+          type: string
+          title: string_uri
+          format: uri
+          additionalProperties: false
+        stringUriRef:
+          type: string
+          title: string_uri_ref
+          format: uri-ref
+          additionalProperties: false
+        stringAddress:
+          type: string
+          title: string_address
+          format: address
+          additionalProperties: false
+        stringUuid:
+          type: string
+          title: string_uuid
+          format: uuid
+          additionalProperties: false
+        stringIpWithPrefixlen:
+          type: string
+          title: string_ip_with_prefixlen
+          additionalProperties: false
+        stringIpv4WithPrefixlen:
+          type: string
+          title: string_ipv4_with_prefixlen
+          additionalProperties: false
+        stringIpv6WithPrefixlen:
+          type: string
+          title: string_ipv6_with_prefixlen
+          additionalProperties: false
+        stringIpPrefix:
+          type: string
+          title: string_ip_prefix
+          additionalProperties: false
+        stringIpv4Prefix:
+          type: string
+          title: string_ipv4_prefix
+          additionalProperties: false
+        stringIpv6Prefix:
+          type: string
+          title: string_ipv6_prefix
+          additionalProperties: false
+        stringHostAndPort:
+          type: string
+          title: string_host_and_port
+          additionalProperties: false
+        stringWellKnownRegex:
+          type: string
+          title: string_well_known_regex
+          additionalProperties: false
+        byteConst:
+          type: string
+          title: byte_const
+          format: byte
+          additionalProperties: false
+        byteLen:
+          type: string
+          title: byte_len
+          maxLength: 4
+          minLength: 4
+          format: byte
+          additionalProperties: false
+        bytesMinLen:
+          type: string
+          title: bytes_min_len
+          minLength: 2
+          format: byte
+          additionalProperties: false
+        bytesMaxLen:
+          type: string
+          title: bytes_max_len
+          maxLength: 6
+          format: byte
+          additionalProperties: false
+        bytesPattern:
+          type: string
+          title: bytes_pattern
+          pattern: ^[a-zA-Z0-9]+$
+          format: byte
+          additionalProperties: false
+        bytesPrefix:
+          type: string
+          title: bytes_prefix
+          format: byte
+          additionalProperties: false
+        bytesSuffix:
+          type: string
+          title: bytes_suffix
+          format: byte
+          additionalProperties: false
+        bytesContains:
+          type: string
+          title: bytes_contains
+          format: byte
+          additionalProperties: false
+        bytesIn:
+          type: string
+          title: bytes_in
+          format: byte
+          additionalProperties: false
+        bytesNotIn:
+          type: string
+          title: bytes_not_in
+          format: byte
+          additionalProperties: false
+        bytesIp:
+          type: string
+          title: bytes_ip
+          format: ip
+          additionalProperties: false
+        bytesIpv4:
+          type: string
+          title: bytes_ipv4
+          format: ipv4
+          additionalProperties: false
+        bytesIpv6:
+          type: string
+          title: bytes_ipv6
+          format: ipv6
+          additionalProperties: false
+        enumCost:
+          $ref: '#/components/schemas/protovalidate.MyEnum'
+        enumDefinedOnly:
+          $ref: '#/components/schemas/protovalidate.MyEnum'
+        enumIn:
+          $ref: '#/components/schemas/protovalidate.MyEnum'
+        enumNotIn:
+          $ref: '#/components/schemas/protovalidate.MyEnum'
+        repeatedMinItems:
+          type: array
           items:
             type: string
-          title: string_not_in
+            title: repeated_min_items
+            minItems: 2
+            additionalProperties: false
+        repeatedMaxItems:
           type: array
-        stringPrefix:
-          additionalProperties: false
-          description: ""
-          title: string_prefix
-          type: string
-        stringStrict:
-          additionalProperties: false
-          description: ""
-          title: string_strict
-          type: string
-        stringSuffix:
-          additionalProperties: false
-          description: ""
-          title: string_suffix
-          type: string
-        stringUri:
-          additionalProperties: false
-          description: ""
-          format: uri
-          title: string_uri
-          type: string
-        stringUriRef:
-          additionalProperties: false
-          description: ""
-          format: uri-ref
-          title: string_uri_ref
-          type: string
-        stringUuid:
-          additionalProperties: false
-          description: ""
-          format: uuid
-          title: string_uuid
-          type: string
-        stringWellKnownRegex:
-          additionalProperties: false
-          description: ""
-          title: string_well_known_regex
-          type: string
+          items:
+            type: string
+            title: repeated_max_items
+            maxItems: 3
+            additionalProperties: false
+        repeatedUnique:
+          type: array
+          items:
+            type: string
+            title: repeated_unique
+            uniqueItems: true
+            additionalProperties: false
+        repeatedItems:
+          type: array
+          items:
+            type: string
+            title: repeated_items
+            additionalProperties: false
+        mapMinPairs:
+          type: object
+          title: map_min_pairs
+          minItems: 2
+          additionalProperties:
+            type: string
+            title: value
+            additionalProperties: false
+        mapMaxPairs:
+          type: object
+          title: map_max_pairs
+          maxItems: 3
+          additionalProperties:
+            type: string
+            title: value
+            additionalProperties: false
+        mapKeys:
+          type: object
+          title: map_keys
+          maxLength: 10
+          minLength: 3
+          additionalProperties:
+            type: string
+            title: value
+            additionalProperties: false
+        mapValues:
+          type: object
+          title: map_values
+          additionalProperties:
+            type: string
+            title: value
+            maxLength: 20
+            minLength: 5
+            additionalProperties: false
+        anyIn:
+          $ref: '#/components/schemas/google.protobuf.Any'
+        anyNotIn:
+          $ref: '#/components/schemas/google.protobuf.Any'
+        durationConst:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationIn:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationNotIn:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationLt:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationLte:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationLtSeconds:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationGt:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationRange:
+          $ref: '#/components/schemas/google.protobuf.Duration'
+        durationGte:
+          $ref: '#/components/schemas/google.protobuf.Duration'
         timestampConst:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          const:
-            seconds: 1.7279988e+09
-          description: ""
-          title: timestamp_const
-          type: object
-        timestampGt:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_gt
-          type: object
-        timestampGtNow:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_gt_now
-          type: object
-        timestampGte:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_gte
-          type: object
-        timestampLt:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_lt
-          type: object
-        timestampLtNow:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_lt_now
-          type: object
-        timestampLte:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_lte
-          type: object
-        timestampRange:
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_range
-          type: object
         timestampWithin:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
-          additionalProperties: false
-          description: ""
-          title: timestamp_within
-          type: object
-        uint32Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          title: uint32_bounds
-          type: integer
-        uint32Const:
-          additionalProperties: false
-          const: 42
-          description: uint32
-          title: uint32_const
-          type: integer
-        uint32Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          title: uint32_gt
-          type: integer
-        uint32Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          title: uint32_gte
-          type: integer
-        uint32In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            type: integer
-          title: uint32_in
-          type: array
-        uint32Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          title: uint32_lt
-          type: integer
-        uint32Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          title: uint32_lte
-          type: integer
-        uint32NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            type: integer
-          title: uint32_not_in
-          type: array
-        uint64Bounds:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 10
-          minimum: 5
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64_bounds
-        uint64Const:
-          additionalProperties: false
-          const: 42
-          description: uint64
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64_const
-        uint64Gt:
-          additionalProperties: false
-          description: ""
-          exclusiveMinimum: 6
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64_gt
-        uint64Gte:
-          additionalProperties: false
-          description: ""
-          minimum: 69
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64_gte
-        uint64In:
-          additionalProperties: false
-          description: ""
-          enum:
-          - 1
-          - 2
-          - 3
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: uint64_in
-          type: array
-        uint64Lt:
-          additionalProperties: false
-          description: ""
-          exclusiveMaximum: 42
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64_lt
-        uint64Lte:
-          additionalProperties: false
-          description: ""
-          maximum: 420
-          oneOf:
-          - type: string
-          - type: number
-          title: uint64_lte
-        uint64NotIn:
-          additionalProperties: false
-          description: ""
-          items:
-            oneOf:
-            - type: string
-            - type: number
-          title: uint64_not_in
-          type: array
-        uriField:
-          additionalProperties: false
-          description: ""
-          format: uri
-          title: uri_field
-          type: string
-      required:
-      - requiredField
+        timestampLt:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestampLte:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestampGt:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestampGte:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestampRange:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestampLtNow:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
+        timestampGtNow:
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: LotsOfValidationRules
-      type: object
+      additionalProperties: false
     protovalidate.LotsOfValidationRules.MapKeysEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
-        value:
           additionalProperties: false
-          description: ""
-          title: value
+        value:
           type: string
+          title: value
+          additionalProperties: false
       title: MapKeysEntry
-      type: object
+      additionalProperties: false
     protovalidate.LotsOfValidationRules.MapMaxPairsEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
-        value:
           additionalProperties: false
-          description: ""
-          title: value
+        value:
           type: string
+          title: value
+          additionalProperties: false
       title: MapMaxPairsEntry
-      type: object
+      additionalProperties: false
     protovalidate.LotsOfValidationRules.MapMinPairsEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
-        value:
           additionalProperties: false
-          description: ""
-          title: value
+        value:
           type: string
+          title: value
+          additionalProperties: false
       title: MapMinPairsEntry
-      type: object
-    protovalidate.LotsOfValidationRules.MapValuesEntry:
       additionalProperties: false
-      description: ""
+    protovalidate.LotsOfValidationRules.MapValuesEntry:
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
+          type: string
           title: key
-          type: string
-        value:
           additionalProperties: false
-          description: ""
-          title: value
+        value:
           type: string
+          title: value
+          additionalProperties: false
       title: MapValuesEntry
-      type: object
-    protovalidate.MyEnum:
-      description: ""
-      enum:
-      - - MY_ENUM_UNSPECIFIED
-        - MY_ENUM_VALUE1
-        - MY_ENUM_VALUE2
-      title: MyEnum
-      type: string
+      additionalProperties: false
     protovalidate.MyOtherMessage:
-      additionalProperties: false
-      description: ""
-      title: MyOtherMessage
       type: object
-    protovalidate.OneOfMessage:
+      title: MyOtherMessage
       additionalProperties: false
-      description: ""
+    protovalidate.OneOfMessage:
+      type: object
       properties:
         a:
-          additionalProperties: false
-          description: ""
-          minLength: 1
+          type: string
           title: a
-          type: string
-        b:
+          minLength: 1
           additionalProperties: false
-          description: ""
-          title: b
+        b:
           type: string
+          title: b
+          additionalProperties: false
       title: OneOfMessage
+      additionalProperties: false
+    connect.error:
       type: object
+      properties:
+        code:
+          type: string
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+  responses:
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+security: []
 tags:
-- description: ""
-  name: protovalidate.MessageFields
-- description: ""
-  name: protovalidate.FieldsService
+  - name: protovalidate.MessageFields
+  - name: protovalidate.FieldsService
+externalDocs: {}

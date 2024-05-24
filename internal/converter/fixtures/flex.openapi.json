@@ -1,0 +1,396 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "flex"
+  },
+  "paths": {
+    "/flex.FlexService/NormalRPC": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "description": "Normal RPC method",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flex.FlexService/ClientStream": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "description": "Stream from client to server",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flex.FlexService/ServerStream": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "description": "Stream from server to client",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flex.FlexService/BiDirectorionalStream": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "description": "Stream both ways",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flex.FlexService/EmptyRPC": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "description": "Don't send or receive anything",
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "flex.ComplexType": {
+        "type": "object",
+        "properties": {
+          "doubleField": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "doubleField",
+            "additionalProperties": false
+          },
+          "floatField": {
+            "type": "number",
+            "title": "floatField",
+            "additionalProperties": false
+          },
+          "int32Field": {
+            "type": "integer",
+            "title": "int32Field",
+            "additionalProperties": false
+          },
+          "int64Field": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64Field",
+            "additionalProperties": false
+          },
+          "uint32Field": {
+            "type": "integer",
+            "title": "uint32Field",
+            "additionalProperties": false
+          },
+          "uint64Field": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64Field",
+            "additionalProperties": false
+          },
+          "sint32Field": {
+            "type": "integer",
+            "title": "sint32Field",
+            "additionalProperties": false
+          },
+          "sint64Field": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64Field",
+            "additionalProperties": false
+          },
+          "fixed32Field": {
+            "type": "integer",
+            "title": "fixed32Field",
+            "additionalProperties": false
+          },
+          "fixed64Field": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64Field",
+            "additionalProperties": false
+          },
+          "sfixed32Field": {
+            "type": "integer",
+            "title": "sfixed32Field",
+            "additionalProperties": false
+          },
+          "sfixed64Field": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64Field",
+            "additionalProperties": false
+          },
+          "boolField": {
+            "type": "boolean",
+            "title": "boolField",
+            "additionalProperties": false
+          },
+          "stringField": {
+            "type": "string",
+            "title": "stringField",
+            "additionalProperties": false
+          },
+          "msgField": {
+            "$ref": "#/components/schemas/flex.Other"
+          },
+          "repeatedMsgField": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/flex.Other"
+            }
+          },
+          "optionalMsgField": {
+            "$ref": "#/components/schemas/flex.Other"
+          }
+        },
+        "title": "ComplexType",
+        "additionalProperties": false,
+        "description": "Type that has a bunch of different types"
+      },
+      "flex.FlexReply": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "$ref": "#/components/schemas/flex.ComplexType"
+          }
+        },
+        "title": "FlexReply",
+        "additionalProperties": false,
+        "description": "The response message containing the greetings"
+      },
+      "flex.FlexRequest": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "$ref": "#/components/schemas/flex.ComplexType"
+          }
+        },
+        "title": "FlexRequest",
+        "additionalProperties": false,
+        "description": "The request message containing the user's name."
+      },
+      "flex.Other": {
+        "type": "object",
+        "title": "Other",
+        "additionalProperties": false
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "detail": {
+            "$ref": "#/components/schemas/google.protobuf.Any"
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      }
+    },
+    "responses": {
+      "compression": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/connect.error"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "$ref": "#/components/schemas/connect.error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "flex.FlexService",
+      "description": "This service tries to flex the different options"
+    }
+  ],
+  "externalDocs": {}
+}

@@ -1,621 +1,454 @@
 openapi: 3.1.0
 info:
-  description: ""
   title: io.swagger.petstore.v2
-  version: ""
 paths:
-  /pet:
-    post:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/io.swagger.petstore.v2.PetService.AddPet.io.swagger.petstore.v2.Pet'
-      responses:
-        "200":
-          $ref: '#/components/responses/io.swagger.petstore.v2.PetService.AddPet.io.swagger.petstore.v2.Pet'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - io.swagger.petstore.v2.PetService
-    put:
-      description: ""
-      requestBody:
-        $ref: '#/components/requestBodies/io.swagger.petstore.v2.PetService.UpdatePet.io.swagger.petstore.v2.Pet'
-      responses:
-        "200":
-          $ref: '#/components/responses/io.swagger.petstore.v2.PetService.UpdatePet.io.swagger.petstore.v2.Pet'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - io.swagger.petstore.v2.PetService
   /pet/{pet_id}:
-    delete:
-      description: ""
-      parameters:
-      - description: ""
-        in: query
-        name: petId
-        schema:
-          description: ""
-          format: null
-          oneOf:
-          - type: string
-          - type: number
-          ref: null
-          title: pet_id
-          type: null
-      responses:
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - io.swagger.petstore.v2.PetService
     get:
-      description: ""
+      tags:
+        - io.swagger.petstore.v2.PetService
       parameters:
-      - description: ""
-        in: query
-        name: petId
-        schema:
-          description: ""
-          format: null
-          oneOf:
-          - type: string
-          - type: number
-          ref: null
-          title: pet_id
-          type: null
+        - name: petId
+          in: query
+          schema:
+            oneOf:
+              - type: string
+              - type: number
+            title: pet_id
+            additionalProperties: false
       responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
         "200":
-          $ref: '#/components/responses/io.swagger.petstore.v2.PetService.GetPetByID.io.swagger.petstore.v2.Pet'
-        default:
-          $ref: '#/components/responses/connect.error'
-      tags:
-      - io.swagger.petstore.v2.PetService
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
     post:
-      description: ""
+      tags:
+        - io.swagger.petstore.v2.PetService
       requestBody:
-        $ref: '#/components/requestBodies/io.swagger.petstore.v2.PetService.UpdatePetWithForm.io.swagger.petstore.v2.UpdatePetWithFormReq'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.UpdatePetWithFormReq'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.UpdatePetWithFormReq'
+        required: true
       responses:
         default:
-          $ref: '#/components/responses/connect.error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+    delete:
       tags:
-      - io.swagger.petstore.v2.PetService
+        - io.swagger.petstore.v2.PetService
+      parameters:
+        - name: petId
+          in: query
+          schema:
+            oneOf:
+              - type: string
+              - type: number
+            title: pet_id
+            additionalProperties: false
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
   /pet/{pet_id}/uploadImage:
     post:
-      description: ""
+      tags:
+        - io.swagger.petstore.v2.PetService
       requestBody:
-        $ref: '#/components/requestBodies/io.swagger.petstore.v2.PetService.UploadFile.io.swagger.petstore.v2.UploadFileReq'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.UploadFileReq'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.UploadFileReq'
+        required: true
       responses:
-        "200":
-          $ref: '#/components/responses/io.swagger.petstore.v2.PetService.UploadFile.io.swagger.petstore.v2.ApiResponse'
         default:
-          $ref: '#/components/responses/connect.error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.ApiResponse'
+  /pet:
+    put:
       tags:
-      - io.swagger.petstore.v2.PetService
-  /pet/findByStatus:
-    get:
-      description: ""
-      parameters:
-      - description: ""
-        in: query
-        name: status
-        schema:
-          description: ""
-          format: null
-          oneOf: null
-          ref: null
-          title: status
-          type: array
+        - io.swagger.petstore.v2.PetService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
+        required: true
       responses:
-        "200":
-          $ref: '#/components/responses/io.swagger.petstore.v2.PetService.FindPetsByStatus.io.swagger.petstore.v2.Pets'
         default:
-          $ref: '#/components/responses/connect.error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
+    post:
       tags:
-      - io.swagger.petstore.v2.PetService
+        - io.swagger.petstore.v2.PetService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
   /pet/findByTags:
     get:
-      description: ""
-      parameters:
-      - description: ""
-        in: query
-        name: tag
-        schema:
-          description: ""
-          format: null
-          oneOf: null
-          ref: null
-          title: tag
-          type: array
-      responses:
-        "200":
-          $ref: '#/components/responses/io.swagger.petstore.v2.PetService.FindPetsByTag.io.swagger.petstore.v2.Pets'
-        default:
-          $ref: '#/components/responses/connect.error'
       tags:
-      - io.swagger.petstore.v2.PetService
+        - io.swagger.petstore.v2.PetService
+      parameters:
+        - name: tag
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              title: tag
+              additionalProperties: false
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Pets'
+  /pet/findByStatus:
+    get:
+      tags:
+        - io.swagger.petstore.v2.PetService
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              title: status
+              additionalProperties: false
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Pets'
 components:
-  parameters:
-    base64:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/base64'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/base64'
-      in: query
-      name: base64
-    compression:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/compression'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/compression'
-      in: query
-      name: compression
-    connect:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect'
-      in: query
-      name: connect
-    encoding:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/encoding'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/encoding'
-      in: query
-      name: encoding
-    io.swagger.petstore.v2.PetService.FindPetsByStatus.io.swagger.petstore.v2.StatusReq:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.StatusReq'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.StatusReq'
-      in: query
-      name: message
-    io.swagger.petstore.v2.PetService.FindPetsByTag.io.swagger.petstore.v2.TagReq:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.TagReq'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.TagReq'
-      in: query
-      name: message
-    io.swagger.petstore.v2.PetService.GetPetByID.io.swagger.petstore.v2.PetID:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.PetID'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.PetID'
-      in: query
-      name: message
-  requestBodies:
-    io.swagger.petstore.v2.PetService.AddPet.io.swagger.petstore.v2.Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-      required: true
-    io.swagger.petstore.v2.PetService.DeletePet.io.swagger.petstore.v2.PetID:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.PetID'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.PetID'
-      required: true
-    io.swagger.petstore.v2.PetService.UpdatePet.io.swagger.petstore.v2.Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-      required: true
-    io.swagger.petstore.v2.PetService.UpdatePetWithForm.io.swagger.petstore.v2.UpdatePetWithFormReq:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.UpdatePetWithFormReq'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.UpdatePetWithFormReq'
-      required: true
-    io.swagger.petstore.v2.PetService.UploadFile.io.swagger.petstore.v2.UploadFileReq:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.UploadFileReq'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.UploadFileReq'
-      required: true
-  responses:
-    connect.error:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-      description: ""
-    io.swagger.petstore.v2.PetService.AddPet.io.swagger.petstore.v2.Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-      description: ""
-    io.swagger.petstore.v2.PetService.FindPetsByStatus.io.swagger.petstore.v2.Pets:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pets'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pets'
-      description: ""
-    io.swagger.petstore.v2.PetService.FindPetsByTag.io.swagger.petstore.v2.Pets:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pets'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pets'
-      description: ""
-    io.swagger.petstore.v2.PetService.GetPetByID.io.swagger.petstore.v2.Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-      description: ""
-    io.swagger.petstore.v2.PetService.UpdatePet.io.swagger.petstore.v2.Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-      description: ""
-    io.swagger.petstore.v2.PetService.UploadFile.io.swagger.petstore.v2.ApiResponse:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.ApiResponse'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.ApiResponse'
-      description: ""
   schemas:
-    base64:
-      description: Specifies if the message query param is base64 encoded, which may
-        be required for binary data
-      title: base64
-      type: boolean
-    compression:
-      description: Which compression algorithm to use for this request
-      enum:
-      - identity
-      - gzip
-      - br
-      - zstd
-      title: compression
-    connect:
-      description: Which version of connect to use.
-      enum:
-      - "1"
-      title: connect
-    connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-      properties:
-        code:
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
-        message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
-          type: string
-      title: Connect Error
-      type: object
-    encoding:
-      description: Define which encoding or 'Message-Codec' to use
-      enum:
-      - proto
-      - json
-      title: encoding
-    google.protobuf.Any:
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
-      properties:
-        '@type':
-          description: The type of the serialized message.
-          type: string
-      type: object
-    io.swagger.petstore.v2.ApiResponse:
-      additionalProperties: false
-      description: ""
-      properties:
-        code:
-          additionalProperties: false
-          description: ""
-          title: code
-          type: integer
-        message:
-          additionalProperties: false
-          description: ""
-          title: message
-          type: string
-        type:
-          additionalProperties: false
-          description: ""
-          title: type
-          type: string
-      title: ApiResponse
-      type: object
-    io.swagger.petstore.v2.Category:
-      additionalProperties: false
-      description: ""
-      properties:
-        id:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: id
-        name:
-          additionalProperties: false
-          description: ""
-          title: name
-          type: string
-      title: Category
-      type: object
-    io.swagger.petstore.v2.Pet:
-      additionalProperties: false
-      description: ""
-      properties:
-        category:
-          $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
-          additionalProperties: false
-          description: ""
-          title: category
-          type: object
-        id:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: id
-        name:
-          additionalProperties: false
-          description: ""
-          title: name
-          type: string
-        photoUrls:
-          additionalProperties: false
-          description: ""
-          items:
-            type: string
-          title: photo_urls
-          type: array
-        status:
-          additionalProperties: false
-          description: ""
-          title: status
-          type: string
-        tags:
-          additionalProperties: false
-          description: ""
-          items:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Tag'
-            type: object
-          title: tags
-          type: array
-      title: Pet
-      type: object
-    io.swagger.petstore.v2.PetBody:
-      additionalProperties: false
-      description: ""
-      properties:
-        body:
-          additionalProperties: false
-          description: ""
-          title: body
-          type: string
-        petId:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: pet_id
-      title: PetBody
-      type: object
-    io.swagger.petstore.v2.PetID:
-      additionalProperties: false
-      description: ""
-      properties:
-        petId:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: pet_id
-      title: PetID
-      type: object
-    io.swagger.petstore.v2.Pets:
-      additionalProperties: false
-      description: ""
-      properties:
-        pets:
-          additionalProperties: false
-          description: ""
-          items:
-            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-            type: object
-          title: pets
-          type: array
-      title: Pets
-      type: object
     io.swagger.petstore.v2.Status:
+      type: string
+      title: Status
       description: |-
         These do not use standard naming practices in order to match
          the JSON format of the Pet Store Open API schema, which uses
          lower-case names for these constants.
-      enum:
-      - - unknown
-        - available
-        - pending
-        - sold
-      title: Status
-      type: string
-    io.swagger.petstore.v2.StatusReq:
-      additionalProperties: false
-      description: ""
-      properties:
-        status:
-          additionalProperties: false
-          description: ""
-          items:
-            type: string
-          title: status
-          type: array
-      title: StatusReq
+    io.swagger.petstore.v2.ApiResponse:
       type: object
-    io.swagger.petstore.v2.Tag:
+      properties:
+        code:
+          type: integer
+          title: code
+          additionalProperties: false
+        type:
+          type: string
+          title: type
+          additionalProperties: false
+        message:
+          type: string
+          title: message
+          additionalProperties: false
+      title: ApiResponse
       additionalProperties: false
-      description: ""
+    io.swagger.petstore.v2.Category:
+      type: object
       properties:
         id:
-          additionalProperties: false
-          description: ""
           oneOf:
-          - type: string
-          - type: number
+            - type: string
+            - type: number
           title: id
+          additionalProperties: false
         name:
-          additionalProperties: false
-          description: ""
-          title: name
           type: string
-      title: Tag
-      type: object
-    io.swagger.petstore.v2.TagReq:
-      additionalProperties: false
-      description: ""
-      properties:
-        tag:
+          title: name
           additionalProperties: false
-          description: ""
+      title: Category
+      additionalProperties: false
+    io.swagger.petstore.v2.Pet:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - type: number
+          title: id
+          additionalProperties: false
+        category:
+          $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+        photoUrls:
+          type: array
           items:
             type: string
-          title: tag
+            title: photo_urls
+            additionalProperties: false
+        tags:
           type: array
-      title: TagReq
-      type: object
-    io.swagger.petstore.v2.UpdatePetWithFormReq:
-      additionalProperties: false
-      description: ""
-      properties:
-        name:
-          additionalProperties: false
-          description: ""
-          title: name
-          type: string
-        petId:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: pet_id
+          items:
+            $ref: '#/components/schemas/io.swagger.petstore.v2.Tag'
         status:
-          additionalProperties: false
-          description: ""
+          type: string
           title: status
-          type: string
-      title: UpdatePetWithFormReq
-      type: object
-    io.swagger.petstore.v2.UploadFileReq:
+          additionalProperties: false
+      title: Pet
       additionalProperties: false
-      description: ""
-      properties:
-        additionalMetadata:
-          additionalProperties: false
-          description: ""
-          title: additional_metadata
-          type: string
-        file:
-          additionalProperties: false
-          description: ""
-          title: file
-          type: string
-        petId:
-          additionalProperties: false
-          description: ""
-          oneOf:
-          - type: string
-          - type: number
-          title: pet_id
-      title: UploadFileReq
+    io.swagger.petstore.v2.PetBody:
       type: object
+      properties:
+        petId:
+          oneOf:
+            - type: string
+            - type: number
+          title: pet_id
+          additionalProperties: false
+        body:
+          type: string
+          title: body
+          additionalProperties: false
+      title: PetBody
+      additionalProperties: false
+    io.swagger.petstore.v2.PetID:
+      type: object
+      properties:
+        petId:
+          oneOf:
+            - type: string
+            - type: number
+          title: pet_id
+          additionalProperties: false
+      title: PetID
+      additionalProperties: false
+    io.swagger.petstore.v2.Pets:
+      type: object
+      properties:
+        pets:
+          type: array
+          items:
+            $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
+      title: Pets
+      additionalProperties: false
+    io.swagger.petstore.v2.StatusReq:
+      type: object
+      properties:
+        status:
+          type: array
+          items:
+            type: string
+            title: status
+            additionalProperties: false
+      title: StatusReq
+      additionalProperties: false
+    io.swagger.petstore.v2.Tag:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - type: number
+          title: id
+          additionalProperties: false
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+      title: Tag
+      additionalProperties: false
+    io.swagger.petstore.v2.TagReq:
+      type: object
+      properties:
+        tag:
+          type: array
+          items:
+            type: string
+            title: tag
+            additionalProperties: false
+      title: TagReq
+      additionalProperties: false
+    io.swagger.petstore.v2.UpdatePetWithFormReq:
+      type: object
+      properties:
+        petId:
+          oneOf:
+            - type: string
+            - type: number
+          title: pet_id
+          additionalProperties: false
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+        status:
+          type: string
+          title: status
+          additionalProperties: false
+      title: UpdatePetWithFormReq
+      additionalProperties: false
+    io.swagger.petstore.v2.UploadFileReq:
+      type: object
+      properties:
+        petId:
+          oneOf:
+            - type: string
+            - type: number
+          title: pet_id
+          additionalProperties: false
+        additionalMetadata:
+          type: string
+          title: additional_metadata
+          additionalProperties: false
+        file:
+          type: string
+          title: file
+          additionalProperties: false
+      title: UploadFileReq
+      additionalProperties: false
+    encoding:
+      title: encoding
+      description: Define which encoding or 'Message-Codec' to use
+    base64:
+      type: boolean
+      title: base64
+      description: Specifies if the message query param is base64 encoded, which may be required for binary data
+    compression:
+      title: compression
+      description: Which compression algorithm to use for this request
+    connect:
+      title: connect
+      description: Which version of connect to use.
+    connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  responses:
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+  parameters:
+    encoding:
+      name: encoding
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/encoding'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/encoding'
+    base64:
+      name: base64
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/base64'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/base64'
+    compression:
+      name: compression
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/compression'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/compression'
+    connect:
+      name: connect
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect'
+security: []
 tags:
-- description: ""
-  name: io.swagger.petstore.v2.PetService
+  - name: io.swagger.petstore.v2.PetService
+externalDocs: {}

@@ -1,237 +1,223 @@
 package gnostic
 
 import (
+	"strconv"
+
 	goa3 "github.com/google/gnostic/openapiv3"
-	"github.com/swaggest/jsonschema-go"
-	"github.com/swaggest/openapi-go/openapi31"
+	base "github.com/pb33f/libopenapi/datamodel/high/base"
+	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
+	"gopkg.in/yaml.v3"
 )
 
-func toServers(servers []*goa3.Server) []openapi31.Server {
-	result := make([]openapi31.Server, len(servers))
+func toServers(servers []*goa3.Server) []*v3.Server {
+	result := make([]*v3.Server, len(servers))
 	for i, server := range servers {
-		result[i] = openapi31.Server{
+		result[i] = &v3.Server{
 			URL:         server.Url,
-			Description: &server.Description,
+			Description: server.Description,
 			Variables:   toVariables(server.Variables),
 		}
 	}
 	return result
 }
 
-func toVariables(variables *goa3.ServerVariables) map[string]openapi31.ServerVariable {
+func toVariables(variables *goa3.ServerVariables) *orderedmap.Map[string, *v3.ServerVariable] {
 	if variables == nil || len(variables.AdditionalProperties) == 0 {
 		return nil
 	}
-
-	vars := make(map[string]openapi31.ServerVariable, len(variables.AdditionalProperties))
+	vars := orderedmap.New[string, *v3.ServerVariable]()
 	for _, prop := range variables.AdditionalProperties {
-		vars[prop.Name] = openapi31.ServerVariable{
+		vars.Store(prop.Name, &v3.ServerVariable{
 			Enum:        prop.Value.Enum,
 			Default:     prop.Value.Default,
-			Description: &prop.Value.Description,
-		}
+			Description: prop.Value.Description,
+		})
 	}
 	return vars
 }
 
-func toSecurityRequirements(securityReq []*goa3.SecurityRequirement) []map[string][]string {
-	result := make([]map[string][]string, len(securityReq))
+func toSecurityRequirements(securityReq []*goa3.SecurityRequirement) []*base.SecurityRequirement {
+	result := make([]*base.SecurityRequirement, len(securityReq))
 	for i, req := range securityReq {
-		item := map[string][]string{}
+		reqs := orderedmap.New[string, []string]()
 		for _, prop := range req.AdditionalProperties {
-			item[prop.Name] = prop.Value.Value
+			reqs.Set(prop.Name, prop.Value.Value)
 		}
-		result[i] = item
+
+		result[i] = &base.SecurityRequirement{
+			Requirements:             reqs,
+			ContainsEmptyRequirement: len(req.AdditionalProperties) == 0,
+		}
 	}
 	return result
 }
 
 //gocyclo:ignore
-func toSecuritySchemes(components *goa3.Components) map[string]openapi31.SecuritySchemeOrReference {
+func toSecuritySchemes(components *goa3.Components) *orderedmap.Map[string, *v3.SecurityScheme] {
 	if components == nil || components.SecuritySchemes == nil {
 		return nil
 	}
 
-	secSchemas := map[string]openapi31.SecuritySchemeOrReference{}
+	secSchemas := orderedmap.New[string, *v3.SecurityScheme]()
 	for _, addProp := range components.SecuritySchemes.AdditionalProperties {
-		item := openapi31.SecuritySchemeOrReference{}
-		ref := addProp.Value.GetReference()
-		if ref != nil {
-			item.Reference = &openapi31.Reference{
-				Ref:         ref.XRef,
-				Summary:     &ref.Summary,
-				Description: &ref.Description,
-			}
-		}
 		secScheme := addProp.Value.GetSecurityScheme()
 		if secScheme != nil {
-			scheme := &openapi31.SecurityScheme{}
+			scheme := &v3.SecurityScheme{}
 			switch secScheme.Type {
 			case "http":
-				scheme.HTTP = &openapi31.SecuritySchemeHTTP{
-					Scheme: secScheme.Scheme,
-				}
+				scheme.Scheme = secScheme.Scheme
 			case "apiKey":
-				scheme.APIKey = &openapi31.SecuritySchemeAPIKey{
-					Name: secScheme.Name,
-					In:   openapi31.SecuritySchemeAPIKeyIn(secScheme.In),
-				}
+				scheme.Name = secScheme.Name
+				scheme.In = secScheme.In
 			case "openIdConnect":
-				scheme.Oidc = &openapi31.SecuritySchemeOidc{
-					OpenIDConnectURL: secScheme.OpenIdConnectUrl,
-				}
+				scheme.OpenIdConnectUrl = secScheme.OpenIdConnectUrl
 			case "oauth2":
-				flows := openapi31.OauthFlows{}
+				flows := &v3.OAuthFlows{}
 				if secScheme.Flows.Implicit != nil {
-					scopes := map[string]string{}
+					scopes := orderedmap.New[string, string]()
 					for _, scope := range secScheme.Flows.Implicit.Scopes.AdditionalProperties {
-						scopes[scope.Name] = scope.Value
+						scopes.Set(scope.Name, scope.Value)
 					}
-					flows.Implicit = &openapi31.OauthFlowsDefsImplicit{
-						AuthorizationURL: secScheme.Flows.Implicit.AuthorizationUrl,
-						RefreshURL:       &secScheme.Flows.Implicit.RefreshUrl,
+					flows.Implicit = &v3.OAuthFlow{
+						AuthorizationUrl: secScheme.Flows.Implicit.AuthorizationUrl,
+						TokenUrl:         secScheme.Flows.Implicit.TokenUrl,
+						RefreshUrl:       secScheme.Flows.Implicit.RefreshUrl,
 						Scopes:           scopes,
 					}
 				}
 				if secScheme.Flows.Password != nil {
-					scopes := map[string]string{}
+					scopes := orderedmap.New[string, string]()
 					for _, scope := range secScheme.Flows.Password.Scopes.AdditionalProperties {
-						scopes[scope.Name] = scope.Value
+						scopes.Set(scope.Name, scope.Value)
 					}
-					flows.Password = &openapi31.OauthFlowsDefsPassword{
-						TokenURL:   secScheme.Flows.Password.TokenUrl,
-						RefreshURL: &secScheme.Flows.Password.RefreshUrl,
+					flows.Password = &v3.OAuthFlow{
+						TokenUrl:   secScheme.Flows.Password.TokenUrl,
+						RefreshUrl: secScheme.Flows.Password.RefreshUrl,
 						Scopes:     scopes,
 					}
 				}
 				if secScheme.Flows.ClientCredentials != nil {
-					scopes := map[string]string{}
-					for _, scope := range secScheme.Flows.ClientCredentials.Scopes.AdditionalProperties {
-						scopes[scope.Name] = scope.Value
+					scopes := orderedmap.New[string, string]()
+					for _, scope := range secScheme.Flows.Password.Scopes.AdditionalProperties {
+						scopes.Set(scope.Name, scope.Value)
 					}
-					flows.ClientCredentials = &openapi31.OauthFlowsDefsClientCredentials{
-						TokenURL:   secScheme.Flows.ClientCredentials.TokenUrl,
-						RefreshURL: &secScheme.Flows.ClientCredentials.RefreshUrl,
+					flows.ClientCredentials = &v3.OAuthFlow{
+						TokenUrl:   secScheme.Flows.ClientCredentials.TokenUrl,
+						RefreshUrl: secScheme.Flows.ClientCredentials.RefreshUrl,
 						Scopes:     scopes,
 					}
 				}
 				if secScheme.Flows.AuthorizationCode != nil {
-					scopes := map[string]string{}
-					for _, scope := range secScheme.Flows.AuthorizationCode.Scopes.AdditionalProperties {
-						scopes[scope.Name] = scope.Value
+					scopes := orderedmap.New[string, string]()
+					for _, scope := range secScheme.Flows.Password.Scopes.AdditionalProperties {
+						scopes.Set(scope.Name, scope.Value)
 					}
-					flows.AuthorizationCode = &openapi31.OauthFlowsDefsAuthorizationCode{
-						AuthorizationURL: secScheme.Flows.AuthorizationCode.AuthorizationUrl,
-						TokenURL:         secScheme.Flows.AuthorizationCode.TokenUrl,
-						RefreshURL:       &secScheme.Flows.AuthorizationCode.RefreshUrl,
+					flows.AuthorizationCode = &v3.OAuthFlow{
+						AuthorizationUrl: secScheme.Flows.AuthorizationCode.AuthorizationUrl,
+						TokenUrl:         secScheme.Flows.AuthorizationCode.TokenUrl,
+						RefreshUrl:       secScheme.Flows.AuthorizationCode.RefreshUrl,
 						Scopes:           scopes,
 					}
 				}
-				scheme.Oauth2 = &openapi31.SecuritySchemeOauth2{Flows: flows}
+				scheme.Flows = flows
 			default:
 				continue
 			}
-			item.SecurityScheme = scheme
+			secSchemas.Set(addProp.Name, scheme)
 		}
-		secSchemas[addProp.Name] = item
 	}
 
 	return secSchemas
 }
 
-func toExternalDocs(externalDocs *goa3.ExternalDocs) *openapi31.ExternalDocumentation {
+func toExternalDocs(externalDocs *goa3.ExternalDocs) *base.ExternalDoc {
 	if externalDocs == nil {
 		return nil
 	}
 
-	return &openapi31.ExternalDocumentation{
-		Description: &externalDocs.Description,
+	return &base.ExternalDoc{
+		Description: externalDocs.Description,
 		URL:         externalDocs.Url,
 	}
 }
 
-func toTags(tags []*goa3.Tag) []openapi31.Tag {
+func toTags(tags []*goa3.Tag) []*base.Tag {
 	if len(tags) == 0 {
 		return nil
 	}
 
-	result := make([]openapi31.Tag, len(tags))
+	result := make([]*base.Tag, len(tags))
 	for i, tag := range tags {
-		var extDoc *openapi31.ExternalDocumentation
+		var extDoc *base.ExternalDoc
 		if tag.ExternalDocs != nil {
-			extDoc = &openapi31.ExternalDocumentation{
-				Description: &tag.Description,
+			extDoc = &base.ExternalDoc{
+				Description: tag.Description,
 				URL:         tag.ExternalDocs.Url,
 			}
 		}
-		result[i] = openapi31.Tag{
+		result[i] = &base.Tag{
 			Name:         tag.Name,
-			Description:  &tag.Description,
+			Description:  tag.Description,
 			ExternalDocs: extDoc,
 		}
 	}
 	return result
 }
 
-func toSchemaOrBools(items []*goa3.SchemaOrReference) []jsonschema.SchemaOrBool {
-	result := make([]jsonschema.SchemaOrBool, len(items))
+func toSchemaOrReferences(items []*goa3.SchemaOrReference) []*base.SchemaProxy {
+	result := make([]*base.SchemaProxy, len(items))
 	for i, s := range items {
-		result[i] = toSchemaOrBool(s)
+		result[i] = toSchemaOrReference(s)
 	}
 	return result
 }
 
-func toSchemaOrBool(s *goa3.SchemaOrReference) jsonschema.SchemaOrBool {
-	sOrB := jsonschema.SchemaOrBool{}
+func toSchemaOrReference(s *goa3.SchemaOrReference) *base.SchemaProxy {
 	if ref := s.GetReference(); ref != nil {
-		sOrB.TypeObject = &jsonschema.Schema{
-			Ref:         &ref.XRef,
-			Description: &ref.Description,
-		}
+		return base.CreateSchemaProxyRef(ref.XRef)
 	} else if schema := s.GetSchema(); schema != nil {
-		sOrB.TypeObject = toSchema(schema)
+		return base.CreateSchemaProxy(toSchema(schema))
 	}
-	return sOrB
+	return nil
 }
 
-func toSchemaOrBoolMap(items []*goa3.NamedSchemaOrReference) map[string]jsonschema.SchemaOrBool {
-	m := make(map[string]jsonschema.SchemaOrBool, len(items))
+func toSchemaOrReferenceMap(items []*goa3.NamedSchemaOrReference) *orderedmap.Map[string, *base.SchemaProxy] {
+	m := orderedmap.New[string, *base.SchemaProxy]()
 	for _, item := range items {
-		m[item.Name] = toSchemaOrBool(item.Value)
+		m.Set(item.Name, toSchemaOrReference(item.Value))
 	}
 	return m
 }
 
-func toSchema(s *goa3.Schema) *jsonschema.Schema {
-	schema := &jsonschema.Schema{
-		Title:         &s.Title,
-		Description:   &s.Description,
+func toSchema(s *goa3.Schema) *base.Schema {
+	schema := &base.Schema{
+		Title:         s.Title,
+		Description:   s.Description,
 		Default:       toDefault(s.Default),
 		ReadOnly:      &s.ReadOnly,
 		MultipleOf:    &s.MultipleOf,
 		MaxLength:     &s.MaxLength,
-		MinLength:     s.MinLength,
-		Pattern:       &s.Pattern,
+		MinLength:     &s.MinLength,
+		Pattern:       s.Pattern,
 		MaxItems:      &s.MaxItems,
-		MinItems:      s.MinItems,
+		MinItems:      &s.MinItems,
 		UniqueItems:   &s.UniqueItems,
 		MaxProperties: &s.MaxProperties,
-		MinProperties: s.MinProperties,
+		MinProperties: &s.MinProperties,
 		Required:      s.Required,
-		Format:        &s.Format,
+		Format:        s.Format,
 	}
 	if s.Type != "" {
-		t := jsonschema.SimpleType(s.Type)
-		schema.Type = &jsonschema.Type{SimpleTypes: &t}
+		schema.Type = []string{s.Type}
 	}
-
 	if s.ExclusiveMaximum {
-		schema.ExclusiveMaximum = &s.Maximum
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: s.Maximum}
 	} else {
 		schema.Maximum = &s.Maximum
 	}
 	if s.ExclusiveMinimum {
-		schema.ExclusiveMinimum = &s.Minimum
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: s.Minimum}
 	} else {
 		schema.Minimum = &s.Minimum
 	}
@@ -257,29 +243,31 @@ func toSchema(s *goa3.Schema) *jsonschema.Schema {
 	return schema
 }
 
-func toDefault(dt *goa3.DefaultType) *interface{} {
+func toDefault(dt *goa3.DefaultType) *yaml.Node {
 	if dt == nil {
 		return nil
 	}
-	var v interface{}
 	switch dt.GetOneof().(type) {
 	case *goa3.DefaultType_Number:
-		v = dt.GetNumber()
+		return &yaml.Node{Value: strconv.FormatFloat(dt.GetNumber(), 'f', -1, 64)}
 	case *goa3.DefaultType_String_:
-		v = dt.GetString_()
+		return &yaml.Node{Value: dt.GetString_()}
 	case *goa3.DefaultType_Boolean:
-		v = dt.GetBoolean()
+		if dt.GetBoolean() {
+			return &yaml.Node{Value: "true"}
+		}
+		return &yaml.Node{Value: "false"}
+	default:
+		return nil
 	}
-	return &v
 }
 
-func toAdditionalPropertiesItem(item *goa3.AdditionalPropertiesItem) *jsonschema.SchemaOrBool {
+func toAdditionalPropertiesItem(item *goa3.AdditionalPropertiesItem) *base.DynamicValue[*base.SchemaProxy, bool] {
 	switch v := item.Oneof.(type) {
 	case *goa3.AdditionalPropertiesItem_SchemaOrReference:
-		vv := toSchemaOrBool(v.SchemaOrReference)
-		return &vv
+		return &base.DynamicValue[*base.SchemaProxy, bool]{A: toSchemaOrReference(v.SchemaOrReference)}
 	case *goa3.AdditionalPropertiesItem_Boolean:
-		return &jsonschema.SchemaOrBool{TypeBoolean: &v.Boolean}
+		return &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: v.Boolean}
 	}
 	return nil
 }

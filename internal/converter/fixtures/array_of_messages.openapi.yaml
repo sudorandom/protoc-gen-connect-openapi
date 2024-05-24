@@ -1,12 +1,55 @@
 openapi: 3.1.0
 info:
-  description: ""
   title: messages
-  version: ""
 paths: {}
 components:
-  responses:
+  schemas:
+    messages.ArrayOfMessages:
+      type: object
+      properties:
+        description:
+          type: string
+          title: description
+          additionalProperties: false
+        things:
+          type: array
+          items:
+            $ref: '#/components/schemas/messages.Thing'
+      title: ArrayOfMessages
+      additionalProperties: false
+    messages.Thing:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+      title: Thing
+      additionalProperties: false
     connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  responses:
+    compression:
       content:
         application/json:
           schema:
@@ -14,81 +57,5 @@ components:
         application/proto:
           schema:
             $ref: '#/components/schemas/connect.error'
-      description: ""
-  schemas:
-    connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-      properties:
-        code:
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
-        message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
-          type: string
-      title: Connect Error
-      type: object
-    google.protobuf.Any:
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
-      properties:
-        '@type':
-          description: The type of the serialized message.
-          type: string
-      type: object
-    messages.ArrayOfMessages:
-      additionalProperties: false
-      description: ""
-      properties:
-        description:
-          additionalProperties: false
-          description: ""
-          title: description
-          type: string
-        things:
-          additionalProperties: false
-          description: ""
-          items:
-            $ref: '#/components/schemas/messages.Thing'
-            type: object
-          title: things
-          type: array
-      title: ArrayOfMessages
-      type: object
-    messages.Thing:
-      additionalProperties: false
-      description: ""
-      properties:
-        name:
-          additionalProperties: false
-          description: ""
-          title: name
-          type: string
-      title: Thing
-      type: object
+security: []
+externalDocs: {}

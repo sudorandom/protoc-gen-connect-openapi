@@ -2,12 +2,12 @@ package gnostic
 
 import (
 	goa3 "github.com/google/gnostic/openapiv3"
-	"github.com/swaggest/openapi-go/openapi31"
+	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func PathItemWithMethodAnnotations(item openapi31.PathItem, md protoreflect.MethodDescriptor) openapi31.PathItem {
+func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDescriptor) *v3.PathItem {
 	if !proto.HasExtension(md.Options(), goa3.E_Operation.TypeDescriptor().Type()) {
 		return item
 	}
@@ -17,7 +17,10 @@ func PathItemWithMethodAnnotations(item openapi31.PathItem, md protoreflect.Meth
 	if !ok {
 		return item
 	}
-	for _, oper := range getAllOperations(item) {
+	operations := item.GetOperations()
+	kv := operations.First()
+	for kv != nil {
+		oper := kv.Value()
 		if opts.Deprecated {
 			t := true
 			oper.Deprecated = &t
@@ -29,10 +32,10 @@ func PathItemWithMethodAnnotations(item openapi31.PathItem, md protoreflect.Meth
 		oper.Servers = toServers(opts.Servers)
 
 		if opts.Summary != "" {
-			oper.Summary = &opts.Summary
+			oper.Summary = opts.Summary
 		}
 		if opts.Description != "" {
-			oper.Description = &opts.Description
+			oper.Description = opts.Description
 		}
 		oper.Tags = append(oper.Tags, opts.Tags...)
 
@@ -41,37 +44,10 @@ func PathItemWithMethodAnnotations(item openapi31.PathItem, md protoreflect.Meth
 		}
 
 		if opts.OperationId != "" {
-			oper.ID = &opts.OperationId
+			oper.OperationId = opts.OperationId
 		}
+
+		kv = kv.Next()
 	}
 	return item
-}
-
-func getAllOperations(item openapi31.PathItem) []*openapi31.Operation {
-	operations := []*openapi31.Operation{}
-	if item.Get != nil {
-		operations = append(operations, item.Get)
-	}
-	if item.Post != nil {
-		operations = append(operations, item.Post)
-	}
-	if item.Put != nil {
-		operations = append(operations, item.Put)
-	}
-	if item.Delete != nil {
-		operations = append(operations, item.Delete)
-	}
-	if item.Head != nil {
-		operations = append(operations, item.Head)
-	}
-	if item.Patch != nil {
-		operations = append(operations, item.Patch)
-	}
-	if item.Options != nil {
-		operations = append(operations, item.Options)
-	}
-	if item.Trace != nil {
-		operations = append(operations, item.Trace)
-	}
-	return operations
 }

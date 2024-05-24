@@ -1,0 +1,4640 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "tensorflowtest"
+  },
+  "paths": {
+    "/tensorflowtest.MasterService/CreateSession": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Creates a session.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.CreateSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.CreateSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/ExtendSession": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Extends a session.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ExtendSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ExtendSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/PartialRunSetup": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Prepares future partial run calls.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.PartialRunSetupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.PartialRunSetupResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/RunStep": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Drives the graph computation.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.RunStepRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.RunStepResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/CloseSession": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Closes a session.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.CloseSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.CloseSessionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/ListDevices": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "List the devices usable by the master.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ListDevicesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ListDevicesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/Reset": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Close and abandon all existing sessions.  Ongoing computations\n will no longer affect fresh ones via the resources in containers listed in\n the ResetRequest.  See ResetRequest for more details.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ResetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ResetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/MakeCallable": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Registers a callable for execution with RunCallable.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.MakeCallableRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.MakeCallableResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/RunCallable": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Executes a callable registered with MakeCallable.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.RunCallableRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.RunCallableResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tensorflowtest.MasterService/ReleaseCallable": {
+      "post": {
+        "tags": [
+          "tensorflowtest.MasterService"
+        ],
+        "description": "Frees resources associated with a callable registered with MakeCallable.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ReleaseCallableRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ReleaseCallableResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "tensorflow.ConfigProto.Experimental.MlirBridgeRollout": {
+        "type": "string",
+        "title": "MlirBridgeRollout",
+        "description": "An enum that describes the state of the MLIR bridge rollout."
+      },
+      "tensorflow.DataType": {
+        "type": "string",
+        "title": "DataType",
+        "description": "(== suppress_warning documentation-presence ==)\n LINT.IfChange"
+      },
+      "tensorflow.FullTypeId": {
+        "type": "string",
+        "title": "FullTypeId",
+        "description": "LINT.IfChange\n Experimental. Represents the complete type information of a TensorFlow value."
+      },
+      "tensorflow.OptimizerOptions.GlobalJitLevel": {
+        "type": "string",
+        "title": "GlobalJitLevel",
+        "description": "Control the use of the compiler/jit.  Experimental."
+      },
+      "tensorflow.OptimizerOptions.Level": {
+        "type": "string",
+        "title": "Level",
+        "description": "Optimization level"
+      },
+      "tensorflow.RewriterConfig.CpuLayout": {
+        "type": "string",
+        "title": "CpuLayout",
+        "description": "Enum for layout conversion between NCHW and NHWC on CPU. Default is OFF."
+      },
+      "tensorflow.RewriterConfig.MemOptType": {
+        "type": "string",
+        "title": "MemOptType"
+      },
+      "tensorflow.RewriterConfig.NumIterationsType": {
+        "type": "string",
+        "title": "NumIterationsType",
+        "description": "Enum controlling the number of times to run optimizers. The default is to\n run them twice."
+      },
+      "tensorflow.RewriterConfig.Toggle": {
+        "type": "string",
+        "title": "Toggle"
+      },
+      "tensorflow.RunOptions.TraceLevel": {
+        "type": "string",
+        "title": "TraceLevel",
+        "description": "TODO(pbar) Turn this into a TraceOptions proto which allows\n tracing to be controlled in a more orthogonal manner?"
+      },
+      "tensorflow.VerifierConfig.Toggle": {
+        "type": "string",
+        "title": "Toggle"
+      },
+      "tensorflow.error.Code": {
+        "type": "string",
+        "title": "Code",
+        "description": "The canonical error codes for TensorFlow APIs.\n\n Warnings:\n\n -   Do not change any numeric assignments.\n -   Changes to this list should only be made if there is a compelling\n     need that can't be satisfied in another way.  Such changes\n     must be approved by at least two OWNERS.\n -   These error codes must match gRPC and protobuf error codes (except for\n     DO_NOT_USE_RESERVED_FOR_FUTURE_EXPANSION_USE_DEFAULT_IN_SWITCH_INSTEAD_).\n\n Sometimes multiple error codes may apply.  Services should return\n the most specific error code that applies.  For example, prefer\n OUT_OF_RANGE over FAILED_PRECONDITION if both codes apply.\n Similarly prefer NOT_FOUND or ALREADY_EXISTS over FAILED_PRECONDITION."
+      },
+      "tensorflow.AllocationDescription": {
+        "type": "object",
+        "properties": {
+          "requestedBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "requested_bytes",
+            "additionalProperties": false,
+            "description": "Total number of bytes requested"
+          },
+          "allocatedBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "allocated_bytes",
+            "additionalProperties": false,
+            "description": "Total number of bytes allocated if known"
+          },
+          "allocatorName": {
+            "type": "string",
+            "title": "allocator_name",
+            "additionalProperties": false,
+            "description": "Name of the allocator used"
+          },
+          "allocationId": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "allocation_id",
+            "additionalProperties": false,
+            "description": "Identifier of the allocated buffer if known"
+          },
+          "hasSingleReference": {
+            "type": "boolean",
+            "title": "has_single_reference",
+            "additionalProperties": false,
+            "description": "Set if this tensor only has one remaining reference"
+          },
+          "ptr": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "ptr",
+            "additionalProperties": false,
+            "description": "Address of the allocation."
+          }
+        },
+        "title": "AllocationDescription",
+        "additionalProperties": false
+      },
+      "tensorflow.AllocationRecord": {
+        "type": "object",
+        "properties": {
+          "allocMicros": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "alloc_micros",
+            "additionalProperties": false,
+            "description": "The timestamp of the operation."
+          },
+          "allocBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "alloc_bytes",
+            "additionalProperties": false,
+            "description": "Number of bytes allocated, or de-allocated if negative."
+          }
+        },
+        "title": "AllocationRecord",
+        "additionalProperties": false,
+        "description": "An allocation/de-allocation operation performed by the allocator."
+      },
+      "tensorflow.AllocatorMemoryUsed": {
+        "type": "object",
+        "properties": {
+          "allocatorName": {
+            "type": "string",
+            "title": "allocator_name",
+            "additionalProperties": false
+          },
+          "totalBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "total_bytes",
+            "additionalProperties": false,
+            "description": "These are per-node allocator memory stats."
+          },
+          "peakBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "peak_bytes",
+            "additionalProperties": false
+          },
+          "liveBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "live_bytes",
+            "additionalProperties": false,
+            "description": "The bytes that are not deallocated."
+          },
+          "allocationRecords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.AllocationRecord"
+            }
+          },
+          "allocatorBytesInUse": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "allocator_bytes_in_use",
+            "additionalProperties": false,
+            "description": "These are snapshots of the overall allocator memory stats.\n The number of live bytes currently allocated by the allocator."
+          }
+        },
+        "title": "AllocatorMemoryUsed",
+        "additionalProperties": false
+      },
+      "tensorflow.AttrValue": {
+        "type": "object",
+        "properties": {
+          "s": {
+            "type": "string",
+            "title": "s",
+            "format": "byte",
+            "additionalProperties": false,
+            "description": "\"string\""
+          },
+          "i": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "i",
+            "additionalProperties": false,
+            "description": "\"int\""
+          },
+          "f": {
+            "type": "number",
+            "title": "f",
+            "additionalProperties": false,
+            "description": "\"float\""
+          },
+          "b": {
+            "type": "boolean",
+            "title": "b",
+            "additionalProperties": false,
+            "description": "\"bool\""
+          },
+          "type": {
+            "$ref": "#/components/schemas/tensorflow.DataType"
+          },
+          "shape": {
+            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+          },
+          "tensor": {
+            "$ref": "#/components/schemas/tensorflow.TensorProto"
+          },
+          "list": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue.ListValue"
+          },
+          "func": {
+            "$ref": "#/components/schemas/tensorflow.NameAttrList"
+          },
+          "placeholder": {
+            "type": "string",
+            "title": "placeholder",
+            "additionalProperties": false,
+            "description": "This is a placeholder only used in nodes defined inside a\n function.  It indicates the attr value will be supplied when\n the function is instantiated.  For example, let us suppose a\n node \"N\" in function \"FN\". \"N\" has an attr \"A\" with value\n placeholder = \"foo\". When FN is instantiated with attr \"foo\"\n set to \"bar\", the instantiated node N's attr A will have been\n given the value \"bar\"."
+          }
+        },
+        "title": "AttrValue",
+        "additionalProperties": false,
+        "description": "Protocol buffer representing the value for an attr used to configure an Op.\n Comment indicates the corresponding attr type.  Only the field matching the\n attr type may be filled."
+      },
+      "tensorflow.AttrValue.ListValue": {
+        "type": "object",
+        "properties": {
+          "s": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "s",
+              "format": "byte",
+              "additionalProperties": false,
+              "description": "\"list(string)\""
+            }
+          },
+          "i": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "i",
+              "additionalProperties": false,
+              "description": "\"list(int)\""
+            }
+          },
+          "f": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "title": "f",
+              "additionalProperties": false,
+              "description": "\"list(float)\""
+            }
+          },
+          "b": {
+            "type": "array",
+            "items": {
+              "type": "boolean",
+              "title": "b",
+              "additionalProperties": false,
+              "description": "\"list(bool)\""
+            }
+          },
+          "type": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.DataType"
+            }
+          },
+          "shape": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+            }
+          },
+          "tensor": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorProto"
+            }
+          },
+          "func": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NameAttrList"
+            }
+          }
+        },
+        "title": "ListValue",
+        "additionalProperties": false,
+        "description": "LINT.IfChange"
+      },
+      "tensorflow.AutoParallelOptions": {
+        "type": "object",
+        "properties": {
+          "enable": {
+            "type": "boolean",
+            "title": "enable",
+            "additionalProperties": false
+          },
+          "numReplicas": {
+            "type": "integer",
+            "title": "num_replicas",
+            "additionalProperties": false
+          }
+        },
+        "title": "AutoParallelOptions",
+        "additionalProperties": false
+      },
+      "tensorflow.CallableOptions": {
+        "type": "object",
+        "properties": {
+          "feed": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "feed",
+              "additionalProperties": false,
+              "description": "Tensors to be fed in the callable. Each feed is the name of a tensor."
+            }
+          },
+          "fetch": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "fetch",
+              "additionalProperties": false,
+              "description": "Fetches. A list of tensor names. The caller of the callable expects a\n tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The\n order of specified fetches does not change the execution order."
+            }
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "target",
+              "additionalProperties": false,
+              "description": "Target Nodes. A list of node names. The named nodes will be run by the\n callable but their outputs will not be returned."
+            }
+          },
+          "runOptions": {
+            "$ref": "#/components/schemas/tensorflow.RunOptions"
+          },
+          "tensorConnection": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorConnection"
+            }
+          },
+          "feedDevices": {
+            "type": "object",
+            "title": "feed_devices",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "The Tensor objects fed in the callable and fetched from the callable\n are expected to be backed by host (CPU) memory by default.\n\n The options below allow changing that - feeding tensors backed by\n device memory, or returning tensors that are backed by device memory.\n\n The maps below map the name of a feed/fetch tensor (which appears in\n 'feed' or 'fetch' fields above), to the fully qualified name of the device\n owning the memory backing the contents of the tensor.\n\n For example, creating a callable with the following options:\n\n CallableOptions {\n   feed: \"a:0\"\n   feed: \"b:0\"\n\n   fetch: \"x:0\"\n   fetch: \"y:0\"\n\n   feed_devices: {\n     \"a:0\": \"/job:localhost/replica:0/task:0/device:GPU:0\"\n   }\n\n   fetch_devices: {\n     \"y:0\": \"/job:localhost/replica:0/task:0/device:GPU:0\"\n  }\n }\n\n means that the Callable expects:\n - The first argument (\"a:0\") is a Tensor backed by GPU memory.\n - The second argument (\"b:0\") is a Tensor backed by host memory.\n and of its return values:\n - The first output (\"x:0\") will be backed by host memory.\n - The second output (\"y:0\") will be backed by GPU memory.\n\n FEEDS:\n It is the responsibility of the caller to ensure that the memory of the fed\n tensors will be correctly initialized and synchronized before it is\n accessed by operations executed during the call to Session::RunCallable().\n\n This is typically ensured by using the TensorFlow memory allocators\n (Device::GetAllocator()) to create the Tensor to be fed.\n\n Alternatively, for CUDA-enabled GPU devices, this typically means that the\n operation that produced the contents of the tensor has completed, i.e., the\n CUDA stream has been synchronized (e.g., via cuCtxSynchronize() or\n cuStreamSynchronize())."
+          },
+          "fetchDevices": {
+            "type": "object",
+            "title": "fetch_devices",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            }
+          },
+          "fetchSkipSync": {
+            "type": "boolean",
+            "title": "fetch_skip_sync",
+            "additionalProperties": false,
+            "description": "By default, RunCallable() will synchronize the GPU stream before returning\n fetched tensors on a GPU device, to ensure that the values in those tensors\n have been produced. This simplifies interacting with the tensors, but\n potentially incurs a performance hit.\n\n If this options is set to true, the caller is responsible for ensuring\n that the values in the fetched tensors have been produced before they are\n used. The caller can do this by invoking `Device::Sync()` on the underlying\n device(s), or by feeding the tensors back to the same Session using\n `feed_devices` with the same corresponding device name."
+          }
+        },
+        "title": "CallableOptions",
+        "additionalProperties": false,
+        "description": "Defines a subgraph in another `GraphDef` as a set of feed points and nodes\n to be fetched or executed.\n\n Compare with the arguments to `Session::Run()`."
+      },
+      "tensorflow.CallableOptions.FeedDevicesEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "FeedDevicesEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.CallableOptions.FetchDevicesEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "FetchDevicesEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.CloseSessionRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          }
+        },
+        "title": "CloseSessionRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.CloseSessionResponse": {
+        "type": "object",
+        "title": "CloseSessionResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.ClusterDef": {
+        "type": "object",
+        "properties": {
+          "job": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.JobDef"
+            }
+          }
+        },
+        "title": "ClusterDef",
+        "additionalProperties": false,
+        "description": "Defines a TensorFlow cluster as a set of jobs."
+      },
+      "tensorflow.ConfigProto": {
+        "type": "object",
+        "properties": {
+          "deviceCount": {
+            "type": "object",
+            "title": "device_count",
+            "additionalProperties": {
+              "type": "integer",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "Map from device type name (e.g., \"CPU\" or \"GPU\" ) to maximum\n number of devices of that type to use.  If a particular device\n type is not found in the map, the system picks an appropriate\n number."
+          },
+          "intraOpParallelismThreads": {
+            "type": "integer",
+            "title": "intra_op_parallelism_threads",
+            "additionalProperties": false,
+            "description": "The execution of an individual op (for some op types) can be\n parallelized on a pool of intra_op_parallelism_threads.\n 0 means the system picks an appropriate number.\n\n If you create an ordinary session, e.g., from Python or C++,\n then there is exactly one intra op thread pool per process.\n The first session created determines the number of threads in this pool.\n All subsequent sessions reuse/share this one global pool.\n\n There are notable exceptions to the default behavior described above:\n 1. There is an environment variable  for overriding this thread pool,\n    named TF_OVERRIDE_GLOBAL_THREADPOOL.\n 2. When connecting to a server, such as a remote `tf.train.Server`\n    instance, then this option will be ignored altogether."
+          },
+          "interOpParallelismThreads": {
+            "type": "integer",
+            "title": "inter_op_parallelism_threads",
+            "additionalProperties": false,
+            "description": "Nodes that perform blocking operations are enqueued on a pool of\n inter_op_parallelism_threads available in each process.\n\n 0 means the system picks an appropriate number.\n Negative means all operations are performed in caller's thread.\n\n Note that the first Session created in the process sets the\n number of threads for all future sessions unless use_per_session_threads is\n true or session_inter_op_thread_pool is configured."
+          },
+          "usePerSessionThreads": {
+            "type": "boolean",
+            "title": "use_per_session_threads",
+            "additionalProperties": false,
+            "description": "If true, use a new set of threads for this session rather than the global\n pool of threads. Only supported by direct sessions.\n\n If false, use the global threads created by the first session, or the\n per-session thread pools configured by session_inter_op_thread_pool.\n\n This option is deprecated. The same effect can be achieved by setting\n session_inter_op_thread_pool to have one element, whose num_threads equals\n inter_op_parallelism_threads."
+          },
+          "sessionInterOpThreadPool": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.ThreadPoolOptionProto"
+            }
+          },
+          "placementPeriod": {
+            "type": "integer",
+            "title": "placement_period",
+            "additionalProperties": false,
+            "description": "Assignment of Nodes to Devices is recomputed every placement_period\n steps until the system warms up (at which point the recomputation\n typically slows down automatically)."
+          },
+          "deviceFilters": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "device_filters",
+              "additionalProperties": false,
+              "description": "When any filters are present sessions will ignore all devices which do not\n match the filters. Each filter can be partially specified, e.g. \"/job:ps\"\n \"/job:worker/replica:3\", etc."
+            }
+          },
+          "gpuOptions": {
+            "$ref": "#/components/schemas/tensorflow.GPUOptions"
+          },
+          "allowSoftPlacement": {
+            "type": "boolean",
+            "title": "allow_soft_placement",
+            "additionalProperties": false,
+            "description": "Whether soft placement is allowed. If allow_soft_placement is true,\n an op will be placed on CPU if\n   1. there's no GPU implementation for the OP\n or\n   2. no GPU devices are known or registered\n or\n   3. need to co-locate with reftype input(s) which are from CPU."
+          },
+          "logDevicePlacement": {
+            "type": "boolean",
+            "title": "log_device_placement",
+            "additionalProperties": false,
+            "description": "Whether device placements should be logged."
+          },
+          "graphOptions": {
+            "$ref": "#/components/schemas/tensorflow.GraphOptions"
+          },
+          "operationTimeoutInMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "operation_timeout_in_ms",
+            "additionalProperties": false,
+            "description": "Global timeout for all blocking operations in this session.  If non-zero,\n and not overridden on a per-operation basis, this value will be used as the\n deadline for all blocking operations."
+          },
+          "rpcOptions": {
+            "$ref": "#/components/schemas/tensorflow.RPCOptions"
+          },
+          "clusterDef": {
+            "$ref": "#/components/schemas/tensorflow.ClusterDef"
+          },
+          "isolateSessionState": {
+            "type": "boolean",
+            "title": "isolate_session_state",
+            "additionalProperties": false,
+            "description": "If true, any resources such as Variables used in the session will not be\n shared with other sessions. However, when clusterspec propagation is\n enabled, this field is ignored and sessions are always isolated."
+          },
+          "shareClusterDevicesInSession": {
+            "type": "boolean",
+            "title": "share_cluster_devices_in_session",
+            "additionalProperties": false,
+            "description": "When true, WorkerSessions are created with device attributes from the\n full cluster.\n This is helpful when a worker wants to partition a graph\n (for example during a PartitionedCallOp)."
+          },
+          "experimental": {
+            "$ref": "#/components/schemas/tensorflow.ConfigProto.Experimental"
+          }
+        },
+        "title": "ConfigProto",
+        "additionalProperties": false,
+        "description": "Session configuration parameters.\n The system picks appropriate values for fields that are not set."
+      },
+      "tensorflow.ConfigProto.DeviceCountEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "integer",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "DeviceCountEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.ConfigProto.Experimental": {
+        "type": "object",
+        "properties": {
+          "collectiveGroupLeader": {
+            "type": "string",
+            "title": "collective_group_leader",
+            "additionalProperties": false,
+            "description": "Task name for group resolution."
+          },
+          "executorType": {
+            "type": "string",
+            "title": "executor_type",
+            "additionalProperties": false,
+            "description": "Which executor to use, the default executor will be used\n if it is an empty string or \"DEFAULT\""
+          },
+          "recvBufMaxChunk": {
+            "type": "integer",
+            "title": "recv_buf_max_chunk",
+            "additionalProperties": false,
+            "description": "Guidance to formatting of large RecvBuf fields for transfer.\n Any positive value sets the max chunk size.  0 defaults to 4096.\n Any negative value indicates no max, i.e. one chunk only."
+          },
+          "useNumaAffinity": {
+            "type": "boolean",
+            "title": "use_numa_affinity",
+            "additionalProperties": false,
+            "description": "If true, and supported by the platform, the runtime will attempt to\n use NUMA affinity where applicable.  One consequence will be the\n existence of as many CPU devices as there are available NUMA nodes."
+          },
+          "collectiveDeterministicSequentialExecution": {
+            "type": "boolean",
+            "title": "collective_deterministic_sequential_execution",
+            "additionalProperties": false,
+            "description": "If true, make collective op execution order sequential and deterministic\n for potentially concurrent collective instances."
+          },
+          "collectiveNccl": {
+            "type": "boolean",
+            "title": "collective_nccl",
+            "additionalProperties": false,
+            "description": "If true, use NCCL for CollectiveOps.  This feature is highly\n experimental."
+          },
+          "shareSessionStateInClusterspecPropagation": {
+            "type": "boolean",
+            "title": "share_session_state_in_clusterspec_propagation",
+            "additionalProperties": false,
+            "description": "In the following, session state means the value of a variable, elements\n in a hash table, or any other resource, accessible by worker sessions\n held by a TF server.\n\n When ClusterSpec propagation is enabled, the value of\n isolate_session_state is ignored when deciding whether to share session\n states in a TF server (for backwards compatibility reasons).\n - If share_session_state_in_clusterspec_propagation is true, the session\n states are shared.\n - If share_session_state_in_clusterspec_propagation is false, session\n states are isolated.\n\n When clusterspec propagation is not used, the value of\n share_session_state_in_clusterspec_propagation is ignored when deciding\n whether to share session states in a TF server.\n - If isolate_session_state is true, session states are isolated.\n - If isolate_session_state is false, session states are shared.\n\n TODO(b/129330037): Add a single API that consistently treats\n isolate_session_state and ClusterSpec propagation."
+          },
+          "disableThreadSpinning": {
+            "type": "boolean",
+            "title": "disable_thread_spinning",
+            "additionalProperties": false,
+            "description": "If using a direct session, disable spinning while waiting for work in\n the thread pool. This may result in higher latency for completing ops,\n but in the case where there is a lot of spinning may result in lower\n CPU usage."
+          },
+          "shareClusterDevicesInSession": {
+            "type": "boolean",
+            "title": "share_cluster_devices_in_session",
+            "additionalProperties": false,
+            "description": "This was promoted to a non-experimental API. Please use\n ConfigProto.share_cluster_devices_in_session instead."
+          },
+          "sessionMetadata": {
+            "$ref": "#/components/schemas/tensorflow.SessionMetadata"
+          },
+          "optimizeForStaticGraph": {
+            "type": "boolean",
+            "title": "optimize_for_static_graph",
+            "additionalProperties": false,
+            "description": "If true, the session may treat the graph as being static for optimization\n purposes.\n\n If this option is set to true when a session is created, the full\n GraphDef must be passed in a single call to Session::Create(), and\n Session::Extend() may not be supported."
+          },
+          "enableMlirBridge": {
+            "type": "boolean",
+            "title": "enable_mlir_bridge",
+            "additionalProperties": false,
+            "description": "Whether to enable the MLIR-based TF-\u003eXLA bridge. This is only used if set\n to true. Default value or false is ignored. Use mlir_bridge_rollout for\n finer control.\n\n If this option is set to true when a session is created, MLIR is used to\n perform the set of graph transformations to put the graph in a form that\n can be executed with delegation of some computations to an accelerator.\n This builds on the model of XLA where a subset of the graph is\n encapsulated and attached to a \"compile\" operation, whose result is fed\n to an \"execute\" operation. The kernel for these operations is responsible\n to lower the encapsulated graph to a particular device."
+          },
+          "mlirBridgeRollout": {
+            "$ref": "#/components/schemas/tensorflow.ConfigProto.Experimental.MlirBridgeRollout"
+          },
+          "enableMlirGraphOptimization": {
+            "type": "boolean",
+            "title": "enable_mlir_graph_optimization",
+            "additionalProperties": false,
+            "description": "Whether to enable the MLIR-based Graph optimizations.\n\n This will become a part of standard Tensorflow graph optimization\n pipeline, currently this is only used for gradual migration and testing\n new passes that are replacing existing optimizations in Grappler."
+          },
+          "disableOutputPartitionGraphs": {
+            "type": "boolean",
+            "title": "disable_output_partition_graphs",
+            "additionalProperties": false,
+            "description": "If true, the session will not store an additional copy of the graph for\n each subgraph.\n\n If this option is set to true when a session is created, the\n `RunOptions.output_partition_graphs` options must not be set."
+          },
+          "xlaFusionAutotunerThresh": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "xla_fusion_autotuner_thresh",
+            "additionalProperties": false,
+            "description": "Minimum number of batches run through the XLA graph before XLA fusion\n autotuner is enabled. Default value of zero disables the autotuner.\n\n The XLA fusion autotuner can improve performance by executing a heuristic\n search on the compiler parameters."
+          },
+          "useTfrt": {
+            "type": "boolean",
+            "title": "use_tfrt",
+            "additionalProperties": false,
+            "description": "Whether runtime execution uses TFRT."
+          },
+          "disableFunctionalOpsLowering": {
+            "type": "boolean",
+            "title": "disable_functional_ops_lowering",
+            "additionalProperties": false,
+            "description": "Whether functional control flow op lowering should be disabled. This is\n useful when executing within a portable runtime where control flow op\n kernels may not be loaded due to selective registration."
+          },
+          "xlaPreferSingleGraphCluster": {
+            "type": "boolean",
+            "title": "xla_prefer_single_graph_cluster",
+            "additionalProperties": false,
+            "description": "Provides a hint to XLA auto clustering to prefer forming a single large\n cluster that encompases most of the graph."
+          },
+          "coordinationConfig": {
+            "$ref": "#/components/schemas/tensorflow.CoordinationServiceConfig"
+          },
+          "disableOptimizeForStaticGraph": {
+            "type": "boolean",
+            "title": "disable_optimize_for_static_graph",
+            "additionalProperties": false,
+            "description": "If true, the session will treat the graph as being non-static for\n optimization purposes.\n\n If this option is set to true when a session is created, the full\n GraphDef will be retained to enable calls to Session::Extend().\n Calling Extend() without setting this flag will result in errors.\n\n This option is meant to replace `optimize_for_static_graph` and it\n aims to negate its value."
+          }
+        },
+        "title": "Experimental",
+        "additionalProperties": false,
+        "description": "Everything inside Experimental is subject to change and is not subject\n to API stability guarantees in\n https://www.tensorflow.org/guide/version_compat."
+      },
+      "tensorflow.CoordinatedJob": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false
+          },
+          "numTasks": {
+            "type": "integer",
+            "title": "num_tasks",
+            "additionalProperties": false
+          }
+        },
+        "title": "CoordinatedJob",
+        "additionalProperties": false,
+        "description": "Represents a job type and the number of tasks under this job.\n For example, (\"worker\", 20) implies that there will be 20 worker tasks."
+      },
+      "tensorflow.CoordinationServiceConfig": {
+        "type": "object",
+        "properties": {
+          "serviceType": {
+            "type": "string",
+            "title": "service_type",
+            "additionalProperties": false,
+            "description": "Type of coordination service implementation to enable.\n For example, setting the service type as \"standalone\" starts a service\n instance on the leader task to provide the coordination services such as\n heartbeats and consistent key-value store."
+          },
+          "serviceLeader": {
+            "type": "string",
+            "title": "service_leader",
+            "additionalProperties": false,
+            "description": "Address where the coordination service instance is hosted."
+          },
+          "enableHealthCheck": {
+            "type": "boolean",
+            "title": "enable_health_check",
+            "additionalProperties": false,
+            "description": "Whether to enable the health check mechanism."
+          },
+          "clusterRegisterTimeoutInMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "cluster_register_timeout_in_ms",
+            "additionalProperties": false,
+            "description": "Maximum wait time for all members in the cluster to be registered."
+          },
+          "heartbeatTimeoutInMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "heartbeat_timeout_in_ms",
+            "additionalProperties": false,
+            "description": "Heartbeat timeout, if a task does not record heartbeat in this time\n window, it will be considered disconnected.\n Note: This is also used as a grace period to accept any heartbeats after\n the agent has disconnected, to account for the lag time between the service\n recording the state change and the agent stopping heartbeats."
+          },
+          "coordinatedJobList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.CoordinatedJob"
+            }
+          },
+          "shutdownBarrierTimeoutInMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "shutdown_barrier_timeout_in_ms",
+            "additionalProperties": false,
+            "description": "Denotes how long to wait for all coordination agents to reach the barriers\n (after the first shutdown request) before disconnecting together. If\n set to 0, no barrier is imposed upon shutdown and each worker can\n disconnect individually."
+          },
+          "agentDestructionWithoutShutdown": {
+            "type": "boolean",
+            "title": "agent_destruction_without_shutdown",
+            "additionalProperties": false,
+            "description": "If set, agents do not make an explicit Shutdown() call. Service will only\n find out about the disconnecte agent via stale heartbeats. Used for\n testing."
+          },
+          "recoverableJobs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "recoverable_jobs",
+              "additionalProperties": false,
+              "description": "The list of jobs which are recoverable. If a task in this list fails,\n it will not propagate error to other tasks.\n If empty, no jobs will be recoverable and every task failure will cause\n error propagation to other tasks."
+            }
+          },
+          "allowNewIncarnationToReconnect": {
+            "type": "boolean",
+            "title": "allow_new_incarnation_to_reconnect",
+            "additionalProperties": false,
+            "description": "If a task restarts with a new incarnation, we may allow it to reconnect\n silently. This is useful when we know that a task can immediately resume\n work upon re-connecting to the service."
+          }
+        },
+        "title": "CoordinationServiceConfig",
+        "additionalProperties": false,
+        "description": "Coordination service configuration parameters.\n The system picks appropriate values for fields that are not set."
+      },
+      "tensorflow.CostGraphDef": {
+        "type": "object",
+        "properties": {
+          "node": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.CostGraphDef.Node"
+            }
+          },
+          "cost": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.CostGraphDef.AggregatedCost"
+            }
+          }
+        },
+        "title": "CostGraphDef",
+        "additionalProperties": false
+      },
+      "tensorflow.CostGraphDef.AggregatedCost": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "type": "number",
+            "title": "cost",
+            "additionalProperties": false,
+            "description": "Aggregated cost value."
+          },
+          "dimension": {
+            "type": "string",
+            "title": "dimension",
+            "additionalProperties": false,
+            "description": "Aggregated cost dimension (e.g. 'memory', 'compute', 'network')."
+          }
+        },
+        "title": "AggregatedCost",
+        "additionalProperties": false,
+        "description": "Total cost of this graph, typically used for balancing decisions."
+      },
+      "tensorflow.CostGraphDef.Node": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "The name of the node. Names are globally unique."
+          },
+          "device": {
+            "type": "string",
+            "title": "device",
+            "additionalProperties": false,
+            "description": "The device of the node. Can be empty if the node is mapped to the\n default partition or partitioning hasn't been run yet."
+          },
+          "id": {
+            "type": "integer",
+            "title": "id",
+            "additionalProperties": false,
+            "description": "The id of the node. Node ids are only unique inside a partition."
+          },
+          "inputInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.CostGraphDef.Node.InputInfo"
+            }
+          },
+          "outputInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.CostGraphDef.Node.OutputInfo"
+            }
+          },
+          "temporaryMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "temporary_memory_size",
+            "additionalProperties": false,
+            "description": "Temporary memory used by this node."
+          },
+          "persistentMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "persistent_memory_size",
+            "additionalProperties": false,
+            "description": "Persistent memory used by this node."
+          },
+          "hostTempMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "host_temp_memory_size",
+            "additionalProperties": false
+          },
+          "deviceTempMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "device_temp_memory_size",
+            "additionalProperties": false
+          },
+          "devicePersistentMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "device_persistent_memory_size",
+            "additionalProperties": false
+          },
+          "computeCost": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "compute_cost",
+            "additionalProperties": false,
+            "description": "Estimate of the computational cost of this node, in microseconds."
+          },
+          "computeTime": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "compute_time",
+            "additionalProperties": false,
+            "description": "Analytical estimate of the computational cost of this node, in\n microseconds."
+          },
+          "memoryTime": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "memory_time",
+            "additionalProperties": false,
+            "description": "Analytical estimate of the memory access cost of this node, in\n microseconds."
+          },
+          "isFinal": {
+            "type": "boolean",
+            "title": "is_final",
+            "additionalProperties": false,
+            "description": "If true, the output is permanent: it can't be discarded, because this\n node is part of the \"final output\". Nodes may depend on final nodes."
+          },
+          "controlInput": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "control_input",
+              "additionalProperties": false,
+              "description": "Ids of the control inputs for this node."
+            }
+          },
+          "inaccurate": {
+            "type": "boolean",
+            "title": "inaccurate",
+            "additionalProperties": false,
+            "description": "Are the costs inaccurate?"
+          }
+        },
+        "title": "Node",
+        "additionalProperties": false
+      },
+      "tensorflow.CostGraphDef.Node.InputInfo": {
+        "type": "object",
+        "properties": {
+          "precedingNode": {
+            "type": "integer",
+            "title": "preceding_node",
+            "additionalProperties": false
+          },
+          "precedingPort": {
+            "type": "integer",
+            "title": "preceding_port",
+            "additionalProperties": false
+          }
+        },
+        "title": "InputInfo",
+        "additionalProperties": false,
+        "description": "Inputs of this node. They must be executed before this node can be\n executed. An input is a particular output of another node, specified\n by the node id and the output index."
+      },
+      "tensorflow.CostGraphDef.Node.OutputInfo": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "size",
+            "additionalProperties": false
+          },
+          "aliasInputPort": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "alias_input_port",
+            "additionalProperties": false,
+            "description": "If \u003e= 0, the output is an alias of an input. Note that an alias input\n may itself be an alias. The algorithm will therefore need to follow\n those pointers."
+          },
+          "shape": {
+            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+          },
+          "dtype": {
+            "$ref": "#/components/schemas/tensorflow.DataType"
+          }
+        },
+        "title": "OutputInfo",
+        "additionalProperties": false,
+        "description": "Outputs of this node."
+      },
+      "tensorflow.CreateSessionRequest": {
+        "type": "object",
+        "properties": {
+          "graphDef": {
+            "$ref": "#/components/schemas/tensorflow.GraphDef"
+          },
+          "config": {
+            "$ref": "#/components/schemas/tensorflow.ConfigProto"
+          },
+          "target": {
+            "type": "string",
+            "title": "target",
+            "additionalProperties": false,
+            "description": "The target string used from the client's perspective."
+          }
+        },
+        "title": "CreateSessionRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.CreateSessionResponse": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "The session handle to be used in subsequent calls for the created session.\n\n The client must arrange to call CloseSession with this returned\n session handle to close the session."
+          },
+          "graphVersion": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "graph_version",
+            "additionalProperties": false,
+            "description": "The initial version number for the graph, to be used in the next call\n to ExtendSession."
+          }
+        },
+        "title": "CreateSessionResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.DebugOptions": {
+        "type": "object",
+        "properties": {
+          "debugTensorWatchOpts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.DebugTensorWatch"
+            }
+          },
+          "globalStep": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "global_step",
+            "additionalProperties": false,
+            "description": "Caller-specified global step count.\n Note that this is distinct from the session run count and the executor\n step count."
+          },
+          "resetDiskByteUsage": {
+            "type": "boolean",
+            "title": "reset_disk_byte_usage",
+            "additionalProperties": false,
+            "description": "Whether the total disk usage of tfdbg is to be reset to zero\n in this Session.run call. This is used by wrappers and hooks\n such as the local CLI ones to indicate that the dumped tensors\n are cleaned up from the disk after each Session.run."
+          }
+        },
+        "title": "DebugOptions",
+        "additionalProperties": false,
+        "description": "Options for initializing DebuggerState in TensorFlow Debugger (tfdbg)."
+      },
+      "tensorflow.DebugTensorWatch": {
+        "type": "object",
+        "properties": {
+          "nodeName": {
+            "type": "string",
+            "title": "node_name",
+            "additionalProperties": false,
+            "description": "Name of the node to watch.\n Use \"*\" for wildcard. But note: currently, regex is not supported in\n general."
+          },
+          "outputSlot": {
+            "type": "integer",
+            "title": "output_slot",
+            "additionalProperties": false,
+            "description": "Output slot to watch.\n The semantics of output_slot == -1 is that all outputs of the node\n will be watched (i.e., a wildcard).\n Other negative values of output_slot are invalid and will lead to\n errors currently."
+          },
+          "debugOps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "debug_ops",
+              "additionalProperties": false,
+              "description": "Name(s) of the debugging op(s).\n One or more than one probes on a tensor.\n e.g., {\"DebugIdentity\", \"DebugNanCount\"}"
+            }
+          },
+          "debugUrls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "debug_urls",
+              "additionalProperties": false,
+              "description": "URL(s) for debug targets(s).\n\n Supported URL formats are:\n   - file:///foo/tfdbg_dump: Writes out Event content to file\n     /foo/tfdbg_dump.  Assumes all directories can be created if they don't\n     already exist.\n   - grpc://localhost:11011: Sends an RPC request to an EventListener\n     service running at localhost:11011 with the event.\n   - memcbk:///event_key: Routes tensors to clients using the\n     callback registered with the DebugCallbackRegistry for event_key.\n\n Each debug op listed in debug_ops will publish its output tensor (debug\n signal) to all URLs in debug_urls.\n\n N.B. Session::Run() supports concurrent invocations of the same inputs\n (feed keys), outputs and target nodes. If such concurrent invocations\n are to be debugged, the callers of Session::Run() must use distinct\n debug_urls to make sure that the streamed or dumped events do not overlap\n among the invocations.\n TODO(cais): More visible documentation of this in g3docs."
+            }
+          },
+          "tolerateDebugOpCreationFailures": {
+            "type": "boolean",
+            "title": "tolerate_debug_op_creation_failures",
+            "additionalProperties": false,
+            "description": "Do not error out if debug op creation fails (e.g., due to dtype\n incompatibility). Instead, just log the failure."
+          }
+        },
+        "title": "DebugTensorWatch",
+        "additionalProperties": false,
+        "description": "Option for watching a node in TensorFlow Debugger (tfdbg)."
+      },
+      "tensorflow.DeviceAttributes": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "Fully specified name of the device within a cluster."
+          },
+          "deviceType": {
+            "type": "string",
+            "title": "device_type",
+            "additionalProperties": false,
+            "description": "String representation of device_type."
+          },
+          "memoryLimit": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "memory_limit",
+            "additionalProperties": false,
+            "description": "Memory capacity of device in bytes."
+          },
+          "locality": {
+            "$ref": "#/components/schemas/tensorflow.DeviceLocality"
+          },
+          "incarnation": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "incarnation",
+            "additionalProperties": false,
+            "description": "A device is assigned a global unique number each time it is\n initialized. \"incarnation\" should never be 0."
+          },
+          "physicalDeviceDesc": {
+            "type": "string",
+            "title": "physical_device_desc",
+            "additionalProperties": false,
+            "description": "String representation of the physical device that this device maps to."
+          },
+          "xlaGlobalId": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "xla_global_id",
+            "additionalProperties": false,
+            "description": "A physical device ID for use in XLA DeviceAssignments, unique across\n clients in a multi-client setup. Set to -1 if unavailable, non-negative\n otherwise."
+          }
+        },
+        "title": "DeviceAttributes",
+        "additionalProperties": false
+      },
+      "tensorflow.DeviceLocality": {
+        "type": "object",
+        "properties": {
+          "busId": {
+            "type": "integer",
+            "title": "bus_id",
+            "additionalProperties": false,
+            "description": "Optional bus locality of device.  Default value of 0 means\n no specific locality.  Specific localities are indexed from 1."
+          },
+          "numaNode": {
+            "type": "integer",
+            "title": "numa_node",
+            "additionalProperties": false,
+            "description": "Optional NUMA locality of device."
+          },
+          "links": {
+            "$ref": "#/components/schemas/tensorflow.LocalLinks"
+          }
+        },
+        "title": "DeviceLocality",
+        "additionalProperties": false
+      },
+      "tensorflow.DeviceStepStats": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "type": "string",
+            "title": "device",
+            "additionalProperties": false
+          },
+          "nodeStats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NodeExecStats"
+            }
+          },
+          "threadNames": {
+            "type": "object",
+            "title": "thread_names",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "Its key is thread id."
+          }
+        },
+        "title": "DeviceStepStats",
+        "additionalProperties": false
+      },
+      "tensorflow.DeviceStepStats.ThreadNamesEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "ThreadNamesEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.ExtendSessionRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          },
+          "graphDef": {
+            "$ref": "#/components/schemas/tensorflow.GraphDef"
+          },
+          "currentGraphVersion": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "current_graph_version",
+            "additionalProperties": false,
+            "description": "REQUIRED: The version number of the graph to be extended. This will be\n tested against the current server-side version number, and the operation\n will fail with FAILED_PRECONDITION if they do not match."
+          }
+        },
+        "title": "ExtendSessionRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.ExtendSessionResponse": {
+        "type": "object",
+        "properties": {
+          "newGraphVersion": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "new_graph_version",
+            "additionalProperties": false,
+            "description": "The new version number for the extended graph, to be used in the next call\n to ExtendSession."
+          }
+        },
+        "title": "ExtendSessionResponse",
+        "additionalProperties": false,
+        "description": "TODO(mrry): Return something about the operation?"
+      },
+      "tensorflow.FullTypeDef": {
+        "type": "object",
+        "properties": {
+          "typeId": {
+            "$ref": "#/components/schemas/tensorflow.FullTypeId"
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+            }
+          },
+          "s": {
+            "type": "string",
+            "title": "s",
+            "additionalProperties": false
+          },
+          "i": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "i",
+            "additionalProperties": false,
+            "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
+          }
+        },
+        "title": "FullTypeDef",
+        "additionalProperties": false,
+        "description": "Highly experimental and very likely to change.\n This encoding uses tags instead of dedicated messages for regularity. In\n particular the encoding imposes no restrictions on what the parameters of any\n type should be, which in particular needs to be true for type symbols."
+      },
+      "tensorflow.FunctionDef": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "$ref": "#/components/schemas/tensorflow.OpDef"
+          },
+          "attr": {
+            "type": "object",
+            "title": "attr",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.AttrValue"
+            },
+            "description": "Attributes specific to this function definition."
+          },
+          "argAttr": {
+            "type": "object",
+            "title": "arg_attr",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
+            }
+          },
+          "resourceArgUniqueId": {
+            "type": "object",
+            "title": "resource_arg_unique_id",
+            "additionalProperties": {
+              "type": "integer",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "Unique IDs for each resource argument, used to track aliasing resources. If\n Argument A and Argument B alias each other, then\n resource_arg_unique_ids[A.index] == resource_arg_unique_ids[B.index].\n\n If this field is empty, none of the arguments could alias; otherwise, every\n resource argument should have an entry in this field.\n\n When instantiated, the unique IDs will be attached to the _Arg nodes'\n \"_resource_arg_unique_id\" attribute."
+          },
+          "nodeDef": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NodeDef"
+            }
+          },
+          "ret": {
+            "type": "object",
+            "title": "ret",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "A mapping from the output arg names from `signature` to the\n outputs from `node_def` that should be returned by the function."
+          },
+          "controlRet": {
+            "type": "object",
+            "title": "control_ret",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "A mapping from control output names from `signature` to node names in\n `node_def` which should be control outputs of this function."
+          }
+        },
+        "title": "FunctionDef",
+        "additionalProperties": false,
+        "description": "A function can be instantiated when the runtime can bind every attr\n with a value. When a GraphDef has a call to a function, it must\n have binding for every attr defined in the signature.\n\n TODO(zhifengc):\n   * device spec, etc."
+      },
+      "tensorflow.FunctionDef.ArgAttrEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
+          }
+        },
+        "title": "ArgAttrEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.FunctionDef.ArgAttrs": {
+        "type": "object",
+        "properties": {
+          "attr": {
+            "type": "object",
+            "title": "attr",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.AttrValue"
+            }
+          }
+        },
+        "title": "ArgAttrs",
+        "additionalProperties": false,
+        "description": "Attributes for function arguments. These attributes are the same set of\n valid attributes as to _Arg nodes."
+      },
+      "tensorflow.FunctionDef.ArgAttrs.AttrEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          }
+        },
+        "title": "AttrEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.FunctionDef.AttrEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          }
+        },
+        "title": "AttrEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.FunctionDef.ControlRetEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "ControlRetEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.FunctionDef.ResourceArgUniqueIdEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "integer",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "ResourceArgUniqueIdEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.FunctionDef.RetEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "RetEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.FunctionDefLibrary": {
+        "type": "object",
+        "properties": {
+          "function": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.FunctionDef"
+            }
+          },
+          "gradient": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.GradientDef"
+            }
+          },
+          "registeredGradients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.RegisteredGradient"
+            }
+          }
+        },
+        "title": "FunctionDefLibrary",
+        "additionalProperties": false,
+        "description": "A library is a set of named functions."
+      },
+      "tensorflow.GPUOptions": {
+        "type": "object",
+        "properties": {
+          "perProcessGpuMemoryFraction": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "per_process_gpu_memory_fraction",
+            "additionalProperties": false,
+            "description": "Fraction of the total GPU memory to allocate for each process.\n 1 means to allocate all of the GPU memory, 0.5 means the process\n allocates up to ~50% of the total GPU memory.\n\n GPU memory is pre-allocated unless the allow_growth option is enabled.\n\n If greater than 1.0, uses CUDA unified memory to potentially oversubscribe\n the amount of memory available on the GPU device by using host memory as a\n swap space. Accessing memory not available on the device will be\n significantly slower as that would require memory transfer between the host\n and the device. Options to reduce the memory requirement should be\n considered before enabling this option as this may come with a negative\n performance impact. Oversubscription using the unified memory requires\n Pascal class or newer GPUs and it is currently only supported on the Linux\n operating system. See\n https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements\n for the detailed requirements."
+          },
+          "allowGrowth": {
+            "type": "boolean",
+            "title": "allow_growth",
+            "additionalProperties": false,
+            "description": "If true, the allocator does not pre-allocate the entire specified\n GPU memory region, instead starting small and growing as needed."
+          },
+          "allocatorType": {
+            "type": "string",
+            "title": "allocator_type",
+            "additionalProperties": false,
+            "description": "The type of GPU allocation strategy to use.\n\n Allowed values:\n \"\": The empty string (default) uses a system-chosen default\n     which may change over time.\n\n \"BFC\": A \"Best-fit with coalescing\" algorithm, simplified from a\n        version of dlmalloc."
+          },
+          "deferredDeletionBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "deferred_deletion_bytes",
+            "additionalProperties": false,
+            "description": "Delay deletion of up to this many bytes to reduce the number of\n interactions with gpu driver code.  If 0, the system chooses\n a reasonable default (several MBs)."
+          },
+          "visibleDeviceList": {
+            "type": "string",
+            "title": "visible_device_list",
+            "additionalProperties": false,
+            "description": "A comma-separated list of GPU ids that determines the 'visible'\n to 'virtual' mapping of GPU devices.  For example, if TensorFlow\n can see 8 GPU devices in the process, and one wanted to map\n visible GPU devices 5 and 3 as \"/device:GPU:0\", and \"/device:GPU:1\",\n then one would specify this field as \"5,3\".  This field is similar in\n spirit to the CUDA_VISIBLE_DEVICES environment variable, except\n it applies to the visible GPU devices in the process.\n\n NOTE:\n 1. The GPU driver provides the process with the visible GPUs\n    in an order which is not guaranteed to have any correlation to\n    the *physical* GPU id in the machine.  This field is used for\n    remapping \"visible\" to \"virtual\", which means this operates only\n    after the process starts.  Users are required to use vendor\n    specific mechanisms (e.g., CUDA_VISIBLE_DEVICES) to control the\n    physical to visible device mapping prior to invoking TensorFlow.\n 2. In the code, the ids in this list are also called \"platform GPU id\"s,\n    and the 'virtual' ids of GPU devices (i.e. the ids in the device\n    name \"/device:GPU:\u003cid\u003e\") are also called \"TF GPU id\"s. Please\n    refer to third_party/tensorflow/core/common_runtime/gpu/gpu_id.h\n    for more information."
+          },
+          "pollingActiveDelayUsecs": {
+            "type": "integer",
+            "title": "polling_active_delay_usecs",
+            "additionalProperties": false,
+            "description": "In the event polling loop sleep this many microseconds between\n PollEvents calls, when the queue is not empty.  If value is not\n set or set to 0, gets set to a non-zero default."
+          },
+          "pollingInactiveDelayMsecs": {
+            "type": "integer",
+            "title": "polling_inactive_delay_msecs",
+            "additionalProperties": false,
+            "description": "This field is deprecated and ignored."
+          },
+          "forceGpuCompatible": {
+            "type": "boolean",
+            "title": "force_gpu_compatible",
+            "additionalProperties": false,
+            "description": "Force all tensors to be gpu_compatible. On a GPU-enabled TensorFlow,\n enabling this option forces all CPU tensors to be allocated with Cuda\n pinned memory. Normally, TensorFlow will infer which tensors should be\n allocated as the pinned memory. But in case where the inference is\n incomplete, this option can significantly speed up the cross-device memory\n copy performance as long as it fits the memory.\n Note that this option is not something that should be\n enabled by default for unknown or very large models, since all Cuda pinned\n memory is unpageable, having too much pinned memory might negatively impact\n the overall host system performance."
+          },
+          "experimental": {
+            "$ref": "#/components/schemas/tensorflow.GPUOptions.Experimental"
+          }
+        },
+        "title": "GPUOptions",
+        "additionalProperties": false
+      },
+      "tensorflow.GPUOptions.Experimental": {
+        "type": "object",
+        "properties": {
+          "virtualDevices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.GPUOptions.Experimental.VirtualDevices"
+            }
+          },
+          "useUnifiedMemory": {
+            "type": "boolean",
+            "title": "use_unified_memory",
+            "additionalProperties": false,
+            "description": "If true, uses CUDA unified memory for memory allocations. If\n per_process_gpu_memory_fraction option is greater than 1.0, then unified\n memory is used regardless of the value for this field. See comments for\n per_process_gpu_memory_fraction field for more details and requirements\n of the unified memory. This option is useful to oversubscribe memory if\n multiple processes are sharing a single GPU while individually using less\n than 1.0 per process memory fraction."
+          },
+          "numDevToDevCopyStreams": {
+            "type": "integer",
+            "title": "num_dev_to_dev_copy_streams",
+            "additionalProperties": false,
+            "description": "If \u003e 1, the number of device-to-device copy streams to create\n for each GPUDevice.  Default value is 0, which is automatically\n converted to 1."
+          },
+          "collectiveRingOrder": {
+            "type": "string",
+            "title": "collective_ring_order",
+            "additionalProperties": false,
+            "description": "If non-empty, defines a good GPU ring order on a single worker based on\n device interconnect.  This assumes that all workers have the same GPU\n topology.  Specify as a comma-separated string, e.g. \"3,2,1,0,7,6,5,4\".\n This ring order is used by the RingReducer implementation of\n CollectiveReduce, and serves as an override to automatic ring order\n generation in OrderTaskDeviceMap() during CollectiveParam resolution."
+          },
+          "timestampedAllocator": {
+            "type": "boolean",
+            "title": "timestamped_allocator",
+            "additionalProperties": false,
+            "description": "If true then extra work is done by GPUDevice and GPUBFCAllocator to\n keep track of when GPU memory is freed and when kernels actually\n complete so that we can know when a nominally free memory chunk\n is really not subject to pending use."
+          },
+          "kernelTrackerMaxInterval": {
+            "type": "integer",
+            "title": "kernel_tracker_max_interval",
+            "additionalProperties": false,
+            "description": "Parameters for GPUKernelTracker.  By default no kernel tracking is done.\n Note that timestamped_allocator is only effective if some tracking is\n specified.\n\n If kernel_tracker_max_interval = n \u003e 0, then a tracking event\n is inserted after every n kernels without an event."
+          },
+          "kernelTrackerMaxBytes": {
+            "type": "integer",
+            "title": "kernel_tracker_max_bytes",
+            "additionalProperties": false,
+            "description": "If kernel_tracker_max_bytes = n \u003e 0, then a tracking event is\n inserted after every series of kernels allocating a sum of\n memory \u003e= n.  If one kernel allocates b * n bytes, then one\n event will be inserted after it, but it will count as b against\n the pending limit."
+          },
+          "kernelTrackerMaxPending": {
+            "type": "integer",
+            "title": "kernel_tracker_max_pending",
+            "additionalProperties": false,
+            "description": "If kernel_tracker_max_pending \u003e 0 then no more than this many\n tracking events can be outstanding at a time.  An attempt to\n launch an additional kernel will stall until an event\n completes."
+          },
+          "internalFragmentationFraction": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "internal_fragmentation_fraction",
+            "additionalProperties": false,
+            "description": "BFC Allocator can return an allocated chunk of memory upto 2x the\n requested size. For virtual devices with tight memory constraints, and\n proportionately large allocation requests, this can lead to a significant\n reduction in available memory. The threshold below controls when a chunk\n should be split if the chunk size exceeds requested memory size. It is\n expressed as a fraction of total available memory for the tf device. For\n example setting it to 0.05 would imply a chunk needs to be split if its\n size exceeds the requested memory by 5% of the total virtual device/gpu\n memory size."
+          },
+          "useCudaMallocAsync": {
+            "type": "boolean",
+            "title": "use_cuda_malloc_async",
+            "additionalProperties": false,
+            "description": "When true, use CUDA cudaMallocAsync API instead of TF gpu allocator."
+          },
+          "disallowRetryOnAllocationFailure": {
+            "type": "boolean",
+            "title": "disallow_retry_on_allocation_failure",
+            "additionalProperties": false,
+            "description": "By default, BFCAllocator may sleep when it runs out of memory, in the\n hopes that another thread will free up memory in the meantime.  Setting\n this to true disables the sleep; instead we'll OOM immediately."
+          },
+          "gpuHostMemLimitInMb": {
+            "type": "number",
+            "title": "gpu_host_mem_limit_in_mb",
+            "additionalProperties": false,
+            "description": "Memory limit for \"GPU host allocator\", aka pinned memory allocator.  This\n can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB."
+          },
+          "gpuHostMemDisallowGrowth": {
+            "type": "boolean",
+            "title": "gpu_host_mem_disallow_growth",
+            "additionalProperties": false,
+            "description": "If true, then the host allocator allocates its max memory all upfront and\n never grows.  This can be useful for latency-sensitive systems, because\n growing the GPU host memory pool can be expensive.\n\n You probably only want to use this in combination with\n gpu_host_mem_limit_in_mb, because the default GPU host memory limit is\n quite high."
+          }
+        },
+        "title": "Experimental",
+        "additionalProperties": false
+      },
+      "tensorflow.GPUOptions.Experimental.VirtualDevices": {
+        "type": "object",
+        "properties": {
+          "memoryLimitMb": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "title": "memory_limit_mb",
+              "additionalProperties": false,
+              "description": "Per \"virtual\" device memory limit, in MB. The number of elements in\n the list is the number of virtual devices to create on the\n corresponding visible GPU (see \"virtual_devices\" below).\n If empty, it will create single virtual device taking all available\n memory from the device.\n\n For the concept of \"visible\" and \"virtual\" GPU, see the comments for\n \"visible_device_list\" above for more information."
+            }
+          },
+          "priority": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "priority",
+              "additionalProperties": false,
+              "description": "Priority values to use with the virtual devices. Use the cuda function\n cudaDeviceGetStreamPriorityRange to query for valid range of values for\n priority.\n\n On a P4000 GPU with cuda 10.1, the priority range reported was 0 for\n least priority and -1 for greatest priority.\n\n If this field is not specified, then the virtual devices will be\n created with the default. If this field has values set, then the size\n of this must match with the above memory_limit_mb."
+            }
+          },
+          "deviceOrdinal": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "device_ordinal",
+              "additionalProperties": false,
+              "description": "Virtual Device ordinal number determines the device ID of the device.\n A Virtual device with a lower ordinal number always receives the a\n smaller device id. The phyiscal device id and location in the\n virtual device list is used to break ties."
+            }
+          }
+        },
+        "title": "VirtualDevices",
+        "additionalProperties": false,
+        "description": "Configuration for breaking down a visible GPU into multiple \"virtual\"\n devices."
+      },
+      "tensorflow.GradientDef": {
+        "type": "object",
+        "properties": {
+          "functionName": {
+            "type": "string",
+            "title": "function_name",
+            "additionalProperties": false,
+            "description": "The function name."
+          },
+          "gradientFunc": {
+            "type": "string",
+            "title": "gradient_func",
+            "additionalProperties": false,
+            "description": "The gradient function's name."
+          }
+        },
+        "title": "GradientDef",
+        "additionalProperties": false,
+        "description": "GradientDef defines the gradient function of a function defined in\n a function library.\n\n A gradient function g (specified by gradient_func) for a function f\n (specified by function_name) must follow the following:\n\n The function 'f' must be a numerical function which takes N inputs\n and produces M outputs. Its gradient function 'g', which is a\n function taking N + M inputs and produces N outputs.\n\n I.e. if we have\n    (y1, y2, ..., y_M) = f(x1, x2, ..., x_N),\n then, g is\n    (dL/dx1, dL/dx2, ..., dL/dx_N) = g(x1, x2, ..., x_N,\n                                      dL/dy1, dL/dy2, ..., dL/dy_M),\n where L is a scalar-value function of (x1, x2, ..., xN) (e.g., the\n loss function). dL/dx_i is the partial derivative of L with respect\n to x_i."
+      },
+      "tensorflow.GraphDebugInfo": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "files",
+              "additionalProperties": false,
+              "description": "This stores all the source code file names and can be indexed by the\n `file_index`."
+            }
+          },
+          "framesById": {
+            "type": "object",
+            "title": "frames_by_id",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+            },
+            "description": "Stack traces and frames are uniqueified during construction. These maps\n index from the unique id for a frame/trace to the value."
+          },
+          "tracesById": {
+            "type": "object",
+            "title": "traces_by_id",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+            }
+          },
+          "traces": {
+            "type": "object",
+            "title": "traces",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+            },
+            "description": "Deprecated."
+          },
+          "nameToTraceId": {
+            "type": "object",
+            "title": "name_to_trace_id",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "This maps a node name to a trace id contained in `traces_by_id`.\n\n The map key is a mangling of the containing function and op name with\n syntax:\n   op.name '@' func_name\n For ops in the top-level graph, the func_name is the empty string and hence\n the `@` may be ommitted.\n Note that op names are restricted to a small number of characters which\n exclude '@', making it impossible to collide keys of this form. Function\n names accept a much wider set of characters.\n It would be preferable to avoid mangling and use a tuple key of (op.name,\n func_name), but this is not supported with protocol buffers."
+          }
+        },
+        "title": "GraphDebugInfo",
+        "additionalProperties": false
+      },
+      "tensorflow.GraphDebugInfo.FileLineCol": {
+        "type": "object",
+        "properties": {
+          "fileIndex": {
+            "type": "integer",
+            "title": "file_index",
+            "additionalProperties": false,
+            "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)"
+          },
+          "line": {
+            "type": "integer",
+            "title": "line",
+            "additionalProperties": false,
+            "description": "Line number in the file."
+          },
+          "col": {
+            "type": "integer",
+            "title": "col",
+            "additionalProperties": false,
+            "description": "Col number in the file line."
+          },
+          "func": {
+            "type": "string",
+            "title": "func",
+            "additionalProperties": false,
+            "description": "Name of function contains the file line."
+          },
+          "code": {
+            "type": "string",
+            "title": "code",
+            "additionalProperties": false,
+            "description": "Source code contained in this file line."
+          }
+        },
+        "title": "FileLineCol",
+        "additionalProperties": false,
+        "description": "This represents a file/line location in the source code."
+      },
+      "tensorflow.GraphDebugInfo.FramesByIdEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+          }
+        },
+        "title": "FramesByIdEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.GraphDebugInfo.NameToTraceIdEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "NameToTraceIdEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.GraphDebugInfo.StackTrace": {
+        "type": "object",
+        "properties": {
+          "fileLineCols": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+            }
+          },
+          "frameId": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "frame_id",
+              "additionalProperties": false
+            }
+          }
+        },
+        "title": "StackTrace",
+        "additionalProperties": false,
+        "description": "This represents a stack trace which is a ordered list of `FileLineCol`."
+      },
+      "tensorflow.GraphDebugInfo.TracesByIdEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+          }
+        },
+        "title": "TracesByIdEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.GraphDebugInfo.TracesEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+          }
+        },
+        "title": "TracesEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.GraphDef": {
+        "type": "object",
+        "properties": {
+          "node": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NodeDef"
+            }
+          },
+          "versions": {
+            "$ref": "#/components/schemas/tensorflow.VersionDef"
+          },
+          "version": {
+            "type": "integer",
+            "title": "version",
+            "additionalProperties": false,
+            "description": "Deprecated single version field; use versions above instead.  Since all\n GraphDef changes before \"versions\" was introduced were forward\n compatible, this field is entirely ignored."
+          },
+          "library": {
+            "$ref": "#/components/schemas/tensorflow.FunctionDefLibrary"
+          },
+          "debugInfo": {
+            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo"
+          }
+        },
+        "title": "GraphDef",
+        "additionalProperties": false,
+        "description": "Represents the graph of operations"
+      },
+      "tensorflow.GraphOptions": {
+        "type": "object",
+        "properties": {
+          "enableRecvScheduling": {
+            "type": "boolean",
+            "title": "enable_recv_scheduling",
+            "additionalProperties": false,
+            "description": "If true, use control flow to schedule the activation of Recv nodes.\n (Currently ignored.)"
+          },
+          "optimizerOptions": {
+            "$ref": "#/components/schemas/tensorflow.OptimizerOptions"
+          },
+          "buildCostModel": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "build_cost_model",
+            "additionalProperties": false,
+            "description": "The number of steps to run before returning a cost model detailing\n the memory usage and performance of each node of the graph. 0 means\n no cost model."
+          },
+          "buildCostModelAfter": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "build_cost_model_after",
+            "additionalProperties": false,
+            "description": "The number of steps to skip before collecting statistics for the\n cost model."
+          },
+          "inferShapes": {
+            "type": "boolean",
+            "title": "infer_shapes",
+            "additionalProperties": false,
+            "description": "Annotate each Node with Op output shape data, to the extent it can\n be statically inferred."
+          },
+          "placePrunedGraph": {
+            "type": "boolean",
+            "title": "place_pruned_graph",
+            "additionalProperties": false,
+            "description": "Only place the subgraphs that are run, rather than the entire graph.\n\n This is useful for interactive graph building, where one might\n produce graphs that cannot be placed during the debugging\n process.  In particular, it allows the client to continue work in\n a session after adding a node to a graph whose placement\n constraints are unsatisfiable."
+          },
+          "enableBfloat16Sendrecv": {
+            "type": "boolean",
+            "title": "enable_bfloat16_sendrecv",
+            "additionalProperties": false,
+            "description": "If true, transfer float values between processes as bfloat16."
+          },
+          "timelineStep": {
+            "type": "integer",
+            "title": "timeline_step",
+            "additionalProperties": false,
+            "description": "If \u003e 0, record a timeline every this many steps.\n EXPERIMENTAL: This currently has no effect in MasterSession."
+          },
+          "rewriteOptions": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig"
+          }
+        },
+        "title": "GraphOptions",
+        "additionalProperties": false
+      },
+      "tensorflow.InterconnectLink": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "type": "integer",
+            "title": "device_id",
+            "additionalProperties": false
+          },
+          "type": {
+            "type": "string",
+            "title": "type",
+            "additionalProperties": false
+          },
+          "strength": {
+            "type": "integer",
+            "title": "strength",
+            "additionalProperties": false
+          }
+        },
+        "title": "InterconnectLink",
+        "additionalProperties": false
+      },
+      "tensorflow.JobDef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "The name of this job."
+          },
+          "tasks": {
+            "type": "object",
+            "title": "tasks",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            },
+            "description": "Mapping from task ID to \"hostname:port\" string.\n\n If the `name` field contains \"worker\", and the `tasks` map contains a\n mapping from 7 to \"example.org:2222\", then the device prefix\n \"/job:worker/task:7\" will be assigned to \"example.org:2222\".\n\n If a job has multiple replicas, host-ports will be comma-delimited, with\n one entry for each replica."
+          }
+        },
+        "title": "JobDef",
+        "additionalProperties": false,
+        "description": "Defines a single job in a TensorFlow cluster."
+      },
+      "tensorflow.JobDef.TasksEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "TasksEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.ListDevicesRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "Optional: session_handle must be returned by a CreateSession call to the\n same master service.\n\n When session_handle is empty, the ClusterSpec provided when the master was\n started is used to compute the available devices. If the session_handle is\n provided but not recognized, an error is returned. Finally, if a valid\n session_handle is provided, the cluster configuration for that session is\n used when computing the response."
+          }
+        },
+        "title": "ListDevicesRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.ListDevicesResponse": {
+        "type": "object",
+        "properties": {
+          "localDevice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.DeviceAttributes"
+            }
+          },
+          "remoteDevice": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.DeviceAttributes"
+            }
+          }
+        },
+        "title": "ListDevicesResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.LocalLinks": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.InterconnectLink"
+            }
+          }
+        },
+        "title": "LocalLinks",
+        "additionalProperties": false
+      },
+      "tensorflow.MakeCallableRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          },
+          "options": {
+            "$ref": "#/components/schemas/tensorflow.CallableOptions"
+          },
+          "requestId": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "request_id",
+            "additionalProperties": false,
+            "description": "Unique identifier for this request. Every MakeCallableRequest must\n have a unique request_id, and retried MakeCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+          }
+        },
+        "title": "MakeCallableRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.MakeCallableResponse": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "handle",
+            "additionalProperties": false,
+            "description": "A handle to the created callable."
+          }
+        },
+        "title": "MakeCallableResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.MemoryStats": {
+        "type": "object",
+        "properties": {
+          "tempMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "temp_memory_size",
+            "additionalProperties": false
+          },
+          "persistentMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "persistent_memory_size",
+            "additionalProperties": false
+          },
+          "persistentTensorAllocIds": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "persistent_tensor_alloc_ids",
+              "additionalProperties": false
+            }
+          },
+          "deviceTempMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "device_temp_memory_size",
+            "additionalProperties": false
+          },
+          "devicePersistentMemorySize": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "device_persistent_memory_size",
+            "additionalProperties": false
+          },
+          "devicePersistentTensorAllocIds": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "device_persistent_tensor_alloc_ids",
+              "additionalProperties": false
+            }
+          }
+        },
+        "title": "MemoryStats",
+        "additionalProperties": false,
+        "description": "For memory tracking."
+      },
+      "tensorflow.NameAttrList": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false
+          },
+          "attr": {
+            "type": "object",
+            "title": "attr",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.AttrValue"
+            }
+          }
+        },
+        "title": "NameAttrList",
+        "additionalProperties": false,
+        "description": "A list of attr names and their values. The whole list is attached\n with a string name.  E.g., MatMul[T=float]."
+      },
+      "tensorflow.NameAttrList.AttrEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          }
+        },
+        "title": "AttrEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.NamedTensorProto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "Name of the tensor."
+          },
+          "tensor": {
+            "$ref": "#/components/schemas/tensorflow.TensorProto"
+          }
+        },
+        "title": "NamedTensorProto",
+        "additionalProperties": false,
+        "description": "A pair of tensor name and tensor values."
+      },
+      "tensorflow.NodeDef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "The name given to this operator. Used for naming inputs,\n logging, visualization, etc.  Unique within a single GraphDef.\n Must match the regexp \"[A-Za-z0-9.][A-Za-z0-9_\u003e./]*\"."
+          },
+          "op": {
+            "type": "string",
+            "title": "op",
+            "additionalProperties": false,
+            "description": "The operation name.  There may be custom parameters in attrs.\n Op names starting with an underscore are reserved for internal use."
+          },
+          "input": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "input",
+              "additionalProperties": false,
+              "description": "Each input is \"node:src_output\" with \"node\" being a string name and\n \"src_output\" indicating which output tensor to use from \"node\". If\n \"src_output\" is 0 the \":0\" suffix can be omitted.  Regular inputs\n may optionally be followed by control inputs that have the format\n \"^node\"."
+            }
+          },
+          "device": {
+            "type": "string",
+            "title": "device",
+            "additionalProperties": false,
+            "description": "A (possibly partial) specification for the device on which this\n node should be placed.\n The expected syntax for this string is as follows:\n\n DEVICE_SPEC ::= PARTIAL_SPEC\n\n PARTIAL_SPEC ::= (\"/\" CONSTRAINT) *\n CONSTRAINT ::= (\"job:\" JOB_NAME)\n              | (\"replica:\" [1-9][0-9]*)\n              | (\"task:\" [1-9][0-9]*)\n              | (\"device:\" [A-Za-z]* \":\" ([1-9][0-9]* | \"*\") )\n\n Valid values for this string include:\n * \"/job:worker/replica:0/task:1/device:GPU:3\"  (full specification)\n * \"/job:worker/device:GPU:3\"                   (partial specification)\n * \"\"                                    (no specification)\n\n If the constraints do not resolve to a single device (or if this\n field is empty or not present), the runtime will attempt to\n choose a device automatically."
+          },
+          "attr": {
+            "type": "object",
+            "title": "attr",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.AttrValue"
+            },
+            "description": "Operation-specific graph-construction-time configuration.\n Note that this should include all attrs defined in the\n corresponding OpDef, including those with a value matching\n the default -- this allows the default to change and makes\n NodeDefs easier to interpret on their own.  However, if\n an attr with a default is not specified in this list, the\n default will be used.\n The \"names\" (keys) must match the regexp \"[a-z][a-z0-9_]+\" (and\n one of the names from the corresponding OpDef's attr field).\n The values must have a type matching the corresponding OpDef\n attr's type field.\n TODO(josh11b): Add some examples here showing best practices."
+          },
+          "experimentalDebugInfo": {
+            "$ref": "#/components/schemas/tensorflow.NodeDef.ExperimentalDebugInfo"
+          },
+          "experimentalType": {
+            "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+          }
+        },
+        "title": "NodeDef",
+        "additionalProperties": false
+      },
+      "tensorflow.NodeDef.AttrEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          }
+        },
+        "title": "AttrEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.NodeDef.ExperimentalDebugInfo": {
+        "type": "object",
+        "properties": {
+          "originalNodeNames": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "original_node_names",
+              "additionalProperties": false,
+              "description": "Opaque string inserted into error messages created by the runtime.\n\n This is intended to store the list of names of the nodes from the\n original graph that this node was derived. For example if this node, say\n C, was result of a fusion of 2 nodes A and B, then 'original_node' would\n be {A, B}. This information can be used to map errors originating at the\n current node to some top level source code."
+            }
+          },
+          "originalFuncNames": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "original_func_names",
+              "additionalProperties": false,
+              "description": "This is intended to store the list of names of the functions from the\n original graph that this node was derived. For example if this node, say\n C, was result of a fusion of node A in function FA and node B in function\n FB, then `original_funcs` would be {FA, FB}. If the node is in the top\n level graph, the `original_func` is empty. This information, with the\n `original_node_names` can be used to map errors originating at the\n current ndoe to some top level source code."
+            }
+          }
+        },
+        "title": "ExperimentalDebugInfo",
+        "additionalProperties": false
+      },
+      "tensorflow.NodeExecStats": {
+        "type": "object",
+        "properties": {
+          "nodeName": {
+            "type": "string",
+            "title": "node_name",
+            "additionalProperties": false,
+            "description": "TODO(tucker): Use some more compact form of node identity than\n the full string name.  Either all processes should agree on a\n global id (cost_id?) for each node, or we should use a hash of\n the name."
+          },
+          "allStartMicros": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "all_start_micros",
+            "additionalProperties": false
+          },
+          "opStartRelMicros": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "op_start_rel_micros",
+            "additionalProperties": false
+          },
+          "opEndRelMicros": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "op_end_rel_micros",
+            "additionalProperties": false
+          },
+          "allEndRelMicros": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "all_end_rel_micros",
+            "additionalProperties": false
+          },
+          "memory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.AllocatorMemoryUsed"
+            }
+          },
+          "output": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NodeOutput"
+            }
+          },
+          "timelineLabel": {
+            "type": "string",
+            "title": "timeline_label",
+            "additionalProperties": false
+          },
+          "scheduledMicros": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "scheduled_micros",
+            "additionalProperties": false
+          },
+          "threadId": {
+            "type": "integer",
+            "title": "thread_id",
+            "additionalProperties": false
+          },
+          "referencedTensor": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.AllocationDescription"
+            }
+          },
+          "memoryStats": {
+            "$ref": "#/components/schemas/tensorflow.MemoryStats"
+          },
+          "allStartNanos": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "all_start_nanos",
+            "additionalProperties": false
+          },
+          "opStartRelNanos": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "op_start_rel_nanos",
+            "additionalProperties": false
+          },
+          "opEndRelNanos": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "op_end_rel_nanos",
+            "additionalProperties": false
+          },
+          "allEndRelNanos": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "all_end_rel_nanos",
+            "additionalProperties": false
+          },
+          "scheduledNanos": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "scheduled_nanos",
+            "additionalProperties": false
+          }
+        },
+        "title": "NodeExecStats",
+        "additionalProperties": false,
+        "description": "Time/size stats recorded for a single execution of a graph node."
+      },
+      "tensorflow.NodeOutput": {
+        "type": "object",
+        "properties": {
+          "slot": {
+            "type": "integer",
+            "title": "slot",
+            "additionalProperties": false
+          },
+          "tensorDescription": {
+            "$ref": "#/components/schemas/tensorflow.TensorDescription"
+          }
+        },
+        "title": "NodeOutput",
+        "additionalProperties": false,
+        "description": "Output sizes recorded for a single execution of a graph node."
+      },
+      "tensorflow.OpDef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "Op names starting with an underscore are reserved for internal use.\n Names should be CamelCase and match the regexp \"[A-Z][a-zA-Z0-9\u003e_]*\"."
+          },
+          "inputArg": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.OpDef.ArgDef"
+            }
+          },
+          "outputArg": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.OpDef.ArgDef"
+            }
+          },
+          "controlOutput": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "control_output",
+              "additionalProperties": false,
+              "description": "Named control outputs for this operation. Useful only for composite\n operations (i.e. functions) which want to name different control outputs."
+            }
+          },
+          "attr": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.OpDef.AttrDef"
+            }
+          },
+          "deprecation": {
+            "$ref": "#/components/schemas/tensorflow.OpDeprecation"
+          },
+          "summary": {
+            "type": "string",
+            "title": "summary",
+            "additionalProperties": false,
+            "description": "One-line human-readable description of what the Op does."
+          },
+          "description": {
+            "type": "string",
+            "title": "description",
+            "additionalProperties": false,
+            "description": "Additional, longer human-readable description of what the Op does."
+          },
+          "isCommutative": {
+            "type": "boolean",
+            "title": "is_commutative",
+            "additionalProperties": false,
+            "description": "True if the operation is commutative (\"op(a,b) == op(b,a)\" for all inputs)"
+          },
+          "isAggregate": {
+            "type": "boolean",
+            "title": "is_aggregate",
+            "additionalProperties": false,
+            "description": "If is_aggregate is true, then this operation accepts N \u003e= 2\n inputs and produces 1 output all of the same type.  Should be\n associative and commutative, and produce output with the same\n shape as the input.  The optimizer may replace an aggregate op\n taking input from multiple devices with a tree of aggregate ops\n that aggregate locally within each device (and possibly within\n groups of nearby devices) before communicating.\n TODO(josh11b): Implement that optimization. for things like add"
+          },
+          "isStateful": {
+            "type": "boolean",
+            "title": "is_stateful",
+            "additionalProperties": false,
+            "description": "Ops are marked as stateful if their behavior depends on some state beyond\n their input tensors (e.g. variable reading op) or if they have\n a side-effect (e.g. printing or asserting ops). Equivalently, stateless ops\n must always produce the same output for the same input and have\n no side-effects.\n\n By default Ops may be moved between devices.  Stateful ops should\n either not be moved, or should only be moved if that state can also\n be moved (e.g. via some sort of save / restore).\n Stateful ops are guaranteed to never be optimized away by Common\n Subexpression Elimination (CSE). for things like variables, queue"
+          },
+          "allowsUninitializedInput": {
+            "type": "boolean",
+            "title": "allows_uninitialized_input",
+            "additionalProperties": false,
+            "description": "By default, all inputs to an Op must be initialized Tensors.  Ops\n that may initialize tensors for the first time should set this\n field to true, to allow the Op to take an uninitialized Tensor as\n input. for Assign, etc."
+          },
+          "isDistributedCommunication": {
+            "type": "boolean",
+            "title": "is_distributed_communication",
+            "additionalProperties": false,
+            "description": "Indicates whether the op implementation uses distributed communication.\n If True, the op is allowed to return errors for network disconnection and\n trigger TF network failure handling logics."
+          }
+        },
+        "title": "OpDef",
+        "additionalProperties": false,
+        "description": "Defines an operation. A NodeDef in a GraphDef specifies an Op by\n using the \"op\" field which should match the name of a OpDef.\n LINT.IfChange"
+      },
+      "tensorflow.OpDef.ArgDef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "Name for the input/output.  Should match the regexp \"[a-z][a-z0-9_]*\"."
+          },
+          "description": {
+            "type": "string",
+            "title": "description",
+            "additionalProperties": false,
+            "description": "Human readable description."
+          },
+          "type": {
+            "$ref": "#/components/schemas/tensorflow.DataType"
+          },
+          "typeAttr": {
+            "type": "string",
+            "title": "type_attr",
+            "additionalProperties": false,
+            "description": "if specified, attr must have type \"type\""
+          },
+          "numberAttr": {
+            "type": "string",
+            "title": "number_attr",
+            "additionalProperties": false,
+            "description": "if specified, attr must have type \"int\""
+          },
+          "typeListAttr": {
+            "type": "string",
+            "title": "type_list_attr",
+            "additionalProperties": false,
+            "description": "If specified, attr must have type \"list(type)\", and none of\n type, type_attr, and number_attr may be specified."
+          },
+          "handleData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape"
+            }
+          },
+          "isRef": {
+            "type": "boolean",
+            "title": "is_ref",
+            "additionalProperties": false,
+            "description": "For inputs: if true, the inputs are required to be refs.\n   By default, inputs can be either refs or non-refs.\n For outputs: if true, outputs are refs, otherwise they are not."
+          },
+          "experimentalFullType": {
+            "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+          }
+        },
+        "title": "ArgDef",
+        "additionalProperties": false,
+        "description": "For describing inputs and outputs."
+      },
+      "tensorflow.OpDef.AttrDef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "A descriptive name for the argument.  May be used, e.g. by the\n Python client, as a keyword argument name, and so should match\n the regexp \"[a-z][a-z0-9_]+\"."
+          },
+          "type": {
+            "type": "string",
+            "title": "type",
+            "additionalProperties": false,
+            "description": "One of the type names from attr_value.proto (\"string\", \"list(string)\",\n \"int\", etc.)."
+          },
+          "defaultValue": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          },
+          "description": {
+            "type": "string",
+            "title": "description",
+            "additionalProperties": false,
+            "description": "Human-readable description."
+          },
+          "hasMinimum": {
+            "type": "boolean",
+            "title": "has_minimum",
+            "additionalProperties": false,
+            "description": "For type == \"int\", this is a minimum value.  For \"list(___)\"\n types, this is the minimum length."
+          },
+          "minimum": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "minimum",
+            "additionalProperties": false
+          },
+          "allowedValues": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          }
+        },
+        "title": "AttrDef",
+        "additionalProperties": false,
+        "description": "Description of the graph-construction-time configuration of this\n Op.  That is to say, this describes the attr fields that will\n be specified in the NodeDef."
+      },
+      "tensorflow.OpDeprecation": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "title": "version",
+            "additionalProperties": false,
+            "description": "First GraphDef version at which the op is disallowed."
+          },
+          "explanation": {
+            "type": "string",
+            "title": "explanation",
+            "additionalProperties": false,
+            "description": "Explanation of why it was deprecated and what to use instead."
+          }
+        },
+        "title": "OpDeprecation",
+        "additionalProperties": false,
+        "description": "Information about version-dependent deprecation of an op"
+      },
+      "tensorflow.OptimizerOptions": {
+        "type": "object",
+        "properties": {
+          "doCommonSubexpressionElimination": {
+            "type": "boolean",
+            "title": "do_common_subexpression_elimination",
+            "additionalProperties": false,
+            "description": "If true, optimize the graph using common subexpression elimination.\n Note: the optimization Level L1 will override this setting to true. So in\n order to disable common subexpression elimination the opt_level has to be\n set to L0."
+          },
+          "doConstantFolding": {
+            "type": "boolean",
+            "title": "do_constant_folding",
+            "additionalProperties": false,
+            "description": "If true, perform constant folding optimization on the graph.\n Note: the optimization Level L1 will override this setting to true. So in\n order to disable constant folding the opt_level has to be set to L0."
+          },
+          "maxFoldedConstantInBytes": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "max_folded_constant_in_bytes",
+            "additionalProperties": false,
+            "description": "Constant folding optimization replaces tensors whose values can be\n predetermined, with constant nodes. To avoid inserting too large constants,\n the size of each constant created can be limited. If this value is zero, a\n default limit of 10 MiB will be applied. If constant folding optimization\n is disabled, this value is ignored."
+          },
+          "doFunctionInlining": {
+            "type": "boolean",
+            "title": "do_function_inlining",
+            "additionalProperties": false,
+            "description": "If true, perform function inlining on the graph."
+          },
+          "optLevel": {
+            "$ref": "#/components/schemas/tensorflow.OptimizerOptions.Level"
+          },
+          "globalJitLevel": {
+            "$ref": "#/components/schemas/tensorflow.OptimizerOptions.GlobalJitLevel"
+          },
+          "cpuGlobalJit": {
+            "type": "boolean",
+            "title": "cpu_global_jit",
+            "additionalProperties": false,
+            "description": "CPU code will be autoclustered only if global_jit_level \u003e= ON_1 and either:\n  - this flag is true, or\n  - TF_XLA_FLAGS contains --tf_xla_cpu_global_jit=true."
+          }
+        },
+        "title": "OptimizerOptions",
+        "additionalProperties": false,
+        "description": "Options passed to the graph optimizer"
+      },
+      "tensorflow.PartialRunSetupRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          },
+          "feed": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "feed",
+              "additionalProperties": false,
+              "description": "Tensors to be fed in future steps."
+            }
+          },
+          "fetch": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "fetch",
+              "additionalProperties": false,
+              "description": "Fetches. A list of tensor names. The caller expects a tensor to be returned\n for each fetch[i] (see RunStepResponse.tensor), for corresponding partial\n RunStepRequests. The order of specified fetches does not change the\n execution order."
+            }
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "target",
+              "additionalProperties": false,
+              "description": "Target Nodes. A list of node names. The named nodes will be run in future\n steps, but their outputs will not be fetched."
+            }
+          },
+          "requestId": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "request_id",
+            "additionalProperties": false,
+            "description": "Unique identifier for this request. Every PartialRunSetupRequest must\n have a unique request_id, and retried PartialRunSetupRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+          }
+        },
+        "title": "PartialRunSetupRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.PartialRunSetupResponse": {
+        "type": "object",
+        "properties": {
+          "partialRunHandle": {
+            "type": "string",
+            "title": "partial_run_handle",
+            "additionalProperties": false,
+            "description": "The unique handle corresponding to the ongoing partial run call setup by\n the invocation to PartialRunSetup. This handle may be passed to\n RunStepRequest to send and receive tensors for this partial run."
+          }
+        },
+        "title": "PartialRunSetupResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.RPCOptions": {
+        "type": "object",
+        "properties": {
+          "useRpcForInprocessMaster": {
+            "type": "boolean",
+            "title": "use_rpc_for_inprocess_master",
+            "additionalProperties": false,
+            "description": "If true, always use RPC to contact the session target.\n\n If false (the default option), TensorFlow may use an optimized\n transport for client-master communication that avoids the RPC\n stack. This option is primarily for used testing the RPC stack."
+          },
+          "compressionAlgorithm": {
+            "type": "string",
+            "title": "compression_algorithm",
+            "additionalProperties": false,
+            "description": "The compression algorithm to be used. One of \"deflate\", \"gzip\"."
+          },
+          "compressionLevel": {
+            "type": "integer",
+            "title": "compression_level",
+            "additionalProperties": false,
+            "description": "If compression_algorithm is set, the compression level to be used.\n From 0 (no compression), up to 3."
+          },
+          "cacheRpcResponse": {
+            "type": "boolean",
+            "title": "cache_rpc_response",
+            "additionalProperties": false,
+            "description": "Setting cache_rpc_response to true will enable sender side caching of\n response for RecvTensorAsync and RecvBufAsync to allow receiver to retry\n requests . This is only necessary when the network fabric is experiencing a\n significant error rate.  Without it we'll fail a step on an network error,\n while with it we'll be able to complete long steps (like complex\n initializations) in the face of some network errors during RecvTensor."
+          },
+          "disableSessionConnectionSharing": {
+            "type": "boolean",
+            "title": "disable_session_connection_sharing",
+            "additionalProperties": false,
+            "description": "Disables TCP connection sharing when opening a new RPC channel."
+          },
+          "numChannelsPerTarget": {
+            "type": "integer",
+            "title": "num_channels_per_target",
+            "additionalProperties": false,
+            "description": "Setting num_channels_per_target \u003e 0 allows uses of multiple channels to\n communicate to the same target. This can be used to improve the aggregate\n throughput on high speed links (e.g 100G) where single connection is not\n sufficient to maximize link utilization. Note that a single RPC only goes\n on a single channel, this only helps in situations where there are multiple\n transfers to the same target overlapping in time."
+          }
+        },
+        "title": "RPCOptions",
+        "additionalProperties": false,
+        "description": "RPC options for distributed runtime."
+      },
+      "tensorflow.RegisteredGradient": {
+        "type": "object",
+        "properties": {
+          "gradientFunc": {
+            "type": "string",
+            "title": "gradient_func",
+            "additionalProperties": false,
+            "description": "The gradient function's name."
+          },
+          "registeredOpType": {
+            "type": "string",
+            "title": "registered_op_type",
+            "additionalProperties": false,
+            "description": "The gradient function's registered op type."
+          }
+        },
+        "title": "RegisteredGradient",
+        "additionalProperties": false,
+        "description": "RegisteredGradient stores a gradient function that is registered in the\n gradients library and used in the ops of a function in the function library.\n Unlike GradientDef, these gradients are identified by op type, and not\n directly linked to any function."
+      },
+      "tensorflow.ReleaseCallableRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          },
+          "handle": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
+          }
+        },
+        "title": "ReleaseCallableRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.ReleaseCallableResponse": {
+        "type": "object",
+        "title": "ReleaseCallableResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.ResetRequest": {
+        "type": "object",
+        "properties": {
+          "container": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "container",
+              "additionalProperties": false,
+              "description": "A list of container names, which may be empty.\n\n If 'container' is not empty, releases resources in the given\n containers in all devices.\n\n If 'container' is empty, releases resources in the default\n container in all devices."
+            }
+          },
+          "deviceFilters": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "device_filters",
+              "additionalProperties": false,
+              "description": "When any filters are present, only devices that match the filters\n will be reset. Each filter can be partially specified,\n e.g. \"/job:ps\" \"/job:worker/replica:3\", etc."
+            }
+          }
+        },
+        "title": "ResetRequest",
+        "additionalProperties": false,
+        "description": "Reset() allows misbehaving or slow sessions to be aborted and closed, and\n causes their resources eventually to be released.  Reset() does not wait\n for the computations in old sessions to cease; it merely starts the\n process of tearing them down.  However, if a new session is started after\n a Reset(), the new session is isolated from changes that old sessions\n (started prior to the Reset()) may continue to make to resources, provided\n all those resources are in containers listed in \"containers\".\n\n Old sessions may continue to have side-effects on resources not in\n containers listed in \"containers\", and thus may affect future\n sessions' results in ways that are hard to predict.  Thus, if well-defined\n behavior is desired, is it recommended that all containers be listed in\n \"containers\".  Similarly, if a device_filter is specified, results may be\n hard to predict."
+      },
+      "tensorflow.ResetResponse": {
+        "type": "object",
+        "title": "ResetResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.ResourceHandleProto": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "type": "string",
+            "title": "device",
+            "additionalProperties": false,
+            "description": "Unique name for the device containing the resource."
+          },
+          "container": {
+            "type": "string",
+            "title": "container",
+            "additionalProperties": false,
+            "description": "Container in which this resource is placed."
+          },
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "Unique name of this resource."
+          },
+          "hashCode": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "hash_code",
+            "additionalProperties": false,
+            "description": "Hash code for the type of the resource. Is only valid in the same device\n and in the same execution."
+          },
+          "maybeTypeName": {
+            "type": "string",
+            "title": "maybe_type_name",
+            "additionalProperties": false,
+            "description": "For debug-only, the name of the type pointed to by this handle, if\n available."
+          },
+          "dtypesAndShapes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape"
+            }
+          }
+        },
+        "title": "ResourceHandleProto",
+        "additionalProperties": false,
+        "description": "Protocol buffer representing a handle to a tensorflow resource. Handles are\n not valid across executions, but can be serialized back and forth from within\n a single run."
+      },
+      "tensorflow.ResourceHandleProto.DtypeAndShape": {
+        "type": "object",
+        "properties": {
+          "dtype": {
+            "$ref": "#/components/schemas/tensorflow.DataType"
+          },
+          "shape": {
+            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+          }
+        },
+        "title": "DtypeAndShape",
+        "additionalProperties": false,
+        "description": "Protocol buffer representing a pair of (data type, tensor shape)."
+      },
+      "tensorflow.RewriterConfig": {
+        "type": "object",
+        "properties": {
+          "cpuLayoutConversion": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.CpuLayout"
+          },
+          "layoutOptimizer": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "constantFolding": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "shapeOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "remapping": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "commonSubgraphElimination": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "arithmeticOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "dependencyOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "loopOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "functionOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "debugStripper": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "disableModelPruning": {
+            "type": "boolean",
+            "title": "disable_model_pruning",
+            "additionalProperties": false,
+            "description": "If true, don't remove unnecessary ops from the graph"
+          },
+          "scopedAllocatorOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "pinToHostOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "implementationSelector": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "autoMixedPrecision": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "autoMixedPrecisionMkl": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "autoMixedPrecisionOnednnBfloat16": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "autoMixedPrecisionCpu": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "disableMetaOptimizer": {
+            "type": "boolean",
+            "title": "disable_meta_optimizer",
+            "additionalProperties": false,
+            "description": "Disable the entire meta optimizer (off by default)."
+          },
+          "disableTfgOptimizer": {
+            "type": "boolean",
+            "title": "disable_tfg_optimizer",
+            "additionalProperties": false,
+            "description": "Disable the TFG optimizer (off by default)."
+          },
+          "usePluginOptimizers": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "experimentalConditionalCodeMotion": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+          },
+          "metaOptimizerIterations": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.NumIterationsType"
+          },
+          "minGraphNodes": {
+            "type": "integer",
+            "title": "min_graph_nodes",
+            "additionalProperties": false,
+            "description": "The minimum number of nodes in a graph to optimizer. For smaller graphs,\n optimization is skipped.\n 0 means the system picks an appropriate number.\n \u003c 0 means do not skip optimization."
+          },
+          "experimentalDisableCompressedTensorOptimization": {
+            "type": "boolean",
+            "title": "experimental_disable_compressed_tensor_optimization",
+            "additionalProperties": false,
+            "description": "Disable optimizations that assume compressed tensors. Note that this flag\n is experimental and may be removed in the future."
+          },
+          "experimentalDisableFoldingQuantizationEmulation": {
+            "type": "boolean",
+            "title": "experimental_disable_folding_quantization_emulation",
+            "additionalProperties": false,
+            "description": "Disable folding quantization emulation ops such as FakeQuantWithMinMax* and\n QuantizeAndDequantize*. Some compilers (e.g. the TF-to-tflite converter)\n have to extract quantization configs (e.g. min/max range, number of bits,\n and per-channel) from the quantization emulation ops. Note that this flag\n is experimental and may be removed in the future. See b/174138564 for more\n details."
+          },
+          "memoryOptimization": {
+            "$ref": "#/components/schemas/tensorflow.RewriterConfig.MemOptType"
+          },
+          "memoryOptimizerTargetNodeNameScope": {
+            "type": "string",
+            "title": "memory_optimizer_target_node_name_scope",
+            "additionalProperties": false,
+            "description": "A node name scope for node names which are valid outputs of recomputations.\n Inputs to nodes that match this scope may be recomputed (subject either to\n manual annotation of those input nodes or to manual annotation and\n heuristics depending on memory_optimization), but the nodes themselves will\n not be recomputed. This matches any sub-scopes as well, meaning the scope\n can appear not just as a top-level scope. For example, if the value is\n \"gradients/\", the default, it will match node name \"gradients/foo\",\n \"foo/gradients/bar\", but not \"foo_gradients/\""
+          },
+          "metaOptimizerTimeoutMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "meta_optimizer_timeout_ms",
+            "additionalProperties": false,
+            "description": "Maximum number of milliseconds to spend optimizing a single graph before\n timing out. If less than or equal to 0 (default value) the optimizer will\n never time out."
+          },
+          "autoParallel": {
+            "$ref": "#/components/schemas/tensorflow.AutoParallelOptions"
+          },
+          "failOnOptimizerErrors": {
+            "type": "boolean",
+            "title": "fail_on_optimizer_errors",
+            "additionalProperties": false,
+            "description": "If true, any optimization pass failing will cause the MetaOptimizer to\n stop with an error. By default - or when set to false, failing passes are\n skipped silently."
+          },
+          "scopedAllocatorOpts": {
+            "$ref": "#/components/schemas/tensorflow.ScopedAllocatorOptions"
+          },
+          "optimizers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "optimizers",
+              "additionalProperties": false,
+              "description": "If non-empty, will use this as an alternative way to specify a list of\n optimizations to turn on and the order of the optimizations (replacing the\n meta-optimizer).\n\n Of the RewriterConfig options, only the AutoParallel configuration options\n (the auto_parallel field) apply to manually requested optimization passes\n (\"autoparallel\"). Memory optimization passes (\"memory\") invoked here are\n not configurable (in contrast to memory optimization passes through the\n meta-optimizer) and act only on manual op annotations.\n\n Custom optimizers (see custom_optimizers) that are not part of this\n schedule will be run after - in the order that they were specified."
+            }
+          },
+          "customOptimizers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.RewriterConfig.CustomGraphOptimizer"
+            }
+          },
+          "interOptimizerVerifierConfig": {
+            "$ref": "#/components/schemas/tensorflow.VerifierConfig"
+          },
+          "postOptimizationVerifierConfig": {
+            "$ref": "#/components/schemas/tensorflow.VerifierConfig"
+          }
+        },
+        "title": "RewriterConfig",
+        "additionalProperties": false,
+        "description": "Graph rewriting is experimental and subject to change, not covered by any\n API stability guarantees."
+      },
+      "tensorflow.RewriterConfig.CustomGraphOptimizer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false
+          },
+          "parameterMap": {
+            "type": "object",
+            "title": "parameter_map",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/tensorflow.AttrValue"
+            }
+          }
+        },
+        "title": "CustomGraphOptimizer",
+        "additionalProperties": false,
+        "description": "Message to describe custom graph optimizer and its parameters"
+      },
+      "tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "$ref": "#/components/schemas/tensorflow.AttrValue"
+          }
+        },
+        "title": "ParameterMapEntry",
+        "additionalProperties": false
+      },
+      "tensorflow.RunCallableRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          },
+          "handle": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
+          },
+          "feed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorProto"
+            }
+          },
+          "requestId": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "request_id",
+            "additionalProperties": false,
+            "description": "Unique identifier for this request. Every RunCallableRequest must\n have a unique request_id, and retried RunCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+          }
+        },
+        "title": "RunCallableRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.RunCallableResponse": {
+        "type": "object",
+        "properties": {
+          "fetch": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorProto"
+            }
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/tensorflow.RunMetadata"
+          }
+        },
+        "title": "RunCallableResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.RunMetadata": {
+        "type": "object",
+        "properties": {
+          "stepStats": {
+            "$ref": "#/components/schemas/tensorflow.StepStats"
+          },
+          "costGraph": {
+            "$ref": "#/components/schemas/tensorflow.CostGraphDef"
+          },
+          "partitionGraphs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.GraphDef"
+            }
+          },
+          "functionGraphs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.RunMetadata.FunctionGraphs"
+            }
+          },
+          "sessionMetadata": {
+            "$ref": "#/components/schemas/tensorflow.SessionMetadata"
+          }
+        },
+        "title": "RunMetadata",
+        "additionalProperties": false,
+        "description": "Metadata output (i.e., non-Tensor) for a single Run() call."
+      },
+      "tensorflow.RunMetadata.FunctionGraphs": {
+        "type": "object",
+        "properties": {
+          "partitionGraphs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.GraphDef"
+            }
+          },
+          "preOptimizationGraph": {
+            "$ref": "#/components/schemas/tensorflow.GraphDef"
+          },
+          "postOptimizationGraph": {
+            "$ref": "#/components/schemas/tensorflow.GraphDef"
+          }
+        },
+        "title": "FunctionGraphs",
+        "additionalProperties": false
+      },
+      "tensorflow.RunOptions": {
+        "type": "object",
+        "properties": {
+          "traceLevel": {
+            "$ref": "#/components/schemas/tensorflow.RunOptions.TraceLevel"
+          },
+          "timeoutInMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "timeout_in_ms",
+            "additionalProperties": false,
+            "description": "Time to wait for operation to complete in milliseconds."
+          },
+          "interOpThreadPool": {
+            "type": "integer",
+            "title": "inter_op_thread_pool",
+            "additionalProperties": false,
+            "description": "The thread pool to use, if session_inter_op_thread_pool is configured.\n To use the caller thread set this to -1 - this uses the caller thread\n to execute Session::Run() and thus avoids a context switch. Using the\n caller thread to execute Session::Run() should be done ONLY for simple\n graphs, where the overhead of an additional context switch is\n comparable with the overhead of Session::Run()."
+          },
+          "outputPartitionGraphs": {
+            "type": "boolean",
+            "title": "output_partition_graphs",
+            "additionalProperties": false,
+            "description": "Whether the partition graph(s) executed by the executor(s) should be\n outputted via RunMetadata."
+          },
+          "debugOptions": {
+            "$ref": "#/components/schemas/tensorflow.DebugOptions"
+          },
+          "reportTensorAllocationsUponOom": {
+            "type": "boolean",
+            "title": "report_tensor_allocations_upon_oom",
+            "additionalProperties": false,
+            "description": "When enabled, causes tensor allocation information to be included in\n the error message when the Run() call fails because the allocator ran\n out of memory (OOM).\n\n Enabling this option can slow down the Run() call."
+          },
+          "experimental": {
+            "$ref": "#/components/schemas/tensorflow.RunOptions.Experimental"
+          }
+        },
+        "title": "RunOptions",
+        "additionalProperties": false,
+        "description": "Options for a single Run() call."
+      },
+      "tensorflow.RunOptions.Experimental": {
+        "type": "object",
+        "properties": {
+          "collectiveGraphKey": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "collective_graph_key",
+            "additionalProperties": false,
+            "description": "If non-zero, declares that this graph is going to use collective\n ops and must synchronize step_ids with any other graph with this\n same group_key value (in a distributed computation where tasks\n run disjoint graphs)."
+          },
+          "useRunHandlerPool": {
+            "type": "boolean",
+            "title": "use_run_handler_pool",
+            "additionalProperties": false,
+            "description": "If true, then operations (using the inter-op pool) across all\n session::run() calls will be centrally scheduled, optimizing for (median\n and tail) latency.\n Consider using this option for CPU-bound workloads like inference."
+          },
+          "runHandlerPoolOptions": {
+            "$ref": "#/components/schemas/tensorflow.RunOptions.Experimental.RunHandlerPoolOptions"
+          }
+        },
+        "title": "Experimental",
+        "additionalProperties": false,
+        "description": "Everything inside Experimental is subject to change and is not subject\n to API stability guarantees in\n https://www.tensorflow.org/guide/version_compat."
+      },
+      "tensorflow.RunOptions.Experimental.RunHandlerPoolOptions": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "priority",
+            "additionalProperties": false,
+            "description": "Priority of the request. The run handler thread pool will schedule ops\n based on the priority number. The larger number means higher priority."
+          }
+        },
+        "title": "RunHandlerPoolOptions",
+        "additionalProperties": false,
+        "description": "Options for run handler thread pool."
+      },
+      "tensorflow.RunStepRequest": {
+        "type": "object",
+        "properties": {
+          "sessionHandle": {
+            "type": "string",
+            "title": "session_handle",
+            "additionalProperties": false,
+            "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
+          },
+          "feed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NamedTensorProto"
+            }
+          },
+          "fetch": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "fetch",
+              "additionalProperties": false,
+              "description": "Fetches. A list of tensor names. The caller expects a tensor to\n be returned for each fetch[i] (see RunStepResponse.tensor). The\n order of specified fetches does not change the execution order."
+            }
+          },
+          "target": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "target",
+              "additionalProperties": false,
+              "description": "Target Nodes. A list of node names. The named nodes will be run\n to but their outputs will not be fetched."
+            }
+          },
+          "options": {
+            "$ref": "#/components/schemas/tensorflow.RunOptions"
+          },
+          "partialRunHandle": {
+            "type": "string",
+            "title": "partial_run_handle",
+            "additionalProperties": false,
+            "description": "Partial run handle (optional). If specified, this will be a partial run\n execution, run up to the specified fetches."
+          },
+          "storeErrorsInResponseBody": {
+            "type": "boolean",
+            "title": "store_errors_in_response_body",
+            "additionalProperties": false,
+            "description": "If true then some errors, e.g., execution errors that have long\n error messages, may return an OK RunStepResponse with the actual\n error saved in the status_code/status_error_message fields of the\n response body. This is a workaround since the RPC subsystem may\n truncate long metadata messages."
+          },
+          "requestId": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "request_id",
+            "additionalProperties": false,
+            "description": "Unique identifier for this request. Every RunStepRequest must\n have a unique request_id, and retried RunStepRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+          }
+        },
+        "title": "RunStepRequest",
+        "additionalProperties": false
+      },
+      "tensorflow.RunStepResponse": {
+        "type": "object",
+        "properties": {
+          "tensor": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.NamedTensorProto"
+            }
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/tensorflow.RunMetadata"
+          },
+          "statusCode": {
+            "$ref": "#/components/schemas/tensorflow.error.Code"
+          },
+          "statusErrorMessage": {
+            "type": "string",
+            "title": "status_error_message",
+            "additionalProperties": false
+          }
+        },
+        "title": "RunStepResponse",
+        "additionalProperties": false
+      },
+      "tensorflow.ScopedAllocatorOptions": {
+        "type": "object",
+        "properties": {
+          "enableOp": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "enable_op",
+              "additionalProperties": false,
+              "description": "If present, only perform optimization for these ops."
+            }
+          }
+        },
+        "title": "ScopedAllocatorOptions",
+        "additionalProperties": false
+      },
+      "tensorflow.SessionMetadata": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false
+          },
+          "version": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "version",
+            "additionalProperties": false,
+            "description": "The version is optional. If set, needs to be \u003e= 0."
+          }
+        },
+        "title": "SessionMetadata",
+        "additionalProperties": false,
+        "description": "Metadata about the session.\n\n This can be used by the runtime and the Ops for debugging, monitoring, etc.\n\n The (name, version) tuple is expected to be a unique identifier for\n sessions within the same process.\n\n NOTE: This is currently used and propagated only by the direct session."
+      },
+      "tensorflow.StepStats": {
+        "type": "object",
+        "properties": {
+          "devStats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.DeviceStepStats"
+            }
+          }
+        },
+        "title": "StepStats",
+        "additionalProperties": false
+      },
+      "tensorflow.TensorConnection": {
+        "type": "object",
+        "properties": {
+          "fromTensor": {
+            "type": "string",
+            "title": "from_tensor",
+            "additionalProperties": false,
+            "description": "A tensor name. The value of this tensor will be substituted for\n the tensor named in `to_tensor`."
+          },
+          "toTensor": {
+            "type": "string",
+            "title": "to_tensor",
+            "additionalProperties": false,
+            "description": "A tensor name. The value of this tensor will be bound to the\n value of the tensor named in `from_tensor`."
+          }
+        },
+        "title": "TensorConnection",
+        "additionalProperties": false,
+        "description": "Defines a connection between two tensors in a `GraphDef`."
+      },
+      "tensorflow.TensorDescription": {
+        "type": "object",
+        "properties": {
+          "dtype": {
+            "$ref": "#/components/schemas/tensorflow.DataType"
+          },
+          "shape": {
+            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+          },
+          "allocationDescription": {
+            "$ref": "#/components/schemas/tensorflow.AllocationDescription"
+          }
+        },
+        "title": "TensorDescription",
+        "additionalProperties": false
+      },
+      "tensorflow.TensorProto": {
+        "type": "object",
+        "properties": {
+          "dtype": {
+            "$ref": "#/components/schemas/tensorflow.DataType"
+          },
+          "tensorShape": {
+            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+          },
+          "versionNumber": {
+            "type": "integer",
+            "title": "version_number",
+            "additionalProperties": false,
+            "description": "Version number.\n\n In version 0, if the \"repeated xxx\" representations contain only one\n element, that element is repeated to fill the shape.  This makes it easy\n to represent a constant Tensor with a single value."
+          },
+          "tensorContent": {
+            "type": "string",
+            "title": "tensor_content",
+            "format": "byte",
+            "additionalProperties": false,
+            "description": "Serialized raw tensor content from either Tensor::AsProtoTensorContent or\n memcpy in tensorflow::grpc::EncodeTensorToByteBuffer. This representation\n can be used for all tensor types. The purpose of this representation is to\n reduce serialization overhead during RPC call by avoiding serialization of\n many repeated small items."
+          },
+          "halfVal": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "half_val",
+              "additionalProperties": false,
+              "description": "DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll\n have some pointless zero padding for each value here."
+            }
+          },
+          "floatVal": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "title": "float_val",
+              "additionalProperties": false,
+              "description": "DT_FLOAT."
+            }
+          },
+          "doubleVal": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "double_val",
+              "additionalProperties": false,
+              "description": "DT_DOUBLE."
+            }
+          },
+          "intVal": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "int_val",
+              "additionalProperties": false,
+              "description": "DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8."
+            }
+          },
+          "stringVal": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "string_val",
+              "format": "byte",
+              "additionalProperties": false,
+              "description": "DT_STRING"
+            }
+          },
+          "scomplexVal": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "title": "scomplex_val",
+              "additionalProperties": false,
+              "description": "DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real\n and imaginary parts of i-th single precision complex."
+            }
+          },
+          "int64Val": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "int64_val",
+              "additionalProperties": false,
+              "description": "DT_INT64"
+            }
+          },
+          "boolVal": {
+            "type": "array",
+            "items": {
+              "type": "boolean",
+              "title": "bool_val",
+              "additionalProperties": false,
+              "description": "DT_BOOL"
+            }
+          },
+          "dcomplexVal": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "dcomplex_val",
+              "additionalProperties": false,
+              "description": "DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real\n and imaginary parts of i-th double precision complex."
+            }
+          },
+          "resourceHandleVal": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.ResourceHandleProto"
+            }
+          },
+          "variantVal": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.VariantTensorDataProto"
+            }
+          },
+          "uint32Val": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "uint32_val",
+              "additionalProperties": false,
+              "description": "DT_UINT32"
+            }
+          },
+          "uint64Val": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "uint64_val",
+              "additionalProperties": false,
+              "description": "DT_UINT64"
+            }
+          },
+          "float8Val": {
+            "type": "string",
+            "title": "float8_val",
+            "format": "byte",
+            "additionalProperties": false,
+            "description": "DT_FLOAT8_*, use variable-sized set of bytes\n (i.e. the equivalent of repeated uint8, if such a thing existed)."
+          }
+        },
+        "title": "TensorProto",
+        "additionalProperties": false,
+        "description": "Protocol buffer representing a tensor."
+      },
+      "tensorflow.TensorShapeProto": {
+        "type": "object",
+        "properties": {
+          "dim": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorShapeProto.Dim"
+            }
+          },
+          "unknownRank": {
+            "type": "boolean",
+            "title": "unknown_rank",
+            "additionalProperties": false,
+            "description": "If true, the number of dimensions in the shape is unknown.\n\n If true, \"dim.size()\" must be 0."
+          }
+        },
+        "title": "TensorShapeProto",
+        "additionalProperties": false,
+        "description": "Dimensions of a tensor."
+      },
+      "tensorflow.TensorShapeProto.Dim": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "size",
+            "additionalProperties": false,
+            "description": "Size of the tensor in that dimension.\n This value must be \u003e= -1, but values of -1 are reserved for \"unknown\"\n shapes (values of -1 mean \"unknown\" dimension).  Certain wrappers\n that work with TensorShapeProto may fail at runtime when deserializing\n a TensorShapeProto containing a dim value of -1."
+          },
+          "name": {
+            "type": "string",
+            "title": "name",
+            "additionalProperties": false,
+            "description": "Optional name of the tensor dimension."
+          }
+        },
+        "title": "Dim",
+        "additionalProperties": false,
+        "description": "One dimension of the tensor."
+      },
+      "tensorflow.ThreadPoolOptionProto": {
+        "type": "object",
+        "properties": {
+          "numThreads": {
+            "type": "integer",
+            "title": "num_threads",
+            "additionalProperties": false,
+            "description": "The number of threads in the pool.\n\n 0 means the system picks a value based on where this option proto is used\n (see the declaration of the specific field for more info)."
+          },
+          "globalName": {
+            "type": "string",
+            "title": "global_name",
+            "additionalProperties": false,
+            "description": "The global name of the threadpool.\n\n If empty, then the threadpool is made and used according to the scope it's\n in - e.g., for a session threadpool, it is used by that session only.\n\n If non-empty, then:\n - a global threadpool associated with this name is looked\n   up or created. This allows, for example, sharing one threadpool across\n   many sessions (e.g., like the default behavior, if\n   inter_op_parallelism_threads is not configured), but still partitioning\n   into a large and small pool.\n - if the threadpool for this global_name already exists, then it is an\n   error if the existing pool was created using a different num_threads\n   value as is specified on this call.\n - threadpools created this way are never garbage collected."
+          }
+        },
+        "title": "ThreadPoolOptionProto",
+        "additionalProperties": false
+      },
+      "tensorflow.VariantTensorDataProto": {
+        "type": "object",
+        "properties": {
+          "typeName": {
+            "type": "string",
+            "title": "type_name",
+            "additionalProperties": false,
+            "description": "Name of the type of objects being serialized."
+          },
+          "metadata": {
+            "type": "string",
+            "title": "metadata",
+            "format": "byte",
+            "additionalProperties": false,
+            "description": "Portions of the object that are not Tensors."
+          },
+          "tensors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.TensorProto"
+            }
+          }
+        },
+        "title": "VariantTensorDataProto",
+        "additionalProperties": false,
+        "description": "Protocol buffer representing the serialization format of DT_VARIANT tensors."
+      },
+      "tensorflow.VerifierConfig": {
+        "type": "object",
+        "properties": {
+          "verificationTimeoutInMs": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "verification_timeout_in_ms",
+            "additionalProperties": false,
+            "description": "Deadline for completion of all verification i.e. all the Toggle ON\n verifiers must complete execution within this time."
+          },
+          "structureVerifier": {
+            "$ref": "#/components/schemas/tensorflow.VerifierConfig.Toggle"
+          }
+        },
+        "title": "VerifierConfig",
+        "additionalProperties": false,
+        "description": "The config for graph verifiers."
+      },
+      "tensorflow.VersionDef": {
+        "type": "object",
+        "properties": {
+          "producer": {
+            "type": "integer",
+            "title": "producer",
+            "additionalProperties": false,
+            "description": "The version of the code that produced this data."
+          },
+          "minConsumer": {
+            "type": "integer",
+            "title": "min_consumer",
+            "additionalProperties": false,
+            "description": "Any consumer below this version is not allowed to consume this data."
+          },
+          "badConsumers": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "bad_consumers",
+              "additionalProperties": false,
+              "description": "Specific consumer versions which are disallowed (e.g. due to bugs)."
+            }
+          }
+        },
+        "title": "VersionDef",
+        "additionalProperties": false,
+        "description": "Version information for a piece of serialized data\n\n There are different types of versions for each type of data\n (GraphDef, etc.), but they all have the same common shape\n described here.\n\n Each consumer has \"consumer\" and \"min_producer\" versions (specified\n elsewhere).  A consumer is allowed to consume this data if\n\n   producer \u003e= min_producer\n   consumer \u003e= min_consumer\n   consumer not in bad_consumers"
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "detail": {
+            "$ref": "#/components/schemas/google.protobuf.Any"
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      }
+    },
+    "responses": {
+      "compression": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/connect.error"
+            }
+          },
+          "application/proto": {
+            "schema": {
+              "$ref": "#/components/schemas/connect.error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "tensorflowtest.MasterService"
+    }
+  ],
+  "externalDocs": {}
+}

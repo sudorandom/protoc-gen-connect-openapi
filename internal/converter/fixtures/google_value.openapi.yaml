@@ -1,95 +1,40 @@
 openapi: 3.1.0
 info:
-  description: ""
   title: samples
-  version: ""
 paths: {}
 components:
-  responses:
-    connect.error:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-        application/proto:
-          schema:
-            $ref: '#/components/schemas/connect.error'
-      description: ""
   schemas:
-    connect.error:
-      additionalProperties: false
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-      properties:
-        code:
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-          enum:
-          - CodeCanceled
-          - CodeUnknown
-          - CodeInvalidArgument
-          - CodeDeadlineExceeded
-          - CodeNotFound
-          - CodeAlreadyExists
-          - CodePermissionDenied
-          - CodeResourceExhausted
-          - CodeFailedPrecondition
-          - CodeAborted
-          - CodeOutOfRange
-          - CodeInternal
-          - CodeUnavailable
-          - CodeDataLoss
-          - CodeUnauthenticated
-          examples:
-          - CodeNotFound
-          type: string
-        detail:
-          items:
-            $ref: '#/components/schemas/google.protobuf.Any'
-          type: array
-        message:
-          description: A developer-facing error message, which should be in English.
-            Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details]
-            field, or localized by the client.
-          type: string
-      title: Connect Error
-      type: object
-    google.protobuf.Any:
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that
-        describes the type of the serialized message.
-      id: google.protobuf.Any
-      properties:
-        '@type':
-          description: The type of the serialized message.
-          type: string
-      type: object
-    google.protobuf.ListValue:
-      additionalProperties: false
-      description: |-
-        `ListValue` is a wrapper around a repeated field of values.
-
-         The JSON representation for `ListValue` is JSON array.
-      properties:
-        values:
-          additionalProperties: false
-          description: Repeated field of dynamically typed values.
-          items:
-            $ref: '#/components/schemas/google.protobuf.Value'
-            type: object
-          title: values
-          type: array
-      title: ListValue
-      type: object
     google.protobuf.NullValue:
+      type: string
+      title: NullValue
       description: |-
         `NullValue` is a singleton enumeration to represent the null value for the
          `Value` type union.
 
          The JSON representation for `NullValue` is JSON `null`.
-      enum:
-      - - NULL_VALUE
-      title: NullValue
-      type: string
+    google.protobuf.ListValue:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Value'
+      title: ListValue
+      additionalProperties: false
+      description: |-
+        `ListValue` is a wrapper around a repeated field of values.
+
+         The JSON representation for `ListValue` is JSON array.
     google.protobuf.Struct:
+      type: object
+      properties:
+        fields:
+          type: object
+          title: fields
+          additionalProperties:
+            $ref: '#/components/schemas/google.protobuf.Value'
+          description: Unordered map of dynamically typed values.
+      title: Struct
       additionalProperties: false
       description: |-
         `Struct` represents a structured data value, consisting of fields
@@ -100,33 +45,26 @@ components:
          with the proto support for the language.
 
          The JSON representation for `Struct` is JSON object.
-      properties:
-        fields:
-          additionalProperties: false
-          description: Unordered map of dynamically typed values.
-          title: fields
-          type: object
-      title: Struct
-      type: object
     google.protobuf.Struct.FieldsEntry:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         key:
-          additionalProperties: false
-          description: ""
-          title: key
           type: string
+          title: key
+          additionalProperties: false
         value:
           $ref: '#/components/schemas/google.protobuf.Value'
-          additionalProperties: false
-          description: ""
-          title: value
-          type: object
       title: FieldsEntry
-      type: object
-    google.protobuf.Value:
       additionalProperties: false
+    google.protobuf.Value:
+      oneOf:
+        - type: "null"
+        - type: number
+        - type: string
+        - type: boolean
+        - type: array
+        - type: object
+          additionalProperties: false
       description: |-
         `Value` represents a dynamically typed value which can be either
          null, a number, a string, a boolean, a recursive struct value, or a
@@ -134,35 +72,47 @@ components:
          variants. Absence of any variant indicates an error.
 
          The JSON representation for `Value` is JSON value.
-      oneOf:
-      - type: "null"
-      - type: number
-      - type: string
-      - type: boolean
-      - type: array
-      - additionalProperties: true
-        type: object
     samples.GoogleValue:
-      additionalProperties: false
-      description: ""
+      type: object
       properties:
         arg:
           $ref: '#/components/schemas/google.protobuf.Value'
-          additionalProperties: false
-          description: ""
-          title: arg
-          type: object
         someList:
           $ref: '#/components/schemas/google.protobuf.ListValue'
-          additionalProperties: false
-          description: ""
-          title: some_list
-          type: object
         someStruct:
           $ref: '#/components/schemas/google.protobuf.Struct'
-          additionalProperties: false
-          description: ""
-          title: some_struct
-          type: object
       title: GoogleValue
+      additionalProperties: false
+    connect.error:
       type: object
+      properties:
+        code:
+          type: string
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  responses:
+    compression:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect.error'
+security: []
+externalDocs: {}

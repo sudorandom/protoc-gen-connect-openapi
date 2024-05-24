@@ -1,16 +1,22 @@
 package util
 
 import (
-	"github.com/swaggest/jsonschema-go"
+	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *jsonschema.Schema{
+var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSchema{
 	"google.protobuf.Duration":  googleDuration,
 	"google.protobuf.Timestamp": googleTimestamp,
 	"google.protobuf.Value":     googleValue,
 	"google.protobuf.Empty":     googleEmpty,
-	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *jsonschema.Schema { return NewGoogleAny() },
+	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *IDSchema { return NewGoogleAny() },
+}
+
+type IDSchema struct {
+	ID     string
+	Schema *base.Schema
 }
 
 func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
@@ -18,7 +24,7 @@ func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
 	return ok
 }
 
-func wellKnownToSchema(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
+func wellKnownToSchema(msg protoreflect.MessageDescriptor) *IDSchema {
 	fn, ok := wellKnownToSchemaFns[string(msg.FullName())]
 	if !ok {
 		return nil
@@ -26,58 +32,69 @@ func wellKnownToSchema(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	return fn(msg)
 }
 
-func googleDuration(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	s := &jsonschema.Schema{}
-	s.WithID(string(msg.FullName()))
-	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
-	s.WithType(jsonschema.String.Type())
-	s.WithFormat("regex")
-	s.WithPattern(`^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`)
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
-}
-
-func googleTimestamp(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	s := &jsonschema.Schema{}
-	s.WithID(string(msg.FullName()))
-	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
-	s.WithType(jsonschema.String.Type())
-	s.WithFormat("date-time")
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
-}
-
-func googleValue(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	s := &jsonschema.Schema{}
-	s.WithID(string(msg.FullName()))
-	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
-	s.OneOf = []jsonschema.SchemaOrBool{
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Null.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Number.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.String.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Boolean.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Array.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Object.Type()).WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(true)})},
+func googleDuration(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description:          FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:                 []string{"string"},
+			Format:               "regex",
+			Pattern:              `^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`,
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+		},
 	}
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
 }
 
-func googleEmpty(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
+func googleTimestamp(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description:          FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:                 []string{"string"},
+			Format:               "date-time",
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+		},
+	}
+}
+
+func googleValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			OneOf: []*base.SchemaProxy{
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"boolean"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"array"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"object"}, AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false}}),
+			},
+		},
+	}
+}
+
+func googleEmpty(msg protoreflect.MessageDescriptor) *IDSchema {
 	return nil
 }
 
-func NewGoogleAny() *jsonschema.Schema {
-	typeS := &jsonschema.Schema{}
-	typeS.WithType(jsonschema.String.Type())
-	typeS.WithDescription("The type of the serialized message.")
-	s := &jsonschema.Schema{}
-	s.WithID("google.protobuf.Any")
-	s.WithDescription("Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.")
-	s.WithType(jsonschema.Object.Type())
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(true)})
-	s.WithProperties(map[string]jsonschema.SchemaOrBool{"@type": {TypeObject: typeS}})
-	return s
+func NewGoogleAny() *IDSchema {
+	typeS := &base.Schema{
+		Type:                 []string{"string"},
+		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+	}
+	props := orderedmap.New[string, *base.SchemaProxy]()
+	props.Set("@type", base.CreateSchemaProxy(typeS))
+
+	return &IDSchema{
+		ID: "google.protobuf.Any",
+		Schema: &base.Schema{
+			Description:          "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.",
+			Type:                 []string{"object"},
+			Properties:           props,
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+		},
+	}
 }
 
 func IsEmpty(msg protoreflect.MessageDescriptor) bool {

@@ -2,12 +2,13 @@ package gnostic
 
 import (
 	goa3 "github.com/google/gnostic/openapiv3"
-	"github.com/swaggest/openapi-go/openapi31"
+	highbase "github.com/pb33f/libopenapi/datamodel/high/base"
+	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func SpecWithFileAnnotations(spec *openapi31.Spec, fd protoreflect.FileDescriptor) *openapi31.Spec {
+func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescriptor) *highv3.Document {
 	if !proto.HasExtension(fd.Options(), goa3.E_Document.TypeDescriptor().Type()) {
 		return spec
 	}
@@ -18,34 +19,32 @@ func SpecWithFileAnnotations(spec *openapi31.Spec, fd protoreflect.FileDescripto
 		return spec
 	}
 	if opts.Openapi != "" {
-		spec.Openapi = opts.Openapi
+		spec.Info.Version = opts.Openapi
 	}
 
 	if opts.Info != nil {
 		spec.Info.Title = opts.Info.Title
-		spec.Info.Summary = &opts.Info.Summary
-		spec.Info.Description = &opts.Info.Description
-		spec.Info.TermsOfService = &opts.Info.TermsOfService
+		spec.Info.Summary = opts.Info.Summary
+		spec.Info.Description = opts.Info.Description
+		spec.Info.TermsOfService = opts.Info.TermsOfService
 		if opts.Info.Contact != nil {
-			spec.Info.Contact = &openapi31.Contact{
-				Name:  &opts.Info.Contact.Name,
-				URL:   &opts.Info.Contact.Url,
-				Email: &opts.Info.Contact.Email,
+			spec.Info.Contact = &highbase.Contact{
+				Name:  opts.Info.Contact.Name,
+				URL:   opts.Info.Contact.Url,
+				Email: opts.Info.Contact.Email,
 			}
 		}
 		if opts.Info.License != nil {
-			spec.Info.License = &openapi31.License{
+			spec.Info.License = &highbase.License{
 				Name: opts.Info.License.Name,
-				URL:  &opts.Info.License.Url,
+				URL:  opts.Info.License.Url,
 			}
 		}
 		spec.Info.Version = opts.Info.Version
 	}
 	spec.Servers = append(spec.Servers, toServers(opts.Servers)...)
 	spec.Security = append(spec.Security, toSecurityRequirements(opts.Security)...)
-	for k, v := range toSecuritySchemes(opts.Components) {
-		spec.Components.SecuritySchemes[k] = v
-	}
+	spec.Components.SecuritySchemes = toSecuritySchemes(opts.Components)
 	spec.Tags = append(spec.Tags, toTags(opts.Tags)...)
 	if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
 		spec.ExternalDocs = exDocs
