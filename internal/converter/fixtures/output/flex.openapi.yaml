@@ -95,12 +95,23 @@ paths:
       tags:
         - flex.FlexService
       description: Don't send or receive anything
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/google.protobuf.Empty'
+        required: true
       responses:
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
     flex.ComplexType:

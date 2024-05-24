@@ -65,6 +65,15 @@
                 }
               }
             }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
           }
         }
       }
@@ -90,6 +99,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
                 }
               }
             }

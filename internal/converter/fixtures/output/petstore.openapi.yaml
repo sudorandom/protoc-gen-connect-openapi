@@ -44,6 +44,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
     delete:
       tags:
         - io.swagger.petstore.v2.PetService
@@ -62,6 +67,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
   /pet/{pet_id}/uploadImage:
     post:
       tags:

@@ -46,12 +46,31 @@
         "tags": [
           "samples.Test"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/google.protobuf.Empty"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "default": {
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
                 }
               }
             }
