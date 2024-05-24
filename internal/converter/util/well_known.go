@@ -9,9 +9,21 @@ import (
 var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSchema{
 	"google.protobuf.Duration":  googleDuration,
 	"google.protobuf.Timestamp": googleTimestamp,
-	"google.protobuf.Value":     googleValue,
 	"google.protobuf.Empty":     googleEmpty,
 	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *IDSchema { return NewGoogleAny() },
+
+	// XValue
+	"google.protobuf.Value":       googleValue,
+	"google.protobuf.NullValue":   googleNullValue,
+	"google.protobuf.StringValue": googleStringValue,
+	"google.protobuf.BytesValue":  googleBytesValue,
+	"google.protobuf.BoolValue":   googleBoolValue,
+	"google.protobuf.DoubleValue": google64BitNumberValue,
+	"google.protobuf.Int64Value":  google64BitNumberValue,
+	"google.protobuf.Uint64Value": google64BitNumberValue,
+	"google.protobuf.FloatValue":  google64BitNumberValue,
+	"google.protobuf.Int32Value":  google32BitNumberValue,
+	"google.protobuf.Uint32Value": google32BitNumberValue,
 }
 
 type IDSchema struct {
@@ -68,14 +80,87 @@ func googleValue(msg protoreflect.MessageDescriptor) *IDSchema {
 				base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 				base.CreateSchemaProxy(&base.Schema{Type: []string{"boolean"}}),
 				base.CreateSchemaProxy(&base.Schema{Type: []string{"array"}}),
-				base.CreateSchemaProxy(&base.Schema{Type: []string{"object"}, AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false}}),
+				base.CreateSchemaProxy(&base.Schema{
+					Type:                 []string{"object"},
+					AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+				}),
+			},
+		},
+	}
+}
+
+func googleNullValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"null"},
+		},
+	}
+}
+
+func googleStringValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"string"},
+		},
+	}
+}
+
+func googleBoolValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"boolean"},
+		},
+	}
+}
+
+func googleBytesValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"string"},
+			Format:      "binary",
+		},
+	}
+}
+
+func google32BitNumberValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"number"},
+		},
+	}
+}
+
+func google64BitNumberValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			OneOf: []*base.SchemaProxy{
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}}),
 			},
 		},
 	}
 }
 
 func googleEmpty(msg protoreflect.MessageDescriptor) *IDSchema {
-	return nil
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"object"},
+		},
+	}
 }
 
 func NewGoogleAny() *IDSchema {

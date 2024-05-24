@@ -154,5 +154,6 @@ type TestCase struct {
 }
 
 func makeOutputPath(protofile, format string) string {
-	return strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi." + format
+	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi." + format)
+	return filepath.Join(dir, "output", file)
 }

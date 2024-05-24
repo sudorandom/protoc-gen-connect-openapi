@@ -3,13 +3,84 @@
   "info": {
     "title": "samples"
   },
-  "paths": {},
+  "paths": {
+    "/samples.Test/HealthCheck": {
+      "post": {
+        "tags": [
+          "samples.Test"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/google.protobuf.StringValue"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Int64Value"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/samples.Test/Empty": {
+      "post": {
+        "tags": [
+          "samples.Test"
+        ],
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
       "google.protobuf.NullValue": {
         "type": "string",
         "title": "NullValue",
         "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
+      },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
+      },
+      "google.protobuf.Int64Value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string."
       },
       "google.protobuf.ListValue": {
         "type": "object",
@@ -24,6 +95,10 @@
         "title": "ListValue",
         "additionalProperties": false,
         "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array."
+      },
+      "google.protobuf.StringValue": {
+        "type": "string",
+        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string."
       },
       "google.protobuf.Struct": {
         "type": "object",
@@ -75,7 +150,7 @@
           },
           {
             "type": "object",
-            "additionalProperties": false
+            "additionalProperties": true
           }
         ],
         "description": "`Value` represents a dynamically typed value which can be either\n null, a number, a string, a boolean, a recursive struct value, or a\n list of values. A producer of value is expected to set one of these\n variants. Absence of any variant indicates an error.\n\n The JSON representation for `Value` is JSON value."
@@ -145,5 +220,10 @@
     }
   },
   "security": [],
+  "tags": [
+    {
+      "name": "samples.Test"
+    }
+  ],
   "externalDocs": {}
 }

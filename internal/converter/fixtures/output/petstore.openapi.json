@@ -328,6 +328,10 @@
         "title": "Status",
         "description": "These do not use standard naming practices in order to match\n the JSON format of the Pet Store Open API schema, which uses\n lower-case names for these constants."
       },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
+      },
       "io.swagger.petstore.v2.ApiResponse": {
         "type": "object",
         "properties": {

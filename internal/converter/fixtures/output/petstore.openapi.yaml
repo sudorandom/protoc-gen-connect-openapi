@@ -190,6 +190,16 @@ components:
         These do not use standard naming practices in order to match
          the JSON format of the Pet Store Open API schema, which uses
          lower-case names for these constants.
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
     io.swagger.petstore.v2.ApiResponse:
       type: object
       properties:
