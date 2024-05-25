@@ -139,7 +139,7 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateFloatNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -175,7 +175,7 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateFloatNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -211,7 +211,7 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -247,7 +247,7 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -283,7 +283,7 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -319,7 +319,7 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -355,7 +355,7 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -391,7 +391,7 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -427,7 +427,7 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -463,7 +463,7 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(strconv.FormatUint(item, 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -499,7 +499,7 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, OneOf: schema.OneOf, Enum: items})
 	}
 }
 
@@ -535,7 +535,7 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -582,7 +582,7 @@ func updateSchemaString(schema *base.Schema, constraint *validate.StringRules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(item)
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	switch v := constraint.WellKnown.(type) {
 	case *validate.StringRules_Email:
@@ -668,7 +668,7 @@ func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(string(item))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	switch v := constraint.WellKnown.(type) {
 	case *validate.BytesRules_Ip:
@@ -702,7 +702,7 @@ func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -755,7 +755,7 @@ func updateSchemaAny(schema *base.Schema, constraint *validate.AnyRules) {
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(item)
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
@@ -775,7 +775,7 @@ func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRule
 		for i, item := range constraint.NotIn {
 			items[i] = utils.CreateStringNode(item.String())
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 }
 
