@@ -300,7 +300,7 @@ components:
           title: float_const
           additionalProperties: false
           description: Floats
-          const: !!float 42
+          const: "42"
         floatIn:
           type: array
           items:
@@ -314,9 +314,9 @@ components:
             not:
               type: number
               enum:
-                - !!float 1
-                - !!float 2
-                - !!float 3
+                - "1"
+                - "2"
+                - "3"
             title: float_not_in
             additionalProperties: false
         floatFinite:
@@ -352,7 +352,7 @@ components:
           title: double_const
           additionalProperties: false
           description: Double
-          const: !!float 42
+          const: "42"
         doubleIn:
           type: array
           items:
@@ -361,9 +361,9 @@ components:
               - type: number
             title: double_in
             enum:
-              - !!float 1
-              - !!float 2
-              - !!float 3
+              - "1"
+              - "2"
+              - "3"
             additionalProperties: false
         doubleNotIn:
           type: array
@@ -373,9 +373,9 @@ components:
               - type: number
             not:
               enum:
-                - !!float 1
-                - !!float 2
-                - !!float 3
+                - "1"
+                - "2"
+                - "3"
             title: double_not_in
             additionalProperties: false
         doubleFinite:

@@ -109,7 +109,7 @@ func updateWithCEL(schema *base.Schema, constraints []*validate.Constraint) {
 
 func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 	if constraint.Const != nil {
-		schema.Const = utils.CreateFloatNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32))
+		schema.Const = utils.CreateStringNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32))
 		switch tt := constraint.LessThan.(type) {
 		case *validate.FloatRules_Lt:
 			v := float64(tt.Lt)
@@ -129,7 +129,7 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 		if len(constraint.In) > 0 {
 			items := make([]*yaml.Node, len(constraint.In))
 			for i, item := range constraint.In {
-				items[i] = utils.CreateFloatNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
+				items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
 			}
 			schema.Enum = items
 		}
@@ -137,7 +137,7 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateFloatNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
+			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
@@ -145,7 +145,7 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 
 func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 	if constraint.Const != nil {
-		schema.Const = utils.CreateFloatNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64))
+		schema.Const = utils.CreateStringNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DoubleRules_Lt:
@@ -166,14 +166,14 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateFloatNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
+			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateFloatNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
+			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}

@@ -211,7 +211,7 @@
             "title": "float_const",
             "additionalProperties": false,
             "description": "Floats",
-            "const": 42
+            "const": "42"
           },
           "floatIn": {
             "type": "array",
@@ -228,9 +228,9 @@
               "not": {
                 "type": "number",
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "title": "float_not_in",
@@ -282,7 +282,7 @@
             "title": "double_const",
             "additionalProperties": false,
             "description": "Double",
-            "const": 42
+            "const": "42"
           },
           "doubleIn": {
             "type": "array",
@@ -297,9 +297,9 @@
               ],
               "title": "double_in",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ],
               "additionalProperties": false
             }
@@ -317,9 +317,9 @@
               ],
               "not": {
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "title": "double_not_in",
