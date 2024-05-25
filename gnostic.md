@@ -84,7 +84,7 @@ message HelloReply {
 | (gnostic.openapi.v3.document).info | ✅ | |
 | (gnostic.openapi.v3.document).servers | ✅ | |
 | (gnostic.openapi.v3.document).paths | ✅ | |
-| (gnostic.openapi.v3.document).components | ✅ | Only security_schemes |
+| (gnostic.openapi.v3.document).components | ✅ | |
 | (gnostic.openapi.v3.document).security | ✅ | |
 | (gnostic.openapi.v3.document).tags | ✅ | |
 | (gnostic.openapi.v3.document).external_docs | ✅ | |
