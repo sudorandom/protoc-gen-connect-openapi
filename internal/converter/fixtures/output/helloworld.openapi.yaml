@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: helloworld
+paths:
+  /helloworld.Greeter/SayHello:
+    get:
+      tags:
+        - helloworld.Greeter
+      description: Sends a greeting
+      parameters:
+        - name: message
+          in: query
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/helloworld.HelloRequest'
+            application/proto:
+              schema:
+                $ref: '#/components/schemas/helloworld.HelloRequest'
+        - schema:
+            $ref: '#/components/parameters/encoding'
+        - schema:
+            $ref: '#/components/parameters/base64'
+        - schema:
+            $ref: '#/components/parameters/compression'
+        - schema:
+            $ref: '#/components/parameters/connect'
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/helloworld.HelloReply'
+  /helloworld.Greeter/WriteHello:
+    post:
+      tags:
+        - helloworld.Greeter
+      description: Writes a greeting (has side effects)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/helloworld.HelloRequest'
+        required: true
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/helloworld.HelloReply'
+components:
+  schemas:
+    helloworld.HelloReply:
+      type: object
+      properties:
+        message:
+          type: string
+          title: message
+          additionalProperties: false
+      title: HelloReply
+      additionalProperties: false
+      description: The response message containing the greetings
+    helloworld.HelloRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+      title: HelloRequest
+      additionalProperties: false
+      description: The request message containing the user's name.
+    encoding:
+      title: encoding
+      enum:
+        - proto
+        - json
+      description: Define which encoding or 'Message-Codec' to use
+    base64:
+      type: boolean
+      title: base64
+      description: Specifies if the message query param is base64 encoded, which may be required for binary data
+    compression:
+      title: compression
+      enum:
+        - identity
+        - gzip
+        - br
+        - gzip
+      description: Which compression algorithm to use for this request
+    connect:
+      title: connect
+      enum:
+        - "1"
+      description: Which version of connect to use.
+    connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          examples:
+            - CodeNotFound
+          enum:
+            - CodeCanceled
+            - CodeUnknown
+            - CodeInvalidArgument
+            - CodeDeadlineExceeded
+            - CodeNotFound
+            - CodeAlreadyExists
+            - CodePermissionDenied
+            - CodeResourceExhausted
+            - CodeFailedPrecondition
+            - CodeAborted
+            - CodeOutOfRange
+            - CodeInternal
+            - CodeUnavailable
+            - CodeDataLoss
+            - CodeUnauthenticated
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  parameters:
+    encoding:
+      name: encoding
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/encoding'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/encoding'
+    base64:
+      name: base64
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/base64'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/base64'
+    compression:
+      name: compression
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/compression'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/compression'
+    connect:
+      name: connect
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect'
+security: []
+tags:
+  - name: helloworld.Greeter
+    description: The greeting service definition.
+externalDocs: {}
