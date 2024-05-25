@@ -74,7 +74,7 @@ components:
 |---|---|---|
 | (buf.validate.field).cel | ✅ | Appended to the 'description' field |
 | (buf.validate.field).any.in | ✅ | |
-| (buf.validate.field).any.not_in | ❌ | |
+| (buf.validate.field).any.not_in | ✅ | |
 | (buf.validate.field).bool.const | ✅ | |
 | (buf.validate.field).bytes.const | ✅ | |
 | (buf.validate.field).bytes.contains | | |
@@ -85,7 +85,7 @@ components:
 | (buf.validate.field).bytes.len | ✅ | |
 | (buf.validate.field).bytes.max_len | ✅ | |
 | (buf.validate.field).bytes.min_len | ✅ | |
-| (buf.validate.field).bytes.not_in | ❌ | |
+| (buf.validate.field).bytes.not_in | ✅ | |
 | (buf.validate.field).bytes.pattern | ✅ | |
 | (buf.validate.field).bytes.prefix | ❌ | |
 | (buf.validate.field).bytes.suffix | ❌ | |
@@ -129,8 +129,8 @@ components:
 | (buf.validate.field).int64.lt | ✅ | |
 | (buf.validate.field).int64.lte | ✅ | |
 | (buf.validate.field).map.keys | ❌ | |
-| (buf.validate.field).map.max_pairs | ❌ | |
-| (buf.validate.field).map.min_pairs | ❌ | |
+| (buf.validate.field).map.max_pairs | ✅ | |
+| (buf.validate.field).map.min_pairs | ✅ | |
 | (buf.validate.field).map.values | ✅ | |
 | (buf.validate.field).repeated.items | ✅ | |
 | (buf.validate.field).repeated.max_items | ✅ | |
@@ -179,7 +179,7 @@ components:
 | (buf.validate.field).string.min_bytes | ❌ | |
 | (buf.validate.field).string.min_len | ✅ | |
 | (buf.validate.field).string.not_contains | ❌ | |
-| (buf.validate.field).string.not_in | ❌ | |
+| (buf.validate.field).string.not_in | ✅ | |
 | (buf.validate.field).string.pattern | ✅ | |
 | (buf.validate.field).string.prefix | ❌ | |
 | (buf.validate.field).string.strict | ❌ | |

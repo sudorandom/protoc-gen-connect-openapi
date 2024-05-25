@@ -1,0 +1,1934 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "protovalidate"
+  },
+  "paths": {
+    "/protovalidate.MessageFields/OneOfRPC": {
+      "post": {
+        "tags": [
+          "protovalidate.MessageFields"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/protovalidate.OneOfMessage"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/protovalidate.DisabledMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/protovalidate.MessageFields/CELRPC": {
+      "post": {
+        "tags": [
+          "protovalidate.MessageFields"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/protovalidate.CELMessage"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/protovalidate.FieldsService/CELRPC": {
+      "post": {
+        "tags": [
+          "protovalidate.FieldsService"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/protovalidate.LotsOfValidationRules"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "protovalidate.MyEnum": {
+        "type": "string",
+        "title": "MyEnum",
+        "enum": [
+          "MY_ENUM_UNSPECIFIED",
+          "MY_ENUM_VALUE1",
+          "MY_ENUM_VALUE2"
+        ]
+      },
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "binary"
+          },
+          "debug": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      },
+      "google.protobuf.Duration": {
+        "type": "string",
+        "pattern": "^[-\\+]?([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+        "format": "regex",
+        "additionalProperties": false,
+        "description": "A Duration represents a signed, fixed-length span of time represented\n as a count of seconds and fractions of seconds at nanosecond\n resolution. It is independent of any calendar and concepts like \"day\"\n or \"month\". It is related to Timestamp in that the difference between\n two Timestamp values is a Duration and it can be added or subtracted\n from a Timestamp. Range is approximately +-10,000 years.\n\n # Examples\n\n Example 1: Compute Duration from two Timestamps in pseudo code.\n\n     Timestamp start = ...;\n     Timestamp end = ...;\n     Duration duration = ...;\n\n     duration.seconds = end.seconds - start.seconds;\n     duration.nanos = end.nanos - start.nanos;\n\n     if (duration.seconds \u003c 0 \u0026\u0026 duration.nanos \u003e 0) {\n       duration.seconds += 1;\n       duration.nanos -= 1000000000;\n     } else if (duration.seconds \u003e 0 \u0026\u0026 duration.nanos \u003c 0) {\n       duration.seconds -= 1;\n       duration.nanos += 1000000000;\n     }\n\n Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.\n\n     Timestamp start = ...;\n     Duration duration = ...;\n     Timestamp end = ...;\n\n     end.seconds = start.seconds + duration.seconds;\n     end.nanos = start.nanos + duration.nanos;\n\n     if (end.nanos \u003c 0) {\n       end.seconds -= 1;\n       end.nanos += 1000000000;\n     } else if (end.nanos \u003e= 1000000000) {\n       end.seconds += 1;\n       end.nanos -= 1000000000;\n     }\n\n Example 3: Compute Duration from datetime.timedelta in Python.\n\n     td = datetime.timedelta(days=3, minutes=10)\n     duration = Duration()\n     duration.FromTimedelta(td)\n\n # JSON Mapping\n\n In JSON format, the Duration type is encoded as a string rather than an\n object, where the string ends in the suffix \"s\" (indicating seconds) and\n is preceded by the number of seconds, with nanoseconds expressed as\n fractional seconds. For example, 3 seconds with 0 nanoseconds should be\n encoded in JSON format as \"3s\", while 3 seconds and 1 nanosecond should\n be expressed in JSON format as \"3.000000001s\", and 3 seconds and 1\n microsecond should be expressed in JSON format as \"3.000001s\"."
+      },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
+      },
+      "google.protobuf.Timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "additionalProperties": false,
+        "description": "A Timestamp represents a point in time independent of any time zone or local\n calendar, encoded as a count of seconds and fractions of seconds at\n nanosecond resolution. The count is relative to an epoch at UTC midnight on\n January 1, 1970, in the proleptic Gregorian calendar which extends the\n Gregorian calendar backwards to year one.\n\n All minutes are 60 seconds long. Leap seconds are \"smeared\" so that no leap\n second table is needed for interpretation, using a [24-hour linear\n smear](https://developers.google.com/time/smear).\n\n The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By\n restricting to that range, we ensure that we can convert to and from [RFC\n 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.\n\n # Examples\n\n Example 1: Compute Timestamp from POSIX `time()`.\n\n     Timestamp timestamp;\n     timestamp.set_seconds(time(NULL));\n     timestamp.set_nanos(0);\n\n Example 2: Compute Timestamp from POSIX `gettimeofday()`.\n\n     struct timeval tv;\n     gettimeofday(\u0026tv, NULL);\n\n     Timestamp timestamp;\n     timestamp.set_seconds(tv.tv_sec);\n     timestamp.set_nanos(tv.tv_usec * 1000);\n\n Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.\n\n     FILETIME ft;\n     GetSystemTimeAsFileTime(\u0026ft);\n     UINT64 ticks = (((UINT64)ft.dwHighDateTime) \u003c\u003c 32) | ft.dwLowDateTime;\n\n     // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z\n     // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.\n     Timestamp timestamp;\n     timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));\n     timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));\n\n Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.\n\n     long millis = System.currentTimeMillis();\n\n     Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)\n         .setNanos((int) ((millis % 1000) * 1000000)).build();\n\n Example 5: Compute Timestamp from Java `Instant.now()`.\n\n     Instant now = Instant.now();\n\n     Timestamp timestamp =\n         Timestamp.newBuilder().setSeconds(now.getEpochSecond())\n             .setNanos(now.getNano()).build();\n\n Example 6: Compute Timestamp from current time in Python.\n\n     timestamp = Timestamp()\n     timestamp.GetCurrentTime()\n\n # JSON Mapping\n\n In JSON format, the Timestamp type is encoded as a string in the\n [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the\n format is \"{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z\"\n where {year} is always expressed using four digits while {month}, {day},\n {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional\n seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),\n are optional. The \"Z\" suffix indicates the timezone (\"UTC\"); the timezone\n is required. A proto3 JSON serializer should always use UTC (as indicated by\n \"Z\") when printing the Timestamp type and a proto3 JSON parser should be\n able to accept both UTC and other timezones (as indicated by an offset).\n\n For example, \"2017-01-15T01:30:15.01Z\" encodes 15.01 seconds past\n 01:30 UTC on January 15, 2017.\n\n In JavaScript, one can convert a Date object to this format using the\n standard\n [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)\n method. In Python, a standard `datetime.datetime` object can be converted\n to this format using\n [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with\n the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use\n the Joda Time's [`ISODateTimeFormat.dateTime()`](\n http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()\n ) to obtain a formatter capable of generating timestamps in this format."
+      },
+      "protovalidate.CELMessage": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "string",
+            "title": "a",
+            "minLength": 1,
+            "additionalProperties": false
+          },
+          "b": {
+            "type": "string",
+            "title": "b",
+            "additionalProperties": false
+          }
+        },
+        "title": "CELMessage",
+        "additionalProperties": false
+      },
+      "protovalidate.DisabledMessage": {
+        "type": "object",
+        "title": "DisabledMessage",
+        "additionalProperties": false
+      },
+      "protovalidate.LotsOfValidationRules": {
+        "type": "object",
+        "properties": {
+          "celField": {
+            "type": "integer",
+            "title": "cel_field",
+            "additionalProperties": false,
+            "description": "value must be greater than 42:\n```\nthis \u003e 42\n```\n\n"
+          },
+          "skippedField": {
+            "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+          },
+          "requiredField": {
+            "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+          },
+          "uriField": {
+            "type": "string",
+            "title": "uri_field",
+            "format": "uri",
+            "additionalProperties": false
+          },
+          "floatConst": {
+            "type": "number",
+            "title": "float_const",
+            "additionalProperties": false,
+            "description": "Floats",
+            "const": "42"
+          },
+          "floatIn": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "title": "float_in",
+              "additionalProperties": false
+            }
+          },
+          "floatNotIn": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "not": {
+                "type": "number",
+                "enum": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              "title": "float_not_in",
+              "additionalProperties": false
+            }
+          },
+          "floatFinite": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "title": "float_finite",
+              "additionalProperties": false
+            }
+          },
+          "floatLt": {
+            "type": "number",
+            "title": "float_lt",
+            "additionalProperties": false
+          },
+          "floatLte": {
+            "type": "number",
+            "title": "float_lte",
+            "additionalProperties": false
+          },
+          "floatGt": {
+            "type": "number",
+            "title": "float_gt",
+            "additionalProperties": false
+          },
+          "floatGte": {
+            "type": "number",
+            "title": "float_gte",
+            "additionalProperties": false
+          },
+          "floatBounds": {
+            "type": "number",
+            "title": "float_bounds",
+            "additionalProperties": false
+          },
+          "doubleConst": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "double_const",
+            "additionalProperties": false,
+            "description": "Double",
+            "const": "42"
+          },
+          "doubleIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "double_in",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "doubleNotIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "not": {
+                "enum": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              "title": "double_not_in",
+              "additionalProperties": false
+            }
+          },
+          "doubleFinite": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "double_finite",
+              "additionalProperties": false
+            }
+          },
+          "doubleLt": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "double_lt",
+            "additionalProperties": false
+          },
+          "doubleLte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "double_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "doubleGt": {
+            "exclusiveMinimum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "double_gt",
+            "additionalProperties": false
+          },
+          "doubleGte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "double_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "doubleBounds": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "double_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "int32Const": {
+            "type": "integer",
+            "title": "int32_const",
+            "additionalProperties": false,
+            "description": "int32",
+            "const": 42
+          },
+          "int32In": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "int32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "additionalProperties": false
+            }
+          },
+          "int32NotIn": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "not": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "title": "int32_not_in",
+              "additionalProperties": false
+            }
+          },
+          "int32Lt": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "int32_lt",
+            "additionalProperties": false
+          },
+          "int32Lte": {
+            "type": "integer",
+            "title": "int32_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "int32Gt": {
+            "exclusiveMinimum": false,
+            "type": "integer",
+            "title": "int32_gt",
+            "additionalProperties": false
+          },
+          "int32Gte": {
+            "type": "integer",
+            "title": "int32_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "int32Bounds": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "int32_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "int64Const": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64_const",
+            "additionalProperties": false,
+            "description": "int64",
+            "const": 42
+          },
+          "int64In": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "int64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "additionalProperties": false
+            }
+          },
+          "int64NotIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "title": "int64_not_in",
+              "additionalProperties": false
+            }
+          },
+          "int64Lt": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64_lt",
+            "additionalProperties": false
+          },
+          "int64Lte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "int64Gt": {
+            "exclusiveMinimum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64_gt",
+            "additionalProperties": false
+          },
+          "int64Gte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "int64Bounds": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "int64_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "uint32Const": {
+            "type": "integer",
+            "title": "uint32_const",
+            "additionalProperties": false,
+            "description": "uint32",
+            "const": "42"
+          },
+          "uint32In": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "uint32_in",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "uint32NotIn": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "not": {
+                "type": "integer",
+                "enum": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              "title": "uint32_not_in",
+              "additionalProperties": false
+            }
+          },
+          "uint32Lt": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "uint32_lt",
+            "additionalProperties": false
+          },
+          "uint32Lte": {
+            "type": "integer",
+            "title": "uint32_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "uint32Gt": {
+            "exclusiveMinimum": false,
+            "type": "integer",
+            "title": "uint32_gt",
+            "additionalProperties": false
+          },
+          "uint32Gte": {
+            "type": "integer",
+            "title": "uint32_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "uint32Bounds": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "uint32_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "uint64Const": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64_const",
+            "additionalProperties": false,
+            "description": "uint64",
+            "const": "42"
+          },
+          "uint64In": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "uint64_in",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "uint64NotIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "not": {
+                "enum": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              "title": "uint64_not_in",
+              "additionalProperties": false
+            }
+          },
+          "uint64Lt": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64_lt",
+            "additionalProperties": false
+          },
+          "uint64Lte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "uint64Gt": {
+            "exclusiveMinimum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64_gt",
+            "additionalProperties": false
+          },
+          "uint64Gte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "uint64Bounds": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "uint64_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "sint32Const": {
+            "type": "integer",
+            "title": "sint32_const",
+            "additionalProperties": false,
+            "description": "sint32",
+            "const": 42
+          },
+          "sint32In": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "sint32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sint32NotIn": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "not": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "title": "sint32_not_in",
+              "additionalProperties": false
+            }
+          },
+          "sint32Lt": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "sint32_lt",
+            "additionalProperties": false
+          },
+          "sint32Lte": {
+            "type": "integer",
+            "title": "sint32_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "sint32Gt": {
+            "exclusiveMinimum": false,
+            "type": "integer",
+            "title": "sint32_gt",
+            "additionalProperties": false
+          },
+          "sint32Gte": {
+            "type": "integer",
+            "title": "sint32_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "sint32Bounds": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "sint32_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "sint64Const": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64_const",
+            "additionalProperties": false,
+            "description": "sint64",
+            "const": 42
+          },
+          "sint64In": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "sint64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sint64NotIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "title": "sint64_not_in",
+              "additionalProperties": false
+            }
+          },
+          "sint64Lt": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64_lt",
+            "additionalProperties": false
+          },
+          "sint64Lte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "sint64Gt": {
+            "exclusiveMinimum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64_gt",
+            "additionalProperties": false
+          },
+          "sint64Gte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64_gte",
+            "minimum": 89,
+            "additionalProperties": false
+          },
+          "sint64Bounds": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sint64_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "fixed32Const": {
+            "type": "integer",
+            "title": "fixed32_const",
+            "additionalProperties": false,
+            "description": "fixed32",
+            "const": "42"
+          },
+          "fixed32In": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "fixed32_in",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "fixed32NotIn": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "not": {
+                "type": "integer",
+                "enum": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              "title": "fixed32_not_in",
+              "additionalProperties": false
+            }
+          },
+          "fixed32Lt": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "fixed32_lt",
+            "additionalProperties": false
+          },
+          "fixed32Lte": {
+            "type": "integer",
+            "title": "fixed32_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "fixed32Gt": {
+            "exclusiveMinimum": false,
+            "type": "integer",
+            "title": "fixed32_gt",
+            "additionalProperties": false
+          },
+          "fixed32Gte": {
+            "type": "integer",
+            "title": "fixed32_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "fixed32Bounds": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "fixed32_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "fixed64Const": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64_const",
+            "additionalProperties": false,
+            "description": "fixed64",
+            "const": "42"
+          },
+          "fixed64In": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "fixed64_in",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "fixed64NotIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "not": {
+                "enum": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              "title": "fixed64_not_in",
+              "additionalProperties": false
+            }
+          },
+          "fixed64Lt": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64_lt",
+            "additionalProperties": false
+          },
+          "fixed64Lte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "fixed64Gt": {
+            "exclusiveMinimum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64_gt",
+            "additionalProperties": false
+          },
+          "fixed64Gte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64_gte",
+            "minimum": 109,
+            "additionalProperties": false
+          },
+          "fixed64Bounds": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "fixed64_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "sfixed32Const": {
+            "type": "integer",
+            "title": "sfixed32_const",
+            "additionalProperties": false,
+            "description": "sfixed32",
+            "const": 42
+          },
+          "sfixed32In": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "title": "sfixed32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sfixed32NotIn": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "not": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "title": "sfixed32_not_in",
+              "additionalProperties": false
+            }
+          },
+          "sfixed32Lt": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "sfixed32_lt",
+            "additionalProperties": false
+          },
+          "sfixed32Lte": {
+            "type": "integer",
+            "title": "sfixed32_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "sfixed32Gt": {
+            "exclusiveMinimum": false,
+            "type": "integer",
+            "title": "sfixed32_gt",
+            "additionalProperties": false
+          },
+          "sfixed32Gte": {
+            "type": "integer",
+            "title": "sfixed32_gte",
+            "minimum": 69,
+            "additionalProperties": false
+          },
+          "sfixed32Bounds": {
+            "exclusiveMaximum": false,
+            "type": "integer",
+            "title": "sfixed32_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "sfixed64Const": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64_const",
+            "additionalProperties": false,
+            "description": "sfixed64",
+            "const": 42
+          },
+          "sfixed64In": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "sfixed64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sfixed64NotIn": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "title": "sfixed64_not_in",
+              "additionalProperties": false
+            }
+          },
+          "sfixed64Lt": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64_lt",
+            "additionalProperties": false
+          },
+          "sfixed64Lte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64_lte",
+            "maximum": 420,
+            "additionalProperties": false
+          },
+          "sfixed64Gt": {
+            "exclusiveMinimum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64_gt",
+            "additionalProperties": false
+          },
+          "sfixed64Gte": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64_gte",
+            "minimum": 109,
+            "additionalProperties": false
+          },
+          "sfixed64Bounds": {
+            "exclusiveMaximum": false,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "sfixed64_bounds",
+            "minimum": 5,
+            "additionalProperties": false
+          },
+          "stringConst": {
+            "type": "string",
+            "title": "string_const",
+            "additionalProperties": false,
+            "description": "string",
+            "const": "hello"
+          },
+          "stringIn": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "string_in",
+              "enum": [
+                "orange",
+                "grape"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "stringNotIn": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "not": {
+                "type": "string",
+                "enum": [
+                  "orange",
+                  "grape"
+                ]
+              },
+              "title": "string_not_in",
+              "additionalProperties": false
+            }
+          },
+          "stringMinLen": {
+            "type": "string",
+            "title": "string_min_len",
+            "minLength": 3,
+            "additionalProperties": false
+          },
+          "stringMaxLen": {
+            "type": "string",
+            "title": "string_max_len",
+            "maxLength": 10,
+            "additionalProperties": false
+          },
+          "stringLen": {
+            "type": "string",
+            "title": "string_len",
+            "maxLength": 10,
+            "minLength": 10,
+            "additionalProperties": false
+          },
+          "stringLenBytes": {
+            "type": "string",
+            "title": "string_len_bytes",
+            "additionalProperties": false
+          },
+          "stringMinBytes": {
+            "type": "string",
+            "title": "string_min_bytes",
+            "additionalProperties": false
+          },
+          "stringMaxBytes": {
+            "type": "string",
+            "title": "string_max_bytes",
+            "additionalProperties": false
+          },
+          "stringPrefix": {
+            "type": "string",
+            "title": "string_prefix",
+            "additionalProperties": false
+          },
+          "stringSuffix": {
+            "type": "string",
+            "title": "string_suffix",
+            "additionalProperties": false
+          },
+          "stringContains": {
+            "type": "string",
+            "title": "string_contains",
+            "additionalProperties": false
+          },
+          "stringNotContains": {
+            "type": "string",
+            "title": "string_not_contains",
+            "additionalProperties": false
+          },
+          "stringStrict": {
+            "type": "string",
+            "title": "string_strict",
+            "additionalProperties": false
+          },
+          "stringEmail": {
+            "type": "string",
+            "title": "string_email",
+            "format": "email",
+            "additionalProperties": false
+          },
+          "stringHostname": {
+            "type": "string",
+            "title": "string_hostname",
+            "format": "hostname",
+            "additionalProperties": false
+          },
+          "stringIp": {
+            "type": "string",
+            "title": "string_ip",
+            "format": "ip",
+            "additionalProperties": false
+          },
+          "stringIpv4": {
+            "type": "string",
+            "title": "string_ipv4",
+            "format": "ipv4",
+            "additionalProperties": false
+          },
+          "stringIpv6": {
+            "type": "string",
+            "title": "string_ipv6",
+            "format": "ipv6",
+            "additionalProperties": false
+          },
+          "stringUri": {
+            "type": "string",
+            "title": "string_uri",
+            "format": "uri",
+            "additionalProperties": false
+          },
+          "stringUriRef": {
+            "type": "string",
+            "title": "string_uri_ref",
+            "format": "uri-ref",
+            "additionalProperties": false
+          },
+          "stringAddress": {
+            "type": "string",
+            "title": "string_address",
+            "format": "address",
+            "additionalProperties": false
+          },
+          "stringUuid": {
+            "type": "string",
+            "title": "string_uuid",
+            "format": "uuid",
+            "additionalProperties": false
+          },
+          "stringIpWithPrefixlen": {
+            "type": "string",
+            "title": "string_ip_with_prefixlen",
+            "additionalProperties": false
+          },
+          "stringIpv4WithPrefixlen": {
+            "type": "string",
+            "title": "string_ipv4_with_prefixlen",
+            "additionalProperties": false
+          },
+          "stringIpv6WithPrefixlen": {
+            "type": "string",
+            "title": "string_ipv6_with_prefixlen",
+            "additionalProperties": false
+          },
+          "stringIpPrefix": {
+            "type": "string",
+            "title": "string_ip_prefix",
+            "additionalProperties": false
+          },
+          "stringIpv4Prefix": {
+            "type": "string",
+            "title": "string_ipv4_prefix",
+            "additionalProperties": false
+          },
+          "stringIpv6Prefix": {
+            "type": "string",
+            "title": "string_ipv6_prefix",
+            "additionalProperties": false
+          },
+          "stringHostAndPort": {
+            "type": "string",
+            "title": "string_host_and_port",
+            "additionalProperties": false
+          },
+          "stringWellKnownRegex": {
+            "type": "string",
+            "title": "string_well_known_regex",
+            "additionalProperties": false
+          },
+          "byteConst": {
+            "type": "string",
+            "title": "byte_const",
+            "format": "byte",
+            "additionalProperties": false,
+            "const": "\u0001\u0002\u0003\u0004"
+          },
+          "byteLen": {
+            "type": "string",
+            "title": "byte_len",
+            "maxLength": 4,
+            "minLength": 4,
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesMinLen": {
+            "type": "string",
+            "title": "bytes_min_len",
+            "minLength": 2,
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesMaxLen": {
+            "type": "string",
+            "title": "bytes_max_len",
+            "maxLength": 6,
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesPattern": {
+            "type": "string",
+            "title": "bytes_pattern",
+            "pattern": "^[a-zA-Z0-9]+$",
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesPrefix": {
+            "type": "string",
+            "title": "bytes_prefix",
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesSuffix": {
+            "type": "string",
+            "title": "bytes_suffix",
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesContains": {
+            "type": "string",
+            "title": "bytes_contains",
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesIn": {
+            "type": "string",
+            "title": "bytes_in",
+            "format": "byte",
+            "enum": [
+              "\u0001\u0002",
+              "\u0002\u0003",
+              "\u0003\u0004"
+            ],
+            "additionalProperties": false
+          },
+          "bytesNotIn": {
+            "type": "string",
+            "not": {
+              "type": "string",
+              "enum": [
+                "\u0001\u0002",
+                "\u0002\u0003",
+                "\u0003\u0004"
+              ]
+            },
+            "title": "bytes_not_in",
+            "format": "byte",
+            "additionalProperties": false
+          },
+          "bytesIp": {
+            "type": "string",
+            "title": "bytes_ip",
+            "format": "ip",
+            "additionalProperties": false
+          },
+          "bytesIpv4": {
+            "type": "string",
+            "title": "bytes_ipv4",
+            "format": "ipv4",
+            "additionalProperties": false
+          },
+          "bytesIpv6": {
+            "type": "string",
+            "title": "bytes_ipv6",
+            "format": "ipv6",
+            "additionalProperties": false
+          },
+          "enumCost": {
+            "$ref": "#/components/schemas/protovalidate.MyEnum"
+          },
+          "enumDefinedOnly": {
+            "$ref": "#/components/schemas/protovalidate.MyEnum"
+          },
+          "enumIn": {
+            "$ref": "#/components/schemas/protovalidate.MyEnum"
+          },
+          "enumNotIn": {
+            "$ref": "#/components/schemas/protovalidate.MyEnum"
+          },
+          "repeatedMinItems": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "repeated_min_items",
+              "minItems": 2,
+              "additionalProperties": false
+            }
+          },
+          "repeatedMaxItems": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "repeated_max_items",
+              "maxItems": 3,
+              "additionalProperties": false
+            }
+          },
+          "repeatedUnique": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "repeated_unique",
+              "uniqueItems": true,
+              "additionalProperties": false
+            }
+          },
+          "repeatedItems": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "repeated_items",
+              "additionalProperties": false
+            }
+          },
+          "mapMinPairs": {
+            "type": "object",
+            "title": "map_min_pairs",
+            "minItems": 2,
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            }
+          },
+          "mapMaxPairs": {
+            "type": "object",
+            "title": "map_max_pairs",
+            "maxItems": 3,
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            }
+          },
+          "mapKeys": {
+            "type": "object",
+            "title": "map_keys",
+            "maxLength": 10,
+            "minLength": 3,
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "additionalProperties": false
+            }
+          },
+          "mapValues": {
+            "type": "object",
+            "title": "map_values",
+            "additionalProperties": {
+              "type": "string",
+              "title": "value",
+              "maxLength": 20,
+              "minLength": 5,
+              "additionalProperties": false
+            }
+          },
+          "anyIn": {
+            "$ref": "#/components/schemas/google.protobuf.Any"
+          },
+          "anyNotIn": {
+            "$ref": "#/components/schemas/google.protobuf.Any"
+          },
+          "durationConst": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationIn": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationNotIn": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationLt": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationLte": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationLtSeconds": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationGt": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationRange": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "durationGte": {
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "timestampConst": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampWithin": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampLt": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampLte": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampGt": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampGte": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampRange": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampLtNow": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timestampGtNow": {
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          }
+        },
+        "title": "LotsOfValidationRules",
+        "additionalProperties": false
+      },
+      "protovalidate.LotsOfValidationRules.MapKeysEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "MapKeysEntry",
+        "additionalProperties": false
+      },
+      "protovalidate.LotsOfValidationRules.MapMaxPairsEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "MapMaxPairsEntry",
+        "additionalProperties": false
+      },
+      "protovalidate.LotsOfValidationRules.MapMinPairsEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "MapMinPairsEntry",
+        "additionalProperties": false
+      },
+      "protovalidate.LotsOfValidationRules.MapValuesEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "additionalProperties": false
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "additionalProperties": false
+          }
+        },
+        "title": "MapValuesEntry",
+        "additionalProperties": false
+      },
+      "protovalidate.MyOtherMessage": {
+        "type": "object",
+        "title": "MyOtherMessage",
+        "additionalProperties": false
+      },
+      "protovalidate.OneOfMessage": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "string",
+            "title": "a",
+            "minLength": 1,
+            "additionalProperties": false
+          },
+          "b": {
+            "type": "string",
+            "title": "b",
+            "additionalProperties": false
+          }
+        },
+        "title": "OneOfMessage",
+        "additionalProperties": false
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "detail": {
+            "$ref": "#/components/schemas/google.protobuf.Any"
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "protovalidate.MessageFields"
+    },
+    {
+      "name": "protovalidate.FieldsService"
+    }
+  ],
+  "externalDocs": {}
+}

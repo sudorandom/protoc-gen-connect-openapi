@@ -14,4 +14,4 @@ install:
 	go install
 
 buf-generate: install
-	buf generate
+	buf generate --path internal/

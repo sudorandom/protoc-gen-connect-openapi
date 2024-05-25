@@ -9,15 +9,12 @@ require (
 	github.com/bufbuild/protovalidate-go v0.5.2
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.0.4
-	github.com/pb33f/libopenapi v0.15.13
-	github.com/pb33f/libopenapi-validator v0.0.42
+	github.com/pb33f/libopenapi v0.16.7
+	github.com/pb33f/libopenapi-validator v0.0.56
 	github.com/pseudomuto/protokit v0.2.1
-	github.com/stretchr/testify v1.8.4
-	github.com/swaggest/jsonschema-go v0.3.66
-	github.com/swaggest/openapi-go v0.2.49
+	github.com/stretchr/testify v1.9.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20230913181813-007df8e322eb
 	google.golang.org/protobuf v1.33.0
-	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -31,10 +28,10 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/santhosh-tekuri/jsonschema/v5 v5.3.1 // indirect
-	github.com/swaggest/refl v1.3.0 // indirect
+	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.8 // indirect
-	golang.org/x/exp v0.0.0-20240213143201-ec583247a57a // indirect
-	golang.org/x/sync v0.6.0 // indirect
+	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
+	golang.org/x/sync v0.7.0 // indirect
 	google.golang.org/genproto v0.0.0-20230803162519-f966b187b2e5 // indirect
 )

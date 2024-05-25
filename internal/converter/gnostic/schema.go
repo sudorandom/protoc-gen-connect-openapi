@@ -4,14 +4,14 @@ import (
 	"log/slog"
 
 	goa3 "github.com/google/gnostic/openapiv3"
-	"github.com/swaggest/jsonschema-go"
+	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
-	"google.golang.org/protobuf/types/known/anypb"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
-func SchemaWithSchemaAnnotations(schema *jsonschema.Schema, desc protoreflect.MessageDescriptor) *jsonschema.Schema {
+func SchemaWithSchemaAnnotations(schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
 	if !proto.HasExtension(desc.Options(), goa3.E_Schema.TypeDescriptor().Type()) {
 		return schema
 	}
@@ -24,7 +24,7 @@ func SchemaWithSchemaAnnotations(schema *jsonschema.Schema, desc protoreflect.Me
 	return schemaWithAnnotations(schema, opts)
 }
 
-func SchemaWithPropertyAnnotations(schema *jsonschema.Schema, desc protoreflect.FieldDescriptor) *jsonschema.Schema {
+func SchemaWithPropertyAnnotations(schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
 	if !proto.HasExtension(desc.Options(), goa3.E_Property.TypeDescriptor().Type()) {
 		return schema
 	}
@@ -38,64 +38,59 @@ func SchemaWithPropertyAnnotations(schema *jsonschema.Schema, desc protoreflect.
 }
 
 //gocyclo:ignore
-func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonschema.Schema {
+func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema {
 	if opts.Description != "" {
-		schema.Description = &opts.Description
+		schema.Description = opts.Description
 	}
 	if opts.Title != "" {
-		schema.Title = &opts.Title
+		schema.Title = opts.Title
 	}
 	if opts.Format != "" {
-		schema.Format = &opts.Format
+		schema.Format = opts.Format
 	}
 	if opts.Nullable {
-		schema.WithExtraPropertiesItem("nullable", opts.Nullable)
+		schema.Nullable = &opts.Nullable
 	}
 	if opts.ReadOnly {
 		schema.ReadOnly = &opts.ReadOnly
 	}
 	if opts.WriteOnly {
-		schema.WithExtraPropertiesItem("writeOnly", opts.WriteOnly)
+		schema.WriteOnly = &opts.WriteOnly
 	}
 	if opts.Example != nil {
 		// If the example is defined with the YAML option
 		if opts.Example.Yaml != "" {
-			var v interface{}
+			var v *yaml.Node
 			if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &v); err != nil {
 				slog.Warn("unable to unmarshal example", slog.Any("error", err))
 			} else {
-				schema.Examples = append(schema.Examples, []interface{}{v})
+				schema.Examples = append(schema.Examples, v)
 			}
 		}
 		// If the example is defined with google.protobuf.Any
 		if opts.Example.Value != nil {
-			m, err := anypb.UnmarshalNew(opts.Example.GetValue(), proto.UnmarshalOptions{})
-			if err != nil {
-				slog.Warn("unable to unmarshal example", slog.Any("error", err))
-			} else {
-				schema.Examples = append(schema.Examples, []interface{}{m})
-			}
+			slog.Warn("unable to unmarshal pb.any example")
 		}
 	}
 	if opts.ExternalDocs != nil {
-		schema.WithExtraPropertiesItem("externalDocs", toExternalDocs(opts.ExternalDocs))
+		schema.ExternalDocs = toExternalDocs(opts.ExternalDocs)
 	}
 	if opts.Deprecated {
-		schema.WithExtraPropertiesItem("deprecated", opts.Deprecated)
+		schema.Deprecated = &opts.Deprecated
 	}
 	if opts.MultipleOf != 0 {
 		schema.MultipleOf = &opts.MultipleOf
 	}
 	if opts.Maximum != 0 {
 		if opts.ExclusiveMaximum {
-			schema.ExclusiveMaximum = &opts.Maximum
+			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: opts.Maximum}
 		} else {
 			schema.Maximum = &opts.Maximum
 		}
 	}
 	if opts.Minimum != 0 {
 		if opts.ExclusiveMinimum {
-			schema.ExclusiveMinimum = &opts.Minimum
+			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: opts.Minimum}
 		} else {
 			schema.Minimum = &opts.Minimum
 		}
@@ -104,16 +99,17 @@ func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonsc
 		schema.MaxLength = &opts.MaxLength
 	}
 	if opts.MinLength > 0 {
-		schema.MinLength = opts.MinLength
+		v := opts.MinLength
+		schema.MinLength = &v
 	}
 	if opts.Pattern != "" {
-		schema.Pattern = &opts.Pattern
+		schema.Pattern = opts.Pattern
 	}
 	if opts.MaxItems > 0 {
 		schema.MaxItems = &opts.MaxItems
 	}
 	if opts.MinItems > 0 {
-		schema.MinItems = opts.MinItems
+		schema.MinItems = &opts.MinItems
 	}
 	if opts.UniqueItems {
 		schema.UniqueItems = &opts.UniqueItems
@@ -122,60 +118,87 @@ func schemaWithAnnotations(schema *jsonschema.Schema, opts *goa3.Schema) *jsonsc
 		schema.MaxProperties = &opts.MaxProperties
 	}
 	if opts.MinProperties > 0 {
-		schema.MinProperties = opts.MinProperties
+		schema.MinProperties = &opts.MinProperties
 	}
 	if len(opts.Required) > 0 {
 		schema.Required = opts.Required
 	}
 	if len(opts.Enum) > 0 {
-		schema.Enum = []interface{}{opts.Enum}
+		enums := make([]*yaml.Node, 0)
+		for i, enum := range opts.Enum {
+			enums[i] = enum.ToRawInfo()
+		}
+		schema.Enum = enums
 	}
 	if opts.Type != "" {
-		t := jsonschema.SimpleType(opts.Type)
-		schema.Type = &jsonschema.Type{SimpleTypes: &t}
+		schema.Type = []string{opts.Type}
 	}
 
 	if opts.AdditionalProperties != nil {
 		switch v := opts.AdditionalProperties.GetOneof().(type) {
 		case *goa3.AdditionalPropertiesItem_SchemaOrReference:
-			vv := toSchemaOrBool(v.SchemaOrReference)
-			schema.AdditionalProperties = &vv
+			if vv := toSchemaOrReference(v.SchemaOrReference); vv != nil {
+				schema.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: vv}
+			}
 		case *goa3.AdditionalPropertiesItem_Boolean:
-			schema.AdditionalItems = &jsonschema.SchemaOrBool{TypeBoolean: &v.Boolean}
+			schema.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: v.Boolean}
 		}
 	}
 
 	if len(opts.AllOf) > 0 {
-		schema.AllOf = toSchemaOrBools(opts.AllOf)
+		schema.AllOf = toSchemaOrReferences(opts.AllOf)
 	}
 	if len(opts.OneOf) > 0 {
-		schema.OneOf = toSchemaOrBools(opts.OneOf)
+		schema.OneOf = toSchemaOrReferences(opts.OneOf)
 	}
 	if len(opts.AnyOf) > 0 {
-		schema.AnyOf = toSchemaOrBools(opts.AnyOf)
+		schema.AnyOf = toSchemaOrReferences(opts.AnyOf)
 	}
 	if opts.Not != nil {
-		v := toSchemaOrBool(&goa3.SchemaOrReference{
-			Oneof: &goa3.SchemaOrReference_Schema{
-				Schema: opts.Not,
-			},
-		})
-		schema.Not = &v
+		schema.Not = base.CreateSchemaProxy(toSchema(opts.Not))
 	}
 	if opts.Items != nil {
-		schema.Items = &jsonschema.Items{
-			SchemaOrBool: &jsonschema.SchemaOrBool{},
-			SchemaArray:  toSchemaOrBools(opts.Items.GetSchemaOrReference()),
+		items := toSchemaOrReferences(opts.Items.SchemaOrReference)
+		var itemsSchema *base.SchemaProxy
+		if len(items) == 1 {
+			itemsSchema = items[0]
+		} else {
+			itemsSchema = base.CreateSchemaProxy(&base.Schema{OneOf: items})
 		}
+		schema.Items = &base.DynamicValue[*base.SchemaProxy, bool]{A: itemsSchema}
 	}
 	if opts.Properties != nil {
-		schema.Properties = toSchemaOrBoolMap(opts.Properties.GetAdditionalProperties())
+		schema.Properties = toSchemaOrReferenceMap(opts.Properties.GetAdditionalProperties())
 	}
 	if opts.Default != nil {
 		schema.Default = toDefault(opts.Default)
 	}
 	if opts.AdditionalProperties != nil {
 		schema.AdditionalProperties = toAdditionalPropertiesItem(opts.AdditionalProperties)
+	}
+	if opts.Xml != nil {
+		extensions := *orderedmap.New[string, *yaml.Node]()
+		for _, namedAny := range opts.Xml.GetSpecificationExtension() {
+			extensions.Set(namedAny.Name, namedAny.ToRawInfo())
+		}
+		schema.XML = &base.XML{
+			Name:       opts.Xml.Name,
+			Namespace:  opts.Xml.Namespace,
+			Prefix:     opts.Xml.Prefix,
+			Attribute:  opts.Xml.Attribute,
+			Wrapped:    opts.Xml.Wrapped,
+			Extensions: &extensions,
+		}
+	}
+	if opts.Discriminator != nil {
+		mapping := orderedmap.New[string, string]()
+		for _, prop := range opts.Discriminator.GetMapping().GetAdditionalProperties() {
+			mapping.Set(prop.Name, prop.Value)
+		}
+		schema.Discriminator = &base.Discriminator{
+			PropertyName: opts.Discriminator.GetPropertyName(),
+			Mapping:      mapping,
+		}
 	}
 
 	return schema

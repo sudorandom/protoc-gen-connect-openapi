@@ -1,16 +1,34 @@
 package util
 
 import (
-	"github.com/swaggest/jsonschema-go"
+	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *jsonschema.Schema{
+var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSchema{
 	"google.protobuf.Duration":  googleDuration,
 	"google.protobuf.Timestamp": googleTimestamp,
-	"google.protobuf.Value":     googleValue,
 	"google.protobuf.Empty":     googleEmpty,
-	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *jsonschema.Schema { return NewGoogleAny() },
+	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *IDSchema { return NewGoogleAny() },
+
+	// google.protobuf.[Type]Value
+	"google.protobuf.Value":       googleValue,
+	"google.protobuf.NullValue":   googleNullValue,
+	"google.protobuf.StringValue": googleStringValue,
+	"google.protobuf.BytesValue":  googleBytesValue,
+	"google.protobuf.BoolValue":   googleBoolValue,
+	"google.protobuf.DoubleValue": google64BitNumberValue,
+	"google.protobuf.Int64Value":  google64BitNumberValue,
+	"google.protobuf.Uint64Value": google64BitNumberValue,
+	"google.protobuf.FloatValue":  google64BitNumberValue,
+	"google.protobuf.Int32Value":  google32BitNumberValue,
+	"google.protobuf.Uint32Value": google32BitNumberValue,
+}
+
+type IDSchema struct {
+	ID     string
+	Schema *base.Schema
 }
 
 func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
@@ -18,7 +36,7 @@ func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
 	return ok
 }
 
-func wellKnownToSchema(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
+func wellKnownToSchema(msg protoreflect.MessageDescriptor) *IDSchema {
 	fn, ok := wellKnownToSchemaFns[string(msg.FullName())]
 	if !ok {
 		return nil
@@ -26,58 +44,146 @@ func wellKnownToSchema(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
 	return fn(msg)
 }
 
-func googleDuration(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	s := &jsonschema.Schema{}
-	s.WithID(string(msg.FullName()))
-	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
-	s.WithType(jsonschema.String.Type())
-	s.WithFormat("regex")
-	s.WithPattern(`^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`)
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
-}
-
-func googleTimestamp(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	s := &jsonschema.Schema{}
-	s.WithID(string(msg.FullName()))
-	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
-	s.WithType(jsonschema.String.Type())
-	s.WithFormat("date-time")
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
-}
-
-func googleValue(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	s := &jsonschema.Schema{}
-	s.WithID(string(msg.FullName()))
-	s.WithDescription(FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)))
-	s.OneOf = []jsonschema.SchemaOrBool{
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Null.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Number.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.String.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Boolean.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Array.Type())},
-		{TypeObject: (&jsonschema.Schema{}).WithType(jsonschema.Object.Type()).WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(true)})},
+func googleDuration(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description:          FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:                 []string{"string"},
+			Format:               "regex",
+			Pattern:              `^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`,
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+		},
 	}
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(false)})
-	return s
 }
 
-func googleEmpty(msg protoreflect.MessageDescriptor) *jsonschema.Schema {
-	return nil
+func googleTimestamp(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description:          FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:                 []string{"string"},
+			Format:               "date-time",
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+		},
+	}
 }
 
-func NewGoogleAny() *jsonschema.Schema {
-	typeS := &jsonschema.Schema{}
-	typeS.WithType(jsonschema.String.Type())
-	typeS.WithDescription("The type of the serialized message.")
-	s := &jsonschema.Schema{}
-	s.WithID("google.protobuf.Any")
-	s.WithDescription("Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.")
-	s.WithType(jsonschema.Object.Type())
-	s.WithAdditionalProperties(jsonschema.SchemaOrBool{TypeBoolean: BoolPtr(true)})
-	s.WithProperties(map[string]jsonschema.SchemaOrBool{"@type": {TypeObject: typeS}})
-	return s
+func googleValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			OneOf: []*base.SchemaProxy{
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"boolean"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"array"}}),
+				base.CreateSchemaProxy(&base.Schema{
+					Type:                 []string{"object"},
+					AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+				}),
+			},
+		},
+	}
+}
+
+func googleNullValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"null"},
+		},
+	}
+}
+
+func googleStringValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"string"},
+		},
+	}
+}
+
+func googleBoolValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"boolean"},
+		},
+	}
+}
+
+func googleBytesValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"string"},
+			Format:      "binary",
+		},
+	}
+}
+
+func google32BitNumberValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"number"},
+		},
+	}
+}
+
+func google64BitNumberValue(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			OneOf: []*base.SchemaProxy{
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}}),
+			},
+		},
+	}
+}
+
+func googleEmpty(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"object"},
+		},
+	}
+}
+
+func NewGoogleAny() *IDSchema {
+	props := orderedmap.New[string, *base.SchemaProxy]()
+	props.Set("type", base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}))
+	props.Set("value", base.CreateSchemaProxy(&base.Schema{
+		Type:   []string{"string"},
+		Format: "binary",
+	}))
+	props.Set("debug", base.CreateSchemaProxy(&base.Schema{
+		Type:                 []string{"object"},
+		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+	}))
+
+	return &IDSchema{
+		ID: "google.protobuf.Any",
+		Schema: &base.Schema{
+			Description:          "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.",
+			Type:                 []string{"object"},
+			Properties:           props,
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+		},
+	}
 }
 
 func IsEmpty(msg protoreflect.MessageDescriptor) bool {

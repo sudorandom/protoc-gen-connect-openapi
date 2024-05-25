@@ -1,0 +1,14 @@
+cases:
+  - name: "healthcheck with string"
+    path: "samples.Test/HealthCheck"
+    body: '"kevin"'
+    headers:
+      Content-Type: application/json
+
+  - name: "healthcheck with object"
+    path: "samples.Test/HealthCheck"
+    body: '{"value": "kevin"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*Reason: expected string, but got object, Location: /type.*"

@@ -3,21 +3,26 @@ package converter
 import (
 	"log/slog"
 	"sort"
+	"strconv"
 
-	"github.com/swaggest/jsonschema-go"
+	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"gopkg.in/yaml.v3"
 
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
 type State struct {
-	Opts        Options
+	Opts        options.Options
 	CurrentFile protoreflect.FileDescriptor
 	Messages    map[protoreflect.MessageDescriptor]struct{}
 	Enums       map[protoreflect.EnumDescriptor]struct{}
 }
 
-func NewState(opts Options) *State {
+func NewState(opts options.Options) *State {
 	return &State{
 		Opts:     opts,
 		Messages: map[protoreflect.MessageDescriptor]struct{}{},
@@ -126,42 +131,40 @@ func (st *State) SortedMessages() []protoreflect.MessageDescriptor {
 	return messages
 }
 
-func enumToSchema(state *State, tt protoreflect.EnumDescriptor) *jsonschema.Schema {
+func enumToSchema(state *State, tt protoreflect.EnumDescriptor) (string, *base.Schema) {
 	slog.Debug("enumToSchema", slog.Any("descriptor", tt.FullName()))
-	s := &jsonschema.Schema{}
-	s.WithID(string(tt.FullName()))
-	s.WithTitle(string(tt.Name()))
-	s.WithDescription(util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
-	s.WithType(jsonschema.String.Type())
-	children := []interface{}{}
+	children := []*yaml.Node{}
 	values := tt.Values()
 	for i := 0; i < values.Len(); i++ {
 		value := values.Get(i)
-		children = append(children, string(value.Name()))
+		children = append(children, utils.CreateStringNode(string(value.Name())))
 		if state.Opts.IncludeNumberEnumValues {
-			children = append(children, value.Number())
+			children = append(children, utils.CreateIntNode(strconv.FormatInt(int64(value.Number()), 10)))
 		}
 	}
-	s.WithEnum(children)
-	return s
+	s := &base.Schema{
+		Title:       string(tt.Name()),
+		Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
+		Type:        []string{"string"},
+		Enum:        children,
+	}
+	return string(tt.FullName()), s
 }
 
-func stateToSchema(st *State) *jsonschema.Schema {
-	fd := st.CurrentFile
-	s := &jsonschema.Schema{}
-	s.WithID(string(fd.FullName()))
-	s.WithTitle(string(fd.Name()))
-	s.WithDescription(util.FormatComments(fd.ParentFile().SourceLocations().ByDescriptor(fd)))
+func stateToSchema(st *State) *orderedmap.Map[string, *base.SchemaProxy] {
+	schemas := orderedmap.New[string, *base.SchemaProxy]()
 
-	children := []jsonschema.SchemaOrBool{}
 	for _, enum := range st.SortedEnums() {
-		children = append(children, jsonschema.SchemaOrBool{TypeObject: enumToSchema(st, enum)})
+		id, schema := enumToSchema(st, enum)
+		schemas.Set(id, base.CreateSchemaProxy(schema))
 	}
 
 	for _, message := range st.SortedMessages() {
-		children = append(children, jsonschema.SchemaOrBool{TypeObject: util.MessageToSchema(message)})
+		id, schema := util.MessageToSchema(message)
+		if schema != nil {
+			schemas.Set(id, base.CreateSchemaProxy(schema))
+		}
 	}
 
-	s.WithItems(jsonschema.Items{SchemaArray: children})
-	return s
+	return schemas
 }

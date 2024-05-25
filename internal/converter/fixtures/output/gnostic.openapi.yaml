@@ -1,11 +1,20 @@
 openapi: 3.1.0
 info:
-  title: helloworld
+  title: Title from annotation
+  description: Description from annotation
+  contact:
+    name: Contact Name
+    url: https://github.com/sudorandom/protoc-gen-connect-openapi
+    email: hello@sudorandom.com
+  license:
+    name: MIT License
+    url: https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE
+  version: Version from annotation
 paths:
-  /helloworld.Greeter/SayHello:
+  /example_with_gnostic.Greeter/SayHello:
     get:
       tags:
-        - helloworld.Greeter
+        - example_with_gnostic.Greeter
       description: Sends a greeting
       parameters:
         - name: message
@@ -13,10 +22,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
+                $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
             application/proto:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
+                $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
         - schema:
             $ref: '#/components/parameters/encoding'
         - schema:
@@ -35,32 +44,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloReply'
-  /helloworld.Greeter/WriteHello:
-    post:
-      tags:
-        - helloworld.Greeter
-      description: Writes a greeting (has side effects)
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/helloworld.HelloRequest'
-        required: true
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/helloworld.HelloReply'
+                $ref: '#/components/schemas/example_with_gnostic.HelloReply'
+      deprecated: true
+      security:
+        - BasicAuth: []
+      servers: []
 components:
   schemas:
-    helloworld.HelloReply:
+    example_with_gnostic.HelloReply:
       type: object
       properties:
         message:
@@ -70,18 +61,21 @@ components:
       title: HelloReply
       additionalProperties: false
       description: The response message containing the greetings
-    helloworld.HelloRequest:
+    example_with_gnostic.HelloRequest:
       type: object
       properties:
         name:
           type: string
-          title: name
+          title: Custom title for a field
           additionalProperties: false
-      title: HelloRequest
+      title: Custom title for a message
       additionalProperties: false
       description: The request message containing the user's name.
     encoding:
       title: encoding
+      enum:
+        - proto
+        - json
       description: Define which encoding or 'Message-Codec' to use
     base64:
       type: boolean
@@ -89,15 +83,40 @@ components:
       description: Specifies if the message query param is base64 encoded, which may be required for binary data
     compression:
       title: compression
+      enum:
+        - identity
+        - gzip
+        - br
+        - gzip
       description: Which compression algorithm to use for this request
     connect:
       title: connect
+      enum:
+        - "1"
       description: Which version of connect to use.
     connect.error:
       type: object
       properties:
         code:
           type: string
+          examples:
+            - CodeNotFound
+          enum:
+            - CodeCanceled
+            - CodeUnknown
+            - CodeInvalidArgument
+            - CodeDeadlineExceeded
+            - CodeNotFound
+            - CodeAlreadyExists
+            - CodePermissionDenied
+            - CodeResourceExhausted
+            - CodeFailedPrecondition
+            - CodeAborted
+            - CodeOutOfRange
+            - CodeInternal
+            - CodeUnavailable
+            - CodeDataLoss
+            - CodeUnauthenticated
           description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
         message:
           type: string
@@ -110,8 +129,13 @@ components:
     google.protobuf.Any:
       type: object
       properties:
-        '@type':
+        type:
           type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
           additionalProperties: true
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
@@ -156,8 +180,11 @@ components:
         application/proto:
           schema:
             $ref: '#/components/schemas/connect'
+  securitySchemes:
+    BasicAuth:
+      scheme: basic
 security: []
 tags:
-  - name: helloworld.Greeter
+  - name: example_with_gnostic.Greeter
     description: The greeting service definition.
 externalDocs: {}

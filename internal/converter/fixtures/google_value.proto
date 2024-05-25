@@ -2,6 +2,8 @@ syntax = "proto3";
 package samples;
 
 import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/sudorandom/protoc-gen-connect-openapi";
 
@@ -9,4 +11,9 @@ message GoogleValue {
   google.protobuf.Value arg = 1;
   google.protobuf.ListValue some_list = 2;
   google.protobuf.Struct some_struct = 3;
+}
+
+service Test {
+  rpc HealthCheck(google.protobuf.StringValue) returns (google.protobuf.Int64Value);
+  rpc Empty(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

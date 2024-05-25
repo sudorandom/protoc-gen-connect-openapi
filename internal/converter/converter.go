@@ -1,7 +1,7 @@
 package converter
 
 import (
-	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -11,38 +11,31 @@ import (
 	"strings"
 
 	"github.com/lmittmann/tint"
-	"github.com/swaggest/openapi-go/openapi31"
+	"github.com/pb33f/libopenapi"
+	base "github.com/pb33f/libopenapi/datamodel/high/base"
+	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/index"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
+	"gopkg.in/yaml.v3"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-type Options struct {
-	// Format can be either "yaml" or "json"
-	Path                    string
-	Format                  string
-	BaseOpenAPIYAMLPath     string
-	BaseOpenAPIJSONPath     string
-	WithStreaming           bool
-	AllowGET                bool
-	ContentTypes            map[string]struct{}
-	Debug                   bool
-	IncludeNumberEnumValues bool
-}
-
-func parseOptions(s string) (Options, error) {
-	opts := Options{
+func parseOptions(s string) (options.Options, error) {
+	opts := options.Options{
 		Format:       "yaml",
 		ContentTypes: map[string]struct{}{},
 	}
 
 	supportedProtocols := map[string]struct{}{}
-	for _, proto := range Protocols {
+	for _, proto := range options.Protocols {
 		supportedProtocols[proto.Name] = struct{}{}
 	}
 
@@ -82,10 +75,8 @@ func parseOptions(s string) (Options, error) {
 			basePath := param[5:]
 			ext := path.Ext(basePath)
 			switch ext {
-			case ".yaml", ".yml":
-				opts.BaseOpenAPIYAMLPath = basePath
-			case ".json":
-				opts.BaseOpenAPIJSONPath = basePath
+			case ".yaml", ".yml", ".json":
+				opts.BaseOpenAPIPath = basePath
 			default:
 				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
 			}
@@ -147,31 +138,37 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		return nil, err
 	}
 
-	newSpec := func() openapi31.Spec {
-		return openapi31.Spec{
-			Openapi: "3.1.0",
-			Info:    openapi31.Info{},
-			Paths: &openapi31.Paths{
-				MapOfPathItemValues: map[string]openapi31.PathItem{},
-				MapOfAnything:       map[string]interface{}{},
-			},
-			Components: &openapi31.Components{
-				Schemas:         map[string]map[string]interface{}{},
-				Responses:       map[string]openapi31.ResponseOrReference{},
-				Parameters:      map[string]openapi31.ParameterOrReference{},
-				Examples:        map[string]openapi31.ExampleOrReference{},
-				RequestBodies:   map[string]openapi31.RequestBodyOrReference{},
-				Headers:         map[string]openapi31.HeaderOrReference{},
-				SecuritySchemes: map[string]openapi31.SecuritySchemeOrReference{},
-				Links:           map[string]openapi31.LinkOrReference{},
-				Callbacks:       map[string]openapi31.CallbacksOrReference{},
-				PathItems:       map[string]openapi31.PathItemOrReference{},
-			},
+	newSpec := func() (v3.Document, error) {
+		return initializeDoc(v3.Document{}), nil
+	}
+	if opts.BaseOpenAPIPath != "" {
+		newSpec = func() (v3.Document, error) {
+			baseJSON, err := os.ReadFile(opts.BaseOpenAPIPath)
+			if err != nil {
+				return v3.Document{}, err
+			}
+
+			document, err := libopenapi.NewDocument(baseJSON)
+			if err != nil {
+				return v3.Document{}, fmt.Errorf("unmarshalling base: %w", err)
+			}
+			v3Document, errs := document.BuildV3Model()
+			if len(errs) > 0 {
+				var merr error
+				for _, err := range errs {
+					merr = errors.Join(merr, err)
+				}
+				return v3.Document{}, merr
+			}
+			return initializeDoc(v3Document.Model), nil
 		}
 	}
 
-	spec := newSpec()
-	outFiles := map[string]openapi31.Spec{}
+	spec, err := newSpec()
+	if err != nil {
+		return nil, err
+	}
+	outFiles := map[string]v3.Document{}
 
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
@@ -189,9 +186,12 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 
 		// Create a per-file openapi spec if we're not merging all into one
 		if opts.Path == "" {
-			spec = newSpec()
-			spec.SetTitle(string(fd.FullName()))
-			spec.SetDescription(util.FormatComments(fd.SourceLocations().ByDescriptor(fd)))
+			spec, err = newSpec()
+			if err != nil {
+				return nil, err
+			}
+			spec.Info.Title = string(fd.FullName())
+			spec.Info.Description = util.FormatComments(fd.SourceLocations().ByDescriptor(fd))
 		}
 
 		if err := appendToSpec(opts, &spec, fd); err != nil {
@@ -230,91 +230,142 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	}, nil
 }
 
-func specToFile(opts Options, spec openapi31.Spec) (string, error) {
-	if opts.BaseOpenAPIJSONPath != "" {
-		baseJSON, err := os.ReadFile(opts.BaseOpenAPIJSONPath)
-		if err != nil {
-			return "", err
-		}
-		if err := spec.UnmarshalJSON(baseJSON); err != nil {
-			return "", fmt.Errorf("unmarshalling base: %w", err)
-		}
-	}
-
-	if opts.BaseOpenAPIYAMLPath != "" {
-		baseYAML, err := os.ReadFile(opts.BaseOpenAPIYAMLPath)
-		if err != nil {
-			return "", err
-		}
-		if err := spec.UnmarshalYAML(baseYAML); err != nil {
-			return "", fmt.Errorf("unmarshalling base: %w", err)
-		}
-	}
-
+func specToFile(opts options.Options, spec v3.Document) (string, error) {
 	switch opts.Format {
 	case "yaml":
-		b, err := spec.MarshalYAML()
-		if err != nil {
-			return "", fmt.Errorf("marshalling: %w", err)
-		}
-
-		return string(b), nil
+		return string(spec.RenderWithIndention(2)), nil
 	case "json":
-		b, err := json.MarshalIndent(spec, "", "  ")
+		b, err := spec.RenderJSON("  ")
 		if err != nil {
-			return "", fmt.Errorf("marshalling: %w", err)
+			return "", err
 		}
-
 		return string(b), nil
 	default:
 		return "", fmt.Errorf("unknown format: %s", opts.Format)
 	}
 }
 
-func appendToSpec(opts Options, spec *openapi31.Spec, fd protoreflect.FileDescriptor) error {
+func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
 	spec = gnostic.SpecWithFileAnnotations(spec, fd)
 	components, err := fileToComponents(opts, fd)
 	if err != nil {
 		return err
 	}
-	for k, v := range components.Schemas {
-		spec.Components.Schemas[k] = v
+	for pair := components.Schemas.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Schemas.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.Responses {
-		spec.Components.Responses[k] = v
+	for pair := components.Responses.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Responses.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.Parameters {
-		spec.Components.Parameters[k] = v
+	for pair := components.Parameters.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Parameters.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.Examples {
-		spec.Components.Examples[k] = v
+	for pair := components.Examples.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Examples.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.RequestBodies {
-		spec.Components.RequestBodies[k] = v
+	for pair := components.RequestBodies.First(); pair != nil; pair = pair.Next() {
+		spec.Components.RequestBodies.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.Headers {
-		spec.Components.Headers[k] = v
+	for pair := components.Headers.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Headers.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.SecuritySchemes {
-		spec.Components.SecuritySchemes[k] = v
+	for pair := components.SecuritySchemes.First(); pair != nil; pair = pair.Next() {
+		spec.Components.SecuritySchemes.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.Links {
-		spec.Components.Links[k] = v
+	for pair := components.Links.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Links.Set(pair.Key(), pair.Value())
 	}
-	for k, v := range components.Callbacks {
-		spec.Components.Callbacks[k] = v
-	}
-	for k, v := range components.PathItems {
-		spec.Components.PathItems[k] = v
+	for pair := components.Callbacks.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Callbacks.Set(pair.Key(), pair.Value())
 	}
 
 	pathItems, err := fileToPathItems(opts, fd)
 	if err != nil {
 		return err
 	}
-	for k, v := range pathItems {
-		spec.Paths.MapOfPathItemValues[k] = v
+	for pair := pathItems.First(); pair != nil; pair = pair.Next() {
+		spec.Paths.PathItems.Set(pair.Key(), pair.Value())
 	}
 	spec.Tags = append(spec.Tags, fileToTags(fd)...)
 	return nil
+}
+
+func initializeDoc(doc v3.Document) v3.Document {
+	if doc.Version == "" {
+		doc.Version = "3.1.0"
+	}
+	if doc.Paths == nil {
+		doc.Paths = &v3.Paths{}
+	}
+	if doc.Paths.PathItems == nil {
+		doc.Paths.PathItems = orderedmap.New[string, *v3.PathItem]()
+	}
+	if doc.Paths.Extensions == nil {
+		doc.Paths.Extensions = orderedmap.New[string, *yaml.Node]()
+	}
+	if doc.Info == nil {
+		doc.Info = &base.Info{}
+	}
+	if doc.Paths == nil {
+		doc.Paths = &v3.Paths{}
+	}
+	if doc.Paths.PathItems == nil {
+		doc.Paths.PathItems = orderedmap.New[string, *v3.PathItem]()
+	}
+	if doc.Paths.Extensions == nil {
+		doc.Paths.Extensions = orderedmap.New[string, *yaml.Node]()
+	}
+	if doc.Components == nil {
+		doc.Components = &v3.Components{}
+	}
+	if doc.Components.Schemas == nil {
+		doc.Components.Schemas = orderedmap.New[string, *base.SchemaProxy]()
+	}
+	if doc.Components.Responses == nil {
+		doc.Components.Responses = orderedmap.New[string, *v3.Response]()
+	}
+	if doc.Components.Parameters == nil {
+		doc.Components.Parameters = orderedmap.New[string, *v3.Parameter]()
+	}
+	if doc.Components.Examples == nil {
+		doc.Components.Examples = orderedmap.New[string, *base.Example]()
+	}
+	if doc.Components.RequestBodies == nil {
+		doc.Components.RequestBodies = orderedmap.New[string, *v3.RequestBody]()
+	}
+	if doc.Components.Headers == nil {
+		doc.Components.Headers = orderedmap.New[string, *v3.Header]()
+	}
+	if doc.Components.SecuritySchemes == nil {
+		doc.Components.SecuritySchemes = orderedmap.New[string, *v3.SecurityScheme]()
+	}
+	if doc.Components.Links == nil {
+		doc.Components.Links = orderedmap.New[string, *v3.Link]()
+	}
+	if doc.Components.Callbacks == nil {
+		doc.Components.Callbacks = orderedmap.New[string, *v3.Callback]()
+	}
+	if doc.Components.Extensions == nil {
+		doc.Components.Extensions = orderedmap.New[string, *yaml.Node]()
+	}
+	if doc.Security == nil {
+		doc.Security = []*base.SecurityRequirement{}
+	}
+	if doc.ExternalDocs == nil {
+		doc.ExternalDocs = &base.ExternalDoc{}
+	}
+	if doc.Extensions == nil {
+		doc.Extensions = orderedmap.New[string, *yaml.Node]()
+	}
+	if doc.Webhooks == nil {
+		doc.Webhooks = orderedmap.New[string, *v3.PathItem]()
+	}
+	if doc.Index == nil {
+		doc.Index = &index.SpecIndex{}
+	}
+	if doc.Rolodex == nil {
+		doc.Rolodex = &index.Rolodex{}
+	}
+
+	return doc
 }
