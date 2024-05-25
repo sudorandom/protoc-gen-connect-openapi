@@ -267,14 +267,14 @@ func toDefault(dt *goa3.DefaultType) *yaml.Node {
 	}
 	switch dt.GetOneof().(type) {
 	case *goa3.DefaultType_Number:
-		return &yaml.Node{Value: strconv.FormatFloat(dt.GetNumber(), 'f', -1, 64)}
+		return &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatFloat(dt.GetNumber(), 'f', -1, 64)}
 	case *goa3.DefaultType_String_:
-		return &yaml.Node{Value: dt.GetString_()}
+		return &yaml.Node{Kind: yaml.ScalarNode, Value: dt.GetString_()}
 	case *goa3.DefaultType_Boolean:
 		if dt.GetBoolean() {
-			return &yaml.Node{Value: "true"}
+			return &yaml.Node{Kind: yaml.ScalarNode, Value: "true"}
 		}
-		return &yaml.Node{Value: "false"}
+		return &yaml.Node{Kind: yaml.ScalarNode, Value: "false"}
 	default:
 		return nil
 	}

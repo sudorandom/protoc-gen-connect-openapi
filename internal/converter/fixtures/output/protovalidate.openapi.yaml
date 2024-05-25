@@ -73,8 +73,13 @@ components:
     google.protobuf.Any:
       type: object
       properties:
-        '@type':
+        type:
           type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
           additionalProperties: true
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
@@ -291,16 +296,26 @@ components:
           title: float_const
           additionalProperties: false
           description: Floats
+          const: 42
         floatIn:
           type: array
           items:
             type: number
             title: float_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         floatNotIn:
           type: array
           items:
             type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: float_not_in
             additionalProperties: false
         floatFinite:
@@ -342,6 +357,7 @@ components:
           title: double_const
           additionalProperties: false
           description: Double
+          const: 42
         doubleIn:
           type: array
           items:
@@ -349,6 +365,10 @@ components:
               - type: string
               - type: number
             title: double_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         doubleNotIn:
           type: array
@@ -356,6 +376,11 @@ components:
             oneOf:
               - type: string
               - type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: double_not_in
             additionalProperties: false
         doubleFinite:
@@ -407,16 +432,26 @@ components:
           title: int32_const
           additionalProperties: false
           description: int32
+          const: 42
         int32In:
           type: array
           items:
             type: integer
             title: int32_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         int32NotIn:
           type: array
           items:
             type: integer
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: int32_not_in
             additionalProperties: false
         int32Lt:
@@ -452,6 +487,7 @@ components:
           title: int64_const
           additionalProperties: false
           description: int64
+          const: 42
         int64In:
           type: array
           items:
@@ -459,6 +495,10 @@ components:
               - type: string
               - type: number
             title: int64_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         int64NotIn:
           type: array
@@ -466,6 +506,11 @@ components:
             oneOf:
               - type: string
               - type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: int64_not_in
             additionalProperties: false
         int64Lt:
@@ -509,16 +554,26 @@ components:
           title: uint32_const
           additionalProperties: false
           description: uint32
+          const: 42
         uint32In:
           type: array
           items:
             type: integer
             title: uint32_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         uint32NotIn:
           type: array
           items:
             type: integer
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: uint32_not_in
             additionalProperties: false
         uint32Lt:
@@ -554,6 +609,7 @@ components:
           title: uint64_const
           additionalProperties: false
           description: uint64
+          const: 42
         uint64In:
           type: array
           items:
@@ -561,6 +617,10 @@ components:
               - type: string
               - type: number
             title: uint64_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         uint64NotIn:
           type: array
@@ -568,6 +628,11 @@ components:
             oneOf:
               - type: string
               - type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: uint64_not_in
             additionalProperties: false
         uint64Lt:
@@ -611,16 +676,26 @@ components:
           title: sint32_const
           additionalProperties: false
           description: sint32
+          const: 42
         sint32In:
           type: array
           items:
             type: integer
             title: sint32_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         sint32NotIn:
           type: array
           items:
             type: integer
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: sint32_not_in
             additionalProperties: false
         sint32Lt:
@@ -656,6 +731,7 @@ components:
           title: sint64_const
           additionalProperties: false
           description: sint64
+          const: 42
         sint64In:
           type: array
           items:
@@ -663,6 +739,10 @@ components:
               - type: string
               - type: number
             title: sint64_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         sint64NotIn:
           type: array
@@ -670,6 +750,11 @@ components:
             oneOf:
               - type: string
               - type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: sint64_not_in
             additionalProperties: false
         sint64Lt:
@@ -713,16 +798,26 @@ components:
           title: fixed32_const
           additionalProperties: false
           description: fixed32
+          const: 42
         fixed32In:
           type: array
           items:
             type: integer
             title: fixed32_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         fixed32NotIn:
           type: array
           items:
             type: integer
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: fixed32_not_in
             additionalProperties: false
         fixed32Lt:
@@ -758,6 +853,7 @@ components:
           title: fixed64_const
           additionalProperties: false
           description: fixed64
+          const: 42
         fixed64In:
           type: array
           items:
@@ -765,6 +861,10 @@ components:
               - type: string
               - type: number
             title: fixed64_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         fixed64NotIn:
           type: array
@@ -772,6 +872,11 @@ components:
             oneOf:
               - type: string
               - type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: fixed64_not_in
             additionalProperties: false
         fixed64Lt:
@@ -815,16 +920,26 @@ components:
           title: sfixed32_const
           additionalProperties: false
           description: sfixed32
+          const: 42
         sfixed32In:
           type: array
           items:
             type: integer
             title: sfixed32_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         sfixed32NotIn:
           type: array
           items:
             type: integer
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: sfixed32_not_in
             additionalProperties: false
         sfixed32Lt:
@@ -860,6 +975,7 @@ components:
           title: sfixed64_const
           additionalProperties: false
           description: sfixed64
+          const: 42
         sfixed64In:
           type: array
           items:
@@ -867,6 +983,10 @@ components:
               - type: string
               - type: number
             title: sfixed64_in
+            enum:
+              - 1
+              - 2
+              - 3
             additionalProperties: false
         sfixed64NotIn:
           type: array
@@ -874,6 +994,11 @@ components:
             oneOf:
               - type: string
               - type: number
+            not:
+              enum:
+                - 1
+                - 2
+                - 3
             title: sfixed64_not_in
             additionalProperties: false
         sfixed64Lt:
@@ -917,16 +1042,24 @@ components:
           title: string_const
           additionalProperties: false
           description: string
+          const: hello
         stringIn:
           type: array
           items:
             type: string
             title: string_in
+            enum:
+              - orange
+              - grape
             additionalProperties: false
         stringNotIn:
           type: array
           items:
             type: string
+            not:
+              enum:
+                - orange
+                - grape
             title: string_not_in
             additionalProperties: false
         stringMinLen:
@@ -1059,6 +1192,7 @@ components:
           title: byte_const
           format: byte
           additionalProperties: false
+          const: "\x01\x02\x03\x04"
         byteLen:
           type: string
           title: byte_len
@@ -1103,9 +1237,18 @@ components:
           type: string
           title: bytes_in
           format: byte
+          enum:
+            - "\x01\x02"
+            - "\x02\x03"
+            - "\x03\x04"
           additionalProperties: false
         bytesNotIn:
           type: string
+          not:
+            enum:
+              - "\x01\x02"
+              - "\x02\x03"
+              - "\x03\x04"
           title: bytes_not_in
           format: byte
           additionalProperties: false

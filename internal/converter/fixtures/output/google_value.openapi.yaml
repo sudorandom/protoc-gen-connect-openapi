@@ -166,8 +166,13 @@ components:
     google.protobuf.Any:
       type: object
       properties:
-        '@type':
+        type:
           type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
           additionalProperties: true
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.

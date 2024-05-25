@@ -125,8 +125,15 @@
       "google.protobuf.Any": {
         "type": "object",
         "properties": {
-          "@type": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
             "type": "string",
+            "format": "binary"
+          },
+          "debug": {
+            "type": "object",
             "additionalProperties": true
           }
         },
@@ -198,13 +205,19 @@
             "type": "number",
             "title": "float_const",
             "additionalProperties": false,
-            "description": "Floats"
+            "description": "Floats",
+            "const": 42
           },
           "floatIn": {
             "type": "array",
             "items": {
               "type": "number",
               "title": "float_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -212,6 +225,13 @@
             "type": "array",
             "items": {
               "type": "number",
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "float_not_in",
               "additionalProperties": false
             }
@@ -266,7 +286,8 @@
             ],
             "title": "double_const",
             "additionalProperties": false,
-            "description": "Double"
+            "description": "Double",
+            "const": 42
           },
           "doubleIn": {
             "type": "array",
@@ -280,6 +301,11 @@
                 }
               ],
               "title": "double_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -294,6 +320,13 @@
                   "type": "number"
                 }
               ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "double_not_in",
               "additionalProperties": false
             }
@@ -383,13 +416,19 @@
             "type": "integer",
             "title": "int32_const",
             "additionalProperties": false,
-            "description": "int32"
+            "description": "int32",
+            "const": 42
           },
           "int32In": {
             "type": "array",
             "items": {
               "type": "integer",
               "title": "int32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -397,6 +436,13 @@
             "type": "array",
             "items": {
               "type": "integer",
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "int32_not_in",
               "additionalProperties": false
             }
@@ -443,7 +489,8 @@
             ],
             "title": "int64_const",
             "additionalProperties": false,
-            "description": "int64"
+            "description": "int64",
+            "const": 42
           },
           "int64In": {
             "type": "array",
@@ -457,6 +504,11 @@
                 }
               ],
               "title": "int64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -471,6 +523,13 @@
                   "type": "number"
                 }
               ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "int64_not_in",
               "additionalProperties": false
             }
@@ -545,13 +604,19 @@
             "type": "integer",
             "title": "uint32_const",
             "additionalProperties": false,
-            "description": "uint32"
+            "description": "uint32",
+            "const": 42
           },
           "uint32In": {
             "type": "array",
             "items": {
               "type": "integer",
               "title": "uint32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -559,6 +624,13 @@
             "type": "array",
             "items": {
               "type": "integer",
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "uint32_not_in",
               "additionalProperties": false
             }
@@ -605,7 +677,8 @@
             ],
             "title": "uint64_const",
             "additionalProperties": false,
-            "description": "uint64"
+            "description": "uint64",
+            "const": 42
           },
           "uint64In": {
             "type": "array",
@@ -619,6 +692,11 @@
                 }
               ],
               "title": "uint64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -633,6 +711,13 @@
                   "type": "number"
                 }
               ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "uint64_not_in",
               "additionalProperties": false
             }
@@ -707,13 +792,19 @@
             "type": "integer",
             "title": "sint32_const",
             "additionalProperties": false,
-            "description": "sint32"
+            "description": "sint32",
+            "const": 42
           },
           "sint32In": {
             "type": "array",
             "items": {
               "type": "integer",
               "title": "sint32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -721,6 +812,13 @@
             "type": "array",
             "items": {
               "type": "integer",
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "sint32_not_in",
               "additionalProperties": false
             }
@@ -767,7 +865,8 @@
             ],
             "title": "sint64_const",
             "additionalProperties": false,
-            "description": "sint64"
+            "description": "sint64",
+            "const": 42
           },
           "sint64In": {
             "type": "array",
@@ -781,6 +880,11 @@
                 }
               ],
               "title": "sint64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -795,6 +899,13 @@
                   "type": "number"
                 }
               ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "sint64_not_in",
               "additionalProperties": false
             }
@@ -869,13 +980,19 @@
             "type": "integer",
             "title": "fixed32_const",
             "additionalProperties": false,
-            "description": "fixed32"
+            "description": "fixed32",
+            "const": 42
           },
           "fixed32In": {
             "type": "array",
             "items": {
               "type": "integer",
               "title": "fixed32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -883,6 +1000,13 @@
             "type": "array",
             "items": {
               "type": "integer",
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "fixed32_not_in",
               "additionalProperties": false
             }
@@ -929,7 +1053,8 @@
             ],
             "title": "fixed64_const",
             "additionalProperties": false,
-            "description": "fixed64"
+            "description": "fixed64",
+            "const": 42
           },
           "fixed64In": {
             "type": "array",
@@ -943,6 +1068,11 @@
                 }
               ],
               "title": "fixed64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -957,6 +1087,13 @@
                   "type": "number"
                 }
               ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "fixed64_not_in",
               "additionalProperties": false
             }
@@ -1031,13 +1168,19 @@
             "type": "integer",
             "title": "sfixed32_const",
             "additionalProperties": false,
-            "description": "sfixed32"
+            "description": "sfixed32",
+            "const": 42
           },
           "sfixed32In": {
             "type": "array",
             "items": {
               "type": "integer",
               "title": "sfixed32_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -1045,6 +1188,13 @@
             "type": "array",
             "items": {
               "type": "integer",
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "sfixed32_not_in",
               "additionalProperties": false
             }
@@ -1091,7 +1241,8 @@
             ],
             "title": "sfixed64_const",
             "additionalProperties": false,
-            "description": "sfixed64"
+            "description": "sfixed64",
+            "const": 42
           },
           "sfixed64In": {
             "type": "array",
@@ -1105,6 +1256,11 @@
                 }
               ],
               "title": "sfixed64_in",
+              "enum": [
+                1,
+                2,
+                3
+              ],
               "additionalProperties": false
             }
           },
@@ -1119,6 +1275,13 @@
                   "type": "number"
                 }
               ],
+              "not": {
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
               "title": "sfixed64_not_in",
               "additionalProperties": false
             }
@@ -1193,13 +1356,18 @@
             "type": "string",
             "title": "string_const",
             "additionalProperties": false,
-            "description": "string"
+            "description": "string",
+            "const": "hello"
           },
           "stringIn": {
             "type": "array",
             "items": {
               "type": "string",
               "title": "string_in",
+              "enum": [
+                "orange",
+                "grape"
+              ],
               "additionalProperties": false
             }
           },
@@ -1207,6 +1375,12 @@
             "type": "array",
             "items": {
               "type": "string",
+              "not": {
+                "enum": [
+                  "orange",
+                  "grape"
+                ]
+              },
               "title": "string_not_in",
               "additionalProperties": false
             }
@@ -1368,7 +1542,8 @@
             "type": "string",
             "title": "byte_const",
             "format": "byte",
-            "additionalProperties": false
+            "additionalProperties": false,
+            "const": "\u0001\u0002\u0003\u0004"
           },
           "byteLen": {
             "type": "string",
@@ -1421,10 +1596,22 @@
             "type": "string",
             "title": "bytes_in",
             "format": "byte",
+            "enum": [
+              "\u0001\u0002",
+              "\u0002\u0003",
+              "\u0003\u0004"
+            ],
             "additionalProperties": false
           },
           "bytesNotIn": {
             "type": "string",
+            "not": {
+              "enum": [
+                "\u0001\u0002",
+                "\u0002\u0003",
+                "\u0003\u0004"
+              ]
+            },
             "title": "bytes_not_in",
             "format": "byte",
             "additionalProperties": false

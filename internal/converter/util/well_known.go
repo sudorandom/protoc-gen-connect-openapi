@@ -164,12 +164,16 @@ func googleEmpty(msg protoreflect.MessageDescriptor) *IDSchema {
 }
 
 func NewGoogleAny() *IDSchema {
-	typeS := &base.Schema{
-		Type:                 []string{"string"},
-		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
-	}
 	props := orderedmap.New[string, *base.SchemaProxy]()
-	props.Set("@type", base.CreateSchemaProxy(typeS))
+	props.Set("type", base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}))
+	props.Set("value", base.CreateSchemaProxy(&base.Schema{
+		Type:   []string{"string"},
+		Format: "binary",
+	}))
+	props.Set("debug", base.CreateSchemaProxy(&base.Schema{
+		Type:                 []string{"object"},
+		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+	}))
 
 	return &IDSchema{
 		ID: "google.protobuf.Any",

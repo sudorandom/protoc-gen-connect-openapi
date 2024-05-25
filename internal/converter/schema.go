@@ -136,9 +136,9 @@ func enumToSchema(state *State, tt protoreflect.EnumDescriptor) (string, *base.S
 	values := tt.Values()
 	for i := 0; i < values.Len(); i++ {
 		value := values.Get(i)
-		children = append(children, &yaml.Node{Value: string(value.Name())})
+		children = append(children, &yaml.Node{Kind: yaml.ScalarNode, Value: string(value.Name())})
 		if state.Opts.IncludeNumberEnumValues {
-			children = append(children, &yaml.Node{Value: strconv.FormatInt(int64(value.Number()), 10)})
+			children = append(children, &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatInt(int64(value.Number()), 10)})
 		}
 	}
 	s := &base.Schema{

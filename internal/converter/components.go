@@ -60,8 +60,8 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			Title:       "encoding",
 			Description: "Define which encoding or 'Message-Codec' to use",
 			Enum: []*yaml.Node{
-				{Value: "proto"},
-				{Value: "json"},
+				{Kind: yaml.ScalarNode, Value: "proto"},
+				{Kind: yaml.ScalarNode, Value: "json"},
 			},
 		}))
 
@@ -85,10 +85,10 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			Title:       "compression",
 			Description: "Which compression algorithm to use for this request",
 			Enum: []*yaml.Node{
-				{Value: "identity"},
-				{Value: "gzip"},
-				{Value: "br"},
-				{Value: "gzip"},
+				{Kind: yaml.ScalarNode, Value: "identity"},
+				{Kind: yaml.ScalarNode, Value: "gzip"},
+				{Kind: yaml.ScalarNode, Value: "br"},
+				{Kind: yaml.ScalarNode, Value: "gzip"},
 			},
 		}))
 
@@ -101,7 +101,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			Title:       "connect",
 			Description: "Which version of connect to use.",
 			Enum: []*yaml.Node{
-				{Value: "1"},
+				{Kind: yaml.ScalarNode, Value: "1"},
 			},
 		}))
 	}
@@ -109,23 +109,23 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 	connectErrorProps.Set("code", base.CreateSchemaProxy(&base.Schema{
 		Description: "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].",
 		Type:        []string{"string"},
-		Examples:    []*yaml.Node{{Value: "CodeNotFound"}},
+		Examples:    []*yaml.Node{{Kind: yaml.ScalarNode, Value: "CodeNotFound"}},
 		Enum: []*yaml.Node{
-			{Value: "CodeCanceled"},
-			{Value: "CodeUnknown"},
-			{Value: "CodeInvalidArgument"},
-			{Value: "CodeDeadlineExceeded"},
-			{Value: "CodeNotFound"},
-			{Value: "CodeAlreadyExists"},
-			{Value: "CodePermissionDenied"},
-			{Value: "CodeResourceExhausted"},
-			{Value: "CodeFailedPrecondition"},
-			{Value: "CodeAborted"},
-			{Value: "CodeOutOfRange"},
-			{Value: "CodeInternal"},
-			{Value: "CodeUnavailable"},
-			{Value: "CodeDataLoss"},
-			{Value: "CodeUnauthenticated"},
+			{Kind: yaml.ScalarNode, Value: "CodeCanceled"},
+			{Kind: yaml.ScalarNode, Value: "CodeUnknown"},
+			{Kind: yaml.ScalarNode, Value: "CodeInvalidArgument"},
+			{Kind: yaml.ScalarNode, Value: "CodeDeadlineExceeded"},
+			{Kind: yaml.ScalarNode, Value: "CodeNotFound"},
+			{Kind: yaml.ScalarNode, Value: "CodeAlreadyExists"},
+			{Kind: yaml.ScalarNode, Value: "CodePermissionDenied"},
+			{Kind: yaml.ScalarNode, Value: "CodeResourceExhausted"},
+			{Kind: yaml.ScalarNode, Value: "CodeFailedPrecondition"},
+			{Kind: yaml.ScalarNode, Value: "CodeAborted"},
+			{Kind: yaml.ScalarNode, Value: "CodeOutOfRange"},
+			{Kind: yaml.ScalarNode, Value: "CodeInternal"},
+			{Kind: yaml.ScalarNode, Value: "CodeUnavailable"},
+			{Kind: yaml.ScalarNode, Value: "CodeDataLoss"},
+			{Kind: yaml.ScalarNode, Value: "CodeUnauthenticated"},
 		},
 	}))
 	connectErrorProps.Set("message", base.CreateSchemaProxy(&base.Schema{

@@ -108,7 +108,10 @@ func updateWithCEL(schema *base.Schema, constraints []*validate.Constraint) {
 
 func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.FloatRules_Lt:
@@ -129,14 +132,20 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 32)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatFloat(float64(item), 'f', -1, 32),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 32)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatFloat(float64(item), 'f', -1, 32),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -144,7 +153,10 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 
 func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DoubleRules_Lt:
@@ -165,14 +177,20 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 64)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatFloat(float64(item), 'f', -1, 64),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 64)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatFloat(float64(item), 'f', -1, 64),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -180,7 +198,10 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 
 func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(int64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatInt(int64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int32Rules_Lt:
@@ -201,14 +222,20 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(int64(item), 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(int64(item), 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -216,7 +243,10 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 
 func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(int64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatInt(int64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int64Rules_Lt:
@@ -237,14 +267,20 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(item, 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(item, 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -252,7 +288,10 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 
 func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatUint(uint64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatUint(uint64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt32Rules_Lt:
@@ -273,14 +312,20 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(uint64(item), 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(uint64(item), 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -288,7 +333,10 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 
 func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatUint(uint64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatUint(uint64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
@@ -309,14 +357,20 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(uint64(item), 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(uint64(item), 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -324,7 +378,10 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 
 func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(int64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatInt(int64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt32Rules_Lt:
@@ -345,14 +402,20 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(int64(item), 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(int64(item), 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -360,7 +423,10 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 
 func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(*constraint.Const, 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatInt(*constraint.Const, 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt64Rules_Lt:
@@ -381,14 +447,20 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(item, 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(item, 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -396,7 +468,10 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 
 func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatUint(uint64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatUint(uint64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed32Rules_Lt:
@@ -417,14 +492,20 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(uint64(item), 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(uint64(item), 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -432,7 +513,10 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 
 func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatUint(*constraint.Const, 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatUint(*constraint.Const, 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
@@ -453,14 +537,20 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(item, 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatUint(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatUint(item, 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -468,7 +558,10 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 
 func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(int64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatInt(int64(*constraint.Const), 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed32Rules_Lt:
@@ -489,14 +582,20 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(int64(item), 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(int64(item), 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -504,7 +603,10 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 
 func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(*constraint.Const, 10)}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: strconv.FormatInt(*constraint.Const, 10),
+		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed64Rules_Lt:
@@ -525,14 +627,20 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(item, 10),
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+			items[i] = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: strconv.FormatInt(item, 10),
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -541,9 +649,15 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 func updateSchemaBool(schema *base.Schema, constraint *validate.BoolRules) {
 	if constraint.Const != nil {
 		if *constraint.Const {
-			schema.Const = &yaml.Node{Value: "true"}
+			schema.Const = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: "true",
+			}
 		} else {
-			schema.Const = &yaml.Node{Value: "false"}
+			schema.Const = &yaml.Node{
+				Kind:  yaml.ScalarNode,
+				Value: "false",
+			}
 		}
 	}
 }
@@ -551,7 +665,10 @@ func updateSchemaBool(schema *base.Schema, constraint *validate.BoolRules) {
 //gocyclo:ignore
 func updateSchemaString(schema *base.Schema, constraint *validate.StringRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: *constraint.Const}
+		schema.Const = &yaml.Node{
+			Kind:  yaml.ScalarNode,
+			Value: *constraint.Const,
+		}
 	}
 	if constraint.Len != nil {
 		v := int64(*constraint.Len)
@@ -572,14 +689,14 @@ func updateSchemaString(schema *base.Schema, constraint *validate.StringRules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: item}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: item}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: item}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: item}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -637,7 +754,7 @@ func updateSchemaString(schema *base.Schema, constraint *validate.StringRules) {
 
 func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: string(constraint.Const)}
+		schema.Const = &yaml.Node{Kind: yaml.ScalarNode, Value: string(constraint.Const)}
 	}
 	if constraint.Len != nil {
 		v := int64(*constraint.Len)
@@ -658,14 +775,14 @@ func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: string(item)}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: string(item)}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: string(item)}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: string(item)}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -687,19 +804,19 @@ func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
 
 func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: strconv.FormatInt(int64(*constraint.Const), 10)}
+		schema.Const = &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatInt(int64(*constraint.Const), 10)}
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatInt(int64(item), 10)}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatInt(int64(item), 10)}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -745,14 +862,14 @@ func updateSchemaAny(schema *base.Schema, constraint *validate.AnyRules) {
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: item}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: item}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: item}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: item}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -760,19 +877,19 @@ func updateSchemaAny(schema *base.Schema, constraint *validate.AnyRules) {
 
 func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: constraint.Const.String()}
+		schema.Const = &yaml.Node{Kind: yaml.ScalarNode, Value: constraint.Const.String()}
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = &yaml.Node{Value: item.String()}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: item.String()}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = &yaml.Node{Value: item.String()}
+			items[i] = &yaml.Node{Kind: yaml.ScalarNode, Value: item.String()}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
@@ -780,6 +897,6 @@ func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRule
 
 func updateSchemaTimestamp(schema *base.Schema, constraint *validate.TimestampRules) {
 	if constraint.Const != nil {
-		schema.Const = &yaml.Node{Value: constraint.Const.String()}
+		schema.Const = &yaml.Node{Kind: yaml.ScalarNode, Value: constraint.Const.String()}
 	}
 }

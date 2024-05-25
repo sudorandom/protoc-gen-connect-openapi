@@ -649,8 +649,15 @@
       "google.protobuf.Any": {
         "type": "object",
         "properties": {
-          "@type": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
             "type": "string",
+            "format": "binary"
+          },
+          "debug": {
+            "type": "object",
             "additionalProperties": true
           }
         },
