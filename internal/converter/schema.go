@@ -7,6 +7,7 @@ import (
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
 
@@ -136,9 +137,9 @@ func enumToSchema(state *State, tt protoreflect.EnumDescriptor) (string, *base.S
 	values := tt.Values()
 	for i := 0; i < values.Len(); i++ {
 		value := values.Get(i)
-		children = append(children, &yaml.Node{Kind: yaml.ScalarNode, Value: string(value.Name())})
+		children = append(children, utils.CreateStringNode(string(value.Name())))
 		if state.Opts.IncludeNumberEnumValues {
-			children = append(children, &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatInt(int64(value.Number()), 10)})
+			children = append(children, utils.CreateIntNode(strconv.FormatInt(int64(value.Number()), 10)))
 		}
 	}
 	s := &base.Schema{

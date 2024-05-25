@@ -7,6 +7,7 @@ import (
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"gopkg.in/yaml.v3"
 )
 
@@ -267,14 +268,14 @@ func toDefault(dt *goa3.DefaultType) *yaml.Node {
 	}
 	switch dt.GetOneof().(type) {
 	case *goa3.DefaultType_Number:
-		return &yaml.Node{Kind: yaml.ScalarNode, Value: strconv.FormatFloat(dt.GetNumber(), 'f', -1, 64)}
+		return utils.CreateStringNode(strconv.FormatFloat(dt.GetNumber(), 'f', -1, 64))
 	case *goa3.DefaultType_String_:
-		return &yaml.Node{Kind: yaml.ScalarNode, Value: dt.GetString_()}
+		return utils.CreateStringNode(dt.GetString_())
 	case *goa3.DefaultType_Boolean:
 		if dt.GetBoolean() {
-			return &yaml.Node{Kind: yaml.ScalarNode, Value: "true"}
+			return utils.CreateStringNode("true")
 		}
-		return &yaml.Node{Kind: yaml.ScalarNode, Value: "false"}
+		return utils.CreateStringNode("false")
 	default:
 		return nil
 	}

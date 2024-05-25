@@ -300,16 +300,12 @@ components:
           title: float_const
           additionalProperties: false
           description: Floats
-          const: 42
+          const: !!float 42
         floatIn:
           type: array
           items:
             type: number
             title: float_in
-            enum:
-              - 1
-              - 2
-              - 3
             additionalProperties: false
         floatNotIn:
           type: array
@@ -317,9 +313,9 @@ components:
             type: number
             not:
               enum:
-                - 1
-                - 2
-                - 3
+                - !!float 1
+                - !!float 2
+                - !!float 3
             title: float_not_in
             additionalProperties: false
         floatFinite:
@@ -329,30 +325,24 @@ components:
             title: float_finite
             additionalProperties: false
         floatLt:
-          exclusiveMaximum: false
           type: number
           title: float_lt
           additionalProperties: false
         floatLte:
           type: number
           title: float_lte
-          maximum: 420
           additionalProperties: false
         floatGt:
-          exclusiveMinimum: false
           type: number
           title: float_gt
           additionalProperties: false
         floatGte:
           type: number
           title: float_gte
-          minimum: 69
           additionalProperties: false
         floatBounds:
-          exclusiveMaximum: false
           type: number
           title: float_bounds
-          minimum: 5
           additionalProperties: false
         doubleConst:
           oneOf:
@@ -361,7 +351,7 @@ components:
           title: double_const
           additionalProperties: false
           description: Double
-          const: 42
+          const: !!float 42
         doubleIn:
           type: array
           items:
@@ -370,9 +360,9 @@ components:
               - type: number
             title: double_in
             enum:
-              - 1
-              - 2
-              - 3
+              - !!float 1
+              - !!float 2
+              - !!float 3
             additionalProperties: false
         doubleNotIn:
           type: array
@@ -382,9 +372,9 @@ components:
               - type: number
             not:
               enum:
-                - 1
-                - 2
-                - 3
+                - !!float 1
+                - !!float 2
+                - !!float 3
             title: double_not_in
             additionalProperties: false
         doubleFinite:
@@ -558,16 +548,16 @@ components:
           title: uint32_const
           additionalProperties: false
           description: uint32
-          const: 42
+          const: "42"
         uint32In:
           type: array
           items:
             type: integer
             title: uint32_in
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
             additionalProperties: false
         uint32NotIn:
           type: array
@@ -575,9 +565,9 @@ components:
             type: integer
             not:
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             title: uint32_not_in
             additionalProperties: false
         uint32Lt:
@@ -613,7 +603,7 @@ components:
           title: uint64_const
           additionalProperties: false
           description: uint64
-          const: 42
+          const: "42"
         uint64In:
           type: array
           items:
@@ -622,9 +612,9 @@ components:
               - type: number
             title: uint64_in
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
             additionalProperties: false
         uint64NotIn:
           type: array
@@ -634,9 +624,9 @@ components:
               - type: number
             not:
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             title: uint64_not_in
             additionalProperties: false
         uint64Lt:
@@ -802,16 +792,16 @@ components:
           title: fixed32_const
           additionalProperties: false
           description: fixed32
-          const: 42
+          const: "42"
         fixed32In:
           type: array
           items:
             type: integer
             title: fixed32_in
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
             additionalProperties: false
         fixed32NotIn:
           type: array
@@ -819,9 +809,9 @@ components:
             type: integer
             not:
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             title: fixed32_not_in
             additionalProperties: false
         fixed32Lt:
@@ -857,7 +847,7 @@ components:
           title: fixed64_const
           additionalProperties: false
           description: fixed64
-          const: 42
+          const: "42"
         fixed64In:
           type: array
           items:
@@ -866,9 +856,9 @@ components:
               - type: number
             title: fixed64_in
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
             additionalProperties: false
         fixed64NotIn:
           type: array
@@ -878,9 +868,9 @@ components:
               - type: number
             not:
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             title: fixed64_not_in
             additionalProperties: false
         fixed64Lt:

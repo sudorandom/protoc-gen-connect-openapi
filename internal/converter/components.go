@@ -7,6 +7,7 @@ import (
 	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
 
@@ -60,8 +61,8 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			Title:       "encoding",
 			Description: "Define which encoding or 'Message-Codec' to use",
 			Enum: []*yaml.Node{
-				{Kind: yaml.ScalarNode, Value: "proto"},
-				{Kind: yaml.ScalarNode, Value: "json"},
+				utils.CreateStringNode("proto"),
+				utils.CreateStringNode("json"),
 			},
 		}))
 
@@ -85,10 +86,10 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			Title:       "compression",
 			Description: "Which compression algorithm to use for this request",
 			Enum: []*yaml.Node{
-				{Kind: yaml.ScalarNode, Value: "identity"},
-				{Kind: yaml.ScalarNode, Value: "gzip"},
-				{Kind: yaml.ScalarNode, Value: "br"},
-				{Kind: yaml.ScalarNode, Value: "gzip"},
+				utils.CreateStringNode("identity"),
+				utils.CreateStringNode("gzip"),
+				utils.CreateStringNode("br"),
+				utils.CreateStringNode("gzip"),
 			},
 		}))
 
@@ -100,32 +101,30 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 		components.Schemas.Set("connect", base.CreateSchemaProxy(&base.Schema{
 			Title:       "connect",
 			Description: "Which version of connect to use.",
-			Enum: []*yaml.Node{
-				{Kind: yaml.ScalarNode, Value: "1"},
-			},
+			Enum:        []*yaml.Node{utils.CreateStringNode("1")},
 		}))
 	}
 	connectErrorProps := orderedmap.New[string, *base.SchemaProxy]()
 	connectErrorProps.Set("code", base.CreateSchemaProxy(&base.Schema{
 		Description: "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].",
 		Type:        []string{"string"},
-		Examples:    []*yaml.Node{{Kind: yaml.ScalarNode, Value: "CodeNotFound"}},
+		Examples:    []*yaml.Node{utils.CreateStringNode("CodeNotFound")},
 		Enum: []*yaml.Node{
-			{Kind: yaml.ScalarNode, Value: "CodeCanceled"},
-			{Kind: yaml.ScalarNode, Value: "CodeUnknown"},
-			{Kind: yaml.ScalarNode, Value: "CodeInvalidArgument"},
-			{Kind: yaml.ScalarNode, Value: "CodeDeadlineExceeded"},
-			{Kind: yaml.ScalarNode, Value: "CodeNotFound"},
-			{Kind: yaml.ScalarNode, Value: "CodeAlreadyExists"},
-			{Kind: yaml.ScalarNode, Value: "CodePermissionDenied"},
-			{Kind: yaml.ScalarNode, Value: "CodeResourceExhausted"},
-			{Kind: yaml.ScalarNode, Value: "CodeFailedPrecondition"},
-			{Kind: yaml.ScalarNode, Value: "CodeAborted"},
-			{Kind: yaml.ScalarNode, Value: "CodeOutOfRange"},
-			{Kind: yaml.ScalarNode, Value: "CodeInternal"},
-			{Kind: yaml.ScalarNode, Value: "CodeUnavailable"},
-			{Kind: yaml.ScalarNode, Value: "CodeDataLoss"},
-			{Kind: yaml.ScalarNode, Value: "CodeUnauthenticated"},
+			utils.CreateStringNode("CodeCanceled"),
+			utils.CreateStringNode("CodeUnknown"),
+			utils.CreateStringNode("CodeInvalidArgument"),
+			utils.CreateStringNode("CodeDeadlineExceeded"),
+			utils.CreateStringNode("CodeNotFound"),
+			utils.CreateStringNode("CodeAlreadyExists"),
+			utils.CreateStringNode("CodePermissionDenied"),
+			utils.CreateStringNode("CodeResourceExhausted"),
+			utils.CreateStringNode("CodeFailedPrecondition"),
+			utils.CreateStringNode("CodeAborted"),
+			utils.CreateStringNode("CodeOutOfRange"),
+			utils.CreateStringNode("CodeInternal"),
+			utils.CreateStringNode("CodeUnavailable"),
+			utils.CreateStringNode("CodeDataLoss"),
+			utils.CreateStringNode("CodeUnauthenticated"),
 		},
 	}))
 	connectErrorProps.Set("message", base.CreateSchemaProxy(&base.Schema{
@@ -142,6 +141,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 	}))
 	anyPair := util.NewGoogleAny()
 	components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
+	slog.Info("???", "comp.schem", components.Schemas)
 
 	return components, nil
 }

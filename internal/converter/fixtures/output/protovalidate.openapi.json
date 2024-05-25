@@ -218,11 +218,6 @@
             "items": {
               "type": "number",
               "title": "float_in",
-              "enum": [
-                1,
-                2,
-                3
-              ],
               "additionalProperties": false
             }
           },
@@ -250,7 +245,6 @@
             }
           },
           "floatLt": {
-            "exclusiveMaximum": false,
             "type": "number",
             "title": "float_lt",
             "additionalProperties": false
@@ -258,11 +252,9 @@
           "floatLte": {
             "type": "number",
             "title": "float_lte",
-            "maximum": 420,
             "additionalProperties": false
           },
           "floatGt": {
-            "exclusiveMinimum": false,
             "type": "number",
             "title": "float_gt",
             "additionalProperties": false
@@ -270,14 +262,11 @@
           "floatGte": {
             "type": "number",
             "title": "float_gte",
-            "minimum": 69,
             "additionalProperties": false
           },
           "floatBounds": {
-            "exclusiveMaximum": false,
             "type": "number",
             "title": "float_bounds",
-            "minimum": 5,
             "additionalProperties": false
           },
           "doubleConst": {
@@ -610,7 +599,7 @@
             "title": "uint32_const",
             "additionalProperties": false,
             "description": "uint32",
-            "const": 42
+            "const": "42"
           },
           "uint32In": {
             "type": "array",
@@ -618,9 +607,9 @@
               "type": "integer",
               "title": "uint32_in",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ],
               "additionalProperties": false
             }
@@ -631,9 +620,9 @@
               "type": "integer",
               "not": {
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "title": "uint32_not_in",
@@ -683,7 +672,7 @@
             "title": "uint64_const",
             "additionalProperties": false,
             "description": "uint64",
-            "const": 42
+            "const": "42"
           },
           "uint64In": {
             "type": "array",
@@ -698,9 +687,9 @@
               ],
               "title": "uint64_in",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ],
               "additionalProperties": false
             }
@@ -718,9 +707,9 @@
               ],
               "not": {
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "title": "uint64_not_in",
@@ -986,7 +975,7 @@
             "title": "fixed32_const",
             "additionalProperties": false,
             "description": "fixed32",
-            "const": 42
+            "const": "42"
           },
           "fixed32In": {
             "type": "array",
@@ -994,9 +983,9 @@
               "type": "integer",
               "title": "fixed32_in",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ],
               "additionalProperties": false
             }
@@ -1007,9 +996,9 @@
               "type": "integer",
               "not": {
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "title": "fixed32_not_in",
@@ -1059,7 +1048,7 @@
             "title": "fixed64_const",
             "additionalProperties": false,
             "description": "fixed64",
-            "const": 42
+            "const": "42"
           },
           "fixed64In": {
             "type": "array",
@@ -1074,9 +1063,9 @@
               ],
               "title": "fixed64_in",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ],
               "additionalProperties": false
             }
@@ -1094,9 +1083,9 @@
               ],
               "not": {
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "title": "fixed64_not_in",
