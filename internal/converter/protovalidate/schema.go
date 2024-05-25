@@ -133,6 +133,13 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 32)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
@@ -161,6 +168,13 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 64)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatFloat(float64(item), 'f', -1, 64)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -191,6 +205,13 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
@@ -219,6 +240,13 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -249,6 +277,13 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
@@ -277,6 +312,13 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -307,6 +349,13 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
@@ -335,6 +384,13 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -365,6 +421,13 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatUint(uint64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules) {
@@ -393,6 +456,13 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 			items[i] = &yaml.Node{Value: strconv.FormatUint(item, 10)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatUint(item, 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -423,6 +493,13 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rules) {
@@ -451,6 +528,13 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(item, 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -491,6 +575,13 @@ func updateSchemaString(schema *base.Schema, constraint *validate.StringRules) {
 			items[i] = &yaml.Node{Value: item}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: item}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 	switch v := constraint.WellKnown.(type) {
 	case *validate.StringRules_Email:
@@ -571,6 +662,13 @@ func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: string(item)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 	switch v := constraint.WellKnown.(type) {
 	case *validate.BytesRules_Ip:
 		if v.Ip {
@@ -597,6 +695,13 @@ func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: strconv.FormatInt(int64(item), 10)}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
@@ -644,6 +749,13 @@ func updateSchemaAny(schema *base.Schema, constraint *validate.AnyRules) {
 		}
 		schema.Enum = items
 	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: item}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
+	}
 }
 
 func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRules) {
@@ -656,6 +768,13 @@ func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRule
 			items[i] = &yaml.Node{Value: item.String()}
 		}
 		schema.Enum = items
+	}
+	if len(constraint.NotIn) > 0 {
+		items := make([]*yaml.Node, len(constraint.NotIn))
+		for i, item := range constraint.NotIn {
+			items[i] = &yaml.Node{Value: item.String()}
+		}
+		schema.Not = base.CreateSchemaProxy(&base.Schema{Enum: items})
 	}
 }
 
