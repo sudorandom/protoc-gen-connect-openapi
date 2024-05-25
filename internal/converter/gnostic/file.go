@@ -44,10 +44,11 @@ func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescript
 	}
 	spec.Servers = append(spec.Servers, toServers(opts.Servers)...)
 	spec.Security = append(spec.Security, toSecurityRequirements(opts.Security)...)
-	spec.Components.SecuritySchemes = toSecuritySchemes(opts.Components)
+	spec.Components = toComponents(opts.Components)
 	spec.Tags = append(spec.Tags, toTags(opts.Tags)...)
 	if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
 		spec.ExternalDocs = exDocs
 	}
+	spec.Extensions = toExtensions(opts.SpecificationExtension)
 	return spec
 }

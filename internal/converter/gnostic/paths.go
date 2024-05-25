@@ -18,12 +18,27 @@ func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDesc
 		return item
 	}
 	operations := item.GetOperations()
-	kv := operations.First()
-	for kv != nil {
+	for kv := operations.First(); kv != nil; kv = kv.Next() {
 		oper := kv.Value()
 		if opts.Deprecated {
 			t := true
 			oper.Deprecated = &t
+		}
+
+		for _, param := range opts.Parameters {
+			item.Parameters = append(item.Parameters, toParameter(param))
+		}
+
+		if opts.RequestBody != nil {
+			oper.RequestBody = toRequestBody(opts.RequestBody.GetRequestBody())
+		}
+
+		if opts.Responses != nil {
+			oper.Responses = toResponses(opts.Responses)
+		}
+
+		if opts.Callbacks != nil {
+			oper.Callbacks = toCallbacks(opts.Callbacks)
 		}
 
 		if security := toSecurityRequirements(opts.Security); len(security) > 0 {
@@ -47,7 +62,9 @@ func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDesc
 			oper.OperationId = opts.OperationId
 		}
 
-		kv = kv.Next()
+		if opts.SpecificationExtension != nil {
+			oper.Extensions = toExtensions(opts.GetSpecificationExtension())
+		}
 	}
 	return item
 }

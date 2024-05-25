@@ -143,9 +143,5 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 	anyPair := util.NewGoogleAny()
 	components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
 
-	components.Responses.Set("compression", &v3.Response{
-		Content: util.MakeMediaTypes(opts, "#/components/schemas/connect.error", false, false),
-	})
-
 	return components, nil
 }

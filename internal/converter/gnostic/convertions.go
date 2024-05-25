@@ -13,13 +13,20 @@ import (
 func toServers(servers []*goa3.Server) []*v3.Server {
 	result := make([]*v3.Server, len(servers))
 	for i, server := range servers {
-		result[i] = &v3.Server{
-			URL:         server.Url,
-			Description: server.Description,
-			Variables:   toVariables(server.Variables),
-		}
+		result[i] = toServer(server)
 	}
 	return result
+}
+
+func toServer(server *goa3.Server) *v3.Server {
+	if server == nil {
+		return nil
+	}
+	return &v3.Server{
+		URL:         server.Url,
+		Description: server.Description,
+		Variables:   toVariables(server.Variables),
+	}
 }
 
 func toVariables(variables *goa3.ServerVariables) *orderedmap.Map[string, *v3.ServerVariable] {
@@ -53,14 +60,68 @@ func toSecurityRequirements(securityReq []*goa3.SecurityRequirement) []*base.Sec
 	return result
 }
 
+func toComponents(c *goa3.Components) *v3.Components {
+	if c == nil {
+		return nil
+	}
+	return &v3.Components{
+		Schemas:         toSchemaOrReferenceMap(c.Schemas.GetAdditionalProperties()),
+		SecuritySchemes: toSecuritySchemes(c.SecuritySchemes),
+		Responses:       toResponsesMap(c.Responses),
+		Parameters:      toParametersMap(c.Parameters),
+		Examples:        toExamples(c.Examples),
+		RequestBodies:   toRequestBodiesMap(c.RequestBodies),
+		Headers:         toHeaders(c.Headers),
+		Links:           toLinks(c.Links),
+		Callbacks:       toCallbacks(c.Callbacks),
+		Extensions:      toExtensions(c.SpecificationExtension),
+	}
+}
+
+func toParametersMap(params *goa3.ParametersOrReferences) *orderedmap.Map[string, *v3.Parameter] {
+	m := orderedmap.New[string, *v3.Parameter]()
+	for _, item := range params.GetAdditionalProperties() {
+		m.Set(item.Name, toParameter(item.GetValue()))
+	}
+	return m
+}
+
+func toRequestBodiesMap(bodies *goa3.RequestBodiesOrReferences) *orderedmap.Map[string, *v3.RequestBody] {
+	m := orderedmap.New[string, *v3.RequestBody]()
+	for _, item := range bodies.GetAdditionalProperties() {
+		m.Set(item.Name, toRequestBody(item.GetValue().GetRequestBody()))
+	}
+	return m
+}
+
+func toRequestBody(rbody *goa3.RequestBody) *v3.RequestBody {
+	return &v3.RequestBody{
+		Description: rbody.Description,
+		Content:     toMediaTypes(rbody.GetContent()),
+		Required:    &rbody.Required,
+		Extensions:  toExtensions(rbody.SpecificationExtension),
+	}
+}
+
+func toResponsesMap(resps *goa3.ResponsesOrReferences) *orderedmap.Map[string, *v3.Response] {
+	if resps == nil {
+		return nil
+	}
+	m := orderedmap.New[string, *v3.Response]()
+	for _, resp := range resps.GetAdditionalProperties() {
+		m.Set(resp.Name, toResponse(resp.Value.GetResponse()))
+	}
+	return m
+}
+
 //gocyclo:ignore
-func toSecuritySchemes(components *goa3.Components) *orderedmap.Map[string, *v3.SecurityScheme] {
-	if components == nil || components.SecuritySchemes == nil {
+func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[string, *v3.SecurityScheme] {
+	if s == nil {
 		return nil
 	}
 
 	secSchemas := orderedmap.New[string, *v3.SecurityScheme]()
-	for _, addProp := range components.SecuritySchemes.AdditionalProperties {
+	for _, addProp := range s.AdditionalProperties {
 		secScheme := addProp.Value.GetSecurityScheme()
 		if secScheme != nil {
 			scheme := &v3.SecurityScheme{}
@@ -174,6 +235,9 @@ func toSchemaOrReferences(items []*goa3.SchemaOrReference) []*base.SchemaProxy {
 }
 
 func toSchemaOrReference(s *goa3.SchemaOrReference) *base.SchemaProxy {
+	if s == nil {
+		return nil
+	}
 	if ref := s.GetReference(); ref != nil {
 		return base.CreateSchemaProxyRef(ref.XRef)
 	} else if schema := s.GetSchema(); schema != nil {
@@ -191,56 +255,10 @@ func toSchemaOrReferenceMap(items []*goa3.NamedSchemaOrReference) *orderedmap.Ma
 }
 
 func toSchema(s *goa3.Schema) *base.Schema {
-	schema := &base.Schema{
-		Title:         s.Title,
-		Description:   s.Description,
-		Default:       toDefault(s.Default),
-		ReadOnly:      &s.ReadOnly,
-		MultipleOf:    &s.MultipleOf,
-		MaxLength:     &s.MaxLength,
-		MinLength:     &s.MinLength,
-		Pattern:       s.Pattern,
-		MaxItems:      &s.MaxItems,
-		MinItems:      &s.MinItems,
-		UniqueItems:   &s.UniqueItems,
-		MaxProperties: &s.MaxProperties,
-		MinProperties: &s.MinProperties,
-		Required:      s.Required,
-		Format:        s.Format,
+	if s == nil {
+		return nil
 	}
-	if s.Type != "" {
-		schema.Type = []string{s.Type}
-	}
-	if s.ExclusiveMaximum {
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: s.Maximum}
-	} else {
-		schema.Maximum = &s.Maximum
-	}
-	if s.ExclusiveMinimum {
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: s.Minimum}
-	} else {
-		schema.Minimum = &s.Minimum
-	}
-
-	// Not Supported:
-	// Items
-	// Contains
-	// AdditionalProperties
-	// Definitions
-	// Properties
-	// PatternProperties
-	// Dependencies
-	// PropertyNames
-	// Enum
-	// If
-	// Then
-	// Else
-	// AllOf
-	// AnyOf
-	// OneOf
-	// Not
-	// Parent
-	return schema
+	return schemaWithAnnotations(&base.Schema{}, s)
 }
 
 func toDefault(dt *goa3.DefaultType) *yaml.Node {
@@ -270,4 +288,237 @@ func toAdditionalPropertiesItem(item *goa3.AdditionalPropertiesItem) *base.Dynam
 		return &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: v.Boolean}
 	}
 	return nil
+}
+
+func toExtensions(items []*goa3.NamedAny) *orderedmap.Map[string, *yaml.Node] {
+	if items == nil {
+		return nil
+	}
+	extensions := orderedmap.New[string, *yaml.Node]()
+	for _, namedAny := range items {
+		extensions.Set(namedAny.Name, namedAny.ToRawInfo())
+	}
+	return extensions
+}
+
+func toEncodings(enc *goa3.Encodings) *orderedmap.Map[string, *v3.Encoding] {
+	if enc == nil {
+		return nil
+	}
+	encodings := orderedmap.New[string, *v3.Encoding]()
+	for _, encoding := range enc.GetAdditionalProperties() {
+		encodings.Set(encoding.Name, &v3.Encoding{
+			ContentType:   encoding.Value.ContentType,
+			Headers:       toHeaders(encoding.Value.Headers),
+			Style:         encoding.Value.Style,
+			Explode:       &encoding.Value.Explode,
+			AllowReserved: encoding.Value.AllowReserved,
+		})
+	}
+	return encodings
+}
+
+func toExamples(exes *goa3.ExamplesOrReferences) *orderedmap.Map[string, *base.Example] {
+	if exes == nil {
+		return nil
+	}
+	examples := orderedmap.New[string, *base.Example]()
+	for _, item := range exes.GetAdditionalProperties() {
+		example := item.GetValue().GetExample()
+		examples.Set(item.Name, &base.Example{
+			Summary:       example.Summary,
+			Description:   example.Description,
+			Value:         example.Value.ToRawInfo(),
+			ExternalValue: example.ExternalValue,
+			Extensions:    toExtensions(example.SpecificationExtension),
+		})
+	}
+	return examples
+}
+
+func toMediaTypes(items *goa3.MediaTypes) *orderedmap.Map[string, *v3.MediaType] {
+	if items == nil {
+		return nil
+	}
+	content := orderedmap.New[string, *v3.MediaType]()
+	for _, item := range items.GetAdditionalProperties() {
+		content.Set(item.Name, &v3.MediaType{
+			Schema:     toSchemaOrReference(item.Value.Schema),
+			Example:    item.Value.Example.ToRawInfo(),
+			Examples:   toExamples(item.Value.GetExamples()),
+			Encoding:   toEncodings(item.Value.GetEncoding()),
+			Extensions: toExtensions(item.Value.GetSpecificationExtension()),
+		})
+	}
+	return content
+}
+
+func toHeaders(v *goa3.HeadersOrReferences) *orderedmap.Map[string, *v3.Header] {
+	if v == nil {
+		return nil
+	}
+	headers := orderedmap.New[string, *v3.Header]()
+	for _, headerVal := range v.GetAdditionalProperties() {
+		header := headerVal.Value.GetHeader()
+		headers.Set(headerVal.Name, &v3.Header{
+			Description:     header.Description,
+			Required:        header.Required,
+			Deprecated:      header.Deprecated,
+			AllowEmptyValue: header.AllowEmptyValue,
+			Style:           header.Style,
+			Explode:         header.Explode,
+			AllowReserved:   header.AllowReserved,
+			Schema:          toSchemaOrReference(header.Schema),
+			Example:         header.Example.ToRawInfo(),
+			Examples:        toExamples(header.GetExamples()),
+			Content:         toMediaTypes(header.Content),
+			Extensions:      toExtensions(header.GetSpecificationExtension()),
+		})
+	}
+	return headers
+}
+
+func toCodes(responses []*goa3.NamedResponseOrReference) *orderedmap.Map[string, *v3.Response] {
+	resps := orderedmap.New[string, *v3.Response]()
+	for _, resp := range responses {
+		resps.Set(resp.Name, toResponse(resp.Value.GetResponse()))
+	}
+	return resps
+}
+
+func toResponses(responses *goa3.Responses) *v3.Responses {
+	if responses == nil {
+		return nil
+	}
+	return &v3.Responses{
+		Codes:      toCodes(responses.GetResponseOrReference()),
+		Default:    toResponse(responses.GetDefault().GetResponse()),
+		Extensions: toExtensions(responses.GetSpecificationExtension()),
+	}
+}
+
+func toResponse(r *goa3.Response) *v3.Response {
+	if r == nil {
+		return nil
+	}
+	return &v3.Response{
+		Description: r.Description,
+		Headers:     toHeaders(r.Headers),
+		Content:     toMediaTypes(r.Content),
+		Links:       toLinks(r.Links),
+		Extensions:  toExtensions(r.SpecificationExtension),
+	}
+}
+
+func toLinks(ls *goa3.LinksOrReferences) *orderedmap.Map[string, *v3.Link] {
+	if ls == nil {
+		return nil
+	}
+	links := orderedmap.New[string, *v3.Link]()
+	for _, item := range ls.AdditionalProperties {
+		link := item.Value.GetLink()
+		params := orderedmap.New[string, string]()
+		for _, param := range link.Parameters.GetExpression().GetAdditionalProperties() {
+			params.Set(param.Name, param.Value.Yaml)
+		}
+
+		links.Set(item.Name, &v3.Link{
+			OperationRef: link.OperationRef,
+			OperationId:  link.OperationId,
+			Parameters:   params,
+			RequestBody:  link.RequestBody.String(),
+			Description:  link.Description,
+			Server:       toServer(link.Server),
+			Extensions:   toExtensions(link.SpecificationExtension),
+		})
+	}
+	return links
+}
+
+func toCallbacks(cbs *goa3.CallbacksOrReferences) *orderedmap.Map[string, *v3.Callback] {
+	if cbs == nil {
+		return nil
+	}
+	callbacks := orderedmap.New[string, *v3.Callback]()
+	for _, item := range cbs.GetAdditionalProperties() {
+		callback := item.Value.GetCallback()
+		expressions := orderedmap.New[string, *v3.PathItem]()
+		for _, item := range callback.GetPath() {
+			expr := item.Value
+			expressions.Set(item.Name, &v3.PathItem{
+				Description: expr.Description,
+				Summary:     expr.Summary,
+				Get:         toOperation(expr.Get),
+				Put:         toOperation(expr.Put),
+				Post:        toOperation(expr.Post),
+				Delete:      toOperation(expr.Delete),
+				Options:     toOperation(expr.Options),
+				Head:        toOperation(expr.Head),
+				Patch:       toOperation(expr.Patch),
+				Trace:       toOperation(expr.Trace),
+				Servers:     toServers(expr.Servers),
+				Parameters:  toParameters(expr.Parameters),
+				Extensions:  toExtensions(expr.SpecificationExtension),
+			})
+		}
+		callbacks.Set(item.Name, &v3.Callback{
+			Expression: expressions,
+			Extensions: toExtensions(callback.GetSpecificationExtension()),
+		})
+	}
+	return callbacks
+}
+
+func toOperation(op *goa3.Operation) *v3.Operation {
+	if op == nil {
+		return nil
+	}
+	return &v3.Operation{
+		Tags:         op.Tags,
+		Summary:      op.Summary,
+		Description:  op.Description,
+		ExternalDocs: toExternalDocs(op.ExternalDocs),
+		OperationId:  op.OperationId,
+		Parameters:   toParameters(op.Parameters),
+		RequestBody:  nil,
+		Responses:    toResponses(op.GetResponses()),
+		Callbacks:    toCallbacks(op.Callbacks),
+		Deprecated:   &op.Deprecated,
+		Security:     toSecurityRequirements(op.Security),
+		Servers:      toServers(op.Servers),
+		Extensions:   toExtensions(op.SpecificationExtension),
+	}
+}
+
+func toParameters(params []*goa3.ParameterOrReference) []*v3.Parameter {
+	if params == nil {
+		return nil
+	}
+	parameters := make([]*v3.Parameter, len(params))
+	for i, param := range params {
+		parameters[i] = toParameter(param)
+	}
+	return parameters
+}
+
+func toParameter(paramOrRef *goa3.ParameterOrReference) *v3.Parameter {
+	if paramOrRef == nil || paramOrRef.GetParameter() == nil {
+		return nil
+	}
+	param := paramOrRef.GetParameter()
+	return &v3.Parameter{
+		Name:            param.GetName(),
+		In:              param.In,
+		Description:     param.Description,
+		Required:        &param.Required,
+		Deprecated:      param.Deprecated,
+		AllowEmptyValue: param.AllowEmptyValue,
+		Style:           param.Style,
+		Explode:         &param.Explode,
+		AllowReserved:   param.AllowReserved,
+		Schema:          toSchemaOrReference(param.GetSchema()),
+		Example:         param.Example.ToRawInfo(),
+		Content:         toMediaTypes(param.GetContent()),
+		Extensions:      toExtensions(param.GetSpecificationExtension()),
+	}
 }

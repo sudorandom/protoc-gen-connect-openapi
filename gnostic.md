@@ -84,11 +84,11 @@ message HelloReply {
 | (gnostic.openapi.v3.document).info | ✅ | |
 | (gnostic.openapi.v3.document).servers | ✅ | |
 | (gnostic.openapi.v3.document).paths | ✅ | |
-| (gnostic.openapi.v3.document).components | 🟧 | Only security_schemes |
+| (gnostic.openapi.v3.document).components | ✅ | Only security_schemes |
 | (gnostic.openapi.v3.document).security | ✅ | |
 | (gnostic.openapi.v3.document).tags | ✅ | |
 | (gnostic.openapi.v3.document).external_docs | ✅ | |
-| (gnostic.openapi.v3.document).specification_extension | ❌ | |
+| (gnostic.openapi.v3.document).specification_extension | ✅ | |
 
 #### Method Options
 | Option | Supported? |
@@ -98,23 +98,23 @@ message HelloReply {
 | (gnostic.openapi.v3.schema).description | ✅ |
 | (gnostic.openapi.v3.schema).external_docs | ✅ |
 | (gnostic.openapi.v3.schema).operation_id | ✅ |
-| (gnostic.openapi.v3.schema).parameters | ❌ |
-| (gnostic.openapi.v3.schema).request_body | ❌ |
-| (gnostic.openapi.v3.schema).responses | ❌ |
-| (gnostic.openapi.v3.schema).callbacks | ❌ |
+| (gnostic.openapi.v3.schema).parameters | ✅ |
+| (gnostic.openapi.v3.schema).request_body | ✅ |
+| (gnostic.openapi.v3.schema).responses | ✅ |
+| (gnostic.openapi.v3.schema).callbacks | ✅ |
 | (gnostic.openapi.v3.schema).deprecated  | ✅ |
 | (gnostic.openapi.v3.schema).security  | ✅ |
 | (gnostic.openapi.v3.schema).servers  | ✅ |
-| (gnostic.openapi.v3.schema).specification_extension | ❌ |
+| (gnostic.openapi.v3.schema).specification_extension | ✅ |
 
 #### Message Options
 | Option | Supported? |
 |---|---|
 | (gnostic.openapi.v3.schema).nullable | ✅ |
-| (gnostic.openapi.v3.schema).discriminator | ❌ |
+| (gnostic.openapi.v3.schema).discriminator | ✅ |
 | (gnostic.openapi.v3.schema).read_only | ✅ |
 | (gnostic.openapi.v3.schema).write_only | ✅ |
-| (gnostic.openapi.v3.schema).xml | ❌ |
+| (gnostic.openapi.v3.schema).xml | ✅ |
 | (gnostic.openapi.v3.schema).external_docs | ✅ |
 | (gnostic.openapi.v3.schema).example | ✅ |
 | (gnostic.openapi.v3.schema).deprecated | ✅ |
@@ -145,16 +145,16 @@ message HelloReply {
 | (gnostic.openapi.v3.schema).default | ✅ |
 | (gnostic.openapi.v3.schema).description | ✅ |
 | (gnostic.openapi.v3.schema).format | ✅ |
-| (gnostic.openapi.v3.schema).specification_extension | ❌ |
+| (gnostic.openapi.v3.schema).specification_extension | ✅ |
 
 #### Field Options
 | Option | Supported? |
 |---|---|
 | (gnostic.openapi.v3.property).nullable | ✅ |
-| (gnostic.openapi.v3.property).discriminator | ❌ |
+| (gnostic.openapi.v3.property).discriminator | ✅ |
 | (gnostic.openapi.v3.property).read_only | ✅ |
 | (gnostic.openapi.v3.property).write_only | ✅ |
-| (gnostic.openapi.v3.property).xml | ❌ |
+| (gnostic.openapi.v3.property).xml | ✅ |
 | (gnostic.openapi.v3.property).external_docs | ✅ |
 | (gnostic.openapi.v3.property).example | ✅ |
 | (gnostic.openapi.v3.property).deprecated | ✅ |
@@ -185,6 +185,6 @@ message HelloReply {
 | (gnostic.openapi.v3.property).default | ✅ |
 | (gnostic.openapi.v3.property).description | ✅ |
 | (gnostic.openapi.v3.property).format | ✅ |
-| (gnostic.openapi.v3.property).specification_extension | ❌ |
+| (gnostic.openapi.v3.property).specification_extension | ✅ |
 
 For more information on how to use each option in your Protobuf file, you can reference [the gnostic.openapi.v3 module documentation](https://buf.build/gnostic/gnostic/docs/main:gnostic.openapi.v3) and the [google/gnostic repo](https://github.com/google/gnostic). Note that this is a new feature, so if find something that isn't supported that you need, please [create an issue](https://github.com/sudorandom/protoc-gen-connect-openapi/issues/new).

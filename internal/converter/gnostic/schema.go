@@ -5,6 +5,7 @@ import (
 
 	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
@@ -68,7 +69,7 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 		}
 		// If the example is defined with google.protobuf.Any
 		if opts.Example.Value != nil {
-			slog.Warn("unable to unmarshal pbany example")
+			slog.Warn("unable to unmarshal pb.any example")
 		}
 	}
 	if opts.ExternalDocs != nil {
@@ -174,6 +175,30 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 	}
 	if opts.AdditionalProperties != nil {
 		schema.AdditionalProperties = toAdditionalPropertiesItem(opts.AdditionalProperties)
+	}
+	if opts.Xml != nil {
+		extensions := *orderedmap.New[string, *yaml.Node]()
+		for _, namedAny := range opts.Xml.GetSpecificationExtension() {
+			extensions.Set(namedAny.Name, namedAny.ToRawInfo())
+		}
+		schema.XML = &base.XML{
+			Name:       opts.Xml.Name,
+			Namespace:  opts.Xml.Namespace,
+			Prefix:     opts.Xml.Prefix,
+			Attribute:  opts.Xml.Attribute,
+			Wrapped:    opts.Xml.Wrapped,
+			Extensions: &extensions,
+		}
+	}
+	if opts.Discriminator != nil {
+		mapping := orderedmap.New[string, string]()
+		for _, prop := range opts.Discriminator.GetMapping().GetAdditionalProperties() {
+			mapping.Set(prop.Name, prop.Value)
+		}
+		schema.Discriminator = &base.Discriminator{
+			PropertyName: opts.Discriminator.GetPropertyName(),
+			Mapping:      mapping,
+		}
 	}
 
 	return schema
