@@ -141,7 +141,6 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 	}))
 	anyPair := util.NewGoogleAny()
 	components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
-	slog.Info("???", "comp.schem", components.Schemas)
 
 	return components, nil
 }
