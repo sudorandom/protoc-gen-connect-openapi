@@ -97,7 +97,13 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 				Name:    "message",
 				In:      "query",
 				Content: util.MakeMediaTypes(opts, "#/components/schemas/"+util.FormatTypeRef(inputId), true, isStreaming),
-			})
+			},
+			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/encoding")},
+			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/base64")},
+			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/compression")},
+			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/connect")},
+		)
+		item.Get = op
 	} else {
 		mediaTypes := orderedmap.New[string, *v3.MediaType]()
 		mediaTypes.Set("application/json", &v3.MediaType{
@@ -107,17 +113,6 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 			Content:  mediaTypes,
 			Required: util.BoolPtr(true),
 		}
-	}
-
-	if hasGetSupport {
-		item.Get = op
-		op.Parameters = append(op.Parameters,
-			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/encoding")},
-			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/base64")},
-			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/compression")},
-			&v3.Parameter{Schema: base.CreateSchemaProxyRef("#/components/parameters/connect")},
-		)
-	} else {
 		item.Post = op
 	}
 
