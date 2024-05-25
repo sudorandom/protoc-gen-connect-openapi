@@ -120,7 +120,12 @@
     "schemas": {
       "protovalidate.MyEnum": {
         "type": "string",
-        "title": "MyEnum"
+        "title": "MyEnum",
+        "enum": [
+          "MY_ENUM_UNSPECIFIED",
+          "MY_ENUM_VALUE1",
+          "MY_ENUM_VALUE2"
+        ]
       },
       "google.protobuf.Any": {
         "type": "object",
@@ -1883,6 +1888,26 @@
         "properties": {
           "code": {
             "type": "string",
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
             "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
           },
           "message": {

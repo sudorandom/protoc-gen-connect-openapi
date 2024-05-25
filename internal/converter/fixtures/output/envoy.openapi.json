@@ -120,11 +120,18 @@
     "schemas": {
       "envoy.config.core.v3.SocketAddress.Protocol": {
         "type": "string",
-        "title": "Protocol"
+        "title": "Protocol",
+        "enum": [
+          "TCP",
+          "UDP"
+        ]
       },
       "google.protobuf.NullValue": {
         "type": "string",
         "title": "NullValue",
+        "enum": [
+          "NULL_VALUE"
+        ],
         "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
       },
       "envoy.config.core.v3.Address": {
@@ -1040,6 +1047,26 @@
         "properties": {
           "code": {
             "type": "string",
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
             "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
           },
           "message": {

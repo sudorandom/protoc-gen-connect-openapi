@@ -344,6 +344,12 @@
       "io.swagger.petstore.v2.Status": {
         "type": "string",
         "title": "Status",
+        "enum": [
+          "unknown",
+          "available",
+          "pending",
+          "sold"
+        ],
         "description": "These do not use standard naming practices in order to match\n the JSON format of the Pet Store Open API schema, which uses\n lower-case names for these constants."
       },
       "google.protobuf.Empty": {
@@ -612,6 +618,10 @@
       },
       "encoding": {
         "title": "encoding",
+        "enum": [
+          "proto",
+          "json"
+        ],
         "description": "Define which encoding or 'Message-Codec' to use"
       },
       "base64": {
@@ -621,10 +631,19 @@
       },
       "compression": {
         "title": "compression",
+        "enum": [
+          "identity",
+          "gzip",
+          "br",
+          "gzip"
+        ],
         "description": "Which compression algorithm to use for this request"
       },
       "connect": {
         "title": "connect",
+        "enum": [
+          1
+        ],
         "description": "Which version of connect to use."
       },
       "connect.error": {
@@ -632,6 +651,26 @@
         "properties": {
           "code": {
             "type": "string",
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
             "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
           },
           "message": {
