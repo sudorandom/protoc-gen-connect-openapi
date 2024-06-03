@@ -125,7 +125,9 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 	for _, addProp := range s.AdditionalProperties {
 		secScheme := addProp.Value.GetSecurityScheme()
 		if secScheme != nil {
-			scheme := &v3.SecurityScheme{}
+			scheme := &v3.SecurityScheme{
+				Type: secScheme.Type,
+			}
 			switch secScheme.Type {
 			case "http":
 				scheme.Scheme = secScheme.Scheme
