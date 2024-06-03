@@ -161,7 +161,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 				}
 				if secScheme.Flows.ClientCredentials != nil {
 					scopes := orderedmap.New[string, string]()
-					for _, scope := range secScheme.Flows.Password.Scopes.AdditionalProperties {
+					for _, scope := range secScheme.Flows.ClientCredentials.Scopes.AdditionalProperties {
 						scopes.Set(scope.Name, scope.Value)
 					}
 					flows.ClientCredentials = &v3.OAuthFlow{
@@ -172,7 +172,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 				}
 				if secScheme.Flows.AuthorizationCode != nil {
 					scopes := orderedmap.New[string, string]()
-					for _, scope := range secScheme.Flows.Password.Scopes.AdditionalProperties {
+					for _, scope := range secScheme.Flows.AuthorizationCode.Scopes.AdditionalProperties {
 						scopes.Set(scope.Name, scope.Value)
 					}
 					flows.AuthorizationCode = &v3.OAuthFlow{
