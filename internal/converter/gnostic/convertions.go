@@ -12,6 +12,9 @@ import (
 )
 
 func toServers(servers []*goa3.Server) []*v3.Server {
+	if len(servers) == 0 {
+		return nil
+	}
 	result := make([]*v3.Server, len(servers))
 	for i, server := range servers {
 		result[i] = toServer(server)
