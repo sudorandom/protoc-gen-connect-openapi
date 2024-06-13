@@ -1,6 +1,6 @@
-version: v1
+version: v2
 plugins:
-  - plugin: connect-openapi
+  - local: protoc-gen-connect-openapi
     out: out
     opt:
     - base=auth-base.yaml
@@ -9,7 +9,7 @@ plugins:
     - debug
     # - format=json
 
-  - plugin: connect-openapi
+  - local: protoc-gen-connect-openapi
     out: out
     strategy: all
     opt:

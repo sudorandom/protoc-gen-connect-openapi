@@ -77,9 +77,9 @@ See `protoc --help` for more protoc options.
 ### Using buf
 With buf you can make a `buf.gen.yaml` with your options, like this:
 ```yaml
-version: v1
+version: v2
 plugins:
-  - plugin: connect-openapi
+  - local: protoc-gen-connect-openapi
     out: out
     opt:
     - base=example.base.yaml
