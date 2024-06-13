@@ -51,6 +51,8 @@ We can document this API as if it's a real JSON/HTTP API... because it is, and t
 go install github.com/sudorandom/protoc-gen-connect-openapi@main
 ```
 
+or you can download pre-built binaries from the [Github releases page](https://github.com/sudorandom/protoc-gen-connect-openapi/releases/latest).
+
 ## Usage
 ### With protoc
 This tool works as a plugin for protoc. Here's a basic example:
