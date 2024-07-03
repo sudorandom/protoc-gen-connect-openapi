@@ -1,0 +1,22 @@
+edition = "2023";
+
+option features.enum_type = CLOSED;
+
+message Person {
+  string name = 1;
+  int32 id = 2 [features.field_presence = IMPLICIT];
+
+  enum Pay_Type {
+    PAY_TYPE_UNSPECIFIED = 1;
+    PAY_TYPE_SALARY = 2;
+    PAY_TYPE_HOURLY = 3;
+  }
+
+  enum Employment {
+    option features.enum_type = OPEN;
+    EMPLOYMENT_UNSPECIFIED = 0;
+    EMPLOYMENT_FULLTIME = 1;
+    EMPLOYMENT_PARTTIME = 2;
+  }
+  Employment employment = 4;
+}

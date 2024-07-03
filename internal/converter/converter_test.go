@@ -51,7 +51,7 @@ func TestConvert(t *testing.T) {
 				// Call the conversion code!
 				resp, err := converter.ConvertFrom(bytes.NewBuffer(b))
 				require.NoError(t, err)
-				assert.Len(t, resp.File, 1)
+				require.Len(t, resp.File, 1)
 				file := resp.File[0]
 				assert.NotNil(t, file.Name)
 				assert.Equal(t, strings.TrimSuffix(relPath, filepath.Ext(relPath))+".openapi."+format, file.GetName())
