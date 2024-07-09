@@ -9,7 +9,7 @@ require (
 	github.com/bufbuild/protovalidate-go v0.6.2
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.0.4
-	github.com/pb33f/libopenapi v0.16.8
+	github.com/pb33f/libopenapi v0.16.9
 	github.com/pb33f/libopenapi-validator v0.0.56
 	github.com/pseudomuto/protokit v0.2.1
 	github.com/stretchr/testify v1.9.0
