@@ -13,6 +13,7 @@ message GoogleValue {
   google.protobuf.Struct some_struct = 3;
 }
 
+
 service Test {
   rpc HealthCheck(google.protobuf.StringValue) returns (google.protobuf.Int64Value);
   rpc Empty(google.protobuf.Empty) returns (google.protobuf.Empty);
