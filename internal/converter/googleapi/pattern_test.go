@@ -86,4 +86,16 @@ func TestRunPathPatternLexer(t *testing.T) {
 			{Type: "EOF", Value: ""},
 		}, v)
 	})
+
+	t.Run("well-known", func(t *testing.T) {
+		v, err := googleapi.RunPathPatternLexer("/.well-known/jwks.json")
+		assert.NoError(t, err)
+		assert.Equal(t, []googleapi.Token{
+			{Type: "SLASH", Value: "/"},
+			{Type: "IDENT", Value: ".well-known"},
+			{Type: "SLASH", Value: "/"},
+			{Type: "IDENT", Value: "jwks.json"},
+			{Type: "EOF", Value: ""},
+		}, v)
+	})
 }
