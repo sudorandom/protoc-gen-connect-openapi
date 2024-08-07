@@ -125,8 +125,10 @@ func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescript
 func ReferenceFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
 	switch tt.Kind() {
 	case protoreflect.MessageKind:
+		protovalidate.PopulateParentProperties(parent.Schema(), tt)
 		return base.CreateSchemaProxyRef("#/components/schemas/" + string(tt.Message().FullName()))
 	case protoreflect.EnumKind:
+		protovalidate.PopulateParentProperties(parent.Schema(), tt)
 		return base.CreateSchemaProxyRef("#/components/schemas/" + string(tt.Enum().FullName()))
 	default:
 		panic(fmt.Errorf("ReferenceFieldToSchema called with unknown kind: %T", tt.Kind()))

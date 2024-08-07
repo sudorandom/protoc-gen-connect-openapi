@@ -5,14 +5,12 @@ paths:
   /a:
     get:
       tags:
-        - foo.Foo
+        - foo.KnowledgeAssessmentReports
       parameters:
-        - name: t
+        - name: b
           in: query
           schema:
-            type: string
-            title: t
-            additionalProperties: false
+            $ref: '#/components/schemas/foo.A.B'
       responses:
         default:
           content:
@@ -23,24 +21,61 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/foo.Res'
+                $ref: '#/components/schemas/foo.A'
 components:
   schemas:
-    foo.Res:
-      type: object
-      title: Res
-      additionalProperties: false
-    foo.Rew:
+    foo.A:
       type: object
       properties:
-        t:
-          type: string
-          title: t
-          additionalProperties: false
-      title: Rew
+        b:
+          $ref: '#/components/schemas/foo.A.B'
+      title: A
       required:
-        - t
+        - b
       additionalProperties: false
+    foo.A.B:
+      type: object
+      properties:
+        c:
+          $ref: '#/components/schemas/foo.A.B.C'
+      title: B
+      required:
+        - c
+      additionalProperties: false
+    foo.A.B.C:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          additionalProperties: false
+      title: C
+      required:
+        - name
+      additionalProperties: false
+    encoding:
+      title: encoding
+      enum:
+        - proto
+        - json
+      description: Define which encoding or 'Message-Codec' to use
+    base64:
+      type: boolean
+      title: base64
+      description: Specifies if the message query param is base64 encoded, which may be required for binary data
+    compression:
+      title: compression
+      enum:
+        - identity
+        - gzip
+        - br
+        - gzip
+      description: Which compression algorithm to use for this request
+    connect:
+      title: connect
+      enum:
+        - "1"
+      description: Which version of connect to use.
     connect.error:
       type: object
       properties:
@@ -86,7 +121,48 @@ components:
           additionalProperties: true
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  parameters:
+    encoding:
+      name: encoding
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/encoding'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/encoding'
+    base64:
+      name: base64
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/base64'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/base64'
+    compression:
+      name: compression
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/compression'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/compression'
+    connect:
+      name: connect
+      in: query
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/connect'
+        application/proto:
+          schema:
+            $ref: '#/components/schemas/connect'
 security: []
 tags:
-  - name: foo.Foo
+  - name: foo.KnowledgeAssessmentReports
 externalDocs: {}

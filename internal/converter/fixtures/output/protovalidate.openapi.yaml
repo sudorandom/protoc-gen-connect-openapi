@@ -1379,6 +1379,8 @@ components:
         timestampGtNow:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: LotsOfValidationRules
+      required:
+        - requiredField
       additionalProperties: false
     protovalidate.LotsOfValidationRules.MapKeysEntry:
       type: object

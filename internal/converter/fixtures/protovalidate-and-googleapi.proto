@@ -5,16 +5,24 @@ option go_package = "foo/bar";
 import "google/api/annotations.proto";
 import "buf/validate/validate.proto";
 
+message A {
 
-message Rew {
-  string t = 1 [(buf.validate.field).required = true];
+  message B {
+    message C {
+      string name = 2  [(buf.validate.field).required = true];
+    }
+
+    // the learner whose scores are being reported
+    C c = 1  [(buf.validate.field).required = true];
+
+  }
+
+  B b = 1  [(buf.validate.field).required = true];
 }
 
-message Res {
-}
-
-service Foo {
-  rpc Status(Rew) returns (Res) {
+service KnowledgeAssessmentReports {
+  rpc Score(A) returns (A) {
+    option idempotency_level = NO_SIDE_EFFECTS;
     option (google.api.http) = {
       get: "/a"
     };
