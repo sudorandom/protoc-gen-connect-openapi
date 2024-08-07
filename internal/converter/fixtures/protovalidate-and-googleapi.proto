@@ -1,0 +1,22 @@
+syntax = "proto3";
+package foo;
+option go_package = "foo/bar";
+
+import "google/api/annotations.proto";
+import "buf/validate/validate.proto";
+
+
+message Rew {
+  string t = 1 [(buf.validate.field).required = true];
+}
+
+message Res {
+}
+
+service Foo {
+  rpc Status(Rew) returns (Res) {
+    option (google.api.http) = {
+      get: "/a"
+    };
+  }
+}

@@ -31,7 +31,9 @@ func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDesc
 	updateWithCEL(schema, constraints.GetCel())
 	if constraints.Required {
 		parent := schema.ParentProxy.Schema()
-		parent.Required = append(parent.Required, desc.JSONName())
+		if parent != nil {
+			parent.Required = append(parent.Required, desc.JSONName())
+		}
 	}
 	updateSchemaWithFieldConstraints(schema, constraints)
 	return schema
