@@ -223,10 +223,15 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		})
 	}
 
-	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
+	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL) | uint64(pluginpb.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
+	minimumEdition := int32(descriptorpb.Edition_EDITION_PROTO2)
+	maximumEdition := int32(descriptorpb.Edition_EDITION_MAX)
 	return &pluginpb.CodeGeneratorResponse{
-		File:              files,
+		Error:             new(string),
 		SupportedFeatures: &features,
+		MinimumEdition:    &minimumEdition,
+		MaximumEdition:    &maximumEdition,
+		File:              files,
 	}, nil
 }
 
