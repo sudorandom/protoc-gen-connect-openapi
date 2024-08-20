@@ -51,12 +51,21 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 		}
 	}
 
+	components.Schemas.Set("connect-protocol-version", base.CreateSchemaProxy(&base.Schema{
+		Title:       "Connect-Protocol-Version",
+		Description: "Define the version of the Connect protocol",
+		Type:        []string{"number"},
+		Enum:        []*yaml.Node{utils.CreateIntNode("1")},
+		Const:       utils.CreateIntNode("1"),
+	}))
+
+	components.Schemas.Set("connect-timeout-header", base.CreateSchemaProxy(&base.Schema{
+		Title:       "Connect-Timeout-Ms",
+		Description: "Define the timeout, in ms",
+		Type:        []string{"number"},
+	}))
+
 	if hasGetRequests {
-		components.Parameters.Set("encoding", &v3.Parameter{
-			Name:    "encoding",
-			In:      "query",
-			Content: util.MakeMediaTypes(opts, "#/components/schemas/encoding", true, false),
-		})
 		components.Schemas.Set("encoding", base.CreateSchemaProxy(&base.Schema{
 			Title:       "encoding",
 			Description: "Define which encoding or 'Message-Codec' to use",
@@ -66,22 +75,12 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			},
 		}))
 
-		components.Parameters.Set("base64", &v3.Parameter{
-			Name:    "base64",
-			In:      "query",
-			Content: util.MakeMediaTypes(opts, "#/components/schemas/base64", true, false),
-		})
 		components.Schemas.Set("base64", base.CreateSchemaProxy(&base.Schema{
 			Title:       "base64",
 			Description: "Specifies if the message query param is base64 encoded, which may be required for binary data",
 			Type:        []string{"boolean"},
 		}))
 
-		components.Parameters.Set("compression", &v3.Parameter{
-			Name:    "compression",
-			In:      "query",
-			Content: util.MakeMediaTypes(opts, "#/components/schemas/compression", true, false),
-		})
 		components.Schemas.Set("compression", base.CreateSchemaProxy(&base.Schema{
 			Title:       "compression",
 			Description: "Which compression algorithm to use for this request",
@@ -91,17 +90,6 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 				utils.CreateStringNode("br"),
 				utils.CreateStringNode("gzip"),
 			},
-		}))
-
-		components.Parameters.Set("connect", &v3.Parameter{
-			Name:    "connect",
-			In:      "query",
-			Content: util.MakeMediaTypes(opts, "#/components/schemas/connect", true, false),
-		})
-		components.Schemas.Set("connect", base.CreateSchemaProxy(&base.Schema{
-			Title:       "connect",
-			Description: "Which version of connect to use.",
-			Enum:        []*yaml.Node{utils.CreateStringNode("1")},
 		}))
 	}
 	connectErrorProps := orderedmap.New[string, *base.SchemaProxy]()
