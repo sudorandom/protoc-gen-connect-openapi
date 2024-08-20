@@ -143,12 +143,12 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	}
 	if opts.BaseOpenAPIPath != "" {
 		newSpec = func() (v3.Document, error) {
-			baseJSON, err := os.ReadFile(opts.BaseOpenAPIPath)
+			base, err := os.ReadFile(opts.BaseOpenAPIPath)
 			if err != nil {
 				return v3.Document{}, err
 			}
 
-			document, err := libopenapi.NewDocument(baseJSON)
+			document, err := libopenapi.NewDocument(base)
 			if err != nil {
 				return v3.Document{}, fmt.Errorf("unmarshalling base: %w", err)
 			}
@@ -178,7 +178,7 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 
 		slog.Debug("generating file", slog.String("name", fileDesc.GetName()))
 
-		fd, err := protodesc.NewFile(fileDesc, resolver)
+		fd, err := resolver.FindFileByPath(fileDesc.GetName())
 		if err != nil {
 			slog.Error("error loading file", slog.Any("error", err))
 			return nil, err
@@ -223,15 +223,10 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		})
 	}
 
-	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL) | uint64(pluginpb.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
-	minimumEdition := int32(descriptorpb.Edition_EDITION_PROTO2)
-	maximumEdition := int32(descriptorpb.Edition_EDITION_MAX)
+	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
 	return &pluginpb.CodeGeneratorResponse{
-		Error:             new(string),
-		SupportedFeatures: &features,
-		MinimumEdition:    &minimumEdition,
-		MaximumEdition:    &maximumEdition,
 		File:              files,
+		SupportedFeatures: &features,
 	}, nil
 }
 
