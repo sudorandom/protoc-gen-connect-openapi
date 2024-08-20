@@ -10,6 +10,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Creates a session.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -48,6 +65,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Extends a session.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -86,6 +120,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Prepares future partial run calls.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -124,6 +175,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Drives the graph computation.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -162,6 +230,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Closes a session.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -200,6 +285,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "List the devices usable by the master.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -238,6 +340,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Close and abandon all existing sessions.  Ongoing computations\n will no longer affect fresh ones via the resources in containers listed in\n the ResetRequest.  See ResetRequest for more details.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -276,6 +395,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Registers a callable for execution with RunCallable.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -314,6 +450,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Executes a callable registered with MakeCallable.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -352,6 +505,23 @@
           "tensorflowtest.MasterService"
         ],
         "description": "Frees resources associated with a callable registered with MakeCallable.",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -4743,6 +4913,20 @@
         "title": "VersionDef",
         "additionalProperties": false,
         "description": "Version information for a piece of serialized data\n\n There are different types of versions for each type of data\n (GraphDef, etc.), but they all have the same common shape\n described here.\n\n Each consumer has \"consumer\" and \"min_producer\" versions (specified\n elsewhere).  A consumer is allowed to consume this data if\n\n   producer \u003e= min_producer\n   consumer \u003e= min_consumer\n   consumer not in bad_consumers"
+      },
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
       },
       "connect.error": {
         "type": "object",

@@ -1,23 +1,24 @@
 openapi: 3.1.0
-info: {}
+info:
+  title: editions
 paths: {}
 components:
   schemas:
-    Person.Employment:
+    editions.Person.Employment:
       type: string
       title: Employment
       enum:
         - EMPLOYMENT_UNSPECIFIED
         - EMPLOYMENT_FULLTIME
         - EMPLOYMENT_PARTTIME
-    Person.Pay_Type:
+    editions.Person.Pay_Type:
       type: string
       title: Pay_Type
       enum:
         - PAY_TYPE_UNSPECIFIED
         - PAY_TYPE_SALARY
         - PAY_TYPE_HOURLY
-    Person:
+    editions.Person:
       type: object
       properties:
         name:
@@ -29,9 +30,20 @@ components:
           title: id
           additionalProperties: false
         employment:
-          $ref: '#/components/schemas/Person.Employment'
+          $ref: '#/components/schemas/editions.Person.Employment'
       title: Person
       additionalProperties: false
+    connect-protocol-version:
+      type: number
+      title: Connect-Protocol-Version
+      enum:
+        - 1
+      description: Define the version of the Connect protocol
+      const: 1
+    connect-timeout-header:
+      type: number
+      title: Connect-Timeout-Ms
+      description: Define the timeout, in ms
     connect.error:
       type: object
       properties:

@@ -23,6 +23,17 @@ components:
             $ref: '#/components/schemas/enums.ArrayOfEnums.inline'
       title: ArrayOfEnums
       additionalProperties: false
+    connect-protocol-version:
+      type: number
+      title: Connect-Protocol-Version
+      enum:
+        - 1
+      description: Define the version of the Connect protocol
+      const: 1
+    connect-timeout-header:
+      type: number
+      title: Connect-Timeout-Ms
+      description: Define the timeout, in ms
     connect.error:
       type: object
       properties:

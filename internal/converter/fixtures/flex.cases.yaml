@@ -4,6 +4,7 @@ cases:
     body: '{}'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
 
   - name: "normalrpc-full"
     path: "flex.FlexService/NormalRPC"
@@ -31,6 +32,7 @@ cases:
       }
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
 
   # 64bit numeric types can use strings (as they must if they're large enough)
   - name: "normalrpc-strings"
@@ -48,3 +50,4 @@ cases:
       }
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1

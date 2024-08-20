@@ -5,6 +5,7 @@ cases:
     query: 'message=%7B%22name%22%3A%20%22kevin%22%7D'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
 
   - name: "hello-wrong-value-type"
     method: GET
@@ -12,6 +13,7 @@ cases:
     query: 'message=%7B%22name%22%3A%201%7D'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
 
@@ -21,6 +23,7 @@ cases:
     query: 'message=%7B%22nane%22%3A%20%22kevin%22%7D'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
 
@@ -30,6 +33,7 @@ cases:
     query: 'message=%7B%22name%22%3A%20%22kevin%22%2C%20%22extra%22%3A%201234%7D'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*additionalProperties 'extra' not allowed, Location: /additionalProperties.*"
 
@@ -38,12 +42,14 @@ cases:
     body: '{"name": "kevin"}'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
 
   - name: "writehello-wrong-value-type"
     path: "helloworld.Greeter/WriteHello"
     body: '{"name": 1}'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
 
@@ -52,6 +58,7 @@ cases:
     body: '{"nane": "kevin"}'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
 
@@ -60,5 +67,6 @@ cases:
     body: '{"name": "kevin", "extra": 1234}'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*additionalProperties 'extra' not allowed, Location: /additionalProperties.*"

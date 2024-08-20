@@ -4,11 +4,13 @@ cases:
     body: '"kevin"'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
 
   - name: "healthcheck with object"
     path: "samples.Test/HealthCheck"
     body: '{"value": "kevin"}'
     headers:
       Content-Type: application/json
+      Connect-Protocol-Version: 1
     errors:
       - ".*Reason: expected string, but got object, Location: /type.*"

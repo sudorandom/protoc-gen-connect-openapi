@@ -36,6 +36,20 @@
         "additionalProperties": false,
         "description": "Used should be less or equal to the total size:\n```\nthis.used \u003c= this.total_size\n```\n\n"
       },
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
       "connect.error": {
         "type": "object",
         "properties": {

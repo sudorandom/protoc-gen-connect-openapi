@@ -8,6 +8,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
+	"github.com/lmittmann/tint"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 )
 
@@ -21,6 +22,12 @@ func main() {
 		})
 		os.Exit(1)
 	}
+
+	slog.SetDefault(slog.New(
+		tint.NewHandler(os.Stderr, &tint.Options{
+			Level: slog.LevelDebug,
+		}),
+	))
 
 	renderResponse(resp)
 }

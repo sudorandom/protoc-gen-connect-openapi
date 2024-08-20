@@ -12,6 +12,21 @@
         "description": "Sends a greeting",
         "parameters": [
           {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          },
+          {
             "name": "message",
             "in": "query",
             "content": {
@@ -28,23 +43,67 @@
             }
           },
           {
-            "schema": {
-              "$ref": "#/components/parameters/encoding"
+            "name": "encoding",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/encoding"
+                }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/encoding"
+                }
+              }
             }
           },
           {
-            "schema": {
-              "$ref": "#/components/parameters/base64"
+            "name": "base64",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/base64"
+                }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/base64"
+                }
+              }
             }
           },
           {
-            "schema": {
-              "$ref": "#/components/parameters/compression"
+            "name": "compression",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/compression"
+                }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/compression"
+                }
+              }
             }
           },
           {
-            "schema": {
-              "$ref": "#/components/parameters/connect"
+            "name": "connect",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect-protocol-version"
+                }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect-protocol-version"
+                }
+              }
             }
           }
         ],
@@ -76,6 +135,23 @@
           "helloworld.Greeter"
         ],
         "description": "Writes a greeting (has side effects)",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -137,6 +213,20 @@
         "additionalProperties": false,
         "description": "The request message containing the user's name."
       },
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
       "encoding": {
         "title": "encoding",
         "enum": [
@@ -159,13 +249,6 @@
           "gzip"
         ],
         "description": "Which compression algorithm to use for this request"
-      },
-      "connect": {
-        "title": "connect",
-        "enum": [
-          "1"
-        ],
-        "description": "Which version of connect to use."
       },
       "connect.error": {
         "type": "object",
@@ -223,72 +306,6 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
-      }
-    },
-    "parameters": {
-      "encoding": {
-        "name": "encoding",
-        "in": "query",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/encoding"
-            }
-          },
-          "application/proto": {
-            "schema": {
-              "$ref": "#/components/schemas/encoding"
-            }
-          }
-        }
-      },
-      "base64": {
-        "name": "base64",
-        "in": "query",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/base64"
-            }
-          },
-          "application/proto": {
-            "schema": {
-              "$ref": "#/components/schemas/base64"
-            }
-          }
-        }
-      },
-      "compression": {
-        "name": "compression",
-        "in": "query",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/compression"
-            }
-          },
-          "application/proto": {
-            "schema": {
-              "$ref": "#/components/schemas/compression"
-            }
-          }
-        }
-      },
-      "connect": {
-        "name": "connect",
-        "in": "query",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/connect"
-            }
-          },
-          "application/proto": {
-            "schema": {
-              "$ref": "#/components/schemas/connect"
-            }
-          }
-        }
       }
     }
   },

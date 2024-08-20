@@ -114,15 +114,13 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		return nil, err
 	}
 
-	logLevel := slog.LevelInfo
 	if opts.Debug {
-		logLevel = slog.LevelDebug
+		slog.SetDefault(slog.New(
+			tint.NewHandler(os.Stderr, &tint.Options{
+				Level: slog.LevelDebug,
+			}),
+		))
 	}
-	slog.SetDefault(slog.New(
-		tint.NewHandler(os.Stderr, &tint.Options{
-			Level: logLevel,
-		}),
-	))
 
 	files := []*pluginpb.CodeGeneratorResponse_File{}
 	genFiles := make(map[string]struct{}, len(req.FileToGenerate))
