@@ -45,9 +45,9 @@ enum MyEnum {
 
 message LotsOfValidationRules {
   optional int32 cel_field = 2 [(buf.validate.field).cel = {
-    id: "my_message.value",
-    message: "value must be greater than 42",
-    expression: "this > 42",
+    id: "my_message.value"
+    message: "value must be greater than 42"
+    expression: "this > 42"
   }];
   optional MyOtherMessage skipped_field = 3 [(buf.validate.field).skipped = true];
   optional MyOtherMessage required_field = 4 [(buf.validate.field).required = true];
@@ -78,7 +78,7 @@ message LotsOfValidationRules {
   float float_gt = 12 [(buf.validate.field).float.gt = 6.9];
   float float_gte = 13 [(buf.validate.field).float.gte = 69];
   float float_bounds = 14 [(buf.validate.field).float = {
-    gte: 5.0,
+    gte: 5.0
     lt: 10.0
   }];
 
@@ -104,7 +104,7 @@ message LotsOfValidationRules {
   double double_gt = 26 [(buf.validate.field).double.gt = 6.9];
   double double_gte = 27 [(buf.validate.field).double.gte = 69];
   double double_bounds = 28 [(buf.validate.field).double = {
-    gte: 5.0,
+    gte: 5.0
     lt: 10.0
   }];
 
@@ -129,7 +129,7 @@ message LotsOfValidationRules {
   int32 int32_gt = 36 [(buf.validate.field).int32.gt = 6];
   int32 int32_gte = 37 [(buf.validate.field).int32.gte = 69];
   int32 int32_bounds = 38 [(buf.validate.field).int32 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -154,7 +154,7 @@ message LotsOfValidationRules {
   int64 int64_gt = 46 [(buf.validate.field).int64.gt = 6];
   int64 int64_gte = 47 [(buf.validate.field).int64.gte = 69];
   int64 int64_bounds = 48 [(buf.validate.field).int64 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -179,7 +179,7 @@ message LotsOfValidationRules {
   uint32 uint32_gt = 56 [(buf.validate.field).uint32.gt = 6];
   uint32 uint32_gte = 57 [(buf.validate.field).uint32.gte = 69];
   uint32 uint32_bounds = 58 [(buf.validate.field).uint32 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -204,7 +204,7 @@ message LotsOfValidationRules {
   uint64 uint64_gt = 66 [(buf.validate.field).uint64.gt = 6];
   uint64 uint64_gte = 67 [(buf.validate.field).uint64.gte = 69];
   uint64 uint64_bounds = 68 [(buf.validate.field).uint64 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -229,7 +229,7 @@ message LotsOfValidationRules {
   sint32 sint32_gt = 76 [(buf.validate.field).sint32.gt = 6];
   sint32 sint32_gte = 77 [(buf.validate.field).sint32.gte = 69];
   sint32 sint32_bounds = 78 [(buf.validate.field).sint32 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -254,7 +254,7 @@ message LotsOfValidationRules {
   sint64 sint64_gt = 86 [(buf.validate.field).sint64.gt = 8];
   sint64 sint64_gte = 87 [(buf.validate.field).sint64.gte = 89];
   sint64 sint64_bounds = 88 [(buf.validate.field).sint64 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -279,7 +279,7 @@ message LotsOfValidationRules {
   fixed32 fixed32_gt = 96 [(buf.validate.field).fixed32.gt = 6];
   fixed32 fixed32_gte = 97 [(buf.validate.field).fixed32.gte = 69];
   fixed32 fixed32_bounds = 98 [(buf.validate.field).fixed32 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -304,7 +304,7 @@ message LotsOfValidationRules {
   fixed64 fixed64_gt = 106 [(buf.validate.field).fixed64.gt = 10];
   fixed64 fixed64_gte = 107 [(buf.validate.field).fixed64.gte = 109];
   fixed64 fixed64_bounds = 108 [(buf.validate.field).fixed64 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -329,7 +329,7 @@ message LotsOfValidationRules {
   sfixed32 sfixed32_gt = 116 [(buf.validate.field).sfixed32.gt = 6];
   sfixed32 sfixed32_gte = 117 [(buf.validate.field).sfixed32.gte = 69];
   sfixed32 sfixed32_bounds = 118 [(buf.validate.field).sfixed32 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -354,7 +354,7 @@ message LotsOfValidationRules {
   sfixed64 sfixed64_gt = 126 [(buf.validate.field).sfixed64.gt = 10];
   sfixed64 sfixed64_gte = 127 [(buf.validate.field).sfixed64.gte = 109];
   sfixed64 sfixed64_bounds = 128 [(buf.validate.field).sfixed64 = {
-    gte: 5,
+    gte: 5
     lt: 10
   }];
 
@@ -406,13 +406,13 @@ message LotsOfValidationRules {
   optional bytes bytes_suffix = 176 [(buf.validate.field).bytes.suffix = "\x03\x04"];
   optional bytes bytes_contains = 177 [(buf.validate.field).bytes.contains = "\x02\x03"];
   optional bytes bytes_in = 178 [(buf.validate.field).bytes = {
-    in: "\x01\x02",
-    in: "\x02\x03",
+    in: "\x01\x02"
+    in: "\x02\x03"
     in: "\x03\x04"
   }];
   optional bytes bytes_not_in = 179 [(buf.validate.field).bytes = {
-    not_in: "\x01\x02",
-    not_in: "\x02\x03",
+    not_in: "\x01\x02"
+    not_in: "\x02\x03"
     not_in: "\x03\x04"
   }];
   optional bytes bytes_ip = 180 [(buf.validate.field).bytes.ip = true];
@@ -460,23 +460,23 @@ message LotsOfValidationRules {
   }];
 
   google.protobuf.Any any_in = 220 [(buf.validate.field).any = {
-    in: "type.googleapis.com/MyType1",
+    in: "type.googleapis.com/MyType1"
     in: "type.googleapis.com/MyType2"
   }];
   google.protobuf.Any any_not_in = 221 [(buf.validate.field).any = {
-    not_in: "type.googleapis.com/ForbiddenType1",
+    not_in: "type.googleapis.com/ForbiddenType1"
     not_in: "type.googleapis.com/ForbiddenType2"
   }];
 
   google.protobuf.Duration duration_const = 230 [(buf.validate.field).duration.const = {seconds: 2000}];
   google.protobuf.Duration duration_in = 231 [(buf.validate.field).duration = {
-    in: {seconds: 1},
-    in: {seconds: 2},
+    in: {seconds: 1}
+    in: {seconds: 2}
     in: {seconds: 3}
   }];
   google.protobuf.Duration duration_not_in = 232 [(buf.validate.field).duration = {
-    not_in: {seconds: 1},
-    not_in: {seconds: 2},
+    not_in: {seconds: 1}
+    not_in: {seconds: 2}
     not_in: {seconds: 3}
   }];
   google.protobuf.Duration duration_lt = 233 [(buf.validate.field).duration.lt = {seconds: 5}];
@@ -484,7 +484,7 @@ message LotsOfValidationRules {
   google.protobuf.Duration duration_lt_seconds = 238 [(buf.validate.field).duration.lt = {seconds: 259200}];
   google.protobuf.Duration duration_gt = 235 [(buf.validate.field).duration.gt = {seconds: 5}];
   google.protobuf.Duration duration_range = 236 [(buf.validate.field).duration = {
-    gt: {seconds: 5},
+    gt: {seconds: 5}
     lt: {seconds: 10}
   }];
   google.protobuf.Duration duration_gte = 237 [(buf.validate.field).duration.gte = {seconds: 5}];
@@ -496,7 +496,7 @@ message LotsOfValidationRules {
   google.protobuf.Timestamp timestamp_gt = 244 [(buf.validate.field).timestamp.gt = {seconds: 1672444800}];
   google.protobuf.Timestamp timestamp_gte = 245 [(buf.validate.field).timestamp.gte = {seconds: 1672444800}];
   google.protobuf.Timestamp timestamp_range = 246 [(buf.validate.field).timestamp = {
-    gt: {seconds: 1672444800},
+    gt: {seconds: 1672444800}
     lt: {seconds: 1672531200}
   }];
   google.protobuf.Timestamp timestamp_lt_now = 247 [(buf.validate.field).timestamp.lt_now = true];

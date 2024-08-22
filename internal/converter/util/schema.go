@@ -3,6 +3,7 @@ package util
 import (
 	"fmt"
 	"log/slog"
+	"slices"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
@@ -28,14 +29,38 @@ func MessageToSchema(tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
 	}
 
+	oneOneGroups := map[protoreflect.FullName][]string{}
+
 	props := orderedmap.New[string, *base.SchemaProxy]()
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
+		if oneOf := field.ContainingOneof(); oneOf != nil {
+			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], field.JSONName())
+		}
 		props.Set(field.JSONName(), FieldToSchema(base.CreateSchemaProxy(s), field))
 	}
 
 	s.Properties = props
+
+	if len(oneOneGroups) > 0 {
+		// make all of groups
+		groupKeys := []protoreflect.FullName{}
+		for key := range oneOneGroups {
+			groupKeys = append(groupKeys, key)
+		}
+		slices.Sort(groupKeys)
+		allOfs := []*base.SchemaProxy{}
+		for _, key := range groupKeys {
+			items := oneOneGroups[key]
+			slices.Sort(items)
+			allOfs = append(allOfs, makeOneOfGroup(items))
+		}
+		if len(allOfs) == 1 {
+			s.AnyOf = allOfs[0].Schema().AnyOf
+		}
+		s.AllOf = append(s.AllOf, allOfs...)
+	}
 
 	// Apply Updates from Options
 	s = protovalidate.SchemaWithMessageAnnotations(s, tt)
@@ -133,4 +158,16 @@ func ReferenceFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescr
 	default:
 		panic(fmt.Errorf("ReferenceFieldToSchema called with unknown kind: %T", tt.Kind()))
 	}
+}
+
+func makeOneOfGroup(fields []string) *base.SchemaProxy {
+	nestedSchemas := make([]*base.SchemaProxy, 0, len(fields))
+	rootSchemas := make([]*base.SchemaProxy, 0, len(fields)+1)
+	for _, field := range fields {
+		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
+		nestedSchemas = append(nestedSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
+	}
+
+	rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Not: base.CreateSchemaProxy(&base.Schema{AnyOf: nestedSchemas})}))
+	return base.CreateSchemaProxy(&base.Schema{AnyOf: rootSchemas})
 }

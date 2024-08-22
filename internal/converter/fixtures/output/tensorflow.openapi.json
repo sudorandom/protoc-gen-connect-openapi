@@ -952,6 +952,226 @@
       },
       "tensorflow.AttrValue": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "b"
+                ]
+              },
+              {
+                "required": [
+                  "f"
+                ]
+              },
+              {
+                "required": [
+                  "func"
+                ]
+              },
+              {
+                "required": [
+                  "i"
+                ]
+              },
+              {
+                "required": [
+                  "list"
+                ]
+              },
+              {
+                "required": [
+                  "placeholder"
+                ]
+              },
+              {
+                "required": [
+                  "s"
+                ]
+              },
+              {
+                "required": [
+                  "shape"
+                ]
+              },
+              {
+                "required": [
+                  "tensor"
+                ]
+              },
+              {
+                "required": [
+                  "type"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "b"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "f"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "func"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "i"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "list"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "placeholder"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "s"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "shape"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "tensor"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "b"
+            ]
+          },
+          {
+            "required": [
+              "f"
+            ]
+          },
+          {
+            "required": [
+              "func"
+            ]
+          },
+          {
+            "required": [
+              "i"
+            ]
+          },
+          {
+            "required": [
+              "list"
+            ]
+          },
+          {
+            "required": [
+              "placeholder"
+            ]
+          },
+          {
+            "required": [
+              "s"
+            ]
+          },
+          {
+            "required": [
+              "shape"
+            ]
+          },
+          {
+            "required": [
+              "tensor"
+            ]
+          },
+          {
+            "required": [
+              "type"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "b"
+                  ]
+                },
+                {
+                  "required": [
+                    "f"
+                  ]
+                },
+                {
+                  "required": [
+                    "func"
+                  ]
+                },
+                {
+                  "required": [
+                    "i"
+                  ]
+                },
+                {
+                  "required": [
+                    "list"
+                  ]
+                },
+                {
+                  "required": [
+                    "placeholder"
+                  ]
+                },
+                {
+                  "required": [
+                    "s"
+                  ]
+                },
+                {
+                  "required": [
+                    "shape"
+                  ]
+                },
+                {
+                  "required": [
+                    "tensor"
+                  ]
+                },
+                {
+                  "required": [
+                    "type"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "s": {
             "type": "string",
@@ -2170,6 +2390,66 @@
       },
       "tensorflow.FullTypeDef": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "i"
+                ]
+              },
+              {
+                "required": [
+                  "s"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "i"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "s"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "i"
+            ]
+          },
+          {
+            "required": [
+              "s"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "i"
+                  ]
+                },
+                {
+                  "required": [
+                    "s"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "typeId": {
             "$ref": "#/components/schemas/tensorflow.FullTypeId"

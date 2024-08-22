@@ -287,6 +287,29 @@ components:
          ) to obtain a formatter capable of generating timestamps in this format.
     protovalidate.CELMessage:
       type: object
+      allOf:
+        - anyOf:
+            - required:
+                - a
+            - required:
+                - b
+            - not:
+                anyOf:
+                  - required:
+                      - a
+                  - required:
+                      - b
+      anyOf:
+        - required:
+            - a
+        - required:
+            - b
+        - not:
+            anyOf:
+              - required:
+                  - a
+              - required:
+                  - b
       properties:
         a:
           type: string
@@ -305,6 +328,119 @@ components:
       additionalProperties: false
     protovalidate.LotsOfValidationRules:
       type: object
+      allOf:
+        - anyOf:
+            - required:
+                - byteLen
+            - not:
+                anyOf:
+                  - required:
+                      - byteLen
+        - anyOf:
+            - required:
+                - bytesContains
+            - not:
+                anyOf:
+                  - required:
+                      - bytesContains
+        - anyOf:
+            - required:
+                - bytesIn
+            - not:
+                anyOf:
+                  - required:
+                      - bytesIn
+        - anyOf:
+            - required:
+                - bytesIp
+            - not:
+                anyOf:
+                  - required:
+                      - bytesIp
+        - anyOf:
+            - required:
+                - bytesIpv4
+            - not:
+                anyOf:
+                  - required:
+                      - bytesIpv4
+        - anyOf:
+            - required:
+                - bytesIpv6
+            - not:
+                anyOf:
+                  - required:
+                      - bytesIpv6
+        - anyOf:
+            - required:
+                - bytesMaxLen
+            - not:
+                anyOf:
+                  - required:
+                      - bytesMaxLen
+        - anyOf:
+            - required:
+                - bytesMinLen
+            - not:
+                anyOf:
+                  - required:
+                      - bytesMinLen
+        - anyOf:
+            - required:
+                - bytesNotIn
+            - not:
+                anyOf:
+                  - required:
+                      - bytesNotIn
+        - anyOf:
+            - required:
+                - bytesPattern
+            - not:
+                anyOf:
+                  - required:
+                      - bytesPattern
+        - anyOf:
+            - required:
+                - bytesPrefix
+            - not:
+                anyOf:
+                  - required:
+                      - bytesPrefix
+        - anyOf:
+            - required:
+                - bytesSuffix
+            - not:
+                anyOf:
+                  - required:
+                      - bytesSuffix
+        - anyOf:
+            - required:
+                - celField
+            - not:
+                anyOf:
+                  - required:
+                      - celField
+        - anyOf:
+            - required:
+                - requiredField
+            - not:
+                anyOf:
+                  - required:
+                      - requiredField
+        - anyOf:
+            - required:
+                - skippedField
+            - not:
+                anyOf:
+                  - required:
+                      - skippedField
+        - anyOf:
+            - required:
+                - uriField
+            - not:
+                anyOf:
+                  - required:
+                      - uriField
       properties:
         celField:
           type: integer
@@ -1470,6 +1606,29 @@ components:
       additionalProperties: false
     protovalidate.OneOfMessage:
       type: object
+      allOf:
+        - anyOf:
+            - required:
+                - a
+            - required:
+                - b
+            - not:
+                anyOf:
+                  - required:
+                      - a
+                  - required:
+                      - b
+      anyOf:
+        - required:
+            - a
+        - required:
+            - b
+        - not:
+            anyOf:
+              - required:
+                  - a
+              - required:
+                  - b
       properties:
         a:
           type: string

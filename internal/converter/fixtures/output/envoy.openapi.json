@@ -187,6 +187,86 @@
       },
       "envoy.config.core.v3.Address": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "envoyInternalAddress"
+                ]
+              },
+              {
+                "required": [
+                  "pipe"
+                ]
+              },
+              {
+                "required": [
+                  "socketAddress"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "envoyInternalAddress"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "pipe"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "socketAddress"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "envoyInternalAddress"
+            ]
+          },
+          {
+            "required": [
+              "pipe"
+            ]
+          },
+          {
+            "required": [
+              "socketAddress"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "envoyInternalAddress"
+                  ]
+                },
+                {
+                  "required": [
+                    "pipe"
+                  ]
+                },
+                {
+                  "required": [
+                    "socketAddress"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "socketAddress": {
             "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress"
@@ -232,6 +312,46 @@
       },
       "envoy.config.core.v3.EnvoyInternalAddress": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "serverListenerName"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "serverListenerName"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "serverListenerName"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "serverListenerName"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "serverListenerName": {
             "type": "string",
@@ -376,6 +496,66 @@
       },
       "envoy.config.core.v3.Node": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "userAgentBuildVersion"
+                ]
+              },
+              {
+                "required": [
+                  "userAgentVersion"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "userAgentBuildVersion"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "userAgentVersion"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "userAgentBuildVersion"
+            ]
+          },
+          {
+            "required": [
+              "userAgentVersion"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "userAgentBuildVersion"
+                  ]
+                },
+                {
+                  "required": [
+                    "userAgentVersion"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -480,6 +660,66 @@
       },
       "envoy.config.core.v3.SocketAddress": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "namedPort"
+                ]
+              },
+              {
+                "required": [
+                  "portValue"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "namedPort"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "portValue"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "namedPort"
+            ]
+          },
+          {
+            "required": [
+              "portValue"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "namedPort"
+                  ]
+                },
+                {
+                  "required": [
+                    "portValue"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "protocol": {
             "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol"
@@ -741,6 +981,106 @@
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "andConstraints"
+                ]
+              },
+              {
+                "required": [
+                  "constraint"
+                ]
+              },
+              {
+                "required": [
+                  "notConstraints"
+                ]
+              },
+              {
+                "required": [
+                  "orConstraints"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "andConstraints"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "constraint"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "notConstraints"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "orConstraints"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "andConstraints"
+            ]
+          },
+          {
+            "required": [
+              "constraint"
+            ]
+          },
+          {
+            "required": [
+              "notConstraints"
+            ]
+          },
+          {
+            "required": [
+              "orConstraints"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "andConstraints"
+                  ]
+                },
+                {
+                  "required": [
+                    "constraint"
+                  ]
+                },
+                {
+                  "required": [
+                    "notConstraints"
+                  ]
+                },
+                {
+                  "required": [
+                    "orConstraints"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "constraint": {
             "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint"
@@ -774,6 +1114,66 @@
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint": {
         "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "exists"
+                ]
+              },
+              {
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "exists"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "exists"
+            ]
+          },
+          {
+            "required": [
+              "value"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "exists"
+                  ]
+                },
+                {
+                  "required": [
+                    "value"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
         "properties": {
           "key": {
             "type": "string",
