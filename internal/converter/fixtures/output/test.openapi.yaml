@@ -60,7 +60,6 @@ components:
       type: string
       pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
       format: regex
-      additionalProperties: false
       description: |-
         A Duration represents a signed, fixed-length span of time represented
          as a count of seconds and fractions of seconds at nanosecond
@@ -405,7 +404,6 @@ components:
     google.protobuf.Timestamp:
       type: string
       format: date-time
-      additionalProperties: false
       description: |-
         A Timestamp represents a point in time independent of any time zone or local
          calendar, encoded as a count of seconds and fractions of seconds at

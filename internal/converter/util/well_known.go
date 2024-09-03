@@ -48,11 +48,10 @@ func googleDuration(msg protoreflect.MessageDescriptor) *IDSchema {
 	return &IDSchema{
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
-			Description:          FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:                 []string{"string"},
-			Format:               "regex",
-			Pattern:              `^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`,
-			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"string"},
+			Format:      "regex",
+			Pattern:     `^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`,
 		},
 	}
 }
@@ -61,10 +60,9 @@ func googleTimestamp(msg protoreflect.MessageDescriptor) *IDSchema {
 	return &IDSchema{
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
-			Description:          FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:                 []string{"string"},
-			Format:               "date-time",
-			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"string"},
+			Format:      "date-time",
 		},
 	}
 }
