@@ -73,11 +73,13 @@ paths:
                 $ref: '#/components/schemas/connect-protocol-version'
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -102,6 +104,8 @@ components:
       properties:
         name:
           type: string
+          examples:
+            - Example value
           title: Custom title for a field
           additionalProperties: false
       title: Custom title for a message
@@ -189,4 +193,3 @@ security: []
 tags:
   - name: example_with_gnostic.Greeter
     description: The greeting service definition.
-externalDocs: {}

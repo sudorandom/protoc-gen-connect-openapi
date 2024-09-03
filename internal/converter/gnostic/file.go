@@ -8,15 +8,15 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescriptor) *highv3.Document {
+func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescriptor) {
 	if !proto.HasExtension(fd.Options(), goa3.E_Document.TypeDescriptor().Type()) {
-		return spec
+		return
 	}
 
 	ext := proto.GetExtension(fd.Options(), goa3.E_Document.TypeDescriptor().Type())
 	opts, ok := ext.(*goa3.Document)
 	if !ok {
-		return spec
+		return
 	}
 	if opts.Openapi != "" {
 		spec.Info.Version = opts.Openapi
@@ -44,11 +44,10 @@ func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescript
 	}
 	spec.Servers = append(spec.Servers, toServers(opts.Servers)...)
 	spec.Security = append(spec.Security, toSecurityRequirements(opts.Security)...)
-	spec.Components = toComponents(opts.Components)
 	spec.Tags = append(spec.Tags, toTags(opts.Tags)...)
 	if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
 		spec.ExternalDocs = exDocs
 	}
 	spec.Extensions = toExtensions(opts.SpecificationExtension)
-	return spec
+	appendComponents(spec, opts.Components)
 }

@@ -12,6 +12,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
@@ -160,7 +161,7 @@ func stateToSchema(st *State) *orderedmap.Map[string, *base.SchemaProxy] {
 	}
 
 	for _, message := range st.SortedMessages() {
-		id, schema := util.MessageToSchema(message)
+		id, schema := schema.MessageToSchema(message)
 		if schema != nil {
 			schemas.Set(id, base.CreateSchemaProxy(schema))
 		}

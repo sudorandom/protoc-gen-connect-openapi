@@ -63,7 +63,10 @@ service Greeter {
 message HelloRequest {
   option (gnostic.openapi.v3.schema) = {title: "Custom title for a message"};
 
-  string name = 1 [(gnostic.openapi.v3.property) = {title: "Custom title for a field"}];
+  string name = 1 [
+    (gnostic.openapi.v3.property).title = "Custom title for a field",
+    (gnostic.openapi.v3.property).example = {yaml: "Example value"}
+  ];
 }
 
 // The response message containing the greetings

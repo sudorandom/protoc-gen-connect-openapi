@@ -5,9 +5,11 @@ import (
 
 	goa3 "github.com/google/gnostic/openapiv3"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
+	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"gopkg.in/yaml.v3"
 )
 
@@ -64,11 +66,11 @@ func toSecurityRequirements(securityReq []*goa3.SecurityRequirement) []*base.Sec
 	return result
 }
 
-func toComponents(c *goa3.Components) *v3.Components {
+func appendComponents(spec *highv3.Document, c *goa3.Components) {
 	if c == nil {
-		return nil
+		return
 	}
-	return &v3.Components{
+	util.AppendComponents(spec, &v3.Components{
 		Schemas:         toSchemaOrReferenceMap(c.Schemas.GetAdditionalProperties()),
 		SecuritySchemes: toSecuritySchemes(c.SecuritySchemes),
 		Responses:       toResponsesMap(c.Responses),
@@ -79,7 +81,7 @@ func toComponents(c *goa3.Components) *v3.Components {
 		Links:           toLinks(c.Links),
 		Callbacks:       toCallbacks(c.Callbacks),
 		Extensions:      toExtensions(c.SpecificationExtension),
-	}
+	})
 }
 
 func toParametersMap(params *goa3.ParametersOrReferences) *orderedmap.Map[string, *v3.Parameter] {

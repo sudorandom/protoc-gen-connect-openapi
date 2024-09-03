@@ -13,6 +13,7 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
@@ -84,7 +85,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Name:        field.JSONName(),
 				In:          "query",
 				Description: desc,
-				Schema:      util.FieldToSchema(nil, field),
+				Schema:      schema.FieldToSchema(nil, field),
 			})
 		}
 	case "*":
@@ -111,7 +112,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Name:        param,
 				In:          "path",
 				Description: util.FormatComments(loc),
-				Schema:      util.FieldToSchema(nil, field),
+				Schema:      schema.FieldToSchema(nil, field),
 			})
 		}
 	}

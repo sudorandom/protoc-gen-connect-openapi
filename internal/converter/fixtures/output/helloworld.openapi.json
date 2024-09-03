@@ -109,6 +109,7 @@
         ],
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -118,6 +119,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -164,6 +166,7 @@
         },
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -173,6 +176,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -315,6 +319,5 @@
       "name": "helloworld.Greeter",
       "description": "The greeting service definition."
     }
-  ],
-  "externalDocs": {}
+  ]
 }

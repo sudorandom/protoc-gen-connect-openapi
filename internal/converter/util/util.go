@@ -11,6 +11,36 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
+func AppendComponents(spec *v3.Document, components *v3.Components) {
+	for pair := components.Schemas.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Schemas.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.Responses.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Responses.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.Parameters.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Parameters.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.Examples.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Examples.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.RequestBodies.First(); pair != nil; pair = pair.Next() {
+		spec.Components.RequestBodies.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.Headers.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Headers.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.SecuritySchemes.First(); pair != nil; pair = pair.Next() {
+		spec.Components.SecuritySchemes.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.Links.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Links.Set(pair.Key(), pair.Value())
+	}
+	for pair := components.Callbacks.First(); pair != nil; pair = pair.Next() {
+		spec.Components.Callbacks.Set(pair.Key(), pair.Value())
+	}
+}
+
 func FormatComments(loc protoreflect.SourceLocation) string {
 	var builder strings.Builder
 	if loc.LeadingComments != "" {

@@ -248,40 +248,14 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
-	spec = gnostic.SpecWithFileAnnotations(spec, fd)
+	gnostic.SpecWithFileAnnotations(spec, fd)
 	components, err := fileToComponents(opts, fd)
 	if err != nil {
 		return err
 	}
 	initializeDoc(spec)
 	initializeComponents(components)
-	for pair := components.Schemas.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Schemas.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.Responses.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Responses.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.Parameters.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Parameters.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.Examples.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Examples.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.RequestBodies.First(); pair != nil; pair = pair.Next() {
-		spec.Components.RequestBodies.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.Headers.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Headers.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.SecuritySchemes.First(); pair != nil; pair = pair.Next() {
-		spec.Components.SecuritySchemes.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.Links.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Links.Set(pair.Key(), pair.Value())
-	}
-	for pair := components.Callbacks.First(); pair != nil; pair = pair.Next() {
-		spec.Components.Callbacks.Set(pair.Key(), pair.Value())
-	}
+	util.AppendComponents(spec, components)
 
 	pathItems, err := fileToPathItems(opts, fd)
 	if err != nil {
@@ -322,9 +296,6 @@ func initializeDoc(doc *v3.Document) {
 	}
 	if doc.Security == nil {
 		doc.Security = []*base.SecurityRequirement{}
-	}
-	if doc.ExternalDocs == nil {
-		doc.ExternalDocs = &base.ExternalDoc{}
 	}
 	if doc.Extensions == nil {
 		doc.Extensions = orderedmap.New[string, *yaml.Node]()

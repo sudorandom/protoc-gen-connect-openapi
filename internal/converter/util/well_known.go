@@ -36,7 +36,7 @@ func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
 	return ok
 }
 
-func wellKnownToSchema(msg protoreflect.MessageDescriptor) *IDSchema {
+func WellKnownToSchema(msg protoreflect.MessageDescriptor) *IDSchema {
 	fn, ok := wellKnownToSchemaFns[string(msg.FullName())]
 	if !ok {
 		return nil

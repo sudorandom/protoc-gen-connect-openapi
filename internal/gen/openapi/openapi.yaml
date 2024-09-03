@@ -1,12 +1,21 @@
 openapi: 3.1.0
 info:
-  title: helloworld
+  title: Greeting API
+  description: This is a service which says hello and goodbye to you!
+  contact:
+    name: Derek Perez
+    url: https://github.com/bufdemo/openapi-examples
+    email: dperez@buf.build
+  license:
+    name: Apache 2 License
+    url: https://github.com/bufdemo/openapi-examples/blob/master/LICENSE
+  version: v2
 paths:
-  /helloworld.Greeter/SayHello:
+  /goodbye.v1.GoodbyeService/SayGoodbye:
     get:
       tags:
-        - helloworld.Greeter
-      description: Sends a greeting
+        - goodbye.v1.GoodbyeService
+      description: Says goodbye.
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -22,17 +31,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
+                $ref: '#/components/schemas/goodbye.v1.SayGoodbyeRequest'
         - name: encoding
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/encoding'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/encoding'
         - name: base64
@@ -41,25 +44,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/base64'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/base64'
         - name: compression
           in: query
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/compression'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/compression'
         - name: connect
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/connect-protocol-version'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/connect-protocol-version'
       responses:
@@ -74,12 +68,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloReply'
-  /helloworld.Greeter/WriteHello:
+                $ref: '#/components/schemas/goodbye.v1.SayGoodbyeResponse'
+  /hello.v1.HelloService/SayHello:
     post:
       tags:
-        - helloworld.Greeter
-      description: Writes a greeting (has side effects)
+        - hello.v1.HelloService
+      description: Says hello.
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -94,7 +88,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/helloworld.HelloRequest'
+              $ref: '#/components/schemas/hello.v1.SayHelloRequest'
         required: true
       responses:
         default:
@@ -108,29 +102,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/helloworld.HelloReply'
+                $ref: '#/components/schemas/hello.v1.SayHelloResponse'
 components:
   schemas:
-    helloworld.HelloReply:
+    goodbye.v1.SayGoodbyeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          maxLength: 100
+          minLength: 3
+          additionalProperties: false
+      title: SayGoodbyeRequest
+      additionalProperties: false
+      description: The request message containing the user's name.
+    goodbye.v1.SayGoodbyeResponse:
       type: object
       properties:
         message:
           type: string
           title: message
           additionalProperties: false
-      title: HelloReply
+      title: SayGoodbyeResponse
       additionalProperties: false
       description: The response message containing the greetings
-    helloworld.HelloRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          title: name
-          additionalProperties: false
-      title: HelloRequest
-      additionalProperties: false
-      description: The request message containing the user's name.
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -205,7 +201,42 @@ components:
           additionalProperties: true
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    hello.v1.SayHelloRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+          maxLength: 100
+          minLength: 3
+          additionalProperties: false
+          description: The name of the user to say hello to.
+        helloCount:
+          exclusiveMaximum: false
+          type: integer
+          title: hello_count
+          additionalProperties: false
+          description: How many times to say hello.
+      title: SayHelloRequest
+      additionalProperties: false
+      description: The request message containing the user's name.
+    hello.v1.SayHelloResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          title: message
+          additionalProperties: false
+      title: SayHelloResponse
+      additionalProperties: false
+      description: The response message containing the greetings
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
 security: []
 tags:
-  - name: helloworld.Greeter
+  - name: goodbye.v1.GoodbyeService
+    description: The Goodbye service definition.
+  - name: hello.v1.HelloService
     description: The greeting service definition.

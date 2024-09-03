@@ -24,11 +24,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -55,11 +57,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -86,11 +90,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -1688,4 +1694,3 @@ security: []
 tags:
   - name: protovalidate.MessageFields
   - name: protovalidate.FieldsService
-externalDocs: {}

@@ -25,11 +25,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -57,11 +59,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -89,11 +93,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -121,11 +127,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -153,11 +161,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -185,11 +195,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -220,11 +232,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -252,11 +266,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -284,11 +300,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -316,11 +334,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -4562,4 +4582,3 @@ components:
 security: []
 tags:
   - name: tensorflowtest.MasterService
-externalDocs: {}

@@ -74,7 +74,10 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 	mediaType.Set("application/json", &v3.MediaType{
 		Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
 	})
-	codeMap.Set("200", &v3.Response{Content: mediaType})
+	codeMap.Set("200", &v3.Response{
+		Description: "Success",
+		Content:     mediaType,
+	})
 	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
 	errMediaTypes.Set("application/json", &v3.MediaType{
 		Schema: base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
@@ -82,7 +85,8 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
 		Default: &v3.Response{
-			Content: errMediaTypes,
+			Description: "Error",
+			Content:     errMediaTypes,
 		},
 	}
 

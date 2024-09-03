@@ -1,4 +1,4 @@
-package util
+package schema
 
 import (
 	"fmt"
@@ -9,14 +9,15 @@ import (
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/protovalidate"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 func MessageToSchema(tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 	slog.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
 	defer slog.Debug("/messageToSchema", slog.Any("descriptor", tt.FullName()))
-	if IsWellKnown(tt) {
-		wk := wellKnownToSchema(tt)
+	if util.IsWellKnown(tt) {
+		wk := util.WellKnownToSchema(tt)
 		if wk == nil {
 			return "", nil
 		}
@@ -24,7 +25,7 @@ func MessageToSchema(tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 	}
 	s := &base.Schema{
 		Title:                string(tt.Name()),
-		Description:          FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
+		Description:          util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 		Type:                 []string{"object"},
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
 	}
@@ -77,7 +78,7 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 		root := ScalarFieldToSchema(parent, tt)
 		root.Title = string(tt.Name())
 		root.Type = []string{"object"}
-		root.Description = FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
+		root.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
 		return base.CreateSchemaProxy(root)
 	} else if tt.IsList() {
 		var itemSchema *base.SchemaProxy
@@ -111,7 +112,7 @@ func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescript
 	s := &base.Schema{
 		ParentProxy:          parent,
 		Title:                string(tt.Name()),
-		Description:          FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
+		Description:          util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
 	}
 

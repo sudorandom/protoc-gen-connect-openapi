@@ -120,6 +120,7 @@
         ],
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -129,6 +130,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -167,6 +169,9 @@
         "properties": {
           "name": {
             "type": "string",
+            "examples": [
+              "Example value"
+            ],
             "title": "Custom title for a field",
             "additionalProperties": false
           }
@@ -283,6 +288,5 @@
       "name": "example_with_gnostic.Greeter",
       "description": "The greeting service definition."
     }
-  ],
-  "externalDocs": {}
+  ]
 }

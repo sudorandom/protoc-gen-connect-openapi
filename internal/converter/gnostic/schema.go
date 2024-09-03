@@ -6,6 +6,7 @@ import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
@@ -60,11 +61,16 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 	if opts.Example != nil {
 		// If the example is defined with the YAML option
 		if opts.Example.Yaml != "" {
-			var v *yaml.Node
+			var v string
 			if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &v); err != nil {
-				slog.Warn("unable to unmarshal example", slog.Any("error", err))
+				var node yaml.Node
+				if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &node); err != nil {
+					slog.Warn("unable to unmarshal example", slog.Any("error", err))
+				} else {
+					schema.Examples = append(schema.Examples, &node)
+				}
 			} else {
-				schema.Examples = append(schema.Examples, v)
+				schema.Examples = append(schema.Examples, utils.CreateStringNode(v))
 			}
 		}
 		// If the example is defined with google.protobuf.Any
