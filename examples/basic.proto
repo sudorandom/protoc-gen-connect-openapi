@@ -17,32 +17,17 @@ option java_package = "io.grpc.examples.helloworld";
 // Field options (gnostic.openapi.v3.property): Schema message
 option (gnostic.openapi.v3.document) = {
   info: {
-    title: "Hello World";
-    version: "v2";
-    description: "This is a service which says hello to you!";
+    title: "Hello World"
+    version: "v2"
+    description: "This is a service which says hello to you!"
     contact: {
-      name: "Ein";
-      url: "https://github.com/sudorandom/protoc-gen-connect-openapi";
-      email: "ein@sudorandom.com";
+      name: "Ein"
+      url: "https://github.com/sudorandom/protoc-gen-connect-openapi"
+      email: "ein@sudorandom.com"
     }
     license: {
-      name: "MIT License";
-      url: "https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE";
-    }
-  }
-  components: {
-    security_schemes: {
-      additional_properties: [
-        {
-          name: "BasicAuth";
-          value: {
-            security_scheme: {
-              type: "http";
-              scheme: "basic";
-            }
-          }
-        }
-      ]
+      name: "MIT License"
+      url: "https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE"
     }
   }
 };
@@ -63,7 +48,7 @@ service Greeter {
 message HelloRequest {
   string name = 1 [
     (buf.validate.field).string = {
-      min_len: 3,
+      min_len: 3
       max_len: 100
     },
     (gnostic.openapi.v3.property) = {

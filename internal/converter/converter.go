@@ -136,19 +136,21 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		return nil, err
 	}
 
-	newSpec := func() (v3.Document, error) {
-		return initializeDoc(v3.Document{}), nil
+	newSpec := func() (*v3.Document, error) {
+		model := &v3.Document{}
+		initializeDoc(model)
+		return model, nil
 	}
 	if opts.BaseOpenAPIPath != "" {
-		newSpec = func() (v3.Document, error) {
+		newSpec = func() (*v3.Document, error) {
 			base, err := os.ReadFile(opts.BaseOpenAPIPath)
 			if err != nil {
-				return v3.Document{}, err
+				return &v3.Document{}, err
 			}
 
 			document, err := libopenapi.NewDocument(base)
 			if err != nil {
-				return v3.Document{}, fmt.Errorf("unmarshalling base: %w", err)
+				return &v3.Document{}, fmt.Errorf("unmarshalling base: %w", err)
 			}
 			v3Document, errs := document.BuildV3Model()
 			if len(errs) > 0 {
@@ -156,9 +158,11 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 				for _, err := range errs {
 					merr = errors.Join(merr, err)
 				}
-				return v3.Document{}, merr
+				return &v3.Document{}, merr
 			}
-			return initializeDoc(v3Document.Model), nil
+			model := &v3Document.Model
+			initializeDoc(model)
+			return model, nil
 		}
 	}
 
@@ -166,7 +170,7 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	if err != nil {
 		return nil, err
 	}
-	outFiles := map[string]v3.Document{}
+	outFiles := map[string]*v3.Document{}
 
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
@@ -192,7 +196,7 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 			spec.Info.Description = util.FormatComments(fd.SourceLocations().ByDescriptor(fd))
 		}
 
-		if err := appendToSpec(opts, &spec, fd); err != nil {
+		if err := appendToSpec(opts, spec, fd); err != nil {
 			return nil, err
 		}
 
@@ -228,7 +232,7 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	}, nil
 }
 
-func specToFile(opts options.Options, spec v3.Document) (string, error) {
+func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 	switch opts.Format {
 	case "yaml":
 		return string(spec.RenderWithIndention(2)), nil
@@ -249,6 +253,8 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	if err != nil {
 		return err
 	}
+	initializeDoc(spec)
+	initializeComponents(components)
 	for pair := components.Schemas.First(); pair != nil; pair = pair.Next() {
 		spec.Components.Schemas.Set(pair.Key(), pair.Value())
 	}
@@ -288,7 +294,8 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	return nil
 }
 
-func initializeDoc(doc v3.Document) v3.Document {
+func initializeDoc(doc *v3.Document) {
+	slog.Debug("initializeDoc")
 	if doc.Version == "" {
 		doc.Version = "3.1.0"
 	}
@@ -313,39 +320,6 @@ func initializeDoc(doc v3.Document) v3.Document {
 	if doc.Paths.Extensions == nil {
 		doc.Paths.Extensions = orderedmap.New[string, *yaml.Node]()
 	}
-	if doc.Components == nil {
-		doc.Components = &v3.Components{}
-	}
-	if doc.Components.Schemas == nil {
-		doc.Components.Schemas = orderedmap.New[string, *base.SchemaProxy]()
-	}
-	if doc.Components.Responses == nil {
-		doc.Components.Responses = orderedmap.New[string, *v3.Response]()
-	}
-	if doc.Components.Parameters == nil {
-		doc.Components.Parameters = orderedmap.New[string, *v3.Parameter]()
-	}
-	if doc.Components.Examples == nil {
-		doc.Components.Examples = orderedmap.New[string, *base.Example]()
-	}
-	if doc.Components.RequestBodies == nil {
-		doc.Components.RequestBodies = orderedmap.New[string, *v3.RequestBody]()
-	}
-	if doc.Components.Headers == nil {
-		doc.Components.Headers = orderedmap.New[string, *v3.Header]()
-	}
-	if doc.Components.SecuritySchemes == nil {
-		doc.Components.SecuritySchemes = orderedmap.New[string, *v3.SecurityScheme]()
-	}
-	if doc.Components.Links == nil {
-		doc.Components.Links = orderedmap.New[string, *v3.Link]()
-	}
-	if doc.Components.Callbacks == nil {
-		doc.Components.Callbacks = orderedmap.New[string, *v3.Callback]()
-	}
-	if doc.Components.Extensions == nil {
-		doc.Components.Extensions = orderedmap.New[string, *yaml.Node]()
-	}
 	if doc.Security == nil {
 		doc.Security = []*base.SecurityRequirement{}
 	}
@@ -365,5 +339,41 @@ func initializeDoc(doc v3.Document) v3.Document {
 		doc.Rolodex = &index.Rolodex{}
 	}
 
-	return doc
+	if doc.Components == nil {
+		doc.Components = &v3.Components{}
+	}
+	initializeComponents(doc.Components)
+}
+
+func initializeComponents(components *v3.Components) {
+	if components.Schemas == nil {
+		components.Schemas = orderedmap.New[string, *base.SchemaProxy]()
+	}
+	if components.Responses == nil {
+		components.Responses = orderedmap.New[string, *v3.Response]()
+	}
+	if components.Parameters == nil {
+		components.Parameters = orderedmap.New[string, *v3.Parameter]()
+	}
+	if components.Examples == nil {
+		components.Examples = orderedmap.New[string, *base.Example]()
+	}
+	if components.RequestBodies == nil {
+		components.RequestBodies = orderedmap.New[string, *v3.RequestBody]()
+	}
+	if components.Headers == nil {
+		components.Headers = orderedmap.New[string, *v3.Header]()
+	}
+	if components.SecuritySchemes == nil {
+		components.SecuritySchemes = orderedmap.New[string, *v3.SecurityScheme]()
+	}
+	if components.Links == nil {
+		components.Links = orderedmap.New[string, *v3.Link]()
+	}
+	if components.Callbacks == nil {
+		components.Callbacks = orderedmap.New[string, *v3.Callback]()
+	}
+	if components.Extensions == nil {
+		components.Extensions = orderedmap.New[string, *yaml.Node]()
+	}
 }
