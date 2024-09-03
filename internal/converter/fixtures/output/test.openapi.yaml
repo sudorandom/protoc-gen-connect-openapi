@@ -128,7 +128,6 @@ components:
           items:
             type: string
             title: paths
-            additionalProperties: false
             description: The set of field mask paths.
       title: FieldMask
       additionalProperties: false
@@ -399,7 +398,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/google.protobuf.Value'
       title: FieldsEntry
@@ -504,7 +502,6 @@ components:
         value:
           type: integer
           title: value
-          additionalProperties: false
           description: The uint32 value.
       title: UInt32Value
       additionalProperties: false
@@ -520,7 +517,6 @@ components:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
           description: The uint64 value.
       title: UInt64Value
       additionalProperties: false
@@ -743,75 +739,60 @@ components:
             - type: string
             - type: number
           title: double_value
-          additionalProperties: false
           description: scalar types
         floatValue:
           type: number
           title: float_value
-          additionalProperties: false
         int32Value:
           type: integer
           title: int32_value
-          additionalProperties: false
         int64Value:
           oneOf:
             - type: string
             - type: number
           title: int64_value
-          additionalProperties: false
         uint32Value:
           type: integer
           title: uint32_value
-          additionalProperties: false
         uint64Value:
           oneOf:
             - type: string
             - type: number
           title: uint64_value
-          additionalProperties: false
         sint32Value:
           type: integer
           title: sint32_value
-          additionalProperties: false
         sint64Value:
           oneOf:
             - type: string
             - type: number
           title: sint64_value
-          additionalProperties: false
         fixed32Value:
           type: integer
           title: fixed32_value
-          additionalProperties: false
         fixed64Value:
           oneOf:
             - type: string
             - type: number
           title: fixed64_value
-          additionalProperties: false
         sfixed32Value:
           type: integer
           title: sfixed32_value
-          additionalProperties: false
         sfixed64Value:
           oneOf:
             - type: string
             - type: number
           title: sfixed64_value
-          additionalProperties: false
         boolValue:
           type: boolean
           title: bool_value
-          additionalProperties: false
         stringValue:
           type: string
           title: string_value
-          additionalProperties: false
         bytesValue:
           type: string
           title: bytes_value
           format: byte
-          additionalProperties: false
         doubleList:
           type: array
           items:
@@ -819,20 +800,17 @@ components:
               - type: string
               - type: number
             title: double_list
-            additionalProperties: false
             description: repeated types
         floatList:
           type: array
           items:
             type: number
             title: float_list
-            additionalProperties: false
         int32List:
           type: array
           items:
             type: integer
             title: int32_list
-            additionalProperties: false
         int64List:
           type: array
           items:
@@ -840,13 +818,11 @@ components:
               - type: string
               - type: number
             title: int64_list
-            additionalProperties: false
         uint32List:
           type: array
           items:
             type: integer
             title: uint32_list
-            additionalProperties: false
         uint64List:
           type: array
           items:
@@ -854,13 +830,11 @@ components:
               - type: string
               - type: number
             title: uint64_list
-            additionalProperties: false
         sint32List:
           type: array
           items:
             type: integer
             title: sint32_list
-            additionalProperties: false
         sint64List:
           type: array
           items:
@@ -868,13 +842,11 @@ components:
               - type: string
               - type: number
             title: sint64_list
-            additionalProperties: false
         fixed32List:
           type: array
           items:
             type: integer
             title: fixed32_list
-            additionalProperties: false
         fixed64List:
           type: array
           items:
@@ -882,13 +854,11 @@ components:
               - type: string
               - type: number
             title: fixed64_list
-            additionalProperties: false
         sfixed32List:
           type: array
           items:
             type: integer
             title: sfixed32_list
-            additionalProperties: false
         sfixed64List:
           type: array
           items:
@@ -896,33 +866,28 @@ components:
               - type: string
               - type: number
             title: sfixed64_list
-            additionalProperties: false
         boolList:
           type: array
           items:
             type: boolean
             title: bool_list
-            additionalProperties: false
         stringList:
           type: array
           items:
             type: string
             title: string_list
-            additionalProperties: false
         bytesList:
           type: array
           items:
             type: string
             title: bytes_list
             format: byte
-            additionalProperties: false
         int32ToStringMap:
           type: object
           title: int32_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: map key types
         int64ToStringMap:
           type: object
@@ -930,77 +895,66 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         uint32ToStringMap:
           type: object
           title: uint32_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         uint64ToStringMap:
           type: object
           title: uint64_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         sint32ToStringMap:
           type: object
           title: sint32_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         sint64ToStringMap:
           type: object
           title: sint64_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         fixed32ToStringMap:
           type: object
           title: fixed32_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         fixed64ToStringMap:
           type: object
           title: fixed64_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         sfixed32ToStringMap:
           type: object
           title: sfixed32_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         sfixed64ToStringMap:
           type: object
           title: sfixed64_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         boolToStringMap:
           type: object
           title: bool_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         stringToStringMap:
           type: object
           title: string_to_string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         doubleMap:
           type: object
           title: double_map
@@ -1009,7 +963,6 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
           description: map value types
         floatMap:
           type: object
@@ -1017,14 +970,12 @@ components:
           additionalProperties:
             type: number
             title: value
-            additionalProperties: false
         int32Map:
           type: object
           title: int32_map
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
         int64Map:
           type: object
           title: int64_map
@@ -1033,14 +984,12 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
         uint32Map:
           type: object
           title: uint32_map
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
         uint64Map:
           type: object
           title: uint64_map
@@ -1049,14 +998,12 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
         sint32Map:
           type: object
           title: sint32_map
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
         sint64Map:
           type: object
           title: sint64_map
@@ -1065,14 +1012,12 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
         fixed32Map:
           type: object
           title: fixed32_map
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
         fixed64Map:
           type: object
           title: fixed64_map
@@ -1081,14 +1026,12 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
         sfixed32Map:
           type: object
           title: sfixed32_map
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
         sfixed64Map:
           type: object
           title: sfixed64_map
@@ -1097,21 +1040,18 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
         boolMap:
           type: object
           title: bool_map
           additionalProperties:
             type: boolean
             title: value
-            additionalProperties: false
         stringMap:
           type: object
           title: string_map
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         bytesMap:
           type: object
           title: bytes_map
@@ -1119,81 +1059,65 @@ components:
             type: string
             title: value
             format: byte
-            additionalProperties: false
         optDoubleValue:
           oneOf:
             - type: string
             - type: number
           title: opt_double_value
-          additionalProperties: false
           description: explicit presence types
         optFloatValue:
           type: number
           title: opt_float_value
-          additionalProperties: false
         optInt32Value:
           type: integer
           title: opt_int32_value
-          additionalProperties: false
         optInt64Value:
           oneOf:
             - type: string
             - type: number
           title: opt_int64_value
-          additionalProperties: false
         optUint32Value:
           type: integer
           title: opt_uint32_value
-          additionalProperties: false
         optUint64Value:
           oneOf:
             - type: string
             - type: number
           title: opt_uint64_value
-          additionalProperties: false
         optSint32Value:
           type: integer
           title: opt_sint32_value
-          additionalProperties: false
         optSint64Value:
           oneOf:
             - type: string
             - type: number
           title: opt_sint64_value
-          additionalProperties: false
         optFixed32Value:
           type: integer
           title: opt_fixed32_value
-          additionalProperties: false
         optFixed64Value:
           oneOf:
             - type: string
             - type: number
           title: opt_fixed64_value
-          additionalProperties: false
         optSfixed32Value:
           type: integer
           title: opt_sfixed32_value
-          additionalProperties: false
         optSfixed64Value:
           oneOf:
             - type: string
             - type: number
           title: opt_sfixed64_value
-          additionalProperties: false
         optBoolValue:
           type: boolean
           title: opt_bool_value
-          additionalProperties: false
         optStringValue:
           type: string
           title: opt_string_value
-          additionalProperties: false
         optBytesValue:
           type: string
           title: opt_bytes_value
           format: byte
-          additionalProperties: false
         msgValue:
           $ref: '#/components/schemas/test.v1.AllTypes'
         enumValue:
@@ -1225,74 +1149,59 @@ components:
             - type: string
             - type: number
           title: double_option
-          additionalProperties: false
         floatOption:
           type: number
           title: float_option
-          additionalProperties: false
         int32Option:
           type: integer
           title: int32_option
-          additionalProperties: false
         int64Option:
           oneOf:
             - type: string
             - type: number
           title: int64_option
-          additionalProperties: false
         uint32Option:
           type: integer
           title: uint32_option
-          additionalProperties: false
         uint64Option:
           oneOf:
             - type: string
             - type: number
           title: uint64_option
-          additionalProperties: false
         sint32Option:
           type: integer
           title: sint32_option
-          additionalProperties: false
         sint64Option:
           oneOf:
             - type: string
             - type: number
           title: sint64_option
-          additionalProperties: false
         fixed32Option:
           type: integer
           title: fixed32_option
-          additionalProperties: false
         fixed64Option:
           oneOf:
             - type: string
             - type: number
           title: fixed64_option
-          additionalProperties: false
         sfixed32Option:
           type: integer
           title: sfixed32_option
-          additionalProperties: false
         sfixed64Option:
           oneOf:
             - type: string
             - type: number
           title: sfixed64_option
-          additionalProperties: false
         boolOption:
           type: boolean
           title: bool_option
-          additionalProperties: false
         stringOption:
           type: string
           title: string_option
-          additionalProperties: false
         bytesOption:
           type: string
           title: bytes_option
           format: byte
-          additionalProperties: false
         msgOption:
           $ref: '#/components/schemas/test.v1.AllTypes'
         enumOption:
@@ -1305,11 +1214,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: boolean
           title: value
-          additionalProperties: false
       title: BoolMapEntry
       additionalProperties: false
     test.v1.AllTypes.BoolToStringMapEntry:
@@ -1318,11 +1225,9 @@ components:
         key:
           type: boolean
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: BoolToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.BytesMapEntry:
@@ -1331,12 +1236,10 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
           format: byte
-          additionalProperties: false
       title: BytesMapEntry
       additionalProperties: false
     test.v1.AllTypes.DoubleMapEntry:
@@ -1345,13 +1248,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: DoubleMapEntry
       additionalProperties: false
     test.v1.AllTypes.EnumMapEntry:
@@ -1360,7 +1261,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/test.v1.AllTypes.Enum'
       title: EnumMapEntry
@@ -1371,11 +1271,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: Fixed32MapEntry
       additionalProperties: false
     test.v1.AllTypes.Fixed32ToStringMapEntry:
@@ -1384,11 +1282,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Fixed32ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Fixed64MapEntry:
@@ -1397,13 +1293,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: Fixed64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Fixed64ToStringMapEntry:
@@ -1414,11 +1308,9 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Fixed64ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.FloatMapEntry:
@@ -1427,11 +1319,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: number
           title: value
-          additionalProperties: false
       title: FloatMapEntry
       additionalProperties: false
     test.v1.AllTypes.Int32MapEntry:
@@ -1440,11 +1330,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: Int32MapEntry
       additionalProperties: false
     test.v1.AllTypes.Int32ToStringMapEntry:
@@ -1453,11 +1341,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Int32ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Int64MapEntry:
@@ -1466,13 +1352,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: Int64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Int64ToStringMapEntry:
@@ -1483,11 +1367,9 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Int64ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.MsgMapEntry:
@@ -1496,7 +1378,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/test.v1.AllTypes'
       title: MsgMapEntry
@@ -1507,11 +1388,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: Sfixed32MapEntry
       additionalProperties: false
     test.v1.AllTypes.Sfixed32ToStringMapEntry:
@@ -1520,11 +1399,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Sfixed32ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Sfixed64MapEntry:
@@ -1533,13 +1410,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: Sfixed64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Sfixed64ToStringMapEntry:
@@ -1550,11 +1425,9 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Sfixed64ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Sint32MapEntry:
@@ -1563,11 +1436,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: Sint32MapEntry
       additionalProperties: false
     test.v1.AllTypes.Sint32ToStringMapEntry:
@@ -1576,11 +1447,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Sint32ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Sint64MapEntry:
@@ -1589,13 +1458,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: Sint64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Sint64ToStringMapEntry:
@@ -1606,11 +1473,9 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Sint64ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.StringMapEntry:
@@ -1619,11 +1484,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: StringMapEntry
       additionalProperties: false
     test.v1.AllTypes.StringToStringMapEntry:
@@ -1632,11 +1495,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: StringToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Uint32MapEntry:
@@ -1645,11 +1506,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: Uint32MapEntry
       additionalProperties: false
     test.v1.AllTypes.Uint32ToStringMapEntry:
@@ -1658,11 +1517,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Uint32ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Uint64MapEntry:
@@ -1671,13 +1528,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: Uint64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Uint64ToStringMapEntry:
@@ -1688,11 +1543,9 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: Uint64ToStringMapEntry
       additionalProperties: false
     test.v1.ParameterValues:
@@ -1734,75 +1587,60 @@ components:
             - type: string
             - type: number
           title: double_value
-          additionalProperties: false
           description: scalar types
         floatValue:
           type: number
           title: float_value
-          additionalProperties: false
         int32Value:
           type: integer
           title: int32_value
-          additionalProperties: false
         int64Value:
           oneOf:
             - type: string
             - type: number
           title: int64_value
-          additionalProperties: false
         uint32Value:
           type: integer
           title: uint32_value
-          additionalProperties: false
         uint64Value:
           oneOf:
             - type: string
             - type: number
           title: uint64_value
-          additionalProperties: false
         sint32Value:
           type: integer
           title: sint32_value
-          additionalProperties: false
         sint64Value:
           oneOf:
             - type: string
             - type: number
           title: sint64_value
-          additionalProperties: false
         fixed32Value:
           type: integer
           title: fixed32_value
-          additionalProperties: false
         fixed64Value:
           oneOf:
             - type: string
             - type: number
           title: fixed64_value
-          additionalProperties: false
         sfixed32Value:
           type: integer
           title: sfixed32_value
-          additionalProperties: false
         sfixed64Value:
           oneOf:
             - type: string
             - type: number
           title: sfixed64_value
-          additionalProperties: false
         boolValue:
           type: boolean
           title: bool_value
-          additionalProperties: false
         stringValue:
           type: string
           title: string_value
-          additionalProperties: false
         bytesValue:
           type: string
           title: bytes_value
           format: byte
-          additionalProperties: false
         timestamp:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         duration:
@@ -1840,7 +1678,6 @@ components:
               - type: string
               - type: number
             title: double_list
-            additionalProperties: false
         doubleValueList:
           type: array
           items:
@@ -1850,7 +1687,6 @@ components:
             - type: string
             - type: number
           title: oneof_double_value
-          additionalProperties: false
         oneofDoubleValueWrapper:
           $ref: '#/components/schemas/google.protobuf.DoubleValue'
         oneofEnumValue:
@@ -1865,7 +1701,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: unsupported
         stringValueMap:
           type: object
@@ -1898,7 +1733,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
       title: EnumMapEntry
@@ -1911,7 +1745,6 @@ components:
             - type: string
             - type: number
           title: double_value
-          additionalProperties: false
         doubleValueWrapper:
           $ref: '#/components/schemas/google.protobuf.DoubleValue'
         enumValue:
@@ -1924,7 +1757,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
       title: NestedMapEntry
@@ -1935,11 +1767,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: StringMapEntry
       additionalProperties: false
     test.v1.ParameterValues.StringValueMapEntry:
@@ -1948,7 +1778,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/google.protobuf.StringValue'
       title: StringValueMapEntry

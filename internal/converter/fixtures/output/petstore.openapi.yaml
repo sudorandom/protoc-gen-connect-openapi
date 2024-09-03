@@ -6,6 +6,7 @@ paths:
     get:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.GetPetByID
       parameters:
         - name: petId
           in: query
@@ -14,7 +15,6 @@ paths:
               - type: string
               - type: number
             title: pet_id
-            additionalProperties: false
       responses:
         default:
           content:
@@ -29,6 +29,7 @@ paths:
     post:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.UpdatePetWithForm
       requestBody:
         content:
           application/json:
@@ -52,6 +53,7 @@ paths:
     delete:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.DeletePet
       parameters:
         - name: petId
           in: query
@@ -60,7 +62,6 @@ paths:
               - type: string
               - type: number
             title: pet_id
-            additionalProperties: false
       responses:
         default:
           content:
@@ -76,6 +77,7 @@ paths:
     post:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.UploadFile
       requestBody:
         content:
           application/json:
@@ -100,6 +102,7 @@ paths:
     put:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.UpdatePet
       requestBody:
         content:
           application/json:
@@ -123,6 +126,7 @@ paths:
     post:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.AddPet
       requestBody:
         content:
           application/json:
@@ -147,6 +151,7 @@ paths:
     get:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.FindPetsByTag
       parameters:
         - name: tag
           in: query
@@ -155,7 +160,6 @@ paths:
             items:
               type: string
               title: tag
-              additionalProperties: false
       responses:
         default:
           content:
@@ -171,6 +175,7 @@ paths:
     get:
       tags:
         - io.swagger.petstore.v2.PetService
+      operationId: io.swagger.petstore.v2.PetService.FindPetsByStatus
       parameters:
         - name: status
           in: query
@@ -179,7 +184,6 @@ paths:
             items:
               type: string
               title: status
-              additionalProperties: false
       responses:
         default:
           content:
@@ -221,15 +225,12 @@ components:
         code:
           type: integer
           title: code
-          additionalProperties: false
         type:
           type: string
           title: type
-          additionalProperties: false
         message:
           type: string
           title: message
-          additionalProperties: false
       title: ApiResponse
       additionalProperties: false
     io.swagger.petstore.v2.Category:
@@ -240,11 +241,9 @@ components:
             - type: string
             - type: number
           title: id
-          additionalProperties: false
         name:
           type: string
           title: name
-          additionalProperties: false
       title: Category
       additionalProperties: false
     io.swagger.petstore.v2.Pet:
@@ -255,19 +254,16 @@ components:
             - type: string
             - type: number
           title: id
-          additionalProperties: false
         category:
           $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
         name:
           type: string
           title: name
-          additionalProperties: false
         photoUrls:
           type: array
           items:
             type: string
             title: photo_urls
-            additionalProperties: false
         tags:
           type: array
           items:
@@ -275,7 +271,6 @@ components:
         status:
           type: string
           title: status
-          additionalProperties: false
       title: Pet
       additionalProperties: false
     io.swagger.petstore.v2.PetBody:
@@ -286,11 +281,9 @@ components:
             - type: string
             - type: number
           title: pet_id
-          additionalProperties: false
         body:
           type: string
           title: body
-          additionalProperties: false
       title: PetBody
       additionalProperties: false
     io.swagger.petstore.v2.PetID:
@@ -301,7 +294,6 @@ components:
             - type: string
             - type: number
           title: pet_id
-          additionalProperties: false
       title: PetID
       additionalProperties: false
     io.swagger.petstore.v2.Pets:
@@ -321,7 +313,6 @@ components:
           items:
             type: string
             title: status
-            additionalProperties: false
       title: StatusReq
       additionalProperties: false
     io.swagger.petstore.v2.Tag:
@@ -332,11 +323,9 @@ components:
             - type: string
             - type: number
           title: id
-          additionalProperties: false
         name:
           type: string
           title: name
-          additionalProperties: false
       title: Tag
       additionalProperties: false
     io.swagger.petstore.v2.TagReq:
@@ -347,7 +336,6 @@ components:
           items:
             type: string
             title: tag
-            additionalProperties: false
       title: TagReq
       additionalProperties: false
     io.swagger.petstore.v2.UpdatePetWithFormReq:
@@ -358,15 +346,12 @@ components:
             - type: string
             - type: number
           title: pet_id
-          additionalProperties: false
         name:
           type: string
           title: name
-          additionalProperties: false
         status:
           type: string
           title: status
-          additionalProperties: false
       title: UpdatePetWithFormReq
       additionalProperties: false
     io.swagger.petstore.v2.UploadFileReq:
@@ -377,15 +362,12 @@ components:
             - type: string
             - type: number
           title: pet_id
-          additionalProperties: false
         additionalMetadata:
           type: string
           title: additional_metadata
-          additionalProperties: false
         file:
           type: string
           title: file
-          additionalProperties: false
       title: UploadFileReq
       additionalProperties: false
     connect-protocol-version:
@@ -415,7 +397,6 @@ components:
         - identity
         - gzip
         - br
-        - gzip
       description: Which compression algorithm to use for this request
     connect.error:
       type: object

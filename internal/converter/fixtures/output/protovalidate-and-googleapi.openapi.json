@@ -9,6 +9,7 @@
         "tags": [
           "foo.KnowledgeAssessmentReports"
         ],
+        "operationId": "foo.KnowledgeAssessmentReports.Score",
         "parameters": [
           {
             "name": "b",
@@ -74,8 +75,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "name",
-            "additionalProperties": false
+            "title": "name"
           }
         },
         "title": "C",
@@ -116,8 +116,7 @@
         "enum": [
           "identity",
           "gzip",
-          "br",
-          "gzip"
+          "br"
         ],
         "description": "Which compression algorithm to use for this request"
       },

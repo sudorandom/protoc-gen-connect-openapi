@@ -9,6 +9,7 @@
         "tags": [
           "io.swagger.petstore.v2.Foo"
         ],
+        "operationId": "io.swagger.petstore.v2.Foo.Foo",
         "responses": {
           "default": {
             "content": {
@@ -70,8 +71,7 @@
         "enum": [
           "identity",
           "gzip",
-          "br",
-          "gzip"
+          "br"
         ],
         "description": "Which compression algorithm to use for this request"
       },

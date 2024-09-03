@@ -9,6 +9,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.GetPetByID",
         "parameters": [
           {
             "name": "petId",
@@ -22,8 +23,7 @@
                   "type": "number"
                 }
               ],
-              "title": "pet_id",
-              "additionalProperties": false
+              "title": "pet_id"
             }
           }
         ],
@@ -52,6 +52,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.UpdatePetWithForm",
         "requestBody": {
           "content": {
             "application/json": {
@@ -92,6 +93,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.DeletePet",
         "parameters": [
           {
             "name": "petId",
@@ -105,8 +107,7 @@
                   "type": "number"
                 }
               ],
-              "title": "pet_id",
-              "additionalProperties": false
+              "title": "pet_id"
             }
           }
         ],
@@ -137,6 +138,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.UploadFile",
         "requestBody": {
           "content": {
             "application/json": {
@@ -179,6 +181,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.UpdatePet",
         "requestBody": {
           "content": {
             "application/json": {
@@ -219,6 +222,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.AddPet",
         "requestBody": {
           "content": {
             "application/json": {
@@ -261,6 +265,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.FindPetsByTag",
         "parameters": [
           {
             "name": "tag",
@@ -269,8 +274,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "title": "tag",
-                "additionalProperties": false
+                "title": "tag"
               }
             }
           }
@@ -302,6 +306,7 @@
         "tags": [
           "io.swagger.petstore.v2.PetService"
         ],
+        "operationId": "io.swagger.petstore.v2.PetService.FindPetsByStatus",
         "parameters": [
           {
             "name": "status",
@@ -310,8 +315,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "title": "status",
-                "additionalProperties": false
+                "title": "status"
               }
             }
           }
@@ -361,18 +365,15 @@
         "properties": {
           "code": {
             "type": "integer",
-            "title": "code",
-            "additionalProperties": false
+            "title": "code"
           },
           "type": {
             "type": "string",
-            "title": "type",
-            "additionalProperties": false
+            "title": "type"
           },
           "message": {
             "type": "string",
-            "title": "message",
-            "additionalProperties": false
+            "title": "message"
           }
         },
         "title": "ApiResponse",
@@ -390,13 +391,11 @@
                 "type": "number"
               }
             ],
-            "title": "id",
-            "additionalProperties": false
+            "title": "id"
           },
           "name": {
             "type": "string",
-            "title": "name",
-            "additionalProperties": false
+            "title": "name"
           }
         },
         "title": "Category",
@@ -414,23 +413,20 @@
                 "type": "number"
               }
             ],
-            "title": "id",
-            "additionalProperties": false
+            "title": "id"
           },
           "category": {
             "$ref": "#/components/schemas/io.swagger.petstore.v2.Category"
           },
           "name": {
             "type": "string",
-            "title": "name",
-            "additionalProperties": false
+            "title": "name"
           },
           "photoUrls": {
             "type": "array",
             "items": {
               "type": "string",
-              "title": "photo_urls",
-              "additionalProperties": false
+              "title": "photo_urls"
             }
           },
           "tags": {
@@ -441,8 +437,7 @@
           },
           "status": {
             "type": "string",
-            "title": "status",
-            "additionalProperties": false
+            "title": "status"
           }
         },
         "title": "Pet",
@@ -460,13 +455,11 @@
                 "type": "number"
               }
             ],
-            "title": "pet_id",
-            "additionalProperties": false
+            "title": "pet_id"
           },
           "body": {
             "type": "string",
-            "title": "body",
-            "additionalProperties": false
+            "title": "body"
           }
         },
         "title": "PetBody",
@@ -484,8 +477,7 @@
                 "type": "number"
               }
             ],
-            "title": "pet_id",
-            "additionalProperties": false
+            "title": "pet_id"
           }
         },
         "title": "PetID",
@@ -511,8 +503,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "status",
-              "additionalProperties": false
+              "title": "status"
             }
           }
         },
@@ -531,13 +522,11 @@
                 "type": "number"
               }
             ],
-            "title": "id",
-            "additionalProperties": false
+            "title": "id"
           },
           "name": {
             "type": "string",
-            "title": "name",
-            "additionalProperties": false
+            "title": "name"
           }
         },
         "title": "Tag",
@@ -550,8 +539,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "title": "tag",
-              "additionalProperties": false
+              "title": "tag"
             }
           }
         },
@@ -570,18 +558,15 @@
                 "type": "number"
               }
             ],
-            "title": "pet_id",
-            "additionalProperties": false
+            "title": "pet_id"
           },
           "name": {
             "type": "string",
-            "title": "name",
-            "additionalProperties": false
+            "title": "name"
           },
           "status": {
             "type": "string",
-            "title": "status",
-            "additionalProperties": false
+            "title": "status"
           }
         },
         "title": "UpdatePetWithFormReq",
@@ -599,18 +584,15 @@
                 "type": "number"
               }
             ],
-            "title": "pet_id",
-            "additionalProperties": false
+            "title": "pet_id"
           },
           "additionalMetadata": {
             "type": "string",
-            "title": "additional_metadata",
-            "additionalProperties": false
+            "title": "additional_metadata"
           },
           "file": {
             "type": "string",
-            "title": "file",
-            "additionalProperties": false
+            "title": "file"
           }
         },
         "title": "UploadFileReq",
@@ -648,8 +630,7 @@
         "enum": [
           "identity",
           "gzip",
-          "br",
-          "gzip"
+          "br"
         ],
         "description": "Which compression algorithm to use for this request"
       },

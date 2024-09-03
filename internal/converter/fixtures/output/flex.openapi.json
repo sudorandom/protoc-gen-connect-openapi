@@ -10,6 +10,7 @@
           "flex.FlexService"
         ],
         "description": "Normal RPC method",
+        "operationId": "flex.FlexService.NormalRPC",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -67,6 +68,7 @@
           "flex.FlexService"
         ],
         "description": "Stream from client to server",
+        "operationId": "flex.FlexService.ClientStream",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -124,6 +126,7 @@
           "flex.FlexService"
         ],
         "description": "Stream from server to client",
+        "operationId": "flex.FlexService.ServerStream",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -181,6 +184,7 @@
           "flex.FlexService"
         ],
         "description": "Stream both ways",
+        "operationId": "flex.FlexService.BiDirectorionalStream",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -238,6 +242,7 @@
           "flex.FlexService"
         ],
         "description": "Don't send or receive anything",
+        "operationId": "flex.FlexService.EmptyRPC",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -344,18 +349,15 @@
                 "type": "number"
               }
             ],
-            "title": "doubleField",
-            "additionalProperties": false
+            "title": "doubleField"
           },
           "floatField": {
             "type": "number",
-            "title": "floatField",
-            "additionalProperties": false
+            "title": "floatField"
           },
           "int32Field": {
             "type": "integer",
-            "title": "int32Field",
-            "additionalProperties": false
+            "title": "int32Field"
           },
           "int64Field": {
             "oneOf": [
@@ -366,13 +368,11 @@
                 "type": "number"
               }
             ],
-            "title": "int64Field",
-            "additionalProperties": false
+            "title": "int64Field"
           },
           "uint32Field": {
             "type": "integer",
-            "title": "uint32Field",
-            "additionalProperties": false
+            "title": "uint32Field"
           },
           "uint64Field": {
             "oneOf": [
@@ -383,13 +383,11 @@
                 "type": "number"
               }
             ],
-            "title": "uint64Field",
-            "additionalProperties": false
+            "title": "uint64Field"
           },
           "sint32Field": {
             "type": "integer",
-            "title": "sint32Field",
-            "additionalProperties": false
+            "title": "sint32Field"
           },
           "sint64Field": {
             "oneOf": [
@@ -400,13 +398,11 @@
                 "type": "number"
               }
             ],
-            "title": "sint64Field",
-            "additionalProperties": false
+            "title": "sint64Field"
           },
           "fixed32Field": {
             "type": "integer",
-            "title": "fixed32Field",
-            "additionalProperties": false
+            "title": "fixed32Field"
           },
           "fixed64Field": {
             "oneOf": [
@@ -417,13 +413,11 @@
                 "type": "number"
               }
             ],
-            "title": "fixed64Field",
-            "additionalProperties": false
+            "title": "fixed64Field"
           },
           "sfixed32Field": {
             "type": "integer",
-            "title": "sfixed32Field",
-            "additionalProperties": false
+            "title": "sfixed32Field"
           },
           "sfixed64Field": {
             "oneOf": [
@@ -434,18 +428,15 @@
                 "type": "number"
               }
             ],
-            "title": "sfixed64Field",
-            "additionalProperties": false
+            "title": "sfixed64Field"
           },
           "boolField": {
             "type": "boolean",
-            "title": "boolField",
-            "additionalProperties": false
+            "title": "boolField"
           },
           "stringField": {
             "type": "string",
-            "title": "stringField",
-            "additionalProperties": false
+            "title": "stringField"
           },
           "msgField": {
             "$ref": "#/components/schemas/flex.Other"

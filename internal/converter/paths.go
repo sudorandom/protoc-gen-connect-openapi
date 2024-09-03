@@ -60,6 +60,7 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 	service := method.Parent().(protoreflect.ServiceDescriptor)
 	loc := fd.SourceLocations().ByDescriptor(method)
 	op := &v3.Operation{
+		OperationId: string(method.FullName()),
 		Deprecated:  util.IsMethodDeprecated(method),
 		Tags:        []string{string(service.FullName())},
 		Description: util.FormatComments(loc),

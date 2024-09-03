@@ -6,6 +6,7 @@ paths:
     get:
       tags:
         - foo.KnowledgeAssessmentReports
+      operationId: foo.KnowledgeAssessmentReports.Score
       parameters:
         - name: b
           in: query
@@ -48,7 +49,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
       title: C
       required:
         - name
@@ -80,7 +80,6 @@ components:
         - identity
         - gzip
         - br
-        - gzip
       description: Which compression algorithm to use for this request
     connect.error:
       type: object

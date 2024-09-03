@@ -16,6 +16,7 @@ paths:
       tags:
         - example_with_gnostic.Greeter
       description: Sends a greeting
+      operationId: example_with_gnostic.Greeter.SayHello
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -95,7 +96,6 @@ components:
         message:
           type: string
           title: message
-          additionalProperties: false
       title: HelloReply
       additionalProperties: false
       description: The response message containing the greetings
@@ -107,7 +107,6 @@ components:
           examples:
             - Example value
           title: Custom title for a field
-          additionalProperties: false
       title: Custom title for a message
       additionalProperties: false
       description: The request message containing the user's name.
@@ -138,7 +137,6 @@ components:
         - identity
         - gzip
         - br
-        - gzip
       description: Which compression algorithm to use for this request
     connect.error:
       type: object

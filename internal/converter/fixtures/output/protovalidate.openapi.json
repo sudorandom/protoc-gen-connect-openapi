@@ -9,6 +9,7 @@
         "tags": [
           "protovalidate.MessageFields"
         ],
+        "operationId": "protovalidate.MessageFields.OneOfRPC",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -65,6 +66,7 @@
         "tags": [
           "protovalidate.MessageFields"
         ],
+        "operationId": "protovalidate.MessageFields.CELRPC",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -121,6 +123,7 @@
         "tags": [
           "protovalidate.FieldsService"
         ],
+        "operationId": "protovalidate.FieldsService.CELRPC",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -285,13 +288,11 @@
           "a": {
             "type": "string",
             "title": "a",
-            "minLength": 1,
-            "additionalProperties": false
+            "minLength": 1
           },
           "b": {
             "type": "string",
-            "title": "b",
-            "additionalProperties": false
+            "title": "b"
           }
         },
         "title": "CELMessage",
@@ -630,7 +631,6 @@
           "celField": {
             "type": "integer",
             "title": "cel_field",
-            "additionalProperties": false,
             "description": "value must be greater than 42:\n```\nthis \u003e 42\n```\n\n"
           },
           "skippedField": {
@@ -642,13 +642,11 @@
           "uriField": {
             "type": "string",
             "title": "uri_field",
-            "format": "uri",
-            "additionalProperties": false
+            "format": "uri"
           },
           "floatConst": {
             "type": "number",
             "title": "float_const",
-            "additionalProperties": false,
             "description": "Floats",
             "const": "42"
           },
@@ -656,8 +654,7 @@
             "type": "array",
             "items": {
               "type": "number",
-              "title": "float_in",
-              "additionalProperties": false
+              "title": "float_in"
             }
           },
           "floatNotIn": {
@@ -672,42 +669,35 @@
                   "3"
                 ]
               },
-              "title": "float_not_in",
-              "additionalProperties": false
+              "title": "float_not_in"
             }
           },
           "floatFinite": {
             "type": "array",
             "items": {
               "type": "number",
-              "title": "float_finite",
-              "additionalProperties": false
+              "title": "float_finite"
             }
           },
           "floatLt": {
             "type": "number",
-            "title": "float_lt",
-            "additionalProperties": false
+            "title": "float_lt"
           },
           "floatLte": {
             "type": "number",
-            "title": "float_lte",
-            "additionalProperties": false
+            "title": "float_lte"
           },
           "floatGt": {
             "type": "number",
-            "title": "float_gt",
-            "additionalProperties": false
+            "title": "float_gt"
           },
           "floatGte": {
             "type": "number",
-            "title": "float_gte",
-            "additionalProperties": false
+            "title": "float_gte"
           },
           "floatBounds": {
             "type": "number",
-            "title": "float_bounds",
-            "additionalProperties": false
+            "title": "float_bounds"
           },
           "doubleConst": {
             "oneOf": [
@@ -719,7 +709,6 @@
               }
             ],
             "title": "double_const",
-            "additionalProperties": false,
             "description": "Double",
             "const": "42"
           },
@@ -739,8 +728,7 @@
                 "1",
                 "2",
                 "3"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "doubleNotIn": {
@@ -761,8 +749,7 @@
                   "3"
                 ]
               },
-              "title": "double_not_in",
-              "additionalProperties": false
+              "title": "double_not_in"
             }
           },
           "doubleFinite": {
@@ -776,8 +763,7 @@
                   "type": "number"
                 }
               ],
-              "title": "double_finite",
-              "additionalProperties": false
+              "title": "double_finite"
             }
           },
           "doubleLt": {
@@ -790,8 +776,7 @@
                 "type": "number"
               }
             ],
-            "title": "double_lt",
-            "additionalProperties": false
+            "title": "double_lt"
           },
           "doubleLte": {
             "oneOf": [
@@ -803,8 +788,7 @@
               }
             ],
             "title": "double_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "doubleGt": {
             "exclusiveMinimum": false,
@@ -816,8 +800,7 @@
                 "type": "number"
               }
             ],
-            "title": "double_gt",
-            "additionalProperties": false
+            "title": "double_gt"
           },
           "doubleGte": {
             "oneOf": [
@@ -829,8 +812,7 @@
               }
             ],
             "title": "double_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "doubleBounds": {
             "exclusiveMaximum": false,
@@ -843,13 +825,11 @@
               }
             ],
             "title": "double_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "int32Const": {
             "type": "integer",
             "title": "int32_const",
-            "additionalProperties": false,
             "description": "int32",
             "const": 42
           },
@@ -862,8 +842,7 @@
                 1,
                 2,
                 3
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "int32NotIn": {
@@ -878,40 +857,34 @@
                   3
                 ]
               },
-              "title": "int32_not_in",
-              "additionalProperties": false
+              "title": "int32_not_in"
             }
           },
           "int32Lt": {
             "exclusiveMaximum": false,
             "type": "integer",
-            "title": "int32_lt",
-            "additionalProperties": false
+            "title": "int32_lt"
           },
           "int32Lte": {
             "type": "integer",
             "title": "int32_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "int32Gt": {
             "exclusiveMinimum": false,
             "type": "integer",
-            "title": "int32_gt",
-            "additionalProperties": false
+            "title": "int32_gt"
           },
           "int32Gte": {
             "type": "integer",
             "title": "int32_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "int32Bounds": {
             "exclusiveMaximum": false,
             "type": "integer",
             "title": "int32_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "int64Const": {
             "oneOf": [
@@ -923,7 +896,6 @@
               }
             ],
             "title": "int64_const",
-            "additionalProperties": false,
             "description": "int64",
             "const": 42
           },
@@ -943,8 +915,7 @@
                 1,
                 2,
                 3
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "int64NotIn": {
@@ -965,8 +936,7 @@
                   3
                 ]
               },
-              "title": "int64_not_in",
-              "additionalProperties": false
+              "title": "int64_not_in"
             }
           },
           "int64Lt": {
@@ -979,8 +949,7 @@
                 "type": "number"
               }
             ],
-            "title": "int64_lt",
-            "additionalProperties": false
+            "title": "int64_lt"
           },
           "int64Lte": {
             "oneOf": [
@@ -992,8 +961,7 @@
               }
             ],
             "title": "int64_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "int64Gt": {
             "exclusiveMinimum": false,
@@ -1005,8 +973,7 @@
                 "type": "number"
               }
             ],
-            "title": "int64_gt",
-            "additionalProperties": false
+            "title": "int64_gt"
           },
           "int64Gte": {
             "oneOf": [
@@ -1018,8 +985,7 @@
               }
             ],
             "title": "int64_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "int64Bounds": {
             "exclusiveMaximum": false,
@@ -1032,13 +998,11 @@
               }
             ],
             "title": "int64_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "uint32Const": {
             "type": "integer",
             "title": "uint32_const",
-            "additionalProperties": false,
             "description": "uint32",
             "const": "42"
           },
@@ -1051,8 +1015,7 @@
                 "1",
                 "2",
                 "3"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "uint32NotIn": {
@@ -1067,40 +1030,34 @@
                   "3"
                 ]
               },
-              "title": "uint32_not_in",
-              "additionalProperties": false
+              "title": "uint32_not_in"
             }
           },
           "uint32Lt": {
             "exclusiveMaximum": false,
             "type": "integer",
-            "title": "uint32_lt",
-            "additionalProperties": false
+            "title": "uint32_lt"
           },
           "uint32Lte": {
             "type": "integer",
             "title": "uint32_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "uint32Gt": {
             "exclusiveMinimum": false,
             "type": "integer",
-            "title": "uint32_gt",
-            "additionalProperties": false
+            "title": "uint32_gt"
           },
           "uint32Gte": {
             "type": "integer",
             "title": "uint32_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "uint32Bounds": {
             "exclusiveMaximum": false,
             "type": "integer",
             "title": "uint32_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "uint64Const": {
             "oneOf": [
@@ -1112,7 +1069,6 @@
               }
             ],
             "title": "uint64_const",
-            "additionalProperties": false,
             "description": "uint64",
             "const": "42"
           },
@@ -1132,8 +1088,7 @@
                 "1",
                 "2",
                 "3"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "uint64NotIn": {
@@ -1154,8 +1109,7 @@
                   "3"
                 ]
               },
-              "title": "uint64_not_in",
-              "additionalProperties": false
+              "title": "uint64_not_in"
             }
           },
           "uint64Lt": {
@@ -1168,8 +1122,7 @@
                 "type": "number"
               }
             ],
-            "title": "uint64_lt",
-            "additionalProperties": false
+            "title": "uint64_lt"
           },
           "uint64Lte": {
             "oneOf": [
@@ -1181,8 +1134,7 @@
               }
             ],
             "title": "uint64_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "uint64Gt": {
             "exclusiveMinimum": false,
@@ -1194,8 +1146,7 @@
                 "type": "number"
               }
             ],
-            "title": "uint64_gt",
-            "additionalProperties": false
+            "title": "uint64_gt"
           },
           "uint64Gte": {
             "oneOf": [
@@ -1207,8 +1158,7 @@
               }
             ],
             "title": "uint64_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "uint64Bounds": {
             "exclusiveMaximum": false,
@@ -1221,13 +1171,11 @@
               }
             ],
             "title": "uint64_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "sint32Const": {
             "type": "integer",
             "title": "sint32_const",
-            "additionalProperties": false,
             "description": "sint32",
             "const": 42
           },
@@ -1240,8 +1188,7 @@
                 1,
                 2,
                 3
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "sint32NotIn": {
@@ -1256,40 +1203,34 @@
                   3
                 ]
               },
-              "title": "sint32_not_in",
-              "additionalProperties": false
+              "title": "sint32_not_in"
             }
           },
           "sint32Lt": {
             "exclusiveMaximum": false,
             "type": "integer",
-            "title": "sint32_lt",
-            "additionalProperties": false
+            "title": "sint32_lt"
           },
           "sint32Lte": {
             "type": "integer",
             "title": "sint32_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "sint32Gt": {
             "exclusiveMinimum": false,
             "type": "integer",
-            "title": "sint32_gt",
-            "additionalProperties": false
+            "title": "sint32_gt"
           },
           "sint32Gte": {
             "type": "integer",
             "title": "sint32_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "sint32Bounds": {
             "exclusiveMaximum": false,
             "type": "integer",
             "title": "sint32_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "sint64Const": {
             "oneOf": [
@@ -1301,7 +1242,6 @@
               }
             ],
             "title": "sint64_const",
-            "additionalProperties": false,
             "description": "sint64",
             "const": 42
           },
@@ -1321,8 +1261,7 @@
                 1,
                 2,
                 3
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "sint64NotIn": {
@@ -1343,8 +1282,7 @@
                   3
                 ]
               },
-              "title": "sint64_not_in",
-              "additionalProperties": false
+              "title": "sint64_not_in"
             }
           },
           "sint64Lt": {
@@ -1357,8 +1295,7 @@
                 "type": "number"
               }
             ],
-            "title": "sint64_lt",
-            "additionalProperties": false
+            "title": "sint64_lt"
           },
           "sint64Lte": {
             "oneOf": [
@@ -1370,8 +1307,7 @@
               }
             ],
             "title": "sint64_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "sint64Gt": {
             "exclusiveMinimum": false,
@@ -1383,8 +1319,7 @@
                 "type": "number"
               }
             ],
-            "title": "sint64_gt",
-            "additionalProperties": false
+            "title": "sint64_gt"
           },
           "sint64Gte": {
             "oneOf": [
@@ -1396,8 +1331,7 @@
               }
             ],
             "title": "sint64_gte",
-            "minimum": 89,
-            "additionalProperties": false
+            "minimum": 89
           },
           "sint64Bounds": {
             "exclusiveMaximum": false,
@@ -1410,13 +1344,11 @@
               }
             ],
             "title": "sint64_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "fixed32Const": {
             "type": "integer",
             "title": "fixed32_const",
-            "additionalProperties": false,
             "description": "fixed32",
             "const": "42"
           },
@@ -1429,8 +1361,7 @@
                 "1",
                 "2",
                 "3"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "fixed32NotIn": {
@@ -1445,40 +1376,34 @@
                   "3"
                 ]
               },
-              "title": "fixed32_not_in",
-              "additionalProperties": false
+              "title": "fixed32_not_in"
             }
           },
           "fixed32Lt": {
             "exclusiveMaximum": false,
             "type": "integer",
-            "title": "fixed32_lt",
-            "additionalProperties": false
+            "title": "fixed32_lt"
           },
           "fixed32Lte": {
             "type": "integer",
             "title": "fixed32_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "fixed32Gt": {
             "exclusiveMinimum": false,
             "type": "integer",
-            "title": "fixed32_gt",
-            "additionalProperties": false
+            "title": "fixed32_gt"
           },
           "fixed32Gte": {
             "type": "integer",
             "title": "fixed32_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "fixed32Bounds": {
             "exclusiveMaximum": false,
             "type": "integer",
             "title": "fixed32_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "fixed64Const": {
             "oneOf": [
@@ -1490,7 +1415,6 @@
               }
             ],
             "title": "fixed64_const",
-            "additionalProperties": false,
             "description": "fixed64",
             "const": "42"
           },
@@ -1510,8 +1434,7 @@
                 "1",
                 "2",
                 "3"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "fixed64NotIn": {
@@ -1532,8 +1455,7 @@
                   "3"
                 ]
               },
-              "title": "fixed64_not_in",
-              "additionalProperties": false
+              "title": "fixed64_not_in"
             }
           },
           "fixed64Lt": {
@@ -1546,8 +1468,7 @@
                 "type": "number"
               }
             ],
-            "title": "fixed64_lt",
-            "additionalProperties": false
+            "title": "fixed64_lt"
           },
           "fixed64Lte": {
             "oneOf": [
@@ -1559,8 +1480,7 @@
               }
             ],
             "title": "fixed64_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "fixed64Gt": {
             "exclusiveMinimum": false,
@@ -1572,8 +1492,7 @@
                 "type": "number"
               }
             ],
-            "title": "fixed64_gt",
-            "additionalProperties": false
+            "title": "fixed64_gt"
           },
           "fixed64Gte": {
             "oneOf": [
@@ -1585,8 +1504,7 @@
               }
             ],
             "title": "fixed64_gte",
-            "minimum": 109,
-            "additionalProperties": false
+            "minimum": 109
           },
           "fixed64Bounds": {
             "exclusiveMaximum": false,
@@ -1599,13 +1517,11 @@
               }
             ],
             "title": "fixed64_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "sfixed32Const": {
             "type": "integer",
             "title": "sfixed32_const",
-            "additionalProperties": false,
             "description": "sfixed32",
             "const": 42
           },
@@ -1618,8 +1534,7 @@
                 1,
                 2,
                 3
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "sfixed32NotIn": {
@@ -1634,40 +1549,34 @@
                   3
                 ]
               },
-              "title": "sfixed32_not_in",
-              "additionalProperties": false
+              "title": "sfixed32_not_in"
             }
           },
           "sfixed32Lt": {
             "exclusiveMaximum": false,
             "type": "integer",
-            "title": "sfixed32_lt",
-            "additionalProperties": false
+            "title": "sfixed32_lt"
           },
           "sfixed32Lte": {
             "type": "integer",
             "title": "sfixed32_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "sfixed32Gt": {
             "exclusiveMinimum": false,
             "type": "integer",
-            "title": "sfixed32_gt",
-            "additionalProperties": false
+            "title": "sfixed32_gt"
           },
           "sfixed32Gte": {
             "type": "integer",
             "title": "sfixed32_gte",
-            "minimum": 69,
-            "additionalProperties": false
+            "minimum": 69
           },
           "sfixed32Bounds": {
             "exclusiveMaximum": false,
             "type": "integer",
             "title": "sfixed32_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "sfixed64Const": {
             "oneOf": [
@@ -1679,7 +1588,6 @@
               }
             ],
             "title": "sfixed64_const",
-            "additionalProperties": false,
             "description": "sfixed64",
             "const": 42
           },
@@ -1699,8 +1607,7 @@
                 1,
                 2,
                 3
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "sfixed64NotIn": {
@@ -1721,8 +1628,7 @@
                   3
                 ]
               },
-              "title": "sfixed64_not_in",
-              "additionalProperties": false
+              "title": "sfixed64_not_in"
             }
           },
           "sfixed64Lt": {
@@ -1735,8 +1641,7 @@
                 "type": "number"
               }
             ],
-            "title": "sfixed64_lt",
-            "additionalProperties": false
+            "title": "sfixed64_lt"
           },
           "sfixed64Lte": {
             "oneOf": [
@@ -1748,8 +1653,7 @@
               }
             ],
             "title": "sfixed64_lte",
-            "maximum": 420,
-            "additionalProperties": false
+            "maximum": 420
           },
           "sfixed64Gt": {
             "exclusiveMinimum": false,
@@ -1761,8 +1665,7 @@
                 "type": "number"
               }
             ],
-            "title": "sfixed64_gt",
-            "additionalProperties": false
+            "title": "sfixed64_gt"
           },
           "sfixed64Gte": {
             "oneOf": [
@@ -1774,8 +1677,7 @@
               }
             ],
             "title": "sfixed64_gte",
-            "minimum": 109,
-            "additionalProperties": false
+            "minimum": 109
           },
           "sfixed64Bounds": {
             "exclusiveMaximum": false,
@@ -1788,13 +1690,11 @@
               }
             ],
             "title": "sfixed64_bounds",
-            "minimum": 5,
-            "additionalProperties": false
+            "minimum": 5
           },
           "stringConst": {
             "type": "string",
             "title": "string_const",
-            "additionalProperties": false,
             "description": "string",
             "const": "hello"
           },
@@ -1806,8 +1706,7 @@
               "enum": [
                 "orange",
                 "grape"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "stringNotIn": {
@@ -1821,168 +1720,138 @@
                   "grape"
                 ]
               },
-              "title": "string_not_in",
-              "additionalProperties": false
+              "title": "string_not_in"
             }
           },
           "stringMinLen": {
             "type": "string",
             "title": "string_min_len",
-            "minLength": 3,
-            "additionalProperties": false
+            "minLength": 3
           },
           "stringMaxLen": {
             "type": "string",
             "title": "string_max_len",
-            "maxLength": 10,
-            "additionalProperties": false
+            "maxLength": 10
           },
           "stringLen": {
             "type": "string",
             "title": "string_len",
             "maxLength": 10,
-            "minLength": 10,
-            "additionalProperties": false
+            "minLength": 10
           },
           "stringLenBytes": {
             "type": "string",
-            "title": "string_len_bytes",
-            "additionalProperties": false
+            "title": "string_len_bytes"
           },
           "stringMinBytes": {
             "type": "string",
-            "title": "string_min_bytes",
-            "additionalProperties": false
+            "title": "string_min_bytes"
           },
           "stringMaxBytes": {
             "type": "string",
-            "title": "string_max_bytes",
-            "additionalProperties": false
+            "title": "string_max_bytes"
           },
           "stringPrefix": {
             "type": "string",
-            "title": "string_prefix",
-            "additionalProperties": false
+            "title": "string_prefix"
           },
           "stringSuffix": {
             "type": "string",
-            "title": "string_suffix",
-            "additionalProperties": false
+            "title": "string_suffix"
           },
           "stringContains": {
             "type": "string",
-            "title": "string_contains",
-            "additionalProperties": false
+            "title": "string_contains"
           },
           "stringNotContains": {
             "type": "string",
-            "title": "string_not_contains",
-            "additionalProperties": false
+            "title": "string_not_contains"
           },
           "stringStrict": {
             "type": "string",
-            "title": "string_strict",
-            "additionalProperties": false
+            "title": "string_strict"
           },
           "stringEmail": {
             "type": "string",
             "title": "string_email",
-            "format": "email",
-            "additionalProperties": false
+            "format": "email"
           },
           "stringHostname": {
             "type": "string",
             "title": "string_hostname",
-            "format": "hostname",
-            "additionalProperties": false
+            "format": "hostname"
           },
           "stringIp": {
             "type": "string",
             "title": "string_ip",
-            "format": "ip",
-            "additionalProperties": false
+            "format": "ip"
           },
           "stringIpv4": {
             "type": "string",
             "title": "string_ipv4",
-            "format": "ipv4",
-            "additionalProperties": false
+            "format": "ipv4"
           },
           "stringIpv6": {
             "type": "string",
             "title": "string_ipv6",
-            "format": "ipv6",
-            "additionalProperties": false
+            "format": "ipv6"
           },
           "stringUri": {
             "type": "string",
             "title": "string_uri",
-            "format": "uri",
-            "additionalProperties": false
+            "format": "uri"
           },
           "stringUriRef": {
             "type": "string",
             "title": "string_uri_ref",
-            "format": "uri-ref",
-            "additionalProperties": false
+            "format": "uri-ref"
           },
           "stringAddress": {
             "type": "string",
             "title": "string_address",
-            "format": "address",
-            "additionalProperties": false
+            "format": "address"
           },
           "stringUuid": {
             "type": "string",
             "title": "string_uuid",
-            "format": "uuid",
-            "additionalProperties": false
+            "format": "uuid"
           },
           "stringIpWithPrefixlen": {
             "type": "string",
-            "title": "string_ip_with_prefixlen",
-            "additionalProperties": false
+            "title": "string_ip_with_prefixlen"
           },
           "stringIpv4WithPrefixlen": {
             "type": "string",
-            "title": "string_ipv4_with_prefixlen",
-            "additionalProperties": false
+            "title": "string_ipv4_with_prefixlen"
           },
           "stringIpv6WithPrefixlen": {
             "type": "string",
-            "title": "string_ipv6_with_prefixlen",
-            "additionalProperties": false
+            "title": "string_ipv6_with_prefixlen"
           },
           "stringIpPrefix": {
             "type": "string",
-            "title": "string_ip_prefix",
-            "additionalProperties": false
+            "title": "string_ip_prefix"
           },
           "stringIpv4Prefix": {
             "type": "string",
-            "title": "string_ipv4_prefix",
-            "additionalProperties": false
+            "title": "string_ipv4_prefix"
           },
           "stringIpv6Prefix": {
             "type": "string",
-            "title": "string_ipv6_prefix",
-            "additionalProperties": false
+            "title": "string_ipv6_prefix"
           },
           "stringHostAndPort": {
             "type": "string",
-            "title": "string_host_and_port",
-            "additionalProperties": false
+            "title": "string_host_and_port"
           },
           "stringWellKnownRegex": {
             "type": "string",
-            "title": "string_well_known_regex",
-            "additionalProperties": false
+            "title": "string_well_known_regex"
           },
           "byteConst": {
             "type": "string",
             "title": "byte_const",
             "format": "byte",
-            "additionalProperties": false,
             "const": "\u0001\u0002\u0003\u0004"
           },
           "byteLen": {
@@ -1990,47 +1859,40 @@
             "title": "byte_len",
             "maxLength": 4,
             "minLength": 4,
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesMinLen": {
             "type": "string",
             "title": "bytes_min_len",
             "minLength": 2,
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesMaxLen": {
             "type": "string",
             "title": "bytes_max_len",
             "maxLength": 6,
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesPattern": {
             "type": "string",
             "title": "bytes_pattern",
             "pattern": "^[a-zA-Z0-9]+$",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesPrefix": {
             "type": "string",
             "title": "bytes_prefix",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesSuffix": {
             "type": "string",
             "title": "bytes_suffix",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesContains": {
             "type": "string",
             "title": "bytes_contains",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesIn": {
             "type": "string",
@@ -2040,8 +1902,7 @@
               "\u0001\u0002",
               "\u0002\u0003",
               "\u0003\u0004"
-            ],
-            "additionalProperties": false
+            ]
           },
           "bytesNotIn": {
             "type": "string",
@@ -2054,26 +1915,22 @@
               ]
             },
             "title": "bytes_not_in",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "bytesIp": {
             "type": "string",
             "title": "bytes_ip",
-            "format": "ip",
-            "additionalProperties": false
+            "format": "ip"
           },
           "bytesIpv4": {
             "type": "string",
             "title": "bytes_ipv4",
-            "format": "ipv4",
-            "additionalProperties": false
+            "format": "ipv4"
           },
           "bytesIpv6": {
             "type": "string",
             "title": "bytes_ipv6",
-            "format": "ipv6",
-            "additionalProperties": false
+            "format": "ipv6"
           },
           "enumCost": {
             "$ref": "#/components/schemas/protovalidate.MyEnum"
@@ -2092,8 +1949,7 @@
             "items": {
               "type": "string",
               "title": "repeated_min_items",
-              "minItems": 2,
-              "additionalProperties": false
+              "minItems": 2
             }
           },
           "repeatedMaxItems": {
@@ -2101,8 +1957,7 @@
             "items": {
               "type": "string",
               "title": "repeated_max_items",
-              "maxItems": 3,
-              "additionalProperties": false
+              "maxItems": 3
             }
           },
           "repeatedUnique": {
@@ -2110,16 +1965,14 @@
             "items": {
               "type": "string",
               "title": "repeated_unique",
-              "uniqueItems": true,
-              "additionalProperties": false
+              "uniqueItems": true
             }
           },
           "repeatedItems": {
             "type": "array",
             "items": {
               "type": "string",
-              "title": "repeated_items",
-              "additionalProperties": false
+              "title": "repeated_items"
             }
           },
           "mapMinPairs": {
@@ -2128,8 +1981,7 @@
             "minItems": 2,
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "mapMaxPairs": {
@@ -2138,8 +1990,7 @@
             "maxItems": 3,
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "mapKeys": {
@@ -2149,8 +2000,7 @@
             "minLength": 3,
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "mapValues": {
@@ -2160,8 +2010,7 @@
               "type": "string",
               "title": "value",
               "maxLength": 20,
-              "minLength": 5,
-              "additionalProperties": false
+              "minLength": 5
             }
           },
           "anyIn": {
@@ -2236,13 +2085,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "MapKeysEntry",
@@ -2253,13 +2100,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "MapMaxPairsEntry",
@@ -2270,13 +2115,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "MapMinPairsEntry",
@@ -2287,13 +2130,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "MapValuesEntry",
@@ -2370,13 +2211,11 @@
           "a": {
             "type": "string",
             "title": "a",
-            "minLength": 1,
-            "additionalProperties": false
+            "minLength": 1
           },
           "b": {
             "type": "string",
-            "title": "b",
-            "additionalProperties": false
+            "title": "b"
           }
         },
         "title": "OneOfMessage",

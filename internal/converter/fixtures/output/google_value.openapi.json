@@ -9,6 +9,7 @@
         "tags": [
           "samples.Test"
         ],
+        "operationId": "samples.Test.HealthCheck",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -65,6 +66,7 @@
         "tags": [
           "samples.Test"
         ],
+        "operationId": "samples.Test.Empty",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -181,8 +183,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/google.protobuf.Value"

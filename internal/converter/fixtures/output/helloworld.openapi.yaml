@@ -7,6 +7,7 @@ paths:
       tags:
         - helloworld.Greeter
       description: Sends a greeting
+      operationId: helloworld.Greeter.SayHello
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -80,6 +81,7 @@ paths:
       tags:
         - helloworld.Greeter
       description: Writes a greeting (has side effects)
+      operationId: helloworld.Greeter.WriteHello
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -117,7 +119,6 @@ components:
         message:
           type: string
           title: message
-          additionalProperties: false
       title: HelloReply
       additionalProperties: false
       description: The response message containing the greetings
@@ -127,7 +128,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
       title: HelloRequest
       additionalProperties: false
       description: The request message containing the user's name.
@@ -158,7 +158,6 @@ components:
         - identity
         - gzip
         - br
-        - gzip
       description: Which compression algorithm to use for this request
     connect.error:
       type: object

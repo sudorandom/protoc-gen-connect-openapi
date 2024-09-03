@@ -110,10 +110,9 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 
 func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.Schema {
 	s := &base.Schema{
-		ParentProxy:          parent,
-		Title:                string(tt.Name()),
-		Description:          util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
-		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
+		ParentProxy: parent,
+		Title:       string(tt.Name()),
+		Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 	}
 
 	if tt.IsMap() {

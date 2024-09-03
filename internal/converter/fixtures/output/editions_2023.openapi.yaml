@@ -24,11 +24,9 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
         id:
           type: integer
           title: id
-          additionalProperties: false
         employment:
           $ref: '#/components/schemas/editions.Person.Employment'
       title: Person

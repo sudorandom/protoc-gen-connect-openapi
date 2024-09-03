@@ -76,7 +76,6 @@
             "items": {
               "type": "string",
               "title": "paths",
-              "additionalProperties": false,
               "description": "The set of field mask paths."
             }
           }
@@ -150,8 +149,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/google.protobuf.Value"
@@ -172,7 +170,6 @@
           "value": {
             "type": "integer",
             "title": "value",
-            "additionalProperties": false,
             "description": "The uint32 value."
           }
         },
@@ -193,7 +190,6 @@
               }
             ],
             "title": "value",
-            "additionalProperties": false,
             "description": "The uint64 value."
           }
         },
@@ -760,18 +756,15 @@
               }
             ],
             "title": "double_value",
-            "additionalProperties": false,
             "description": "scalar types"
           },
           "floatValue": {
             "type": "number",
-            "title": "float_value",
-            "additionalProperties": false
+            "title": "float_value"
           },
           "int32Value": {
             "type": "integer",
-            "title": "int32_value",
-            "additionalProperties": false
+            "title": "int32_value"
           },
           "int64Value": {
             "oneOf": [
@@ -782,13 +775,11 @@
                 "type": "number"
               }
             ],
-            "title": "int64_value",
-            "additionalProperties": false
+            "title": "int64_value"
           },
           "uint32Value": {
             "type": "integer",
-            "title": "uint32_value",
-            "additionalProperties": false
+            "title": "uint32_value"
           },
           "uint64Value": {
             "oneOf": [
@@ -799,13 +790,11 @@
                 "type": "number"
               }
             ],
-            "title": "uint64_value",
-            "additionalProperties": false
+            "title": "uint64_value"
           },
           "sint32Value": {
             "type": "integer",
-            "title": "sint32_value",
-            "additionalProperties": false
+            "title": "sint32_value"
           },
           "sint64Value": {
             "oneOf": [
@@ -816,13 +805,11 @@
                 "type": "number"
               }
             ],
-            "title": "sint64_value",
-            "additionalProperties": false
+            "title": "sint64_value"
           },
           "fixed32Value": {
             "type": "integer",
-            "title": "fixed32_value",
-            "additionalProperties": false
+            "title": "fixed32_value"
           },
           "fixed64Value": {
             "oneOf": [
@@ -833,13 +820,11 @@
                 "type": "number"
               }
             ],
-            "title": "fixed64_value",
-            "additionalProperties": false
+            "title": "fixed64_value"
           },
           "sfixed32Value": {
             "type": "integer",
-            "title": "sfixed32_value",
-            "additionalProperties": false
+            "title": "sfixed32_value"
           },
           "sfixed64Value": {
             "oneOf": [
@@ -850,24 +835,20 @@
                 "type": "number"
               }
             ],
-            "title": "sfixed64_value",
-            "additionalProperties": false
+            "title": "sfixed64_value"
           },
           "boolValue": {
             "type": "boolean",
-            "title": "bool_value",
-            "additionalProperties": false
+            "title": "bool_value"
           },
           "stringValue": {
             "type": "string",
-            "title": "string_value",
-            "additionalProperties": false
+            "title": "string_value"
           },
           "bytesValue": {
             "type": "string",
             "title": "bytes_value",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "doubleList": {
             "type": "array",
@@ -881,7 +862,6 @@
                 }
               ],
               "title": "double_list",
-              "additionalProperties": false,
               "description": "repeated types"
             }
           },
@@ -889,16 +869,14 @@
             "type": "array",
             "items": {
               "type": "number",
-              "title": "float_list",
-              "additionalProperties": false
+              "title": "float_list"
             }
           },
           "int32List": {
             "type": "array",
             "items": {
               "type": "integer",
-              "title": "int32_list",
-              "additionalProperties": false
+              "title": "int32_list"
             }
           },
           "int64List": {
@@ -912,16 +890,14 @@
                   "type": "number"
                 }
               ],
-              "title": "int64_list",
-              "additionalProperties": false
+              "title": "int64_list"
             }
           },
           "uint32List": {
             "type": "array",
             "items": {
               "type": "integer",
-              "title": "uint32_list",
-              "additionalProperties": false
+              "title": "uint32_list"
             }
           },
           "uint64List": {
@@ -935,16 +911,14 @@
                   "type": "number"
                 }
               ],
-              "title": "uint64_list",
-              "additionalProperties": false
+              "title": "uint64_list"
             }
           },
           "sint32List": {
             "type": "array",
             "items": {
               "type": "integer",
-              "title": "sint32_list",
-              "additionalProperties": false
+              "title": "sint32_list"
             }
           },
           "sint64List": {
@@ -958,16 +932,14 @@
                   "type": "number"
                 }
               ],
-              "title": "sint64_list",
-              "additionalProperties": false
+              "title": "sint64_list"
             }
           },
           "fixed32List": {
             "type": "array",
             "items": {
               "type": "integer",
-              "title": "fixed32_list",
-              "additionalProperties": false
+              "title": "fixed32_list"
             }
           },
           "fixed64List": {
@@ -981,16 +953,14 @@
                   "type": "number"
                 }
               ],
-              "title": "fixed64_list",
-              "additionalProperties": false
+              "title": "fixed64_list"
             }
           },
           "sfixed32List": {
             "type": "array",
             "items": {
               "type": "integer",
-              "title": "sfixed32_list",
-              "additionalProperties": false
+              "title": "sfixed32_list"
             }
           },
           "sfixed64List": {
@@ -1004,24 +974,21 @@
                   "type": "number"
                 }
               ],
-              "title": "sfixed64_list",
-              "additionalProperties": false
+              "title": "sfixed64_list"
             }
           },
           "boolList": {
             "type": "array",
             "items": {
               "type": "boolean",
-              "title": "bool_list",
-              "additionalProperties": false
+              "title": "bool_list"
             }
           },
           "stringList": {
             "type": "array",
             "items": {
               "type": "string",
-              "title": "string_list",
-              "additionalProperties": false
+              "title": "string_list"
             }
           },
           "bytesList": {
@@ -1029,8 +996,7 @@
             "items": {
               "type": "string",
               "title": "bytes_list",
-              "format": "byte",
-              "additionalProperties": false
+              "format": "byte"
             }
           },
           "int32ToStringMap": {
@@ -1038,8 +1004,7 @@
             "title": "int32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             },
             "description": "map key types"
           },
@@ -1048,8 +1013,7 @@
             "title": "int64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "uint32ToStringMap": {
@@ -1057,8 +1021,7 @@
             "title": "uint32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "uint64ToStringMap": {
@@ -1066,8 +1029,7 @@
             "title": "uint64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sint32ToStringMap": {
@@ -1075,8 +1037,7 @@
             "title": "sint32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sint64ToStringMap": {
@@ -1084,8 +1045,7 @@
             "title": "sint64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "fixed32ToStringMap": {
@@ -1093,8 +1053,7 @@
             "title": "fixed32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "fixed64ToStringMap": {
@@ -1102,8 +1061,7 @@
             "title": "fixed64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sfixed32ToStringMap": {
@@ -1111,8 +1069,7 @@
             "title": "sfixed32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sfixed64ToStringMap": {
@@ -1120,8 +1077,7 @@
             "title": "sfixed64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "boolToStringMap": {
@@ -1129,8 +1085,7 @@
             "title": "bool_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "stringToStringMap": {
@@ -1138,8 +1093,7 @@
             "title": "string_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "doubleMap": {
@@ -1154,8 +1108,7 @@
                   "type": "number"
                 }
               ],
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             },
             "description": "map value types"
           },
@@ -1164,8 +1117,7 @@
             "title": "float_map",
             "additionalProperties": {
               "type": "number",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "int32Map": {
@@ -1173,8 +1125,7 @@
             "title": "int32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "int64Map": {
@@ -1189,8 +1140,7 @@
                   "type": "number"
                 }
               ],
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "uint32Map": {
@@ -1198,8 +1148,7 @@
             "title": "uint32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "uint64Map": {
@@ -1214,8 +1163,7 @@
                   "type": "number"
                 }
               ],
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sint32Map": {
@@ -1223,8 +1171,7 @@
             "title": "sint32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sint64Map": {
@@ -1239,8 +1186,7 @@
                   "type": "number"
                 }
               ],
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "fixed32Map": {
@@ -1248,8 +1194,7 @@
             "title": "fixed32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "fixed64Map": {
@@ -1264,8 +1209,7 @@
                   "type": "number"
                 }
               ],
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sfixed32Map": {
@@ -1273,8 +1217,7 @@
             "title": "sfixed32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "sfixed64Map": {
@@ -1289,8 +1232,7 @@
                   "type": "number"
                 }
               ],
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "boolMap": {
@@ -1298,8 +1240,7 @@
             "title": "bool_map",
             "additionalProperties": {
               "type": "boolean",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "stringMap": {
@@ -1307,8 +1248,7 @@
             "title": "string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             }
           },
           "bytesMap": {
@@ -1317,8 +1257,7 @@
             "additionalProperties": {
               "type": "string",
               "title": "value",
-              "format": "byte",
-              "additionalProperties": false
+              "format": "byte"
             }
           },
           "optDoubleValue": {
@@ -1331,18 +1270,15 @@
               }
             ],
             "title": "opt_double_value",
-            "additionalProperties": false,
             "description": "explicit presence types"
           },
           "optFloatValue": {
             "type": "number",
-            "title": "opt_float_value",
-            "additionalProperties": false
+            "title": "opt_float_value"
           },
           "optInt32Value": {
             "type": "integer",
-            "title": "opt_int32_value",
-            "additionalProperties": false
+            "title": "opt_int32_value"
           },
           "optInt64Value": {
             "oneOf": [
@@ -1353,13 +1289,11 @@
                 "type": "number"
               }
             ],
-            "title": "opt_int64_value",
-            "additionalProperties": false
+            "title": "opt_int64_value"
           },
           "optUint32Value": {
             "type": "integer",
-            "title": "opt_uint32_value",
-            "additionalProperties": false
+            "title": "opt_uint32_value"
           },
           "optUint64Value": {
             "oneOf": [
@@ -1370,13 +1304,11 @@
                 "type": "number"
               }
             ],
-            "title": "opt_uint64_value",
-            "additionalProperties": false
+            "title": "opt_uint64_value"
           },
           "optSint32Value": {
             "type": "integer",
-            "title": "opt_sint32_value",
-            "additionalProperties": false
+            "title": "opt_sint32_value"
           },
           "optSint64Value": {
             "oneOf": [
@@ -1387,13 +1319,11 @@
                 "type": "number"
               }
             ],
-            "title": "opt_sint64_value",
-            "additionalProperties": false
+            "title": "opt_sint64_value"
           },
           "optFixed32Value": {
             "type": "integer",
-            "title": "opt_fixed32_value",
-            "additionalProperties": false
+            "title": "opt_fixed32_value"
           },
           "optFixed64Value": {
             "oneOf": [
@@ -1404,13 +1334,11 @@
                 "type": "number"
               }
             ],
-            "title": "opt_fixed64_value",
-            "additionalProperties": false
+            "title": "opt_fixed64_value"
           },
           "optSfixed32Value": {
             "type": "integer",
-            "title": "opt_sfixed32_value",
-            "additionalProperties": false
+            "title": "opt_sfixed32_value"
           },
           "optSfixed64Value": {
             "oneOf": [
@@ -1421,24 +1349,20 @@
                 "type": "number"
               }
             ],
-            "title": "opt_sfixed64_value",
-            "additionalProperties": false
+            "title": "opt_sfixed64_value"
           },
           "optBoolValue": {
             "type": "boolean",
-            "title": "opt_bool_value",
-            "additionalProperties": false
+            "title": "opt_bool_value"
           },
           "optStringValue": {
             "type": "string",
-            "title": "opt_string_value",
-            "additionalProperties": false
+            "title": "opt_string_value"
           },
           "optBytesValue": {
             "type": "string",
             "title": "opt_bytes_value",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "msgValue": {
             "$ref": "#/components/schemas/test.v1.AllTypes"
@@ -1487,18 +1411,15 @@
                 "type": "number"
               }
             ],
-            "title": "double_option",
-            "additionalProperties": false
+            "title": "double_option"
           },
           "floatOption": {
             "type": "number",
-            "title": "float_option",
-            "additionalProperties": false
+            "title": "float_option"
           },
           "int32Option": {
             "type": "integer",
-            "title": "int32_option",
-            "additionalProperties": false
+            "title": "int32_option"
           },
           "int64Option": {
             "oneOf": [
@@ -1509,13 +1430,11 @@
                 "type": "number"
               }
             ],
-            "title": "int64_option",
-            "additionalProperties": false
+            "title": "int64_option"
           },
           "uint32Option": {
             "type": "integer",
-            "title": "uint32_option",
-            "additionalProperties": false
+            "title": "uint32_option"
           },
           "uint64Option": {
             "oneOf": [
@@ -1526,13 +1445,11 @@
                 "type": "number"
               }
             ],
-            "title": "uint64_option",
-            "additionalProperties": false
+            "title": "uint64_option"
           },
           "sint32Option": {
             "type": "integer",
-            "title": "sint32_option",
-            "additionalProperties": false
+            "title": "sint32_option"
           },
           "sint64Option": {
             "oneOf": [
@@ -1543,13 +1460,11 @@
                 "type": "number"
               }
             ],
-            "title": "sint64_option",
-            "additionalProperties": false
+            "title": "sint64_option"
           },
           "fixed32Option": {
             "type": "integer",
-            "title": "fixed32_option",
-            "additionalProperties": false
+            "title": "fixed32_option"
           },
           "fixed64Option": {
             "oneOf": [
@@ -1560,13 +1475,11 @@
                 "type": "number"
               }
             ],
-            "title": "fixed64_option",
-            "additionalProperties": false
+            "title": "fixed64_option"
           },
           "sfixed32Option": {
             "type": "integer",
-            "title": "sfixed32_option",
-            "additionalProperties": false
+            "title": "sfixed32_option"
           },
           "sfixed64Option": {
             "oneOf": [
@@ -1577,24 +1490,20 @@
                 "type": "number"
               }
             ],
-            "title": "sfixed64_option",
-            "additionalProperties": false
+            "title": "sfixed64_option"
           },
           "boolOption": {
             "type": "boolean",
-            "title": "bool_option",
-            "additionalProperties": false
+            "title": "bool_option"
           },
           "stringOption": {
             "type": "string",
-            "title": "string_option",
-            "additionalProperties": false
+            "title": "string_option"
           },
           "bytesOption": {
             "type": "string",
             "title": "bytes_option",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "msgOption": {
             "$ref": "#/components/schemas/test.v1.AllTypes"
@@ -1611,13 +1520,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "boolean",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "BoolMapEntry",
@@ -1628,13 +1535,11 @@
         "properties": {
           "key": {
             "type": "boolean",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "BoolToStringMapEntry",
@@ -1645,14 +1550,12 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
             "title": "value",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           }
         },
         "title": "BytesMapEntry",
@@ -1663,8 +1566,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "oneOf": [
@@ -1675,8 +1577,7 @@
                 "type": "number"
               }
             ],
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "DoubleMapEntry",
@@ -1687,8 +1588,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
@@ -1702,13 +1602,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "integer",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Fixed32MapEntry",
@@ -1719,13 +1617,11 @@
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Fixed32ToStringMapEntry",
@@ -1736,8 +1632,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "oneOf": [
@@ -1748,8 +1643,7 @@
                 "type": "number"
               }
             ],
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Fixed64MapEntry",
@@ -1767,13 +1661,11 @@
                 "type": "number"
               }
             ],
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Fixed64ToStringMapEntry",
@@ -1784,13 +1676,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "number",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "FloatMapEntry",
@@ -1801,13 +1691,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "integer",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Int32MapEntry",
@@ -1818,13 +1706,11 @@
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Int32ToStringMapEntry",
@@ -1835,8 +1721,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "oneOf": [
@@ -1847,8 +1732,7 @@
                 "type": "number"
               }
             ],
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Int64MapEntry",
@@ -1866,13 +1750,11 @@
                 "type": "number"
               }
             ],
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Int64ToStringMapEntry",
@@ -1883,8 +1765,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/test.v1.AllTypes"
@@ -1898,13 +1779,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "integer",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sfixed32MapEntry",
@@ -1915,13 +1794,11 @@
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sfixed32ToStringMapEntry",
@@ -1932,8 +1809,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "oneOf": [
@@ -1944,8 +1820,7 @@
                 "type": "number"
               }
             ],
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sfixed64MapEntry",
@@ -1963,13 +1838,11 @@
                 "type": "number"
               }
             ],
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sfixed64ToStringMapEntry",
@@ -1980,13 +1853,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "integer",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sint32MapEntry",
@@ -1997,13 +1868,11 @@
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sint32ToStringMapEntry",
@@ -2014,8 +1883,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "oneOf": [
@@ -2026,8 +1894,7 @@
                 "type": "number"
               }
             ],
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sint64MapEntry",
@@ -2045,13 +1912,11 @@
                 "type": "number"
               }
             ],
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Sint64ToStringMapEntry",
@@ -2062,13 +1927,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "StringMapEntry",
@@ -2079,13 +1942,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "StringToStringMapEntry",
@@ -2096,13 +1957,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "integer",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Uint32MapEntry",
@@ -2113,13 +1972,11 @@
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Uint32ToStringMapEntry",
@@ -2130,8 +1987,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "oneOf": [
@@ -2142,8 +1998,7 @@
                 "type": "number"
               }
             ],
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Uint64MapEntry",
@@ -2161,13 +2016,11 @@
                 "type": "number"
               }
             ],
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "Uint64ToStringMapEntry",
@@ -2266,18 +2119,15 @@
               }
             ],
             "title": "double_value",
-            "additionalProperties": false,
             "description": "scalar types"
           },
           "floatValue": {
             "type": "number",
-            "title": "float_value",
-            "additionalProperties": false
+            "title": "float_value"
           },
           "int32Value": {
             "type": "integer",
-            "title": "int32_value",
-            "additionalProperties": false
+            "title": "int32_value"
           },
           "int64Value": {
             "oneOf": [
@@ -2288,13 +2138,11 @@
                 "type": "number"
               }
             ],
-            "title": "int64_value",
-            "additionalProperties": false
+            "title": "int64_value"
           },
           "uint32Value": {
             "type": "integer",
-            "title": "uint32_value",
-            "additionalProperties": false
+            "title": "uint32_value"
           },
           "uint64Value": {
             "oneOf": [
@@ -2305,13 +2153,11 @@
                 "type": "number"
               }
             ],
-            "title": "uint64_value",
-            "additionalProperties": false
+            "title": "uint64_value"
           },
           "sint32Value": {
             "type": "integer",
-            "title": "sint32_value",
-            "additionalProperties": false
+            "title": "sint32_value"
           },
           "sint64Value": {
             "oneOf": [
@@ -2322,13 +2168,11 @@
                 "type": "number"
               }
             ],
-            "title": "sint64_value",
-            "additionalProperties": false
+            "title": "sint64_value"
           },
           "fixed32Value": {
             "type": "integer",
-            "title": "fixed32_value",
-            "additionalProperties": false
+            "title": "fixed32_value"
           },
           "fixed64Value": {
             "oneOf": [
@@ -2339,13 +2183,11 @@
                 "type": "number"
               }
             ],
-            "title": "fixed64_value",
-            "additionalProperties": false
+            "title": "fixed64_value"
           },
           "sfixed32Value": {
             "type": "integer",
-            "title": "sfixed32_value",
-            "additionalProperties": false
+            "title": "sfixed32_value"
           },
           "sfixed64Value": {
             "oneOf": [
@@ -2356,24 +2198,20 @@
                 "type": "number"
               }
             ],
-            "title": "sfixed64_value",
-            "additionalProperties": false
+            "title": "sfixed64_value"
           },
           "boolValue": {
             "type": "boolean",
-            "title": "bool_value",
-            "additionalProperties": false
+            "title": "bool_value"
           },
           "stringValue": {
             "type": "string",
-            "title": "string_value",
-            "additionalProperties": false
+            "title": "string_value"
           },
           "bytesValue": {
             "type": "string",
             "title": "bytes_value",
-            "format": "byte",
-            "additionalProperties": false
+            "format": "byte"
           },
           "timestamp": {
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
@@ -2431,8 +2269,7 @@
                   "type": "number"
                 }
               ],
-              "title": "double_list",
-              "additionalProperties": false
+              "title": "double_list"
             }
           },
           "doubleValueList": {
@@ -2450,8 +2287,7 @@
                 "type": "number"
               }
             ],
-            "title": "oneof_double_value",
-            "additionalProperties": false
+            "title": "oneof_double_value"
           },
           "oneofDoubleValueWrapper": {
             "$ref": "#/components/schemas/google.protobuf.DoubleValue"
@@ -2470,8 +2306,7 @@
             "title": "string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value",
-              "additionalProperties": false
+              "title": "value"
             },
             "description": "unsupported"
           },
@@ -2517,8 +2352,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
@@ -2539,8 +2373,7 @@
                 "type": "number"
               }
             ],
-            "title": "double_value",
-            "additionalProperties": false
+            "title": "double_value"
           },
           "doubleValueWrapper": {
             "$ref": "#/components/schemas/google.protobuf.DoubleValue"
@@ -2557,8 +2390,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
@@ -2572,13 +2404,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "type": "string",
-            "title": "value",
-            "additionalProperties": false
+            "title": "value"
           }
         },
         "title": "StringMapEntry",
@@ -2589,8 +2419,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key",
-            "additionalProperties": false
+            "title": "key"
           },
           "value": {
             "$ref": "#/components/schemas/google.protobuf.StringValue"

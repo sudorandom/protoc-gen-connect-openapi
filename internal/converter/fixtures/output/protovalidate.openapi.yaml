@@ -6,6 +6,7 @@ paths:
     post:
       tags:
         - protovalidate.MessageFields
+      operationId: protovalidate.MessageFields.OneOfRPC
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -39,6 +40,7 @@ paths:
     post:
       tags:
         - protovalidate.MessageFields
+      operationId: protovalidate.MessageFields.CELRPC
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -72,6 +74,7 @@ paths:
     post:
       tags:
         - protovalidate.FieldsService
+      operationId: protovalidate.FieldsService.CELRPC
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -321,11 +324,9 @@ components:
           type: string
           title: a
           minLength: 1
-          additionalProperties: false
         b:
           type: string
           title: b
-          additionalProperties: false
       title: CELMessage
       additionalProperties: false
     protovalidate.DisabledMessage:
@@ -451,7 +452,6 @@ components:
         celField:
           type: integer
           title: cel_field
-          additionalProperties: false
           description: |+
             value must be greater than 42:
             ```
@@ -466,11 +466,9 @@ components:
           type: string
           title: uri_field
           format: uri
-          additionalProperties: false
         floatConst:
           type: number
           title: float_const
-          additionalProperties: false
           description: Floats
           const: "42"
         floatIn:
@@ -478,7 +476,6 @@ components:
           items:
             type: number
             title: float_in
-            additionalProperties: false
         floatNotIn:
           type: array
           items:
@@ -490,39 +487,31 @@ components:
                 - "2"
                 - "3"
             title: float_not_in
-            additionalProperties: false
         floatFinite:
           type: array
           items:
             type: number
             title: float_finite
-            additionalProperties: false
         floatLt:
           type: number
           title: float_lt
-          additionalProperties: false
         floatLte:
           type: number
           title: float_lte
-          additionalProperties: false
         floatGt:
           type: number
           title: float_gt
-          additionalProperties: false
         floatGte:
           type: number
           title: float_gte
-          additionalProperties: false
         floatBounds:
           type: number
           title: float_bounds
-          additionalProperties: false
         doubleConst:
           oneOf:
             - type: string
             - type: number
           title: double_const
-          additionalProperties: false
           description: Double
           const: "42"
         doubleIn:
@@ -536,7 +525,6 @@ components:
               - "1"
               - "2"
               - "3"
-            additionalProperties: false
         doubleNotIn:
           type: array
           items:
@@ -549,7 +537,6 @@ components:
                 - "2"
                 - "3"
             title: double_not_in
-            additionalProperties: false
         doubleFinite:
           type: array
           items:
@@ -557,35 +544,30 @@ components:
               - type: string
               - type: number
             title: double_finite
-            additionalProperties: false
         doubleLt:
           exclusiveMaximum: false
           oneOf:
             - type: string
             - type: number
           title: double_lt
-          additionalProperties: false
         doubleLte:
           oneOf:
             - type: string
             - type: number
           title: double_lte
           maximum: 420
-          additionalProperties: false
         doubleGt:
           exclusiveMinimum: false
           oneOf:
             - type: string
             - type: number
           title: double_gt
-          additionalProperties: false
         doubleGte:
           oneOf:
             - type: string
             - type: number
           title: double_gte
           minimum: 69
-          additionalProperties: false
         doubleBounds:
           exclusiveMaximum: false
           oneOf:
@@ -593,11 +575,9 @@ components:
             - type: number
           title: double_bounds
           minimum: 5
-          additionalProperties: false
         int32Const:
           type: integer
           title: int32_const
-          additionalProperties: false
           description: int32
           const: 42
         int32In:
@@ -609,7 +589,6 @@ components:
               - 1
               - 2
               - 3
-            additionalProperties: false
         int32NotIn:
           type: array
           items:
@@ -621,39 +600,32 @@ components:
                 - 2
                 - 3
             title: int32_not_in
-            additionalProperties: false
         int32Lt:
           exclusiveMaximum: false
           type: integer
           title: int32_lt
-          additionalProperties: false
         int32Lte:
           type: integer
           title: int32_lte
           maximum: 420
-          additionalProperties: false
         int32Gt:
           exclusiveMinimum: false
           type: integer
           title: int32_gt
-          additionalProperties: false
         int32Gte:
           type: integer
           title: int32_gte
           minimum: 69
-          additionalProperties: false
         int32Bounds:
           exclusiveMaximum: false
           type: integer
           title: int32_bounds
           minimum: 5
-          additionalProperties: false
         int64Const:
           oneOf:
             - type: string
             - type: number
           title: int64_const
-          additionalProperties: false
           description: int64
           const: 42
         int64In:
@@ -667,7 +639,6 @@ components:
               - 1
               - 2
               - 3
-            additionalProperties: false
         int64NotIn:
           type: array
           items:
@@ -680,35 +651,30 @@ components:
                 - 2
                 - 3
             title: int64_not_in
-            additionalProperties: false
         int64Lt:
           exclusiveMaximum: false
           oneOf:
             - type: string
             - type: number
           title: int64_lt
-          additionalProperties: false
         int64Lte:
           oneOf:
             - type: string
             - type: number
           title: int64_lte
           maximum: 420
-          additionalProperties: false
         int64Gt:
           exclusiveMinimum: false
           oneOf:
             - type: string
             - type: number
           title: int64_gt
-          additionalProperties: false
         int64Gte:
           oneOf:
             - type: string
             - type: number
           title: int64_gte
           minimum: 69
-          additionalProperties: false
         int64Bounds:
           exclusiveMaximum: false
           oneOf:
@@ -716,11 +682,9 @@ components:
             - type: number
           title: int64_bounds
           minimum: 5
-          additionalProperties: false
         uint32Const:
           type: integer
           title: uint32_const
-          additionalProperties: false
           description: uint32
           const: "42"
         uint32In:
@@ -732,7 +696,6 @@ components:
               - "1"
               - "2"
               - "3"
-            additionalProperties: false
         uint32NotIn:
           type: array
           items:
@@ -744,39 +707,32 @@ components:
                 - "2"
                 - "3"
             title: uint32_not_in
-            additionalProperties: false
         uint32Lt:
           exclusiveMaximum: false
           type: integer
           title: uint32_lt
-          additionalProperties: false
         uint32Lte:
           type: integer
           title: uint32_lte
           maximum: 420
-          additionalProperties: false
         uint32Gt:
           exclusiveMinimum: false
           type: integer
           title: uint32_gt
-          additionalProperties: false
         uint32Gte:
           type: integer
           title: uint32_gte
           minimum: 69
-          additionalProperties: false
         uint32Bounds:
           exclusiveMaximum: false
           type: integer
           title: uint32_bounds
           minimum: 5
-          additionalProperties: false
         uint64Const:
           oneOf:
             - type: string
             - type: number
           title: uint64_const
-          additionalProperties: false
           description: uint64
           const: "42"
         uint64In:
@@ -790,7 +746,6 @@ components:
               - "1"
               - "2"
               - "3"
-            additionalProperties: false
         uint64NotIn:
           type: array
           items:
@@ -803,35 +758,30 @@ components:
                 - "2"
                 - "3"
             title: uint64_not_in
-            additionalProperties: false
         uint64Lt:
           exclusiveMaximum: false
           oneOf:
             - type: string
             - type: number
           title: uint64_lt
-          additionalProperties: false
         uint64Lte:
           oneOf:
             - type: string
             - type: number
           title: uint64_lte
           maximum: 420
-          additionalProperties: false
         uint64Gt:
           exclusiveMinimum: false
           oneOf:
             - type: string
             - type: number
           title: uint64_gt
-          additionalProperties: false
         uint64Gte:
           oneOf:
             - type: string
             - type: number
           title: uint64_gte
           minimum: 69
-          additionalProperties: false
         uint64Bounds:
           exclusiveMaximum: false
           oneOf:
@@ -839,11 +789,9 @@ components:
             - type: number
           title: uint64_bounds
           minimum: 5
-          additionalProperties: false
         sint32Const:
           type: integer
           title: sint32_const
-          additionalProperties: false
           description: sint32
           const: 42
         sint32In:
@@ -855,7 +803,6 @@ components:
               - 1
               - 2
               - 3
-            additionalProperties: false
         sint32NotIn:
           type: array
           items:
@@ -867,39 +814,32 @@ components:
                 - 2
                 - 3
             title: sint32_not_in
-            additionalProperties: false
         sint32Lt:
           exclusiveMaximum: false
           type: integer
           title: sint32_lt
-          additionalProperties: false
         sint32Lte:
           type: integer
           title: sint32_lte
           maximum: 420
-          additionalProperties: false
         sint32Gt:
           exclusiveMinimum: false
           type: integer
           title: sint32_gt
-          additionalProperties: false
         sint32Gte:
           type: integer
           title: sint32_gte
           minimum: 69
-          additionalProperties: false
         sint32Bounds:
           exclusiveMaximum: false
           type: integer
           title: sint32_bounds
           minimum: 5
-          additionalProperties: false
         sint64Const:
           oneOf:
             - type: string
             - type: number
           title: sint64_const
-          additionalProperties: false
           description: sint64
           const: 42
         sint64In:
@@ -913,7 +853,6 @@ components:
               - 1
               - 2
               - 3
-            additionalProperties: false
         sint64NotIn:
           type: array
           items:
@@ -926,35 +865,30 @@ components:
                 - 2
                 - 3
             title: sint64_not_in
-            additionalProperties: false
         sint64Lt:
           exclusiveMaximum: false
           oneOf:
             - type: string
             - type: number
           title: sint64_lt
-          additionalProperties: false
         sint64Lte:
           oneOf:
             - type: string
             - type: number
           title: sint64_lte
           maximum: 420
-          additionalProperties: false
         sint64Gt:
           exclusiveMinimum: false
           oneOf:
             - type: string
             - type: number
           title: sint64_gt
-          additionalProperties: false
         sint64Gte:
           oneOf:
             - type: string
             - type: number
           title: sint64_gte
           minimum: 89
-          additionalProperties: false
         sint64Bounds:
           exclusiveMaximum: false
           oneOf:
@@ -962,11 +896,9 @@ components:
             - type: number
           title: sint64_bounds
           minimum: 5
-          additionalProperties: false
         fixed32Const:
           type: integer
           title: fixed32_const
-          additionalProperties: false
           description: fixed32
           const: "42"
         fixed32In:
@@ -978,7 +910,6 @@ components:
               - "1"
               - "2"
               - "3"
-            additionalProperties: false
         fixed32NotIn:
           type: array
           items:
@@ -990,39 +921,32 @@ components:
                 - "2"
                 - "3"
             title: fixed32_not_in
-            additionalProperties: false
         fixed32Lt:
           exclusiveMaximum: false
           type: integer
           title: fixed32_lt
-          additionalProperties: false
         fixed32Lte:
           type: integer
           title: fixed32_lte
           maximum: 420
-          additionalProperties: false
         fixed32Gt:
           exclusiveMinimum: false
           type: integer
           title: fixed32_gt
-          additionalProperties: false
         fixed32Gte:
           type: integer
           title: fixed32_gte
           minimum: 69
-          additionalProperties: false
         fixed32Bounds:
           exclusiveMaximum: false
           type: integer
           title: fixed32_bounds
           minimum: 5
-          additionalProperties: false
         fixed64Const:
           oneOf:
             - type: string
             - type: number
           title: fixed64_const
-          additionalProperties: false
           description: fixed64
           const: "42"
         fixed64In:
@@ -1036,7 +960,6 @@ components:
               - "1"
               - "2"
               - "3"
-            additionalProperties: false
         fixed64NotIn:
           type: array
           items:
@@ -1049,35 +972,30 @@ components:
                 - "2"
                 - "3"
             title: fixed64_not_in
-            additionalProperties: false
         fixed64Lt:
           exclusiveMaximum: false
           oneOf:
             - type: string
             - type: number
           title: fixed64_lt
-          additionalProperties: false
         fixed64Lte:
           oneOf:
             - type: string
             - type: number
           title: fixed64_lte
           maximum: 420
-          additionalProperties: false
         fixed64Gt:
           exclusiveMinimum: false
           oneOf:
             - type: string
             - type: number
           title: fixed64_gt
-          additionalProperties: false
         fixed64Gte:
           oneOf:
             - type: string
             - type: number
           title: fixed64_gte
           minimum: 109
-          additionalProperties: false
         fixed64Bounds:
           exclusiveMaximum: false
           oneOf:
@@ -1085,11 +1003,9 @@ components:
             - type: number
           title: fixed64_bounds
           minimum: 5
-          additionalProperties: false
         sfixed32Const:
           type: integer
           title: sfixed32_const
-          additionalProperties: false
           description: sfixed32
           const: 42
         sfixed32In:
@@ -1101,7 +1017,6 @@ components:
               - 1
               - 2
               - 3
-            additionalProperties: false
         sfixed32NotIn:
           type: array
           items:
@@ -1113,39 +1028,32 @@ components:
                 - 2
                 - 3
             title: sfixed32_not_in
-            additionalProperties: false
         sfixed32Lt:
           exclusiveMaximum: false
           type: integer
           title: sfixed32_lt
-          additionalProperties: false
         sfixed32Lte:
           type: integer
           title: sfixed32_lte
           maximum: 420
-          additionalProperties: false
         sfixed32Gt:
           exclusiveMinimum: false
           type: integer
           title: sfixed32_gt
-          additionalProperties: false
         sfixed32Gte:
           type: integer
           title: sfixed32_gte
           minimum: 69
-          additionalProperties: false
         sfixed32Bounds:
           exclusiveMaximum: false
           type: integer
           title: sfixed32_bounds
           minimum: 5
-          additionalProperties: false
         sfixed64Const:
           oneOf:
             - type: string
             - type: number
           title: sfixed64_const
-          additionalProperties: false
           description: sfixed64
           const: 42
         sfixed64In:
@@ -1159,7 +1067,6 @@ components:
               - 1
               - 2
               - 3
-            additionalProperties: false
         sfixed64NotIn:
           type: array
           items:
@@ -1172,35 +1079,30 @@ components:
                 - 2
                 - 3
             title: sfixed64_not_in
-            additionalProperties: false
         sfixed64Lt:
           exclusiveMaximum: false
           oneOf:
             - type: string
             - type: number
           title: sfixed64_lt
-          additionalProperties: false
         sfixed64Lte:
           oneOf:
             - type: string
             - type: number
           title: sfixed64_lte
           maximum: 420
-          additionalProperties: false
         sfixed64Gt:
           exclusiveMinimum: false
           oneOf:
             - type: string
             - type: number
           title: sfixed64_gt
-          additionalProperties: false
         sfixed64Gte:
           oneOf:
             - type: string
             - type: number
           title: sfixed64_gte
           minimum: 109
-          additionalProperties: false
         sfixed64Bounds:
           exclusiveMaximum: false
           oneOf:
@@ -1208,11 +1110,9 @@ components:
             - type: number
           title: sfixed64_bounds
           minimum: 5
-          additionalProperties: false
         stringConst:
           type: string
           title: string_const
-          additionalProperties: false
           description: string
           const: hello
         stringIn:
@@ -1223,7 +1123,6 @@ components:
             enum:
               - orange
               - grape
-            additionalProperties: false
         stringNotIn:
           type: array
           items:
@@ -1234,137 +1133,107 @@ components:
                 - orange
                 - grape
             title: string_not_in
-            additionalProperties: false
         stringMinLen:
           type: string
           title: string_min_len
           minLength: 3
-          additionalProperties: false
         stringMaxLen:
           type: string
           title: string_max_len
           maxLength: 10
-          additionalProperties: false
         stringLen:
           type: string
           title: string_len
           maxLength: 10
           minLength: 10
-          additionalProperties: false
         stringLenBytes:
           type: string
           title: string_len_bytes
-          additionalProperties: false
         stringMinBytes:
           type: string
           title: string_min_bytes
-          additionalProperties: false
         stringMaxBytes:
           type: string
           title: string_max_bytes
-          additionalProperties: false
         stringPrefix:
           type: string
           title: string_prefix
-          additionalProperties: false
         stringSuffix:
           type: string
           title: string_suffix
-          additionalProperties: false
         stringContains:
           type: string
           title: string_contains
-          additionalProperties: false
         stringNotContains:
           type: string
           title: string_not_contains
-          additionalProperties: false
         stringStrict:
           type: string
           title: string_strict
-          additionalProperties: false
         stringEmail:
           type: string
           title: string_email
           format: email
-          additionalProperties: false
         stringHostname:
           type: string
           title: string_hostname
           format: hostname
-          additionalProperties: false
         stringIp:
           type: string
           title: string_ip
           format: ip
-          additionalProperties: false
         stringIpv4:
           type: string
           title: string_ipv4
           format: ipv4
-          additionalProperties: false
         stringIpv6:
           type: string
           title: string_ipv6
           format: ipv6
-          additionalProperties: false
         stringUri:
           type: string
           title: string_uri
           format: uri
-          additionalProperties: false
         stringUriRef:
           type: string
           title: string_uri_ref
           format: uri-ref
-          additionalProperties: false
         stringAddress:
           type: string
           title: string_address
           format: address
-          additionalProperties: false
         stringUuid:
           type: string
           title: string_uuid
           format: uuid
-          additionalProperties: false
         stringIpWithPrefixlen:
           type: string
           title: string_ip_with_prefixlen
-          additionalProperties: false
         stringIpv4WithPrefixlen:
           type: string
           title: string_ipv4_with_prefixlen
-          additionalProperties: false
         stringIpv6WithPrefixlen:
           type: string
           title: string_ipv6_with_prefixlen
-          additionalProperties: false
         stringIpPrefix:
           type: string
           title: string_ip_prefix
-          additionalProperties: false
         stringIpv4Prefix:
           type: string
           title: string_ipv4_prefix
-          additionalProperties: false
         stringIpv6Prefix:
           type: string
           title: string_ipv6_prefix
-          additionalProperties: false
         stringHostAndPort:
           type: string
           title: string_host_and_port
-          additionalProperties: false
         stringWellKnownRegex:
           type: string
           title: string_well_known_regex
-          additionalProperties: false
         byteConst:
           type: string
           title: byte_const
           format: byte
-          additionalProperties: false
           const: "\x01\x02\x03\x04"
         byteLen:
           type: string
@@ -1372,40 +1241,33 @@ components:
           maxLength: 4
           minLength: 4
           format: byte
-          additionalProperties: false
         bytesMinLen:
           type: string
           title: bytes_min_len
           minLength: 2
           format: byte
-          additionalProperties: false
         bytesMaxLen:
           type: string
           title: bytes_max_len
           maxLength: 6
           format: byte
-          additionalProperties: false
         bytesPattern:
           type: string
           title: bytes_pattern
           pattern: ^[a-zA-Z0-9]+$
           format: byte
-          additionalProperties: false
         bytesPrefix:
           type: string
           title: bytes_prefix
           format: byte
-          additionalProperties: false
         bytesSuffix:
           type: string
           title: bytes_suffix
           format: byte
-          additionalProperties: false
         bytesContains:
           type: string
           title: bytes_contains
           format: byte
-          additionalProperties: false
         bytesIn:
           type: string
           title: bytes_in
@@ -1414,7 +1276,6 @@ components:
             - "\x01\x02"
             - "\x02\x03"
             - "\x03\x04"
-          additionalProperties: false
         bytesNotIn:
           type: string
           not:
@@ -1425,22 +1286,18 @@ components:
               - "\x03\x04"
           title: bytes_not_in
           format: byte
-          additionalProperties: false
         bytesIp:
           type: string
           title: bytes_ip
           format: ip
-          additionalProperties: false
         bytesIpv4:
           type: string
           title: bytes_ipv4
           format: ipv4
-          additionalProperties: false
         bytesIpv6:
           type: string
           title: bytes_ipv6
           format: ipv6
-          additionalProperties: false
         enumCost:
           $ref: '#/components/schemas/protovalidate.MyEnum'
         enumDefinedOnly:
@@ -1455,27 +1312,23 @@ components:
             type: string
             title: repeated_min_items
             minItems: 2
-            additionalProperties: false
         repeatedMaxItems:
           type: array
           items:
             type: string
             title: repeated_max_items
             maxItems: 3
-            additionalProperties: false
         repeatedUnique:
           type: array
           items:
             type: string
             title: repeated_unique
             uniqueItems: true
-            additionalProperties: false
         repeatedItems:
           type: array
           items:
             type: string
             title: repeated_items
-            additionalProperties: false
         mapMinPairs:
           type: object
           title: map_min_pairs
@@ -1483,7 +1336,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         mapMaxPairs:
           type: object
           title: map_max_pairs
@@ -1491,7 +1343,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         mapKeys:
           type: object
           title: map_keys
@@ -1500,7 +1351,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         mapValues:
           type: object
           title: map_values
@@ -1509,7 +1359,6 @@ components:
             title: value
             maxLength: 20
             minLength: 5
-            additionalProperties: false
         anyIn:
           $ref: '#/components/schemas/google.protobuf.Any'
         anyNotIn:
@@ -1560,11 +1409,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: MapKeysEntry
       additionalProperties: false
     protovalidate.LotsOfValidationRules.MapMaxPairsEntry:
@@ -1573,11 +1420,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: MapMaxPairsEntry
       additionalProperties: false
     protovalidate.LotsOfValidationRules.MapMinPairsEntry:
@@ -1586,11 +1431,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: MapMinPairsEntry
       additionalProperties: false
     protovalidate.LotsOfValidationRules.MapValuesEntry:
@@ -1599,11 +1442,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: MapValuesEntry
       additionalProperties: false
     protovalidate.MyOtherMessage:
@@ -1640,11 +1481,9 @@ components:
           type: string
           title: a
           minLength: 1
-          additionalProperties: false
         b:
           type: string
           title: b
-          additionalProperties: false
       title: OneOfMessage
       additionalProperties: false
     connect-protocol-version:

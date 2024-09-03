@@ -10,7 +10,6 @@ components:
         description:
           type: string
           title: description
-          additionalProperties: false
         things:
           type: array
           items:
@@ -23,7 +22,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
       title: Thing
       additionalProperties: false
     connect-protocol-version:

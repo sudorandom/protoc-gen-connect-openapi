@@ -7,6 +7,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Creates a session.
+      operationId: tensorflowtest.MasterService.CreateSession
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -41,6 +42,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Extends a session.
+      operationId: tensorflowtest.MasterService.ExtendSession
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -75,6 +77,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Prepares future partial run calls.
+      operationId: tensorflowtest.MasterService.PartialRunSetup
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -109,6 +112,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Drives the graph computation.
+      operationId: tensorflowtest.MasterService.RunStep
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -143,6 +147,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Closes a session.
+      operationId: tensorflowtest.MasterService.CloseSession
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -177,6 +182,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: List the devices usable by the master.
+      operationId: tensorflowtest.MasterService.ListDevices
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -214,6 +220,7 @@ paths:
         Close and abandon all existing sessions.  Ongoing computations
          will no longer affect fresh ones via the resources in containers listed in
          the ResetRequest.  See ResetRequest for more details.
+      operationId: tensorflowtest.MasterService.Reset
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -248,6 +255,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Registers a callable for execution with RunCallable.
+      operationId: tensorflowtest.MasterService.MakeCallable
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -282,6 +290,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Executes a callable registered with MakeCallable.
+      operationId: tensorflowtest.MasterService.RunCallable
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -316,6 +325,7 @@ paths:
       tags:
         - tensorflowtest.MasterService
       description: Frees resources associated with a callable registered with MakeCallable.
+      operationId: tensorflowtest.MasterService.ReleaseCallable
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -573,38 +583,32 @@ components:
             - type: string
             - type: number
           title: requested_bytes
-          additionalProperties: false
           description: Total number of bytes requested
         allocatedBytes:
           oneOf:
             - type: string
             - type: number
           title: allocated_bytes
-          additionalProperties: false
           description: Total number of bytes allocated if known
         allocatorName:
           type: string
           title: allocator_name
-          additionalProperties: false
           description: Name of the allocator used
         allocationId:
           oneOf:
             - type: string
             - type: number
           title: allocation_id
-          additionalProperties: false
           description: Identifier of the allocated buffer if known
         hasSingleReference:
           type: boolean
           title: has_single_reference
-          additionalProperties: false
           description: Set if this tensor only has one remaining reference
         ptr:
           oneOf:
             - type: string
             - type: number
           title: ptr
-          additionalProperties: false
           description: Address of the allocation.
       title: AllocationDescription
       additionalProperties: false
@@ -616,14 +620,12 @@ components:
             - type: string
             - type: number
           title: alloc_micros
-          additionalProperties: false
           description: The timestamp of the operation.
         allocBytes:
           oneOf:
             - type: string
             - type: number
           title: alloc_bytes
-          additionalProperties: false
           description: Number of bytes allocated, or de-allocated if negative.
       title: AllocationRecord
       additionalProperties: false
@@ -634,26 +636,22 @@ components:
         allocatorName:
           type: string
           title: allocator_name
-          additionalProperties: false
         totalBytes:
           oneOf:
             - type: string
             - type: number
           title: total_bytes
-          additionalProperties: false
           description: These are per-node allocator memory stats.
         peakBytes:
           oneOf:
             - type: string
             - type: number
           title: peak_bytes
-          additionalProperties: false
         liveBytes:
           oneOf:
             - type: string
             - type: number
           title: live_bytes
-          additionalProperties: false
           description: The bytes that are not deallocated.
         allocationRecords:
           type: array
@@ -664,7 +662,6 @@ components:
             - type: string
             - type: number
           title: allocator_bytes_in_use
-          additionalProperties: false
           description: |-
             These are snapshots of the overall allocator memory stats.
              The number of live bytes currently allocated by the allocator.
@@ -764,24 +761,20 @@ components:
           type: string
           title: s
           format: byte
-          additionalProperties: false
           description: '"string"'
         i:
           oneOf:
             - type: string
             - type: number
           title: i
-          additionalProperties: false
           description: '"int"'
         f:
           type: number
           title: f
-          additionalProperties: false
           description: '"float"'
         b:
           type: boolean
           title: b
-          additionalProperties: false
           description: '"bool"'
         type:
           $ref: '#/components/schemas/tensorflow.DataType'
@@ -796,7 +789,6 @@ components:
         placeholder:
           type: string
           title: placeholder
-          additionalProperties: false
           description: |-
             This is a placeholder only used in nodes defined inside a
              function.  It indicates the attr value will be supplied when
@@ -820,7 +812,6 @@ components:
             type: string
             title: s
             format: byte
-            additionalProperties: false
             description: '"list(string)"'
         i:
           type: array
@@ -829,21 +820,18 @@ components:
               - type: string
               - type: number
             title: i
-            additionalProperties: false
             description: '"list(int)"'
         f:
           type: array
           items:
             type: number
             title: f
-            additionalProperties: false
             description: '"list(float)"'
         b:
           type: array
           items:
             type: boolean
             title: b
-            additionalProperties: false
             description: '"list(bool)"'
         type:
           type: array
@@ -870,11 +858,9 @@ components:
         enable:
           type: boolean
           title: enable
-          additionalProperties: false
         numReplicas:
           type: integer
           title: num_replicas
-          additionalProperties: false
       title: AutoParallelOptions
       additionalProperties: false
     tensorflow.CallableOptions:
@@ -885,14 +871,12 @@ components:
           items:
             type: string
             title: feed
-            additionalProperties: false
             description: Tensors to be fed in the callable. Each feed is the name of a tensor.
         fetch:
           type: array
           items:
             type: string
             title: fetch
-            additionalProperties: false
             description: |-
               Fetches. A list of tensor names. The caller of the callable expects a
                tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
@@ -902,7 +886,6 @@ components:
           items:
             type: string
             title: target
-            additionalProperties: false
             description: |-
               Target Nodes. A list of node names. The named nodes will be run by the
                callable but their outputs will not be returned.
@@ -918,7 +901,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: |-
             The Tensor objects fed in the callable and fetched from the callable
              are expected to be backed by host (CPU) memory by default.
@@ -973,11 +955,9 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
         fetchSkipSync:
           type: boolean
           title: fetch_skip_sync
-          additionalProperties: false
           description: |-
             By default, RunCallable() will synchronize the GPU stream before returning
              fetched tensors on a GPU device, to ensure that the values in those tensors
@@ -1002,11 +982,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: FeedDevicesEntry
       additionalProperties: false
     tensorflow.CallableOptions.FetchDevicesEntry:
@@ -1015,11 +993,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: FetchDevicesEntry
       additionalProperties: false
     tensorflow.CloseSessionRequest:
@@ -1028,7 +1004,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -1057,7 +1032,6 @@ components:
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
           description: |-
             Map from device type name (e.g., "CPU" or "GPU" ) to maximum
              number of devices of that type to use.  If a particular device
@@ -1066,7 +1040,6 @@ components:
         intraOpParallelismThreads:
           type: integer
           title: intra_op_parallelism_threads
-          additionalProperties: false
           description: |-
             The execution of an individual op (for some op types) can be
              parallelized on a pool of intra_op_parallelism_threads.
@@ -1085,7 +1058,6 @@ components:
         interOpParallelismThreads:
           type: integer
           title: inter_op_parallelism_threads
-          additionalProperties: false
           description: |-
             Nodes that perform blocking operations are enqueued on a pool of
              inter_op_parallelism_threads available in each process.
@@ -1099,7 +1071,6 @@ components:
         usePerSessionThreads:
           type: boolean
           title: use_per_session_threads
-          additionalProperties: false
           description: |-
             If true, use a new set of threads for this session rather than the global
              pool of threads. Only supported by direct sessions.
@@ -1117,7 +1088,6 @@ components:
         placementPeriod:
           type: integer
           title: placement_period
-          additionalProperties: false
           description: |-
             Assignment of Nodes to Devices is recomputed every placement_period
              steps until the system warms up (at which point the recomputation
@@ -1127,7 +1097,6 @@ components:
           items:
             type: string
             title: device_filters
-            additionalProperties: false
             description: |-
               When any filters are present sessions will ignore all devices which do not
                match the filters. Each filter can be partially specified, e.g. "/job:ps"
@@ -1137,7 +1106,6 @@ components:
         allowSoftPlacement:
           type: boolean
           title: allow_soft_placement
-          additionalProperties: false
           description: |-
             Whether soft placement is allowed. If allow_soft_placement is true,
              an op will be placed on CPU if
@@ -1149,7 +1117,6 @@ components:
         logDevicePlacement:
           type: boolean
           title: log_device_placement
-          additionalProperties: false
           description: Whether device placements should be logged.
         graphOptions:
           $ref: '#/components/schemas/tensorflow.GraphOptions'
@@ -1158,7 +1125,6 @@ components:
             - type: string
             - type: number
           title: operation_timeout_in_ms
-          additionalProperties: false
           description: |-
             Global timeout for all blocking operations in this session.  If non-zero,
              and not overridden on a per-operation basis, this value will be used as the
@@ -1170,7 +1136,6 @@ components:
         isolateSessionState:
           type: boolean
           title: isolate_session_state
-          additionalProperties: false
           description: |-
             If true, any resources such as Variables used in the session will not be
              shared with other sessions. However, when clusterspec propagation is
@@ -1178,7 +1143,6 @@ components:
         shareClusterDevicesInSession:
           type: boolean
           title: share_cluster_devices_in_session
-          additionalProperties: false
           description: |-
             When true, WorkerSessions are created with device attributes from the
              full cluster.
@@ -1197,11 +1161,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: DeviceCountEntry
       additionalProperties: false
     tensorflow.ConfigProto.Experimental:
@@ -1210,19 +1172,16 @@ components:
         collectiveGroupLeader:
           type: string
           title: collective_group_leader
-          additionalProperties: false
           description: Task name for group resolution.
         executorType:
           type: string
           title: executor_type
-          additionalProperties: false
           description: |-
             Which executor to use, the default executor will be used
              if it is an empty string or "DEFAULT"
         recvBufMaxChunk:
           type: integer
           title: recv_buf_max_chunk
-          additionalProperties: false
           description: |-
             Guidance to formatting of large RecvBuf fields for transfer.
              Any positive value sets the max chunk size.  0 defaults to 4096.
@@ -1230,7 +1189,6 @@ components:
         useNumaAffinity:
           type: boolean
           title: use_numa_affinity
-          additionalProperties: false
           description: |-
             If true, and supported by the platform, the runtime will attempt to
              use NUMA affinity where applicable.  One consequence will be the
@@ -1238,21 +1196,18 @@ components:
         collectiveDeterministicSequentialExecution:
           type: boolean
           title: collective_deterministic_sequential_execution
-          additionalProperties: false
           description: |-
             If true, make collective op execution order sequential and deterministic
              for potentially concurrent collective instances.
         collectiveNccl:
           type: boolean
           title: collective_nccl
-          additionalProperties: false
           description: |-
             If true, use NCCL for CollectiveOps.  This feature is highly
              experimental.
         shareSessionStateInClusterspecPropagation:
           type: boolean
           title: share_session_state_in_clusterspec_propagation
-          additionalProperties: false
           description: |-
             In the following, session state means the value of a variable, elements
              in a hash table, or any other resource, accessible by worker sessions
@@ -1277,7 +1232,6 @@ components:
         disableThreadSpinning:
           type: boolean
           title: disable_thread_spinning
-          additionalProperties: false
           description: |-
             If using a direct session, disable spinning while waiting for work in
              the thread pool. This may result in higher latency for completing ops,
@@ -1286,7 +1240,6 @@ components:
         shareClusterDevicesInSession:
           type: boolean
           title: share_cluster_devices_in_session
-          additionalProperties: false
           description: |-
             This was promoted to a non-experimental API. Please use
              ConfigProto.share_cluster_devices_in_session instead.
@@ -1295,7 +1248,6 @@ components:
         optimizeForStaticGraph:
           type: boolean
           title: optimize_for_static_graph
-          additionalProperties: false
           description: |-
             If true, the session may treat the graph as being static for optimization
              purposes.
@@ -1306,7 +1258,6 @@ components:
         enableMlirBridge:
           type: boolean
           title: enable_mlir_bridge
-          additionalProperties: false
           description: |-
             Whether to enable the MLIR-based TF->XLA bridge. This is only used if set
              to true. Default value or false is ignored. Use mlir_bridge_rollout for
@@ -1324,7 +1275,6 @@ components:
         enableMlirGraphOptimization:
           type: boolean
           title: enable_mlir_graph_optimization
-          additionalProperties: false
           description: |-
             Whether to enable the MLIR-based Graph optimizations.
 
@@ -1334,7 +1284,6 @@ components:
         disableOutputPartitionGraphs:
           type: boolean
           title: disable_output_partition_graphs
-          additionalProperties: false
           description: |-
             If true, the session will not store an additional copy of the graph for
              each subgraph.
@@ -1346,7 +1295,6 @@ components:
             - type: string
             - type: number
           title: xla_fusion_autotuner_thresh
-          additionalProperties: false
           description: |-
             Minimum number of batches run through the XLA graph before XLA fusion
              autotuner is enabled. Default value of zero disables the autotuner.
@@ -1356,12 +1304,10 @@ components:
         useTfrt:
           type: boolean
           title: use_tfrt
-          additionalProperties: false
           description: Whether runtime execution uses TFRT.
         disableFunctionalOpsLowering:
           type: boolean
           title: disable_functional_ops_lowering
-          additionalProperties: false
           description: |-
             Whether functional control flow op lowering should be disabled. This is
              useful when executing within a portable runtime where control flow op
@@ -1369,7 +1315,6 @@ components:
         xlaPreferSingleGraphCluster:
           type: boolean
           title: xla_prefer_single_graph_cluster
-          additionalProperties: false
           description: |-
             Provides a hint to XLA auto clustering to prefer forming a single large
              cluster that encompases most of the graph.
@@ -1378,7 +1323,6 @@ components:
         disableOptimizeForStaticGraph:
           type: boolean
           title: disable_optimize_for_static_graph
-          additionalProperties: false
           description: |-
             If true, the session will treat the graph as being non-static for
              optimization purposes.
@@ -1401,11 +1345,9 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
         numTasks:
           type: integer
           title: num_tasks
-          additionalProperties: false
       title: CoordinatedJob
       additionalProperties: false
       description: |-
@@ -1417,7 +1359,6 @@ components:
         serviceType:
           type: string
           title: service_type
-          additionalProperties: false
           description: |-
             Type of coordination service implementation to enable.
              For example, setting the service type as "standalone" starts a service
@@ -1426,26 +1367,22 @@ components:
         serviceLeader:
           type: string
           title: service_leader
-          additionalProperties: false
           description: Address where the coordination service instance is hosted.
         enableHealthCheck:
           type: boolean
           title: enable_health_check
-          additionalProperties: false
           description: Whether to enable the health check mechanism.
         clusterRegisterTimeoutInMs:
           oneOf:
             - type: string
             - type: number
           title: cluster_register_timeout_in_ms
-          additionalProperties: false
           description: Maximum wait time for all members in the cluster to be registered.
         heartbeatTimeoutInMs:
           oneOf:
             - type: string
             - type: number
           title: heartbeat_timeout_in_ms
-          additionalProperties: false
           description: |-
             Heartbeat timeout, if a task does not record heartbeat in this time
              window, it will be considered disconnected.
@@ -1461,7 +1398,6 @@ components:
             - type: string
             - type: number
           title: shutdown_barrier_timeout_in_ms
-          additionalProperties: false
           description: |-
             Denotes how long to wait for all coordination agents to reach the barriers
              (after the first shutdown request) before disconnecting together. If
@@ -1470,7 +1406,6 @@ components:
         agentDestructionWithoutShutdown:
           type: boolean
           title: agent_destruction_without_shutdown
-          additionalProperties: false
           description: |-
             If set, agents do not make an explicit Shutdown() call. Service will only
              find out about the disconnecte agent via stale heartbeats. Used for
@@ -1480,7 +1415,6 @@ components:
           items:
             type: string
             title: recoverable_jobs
-            additionalProperties: false
             description: |-
               The list of jobs which are recoverable. If a task in this list fails,
                it will not propagate error to other tasks.
@@ -1489,7 +1423,6 @@ components:
         allowNewIncarnationToReconnect:
           type: boolean
           title: allow_new_incarnation_to_reconnect
-          additionalProperties: false
           description: |-
             If a task restarts with a new incarnation, we may allow it to reconnect
              silently. This is useful when we know that a task can immediately resume
@@ -1518,12 +1451,10 @@ components:
         cost:
           type: number
           title: cost
-          additionalProperties: false
           description: Aggregated cost value.
         dimension:
           type: string
           title: dimension
-          additionalProperties: false
           description: Aggregated cost dimension (e.g. 'memory', 'compute', 'network').
       title: AggregatedCost
       additionalProperties: false
@@ -1534,19 +1465,16 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: The name of the node. Names are globally unique.
         device:
           type: string
           title: device
-          additionalProperties: false
           description: |-
             The device of the node. Can be empty if the node is mapped to the
              default partition or partitioning hasn't been run yet.
         id:
           type: integer
           title: id
-          additionalProperties: false
           description: The id of the node. Node ids are only unique inside a partition.
         inputInfo:
           type: array
@@ -1561,46 +1489,39 @@ components:
             - type: string
             - type: number
           title: temporary_memory_size
-          additionalProperties: false
           description: Temporary memory used by this node.
         persistentMemorySize:
           oneOf:
             - type: string
             - type: number
           title: persistent_memory_size
-          additionalProperties: false
           description: Persistent memory used by this node.
         hostTempMemorySize:
           oneOf:
             - type: string
             - type: number
           title: host_temp_memory_size
-          additionalProperties: false
         deviceTempMemorySize:
           oneOf:
             - type: string
             - type: number
           title: device_temp_memory_size
-          additionalProperties: false
         devicePersistentMemorySize:
           oneOf:
             - type: string
             - type: number
           title: device_persistent_memory_size
-          additionalProperties: false
         computeCost:
           oneOf:
             - type: string
             - type: number
           title: compute_cost
-          additionalProperties: false
           description: Estimate of the computational cost of this node, in microseconds.
         computeTime:
           oneOf:
             - type: string
             - type: number
           title: compute_time
-          additionalProperties: false
           description: |-
             Analytical estimate of the computational cost of this node, in
              microseconds.
@@ -1609,14 +1530,12 @@ components:
             - type: string
             - type: number
           title: memory_time
-          additionalProperties: false
           description: |-
             Analytical estimate of the memory access cost of this node, in
              microseconds.
         isFinal:
           type: boolean
           title: is_final
-          additionalProperties: false
           description: |-
             If true, the output is permanent: it can't be discarded, because this
              node is part of the "final output". Nodes may depend on final nodes.
@@ -1625,12 +1544,10 @@ components:
           items:
             type: integer
             title: control_input
-            additionalProperties: false
             description: Ids of the control inputs for this node.
         inaccurate:
           type: boolean
           title: inaccurate
-          additionalProperties: false
           description: Are the costs inaccurate?
       title: Node
       additionalProperties: false
@@ -1640,11 +1557,9 @@ components:
         precedingNode:
           type: integer
           title: preceding_node
-          additionalProperties: false
         precedingPort:
           type: integer
           title: preceding_port
-          additionalProperties: false
       title: InputInfo
       additionalProperties: false
       description: |-
@@ -1659,13 +1574,11 @@ components:
             - type: string
             - type: number
           title: size
-          additionalProperties: false
         aliasInputPort:
           oneOf:
             - type: string
             - type: number
           title: alias_input_port
-          additionalProperties: false
           description: |-
             If >= 0, the output is an alias of an input. Note that an alias input
              may itself be an alias. The algorithm will therefore need to follow
@@ -1687,7 +1600,6 @@ components:
         target:
           type: string
           title: target
-          additionalProperties: false
           description: The target string used from the client's perspective.
       title: CreateSessionRequest
       additionalProperties: false
@@ -1697,7 +1609,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             The session handle to be used in subsequent calls for the created session.
 
@@ -1708,7 +1619,6 @@ components:
             - type: string
             - type: number
           title: graph_version
-          additionalProperties: false
           description: |-
             The initial version number for the graph, to be used in the next call
              to ExtendSession.
@@ -1726,7 +1636,6 @@ components:
             - type: string
             - type: number
           title: global_step
-          additionalProperties: false
           description: |-
             Caller-specified global step count.
              Note that this is distinct from the session run count and the executor
@@ -1734,7 +1643,6 @@ components:
         resetDiskByteUsage:
           type: boolean
           title: reset_disk_byte_usage
-          additionalProperties: false
           description: |-
             Whether the total disk usage of tfdbg is to be reset to zero
              in this Session.run call. This is used by wrappers and hooks
@@ -1749,7 +1657,6 @@ components:
         nodeName:
           type: string
           title: node_name
-          additionalProperties: false
           description: |-
             Name of the node to watch.
              Use "*" for wildcard. But note: currently, regex is not supported in
@@ -1757,7 +1664,6 @@ components:
         outputSlot:
           type: integer
           title: output_slot
-          additionalProperties: false
           description: |-
             Output slot to watch.
              The semantics of output_slot == -1 is that all outputs of the node
@@ -1769,7 +1675,6 @@ components:
           items:
             type: string
             title: debug_ops
-            additionalProperties: false
             description: |-
               Name(s) of the debugging op(s).
                One or more than one probes on a tensor.
@@ -1779,7 +1684,6 @@ components:
           items:
             type: string
             title: debug_urls
-            additionalProperties: false
             description: |-
               URL(s) for debug targets(s).
 
@@ -1804,7 +1708,6 @@ components:
         tolerateDebugOpCreationFailures:
           type: boolean
           title: tolerate_debug_op_creation_failures
-          additionalProperties: false
           description: |-
             Do not error out if debug op creation fails (e.g., due to dtype
              incompatibility). Instead, just log the failure.
@@ -1817,19 +1720,16 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: Fully specified name of the device within a cluster.
         deviceType:
           type: string
           title: device_type
-          additionalProperties: false
           description: String representation of device_type.
         memoryLimit:
           oneOf:
             - type: string
             - type: number
           title: memory_limit
-          additionalProperties: false
           description: Memory capacity of device in bytes.
         locality:
           $ref: '#/components/schemas/tensorflow.DeviceLocality'
@@ -1838,21 +1738,18 @@ components:
             - type: string
             - type: number
           title: incarnation
-          additionalProperties: false
           description: |-
             A device is assigned a global unique number each time it is
              initialized. "incarnation" should never be 0.
         physicalDeviceDesc:
           type: string
           title: physical_device_desc
-          additionalProperties: false
           description: String representation of the physical device that this device maps to.
         xlaGlobalId:
           oneOf:
             - type: string
             - type: number
           title: xla_global_id
-          additionalProperties: false
           description: |-
             A physical device ID for use in XLA DeviceAssignments, unique across
              clients in a multi-client setup. Set to -1 if unavailable, non-negative
@@ -1865,14 +1762,12 @@ components:
         busId:
           type: integer
           title: bus_id
-          additionalProperties: false
           description: |-
             Optional bus locality of device.  Default value of 0 means
              no specific locality.  Specific localities are indexed from 1.
         numaNode:
           type: integer
           title: numa_node
-          additionalProperties: false
           description: Optional NUMA locality of device.
         links:
           $ref: '#/components/schemas/tensorflow.LocalLinks'
@@ -1884,7 +1779,6 @@ components:
         device:
           type: string
           title: device
-          additionalProperties: false
         nodeStats:
           type: array
           items:
@@ -1895,7 +1789,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: Its key is thread id.
       title: DeviceStepStats
       additionalProperties: false
@@ -1905,11 +1798,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: ThreadNamesEntry
       additionalProperties: false
     tensorflow.ExtendSessionRequest:
@@ -1918,7 +1809,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -1929,7 +1819,6 @@ components:
             - type: string
             - type: number
           title: current_graph_version
-          additionalProperties: false
           description: |-
             REQUIRED: The version number of the graph to be extended. This will be
              tested against the current server-side version number, and the operation
@@ -1944,7 +1833,6 @@ components:
             - type: string
             - type: number
           title: new_graph_version
-          additionalProperties: false
           description: |-
             The new version number for the extended graph, to be used in the next call
              to ExtendSession.
@@ -1986,13 +1874,11 @@ components:
         s:
           type: string
           title: s
-          additionalProperties: false
         i:
           oneOf:
             - type: string
             - type: number
           title: i
-          additionalProperties: false
           description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
       title: FullTypeDef
       additionalProperties: false
@@ -2023,7 +1909,6 @@ components:
           additionalProperties:
             type: integer
             title: value
-            additionalProperties: false
           description: |-
             Unique IDs for each resource argument, used to track aliasing resources. If
              Argument A and Argument B alias each other, then
@@ -2044,7 +1929,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: |-
             A mapping from the output arg names from `signature` to the
              outputs from `node_def` that should be returned by the function.
@@ -2054,7 +1938,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: |-
             A mapping from control output names from `signature` to node names in
              `node_def` which should be control outputs of this function.
@@ -2073,7 +1956,6 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.FunctionDef.ArgAttrs'
       title: ArgAttrEntry
@@ -2097,7 +1979,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.AttrValue'
       title: AttrEntry
@@ -2108,7 +1989,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.AttrValue'
       title: AttrEntry
@@ -2119,11 +1999,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: ControlRetEntry
       additionalProperties: false
     tensorflow.FunctionDef.ResourceArgUniqueIdEntry:
@@ -2132,11 +2010,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: integer
           title: value
-          additionalProperties: false
       title: ResourceArgUniqueIdEntry
       additionalProperties: false
     tensorflow.FunctionDef.RetEntry:
@@ -2145,11 +2021,9 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: RetEntry
       additionalProperties: false
     tensorflow.FunctionDefLibrary:
@@ -2178,7 +2052,6 @@ components:
             - type: string
             - type: number
           title: per_process_gpu_memory_fraction
-          additionalProperties: false
           description: |-
             Fraction of the total GPU memory to allocate for each process.
              1 means to allocate all of the GPU memory, 0.5 means the process
@@ -2200,14 +2073,12 @@ components:
         allowGrowth:
           type: boolean
           title: allow_growth
-          additionalProperties: false
           description: |-
             If true, the allocator does not pre-allocate the entire specified
              GPU memory region, instead starting small and growing as needed.
         allocatorType:
           type: string
           title: allocator_type
-          additionalProperties: false
           description: |-
             The type of GPU allocation strategy to use.
 
@@ -2222,7 +2093,6 @@ components:
             - type: string
             - type: number
           title: deferred_deletion_bytes
-          additionalProperties: false
           description: |-
             Delay deletion of up to this many bytes to reduce the number of
              interactions with gpu driver code.  If 0, the system chooses
@@ -2230,7 +2100,6 @@ components:
         visibleDeviceList:
           type: string
           title: visible_device_list
-          additionalProperties: false
           description: |-
             A comma-separated list of GPU ids that determines the 'visible'
              to 'virtual' mapping of GPU devices.  For example, if TensorFlow
@@ -2256,7 +2125,6 @@ components:
         pollingActiveDelayUsecs:
           type: integer
           title: polling_active_delay_usecs
-          additionalProperties: false
           description: |-
             In the event polling loop sleep this many microseconds between
              PollEvents calls, when the queue is not empty.  If value is not
@@ -2264,12 +2132,10 @@ components:
         pollingInactiveDelayMsecs:
           type: integer
           title: polling_inactive_delay_msecs
-          additionalProperties: false
           description: This field is deprecated and ignored.
         forceGpuCompatible:
           type: boolean
           title: force_gpu_compatible
-          additionalProperties: false
           description: |-
             Force all tensors to be gpu_compatible. On a GPU-enabled TensorFlow,
              enabling this option forces all CPU tensors to be allocated with Cuda
@@ -2295,7 +2161,6 @@ components:
         useUnifiedMemory:
           type: boolean
           title: use_unified_memory
-          additionalProperties: false
           description: |-
             If true, uses CUDA unified memory for memory allocations. If
              per_process_gpu_memory_fraction option is greater than 1.0, then unified
@@ -2307,7 +2172,6 @@ components:
         numDevToDevCopyStreams:
           type: integer
           title: num_dev_to_dev_copy_streams
-          additionalProperties: false
           description: |-
             If > 1, the number of device-to-device copy streams to create
              for each GPUDevice.  Default value is 0, which is automatically
@@ -2315,7 +2179,6 @@ components:
         collectiveRingOrder:
           type: string
           title: collective_ring_order
-          additionalProperties: false
           description: |-
             If non-empty, defines a good GPU ring order on a single worker based on
              device interconnect.  This assumes that all workers have the same GPU
@@ -2326,7 +2189,6 @@ components:
         timestampedAllocator:
           type: boolean
           title: timestamped_allocator
-          additionalProperties: false
           description: |-
             If true then extra work is done by GPUDevice and GPUBFCAllocator to
              keep track of when GPU memory is freed and when kernels actually
@@ -2335,7 +2197,6 @@ components:
         kernelTrackerMaxInterval:
           type: integer
           title: kernel_tracker_max_interval
-          additionalProperties: false
           description: |-
             Parameters for GPUKernelTracker.  By default no kernel tracking is done.
              Note that timestamped_allocator is only effective if some tracking is
@@ -2346,7 +2207,6 @@ components:
         kernelTrackerMaxBytes:
           type: integer
           title: kernel_tracker_max_bytes
-          additionalProperties: false
           description: |-
             If kernel_tracker_max_bytes = n > 0, then a tracking event is
              inserted after every series of kernels allocating a sum of
@@ -2356,7 +2216,6 @@ components:
         kernelTrackerMaxPending:
           type: integer
           title: kernel_tracker_max_pending
-          additionalProperties: false
           description: |-
             If kernel_tracker_max_pending > 0 then no more than this many
              tracking events can be outstanding at a time.  An attempt to
@@ -2367,7 +2226,6 @@ components:
             - type: string
             - type: number
           title: internal_fragmentation_fraction
-          additionalProperties: false
           description: |-
             BFC Allocator can return an allocated chunk of memory upto 2x the
              requested size. For virtual devices with tight memory constraints, and
@@ -2381,12 +2239,10 @@ components:
         useCudaMallocAsync:
           type: boolean
           title: use_cuda_malloc_async
-          additionalProperties: false
           description: When true, use CUDA cudaMallocAsync API instead of TF gpu allocator.
         disallowRetryOnAllocationFailure:
           type: boolean
           title: disallow_retry_on_allocation_failure
-          additionalProperties: false
           description: |-
             By default, BFCAllocator may sleep when it runs out of memory, in the
              hopes that another thread will free up memory in the meantime.  Setting
@@ -2394,14 +2250,12 @@ components:
         gpuHostMemLimitInMb:
           type: number
           title: gpu_host_mem_limit_in_mb
-          additionalProperties: false
           description: |-
             Memory limit for "GPU host allocator", aka pinned memory allocator.  This
              can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB.
         gpuHostMemDisallowGrowth:
           type: boolean
           title: gpu_host_mem_disallow_growth
-          additionalProperties: false
           description: |-
             If true, then the host allocator allocates its max memory all upfront and
              never grows.  This can be useful for latency-sensitive systems, because
@@ -2420,7 +2274,6 @@ components:
           items:
             type: number
             title: memory_limit_mb
-            additionalProperties: false
             description: |-
               Per "virtual" device memory limit, in MB. The number of elements in
                the list is the number of virtual devices to create on the
@@ -2435,7 +2288,6 @@ components:
           items:
             type: integer
             title: priority
-            additionalProperties: false
             description: |-
               Priority values to use with the virtual devices. Use the cuda function
                cudaDeviceGetStreamPriorityRange to query for valid range of values for
@@ -2452,7 +2304,6 @@ components:
           items:
             type: integer
             title: device_ordinal
-            additionalProperties: false
             description: |-
               Virtual Device ordinal number determines the device ID of the device.
                A Virtual device with a lower ordinal number always receives the a
@@ -2469,12 +2320,10 @@ components:
         functionName:
           type: string
           title: function_name
-          additionalProperties: false
           description: The function name.
         gradientFunc:
           type: string
           title: gradient_func
-          additionalProperties: false
           description: The gradient function's name.
       title: GradientDef
       additionalProperties: false
@@ -2505,7 +2354,6 @@ components:
           items:
             type: string
             title: files
-            additionalProperties: false
             description: |-
               This stores all the source code file names and can be indexed by the
                `file_index`.
@@ -2536,7 +2384,6 @@ components:
               - type: string
               - type: number
             title: value
-            additionalProperties: false
           description: |-
             This maps a node name to a trace id contained in `traces_by_id`.
 
@@ -2558,29 +2405,24 @@ components:
         fileIndex:
           type: integer
           title: file_index
-          additionalProperties: false
           description: |-
             File name index, which can be used to retrieve the file name string from
              `files`. The value should be between 0 and (len(files)-1)
         line:
           type: integer
           title: line
-          additionalProperties: false
           description: Line number in the file.
         col:
           type: integer
           title: col
-          additionalProperties: false
           description: Col number in the file line.
         func:
           type: string
           title: func
-          additionalProperties: false
           description: Name of function contains the file line.
         code:
           type: string
           title: code
-          additionalProperties: false
           description: Source code contained in this file line.
       title: FileLineCol
       additionalProperties: false
@@ -2593,7 +2435,6 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
       title: FramesByIdEntry
@@ -2604,13 +2445,11 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           oneOf:
             - type: string
             - type: number
           title: value
-          additionalProperties: false
       title: NameToTraceIdEntry
       additionalProperties: false
     tensorflow.GraphDebugInfo.StackTrace:
@@ -2627,7 +2466,6 @@ components:
               - type: string
               - type: number
             title: frame_id
-            additionalProperties: false
       title: StackTrace
       additionalProperties: false
       description: This represents a stack trace which is a ordered list of `FileLineCol`.
@@ -2639,7 +2477,6 @@ components:
             - type: string
             - type: number
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
       title: TracesByIdEntry
@@ -2650,7 +2487,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
       title: TracesEntry
@@ -2667,7 +2503,6 @@ components:
         version:
           type: integer
           title: version
-          additionalProperties: false
           description: |-
             Deprecated single version field; use versions above instead.  Since all
              GraphDef changes before "versions" was introduced were forward
@@ -2685,7 +2520,6 @@ components:
         enableRecvScheduling:
           type: boolean
           title: enable_recv_scheduling
-          additionalProperties: false
           description: |-
             If true, use control flow to schedule the activation of Recv nodes.
              (Currently ignored.)
@@ -2696,7 +2530,6 @@ components:
             - type: string
             - type: number
           title: build_cost_model
-          additionalProperties: false
           description: |-
             The number of steps to run before returning a cost model detailing
              the memory usage and performance of each node of the graph. 0 means
@@ -2706,21 +2539,18 @@ components:
             - type: string
             - type: number
           title: build_cost_model_after
-          additionalProperties: false
           description: |-
             The number of steps to skip before collecting statistics for the
              cost model.
         inferShapes:
           type: boolean
           title: infer_shapes
-          additionalProperties: false
           description: |-
             Annotate each Node with Op output shape data, to the extent it can
              be statically inferred.
         placePrunedGraph:
           type: boolean
           title: place_pruned_graph
-          additionalProperties: false
           description: |-
             Only place the subgraphs that are run, rather than the entire graph.
 
@@ -2732,12 +2562,10 @@ components:
         enableBfloat16Sendrecv:
           type: boolean
           title: enable_bfloat16_sendrecv
-          additionalProperties: false
           description: If true, transfer float values between processes as bfloat16.
         timelineStep:
           type: integer
           title: timeline_step
-          additionalProperties: false
           description: |-
             If > 0, record a timeline every this many steps.
              EXPERIMENTAL: This currently has no effect in MasterSession.
@@ -2751,15 +2579,12 @@ components:
         deviceId:
           type: integer
           title: device_id
-          additionalProperties: false
         type:
           type: string
           title: type
-          additionalProperties: false
         strength:
           type: integer
           title: strength
-          additionalProperties: false
       title: InterconnectLink
       additionalProperties: false
     tensorflow.JobDef:
@@ -2768,7 +2593,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: The name of this job.
         tasks:
           type: object
@@ -2776,7 +2600,6 @@ components:
           additionalProperties:
             type: string
             title: value
-            additionalProperties: false
           description: |-
             Mapping from task ID to "hostname:port" string.
 
@@ -2795,11 +2618,9 @@ components:
         key:
           type: integer
           title: key
-          additionalProperties: false
         value:
           type: string
           title: value
-          additionalProperties: false
       title: TasksEntry
       additionalProperties: false
     tensorflow.ListDevicesRequest:
@@ -2808,7 +2629,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             Optional: session_handle must be returned by a CreateSession call to the
              same master service.
@@ -2848,7 +2668,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -2859,7 +2678,6 @@ components:
             - type: string
             - type: number
           title: request_id
-          additionalProperties: false
           description: |-
             Unique identifier for this request. Every MakeCallableRequest must
              have a unique request_id, and retried MakeCallableRequest must have
@@ -2874,7 +2692,6 @@ components:
             - type: string
             - type: number
           title: handle
-          additionalProperties: false
           description: A handle to the created callable.
       title: MakeCallableResponse
       additionalProperties: false
@@ -2886,13 +2703,11 @@ components:
             - type: string
             - type: number
           title: temp_memory_size
-          additionalProperties: false
         persistentMemorySize:
           oneOf:
             - type: string
             - type: number
           title: persistent_memory_size
-          additionalProperties: false
         persistentTensorAllocIds:
           type: array
           items:
@@ -2900,19 +2715,16 @@ components:
               - type: string
               - type: number
             title: persistent_tensor_alloc_ids
-            additionalProperties: false
         deviceTempMemorySize:
           oneOf:
             - type: string
             - type: number
           title: device_temp_memory_size
-          additionalProperties: false
         devicePersistentMemorySize:
           oneOf:
             - type: string
             - type: number
           title: device_persistent_memory_size
-          additionalProperties: false
         devicePersistentTensorAllocIds:
           type: array
           items:
@@ -2920,7 +2732,6 @@ components:
               - type: string
               - type: number
             title: device_persistent_tensor_alloc_ids
-            additionalProperties: false
       title: MemoryStats
       additionalProperties: false
       description: For memory tracking.
@@ -2930,7 +2741,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
         attr:
           type: object
           title: attr
@@ -2947,7 +2757,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.AttrValue'
       title: AttrEntry
@@ -2958,7 +2767,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: Name of the tensor.
         tensor:
           $ref: '#/components/schemas/tensorflow.TensorProto'
@@ -2971,7 +2779,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: |-
             The name given to this operator. Used for naming inputs,
              logging, visualization, etc.  Unique within a single GraphDef.
@@ -2979,7 +2786,6 @@ components:
         op:
           type: string
           title: op
-          additionalProperties: false
           description: |-
             The operation name.  There may be custom parameters in attrs.
              Op names starting with an underscore are reserved for internal use.
@@ -2988,7 +2794,6 @@ components:
           items:
             type: string
             title: input
-            additionalProperties: false
             description: |-
               Each input is "node:src_output" with "node" being a string name and
                "src_output" indicating which output tensor to use from "node". If
@@ -2998,7 +2803,6 @@ components:
         device:
           type: string
           title: device
-          additionalProperties: false
           description: |-
             A (possibly partial) specification for the device on which this
              node should be placed.
@@ -3050,7 +2854,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.AttrValue'
       title: AttrEntry
@@ -3063,7 +2866,6 @@ components:
           items:
             type: string
             title: original_node_names
-            additionalProperties: false
             description: |-
               Opaque string inserted into error messages created by the runtime.
 
@@ -3077,7 +2879,6 @@ components:
           items:
             type: string
             title: original_func_names
-            additionalProperties: false
             description: |-
               This is intended to store the list of names of the functions from the
                original graph that this node was derived. For example if this node, say
@@ -3094,7 +2895,6 @@ components:
         nodeName:
           type: string
           title: node_name
-          additionalProperties: false
           description: |-
             TODO(tucker): Use some more compact form of node identity than
              the full string name.  Either all processes should agree on a
@@ -3105,25 +2905,21 @@ components:
             - type: string
             - type: number
           title: all_start_micros
-          additionalProperties: false
         opStartRelMicros:
           oneOf:
             - type: string
             - type: number
           title: op_start_rel_micros
-          additionalProperties: false
         opEndRelMicros:
           oneOf:
             - type: string
             - type: number
           title: op_end_rel_micros
-          additionalProperties: false
         allEndRelMicros:
           oneOf:
             - type: string
             - type: number
           title: all_end_rel_micros
-          additionalProperties: false
         memory:
           type: array
           items:
@@ -3135,17 +2931,14 @@ components:
         timelineLabel:
           type: string
           title: timeline_label
-          additionalProperties: false
         scheduledMicros:
           oneOf:
             - type: string
             - type: number
           title: scheduled_micros
-          additionalProperties: false
         threadId:
           type: integer
           title: thread_id
-          additionalProperties: false
         referencedTensor:
           type: array
           items:
@@ -3157,31 +2950,26 @@ components:
             - type: string
             - type: number
           title: all_start_nanos
-          additionalProperties: false
         opStartRelNanos:
           oneOf:
             - type: string
             - type: number
           title: op_start_rel_nanos
-          additionalProperties: false
         opEndRelNanos:
           oneOf:
             - type: string
             - type: number
           title: op_end_rel_nanos
-          additionalProperties: false
         allEndRelNanos:
           oneOf:
             - type: string
             - type: number
           title: all_end_rel_nanos
-          additionalProperties: false
         scheduledNanos:
           oneOf:
             - type: string
             - type: number
           title: scheduled_nanos
-          additionalProperties: false
       title: NodeExecStats
       additionalProperties: false
       description: Time/size stats recorded for a single execution of a graph node.
@@ -3191,7 +2979,6 @@ components:
         slot:
           type: integer
           title: slot
-          additionalProperties: false
         tensorDescription:
           $ref: '#/components/schemas/tensorflow.TensorDescription'
       title: NodeOutput
@@ -3203,7 +2990,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: |-
             Op names starting with an underscore are reserved for internal use.
              Names should be CamelCase and match the regexp "[A-Z][a-zA-Z0-9>_]*".
@@ -3220,7 +3006,6 @@ components:
           items:
             type: string
             title: control_output
-            additionalProperties: false
             description: |-
               Named control outputs for this operation. Useful only for composite
                operations (i.e. functions) which want to name different control outputs.
@@ -3233,22 +3018,18 @@ components:
         summary:
           type: string
           title: summary
-          additionalProperties: false
           description: One-line human-readable description of what the Op does.
         description:
           type: string
           title: description
-          additionalProperties: false
           description: Additional, longer human-readable description of what the Op does.
         isCommutative:
           type: boolean
           title: is_commutative
-          additionalProperties: false
           description: True if the operation is commutative ("op(a,b) == op(b,a)" for all inputs)
         isAggregate:
           type: boolean
           title: is_aggregate
-          additionalProperties: false
           description: |-
             If is_aggregate is true, then this operation accepts N >= 2
              inputs and produces 1 output all of the same type.  Should be
@@ -3261,7 +3042,6 @@ components:
         isStateful:
           type: boolean
           title: is_stateful
-          additionalProperties: false
           description: |-
             Ops are marked as stateful if their behavior depends on some state beyond
              their input tensors (e.g. variable reading op) or if they have
@@ -3277,7 +3057,6 @@ components:
         allowsUninitializedInput:
           type: boolean
           title: allows_uninitialized_input
-          additionalProperties: false
           description: |-
             By default, all inputs to an Op must be initialized Tensors.  Ops
              that may initialize tensors for the first time should set this
@@ -3286,7 +3065,6 @@ components:
         isDistributedCommunication:
           type: boolean
           title: is_distributed_communication
-          additionalProperties: false
           description: |-
             Indicates whether the op implementation uses distributed communication.
              If True, the op is allowed to return errors for network disconnection and
@@ -3303,29 +3081,24 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: Name for the input/output.  Should match the regexp "[a-z][a-z0-9_]*".
         description:
           type: string
           title: description
-          additionalProperties: false
           description: Human readable description.
         type:
           $ref: '#/components/schemas/tensorflow.DataType'
         typeAttr:
           type: string
           title: type_attr
-          additionalProperties: false
           description: if specified, attr must have type "type"
         numberAttr:
           type: string
           title: number_attr
-          additionalProperties: false
           description: if specified, attr must have type "int"
         typeListAttr:
           type: string
           title: type_list_attr
-          additionalProperties: false
           description: |-
             If specified, attr must have type "list(type)", and none of
              type, type_attr, and number_attr may be specified.
@@ -3336,7 +3109,6 @@ components:
         isRef:
           type: boolean
           title: is_ref
-          additionalProperties: false
           description: |-
             For inputs: if true, the inputs are required to be refs.
                By default, inputs can be either refs or non-refs.
@@ -3352,7 +3124,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: |-
             A descriptive name for the argument.  May be used, e.g. by the
              Python client, as a keyword argument name, and so should match
@@ -3360,7 +3131,6 @@ components:
         type:
           type: string
           title: type
-          additionalProperties: false
           description: |-
             One of the type names from attr_value.proto ("string", "list(string)",
              "int", etc.).
@@ -3369,12 +3139,10 @@ components:
         description:
           type: string
           title: description
-          additionalProperties: false
           description: Human-readable description.
         hasMinimum:
           type: boolean
           title: has_minimum
-          additionalProperties: false
           description: |-
             For type == "int", this is a minimum value.  For "list(___)"
              types, this is the minimum length.
@@ -3383,7 +3151,6 @@ components:
             - type: string
             - type: number
           title: minimum
-          additionalProperties: false
         allowedValues:
           $ref: '#/components/schemas/tensorflow.AttrValue'
       title: AttrDef
@@ -3398,12 +3165,10 @@ components:
         version:
           type: integer
           title: version
-          additionalProperties: false
           description: First GraphDef version at which the op is disallowed.
         explanation:
           type: string
           title: explanation
-          additionalProperties: false
           description: Explanation of why it was deprecated and what to use instead.
       title: OpDeprecation
       additionalProperties: false
@@ -3414,7 +3179,6 @@ components:
         doCommonSubexpressionElimination:
           type: boolean
           title: do_common_subexpression_elimination
-          additionalProperties: false
           description: |-
             If true, optimize the graph using common subexpression elimination.
              Note: the optimization Level L1 will override this setting to true. So in
@@ -3423,7 +3187,6 @@ components:
         doConstantFolding:
           type: boolean
           title: do_constant_folding
-          additionalProperties: false
           description: |-
             If true, perform constant folding optimization on the graph.
              Note: the optimization Level L1 will override this setting to true. So in
@@ -3433,7 +3196,6 @@ components:
             - type: string
             - type: number
           title: max_folded_constant_in_bytes
-          additionalProperties: false
           description: |-
             Constant folding optimization replaces tensors whose values can be
              predetermined, with constant nodes. To avoid inserting too large constants,
@@ -3443,7 +3205,6 @@ components:
         doFunctionInlining:
           type: boolean
           title: do_function_inlining
-          additionalProperties: false
           description: If true, perform function inlining on the graph.
         optLevel:
           $ref: '#/components/schemas/tensorflow.OptimizerOptions.Level'
@@ -3452,7 +3213,6 @@ components:
         cpuGlobalJit:
           type: boolean
           title: cpu_global_jit
-          additionalProperties: false
           description: |-
             CPU code will be autoclustered only if global_jit_level >= ON_1 and either:
               - this flag is true, or
@@ -3466,7 +3226,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -3475,14 +3234,12 @@ components:
           items:
             type: string
             title: feed
-            additionalProperties: false
             description: Tensors to be fed in future steps.
         fetch:
           type: array
           items:
             type: string
             title: fetch
-            additionalProperties: false
             description: |-
               Fetches. A list of tensor names. The caller expects a tensor to be returned
                for each fetch[i] (see RunStepResponse.tensor), for corresponding partial
@@ -3493,7 +3250,6 @@ components:
           items:
             type: string
             title: target
-            additionalProperties: false
             description: |-
               Target Nodes. A list of node names. The named nodes will be run in future
                steps, but their outputs will not be fetched.
@@ -3502,7 +3258,6 @@ components:
             - type: string
             - type: number
           title: request_id
-          additionalProperties: false
           description: |-
             Unique identifier for this request. Every PartialRunSetupRequest must
              have a unique request_id, and retried PartialRunSetupRequest must have
@@ -3515,7 +3270,6 @@ components:
         partialRunHandle:
           type: string
           title: partial_run_handle
-          additionalProperties: false
           description: |-
             The unique handle corresponding to the ongoing partial run call setup by
              the invocation to PartialRunSetup. This handle may be passed to
@@ -3528,7 +3282,6 @@ components:
         useRpcForInprocessMaster:
           type: boolean
           title: use_rpc_for_inprocess_master
-          additionalProperties: false
           description: |-
             If true, always use RPC to contact the session target.
 
@@ -3538,19 +3291,16 @@ components:
         compressionAlgorithm:
           type: string
           title: compression_algorithm
-          additionalProperties: false
           description: The compression algorithm to be used. One of "deflate", "gzip".
         compressionLevel:
           type: integer
           title: compression_level
-          additionalProperties: false
           description: |-
             If compression_algorithm is set, the compression level to be used.
              From 0 (no compression), up to 3.
         cacheRpcResponse:
           type: boolean
           title: cache_rpc_response
-          additionalProperties: false
           description: |-
             Setting cache_rpc_response to true will enable sender side caching of
              response for RecvTensorAsync and RecvBufAsync to allow receiver to retry
@@ -3561,12 +3311,10 @@ components:
         disableSessionConnectionSharing:
           type: boolean
           title: disable_session_connection_sharing
-          additionalProperties: false
           description: Disables TCP connection sharing when opening a new RPC channel.
         numChannelsPerTarget:
           type: integer
           title: num_channels_per_target
-          additionalProperties: false
           description: |-
             Setting num_channels_per_target > 0 allows uses of multiple channels to
              communicate to the same target. This can be used to improve the aggregate
@@ -3583,12 +3331,10 @@ components:
         gradientFunc:
           type: string
           title: gradient_func
-          additionalProperties: false
           description: The gradient function's name.
         registeredOpType:
           type: string
           title: registered_op_type
-          additionalProperties: false
           description: The gradient function's registered op type.
       title: RegisteredGradient
       additionalProperties: false
@@ -3603,7 +3349,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -3612,7 +3357,6 @@ components:
             - type: string
             - type: number
           title: handle
-          additionalProperties: false
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
              master service.
@@ -3630,7 +3374,6 @@ components:
           items:
             type: string
             title: container
-            additionalProperties: false
             description: |-
               A list of container names, which may be empty.
 
@@ -3644,7 +3387,6 @@ components:
           items:
             type: string
             title: device_filters
-            additionalProperties: false
             description: |-
               When any filters are present, only devices that match the filters
                will be reset. Each filter can be partially specified,
@@ -3676,31 +3418,26 @@ components:
         device:
           type: string
           title: device
-          additionalProperties: false
           description: Unique name for the device containing the resource.
         container:
           type: string
           title: container
-          additionalProperties: false
           description: Container in which this resource is placed.
         name:
           type: string
           title: name
-          additionalProperties: false
           description: Unique name of this resource.
         hashCode:
           oneOf:
             - type: string
             - type: number
           title: hash_code
-          additionalProperties: false
           description: |-
             Hash code for the type of the resource. Is only valid in the same device
              and in the same execution.
         maybeTypeName:
           type: string
           title: maybe_type_name
-          additionalProperties: false
           description: |-
             For debug-only, the name of the type pointed to by this handle, if
              available.
@@ -3752,7 +3489,6 @@ components:
         disableModelPruning:
           type: boolean
           title: disable_model_pruning
-          additionalProperties: false
           description: If true, don't remove unnecessary ops from the graph
         scopedAllocatorOptimization:
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
@@ -3771,12 +3507,10 @@ components:
         disableMetaOptimizer:
           type: boolean
           title: disable_meta_optimizer
-          additionalProperties: false
           description: Disable the entire meta optimizer (off by default).
         disableTfgOptimizer:
           type: boolean
           title: disable_tfg_optimizer
-          additionalProperties: false
           description: Disable the TFG optimizer (off by default).
         usePluginOptimizers:
           $ref: '#/components/schemas/tensorflow.RewriterConfig.Toggle'
@@ -3787,7 +3521,6 @@ components:
         minGraphNodes:
           type: integer
           title: min_graph_nodes
-          additionalProperties: false
           description: |-
             The minimum number of nodes in a graph to optimizer. For smaller graphs,
              optimization is skipped.
@@ -3796,14 +3529,12 @@ components:
         experimentalDisableCompressedTensorOptimization:
           type: boolean
           title: experimental_disable_compressed_tensor_optimization
-          additionalProperties: false
           description: |-
             Disable optimizations that assume compressed tensors. Note that this flag
              is experimental and may be removed in the future.
         experimentalDisableFoldingQuantizationEmulation:
           type: boolean
           title: experimental_disable_folding_quantization_emulation
-          additionalProperties: false
           description: |-
             Disable folding quantization emulation ops such as FakeQuantWithMinMax* and
              QuantizeAndDequantize*. Some compilers (e.g. the TF-to-tflite converter)
@@ -3816,7 +3547,6 @@ components:
         memoryOptimizerTargetNodeNameScope:
           type: string
           title: memory_optimizer_target_node_name_scope
-          additionalProperties: false
           description: |-
             A node name scope for node names which are valid outputs of recomputations.
              Inputs to nodes that match this scope may be recomputed (subject either to
@@ -3831,7 +3561,6 @@ components:
             - type: string
             - type: number
           title: meta_optimizer_timeout_ms
-          additionalProperties: false
           description: |-
             Maximum number of milliseconds to spend optimizing a single graph before
              timing out. If less than or equal to 0 (default value) the optimizer will
@@ -3841,7 +3570,6 @@ components:
         failOnOptimizerErrors:
           type: boolean
           title: fail_on_optimizer_errors
-          additionalProperties: false
           description: |-
             If true, any optimization pass failing will cause the MetaOptimizer to
              stop with an error. By default - or when set to false, failing passes are
@@ -3853,7 +3581,6 @@ components:
           items:
             type: string
             title: optimizers
-            additionalProperties: false
             description: |-
               If non-empty, will use this as an alternative way to specify a list of
                optimizations to turn on and the order of the optimizations (replacing the
@@ -3886,7 +3613,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
         parameterMap:
           type: object
           title: parameter_map
@@ -3901,7 +3627,6 @@ components:
         key:
           type: string
           title: key
-          additionalProperties: false
         value:
           $ref: '#/components/schemas/tensorflow.AttrValue'
       title: ParameterMapEntry
@@ -3912,7 +3637,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -3921,7 +3645,6 @@ components:
             - type: string
             - type: number
           title: handle
-          additionalProperties: false
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
              master service.
@@ -3934,7 +3657,6 @@ components:
             - type: string
             - type: number
           title: request_id
-          additionalProperties: false
           description: |-
             Unique identifier for this request. Every RunCallableRequest must
              have a unique request_id, and retried RunCallableRequest must have
@@ -3995,12 +3717,10 @@ components:
             - type: string
             - type: number
           title: timeout_in_ms
-          additionalProperties: false
           description: Time to wait for operation to complete in milliseconds.
         interOpThreadPool:
           type: integer
           title: inter_op_thread_pool
-          additionalProperties: false
           description: |-
             The thread pool to use, if session_inter_op_thread_pool is configured.
              To use the caller thread set this to -1 - this uses the caller thread
@@ -4011,7 +3731,6 @@ components:
         outputPartitionGraphs:
           type: boolean
           title: output_partition_graphs
-          additionalProperties: false
           description: |-
             Whether the partition graph(s) executed by the executor(s) should be
              outputted via RunMetadata.
@@ -4020,7 +3739,6 @@ components:
         reportTensorAllocationsUponOom:
           type: boolean
           title: report_tensor_allocations_upon_oom
-          additionalProperties: false
           description: |-
             When enabled, causes tensor allocation information to be included in
              the error message when the Run() call fails because the allocator ran
@@ -4040,7 +3758,6 @@ components:
             - type: string
             - type: number
           title: collective_graph_key
-          additionalProperties: false
           description: |-
             If non-zero, declares that this graph is going to use collective
              ops and must synchronize step_ids with any other graph with this
@@ -4049,7 +3766,6 @@ components:
         useRunHandlerPool:
           type: boolean
           title: use_run_handler_pool
-          additionalProperties: false
           description: |-
             If true, then operations (using the inter-op pool) across all
              session::run() calls will be centrally scheduled, optimizing for (median
@@ -4071,7 +3787,6 @@ components:
             - type: string
             - type: number
           title: priority
-          additionalProperties: false
           description: |-
             Priority of the request. The run handler thread pool will schedule ops
              based on the priority number. The larger number means higher priority.
@@ -4084,7 +3799,6 @@ components:
         sessionHandle:
           type: string
           title: session_handle
-          additionalProperties: false
           description: |-
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
@@ -4097,7 +3811,6 @@ components:
           items:
             type: string
             title: fetch
-            additionalProperties: false
             description: |-
               Fetches. A list of tensor names. The caller expects a tensor to
                be returned for each fetch[i] (see RunStepResponse.tensor). The
@@ -4107,7 +3820,6 @@ components:
           items:
             type: string
             title: target
-            additionalProperties: false
             description: |-
               Target Nodes. A list of node names. The named nodes will be run
                to but their outputs will not be fetched.
@@ -4116,14 +3828,12 @@ components:
         partialRunHandle:
           type: string
           title: partial_run_handle
-          additionalProperties: false
           description: |-
             Partial run handle (optional). If specified, this will be a partial run
              execution, run up to the specified fetches.
         storeErrorsInResponseBody:
           type: boolean
           title: store_errors_in_response_body
-          additionalProperties: false
           description: |-
             If true then some errors, e.g., execution errors that have long
              error messages, may return an OK RunStepResponse with the actual
@@ -4135,7 +3845,6 @@ components:
             - type: string
             - type: number
           title: request_id
-          additionalProperties: false
           description: |-
             Unique identifier for this request. Every RunStepRequest must
              have a unique request_id, and retried RunStepRequest must have
@@ -4156,7 +3865,6 @@ components:
         statusErrorMessage:
           type: string
           title: status_error_message
-          additionalProperties: false
       title: RunStepResponse
       additionalProperties: false
     tensorflow.ScopedAllocatorOptions:
@@ -4167,7 +3875,6 @@ components:
           items:
             type: string
             title: enable_op
-            additionalProperties: false
             description: If present, only perform optimization for these ops.
       title: ScopedAllocatorOptions
       additionalProperties: false
@@ -4177,13 +3884,11 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
         version:
           oneOf:
             - type: string
             - type: number
           title: version
-          additionalProperties: false
           description: The version is optional. If set, needs to be >= 0.
       title: SessionMetadata
       additionalProperties: false
@@ -4211,14 +3916,12 @@ components:
         fromTensor:
           type: string
           title: from_tensor
-          additionalProperties: false
           description: |-
             A tensor name. The value of this tensor will be substituted for
              the tensor named in `to_tensor`.
         toTensor:
           type: string
           title: to_tensor
-          additionalProperties: false
           description: |-
             A tensor name. The value of this tensor will be bound to the
              value of the tensor named in `from_tensor`.
@@ -4246,7 +3949,6 @@ components:
         versionNumber:
           type: integer
           title: version_number
-          additionalProperties: false
           description: |-
             Version number.
 
@@ -4257,7 +3959,6 @@ components:
           type: string
           title: tensor_content
           format: byte
-          additionalProperties: false
           description: |-
             Serialized raw tensor content from either Tensor::AsProtoTensorContent or
              memcpy in tensorflow::grpc::EncodeTensorToByteBuffer. This representation
@@ -4269,7 +3970,6 @@ components:
           items:
             type: integer
             title: half_val
-            additionalProperties: false
             description: |-
               DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll
                have some pointless zero padding for each value here.
@@ -4278,7 +3978,6 @@ components:
           items:
             type: number
             title: float_val
-            additionalProperties: false
             description: DT_FLOAT.
         doubleVal:
           type: array
@@ -4287,14 +3986,12 @@ components:
               - type: string
               - type: number
             title: double_val
-            additionalProperties: false
             description: DT_DOUBLE.
         intVal:
           type: array
           items:
             type: integer
             title: int_val
-            additionalProperties: false
             description: DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8.
         stringVal:
           type: array
@@ -4302,14 +3999,12 @@ components:
             type: string
             title: string_val
             format: byte
-            additionalProperties: false
             description: DT_STRING
         scomplexVal:
           type: array
           items:
             type: number
             title: scomplex_val
-            additionalProperties: false
             description: |-
               DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
                and imaginary parts of i-th single precision complex.
@@ -4320,14 +4015,12 @@ components:
               - type: string
               - type: number
             title: int64_val
-            additionalProperties: false
             description: DT_INT64
         boolVal:
           type: array
           items:
             type: boolean
             title: bool_val
-            additionalProperties: false
             description: DT_BOOL
         dcomplexVal:
           type: array
@@ -4336,7 +4029,6 @@ components:
               - type: string
               - type: number
             title: dcomplex_val
-            additionalProperties: false
             description: |-
               DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
                and imaginary parts of i-th double precision complex.
@@ -4353,7 +4045,6 @@ components:
           items:
             type: integer
             title: uint32_val
-            additionalProperties: false
             description: DT_UINT32
         uint64Val:
           type: array
@@ -4362,13 +4053,11 @@ components:
               - type: string
               - type: number
             title: uint64_val
-            additionalProperties: false
             description: DT_UINT64
         float8Val:
           type: string
           title: float8_val
           format: byte
-          additionalProperties: false
           description: |-
             DT_FLOAT8_*, use variable-sized set of bytes
              (i.e. the equivalent of repeated uint8, if such a thing existed).
@@ -4385,7 +4074,6 @@ components:
         unknownRank:
           type: boolean
           title: unknown_rank
-          additionalProperties: false
           description: |-
             If true, the number of dimensions in the shape is unknown.
 
@@ -4401,7 +4089,6 @@ components:
             - type: string
             - type: number
           title: size
-          additionalProperties: false
           description: |-
             Size of the tensor in that dimension.
              This value must be >= -1, but values of -1 are reserved for "unknown"
@@ -4411,7 +4098,6 @@ components:
         name:
           type: string
           title: name
-          additionalProperties: false
           description: Optional name of the tensor dimension.
       title: Dim
       additionalProperties: false
@@ -4422,7 +4108,6 @@ components:
         numThreads:
           type: integer
           title: num_threads
-          additionalProperties: false
           description: |-
             The number of threads in the pool.
 
@@ -4431,7 +4116,6 @@ components:
         globalName:
           type: string
           title: global_name
-          additionalProperties: false
           description: |-
             The global name of the threadpool.
 
@@ -4456,13 +4140,11 @@ components:
         typeName:
           type: string
           title: type_name
-          additionalProperties: false
           description: Name of the type of objects being serialized.
         metadata:
           type: string
           title: metadata
           format: byte
-          additionalProperties: false
           description: Portions of the object that are not Tensors.
         tensors:
           type: array
@@ -4479,7 +4161,6 @@ components:
             - type: string
             - type: number
           title: verification_timeout_in_ms
-          additionalProperties: false
           description: |-
             Deadline for completion of all verification i.e. all the Toggle ON
              verifiers must complete execution within this time.
@@ -4494,19 +4175,16 @@ components:
         producer:
           type: integer
           title: producer
-          additionalProperties: false
           description: The version of the code that produced this data.
         minConsumer:
           type: integer
           title: min_consumer
-          additionalProperties: false
           description: Any consumer below this version is not allowed to consume this data.
         badConsumers:
           type: array
           items:
             type: integer
             title: bad_consumers
-            additionalProperties: false
             description: Specific consumer versions which are disallowed (e.g. due to bugs).
       title: VersionDef
       additionalProperties: false

@@ -70,6 +70,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	service := md.Parent().(protoreflect.ServiceDescriptor)
 	loc := fd.SourceLocations().ByDescriptor(md)
 	op := &v3.Operation{
+		OperationId: string(md.FullName()),
 		Tags:        []string{string(service.FullName())},
 		Description: util.FormatComments(loc),
 	}

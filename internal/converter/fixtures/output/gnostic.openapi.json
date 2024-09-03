@@ -21,6 +21,7 @@
           "example_with_gnostic.Greeter"
         ],
         "description": "Sends a greeting",
+        "operationId": "example_with_gnostic.Greeter.SayHello",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -156,8 +157,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "title": "message",
-            "additionalProperties": false
+            "title": "message"
           }
         },
         "title": "HelloReply",
@@ -172,8 +172,7 @@
             "examples": [
               "Example value"
             ],
-            "title": "Custom title for a field",
-            "additionalProperties": false
+            "title": "Custom title for a field"
           }
         },
         "title": "Custom title for a message",
@@ -212,8 +211,7 @@
         "enum": [
           "identity",
           "gzip",
-          "br",
-          "gzip"
+          "br"
         ],
         "description": "Which compression algorithm to use for this request"
       },

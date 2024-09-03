@@ -10,6 +10,7 @@
           "helloworld.Greeter"
         ],
         "description": "Sends a greeting",
+        "operationId": "helloworld.Greeter.SayHello",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -137,6 +138,7 @@
           "helloworld.Greeter"
         ],
         "description": "Writes a greeting (has side effects)",
+        "operationId": "helloworld.Greeter.WriteHello",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -196,8 +198,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "title": "message",
-            "additionalProperties": false
+            "title": "message"
           }
         },
         "title": "HelloReply",
@@ -209,8 +210,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "name",
-            "additionalProperties": false
+            "title": "name"
           }
         },
         "title": "HelloRequest",
@@ -249,8 +249,7 @@
         "enum": [
           "identity",
           "gzip",
-          "br",
-          "gzip"
+          "br"
         ],
         "description": "Which compression algorithm to use for this request"
       },
