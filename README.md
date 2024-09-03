@@ -106,11 +106,12 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 ## Options
 | Option | Values | Description |
 |---|---|---|
-| path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
-| format | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`. |
-| base | `{filepath}` | The path to a base OpenAPI file to populate fienlds that this tool doesn't populate. |
+| allow-get | - | For methods that have `IdempotencyLevel=IDEMPOTENT`, this option will generate HTTP `GET` requests instead of `POST`. |
+| base | `{filepath}` | The path to a base OpenAPI file to populate fields that this tool doesn't populate. |
 | content-types | `json;proto` | Semicolon-separated content types to generate requests/repsonses |
+| debug | - | Emit debug logs |
+| format | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`. |
+| include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings |
+| path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | proto | - | Generate requests/repsonses with the protobuf content type |
 | with-streaming | - | Generate OpenAPI with content types related to streaming (can be messy). |
-| include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings |
-| debug | - | Emit debug logs |
