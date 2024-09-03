@@ -129,7 +129,7 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 		switch tt := constraint.LessThan.(type) {
 		case *validate.FloatRules_Lt:
 			v := float64(tt.Lt)
-			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 		case *validate.FloatRules_Lte:
 			v := float64(tt.Lte)
 			schema.Maximum = &v
@@ -137,7 +137,7 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 		switch tt := constraint.GreaterThan.(type) {
 		case *validate.FloatRules_Gt:
 			v := float64(tt.Gt)
-			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 		case *validate.FloatRules_Gte:
 			v := float64(tt.Gte)
 			schema.Minimum = &v
@@ -166,7 +166,7 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DoubleRules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.DoubleRules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -174,7 +174,7 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.DoubleRules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.DoubleRules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -202,7 +202,7 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Int32Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -210,7 +210,7 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Int32Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Int32Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -238,7 +238,7 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Int64Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -246,7 +246,7 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Int64Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Int64Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -274,7 +274,7 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.UInt32Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -282,7 +282,7 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.UInt32Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.UInt32Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -310,7 +310,7 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.UInt64Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -318,7 +318,7 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.UInt64Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.UInt64Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -346,7 +346,7 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SInt32Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -354,7 +354,7 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SInt32Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SInt32Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -382,7 +382,7 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SInt64Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -390,7 +390,7 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SInt64Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SInt64Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -418,7 +418,7 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Fixed32Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -426,7 +426,7 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Fixed32Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Fixed32Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -454,7 +454,7 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Fixed64Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -462,7 +462,7 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Fixed64Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.Fixed64Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -490,7 +490,7 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed32Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SFixed32Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -498,7 +498,7 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SFixed32Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SFixed32Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v
@@ -526,7 +526,7 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed64Rules_Lt:
 		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SFixed64Rules_Lte:
 		v := float64(tt.Lte)
 		schema.Maximum = &v
@@ -534,7 +534,7 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SFixed64Rules_Gt:
 		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: v}
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
 	case *validate.SFixed64Rules_Gte:
 		v := float64(tt.Gte)
 		schema.Minimum = &v

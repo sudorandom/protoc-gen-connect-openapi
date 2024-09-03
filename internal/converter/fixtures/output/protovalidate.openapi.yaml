@@ -545,7 +545,7 @@ components:
               - type: number
             title: double_finite
         doubleLt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           oneOf:
             - type: string
             - type: number
@@ -557,7 +557,7 @@ components:
           title: double_lte
           maximum: 420
         doubleGt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6.9
           oneOf:
             - type: string
             - type: number
@@ -569,7 +569,7 @@ components:
           title: double_gte
           minimum: 69
         doubleBounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           oneOf:
             - type: string
             - type: number
@@ -601,7 +601,7 @@ components:
                 - 3
             title: int32_not_in
         int32Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           type: integer
           title: int32_lt
         int32Lte:
@@ -609,7 +609,7 @@ components:
           title: int32_lte
           maximum: 420
         int32Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           type: integer
           title: int32_gt
         int32Gte:
@@ -617,7 +617,7 @@ components:
           title: int32_gte
           minimum: 69
         int32Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           type: integer
           title: int32_bounds
           minimum: 5
@@ -652,7 +652,7 @@ components:
                 - 3
             title: int64_not_in
         int64Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           oneOf:
             - type: string
             - type: number
@@ -664,7 +664,7 @@ components:
           title: int64_lte
           maximum: 420
         int64Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           oneOf:
             - type: string
             - type: number
@@ -676,7 +676,7 @@ components:
           title: int64_gte
           minimum: 69
         int64Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           oneOf:
             - type: string
             - type: number
@@ -708,7 +708,7 @@ components:
                 - "3"
             title: uint32_not_in
         uint32Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           type: integer
           title: uint32_lt
         uint32Lte:
@@ -716,7 +716,7 @@ components:
           title: uint32_lte
           maximum: 420
         uint32Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           type: integer
           title: uint32_gt
         uint32Gte:
@@ -724,7 +724,7 @@ components:
           title: uint32_gte
           minimum: 69
         uint32Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           type: integer
           title: uint32_bounds
           minimum: 5
@@ -759,7 +759,7 @@ components:
                 - "3"
             title: uint64_not_in
         uint64Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           oneOf:
             - type: string
             - type: number
@@ -771,7 +771,7 @@ components:
           title: uint64_lte
           maximum: 420
         uint64Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           oneOf:
             - type: string
             - type: number
@@ -783,7 +783,7 @@ components:
           title: uint64_gte
           minimum: 69
         uint64Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           oneOf:
             - type: string
             - type: number
@@ -815,7 +815,7 @@ components:
                 - 3
             title: sint32_not_in
         sint32Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           type: integer
           title: sint32_lt
         sint32Lte:
@@ -823,7 +823,7 @@ components:
           title: sint32_lte
           maximum: 420
         sint32Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           type: integer
           title: sint32_gt
         sint32Gte:
@@ -831,7 +831,7 @@ components:
           title: sint32_gte
           minimum: 69
         sint32Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           type: integer
           title: sint32_bounds
           minimum: 5
@@ -866,7 +866,7 @@ components:
                 - 3
             title: sint64_not_in
         sint64Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           oneOf:
             - type: string
             - type: number
@@ -878,7 +878,7 @@ components:
           title: sint64_lte
           maximum: 420
         sint64Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 8
           oneOf:
             - type: string
             - type: number
@@ -890,7 +890,7 @@ components:
           title: sint64_gte
           minimum: 89
         sint64Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           oneOf:
             - type: string
             - type: number
@@ -922,7 +922,7 @@ components:
                 - "3"
             title: fixed32_not_in
         fixed32Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           type: integer
           title: fixed32_lt
         fixed32Lte:
@@ -930,7 +930,7 @@ components:
           title: fixed32_lte
           maximum: 420
         fixed32Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           type: integer
           title: fixed32_gt
         fixed32Gte:
@@ -938,7 +938,7 @@ components:
           title: fixed32_gte
           minimum: 69
         fixed32Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           type: integer
           title: fixed32_bounds
           minimum: 5
@@ -973,7 +973,7 @@ components:
                 - "3"
             title: fixed64_not_in
         fixed64Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           oneOf:
             - type: string
             - type: number
@@ -985,7 +985,7 @@ components:
           title: fixed64_lte
           maximum: 420
         fixed64Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 10
           oneOf:
             - type: string
             - type: number
@@ -997,7 +997,7 @@ components:
           title: fixed64_gte
           minimum: 109
         fixed64Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           oneOf:
             - type: string
             - type: number
@@ -1029,7 +1029,7 @@ components:
                 - 3
             title: sfixed32_not_in
         sfixed32Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           type: integer
           title: sfixed32_lt
         sfixed32Lte:
@@ -1037,7 +1037,7 @@ components:
           title: sfixed32_lte
           maximum: 420
         sfixed32Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 6
           type: integer
           title: sfixed32_gt
         sfixed32Gte:
@@ -1045,7 +1045,7 @@ components:
           title: sfixed32_gte
           minimum: 69
         sfixed32Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           type: integer
           title: sfixed32_bounds
           minimum: 5
@@ -1080,7 +1080,7 @@ components:
                 - 3
             title: sfixed64_not_in
         sfixed64Lt:
-          exclusiveMaximum: false
+          exclusiveMaximum: 42
           oneOf:
             - type: string
             - type: number
@@ -1092,7 +1092,7 @@ components:
           title: sfixed64_lte
           maximum: 420
         sfixed64Gt:
-          exclusiveMinimum: false
+          exclusiveMinimum: 10
           oneOf:
             - type: string
             - type: number
@@ -1104,7 +1104,7 @@ components:
           title: sfixed64_gte
           minimum: 109
         sfixed64Bounds:
-          exclusiveMaximum: false
+          exclusiveMaximum: 10
           oneOf:
             - type: string
             - type: number

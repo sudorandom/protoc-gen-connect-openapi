@@ -89,14 +89,14 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 	}
 	if opts.Maximum != 0 {
 		if opts.ExclusiveMaximum {
-			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{B: opts.Maximum}
+			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: opts.Maximum}
 		} else {
 			schema.Maximum = &opts.Maximum
 		}
 	}
 	if opts.Minimum != 0 {
 		if opts.ExclusiveMinimum {
-			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{B: opts.Minimum}
+			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: opts.Minimum}
 		} else {
 			schema.Minimum = &opts.Minimum
 		}
