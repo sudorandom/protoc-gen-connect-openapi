@@ -88,7 +88,6 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 				utils.CreateStringNode("identity"),
 				utils.CreateStringNode("gzip"),
 				utils.CreateStringNode("br"),
-				utils.CreateStringNode("gzip"),
 			},
 		}))
 	}
