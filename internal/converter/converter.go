@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/lmittmann/tint"
 	"github.com/pb33f/libopenapi"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
@@ -225,10 +226,12 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		})
 	}
 
-	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL)
+	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL | pluginpb.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)
 	return &pluginpb.CodeGeneratorResponse{
-		File:              files,
 		SupportedFeatures: &features,
+		MinimumEdition:    proto.Int32(int32(descriptor.Edition_EDITION_PROTO2)),
+		MaximumEdition:    proto.Int32(int32(descriptor.Edition_EDITION_2024)),
+		File:              files,
 	}, nil
 }
 
