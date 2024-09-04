@@ -14,11 +14,13 @@ paths:
             $ref: '#/components/schemas/foo.A.B'
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:

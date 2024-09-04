@@ -8,8 +8,6 @@ import "google/protobuf/empty.proto";
 service Foo {
   rpc Foo(google.protobuf.Empty) returns (google.protobuf.Empty) {
     option idempotency_level = NO_SIDE_EFFECTS;
-    option (google.api.http) = {
-      get: "/.well-known/jwks.json"
-    };
+    option (google.api.http) = {get: "/.well-known/jwks.json"};
   }
 }

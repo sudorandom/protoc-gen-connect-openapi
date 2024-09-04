@@ -8,8 +8,9 @@ paths:
         - io.swagger.petstore.v2.PetService
       operationId: io.swagger.petstore.v2.PetService.GetPetByID
       parameters:
-        - name: petId
-          in: query
+        - name: pet_id
+          in: path
+          required: true
           schema:
             oneOf:
               - type: string
@@ -17,11 +18,13 @@ paths:
             title: pet_id
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -30,6 +33,15 @@ paths:
       tags:
         - io.swagger.petstore.v2.PetService
       operationId: io.swagger.petstore.v2.PetService.UpdatePetWithForm
+      parameters:
+        - name: pet_id
+          in: path
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: number
+            title: pet_id
       requestBody:
         content:
           application/json:
@@ -41,11 +53,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -55,8 +69,9 @@ paths:
         - io.swagger.petstore.v2.PetService
       operationId: io.swagger.petstore.v2.PetService.DeletePet
       parameters:
-        - name: petId
-          in: query
+        - name: pet_id
+          in: path
+          required: true
           schema:
             oneOf:
               - type: string
@@ -64,11 +79,13 @@ paths:
             title: pet_id
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -78,6 +95,15 @@ paths:
       tags:
         - io.swagger.petstore.v2.PetService
       operationId: io.swagger.petstore.v2.PetService.UploadFile
+      parameters:
+        - name: pet_id
+          in: path
+          required: true
+          schema:
+            oneOf:
+              - type: string
+              - type: number
+            title: pet_id
       requestBody:
         content:
           application/json:
@@ -89,11 +115,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -114,11 +142,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -138,11 +168,13 @@ paths:
         required: true
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -162,11 +194,13 @@ paths:
               title: tag
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:
@@ -186,11 +220,13 @@ paths:
               title: status
       responses:
         default:
+          description: Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
         "200":
+          description: Success
           content:
             application/json:
               schema:

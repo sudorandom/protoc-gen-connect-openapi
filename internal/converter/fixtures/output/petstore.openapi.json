@@ -12,8 +12,9 @@
         "operationId": "io.swagger.petstore.v2.PetService.GetPetByID",
         "parameters": [
           {
-            "name": "petId",
-            "in": "query",
+            "name": "pet_id",
+            "in": "path",
+            "required": true,
             "schema": {
               "oneOf": [
                 {
@@ -29,6 +30,7 @@
         ],
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38,6 +40,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -53,6 +56,24 @@
           "io.swagger.petstore.v2.PetService"
         ],
         "operationId": "io.swagger.petstore.v2.PetService.UpdatePetWithForm",
+        "parameters": [
+          {
+            "name": "pet_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "pet_id"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -70,6 +91,7 @@
         },
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -79,6 +101,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,8 +119,9 @@
         "operationId": "io.swagger.petstore.v2.PetService.DeletePet",
         "parameters": [
           {
-            "name": "petId",
-            "in": "query",
+            "name": "pet_id",
+            "in": "path",
+            "required": true,
             "schema": {
               "oneOf": [
                 {
@@ -113,6 +137,7 @@
         ],
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -122,6 +147,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -139,6 +165,24 @@
           "io.swagger.petstore.v2.PetService"
         ],
         "operationId": "io.swagger.petstore.v2.PetService.UploadFile",
+        "parameters": [
+          {
+            "name": "pet_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "title": "pet_id"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -156,6 +200,7 @@
         },
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -165,6 +210,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -199,6 +245,7 @@
         },
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -208,6 +255,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -240,6 +288,7 @@
         },
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -249,6 +298,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -281,6 +331,7 @@
         ],
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -290,6 +341,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -322,6 +374,7 @@
         ],
         "responses": {
           "default": {
+            "description": "Error",
             "content": {
               "application/json": {
                 "schema": {
@@ -331,6 +384,7 @@
             }
           },
           "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {

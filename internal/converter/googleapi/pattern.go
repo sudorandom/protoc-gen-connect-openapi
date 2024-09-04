@@ -2,6 +2,7 @@ package googleapi
 
 import (
 	"fmt"
+	"strings"
 	"unicode"
 )
 
@@ -50,6 +51,7 @@ func RunPathPatternLexer(input string) ([]Token, error) {
 			pos++
 		case isWordChar(runes[pos]):
 			word := getWord(runes[pos:])
+			word = strings.Split(word, ":")[0]
 			if isLiteral(word) {
 				tokens = append(tokens, Token{Type: TokenLiteral, Value: word})
 			} else if isVariable(word) {

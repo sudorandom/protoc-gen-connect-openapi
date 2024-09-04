@@ -75,13 +75,36 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		Description: util.FormatComments(loc),
 	}
 
+	topLevelFieldNamesInPath := map[string]struct{}{}
+	for _, param := range partsToParameter(tokens) {
+		field := resolveField(md.Input(), param)
+		if field != nil {
+			topLevelFieldNamesInPath[strings.Split(param, ".")[0]] = struct{}{}
+			loc := fd.SourceLocations().ByDescriptor(field)
+			op.Parameters = append(op.Parameters, &v3.Parameter{
+				Name:        param,
+				Required:    proto.Bool(true),
+				In:          "path",
+				Description: util.FormatComments(loc),
+				Schema:      schema.FieldToSchema(nil, field),
+			})
+		}
+	}
+
 	switch rule.Body {
 	case "":
 		fields := md.Input().Fields()
 		for i := 0; i < fields.Len(); i++ {
+			field := fields.Get(i)
+			// exclude fields already found in the path
+			if _, ok := topLevelFieldNamesInPath[string(field.Name())]; ok {
+				continue
+			}
+			if _, ok := topLevelFieldNamesInPath[field.JSONName()]; ok {
+				continue
+			}
 			loc := fd.SourceLocations().ByDescriptor(md)
 			desc := util.FormatComments(loc)
-			field := fields.Get(i)
 			op.Parameters = append(op.Parameters, &v3.Parameter{
 				Name:        field.JSONName(),
 				In:          "query",
@@ -105,18 +128,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 	}
 
-	for _, param := range partsToParameter(tokens) {
-		field := resolveField(md.Input(), param)
-		if field != nil {
-			loc := fd.SourceLocations().ByDescriptor(field)
-			op.Parameters = append(op.Parameters, &v3.Parameter{
-				Name:        param,
-				In:          "path",
-				Description: util.FormatComments(loc),
-				Schema:      schema.FieldToSchema(nil, field),
-			})
-		}
-	}
+	slog.Info("partsToParameter", "tokens", tokens, "variables", partsToParameter(tokens))
 
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
@@ -126,7 +138,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	mediaType.Set("application/json", &v3.MediaType{
 		Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
 	})
-	codeMap.Set("200", &v3.Response{Content: mediaType})
+	codeMap.Set("200", &v3.Response{
+		Description: "Success",
+		Content:     mediaType,
+	})
 
 	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
 	errMediaTypes.Set("application/json", &v3.MediaType{
@@ -135,7 +150,8 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
 		Default: &v3.Response{
-			Content: errMediaTypes,
+			Description: "Error",
+			Content:     errMediaTypes,
 		},
 	}
 
@@ -179,7 +195,7 @@ func fieldByName(md protoreflect.MessageDescriptor, name string) protoreflect.Fi
 	fields := md.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
-		if field.JSONName() != name {
+		if field.JSONName() != name && string(field.Name()) != name {
 			continue
 		}
 		return field
@@ -199,20 +215,28 @@ func partsToParameter(tokens []Token) []string {
 
 func partsToOpenAPIPath(tokens []Token) string {
 	var b strings.Builder
+	var skipIfIdent bool
 	for _, token := range tokens {
 		switch token.Type {
 		case TokenSlash:
 			b.WriteByte('/')
 		case TokenEOF:
+		case TokenColon:
+			skipIfIdent = true
+			continue
 		case TokenLiteral:
 			b.WriteString(token.Value)
 		case TokenIdent:
+			if skipIfIdent {
+				continue
+			}
 			b.WriteString(token.Value)
 		case TokenVariable:
 			b.WriteByte('{')
 			b.WriteString(token.Value)
 			b.WriteByte('}')
 		}
+		skipIfIdent = false
 	}
 	return b.String()
 }
