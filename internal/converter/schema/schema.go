@@ -79,6 +79,7 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 		root.Title = string(tt.Name())
 		root.Type = []string{"object"}
 		root.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
+		root = protovalidate.SchemaWithFieldAnnotations(root, tt, false)
 		return base.CreateSchemaProxy(root)
 	} else if tt.IsList() {
 		var itemSchema *base.SchemaProxy
@@ -90,11 +91,12 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 		default:
 			itemSchema = base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt))
 		}
-
 		s := &base.Schema{
-			Type:  []string{"array"},
-			Items: &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
+			ParentProxy: parent,
+			Type:        []string{"array"},
+			Items:       &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
 		}
+		s = protovalidate.SchemaWithFieldAnnotations(s, tt, false)
 		return base.CreateSchemaProxy(s)
 	} else {
 		switch tt.Kind() {
@@ -142,7 +144,7 @@ func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescript
 		s.Format = "byte"
 	}
 	// Apply Updates from Options
-	s = protovalidate.SchemaWithFieldAnnotations(s, tt)
+	s = protovalidate.SchemaWithFieldAnnotations(s, tt, true)
 	s = gnostic.SchemaWithPropertyAnnotations(s, tt)
 	return s
 }

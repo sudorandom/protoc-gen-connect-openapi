@@ -128,8 +128,6 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 	}
 
-	slog.Info("partsToParameter", "tokens", tokens, "variables", partsToParameter(tokens))
-
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
 

@@ -1947,21 +1947,24 @@
             "items": {
               "type": "string",
               "title": "repeated_min_items"
-            }
+            },
+            "minItems": 2
           },
           "repeatedMaxItems": {
             "type": "array",
             "items": {
               "type": "string",
               "title": "repeated_max_items"
-            }
+            },
+            "maxItems": 3
           },
           "repeatedUnique": {
             "type": "array",
             "items": {
               "type": "string",
               "title": "repeated_unique"
-            }
+            },
+            "uniqueItems": true
           },
           "repeatedItems": {
             "type": "array",
@@ -2001,11 +2004,11 @@
           "mapValues": {
             "type": "object",
             "title": "map_values",
-            "maxLength": 20,
-            "minLength": 5,
             "additionalProperties": {
               "type": "string",
-              "title": "value"
+              "title": "value",
+              "maxLength": 20,
+              "minLength": 5
             }
           },
           "anyIn": {
@@ -2070,11 +2073,6 @@
           }
         },
         "title": "LotsOfValidationRules",
-        "maxLength": 10,
-        "minLength": 3,
-        "maxItems": 3,
-        "minItems": 2,
-        "uniqueItems": true,
         "required": [
           "requiredField"
         ],

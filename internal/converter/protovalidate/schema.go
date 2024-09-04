@@ -1,6 +1,7 @@
 package protovalidate
 
 import (
+	"log/slog"
 	"strconv"
 	"strings"
 
@@ -22,7 +23,7 @@ func SchemaWithMessageAnnotations(schema *base.Schema, desc protoreflect.Message
 	return schema
 }
 
-func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
+func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
 	r := resolver.DefaultResolver{}
 	constraints := r.ResolveFieldConstraints(desc)
 	if constraints == nil {
@@ -35,7 +36,7 @@ func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDesc
 			parent.Required = append(parent.Required, desc.JSONName())
 		}
 	}
-	updateSchemaWithFieldConstraints(schema, constraints)
+	updateSchemaWithFieldConstraints(schema, constraints, onlyScalar)
 	return schema
 }
 
@@ -54,7 +55,7 @@ func PopulateParentProperties(parent *base.Schema, desc protoreflect.FieldDescri
 }
 
 //gocyclo:ignore
-func updateSchemaWithFieldConstraints(schema *base.Schema, constraints *validate.FieldConstraints) {
+func updateSchemaWithFieldConstraints(schema *base.Schema, constraints *validate.FieldConstraints, onlyScalar bool) {
 	if constraints == nil {
 		return
 	}
@@ -91,16 +92,21 @@ func updateSchemaWithFieldConstraints(schema *base.Schema, constraints *validate
 		updateSchemaBytes(schema, t.Bytes)
 	case *validate.FieldConstraints_Enum:
 		updateSchemaEnum(schema, t.Enum)
-	case *validate.FieldConstraints_Repeated:
-		updateSchemaRepeated(schema, t.Repeated)
-	case *validate.FieldConstraints_Map:
-		updateSchemaMap(schema, t.Map)
 	case *validate.FieldConstraints_Any:
 		updateSchemaAny(schema, t.Any)
 	case *validate.FieldConstraints_Duration:
 		updateSchemaDuration(schema, t.Duration)
 	case *validate.FieldConstraints_Timestamp:
 		updateSchemaTimestamp(schema, t.Timestamp)
+	}
+
+	if !onlyScalar {
+		switch t := constraints.Type.(type) {
+		case *validate.FieldConstraints_Repeated:
+			updateSchemaRepeated(schema, t.Repeated)
+		case *validate.FieldConstraints_Map:
+			updateSchemaMap(schema, t.Map)
+		}
 	}
 }
 
@@ -724,22 +730,23 @@ func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 
 func updateSchemaRepeated(schema *base.Schema, constraint *validate.RepeatedRules) {
 	if constraint.Unique != nil {
-		schema.ParentProxy.Schema().UniqueItems = constraint.Unique
+		schema.UniqueItems = constraint.Unique
 	}
 	if constraint.MaxItems != nil {
 		v := int64(*constraint.MaxItems)
-		schema.ParentProxy.Schema().MaxItems = &v
+		schema.MaxItems = &v
 	}
 	if constraint.MinItems != nil {
 		v := int64(*constraint.MinItems)
-		schema.ParentProxy.Schema().MinItems = &v
+		schema.MinItems = &v
 	}
 	if constraint.MaxItems != nil {
 		v := int64(*constraint.MaxItems)
-		schema.ParentProxy.Schema().MaxItems = &v
+		schema.MaxItems = &v
 	}
-	if constraint.Items != nil {
-		updateSchemaWithFieldConstraints(schema, constraint.Items)
+	slog.Info(schema.Description, "A", schema.Items)
+	if constraint.Items != nil && schema.Items != nil && schema.Items.A != nil {
+		updateSchemaWithFieldConstraints(schema.Items.A.Schema(), constraint.Items, false)
 	}
 }
 
@@ -752,9 +759,10 @@ func updateSchemaMap(schema *base.Schema, constraint *validate.MapRules) {
 		v := int64(*constraint.MaxPairs)
 		schema.MaxProperties = &v
 	}
-	updateSchemaWithFieldConstraints(schema.ParentProxy.Schema(), constraint.Keys)
-	if constraint.Values != nil {
-		updateSchemaWithFieldConstraints(schema, constraint.Values)
+	// NOTE: Most of these properties don't make sense for object keys
+	// updateSchemaWithFieldConstraints(schema, constraint.Keys)
+	if schema.AdditionalProperties != nil && constraint.Values != nil {
+		updateSchemaWithFieldConstraints(schema.AdditionalProperties.A.Schema(), constraint.Values, false)
 	}
 }
 

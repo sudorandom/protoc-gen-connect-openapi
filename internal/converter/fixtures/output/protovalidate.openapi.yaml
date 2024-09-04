@@ -1309,16 +1309,19 @@ components:
           items:
             type: string
             title: repeated_min_items
+          minItems: 2
         repeatedMaxItems:
           type: array
           items:
             type: string
             title: repeated_max_items
+          maxItems: 3
         repeatedUnique:
           type: array
           items:
             type: string
             title: repeated_unique
+          uniqueItems: true
         repeatedItems:
           type: array
           items:
@@ -1349,11 +1352,11 @@ components:
         mapValues:
           type: object
           title: map_values
-          maxLength: 20
-          minLength: 5
           additionalProperties:
             type: string
             title: value
+            maxLength: 20
+            minLength: 5
         anyIn:
           $ref: '#/components/schemas/google.protobuf.Any'
         anyNotIn:
@@ -1395,11 +1398,6 @@ components:
         timestampGtNow:
           $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: LotsOfValidationRules
-      maxLength: 10
-      minLength: 3
-      maxItems: 3
-      minItems: 2
-      uniqueItems: true
       required:
         - requiredField
       additionalProperties: false
