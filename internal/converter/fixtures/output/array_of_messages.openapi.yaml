@@ -14,6 +14,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/messages.Thing'
+          title: things
       title: ArrayOfMessages
       additionalProperties: false
     messages.Thing:

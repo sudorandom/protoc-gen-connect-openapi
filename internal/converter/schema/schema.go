@@ -93,6 +93,7 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 			itemSchema = base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt, true))
 		}
 		s := &base.Schema{
+			Title:       string(tt.Name()),
 			ParentProxy: parent,
 			Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 			Type:        []string{"array"},

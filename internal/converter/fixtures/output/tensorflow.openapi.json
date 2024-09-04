@@ -950,6 +950,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.AllocationRecord"
             },
+            "title": "allocation_records",
             "description": "The allocation and deallocation timeline."
           },
           "allocatorBytesInUse": {
@@ -1253,6 +1254,7 @@
               "type": "string",
               "format": "byte"
             },
+            "title": "s",
             "description": "\"list(string)\""
           },
           "i": {
@@ -1267,6 +1269,7 @@
                 }
               ]
             },
+            "title": "i",
             "description": "\"list(int)\""
           },
           "f": {
@@ -1274,6 +1277,7 @@
             "items": {
               "type": "number"
             },
+            "title": "f",
             "description": "\"list(float)\""
           },
           "b": {
@@ -1281,6 +1285,7 @@
             "items": {
               "type": "boolean"
             },
+            "title": "b",
             "description": "\"list(bool)\""
           },
           "type": {
@@ -1288,6 +1293,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.DataType"
             },
+            "title": "type",
             "description": "\"list(type)\""
           },
           "shape": {
@@ -1295,6 +1301,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
             },
+            "title": "shape",
             "description": "\"list(shape)\""
           },
           "tensor": {
@@ -1302,6 +1309,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorProto"
             },
+            "title": "tensor",
             "description": "\"list(tensor)\""
           },
           "func": {
@@ -1309,6 +1317,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.NameAttrList"
             },
+            "title": "func",
             "description": "\"list(attr)\""
           }
         },
@@ -1339,6 +1348,7 @@
             "items": {
               "type": "string"
             },
+            "title": "feed",
             "description": "Tensors to be fed in the callable. Each feed is the name of a tensor."
           },
           "fetch": {
@@ -1346,6 +1356,7 @@
             "items": {
               "type": "string"
             },
+            "title": "fetch",
             "description": "Fetches. A list of tensor names. The caller of the callable expects a\n tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The\n order of specified fetches does not change the execution order."
           },
           "target": {
@@ -1353,6 +1364,7 @@
             "items": {
               "type": "string"
             },
+            "title": "target",
             "description": "Target Nodes. A list of node names. The named nodes will be run by the\n callable but their outputs will not be returned."
           },
           "runOptions": {
@@ -1363,6 +1375,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorConnection"
             },
+            "title": "tensor_connection",
             "description": "Tensors to be connected in the callable. Each TensorConnection denotes\n a pair of tensors in the graph, between which an edge will be created\n in the callable."
           },
           "feedDevices": {
@@ -1447,6 +1460,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.JobDef"
             },
+            "title": "job",
             "description": "The jobs that comprise the cluster."
           }
         },
@@ -1486,6 +1500,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.ThreadPoolOptionProto"
             },
+            "title": "session_inter_op_thread_pool",
             "description": "This option is experimental - it may be replaced with a different mechanism\n in the future.\n\n Configures session thread pools. If this is configured, then RunOptions for\n a Run call can select the thread pool to use.\n\n The intended use is for when some session invocations need to run in a\n background pool limited to a small number of threads:\n - For example, a session may be configured to have one large pool (for\n regular compute) and one small pool (for periodic, low priority work);\n using the small pool is currently the mechanism for limiting the inter-op\n parallelism of the low priority work.  Note that it does not limit the\n parallelism of work spawned by a single op kernel implementation.\n - Using this setting is normally not needed in training, but may help some\n serving use cases.\n - It is also generally recommended to set the global_name field of this\n proto, to avoid creating multiple large pools. It is typically better to\n run the non-low-priority work, even across sessions, in a single large\n pool."
           },
           "placementPeriod": {
@@ -1498,6 +1513,7 @@
             "items": {
               "type": "string"
             },
+            "title": "device_filters",
             "description": "When any filters are present sessions will ignore all devices which do not\n match the filters. Each filter can be partially specified, e.g. \"/job:ps\"\n \"/job:worker/replica:3\", etc."
           },
           "gpuOptions": {
@@ -1743,7 +1759,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.CoordinatedJob"
-            }
+            },
+            "title": "coordinated_job_list"
           },
           "shutdownBarrierTimeoutInMs": {
             "oneOf": [
@@ -1767,6 +1784,7 @@
             "items": {
               "type": "string"
             },
+            "title": "recoverable_jobs",
             "description": "The list of jobs which are recoverable. If a task in this list fails,\n it will not propagate error to other tasks.\n If empty, no jobs will be recoverable and every task failure will cause\n error propagation to other tasks."
           },
           "allowNewIncarnationToReconnect": {
@@ -1786,13 +1804,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.CostGraphDef.Node"
-            }
+            },
+            "title": "node"
           },
           "cost": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.CostGraphDef.AggregatedCost"
-            }
+            },
+            "title": "cost"
           }
         },
         "title": "CostGraphDef",
@@ -1838,13 +1858,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.CostGraphDef.Node.InputInfo"
-            }
+            },
+            "title": "input_info"
           },
           "outputInfo": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.CostGraphDef.Node.OutputInfo"
-            }
+            },
+            "title": "output_info"
           },
           "temporaryMemorySize": {
             "oneOf": [
@@ -1949,6 +1971,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "control_input",
             "description": "Ids of the control inputs for this node."
           },
           "inaccurate": {
@@ -2063,6 +2086,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.DebugTensorWatch"
             },
+            "title": "debug_tensor_watch_opts",
             "description": "Debugging options"
           },
           "globalStep": {
@@ -2105,6 +2129,7 @@
             "items": {
               "type": "string"
             },
+            "title": "debug_ops",
             "description": "Name(s) of the debugging op(s).\n One or more than one probes on a tensor.\n e.g., {\"DebugIdentity\", \"DebugNanCount\"}"
           },
           "debugUrls": {
@@ -2112,6 +2137,7 @@
             "items": {
               "type": "string"
             },
+            "title": "debug_urls",
             "description": "URL(s) for debug targets(s).\n\n Supported URL formats are:\n   - file:///foo/tfdbg_dump: Writes out Event content to file\n     /foo/tfdbg_dump.  Assumes all directories can be created if they don't\n     already exist.\n   - grpc://localhost:11011: Sends an RPC request to an EventListener\n     service running at localhost:11011 with the event.\n   - memcbk:///event_key: Routes tensors to clients using the\n     callback registered with the DebugCallbackRegistry for event_key.\n\n Each debug op listed in debug_ops will publish its output tensor (debug\n signal) to all URLs in debug_urls.\n\n N.B. Session::Run() supports concurrent invocations of the same inputs\n (feed keys), outputs and target nodes. If such concurrent invocations\n are to be debugged, the callers of Session::Run() must use distinct\n debug_urls to make sure that the streamed or dumped events do not overlap\n among the invocations.\n TODO(cais): More visible documentation of this in g3docs."
           },
           "tolerateDebugOpCreationFailures": {
@@ -2216,7 +2242,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.NodeExecStats"
-            }
+            },
+            "title": "node_stats"
           },
           "threadNames": {
             "type": "object",
@@ -2363,7 +2390,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.FullTypeDef"
-            }
+            },
+            "title": "args"
           },
           "s": {
             "type": "string",
@@ -2421,6 +2449,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.NodeDef"
             },
+            "title": "node_def",
             "description": "By convention, \"op\" in node_def is resolved by consulting with a\n user-defined library first. If not resolved, \"func\" is assumed to\n be a builtin op."
           },
           "ret": {
@@ -2555,19 +2584,22 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.FunctionDef"
-            }
+            },
+            "title": "function"
           },
           "gradient": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.GradientDef"
-            }
+            },
+            "title": "gradient"
           },
           "registeredGradients": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.RegisteredGradient"
-            }
+            },
+            "title": "registered_gradients"
           }
         },
         "title": "FunctionDefLibrary",
@@ -2646,6 +2678,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.GPUOptions.Experimental.VirtualDevices"
             },
+            "title": "virtual_devices",
             "description": "The multi virtual device settings. If empty (not set), it will create\n single virtual device on each visible GPU, according to the settings\n in \"visible_device_list\" above. Otherwise, the number of elements in the\n list must be the same as the number of visible GPUs (after\n \"visible_device_list\" filtering if it is set), and the string represented\n device names (e.g. /device:GPU:\u003cid\u003e) will refer to the virtual\n devices and have the \u003cid\u003e field assigned sequentially starting from 0,\n according to the order of the virtual devices determined by\n device_ordinal and the location in the virtual device list.\n\n For example,\n   visible_device_list = \"1,0\"\n   virtual_devices { memory_limit: 1GB memory_limit: 2GB }\n   virtual_devices { memory_limit: 3GB memory_limit: 4GB }\n will create 4 virtual devices as:\n   /device:GPU:0 -\u003e visible GPU 1 with 1GB memory\n   /device:GPU:1 -\u003e visible GPU 1 with 2GB memory\n   /device:GPU:2 -\u003e visible GPU 0 with 3GB memory\n   /device:GPU:3 -\u003e visible GPU 0 with 4GB memory\n\n but\n   visible_device_list = \"1,0\"\n   virtual_devices { memory_limit: 1GB memory_limit: 2GB\n                     device_ordinal: 10 device_ordinal: 20}\n   virtual_devices { memory_limit: 3GB memory_limit: 4GB\n                     device_ordinal: 10 device_ordinal: 20}\n will create 4 virtual devices as:\n   /device:GPU:0 -\u003e visible GPU 1 with 1GB memory  (ordinal 10)\n   /device:GPU:1 -\u003e visible GPU 0 with 3GB memory  (ordinal 10)\n   /device:GPU:2 -\u003e visible GPU 1 with 2GB memory  (ordinal 20)\n   /device:GPU:3 -\u003e visible GPU 0 with 4GB memory  (ordinal 20)\n\n NOTE:\n 1. It's invalid to set both this and \"per_process_gpu_memory_fraction\"\n    at the same time.\n 2. Currently this setting is per-process, not per-session. Using\n    different settings in different sessions within same process will\n    result in undefined behavior."
           },
           "useUnifiedMemory": {
@@ -2727,6 +2760,7 @@
             "items": {
               "type": "number"
             },
+            "title": "memory_limit_mb",
             "description": "Per \"virtual\" device memory limit, in MB. The number of elements in\n the list is the number of virtual devices to create on the\n corresponding visible GPU (see \"virtual_devices\" below).\n If empty, it will create single virtual device taking all available\n memory from the device.\n\n For the concept of \"visible\" and \"virtual\" GPU, see the comments for\n \"visible_device_list\" above for more information."
           },
           "priority": {
@@ -2734,6 +2768,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "priority",
             "description": "Priority values to use with the virtual devices. Use the cuda function\n cudaDeviceGetStreamPriorityRange to query for valid range of values for\n priority.\n\n On a P4000 GPU with cuda 10.1, the priority range reported was 0 for\n least priority and -1 for greatest priority.\n\n If this field is not specified, then the virtual devices will be\n created with the default. If this field has values set, then the size\n of this must match with the above memory_limit_mb."
           },
           "deviceOrdinal": {
@@ -2741,6 +2776,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "device_ordinal",
             "description": "Virtual Device ordinal number determines the device ID of the device.\n A Virtual device with a lower ordinal number always receives the a\n smaller device id. The phyiscal device id and location in the\n virtual device list is used to break ties."
           }
         },
@@ -2774,6 +2810,7 @@
             "items": {
               "type": "string"
             },
+            "title": "files",
             "description": "This stores all the source code file names and can be indexed by the\n `file_index`."
           },
           "framesById": {
@@ -2903,6 +2940,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
             },
+            "title": "file_line_cols",
             "description": "Deprecated."
           },
           "frameId": {
@@ -2916,7 +2954,8 @@
                   "type": "number"
                 }
               ]
-            }
+            },
+            "title": "frame_id"
           }
         },
         "title": "StackTrace",
@@ -2965,7 +3004,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.NodeDef"
-            }
+            },
+            "title": "node"
           },
           "versions": {
             "$ref": "#/components/schemas/tensorflow.VersionDef"
@@ -3123,13 +3163,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.DeviceAttributes"
-            }
+            },
+            "title": "local_device"
           },
           "remoteDevice": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.DeviceAttributes"
-            }
+            },
+            "title": "remote_device"
           }
         },
         "title": "ListDevicesResponse",
@@ -3142,7 +3184,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.InterconnectLink"
-            }
+            },
+            "title": "link"
           }
         },
         "title": "LocalLinks",
@@ -3230,7 +3273,8 @@
                   "type": "number"
                 }
               ]
-            }
+            },
+            "title": "persistent_tensor_alloc_ids"
           },
           "deviceTempMemorySize": {
             "oneOf": [
@@ -3265,7 +3309,8 @@
                   "type": "number"
                 }
               ]
-            }
+            },
+            "title": "device_persistent_tensor_alloc_ids"
           }
         },
         "title": "MemoryStats",
@@ -3339,6 +3384,7 @@
             "items": {
               "type": "string"
             },
+            "title": "input",
             "description": "Each input is \"node:src_output\" with \"node\" being a string name and\n \"src_output\" indicating which output tensor to use from \"node\". If\n \"src_output\" is 0 the \":0\" suffix can be omitted.  Regular inputs\n may optionally be followed by control inputs that have the format\n \"^node\"."
           },
           "device": {
@@ -3386,6 +3432,7 @@
             "items": {
               "type": "string"
             },
+            "title": "original_node_names",
             "description": "Opaque string inserted into error messages created by the runtime.\n\n This is intended to store the list of names of the nodes from the\n original graph that this node was derived. For example if this node, say\n C, was result of a fusion of 2 nodes A and B, then 'original_node' would\n be {A, B}. This information can be used to map errors originating at the\n current node to some top level source code."
           },
           "originalFuncNames": {
@@ -3393,6 +3440,7 @@
             "items": {
               "type": "string"
             },
+            "title": "original_func_names",
             "description": "This is intended to store the list of names of the functions from the\n original graph that this node was derived. For example if this node, say\n C, was result of a fusion of node A in function FA and node B in function\n FB, then `original_funcs` would be {FA, FB}. If the node is in the top\n level graph, the `original_func` is empty. This information, with the\n `original_node_names` can be used to map errors originating at the\n current ndoe to some top level source code."
           }
         },
@@ -3455,13 +3503,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.AllocatorMemoryUsed"
-            }
+            },
+            "title": "memory"
           },
           "output": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.NodeOutput"
-            }
+            },
+            "title": "output"
           },
           "timelineLabel": {
             "type": "string",
@@ -3486,7 +3536,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.AllocationDescription"
-            }
+            },
+            "title": "referenced_tensor"
           },
           "memoryStats": {
             "$ref": "#/components/schemas/tensorflow.MemoryStats"
@@ -3579,6 +3630,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.OpDef.ArgDef"
             },
+            "title": "input_arg",
             "description": "Description of the input(s)."
           },
           "outputArg": {
@@ -3586,6 +3638,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.OpDef.ArgDef"
             },
+            "title": "output_arg",
             "description": "Description of the output(s)."
           },
           "controlOutput": {
@@ -3593,13 +3646,15 @@
             "items": {
               "type": "string"
             },
+            "title": "control_output",
             "description": "Named control outputs for this operation. Useful only for composite\n operations (i.e. functions) which want to name different control outputs."
           },
           "attr": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.OpDef.AttrDef"
-            }
+            },
+            "title": "attr"
           },
           "deprecation": {
             "$ref": "#/components/schemas/tensorflow.OpDeprecation"
@@ -3680,6 +3735,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape"
             },
+            "title": "handle_data",
             "description": "The handle data for resource inputs."
           },
           "isRef": {
@@ -3817,6 +3873,7 @@
             "items": {
               "type": "string"
             },
+            "title": "feed",
             "description": "Tensors to be fed in future steps."
           },
           "fetch": {
@@ -3824,6 +3881,7 @@
             "items": {
               "type": "string"
             },
+            "title": "fetch",
             "description": "Fetches. A list of tensor names. The caller expects a tensor to be returned\n for each fetch[i] (see RunStepResponse.tensor), for corresponding partial\n RunStepRequests. The order of specified fetches does not change the\n execution order."
           },
           "target": {
@@ -3831,6 +3889,7 @@
             "items": {
               "type": "string"
             },
+            "title": "target",
             "description": "Target Nodes. A list of node names. The named nodes will be run in future\n steps, but their outputs will not be fetched."
           },
           "requestId": {
@@ -3954,6 +4013,7 @@
             "items": {
               "type": "string"
             },
+            "title": "container",
             "description": "A list of container names, which may be empty.\n\n If 'container' is not empty, releases resources in the given\n containers in all devices.\n\n If 'container' is empty, releases resources in the default\n container in all devices."
           },
           "deviceFilters": {
@@ -3961,6 +4021,7 @@
             "items": {
               "type": "string"
             },
+            "title": "device_filters",
             "description": "When any filters are present, only devices that match the filters\n will be reset. Each filter can be partially specified,\n e.g. \"/job:ps\" \"/job:worker/replica:3\", etc."
           }
         },
@@ -4013,6 +4074,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape"
             },
+            "title": "dtypes_and_shapes",
             "description": "Data types and shapes for the underlying resource."
           }
         },
@@ -4166,6 +4228,7 @@
             "items": {
               "type": "string"
             },
+            "title": "optimizers",
             "description": "If non-empty, will use this as an alternative way to specify a list of\n optimizations to turn on and the order of the optimizations (replacing the\n meta-optimizer).\n\n Of the RewriterConfig options, only the AutoParallel configuration options\n (the auto_parallel field) apply to manually requested optimization passes\n (\"autoparallel\"). Memory optimization passes (\"memory\") invoked here are\n not configurable (in contrast to memory optimization passes through the\n meta-optimizer) and act only on manual op annotations.\n\n Custom optimizers (see custom_optimizers) that are not part of this\n schedule will be run after - in the order that they were specified."
           },
           "customOptimizers": {
@@ -4173,6 +4236,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.RewriterConfig.CustomGraphOptimizer"
             },
+            "title": "custom_optimizers",
             "description": "list of CustomGraphOptimizers to apply."
           },
           "interOptimizerVerifierConfig": {
@@ -4244,6 +4308,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorProto"
             },
+            "title": "feed",
             "description": "Values of the tensors passed as arguments to the callable, in the order\n defined in the CallableOptions.feed field passed to MakeCallable."
           },
           "requestId": {
@@ -4270,6 +4335,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorProto"
             },
+            "title": "fetch",
             "description": "Values of the tensors returned by the callable, in the order defined in the\n CallableOptions.fetch field passed to MakeCallable."
           },
           "metadata": {
@@ -4293,6 +4359,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.GraphDef"
             },
+            "title": "partition_graphs",
             "description": "Graphs of the partitions executed by executors."
           },
           "functionGraphs": {
@@ -4300,6 +4367,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.RunMetadata.FunctionGraphs"
             },
+            "title": "function_graphs",
             "description": "This is only populated for graphs that are run as functions in TensorFlow\n V2. There will be an entry below for each function that is traced.\n The main use cases of the post_optimization_graph and the partition_graphs\n is to give the caller insight into the graphs that were actually run by the\n runtime. Additional information (such as those in step_stats) will match\n these graphs.\n We also include the pre_optimization_graph since it is usually easier to\n read, and is helpful in situations where the caller wants to get a high\n level idea of what the built graph looks like (since the various graph\n optimization passes might change the structure of the graph significantly)."
           },
           "sessionMetadata": {
@@ -4318,6 +4386,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.GraphDef"
             },
+            "title": "partition_graphs",
             "description": "TODO(nareshmodi): Include some sort of function/cache-key identifier?"
           },
           "preOptimizationGraph": {
@@ -4435,6 +4504,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.NamedTensorProto"
             },
+            "title": "feed",
             "description": "Tensors to be fed in the step. Each feed is a named tensor."
           },
           "fetch": {
@@ -4442,6 +4512,7 @@
             "items": {
               "type": "string"
             },
+            "title": "fetch",
             "description": "Fetches. A list of tensor names. The caller expects a tensor to\n be returned for each fetch[i] (see RunStepResponse.tensor). The\n order of specified fetches does not change the execution order."
           },
           "target": {
@@ -4449,6 +4520,7 @@
             "items": {
               "type": "string"
             },
+            "title": "target",
             "description": "Target Nodes. A list of node names. The named nodes will be run\n to but their outputs will not be fetched."
           },
           "options": {
@@ -4488,6 +4560,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.NamedTensorProto"
             },
+            "title": "tensor",
             "description": "NOTE: The order of the returned tensors may or may not match\n the fetch order specified in RunStepRequest."
           },
           "metadata": {
@@ -4512,6 +4585,7 @@
             "items": {
               "type": "string"
             },
+            "title": "enable_op",
             "description": "If present, only perform optimization for these ops."
           }
         },
@@ -4549,7 +4623,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/tensorflow.DeviceStepStats"
-            }
+            },
+            "title": "dev_stats"
           }
         },
         "title": "StepStats",
@@ -4614,6 +4689,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "half_val",
             "description": "DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll\n have some pointless zero padding for each value here."
           },
           "floatVal": {
@@ -4621,6 +4697,7 @@
             "items": {
               "type": "number"
             },
+            "title": "float_val",
             "description": "DT_FLOAT."
           },
           "doubleVal": {
@@ -4635,6 +4712,7 @@
                 }
               ]
             },
+            "title": "double_val",
             "description": "DT_DOUBLE."
           },
           "intVal": {
@@ -4642,6 +4720,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "int_val",
             "description": "DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8."
           },
           "stringVal": {
@@ -4650,6 +4729,7 @@
               "type": "string",
               "format": "byte"
             },
+            "title": "string_val",
             "description": "DT_STRING"
           },
           "scomplexVal": {
@@ -4657,6 +4737,7 @@
             "items": {
               "type": "number"
             },
+            "title": "scomplex_val",
             "description": "DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real\n and imaginary parts of i-th single precision complex."
           },
           "int64Val": {
@@ -4671,6 +4752,7 @@
                 }
               ]
             },
+            "title": "int64_val",
             "description": "DT_INT64"
           },
           "boolVal": {
@@ -4678,6 +4760,7 @@
             "items": {
               "type": "boolean"
             },
+            "title": "bool_val",
             "description": "DT_BOOL"
           },
           "dcomplexVal": {
@@ -4692,6 +4775,7 @@
                 }
               ]
             },
+            "title": "dcomplex_val",
             "description": "DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real\n and imaginary parts of i-th double precision complex."
           },
           "resourceHandleVal": {
@@ -4699,6 +4783,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.ResourceHandleProto"
             },
+            "title": "resource_handle_val",
             "description": "DT_RESOURCE"
           },
           "variantVal": {
@@ -4706,6 +4791,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.VariantTensorDataProto"
             },
+            "title": "variant_val",
             "description": "DT_VARIANT"
           },
           "uint32Val": {
@@ -4713,6 +4799,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "uint32_val",
             "description": "DT_UINT32"
           },
           "uint64Val": {
@@ -4727,6 +4814,7 @@
                 }
               ]
             },
+            "title": "uint64_val",
             "description": "DT_UINT64"
           },
           "float8Val": {
@@ -4748,6 +4836,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorShapeProto.Dim"
             },
+            "title": "dim",
             "description": "Dimensions of the tensor, such as {\"input\", 30}, {\"output\", 40}\n for a 30 x 40 2D tensor.  If an entry has size -1, this\n corresponds to a dimension of unknown size. The names are\n optional.\n\n The order of entries in \"dim\" matters: It indicates the layout of the\n values in the tensor in-memory representation.\n\n The first entry in \"dim\" is the outermost dimension used to layout the\n values, the last entry is the innermost dimension.  This matches the\n in-memory layout of RowMajor Eigen tensors.\n\n If \"dim.size()\" \u003e 0, \"unknown_rank\" must be false."
           },
           "unknownRank": {
@@ -4821,6 +4910,7 @@
             "items": {
               "$ref": "#/components/schemas/tensorflow.TensorProto"
             },
+            "title": "tensors",
             "description": "Tensors contained within objects being serialized."
           }
         },
@@ -4869,6 +4959,7 @@
             "items": {
               "type": "integer"
             },
+            "title": "bad_consumers",
             "description": "Specific consumer versions which are disallowed (e.g. due to bugs)."
           }
         },

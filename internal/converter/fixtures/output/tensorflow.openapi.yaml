@@ -657,6 +657,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.AllocationRecord'
+          title: allocation_records
           description: The allocation and deallocation timeline.
         allocatorBytesInUse:
           oneOf:
@@ -812,6 +813,7 @@ components:
           items:
             type: string
             format: byte
+          title: s
           description: '"list(string)"'
         i:
           type: array
@@ -819,36 +821,43 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: i
           description: '"list(int)"'
         f:
           type: array
           items:
             type: number
+          title: f
           description: '"list(float)"'
         b:
           type: array
           items:
             type: boolean
+          title: b
           description: '"list(bool)"'
         type:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DataType'
+          title: type
           description: '"list(type)"'
         shape:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          title: shape
           description: '"list(shape)"'
         tensor:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          title: tensor
           description: '"list(tensor)"'
         func:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NameAttrList'
+          title: func
           description: '"list(attr)"'
       title: ListValue
       additionalProperties: false
@@ -871,11 +880,13 @@ components:
           type: array
           items:
             type: string
+          title: feed
           description: Tensors to be fed in the callable. Each feed is the name of a tensor.
         fetch:
           type: array
           items:
             type: string
+          title: fetch
           description: |-
             Fetches. A list of tensor names. The caller of the callable expects a
              tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
@@ -884,6 +895,7 @@ components:
           type: array
           items:
             type: string
+          title: target
           description: |-
             Target Nodes. A list of node names. The named nodes will be run by the
              callable but their outputs will not be returned.
@@ -893,6 +905,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorConnection'
+          title: tensor_connection
           description: |-
             Tensors to be connected in the callable. Each TensorConnection denotes
              a pair of tensors in the graph, between which an edge will be created
@@ -1022,6 +1035,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.JobDef'
+          title: job
           description: The jobs that comprise the cluster.
       title: ClusterDef
       additionalProperties: false
@@ -1088,6 +1102,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ThreadPoolOptionProto'
+          title: session_inter_op_thread_pool
           description: |-
             This option is experimental - it may be replaced with a different mechanism
              in the future.
@@ -1119,6 +1134,7 @@ components:
           type: array
           items:
             type: string
+          title: device_filters
           description: |-
             When any filters are present sessions will ignore all devices which do not
              match the filters. Each filter can be partially specified, e.g. "/job:ps"
@@ -1415,6 +1431,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.CoordinatedJob'
+          title: coordinated_job_list
         shutdownBarrierTimeoutInMs:
           oneOf:
             - type: string
@@ -1436,6 +1453,7 @@ components:
           type: array
           items:
             type: string
+          title: recoverable_jobs
           description: |-
             The list of jobs which are recoverable. If a task in this list fails,
              it will not propagate error to other tasks.
@@ -1460,10 +1478,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.CostGraphDef.Node'
+          title: node
         cost:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.CostGraphDef.AggregatedCost'
+          title: cost
       title: CostGraphDef
       additionalProperties: false
     tensorflow.CostGraphDef.AggregatedCost:
@@ -1501,10 +1521,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.CostGraphDef.Node.InputInfo'
+          title: input_info
         outputInfo:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.CostGraphDef.Node.OutputInfo'
+          title: output_info
         temporaryMemorySize:
           oneOf:
             - type: string
@@ -1564,6 +1586,7 @@ components:
           type: array
           items:
             type: integer
+          title: control_input
           description: Ids of the control inputs for this node.
         inaccurate:
           type: boolean
@@ -1651,6 +1674,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DebugTensorWatch'
+          title: debug_tensor_watch_opts
           description: Debugging options
         globalStep:
           oneOf:
@@ -1695,6 +1719,7 @@ components:
           type: array
           items:
             type: string
+          title: debug_ops
           description: |-
             Name(s) of the debugging op(s).
              One or more than one probes on a tensor.
@@ -1703,6 +1728,7 @@ components:
           type: array
           items:
             type: string
+          title: debug_urls
           description: |-
             URL(s) for debug targets(s).
 
@@ -1802,6 +1828,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NodeExecStats'
+          title: node_stats
         threadNames:
           type: object
           title: thread_names
@@ -1890,6 +1917,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.FullTypeDef'
+          title: args
         s:
           type: string
           title: s
@@ -1942,6 +1970,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NodeDef'
+          title: node_def
           description: |-
             By convention, "op" in node_def is resolved by consulting with a
              user-defined library first. If not resolved, "func" is assumed to
@@ -2056,14 +2085,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.FunctionDef'
+          title: function
         gradient:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GradientDef'
+          title: gradient
         registeredGradients:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.RegisteredGradient'
+          title: registered_gradients
       title: FunctionDefLibrary
       additionalProperties: false
       description: A library is a set of named functions.
@@ -2181,6 +2213,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GPUOptions.Experimental.VirtualDevices'
+          title: virtual_devices
           description: |-
             The multi virtual device settings. If empty (not set), it will create
              single virtual device on each visible GPU, according to the settings
@@ -2335,6 +2368,7 @@ components:
           type: array
           items:
             type: number
+          title: memory_limit_mb
           description: |-
             Per "virtual" device memory limit, in MB. The number of elements in
              the list is the number of virtual devices to create on the
@@ -2348,6 +2382,7 @@ components:
           type: array
           items:
             type: integer
+          title: priority
           description: |-
             Priority values to use with the virtual devices. Use the cuda function
              cudaDeviceGetStreamPriorityRange to query for valid range of values for
@@ -2363,6 +2398,7 @@ components:
           type: array
           items:
             type: integer
+          title: device_ordinal
           description: |-
             Virtual Device ordinal number determines the device ID of the device.
              A Virtual device with a lower ordinal number always receives the a
@@ -2412,6 +2448,7 @@ components:
           type: array
           items:
             type: string
+          title: files
           description: |-
             This stores all the source code file names and can be indexed by the
              `file_index`.
@@ -2517,6 +2554,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
+          title: file_line_cols
           description: Deprecated.
         frameId:
           type: array
@@ -2524,6 +2562,7 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: frame_id
       title: StackTrace
       additionalProperties: false
       description: This represents a stack trace which is a ordered list of `FileLineCol`.
@@ -2556,6 +2595,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NodeDef'
+          title: node
         versions:
           $ref: '#/components/schemas/tensorflow.VersionDef'
         version:
@@ -2705,10 +2745,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DeviceAttributes'
+          title: local_device
         remoteDevice:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DeviceAttributes'
+          title: remote_device
       title: ListDevicesResponse
       additionalProperties: false
     tensorflow.LocalLinks:
@@ -2718,6 +2760,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.InterconnectLink'
+          title: link
       title: LocalLinks
       additionalProperties: false
     tensorflow.MakeCallableRequest:
@@ -2772,6 +2815,7 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: persistent_tensor_alloc_ids
         deviceTempMemorySize:
           oneOf:
             - type: string
@@ -2788,6 +2832,7 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: device_persistent_tensor_alloc_ids
       title: MemoryStats
       additionalProperties: false
       description: For memory tracking.
@@ -2849,6 +2894,7 @@ components:
           type: array
           items:
             type: string
+          title: input
           description: |-
             Each input is "node:src_output" with "node" being a string name and
              "src_output" indicating which output tensor to use from "node". If
@@ -2920,6 +2966,7 @@ components:
           type: array
           items:
             type: string
+          title: original_node_names
           description: |-
             Opaque string inserted into error messages created by the runtime.
 
@@ -2932,6 +2979,7 @@ components:
           type: array
           items:
             type: string
+          title: original_func_names
           description: |-
             This is intended to store the list of names of the functions from the
              original graph that this node was derived. For example if this node, say
@@ -2977,10 +3025,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.AllocatorMemoryUsed'
+          title: memory
         output:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NodeOutput'
+          title: output
         timelineLabel:
           type: string
           title: timeline_label
@@ -2996,6 +3046,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.AllocationDescription'
+          title: referenced_tensor
         memoryStats:
           $ref: '#/components/schemas/tensorflow.MemoryStats'
         allStartNanos:
@@ -3050,16 +3101,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
+          title: input_arg
           description: Description of the input(s).
         outputArg:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
+          title: output_arg
           description: Description of the output(s).
         controlOutput:
           type: array
           items:
             type: string
+          title: control_output
           description: |-
             Named control outputs for this operation. Useful only for composite
              operations (i.e. functions) which want to name different control outputs.
@@ -3067,6 +3121,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.OpDef.AttrDef'
+          title: attr
         deprecation:
           $ref: '#/components/schemas/tensorflow.OpDeprecation'
         summary:
@@ -3160,6 +3215,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
+          title: handle_data
           description: The handle data for resource inputs.
         isRef:
           type: boolean
@@ -3288,11 +3344,13 @@ components:
           type: array
           items:
             type: string
+          title: feed
           description: Tensors to be fed in future steps.
         fetch:
           type: array
           items:
             type: string
+          title: fetch
           description: |-
             Fetches. A list of tensor names. The caller expects a tensor to be returned
              for each fetch[i] (see RunStepResponse.tensor), for corresponding partial
@@ -3302,6 +3360,7 @@ components:
           type: array
           items:
             type: string
+          title: target
           description: |-
             Target Nodes. A list of node names. The named nodes will be run in future
              steps, but their outputs will not be fetched.
@@ -3425,6 +3484,7 @@ components:
           type: array
           items:
             type: string
+          title: container
           description: |-
             A list of container names, which may be empty.
 
@@ -3437,6 +3497,7 @@ components:
           type: array
           items:
             type: string
+          title: device_filters
           description: |-
             When any filters are present, only devices that match the filters
              will be reset. Each filter can be partially specified,
@@ -3495,6 +3556,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
+          title: dtypes_and_shapes
           description: Data types and shapes for the underlying resource.
       title: ResourceHandleProto
       additionalProperties: false
@@ -3631,6 +3693,7 @@ components:
           type: array
           items:
             type: string
+          title: optimizers
           description: |-
             If non-empty, will use this as an alternative way to specify a list of
              optimizations to turn on and the order of the optimizations (replacing the
@@ -3648,6 +3711,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.RewriterConfig.CustomGraphOptimizer'
+          title: custom_optimizers
           description: list of CustomGraphOptimizers to apply.
         interOptimizerVerifierConfig:
           $ref: '#/components/schemas/tensorflow.VerifierConfig'
@@ -3703,6 +3767,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          title: feed
           description: |-
             Values of the tensors passed as arguments to the callable, in the order
              defined in the CallableOptions.feed field passed to MakeCallable.
@@ -3724,6 +3789,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          title: fetch
           description: |-
             Values of the tensors returned by the callable, in the order defined in the
              CallableOptions.fetch field passed to MakeCallable.
@@ -3742,11 +3808,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GraphDef'
+          title: partition_graphs
           description: Graphs of the partitions executed by executors.
         functionGraphs:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.RunMetadata.FunctionGraphs'
+          title: function_graphs
           description: |-
             This is only populated for graphs that are run as functions in TensorFlow
              V2. There will be an entry below for each function that is traced.
@@ -3770,6 +3838,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GraphDef'
+          title: partition_graphs
           description: 'TODO(nareshmodi): Include some sort of function/cache-key identifier?'
         preOptimizationGraph:
           $ref: '#/components/schemas/tensorflow.GraphDef'
@@ -3876,11 +3945,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NamedTensorProto'
+          title: feed
           description: Tensors to be fed in the step. Each feed is a named tensor.
         fetch:
           type: array
           items:
             type: string
+          title: fetch
           description: |-
             Fetches. A list of tensor names. The caller expects a tensor to
              be returned for each fetch[i] (see RunStepResponse.tensor). The
@@ -3889,6 +3960,7 @@ components:
           type: array
           items:
             type: string
+          title: target
           description: |-
             Target Nodes. A list of node names. The named nodes will be run
              to but their outputs will not be fetched.
@@ -3927,6 +3999,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NamedTensorProto'
+          title: tensor
           description: |-
             NOTE: The order of the returned tensors may or may not match
              the fetch order specified in RunStepRequest.
@@ -3946,6 +4019,7 @@ components:
           type: array
           items:
             type: string
+          title: enable_op
           description: If present, only perform optimization for these ops.
       title: ScopedAllocatorOptions
       additionalProperties: false
@@ -3979,6 +4053,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DeviceStepStats'
+          title: dev_stats
       title: StepStats
       additionalProperties: false
     tensorflow.TensorConnection:
@@ -4040,6 +4115,7 @@ components:
           type: array
           items:
             type: integer
+          title: half_val
           description: |-
             DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll
              have some pointless zero padding for each value here.
@@ -4047,6 +4123,7 @@ components:
           type: array
           items:
             type: number
+          title: float_val
           description: DT_FLOAT.
         doubleVal:
           type: array
@@ -4054,22 +4131,26 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: double_val
           description: DT_DOUBLE.
         intVal:
           type: array
           items:
             type: integer
+          title: int_val
           description: DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8.
         stringVal:
           type: array
           items:
             type: string
             format: byte
+          title: string_val
           description: DT_STRING
         scomplexVal:
           type: array
           items:
             type: number
+          title: scomplex_val
           description: |-
             DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
              and imaginary parts of i-th single precision complex.
@@ -4079,11 +4160,13 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: int64_val
           description: DT_INT64
         boolVal:
           type: array
           items:
             type: boolean
+          title: bool_val
           description: DT_BOOL
         dcomplexVal:
           type: array
@@ -4091,6 +4174,7 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: dcomplex_val
           description: |-
             DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
              and imaginary parts of i-th double precision complex.
@@ -4098,16 +4182,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ResourceHandleProto'
+          title: resource_handle_val
           description: DT_RESOURCE
         variantVal:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.VariantTensorDataProto'
+          title: variant_val
           description: DT_VARIANT
         uint32Val:
           type: array
           items:
             type: integer
+          title: uint32_val
           description: DT_UINT32
         uint64Val:
           type: array
@@ -4115,6 +4202,7 @@ components:
             oneOf:
               - type: string
               - type: number
+          title: uint64_val
           description: DT_UINT64
         float8Val:
           type: string
@@ -4133,6 +4221,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorShapeProto.Dim'
+          title: dim
           description: |-
             Dimensions of the tensor, such as {"input", 30}, {"output", 40}
              for a 30 x 40 2D tensor.  If an entry has size -1, this
@@ -4226,6 +4315,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          title: tensors
           description: Tensors contained within objects being serialized.
       title: VariantTensorDataProto
       additionalProperties: false
@@ -4261,6 +4351,7 @@ components:
           type: array
           items:
             type: integer
+          title: bad_consumers
           description: Specific consumer versions which are disallowed (e.g. due to bugs).
       title: VersionDef
       additionalProperties: false

@@ -264,6 +264,7 @@ components:
           type: array
           items:
             type: string
+          title: type_urls
           description: Type URLs of extension configuration protos.
       title: Extension
       additionalProperties: false
@@ -456,11 +457,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.config.core.v3.Extension'
+          title: extensions
           description: List of extensions and their versions supported by the node.
         clientFeatures:
           type: array
           items:
             type: string
+          title: client_features
           description: |-
             Client feature support list. These are well known features described
              in the Envoy API repository for a given major version of an API. Client features
@@ -471,6 +474,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.config.core.v3.Address'
+          title: listening_addresses
           description: |-
             Known listening ports on the node as a generic hint to the management server
              for filtering :ref:`listeners <config_listeners>` to be returned. For example,
@@ -600,6 +604,7 @@ components:
           type: array
           items:
             type: string
+          title: resource_names_subscribe
           description: |-
             DeltaDiscoveryRequests allow the client to add or remove individual
              resources to the set of tracked resources in the context of a stream.
@@ -626,11 +631,13 @@ components:
           type: array
           items:
             type: string
+          title: resource_names_unsubscribe
           description: A list of Resource names to remove from the list of tracked resources.
         resourceLocatorsSubscribe:
           type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
+          title: resource_locators_subscribe
           description: |-
             [#not-implemented-hide:]
              Alternative to ``resource_names_subscribe`` field that allows specifying dynamic parameters
@@ -641,6 +648,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
+          title: resource_locators_unsubscribe
           description: |-
             [#not-implemented-hide:]
              Alternative to ``resource_names_unsubscribe`` field that allows specifying dynamic parameters
@@ -730,6 +738,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.Resource'
+          title: resources
           description: |-
             The response resources. These are typed resources, whose types must match
              the type_url field.
@@ -743,6 +752,7 @@ components:
           type: array
           items:
             type: string
+          title: removed_resources
           description: |-
             Resources names of resources that have be deleted and to be removed from the xDS Client.
              Removed resources for missing resources can be ignored.
@@ -750,6 +760,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceName'
+          title: removed_resource_names
           description: |-
             Alternative to removed_resources that allows specifying which variant of
              a resource is being removed. This variant must be used for any resource
@@ -785,6 +796,7 @@ components:
           type: array
           items:
             type: string
+          title: resource_names
           description: |-
             List of resources to subscribe to, e.g. list of cluster names or a route
              configuration name. If this is empty, all resources for the API are
@@ -796,6 +808,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceLocator'
+          title: resource_locators
           description: |-
             [#not-implemented-hide:]
              Alternative to ``resource_names`` field that allows specifying dynamic
@@ -840,6 +853,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/google.protobuf.Any'
+          title: resources
           description: The response resources. These resources are typed and depend on the API being called.
         canary:
           type: boolean
@@ -948,6 +962,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
+          title: constraints
       title: ConstraintList
       additionalProperties: false
     envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint:
@@ -1008,6 +1023,7 @@ components:
           type: array
           items:
             type: string
+          title: aliases
           description: The aliases are a list of other names that this resource can go by.
         version:
           type: string
@@ -1185,6 +1201,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/google.protobuf.Value'
+          title: values
           description: Repeated field of dynamically typed values.
       title: ListValue
       additionalProperties: false
@@ -1259,6 +1276,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/google.protobuf.Any'
+          title: details
           description: |-
             A list of messages that carry the error details.  There is a common set of
              message types for APIs to use.
