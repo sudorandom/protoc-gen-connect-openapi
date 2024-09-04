@@ -126,8 +126,7 @@ components:
           type: array
           items:
             type: string
-            title: paths
-            description: The set of field mask paths.
+          description: The set of field mask paths.
       title: FieldMask
       additionalProperties: false
       description: |-
@@ -359,6 +358,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/google.protobuf.Value'
+          description: Repeated field of dynamically typed values.
       title: ListValue
       additionalProperties: false
       description: |-
@@ -797,88 +797,73 @@ components:
             oneOf:
               - type: string
               - type: number
-            title: double_list
-            description: repeated types
+          description: repeated types
         floatList:
           type: array
           items:
             type: number
-            title: float_list
         int32List:
           type: array
           items:
             type: integer
-            title: int32_list
         int64List:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: int64_list
         uint32List:
           type: array
           items:
             type: integer
-            title: uint32_list
         uint64List:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: uint64_list
         sint32List:
           type: array
           items:
             type: integer
-            title: sint32_list
         sint64List:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: sint64_list
         fixed32List:
           type: array
           items:
             type: integer
-            title: fixed32_list
         fixed64List:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: fixed64_list
         sfixed32List:
           type: array
           items:
             type: integer
-            title: sfixed32_list
         sfixed64List:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: sfixed64_list
         boolList:
           type: array
           items:
             type: boolean
-            title: bool_list
         stringList:
           type: array
           items:
             type: string
-            title: string_list
         bytesList:
           type: array
           items:
             type: string
-            title: bytes_list
             format: byte
         int32ToStringMap:
           type: object
@@ -1669,13 +1654,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+          description: complex types
         doubleList:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: double_list
         doubleValueList:
           type: array
           items:

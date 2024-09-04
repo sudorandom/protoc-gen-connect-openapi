@@ -75,10 +75,11 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 
 	if tt.IsMap() {
 		// Handle maps
-		root := ScalarFieldToSchema(parent, tt)
+		root := ScalarFieldToSchema(parent, tt, false)
 		root.Title = string(tt.Name())
 		root.Type = []string{"object"}
 		root.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
+		root.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: FieldToSchema(parent, tt.MapValue())}
 		root = protovalidate.SchemaWithFieldAnnotations(root, tt, false)
 		return base.CreateSchemaProxy(root)
 	} else if tt.IsList() {
@@ -89,10 +90,11 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 		case protoreflect.EnumKind:
 			itemSchema = ReferenceFieldToSchema(parent, tt)
 		default:
-			itemSchema = base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt))
+			itemSchema = base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt, true))
 		}
 		s := &base.Schema{
 			ParentProxy: parent,
+			Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 			Type:        []string{"array"},
 			Items:       &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
 		}
@@ -106,19 +108,17 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 			return ReferenceFieldToSchema(parent, tt)
 		}
 
-		return base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt))
+		return base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt, false))
 	}
 }
 
-func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.Schema {
+func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor, inContainer bool) *base.Schema {
 	s := &base.Schema{
 		ParentProxy: parent,
-		Title:       string(tt.Name()),
-		Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 	}
-
-	if tt.IsMap() {
-		s.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: FieldToSchema(parent, tt.MapValue())}
+	if !inContainer {
+		s.Title = string(tt.Name())
+		s.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
 	}
 
 	switch tt.Kind() {

@@ -405,10 +405,9 @@
           "typeUrls": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "type_urls",
-              "description": "Type URLs of extension configuration protos."
-            }
+              "type": "string"
+            },
+            "description": "Type URLs of extension configuration protos."
           }
         },
         "title": "Extension",
@@ -594,21 +593,22 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.config.core.v3.Extension"
-            }
+            },
+            "description": "List of extensions and their versions supported by the node."
           },
           "clientFeatures": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "client_features",
-              "description": "Client feature support list. These are well known features described\n in the Envoy API repository for a given major version of an API. Client features\n use reverse DNS naming scheme, for example ``com.acme.feature``.\n See :ref:`the list of features \u003cclient_features\u003e` that xDS client may\n support."
-            }
+              "type": "string"
+            },
+            "description": "Client feature support list. These are well known features described\n in the Envoy API repository for a given major version of an API. Client features\n use reverse DNS naming scheme, for example ``com.acme.feature``.\n See :ref:`the list of features \u003cclient_features\u003e` that xDS client may\n support."
           },
           "listeningAddresses": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.config.core.v3.Address"
-            }
+            },
+            "description": "Known listening ports on the node as a generic hint to the management server\n for filtering :ref:`listeners \u003cconfig_listeners\u003e` to be returned. For example,\n if there is a listener bound to port 80, the list can optionally contain the\n SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint."
           }
         },
         "title": "Node",
@@ -755,30 +755,30 @@
           "resourceNamesSubscribe": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "resource_names_subscribe",
-              "description": "DeltaDiscoveryRequests allow the client to add or remove individual\n resources to the set of tracked resources in the context of a stream.\n All resource names in the resource_names_subscribe list are added to the\n set of tracked resources and all resource names in the resource_names_unsubscribe\n list are removed from the set of tracked resources.\n\n *Unlike* state-of-the-world xDS, an empty resource_names_subscribe or\n resource_names_unsubscribe list simply means that no resources are to be\n added or removed to the resource list.\n *Like* state-of-the-world xDS, the server must send updates for all tracked\n resources, but can also send updates for resources the client has not subscribed to.\n\n NOTE: the server must respond with all resources listed in resource_names_subscribe,\n even if it believes the client has the most recent version of them. The reason:\n the client may have dropped them, but then regained interest before it had a chance\n to send the unsubscribe message. See DeltaSubscriptionStateTest.RemoveThenAdd.\n\n These two fields can be set in any DeltaDiscoveryRequest, including ACKs\n and initial_resource_versions.\n\n A list of Resource names to add to the list of tracked resources."
-            }
+              "type": "string"
+            },
+            "description": "DeltaDiscoveryRequests allow the client to add or remove individual\n resources to the set of tracked resources in the context of a stream.\n All resource names in the resource_names_subscribe list are added to the\n set of tracked resources and all resource names in the resource_names_unsubscribe\n list are removed from the set of tracked resources.\n\n *Unlike* state-of-the-world xDS, an empty resource_names_subscribe or\n resource_names_unsubscribe list simply means that no resources are to be\n added or removed to the resource list.\n *Like* state-of-the-world xDS, the server must send updates for all tracked\n resources, but can also send updates for resources the client has not subscribed to.\n\n NOTE: the server must respond with all resources listed in resource_names_subscribe,\n even if it believes the client has the most recent version of them. The reason:\n the client may have dropped them, but then regained interest before it had a chance\n to send the unsubscribe message. See DeltaSubscriptionStateTest.RemoveThenAdd.\n\n These two fields can be set in any DeltaDiscoveryRequest, including ACKs\n and initial_resource_versions.\n\n A list of Resource names to add to the list of tracked resources."
           },
           "resourceNamesUnsubscribe": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "resource_names_unsubscribe",
-              "description": "A list of Resource names to remove from the list of tracked resources."
-            }
+              "type": "string"
+            },
+            "description": "A list of Resource names to remove from the list of tracked resources."
           },
           "resourceLocatorsSubscribe": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceLocator"
-            }
+            },
+            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names_subscribe`` field that allows specifying dynamic parameters\n along with each resource name.\n Note that it is legal for a request to have some resources listed\n in ``resource_names_subscribe`` and others in ``resource_locators_subscribe``."
           },
           "resourceLocatorsUnsubscribe": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceLocator"
-            }
+            },
+            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names_unsubscribe`` field that allows specifying dynamic parameters\n along with each resource name.\n Note that it is legal for a request to have some resources listed\n in ``resource_names_unsubscribe`` and others in ``resource_locators_unsubscribe``."
           },
           "initialResourceVersions": {
             "type": "object",
@@ -829,7 +829,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.service.discovery.v3.Resource"
-            }
+            },
+            "description": "The response resources. These are typed resources, whose types must match\n the type_url field."
           },
           "typeUrl": {
             "type": "string",
@@ -839,16 +840,16 @@
           "removedResources": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "removed_resources",
-              "description": "Resources names of resources that have be deleted and to be removed from the xDS Client.\n Removed resources for missing resources can be ignored."
-            }
+              "type": "string"
+            },
+            "description": "Resources names of resources that have be deleted and to be removed from the xDS Client.\n Removed resources for missing resources can be ignored."
           },
           "removedResourceNames": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceName"
-            }
+            },
+            "description": "Alternative to removed_resources that allows specifying which variant of\n a resource is being removed. This variant must be used for any resource\n for which dynamic parameter constraints were sent to the client."
           },
           "nonce": {
             "type": "string",
@@ -877,16 +878,16 @@
           "resourceNames": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "resource_names",
-              "description": "List of resources to subscribe to, e.g. list of cluster names or a route\n configuration name. If this is empty, all resources for the API are\n returned. LDS/CDS may have empty resource_names, which will cause all\n resources for the Envoy instance to be returned. The LDS and CDS responses\n will then imply a number of resources that need to be fetched via EDS/RDS,\n which will be explicitly enumerated in resource_names."
-            }
+              "type": "string"
+            },
+            "description": "List of resources to subscribe to, e.g. list of cluster names or a route\n configuration name. If this is empty, all resources for the API are\n returned. LDS/CDS may have empty resource_names, which will cause all\n resources for the Envoy instance to be returned. The LDS and CDS responses\n will then imply a number of resources that need to be fetched via EDS/RDS,\n which will be explicitly enumerated in resource_names."
           },
           "resourceLocators": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceLocator"
-            }
+            },
+            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names`` field that allows specifying dynamic\n parameters along with each resource name. Clients that populate this\n field must be able to handle responses from the server where resources\n are wrapped in a Resource message.\n Note that it is legal for a request to have some resources listed\n in ``resource_names`` and others in ``resource_locators``."
           },
           "typeUrl": {
             "type": "string",
@@ -918,7 +919,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/google.protobuf.Any"
-            }
+            },
+            "description": "The response resources. These resources are typed and depend on the API being called."
           },
           "canary": {
             "type": "boolean",
@@ -1176,10 +1178,9 @@
           "aliases": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "aliases",
-              "description": "The aliases are a list of other names that this resource can go by."
-            }
+              "type": "string"
+            },
+            "description": "The aliases are a list of other names that this resource can go by."
           },
           "version": {
             "type": "string",
@@ -1320,7 +1321,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/google.protobuf.Value"
-            }
+            },
+            "description": "Repeated field of dynamically typed values."
           }
         },
         "title": "ListValue",
@@ -1398,7 +1400,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/google.protobuf.Any"
-            }
+            },
+            "description": "A list of messages that carry the error details.  There is a common set of\n message types for APIs to use."
           }
         },
         "title": "Status",

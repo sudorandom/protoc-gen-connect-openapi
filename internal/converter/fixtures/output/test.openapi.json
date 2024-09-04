@@ -73,10 +73,9 @@
           "paths": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "paths",
-              "description": "The set of field mask paths."
-            }
+              "type": "string"
+            },
+            "description": "The set of field mask paths."
           }
         },
         "title": "FieldMask",
@@ -116,7 +115,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/google.protobuf.Value"
-            }
+            },
+            "description": "Repeated field of dynamically typed values."
           }
         },
         "title": "ListValue",
@@ -858,23 +858,20 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "double_list",
-              "description": "repeated types"
-            }
+              ]
+            },
+            "description": "repeated types"
           },
           "floatList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "title": "float_list"
+              "type": "number"
             }
           },
           "int32List": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "title": "int32_list"
+              "type": "integer"
             }
           },
           "int64List": {
@@ -887,15 +884,13 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "int64_list"
+              ]
             }
           },
           "uint32List": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "title": "uint32_list"
+              "type": "integer"
             }
           },
           "uint64List": {
@@ -908,15 +903,13 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "uint64_list"
+              ]
             }
           },
           "sint32List": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "title": "sint32_list"
+              "type": "integer"
             }
           },
           "sint64List": {
@@ -929,15 +922,13 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "sint64_list"
+              ]
             }
           },
           "fixed32List": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "title": "fixed32_list"
+              "type": "integer"
             }
           },
           "fixed64List": {
@@ -950,15 +941,13 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "fixed64_list"
+              ]
             }
           },
           "sfixed32List": {
             "type": "array",
             "items": {
-              "type": "integer",
-              "title": "sfixed32_list"
+              "type": "integer"
             }
           },
           "sfixed64List": {
@@ -971,29 +960,25 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "sfixed64_list"
+              ]
             }
           },
           "boolList": {
             "type": "array",
             "items": {
-              "type": "boolean",
-              "title": "bool_list"
+              "type": "boolean"
             }
           },
           "stringList": {
             "type": "array",
             "items": {
-              "type": "string",
-              "title": "string_list"
+              "type": "string"
             }
           },
           "bytesList": {
             "type": "array",
             "items": {
               "type": "string",
-              "title": "bytes_list",
               "format": "byte"
             }
           },
@@ -2254,7 +2239,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
-            }
+            },
+            "description": "complex types"
           },
           "doubleList": {
             "type": "array",
@@ -2266,8 +2252,7 @@
                 {
                   "type": "number"
                 }
-              ],
-              "title": "double_list"
+              ]
             }
           },
           "doubleValueList": {

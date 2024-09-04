@@ -657,6 +657,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.AllocationRecord'
+          description: The allocation and deallocation timeline.
         allocatorBytesInUse:
           oneOf:
             - type: string
@@ -810,45 +811,45 @@ components:
           type: array
           items:
             type: string
-            title: s
             format: byte
-            description: '"list(string)"'
+          description: '"list(string)"'
         i:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: i
-            description: '"list(int)"'
+          description: '"list(int)"'
         f:
           type: array
           items:
             type: number
-            title: f
-            description: '"list(float)"'
+          description: '"list(float)"'
         b:
           type: array
           items:
             type: boolean
-            title: b
-            description: '"list(bool)"'
+          description: '"list(bool)"'
         type:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DataType'
+          description: '"list(type)"'
         shape:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+          description: '"list(shape)"'
         tensor:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          description: '"list(tensor)"'
         func:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NameAttrList'
+          description: '"list(attr)"'
       title: ListValue
       additionalProperties: false
       description: LINT.IfChange
@@ -870,31 +871,32 @@ components:
           type: array
           items:
             type: string
-            title: feed
-            description: Tensors to be fed in the callable. Each feed is the name of a tensor.
+          description: Tensors to be fed in the callable. Each feed is the name of a tensor.
         fetch:
           type: array
           items:
             type: string
-            title: fetch
-            description: |-
-              Fetches. A list of tensor names. The caller of the callable expects a
-               tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
-               order of specified fetches does not change the execution order.
+          description: |-
+            Fetches. A list of tensor names. The caller of the callable expects a
+             tensor to be returned for each fetch[i] (see RunStepResponse.tensor). The
+             order of specified fetches does not change the execution order.
         target:
           type: array
           items:
             type: string
-            title: target
-            description: |-
-              Target Nodes. A list of node names. The named nodes will be run by the
-               callable but their outputs will not be returned.
+          description: |-
+            Target Nodes. A list of node names. The named nodes will be run by the
+             callable but their outputs will not be returned.
         runOptions:
           $ref: '#/components/schemas/tensorflow.RunOptions'
         tensorConnection:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorConnection'
+          description: |-
+            Tensors to be connected in the callable. Each TensorConnection denotes
+             a pair of tensors in the graph, between which an edge will be created
+             in the callable.
         feedDevices:
           type: object
           title: feed_devices
@@ -1020,6 +1022,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.JobDef'
+          description: The jobs that comprise the cluster.
       title: ClusterDef
       additionalProperties: false
       description: Defines a TensorFlow cluster as a set of jobs.
@@ -1085,6 +1088,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ThreadPoolOptionProto'
+          description: |-
+            This option is experimental - it may be replaced with a different mechanism
+             in the future.
+
+             Configures session thread pools. If this is configured, then RunOptions for
+             a Run call can select the thread pool to use.
+
+             The intended use is for when some session invocations need to run in a
+             background pool limited to a small number of threads:
+             - For example, a session may be configured to have one large pool (for
+             regular compute) and one small pool (for periodic, low priority work);
+             using the small pool is currently the mechanism for limiting the inter-op
+             parallelism of the low priority work.  Note that it does not limit the
+             parallelism of work spawned by a single op kernel implementation.
+             - Using this setting is normally not needed in training, but may help some
+             serving use cases.
+             - It is also generally recommended to set the global_name field of this
+             proto, to avoid creating multiple large pools. It is typically better to
+             run the non-low-priority work, even across sessions, in a single large
+             pool.
         placementPeriod:
           type: integer
           title: placement_period
@@ -1096,11 +1119,10 @@ components:
           type: array
           items:
             type: string
-            title: device_filters
-            description: |-
-              When any filters are present sessions will ignore all devices which do not
-               match the filters. Each filter can be partially specified, e.g. "/job:ps"
-               "/job:worker/replica:3", etc.
+          description: |-
+            When any filters are present sessions will ignore all devices which do not
+             match the filters. Each filter can be partially specified, e.g. "/job:ps"
+             "/job:worker/replica:3", etc.
         gpuOptions:
           $ref: '#/components/schemas/tensorflow.GPUOptions'
         allowSoftPlacement:
@@ -1414,12 +1436,11 @@ components:
           type: array
           items:
             type: string
-            title: recoverable_jobs
-            description: |-
-              The list of jobs which are recoverable. If a task in this list fails,
-               it will not propagate error to other tasks.
-               If empty, no jobs will be recoverable and every task failure will cause
-               error propagation to other tasks.
+          description: |-
+            The list of jobs which are recoverable. If a task in this list fails,
+             it will not propagate error to other tasks.
+             If empty, no jobs will be recoverable and every task failure will cause
+             error propagation to other tasks.
         allowNewIncarnationToReconnect:
           type: boolean
           title: allow_new_incarnation_to_reconnect
@@ -1543,8 +1564,7 @@ components:
           type: array
           items:
             type: integer
-            title: control_input
-            description: Ids of the control inputs for this node.
+          description: Ids of the control inputs for this node.
         inaccurate:
           type: boolean
           title: inaccurate
@@ -1631,6 +1651,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.DebugTensorWatch'
+          description: Debugging options
         globalStep:
           oneOf:
             - type: string
@@ -1674,37 +1695,35 @@ components:
           type: array
           items:
             type: string
-            title: debug_ops
-            description: |-
-              Name(s) of the debugging op(s).
-               One or more than one probes on a tensor.
-               e.g., {"DebugIdentity", "DebugNanCount"}
+          description: |-
+            Name(s) of the debugging op(s).
+             One or more than one probes on a tensor.
+             e.g., {"DebugIdentity", "DebugNanCount"}
         debugUrls:
           type: array
           items:
             type: string
-            title: debug_urls
-            description: |-
-              URL(s) for debug targets(s).
+          description: |-
+            URL(s) for debug targets(s).
 
-               Supported URL formats are:
-                 - file:///foo/tfdbg_dump: Writes out Event content to file
-                   /foo/tfdbg_dump.  Assumes all directories can be created if they don't
-                   already exist.
-                 - grpc://localhost:11011: Sends an RPC request to an EventListener
-                   service running at localhost:11011 with the event.
-                 - memcbk:///event_key: Routes tensors to clients using the
-                   callback registered with the DebugCallbackRegistry for event_key.
+             Supported URL formats are:
+               - file:///foo/tfdbg_dump: Writes out Event content to file
+                 /foo/tfdbg_dump.  Assumes all directories can be created if they don't
+                 already exist.
+               - grpc://localhost:11011: Sends an RPC request to an EventListener
+                 service running at localhost:11011 with the event.
+               - memcbk:///event_key: Routes tensors to clients using the
+                 callback registered with the DebugCallbackRegistry for event_key.
 
-               Each debug op listed in debug_ops will publish its output tensor (debug
-               signal) to all URLs in debug_urls.
+             Each debug op listed in debug_ops will publish its output tensor (debug
+             signal) to all URLs in debug_urls.
 
-               N.B. Session::Run() supports concurrent invocations of the same inputs
-               (feed keys), outputs and target nodes. If such concurrent invocations
-               are to be debugged, the callers of Session::Run() must use distinct
-               debug_urls to make sure that the streamed or dumped events do not overlap
-               among the invocations.
-               TODO(cais): More visible documentation of this in g3docs.
+             N.B. Session::Run() supports concurrent invocations of the same inputs
+             (feed keys), outputs and target nodes. If such concurrent invocations
+             are to be debugged, the callers of Session::Run() must use distinct
+             debug_urls to make sure that the streamed or dumped events do not overlap
+             among the invocations.
+             TODO(cais): More visible documentation of this in g3docs.
         tolerateDebugOpCreationFailures:
           type: boolean
           title: tolerate_debug_op_creation_failures
@@ -1923,6 +1942,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NodeDef'
+          description: |-
+            By convention, "op" in node_def is resolved by consulting with a
+             user-defined library first. If not resolved, "func" is assumed to
+             be a builtin op.
         ret:
           type: object
           title: ret
@@ -2158,6 +2181,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GPUOptions.Experimental.VirtualDevices'
+          description: |-
+            The multi virtual device settings. If empty (not set), it will create
+             single virtual device on each visible GPU, according to the settings
+             in "visible_device_list" above. Otherwise, the number of elements in the
+             list must be the same as the number of visible GPUs (after
+             "visible_device_list" filtering if it is set), and the string represented
+             device names (e.g. /device:GPU:<id>) will refer to the virtual
+             devices and have the <id> field assigned sequentially starting from 0,
+             according to the order of the virtual devices determined by
+             device_ordinal and the location in the virtual device list.
+
+             For example,
+               visible_device_list = "1,0"
+               virtual_devices { memory_limit: 1GB memory_limit: 2GB }
+               virtual_devices { memory_limit: 3GB memory_limit: 4GB }
+             will create 4 virtual devices as:
+               /device:GPU:0 -> visible GPU 1 with 1GB memory
+               /device:GPU:1 -> visible GPU 1 with 2GB memory
+               /device:GPU:2 -> visible GPU 0 with 3GB memory
+               /device:GPU:3 -> visible GPU 0 with 4GB memory
+
+             but
+               visible_device_list = "1,0"
+               virtual_devices { memory_limit: 1GB memory_limit: 2GB
+                                 device_ordinal: 10 device_ordinal: 20}
+               virtual_devices { memory_limit: 3GB memory_limit: 4GB
+                                 device_ordinal: 10 device_ordinal: 20}
+             will create 4 virtual devices as:
+               /device:GPU:0 -> visible GPU 1 with 1GB memory  (ordinal 10)
+               /device:GPU:1 -> visible GPU 0 with 3GB memory  (ordinal 10)
+               /device:GPU:2 -> visible GPU 1 with 2GB memory  (ordinal 20)
+               /device:GPU:3 -> visible GPU 0 with 4GB memory  (ordinal 20)
+
+             NOTE:
+             1. It's invalid to set both this and "per_process_gpu_memory_fraction"
+                at the same time.
+             2. Currently this setting is per-process, not per-session. Using
+                different settings in different sessions within same process will
+                result in undefined behavior.
         useUnifiedMemory:
           type: boolean
           title: use_unified_memory
@@ -2273,42 +2335,39 @@ components:
           type: array
           items:
             type: number
-            title: memory_limit_mb
-            description: |-
-              Per "virtual" device memory limit, in MB. The number of elements in
-               the list is the number of virtual devices to create on the
-               corresponding visible GPU (see "virtual_devices" below).
-               If empty, it will create single virtual device taking all available
-               memory from the device.
+          description: |-
+            Per "virtual" device memory limit, in MB. The number of elements in
+             the list is the number of virtual devices to create on the
+             corresponding visible GPU (see "virtual_devices" below).
+             If empty, it will create single virtual device taking all available
+             memory from the device.
 
-               For the concept of "visible" and "virtual" GPU, see the comments for
-               "visible_device_list" above for more information.
+             For the concept of "visible" and "virtual" GPU, see the comments for
+             "visible_device_list" above for more information.
         priority:
           type: array
           items:
             type: integer
-            title: priority
-            description: |-
-              Priority values to use with the virtual devices. Use the cuda function
-               cudaDeviceGetStreamPriorityRange to query for valid range of values for
-               priority.
+          description: |-
+            Priority values to use with the virtual devices. Use the cuda function
+             cudaDeviceGetStreamPriorityRange to query for valid range of values for
+             priority.
 
-               On a P4000 GPU with cuda 10.1, the priority range reported was 0 for
-               least priority and -1 for greatest priority.
+             On a P4000 GPU with cuda 10.1, the priority range reported was 0 for
+             least priority and -1 for greatest priority.
 
-               If this field is not specified, then the virtual devices will be
-               created with the default. If this field has values set, then the size
-               of this must match with the above memory_limit_mb.
+             If this field is not specified, then the virtual devices will be
+             created with the default. If this field has values set, then the size
+             of this must match with the above memory_limit_mb.
         deviceOrdinal:
           type: array
           items:
             type: integer
-            title: device_ordinal
-            description: |-
-              Virtual Device ordinal number determines the device ID of the device.
-               A Virtual device with a lower ordinal number always receives the a
-               smaller device id. The phyiscal device id and location in the
-               virtual device list is used to break ties.
+          description: |-
+            Virtual Device ordinal number determines the device ID of the device.
+             A Virtual device with a lower ordinal number always receives the a
+             smaller device id. The phyiscal device id and location in the
+             virtual device list is used to break ties.
       title: VirtualDevices
       additionalProperties: false
       description: |-
@@ -2353,10 +2412,9 @@ components:
           type: array
           items:
             type: string
-            title: files
-            description: |-
-              This stores all the source code file names and can be indexed by the
-               `file_index`.
+          description: |-
+            This stores all the source code file names and can be indexed by the
+             `file_index`.
         framesById:
           type: object
           title: frames_by_id
@@ -2459,13 +2517,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
+          description: Deprecated.
         frameId:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: frame_id
       title: StackTrace
       additionalProperties: false
       description: This represents a stack trace which is a ordered list of `FileLineCol`.
@@ -2714,7 +2772,6 @@ components:
             oneOf:
               - type: string
               - type: number
-            title: persistent_tensor_alloc_ids
         deviceTempMemorySize:
           oneOf:
             - type: string
@@ -2731,7 +2788,6 @@ components:
             oneOf:
               - type: string
               - type: number
-            title: device_persistent_tensor_alloc_ids
       title: MemoryStats
       additionalProperties: false
       description: For memory tracking.
@@ -2793,13 +2849,12 @@ components:
           type: array
           items:
             type: string
-            title: input
-            description: |-
-              Each input is "node:src_output" with "node" being a string name and
-               "src_output" indicating which output tensor to use from "node". If
-               "src_output" is 0 the ":0" suffix can be omitted.  Regular inputs
-               may optionally be followed by control inputs that have the format
-               "^node".
+          description: |-
+            Each input is "node:src_output" with "node" being a string name and
+             "src_output" indicating which output tensor to use from "node". If
+             "src_output" is 0 the ":0" suffix can be omitted.  Regular inputs
+             may optionally be followed by control inputs that have the format
+             "^node".
         device:
           type: string
           title: device
@@ -2865,28 +2920,26 @@ components:
           type: array
           items:
             type: string
-            title: original_node_names
-            description: |-
-              Opaque string inserted into error messages created by the runtime.
+          description: |-
+            Opaque string inserted into error messages created by the runtime.
 
-               This is intended to store the list of names of the nodes from the
-               original graph that this node was derived. For example if this node, say
-               C, was result of a fusion of 2 nodes A and B, then 'original_node' would
-               be {A, B}. This information can be used to map errors originating at the
-               current node to some top level source code.
+             This is intended to store the list of names of the nodes from the
+             original graph that this node was derived. For example if this node, say
+             C, was result of a fusion of 2 nodes A and B, then 'original_node' would
+             be {A, B}. This information can be used to map errors originating at the
+             current node to some top level source code.
         originalFuncNames:
           type: array
           items:
             type: string
-            title: original_func_names
-            description: |-
-              This is intended to store the list of names of the functions from the
-               original graph that this node was derived. For example if this node, say
-               C, was result of a fusion of node A in function FA and node B in function
-               FB, then `original_funcs` would be {FA, FB}. If the node is in the top
-               level graph, the `original_func` is empty. This information, with the
-               `original_node_names` can be used to map errors originating at the
-               current ndoe to some top level source code.
+          description: |-
+            This is intended to store the list of names of the functions from the
+             original graph that this node was derived. For example if this node, say
+             C, was result of a fusion of node A in function FA and node B in function
+             FB, then `original_funcs` would be {FA, FB}. If the node is in the top
+             level graph, the `original_func` is empty. This information, with the
+             `original_node_names` can be used to map errors originating at the
+             current ndoe to some top level source code.
       title: ExperimentalDebugInfo
       additionalProperties: false
     tensorflow.NodeExecStats:
@@ -2997,18 +3050,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
+          description: Description of the input(s).
         outputArg:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.OpDef.ArgDef'
+          description: Description of the output(s).
         controlOutput:
           type: array
           items:
             type: string
-            title: control_output
-            description: |-
-              Named control outputs for this operation. Useful only for composite
-               operations (i.e. functions) which want to name different control outputs.
+          description: |-
+            Named control outputs for this operation. Useful only for composite
+             operations (i.e. functions) which want to name different control outputs.
         attr:
           type: array
           items:
@@ -3106,6 +3160,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
+          description: The handle data for resource inputs.
         isRef:
           type: boolean
           title: is_ref
@@ -3233,26 +3288,23 @@ components:
           type: array
           items:
             type: string
-            title: feed
-            description: Tensors to be fed in future steps.
+          description: Tensors to be fed in future steps.
         fetch:
           type: array
           items:
             type: string
-            title: fetch
-            description: |-
-              Fetches. A list of tensor names. The caller expects a tensor to be returned
-               for each fetch[i] (see RunStepResponse.tensor), for corresponding partial
-               RunStepRequests. The order of specified fetches does not change the
-               execution order.
+          description: |-
+            Fetches. A list of tensor names. The caller expects a tensor to be returned
+             for each fetch[i] (see RunStepResponse.tensor), for corresponding partial
+             RunStepRequests. The order of specified fetches does not change the
+             execution order.
         target:
           type: array
           items:
             type: string
-            title: target
-            description: |-
-              Target Nodes. A list of node names. The named nodes will be run in future
-               steps, but their outputs will not be fetched.
+          description: |-
+            Target Nodes. A list of node names. The named nodes will be run in future
+             steps, but their outputs will not be fetched.
         requestId:
           oneOf:
             - type: string
@@ -3373,24 +3425,22 @@ components:
           type: array
           items:
             type: string
-            title: container
-            description: |-
-              A list of container names, which may be empty.
+          description: |-
+            A list of container names, which may be empty.
 
-               If 'container' is not empty, releases resources in the given
-               containers in all devices.
+             If 'container' is not empty, releases resources in the given
+             containers in all devices.
 
-               If 'container' is empty, releases resources in the default
-               container in all devices.
+             If 'container' is empty, releases resources in the default
+             container in all devices.
         deviceFilters:
           type: array
           items:
             type: string
-            title: device_filters
-            description: |-
-              When any filters are present, only devices that match the filters
-               will be reset. Each filter can be partially specified,
-               e.g. "/job:ps" "/job:worker/replica:3", etc.
+          description: |-
+            When any filters are present, only devices that match the filters
+             will be reset. Each filter can be partially specified,
+             e.g. "/job:ps" "/job:worker/replica:3", etc.
       title: ResetRequest
       additionalProperties: false
       description: |-
@@ -3445,6 +3495,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ResourceHandleProto.DtypeAndShape'
+          description: Data types and shapes for the underlying resource.
       title: ResourceHandleProto
       additionalProperties: false
       description: |-
@@ -3580,24 +3631,24 @@ components:
           type: array
           items:
             type: string
-            title: optimizers
-            description: |-
-              If non-empty, will use this as an alternative way to specify a list of
-               optimizations to turn on and the order of the optimizations (replacing the
-               meta-optimizer).
+          description: |-
+            If non-empty, will use this as an alternative way to specify a list of
+             optimizations to turn on and the order of the optimizations (replacing the
+             meta-optimizer).
 
-               Of the RewriterConfig options, only the AutoParallel configuration options
-               (the auto_parallel field) apply to manually requested optimization passes
-               ("autoparallel"). Memory optimization passes ("memory") invoked here are
-               not configurable (in contrast to memory optimization passes through the
-               meta-optimizer) and act only on manual op annotations.
+             Of the RewriterConfig options, only the AutoParallel configuration options
+             (the auto_parallel field) apply to manually requested optimization passes
+             ("autoparallel"). Memory optimization passes ("memory") invoked here are
+             not configurable (in contrast to memory optimization passes through the
+             meta-optimizer) and act only on manual op annotations.
 
-               Custom optimizers (see custom_optimizers) that are not part of this
-               schedule will be run after - in the order that they were specified.
+             Custom optimizers (see custom_optimizers) that are not part of this
+             schedule will be run after - in the order that they were specified.
         customOptimizers:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.RewriterConfig.CustomGraphOptimizer'
+          description: list of CustomGraphOptimizers to apply.
         interOptimizerVerifierConfig:
           $ref: '#/components/schemas/tensorflow.VerifierConfig'
         postOptimizationVerifierConfig:
@@ -3652,6 +3703,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          description: |-
+            Values of the tensors passed as arguments to the callable, in the order
+             defined in the CallableOptions.feed field passed to MakeCallable.
         requestId:
           oneOf:
             - type: string
@@ -3670,6 +3724,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          description: |-
+            Values of the tensors returned by the callable, in the order defined in the
+             CallableOptions.fetch field passed to MakeCallable.
         metadata:
           $ref: '#/components/schemas/tensorflow.RunMetadata'
       title: RunCallableResponse
@@ -3685,10 +3742,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GraphDef'
+          description: Graphs of the partitions executed by executors.
         functionGraphs:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.RunMetadata.FunctionGraphs'
+          description: |-
+            This is only populated for graphs that are run as functions in TensorFlow
+             V2. There will be an entry below for each function that is traced.
+             The main use cases of the post_optimization_graph and the partition_graphs
+             is to give the caller insight into the graphs that were actually run by the
+             runtime. Additional information (such as those in step_stats) will match
+             these graphs.
+             We also include the pre_optimization_graph since it is usually easier to
+             read, and is helpful in situations where the caller wants to get a high
+             level idea of what the built graph looks like (since the various graph
+             optimization passes might change the structure of the graph significantly).
         sessionMetadata:
           $ref: '#/components/schemas/tensorflow.SessionMetadata'
       title: RunMetadata
@@ -3701,6 +3770,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.GraphDef'
+          description: 'TODO(nareshmodi): Include some sort of function/cache-key identifier?'
         preOptimizationGraph:
           $ref: '#/components/schemas/tensorflow.GraphDef'
         postOptimizationGraph:
@@ -3806,23 +3876,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NamedTensorProto'
+          description: Tensors to be fed in the step. Each feed is a named tensor.
         fetch:
           type: array
           items:
             type: string
-            title: fetch
-            description: |-
-              Fetches. A list of tensor names. The caller expects a tensor to
-               be returned for each fetch[i] (see RunStepResponse.tensor). The
-               order of specified fetches does not change the execution order.
+          description: |-
+            Fetches. A list of tensor names. The caller expects a tensor to
+             be returned for each fetch[i] (see RunStepResponse.tensor). The
+             order of specified fetches does not change the execution order.
         target:
           type: array
           items:
             type: string
-            title: target
-            description: |-
-              Target Nodes. A list of node names. The named nodes will be run
-               to but their outputs will not be fetched.
+          description: |-
+            Target Nodes. A list of node names. The named nodes will be run
+             to but their outputs will not be fetched.
         options:
           $ref: '#/components/schemas/tensorflow.RunOptions'
         partialRunHandle:
@@ -3858,6 +3927,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.NamedTensorProto'
+          description: |-
+            NOTE: The order of the returned tensors may or may not match
+             the fetch order specified in RunStepRequest.
         metadata:
           $ref: '#/components/schemas/tensorflow.RunMetadata'
         statusCode:
@@ -3874,8 +3946,7 @@ components:
           type: array
           items:
             type: string
-            title: enable_op
-            description: If present, only perform optimization for these ops.
+          description: If present, only perform optimization for these ops.
       title: ScopedAllocatorOptions
       additionalProperties: false
     tensorflow.SessionMetadata:
@@ -3969,91 +4040,82 @@ components:
           type: array
           items:
             type: integer
-            title: half_val
-            description: |-
-              DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll
-               have some pointless zero padding for each value here.
+          description: |-
+            DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll
+             have some pointless zero padding for each value here.
         floatVal:
           type: array
           items:
             type: number
-            title: float_val
-            description: DT_FLOAT.
+          description: DT_FLOAT.
         doubleVal:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: double_val
-            description: DT_DOUBLE.
+          description: DT_DOUBLE.
         intVal:
           type: array
           items:
             type: integer
-            title: int_val
-            description: DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8.
+          description: DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8.
         stringVal:
           type: array
           items:
             type: string
-            title: string_val
             format: byte
-            description: DT_STRING
+          description: DT_STRING
         scomplexVal:
           type: array
           items:
             type: number
-            title: scomplex_val
-            description: |-
-              DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
-               and imaginary parts of i-th single precision complex.
+          description: |-
+            DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
+             and imaginary parts of i-th single precision complex.
         int64Val:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: int64_val
-            description: DT_INT64
+          description: DT_INT64
         boolVal:
           type: array
           items:
             type: boolean
-            title: bool_val
-            description: DT_BOOL
+          description: DT_BOOL
         dcomplexVal:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: dcomplex_val
-            description: |-
-              DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
-               and imaginary parts of i-th double precision complex.
+          description: |-
+            DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
+             and imaginary parts of i-th double precision complex.
         resourceHandleVal:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.ResourceHandleProto'
+          description: DT_RESOURCE
         variantVal:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.VariantTensorDataProto'
+          description: DT_VARIANT
         uint32Val:
           type: array
           items:
             type: integer
-            title: uint32_val
-            description: DT_UINT32
+          description: DT_UINT32
         uint64Val:
           type: array
           items:
             oneOf:
               - type: string
               - type: number
-            title: uint64_val
-            description: DT_UINT64
+          description: DT_UINT64
         float8Val:
           type: string
           title: float8_val
@@ -4071,6 +4133,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorShapeProto.Dim'
+          description: |-
+            Dimensions of the tensor, such as {"input", 30}, {"output", 40}
+             for a 30 x 40 2D tensor.  If an entry has size -1, this
+             corresponds to a dimension of unknown size. The names are
+             optional.
+
+             The order of entries in "dim" matters: It indicates the layout of the
+             values in the tensor in-memory representation.
+
+             The first entry in "dim" is the outermost dimension used to layout the
+             values, the last entry is the innermost dimension.  This matches the
+             in-memory layout of RowMajor Eigen tensors.
+
+             If "dim.size()" > 0, "unknown_rank" must be false.
         unknownRank:
           type: boolean
           title: unknown_rank
@@ -4150,6 +4226,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tensorflow.TensorProto'
+          description: Tensors contained within objects being serialized.
       title: VariantTensorDataProto
       additionalProperties: false
       description: Protocol buffer representing the serialization format of DT_VARIANT tensors.
@@ -4184,8 +4261,7 @@ components:
           type: array
           items:
             type: integer
-            title: bad_consumers
-            description: Specific consumer versions which are disallowed (e.g. due to bugs).
+          description: Specific consumer versions which are disallowed (e.g. due to bugs).
       title: VersionDef
       additionalProperties: false
       description: |-

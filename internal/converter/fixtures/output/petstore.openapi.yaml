@@ -191,7 +191,6 @@ paths:
             type: array
             items:
               type: string
-              title: tag
       responses:
         default:
           description: Error
@@ -217,7 +216,6 @@ paths:
             type: array
             items:
               type: string
-              title: status
       responses:
         default:
           description: Error
@@ -299,7 +297,6 @@ components:
           type: array
           items:
             type: string
-            title: photo_urls
         tags:
           type: array
           items:
@@ -348,7 +345,6 @@ components:
           type: array
           items:
             type: string
-            title: status
       title: StatusReq
       additionalProperties: false
     io.swagger.petstore.v2.Tag:
@@ -371,7 +367,6 @@ components:
           type: array
           items:
             type: string
-            title: tag
       title: TagReq
       additionalProperties: false
     io.swagger.petstore.v2.UpdatePetWithFormReq:
