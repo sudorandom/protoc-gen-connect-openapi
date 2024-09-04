@@ -112,19 +112,19 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 		schema.Pattern = opts.Pattern
 	}
 	if opts.MaxItems > 0 {
-		schema.MaxItems = &opts.MaxItems
+		schema.ParentProxy.Schema().MaxItems = &opts.MaxItems
 	}
 	if opts.MinItems > 0 {
-		schema.MinItems = &opts.MinItems
+		schema.ParentProxy.Schema().MinItems = &opts.MinItems
 	}
 	if opts.UniqueItems {
-		schema.UniqueItems = &opts.UniqueItems
+		schema.ParentProxy.Schema().UniqueItems = &opts.UniqueItems
 	}
 	if opts.MaxProperties > 0 {
-		schema.MaxProperties = &opts.MaxProperties
+		schema.ParentProxy.Schema().MaxProperties = &opts.MaxProperties
 	}
 	if opts.MinProperties > 0 {
-		schema.MinProperties = &opts.MinProperties
+		schema.ParentProxy.Schema().MinProperties = &opts.MinProperties
 	}
 	if len(opts.Required) > 0 {
 		schema.Required = opts.Required

@@ -58,21 +58,21 @@ message LotsOfValidationRules {
 
   // Floats
   float float_const = 6 [(buf.validate.field).float.const = 42.0];
-  repeated float float_in = 7 [(buf.validate.field).float = {
+  repeated float float_in = 7 [(buf.validate.field).repeated.items.float = {
     in: [
       1.0,
       2.0,
       3.0
     ]
   }];
-  repeated float float_not_in = 8 [(buf.validate.field).float = {
+  repeated float float_not_in = 8 [(buf.validate.field).repeated.items.float = {
     not_in: [
       1.0,
       2.0,
       3.0
     ]
   }];
-  repeated float float_finite = 9 [(buf.validate.field).float = {finite: true}];
+  repeated float float_finite = 9 [(buf.validate.field).repeated.items.float = {finite: true}];
   float float_lt = 10 [(buf.validate.field).float.lt = 42.0];
   float float_lte = 11 [(buf.validate.field).float.lte = 420];
   float float_gt = 12 [(buf.validate.field).float.gt = 6.9];
@@ -84,21 +84,21 @@ message LotsOfValidationRules {
 
   // Double
   double double_const = 20 [(buf.validate.field).double.const = 42.0];
-  repeated double double_in = 21 [(buf.validate.field).double = {
+  repeated double double_in = 21 [(buf.validate.field).repeated.items.double = {
     in: [
       1.0,
       2.0,
       3.0
     ]
   }];
-  repeated double double_not_in = 22 [(buf.validate.field).double = {
+  repeated double double_not_in = 22 [(buf.validate.field).repeated.items.double = {
     not_in: [
       1.0,
       2.0,
       3.0
     ]
   }];
-  repeated double double_finite = 23 [(buf.validate.field).double = {finite: true}];
+  repeated double double_finite = 23 [(buf.validate.field).repeated.items.double = {finite: true}];
   double double_lt = 24 [(buf.validate.field).double.lt = 42.0];
   double double_lte = 25 [(buf.validate.field).double.lte = 420];
   double double_gt = 26 [(buf.validate.field).double.gt = 6.9];
@@ -110,14 +110,14 @@ message LotsOfValidationRules {
 
   // int32
   int32 int32_const = 30 [(buf.validate.field).int32.const = 42];
-  repeated int32 int32_in = 31 [(buf.validate.field).int32 = {
+  repeated int32 int32_in = 31 [(buf.validate.field).repeated.items.int32 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated int32 int32_not_in = 32 [(buf.validate.field).int32 = {
+  repeated int32 int32_not_in = 32 [(buf.validate.field).repeated.items.int32 = {
     not_in: [
       1,
       2,
@@ -135,14 +135,14 @@ message LotsOfValidationRules {
 
   // int64
   int64 int64_const = 40 [(buf.validate.field).int64.const = 42];
-  repeated int64 int64_in = 41 [(buf.validate.field).int64 = {
+  repeated int64 int64_in = 41 [(buf.validate.field).repeated.items.int64 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated int64 int64_not_in = 42 [(buf.validate.field).int64 = {
+  repeated int64 int64_not_in = 42 [(buf.validate.field).repeated.items.int64 = {
     not_in: [
       1,
       2,
@@ -160,14 +160,14 @@ message LotsOfValidationRules {
 
   // uint32
   uint32 uint32_const = 50 [(buf.validate.field).uint32.const = 42];
-  repeated uint32 uint32_in = 51 [(buf.validate.field).uint32 = {
+  repeated uint32 uint32_in = 51 [(buf.validate.field).repeated.items.uint32 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated uint32 uint32_not_in = 52 [(buf.validate.field).uint32 = {
+  repeated uint32 uint32_not_in = 52 [(buf.validate.field).repeated.items.uint32 = {
     not_in: [
       1,
       2,
@@ -185,14 +185,14 @@ message LotsOfValidationRules {
 
   // uint64
   uint64 uint64_const = 60 [(buf.validate.field).uint64.const = 42];
-  repeated uint64 uint64_in = 61 [(buf.validate.field).uint64 = {
+  repeated uint64 uint64_in = 61 [(buf.validate.field).repeated.items.uint64 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated uint64 uint64_not_in = 62 [(buf.validate.field).uint64 = {
+  repeated uint64 uint64_not_in = 62 [(buf.validate.field).repeated.items.uint64 = {
     not_in: [
       1,
       2,
@@ -210,14 +210,14 @@ message LotsOfValidationRules {
 
   // sint32
   sint32 sint32_const = 70 [(buf.validate.field).sint32.const = 42];
-  repeated sint32 sint32_in = 71 [(buf.validate.field).sint32 = {
+  repeated sint32 sint32_in = 71 [(buf.validate.field).repeated.items.sint32 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated sint32 sint32_not_in = 72 [(buf.validate.field).sint32 = {
+  repeated sint32 sint32_not_in = 72 [(buf.validate.field).repeated.items.sint32 = {
     not_in: [
       1,
       2,
@@ -235,14 +235,14 @@ message LotsOfValidationRules {
 
   // sint64
   sint64 sint64_const = 80 [(buf.validate.field).sint64.const = 42];
-  repeated sint64 sint64_in = 81 [(buf.validate.field).sint64 = {
+  repeated sint64 sint64_in = 81 [(buf.validate.field).repeated.items.sint64 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated sint64 sint64_not_in = 82 [(buf.validate.field).sint64 = {
+  repeated sint64 sint64_not_in = 82 [(buf.validate.field).repeated.items.sint64 = {
     not_in: [
       1,
       2,
@@ -260,14 +260,14 @@ message LotsOfValidationRules {
 
   // fixed32
   fixed32 fixed32_const = 90 [(buf.validate.field).fixed32.const = 42];
-  repeated fixed32 fixed32_in = 91 [(buf.validate.field).fixed32 = {
+  repeated fixed32 fixed32_in = 91 [(buf.validate.field).repeated.items.fixed32 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated fixed32 fixed32_not_in = 92 [(buf.validate.field).fixed32 = {
+  repeated fixed32 fixed32_not_in = 92 [(buf.validate.field).repeated.items.fixed32 = {
     not_in: [
       1,
       2,
@@ -285,14 +285,14 @@ message LotsOfValidationRules {
 
   // fixed64
   fixed64 fixed64_const = 100 [(buf.validate.field).fixed64.const = 42];
-  repeated fixed64 fixed64_in = 101 [(buf.validate.field).fixed64 = {
+  repeated fixed64 fixed64_in = 101 [(buf.validate.field).repeated.items.fixed64 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated fixed64 fixed64_not_in = 102 [(buf.validate.field).fixed64 = {
+  repeated fixed64 fixed64_not_in = 102 [(buf.validate.field).repeated.items.fixed64 = {
     not_in: [
       1,
       2,
@@ -310,14 +310,14 @@ message LotsOfValidationRules {
 
   // sfixed32
   sfixed32 sfixed32_const = 110 [(buf.validate.field).sfixed32.const = 42];
-  repeated sfixed32 sfixed32_in = 111 [(buf.validate.field).sfixed32 = {
+  repeated sfixed32 sfixed32_in = 111 [(buf.validate.field).repeated.items.sfixed32 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated sfixed32 sfixed32_not_in = 112 [(buf.validate.field).sfixed32 = {
+  repeated sfixed32 sfixed32_not_in = 112 [(buf.validate.field).repeated.items.sfixed32 = {
     not_in: [
       1,
       2,
@@ -335,14 +335,14 @@ message LotsOfValidationRules {
 
   // sfixed64
   sfixed64 sfixed64_const = 120 [(buf.validate.field).sfixed64.const = 42];
-  repeated sfixed64 sfixed64_in = 121 [(buf.validate.field).sfixed64 = {
+  repeated sfixed64 sfixed64_in = 121 [(buf.validate.field).repeated.items.sfixed64 = {
     in: [
       1,
       2,
       3
     ]
   }];
-  repeated sfixed64 sfixed64_not_in = 122 [(buf.validate.field).sfixed64 = {
+  repeated sfixed64 sfixed64_not_in = 122 [(buf.validate.field).repeated.items.sfixed64 = {
     not_in: [
       1,
       2,
@@ -361,12 +361,12 @@ message LotsOfValidationRules {
   // string
   string string_const = 130 [(buf.validate.field).string.const = "hello"];
   repeated string string_in = 131 [
-    (buf.validate.field).string.in = "orange",
-    (buf.validate.field).string.in = "grape"
+    (buf.validate.field).repeated.items.string.in = "orange",
+    (buf.validate.field).repeated.items.string.in = "grape"
   ];
   repeated string string_not_in = 132 [
-    (buf.validate.field).string.not_in = "orange",
-    (buf.validate.field).string.not_in = "grape"
+    (buf.validate.field).repeated.items.string.not_in = "orange",
+    (buf.validate.field).repeated.items.string.not_in = "grape"
   ];
   string string_min_len = 133 [(buf.validate.field).string.min_len = 3];
   string string_max_len = 134 [(buf.validate.field).string.max_len = 10];
@@ -378,7 +378,10 @@ message LotsOfValidationRules {
   string string_suffix = 140 [(buf.validate.field).string.suffix = "post"];
   string string_contains = 141 [(buf.validate.field).string.contains = "inside"];
   string string_not_contains = 142 [(buf.validate.field).string.not_contains = "inside"];
-  string string_strict = 143 [(buf.validate.field).string.strict = false];
+  string string_strict = 143 [
+    (buf.validate.field).string.strict = false,
+    (buf.validate.field).string.well_known_regex = KNOWN_REGEX_HTTP_HEADER_VALUE
+  ];
   string string_email = 144 [(buf.validate.field).string.email = true];
   string string_hostname = 145 [(buf.validate.field).string.hostname = true];
   string string_ip = 146 [(buf.validate.field).string.ip = true];

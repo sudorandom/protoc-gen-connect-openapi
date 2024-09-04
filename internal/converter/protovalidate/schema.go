@@ -724,37 +724,37 @@ func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 
 func updateSchemaRepeated(schema *base.Schema, constraint *validate.RepeatedRules) {
 	if constraint.Unique != nil {
-		schema.UniqueItems = constraint.Unique
+		schema.ParentProxy.Schema().UniqueItems = constraint.Unique
 	}
 	if constraint.MaxItems != nil {
 		v := int64(*constraint.MaxItems)
-		schema.MaxItems = &v
+		schema.ParentProxy.Schema().MaxItems = &v
 	}
 	if constraint.MinItems != nil {
 		v := int64(*constraint.MinItems)
-		schema.MinItems = &v
+		schema.ParentProxy.Schema().MinItems = &v
 	}
 	if constraint.MaxItems != nil {
 		v := int64(*constraint.MaxItems)
-		schema.MaxItems = &v
+		schema.ParentProxy.Schema().MaxItems = &v
 	}
-	if constraint.Items != nil && schema.Items != nil {
-		updateSchemaWithFieldConstraints(schema.Items.A.Schema(), constraint.Items)
+	if constraint.Items != nil {
+		updateSchemaWithFieldConstraints(schema, constraint.Items)
 	}
 }
 
 func updateSchemaMap(schema *base.Schema, constraint *validate.MapRules) {
 	if constraint.MinPairs != nil {
 		v := int64(*constraint.MinPairs)
-		schema.MinItems = &v
+		schema.MinProperties = &v
 	}
 	if constraint.MaxPairs != nil {
 		v := int64(*constraint.MaxPairs)
-		schema.MaxItems = &v
+		schema.MaxProperties = &v
 	}
-	updateSchemaWithFieldConstraints(schema, constraint.Keys)
-	if schema.AdditionalProperties != nil && constraint.Values != nil {
-		updateSchemaWithFieldConstraints(schema.AdditionalProperties.A.Schema(), constraint.Values)
+	updateSchemaWithFieldConstraints(schema.ParentProxy.Schema(), constraint.Keys)
+	if constraint.Values != nil {
+		updateSchemaWithFieldConstraints(schema, constraint.Values)
 	}
 }
 
