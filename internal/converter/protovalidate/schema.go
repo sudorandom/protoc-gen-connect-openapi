@@ -1,7 +1,6 @@
 package protovalidate
 
 import (
-	"log/slog"
 	"strconv"
 	"strings"
 
@@ -744,8 +743,7 @@ func updateSchemaRepeated(schema *base.Schema, constraint *validate.RepeatedRule
 		v := int64(*constraint.MaxItems)
 		schema.MaxItems = &v
 	}
-	slog.Info(schema.Description, "A", schema.Items)
-	if constraint.Items != nil && schema.Items != nil && schema.Items.A != nil {
+	if constraint.Items != nil && schema.Items != nil && schema.Items.A != nil && !schema.Items.A.IsReference() {
 		updateSchemaWithFieldConstraints(schema.Items.A.Schema(), constraint.Items, false)
 	}
 }
