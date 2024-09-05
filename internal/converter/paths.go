@@ -113,29 +113,49 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 	if hasGetSupport {
 		op.Parameters = append(op.Parameters,
 			&v3.Parameter{
-				Name:    "message",
-				In:      "query",
-				Content: util.MakeMediaTypes(opts, "#/components/schemas/"+util.FormatTypeRef(inputId), true, isStreaming),
+				Name: "message",
+				In:   "query",
+				Content: util.MakeMediaTypes(
+					opts,
+					base.CreateSchemaProxyRef("#/components/schemas/"+util.FormatTypeRef(inputId)),
+					true,
+					isStreaming),
 			},
 			&v3.Parameter{
-				Name:    "encoding",
-				In:      "query",
-				Content: util.MakeMediaTypes(opts, "#/components/schemas/encoding", true, isStreaming),
+				Name: "encoding",
+				In:   "query",
+				Content: util.MakeMediaTypes(
+					opts,
+					base.CreateSchemaProxyRef("#/components/schemas/encoding"),
+					true,
+					isStreaming),
 			},
 			&v3.Parameter{
-				Name:    "base64",
-				In:      "query",
-				Content: util.MakeMediaTypes(opts, "#/components/schemas/base64", true, isStreaming),
+				Name: "base64",
+				In:   "query",
+				Content: util.MakeMediaTypes(
+					opts,
+					base.CreateSchemaProxyRef("#/components/schemas/base64"),
+					true,
+					isStreaming),
 			},
 			&v3.Parameter{
-				Name:    "compression",
-				In:      "query",
-				Content: util.MakeMediaTypes(opts, "#/components/schemas/compression", true, isStreaming),
+				Name: "compression",
+				In:   "query",
+				Content: util.MakeMediaTypes(
+					opts,
+					base.CreateSchemaProxyRef("#/components/schemas/compression"),
+					true,
+					isStreaming),
 			},
 			&v3.Parameter{
-				Name:    "connect",
-				In:      "query",
-				Content: util.MakeMediaTypes(opts, "#/components/schemas/connect-protocol-version", true, isStreaming),
+				Name: "connect",
+				In:   "query",
+				Content: util.MakeMediaTypes(
+					opts,
+					base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
+					true,
+					isStreaming),
 			},
 		)
 		item.Get = op

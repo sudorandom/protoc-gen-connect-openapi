@@ -79,7 +79,13 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	for _, param := range partsToParameter(tokens) {
 		field := resolveField(md.Input(), param)
 		if field != nil {
-			topLevelFieldNamesInPath[strings.Split(param, ".")[0]] = struct{}{}
+			parts := strings.Split(param, ".")
+			// This field is only top level, so we will filter out the param from
+			// query/param or request body
+			if len(parts) == 1 {
+				topLevelFieldNamesInPath[parts[0]] = struct{}{}
+				topLevelFieldNamesInPath[field.JSONName()] = struct{}{} // sometimes JSON field names are used
+			}
 			loc := fd.SourceLocations().ByDescriptor(field)
 			op.Parameters = append(op.Parameters, &v3.Parameter{
 				Name:        param,
@@ -113,7 +119,20 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			})
 		}
 	case "*":
-		op.RequestBody = util.MethodToRequestBody(opts, md, false)
+		if len(topLevelFieldNamesInPath) > 0 {
+			_, s := schema.MessageToSchema(md.Input())
+			for name := range topLevelFieldNamesInPath {
+				s.Properties.Delete(name)
+			}
+			if s.Properties.Len() > 0 {
+				op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
+			}
+		} else {
+			inputName := string(md.Input().FullName())
+			s := base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(inputName))
+			op.RequestBody = util.MethodToRequestBody(opts, md, s, false)
+		}
+
 	default:
 		fields := md.Input().Fields()
 		for i := 0; i < fields.Len(); i++ {
@@ -213,28 +232,22 @@ func partsToParameter(tokens []Token) []string {
 
 func partsToOpenAPIPath(tokens []Token) string {
 	var b strings.Builder
-	var skipIfIdent bool
 	for _, token := range tokens {
 		switch token.Type {
 		case TokenSlash:
 			b.WriteByte('/')
 		case TokenEOF:
 		case TokenColon:
-			skipIfIdent = true
-			continue
+			b.WriteByte(':')
 		case TokenLiteral:
 			b.WriteString(token.Value)
 		case TokenIdent:
-			if skipIfIdent {
-				continue
-			}
 			b.WriteString(token.Value)
 		case TokenVariable:
 			b.WriteByte('{')
 			b.WriteString(token.Value)
 			b.WriteByte('}')
 		}
-		skipIfIdent = false
 	}
 	return b.String()
 }

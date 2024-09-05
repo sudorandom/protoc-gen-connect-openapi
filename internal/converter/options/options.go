@@ -23,7 +23,7 @@ type Protocol struct {
 
 var Protocols = []Protocol{
 	{
-		// No neeed to explain JSON :)
+		// No need to explain JSON :)
 		Name:        "json",
 		ContentType: "application/json",
 	},
@@ -43,8 +43,8 @@ var Protocols = []Protocol{
 	{
 		Name:         "connect+proto",
 		ContentType:  "application/connect+proto",
-		RequestDesc:  "The request is binary-concoded protobuf with Connect protocol framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
-		ResponseDesc: "The response is binary-concoded protobuf with Connect protocol framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
+		RequestDesc:  "The request is binary-encoded protobuf with Connect protocol framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
+		ResponseDesc: "The response is binary-encoded protobuf with Connect protocol framing to support streaming RPCs. See the [Connect Protocol](https://connectrpc.com/docs/protocol) for more.",
 		IsStreaming:  true,
 		IsBinary:     true,
 	},

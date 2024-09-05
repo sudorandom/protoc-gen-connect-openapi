@@ -12,6 +12,6 @@ func TestPartsToOpenAPIPath(t *testing.T) {
 		v, err := RunPathPatternLexer("/pet/{pet_id}:addPet")
 		require.NoError(t, err)
 		path := partsToOpenAPIPath(v)
-		assert.Equal(t, "/pet/{pet_id}", path)
+		assert.Equal(t, "/pet/{pet_id}:addPet", path)
 	})
 }

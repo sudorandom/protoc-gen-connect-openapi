@@ -73,16 +73,15 @@ func IsMethodDeprecated(md protoreflect.MethodDescriptor) *bool {
 	return options.Deprecated
 }
 
-func MethodToRequestBody(opts options.Options, method protoreflect.MethodDescriptor, isStreaming bool) *v3.RequestBody {
-	inputName := string(method.Input().FullName())
+func MethodToRequestBody(opts options.Options, method protoreflect.MethodDescriptor, s *base.SchemaProxy, isStreaming bool) *v3.RequestBody {
 	return &v3.RequestBody{
-		Content:  MakeMediaTypes(opts, "#/components/schemas/"+FormatTypeRef(inputName), true, isStreaming),
+		Content:  MakeMediaTypes(opts, s, true, isStreaming),
 		Required: BoolPtr(true),
 	}
 }
 
 // MakeMediaTypes generates media types with references to the bodies
-func MakeMediaTypes(opts options.Options, ref string, isRequest, isStreaming bool) *orderedmap.Map[string, *v3.MediaType] {
+func MakeMediaTypes(opts options.Options, s *base.SchemaProxy, isRequest, isStreaming bool) *orderedmap.Map[string, *v3.MediaType] {
 	mediaTypes := orderedmap.New[string, *v3.MediaType]()
 	for _, protocol := range options.Protocols {
 		isNotAStreamingMethod := isStreaming != protocol.IsStreaming
@@ -106,7 +105,7 @@ func MakeMediaTypes(opts options.Options, ref string, isRequest, isStreaming boo
 		// Since this protocol has a description, wrap it
 		if description != "" {
 			props := orderedmap.New[string, *base.SchemaProxy]()
-			props.Set("protobufBinaryContents", base.CreateSchemaProxyRef(ref))
+			props.Set("protobufBinaryContents", s)
 			schema := &base.Schema{
 				Type:        []string{"object"},
 				Format:      "binary",
@@ -117,9 +116,7 @@ func MakeMediaTypes(opts options.Options, ref string, isRequest, isStreaming boo
 				Schema: base.CreateSchemaProxy(schema),
 			})
 		} else {
-			mediaTypes.Set(protocol.ContentType, &v3.MediaType{
-				Schema: base.CreateSchemaProxyRef(ref),
-			})
+			mediaTypes.Set(protocol.ContentType, &v3.MediaType{Schema: s})
 		}
 	}
 	return mediaTypes
