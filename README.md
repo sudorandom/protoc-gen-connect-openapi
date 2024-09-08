@@ -24,9 +24,9 @@ Example Pipeline:
 flowchart LR
 
 protobuf(Protobuf) -->|protoc-gen-connect-openapi| openapi(OpenAPI)
-openapi -->|elements| elements(Gorgeous\nAPI Documentation)
-openapi -->|openapi-generator| other-languages(Languages that\nConnect doesn't\n support yet)
-openapi -->|?| ???(?)
+openapi -->|elements| elements(API Documentation)
+openapi -->|openapi-generator| other-languages(Other Language Support)
+openapi -->|???| ???(Other Tooling!)
 click elements "https://github.com/stoplightio/elements" _blank
 click openapi-generator "https://github.com/OpenAPITools/openapi-generator" _blank
 ```
