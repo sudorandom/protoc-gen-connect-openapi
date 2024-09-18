@@ -18,10 +18,6 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
         required: true
       responses:
         default:
@@ -32,10 +28,6 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
   /envoy.test.ClusterDiscoveryService/DeltaClusters:
     post:
       tags:
@@ -52,10 +44,6 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
         required: true
       responses:
         default:
@@ -66,10 +54,6 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
   /envoy.test.ClusterDiscoveryService/FetchClusters:
     post:
       tags:

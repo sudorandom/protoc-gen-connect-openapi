@@ -87,13 +87,6 @@
           }
         ],
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            }
-          },
           "required": true
         },
         "responses": {
@@ -108,14 +101,7 @@
             }
           },
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
@@ -145,13 +131,6 @@
           }
         ],
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            }
-          },
           "required": true
         },
         "responses": {
@@ -166,14 +145,7 @@
             }
           },
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
@@ -203,13 +175,6 @@
           }
         ],
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            }
-          },
           "required": true
         },
         "responses": {
@@ -224,14 +189,7 @@
             }
           },
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }

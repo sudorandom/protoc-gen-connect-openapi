@@ -56,18 +56,6 @@ paths:
                   title: status
               title: UpdatePetWithFormReq
               additionalProperties: false
-          application/proto:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  title: name
-                status:
-                  type: string
-                  title: status
-              title: UpdatePetWithFormReq
-              additionalProperties: false
         required: true
       responses:
         default:
@@ -136,18 +124,6 @@ paths:
                   title: file
               title: UploadFileReq
               additionalProperties: false
-          application/proto:
-            schema:
-              type: object
-              properties:
-                additionalMetadata:
-                  type: string
-                  title: additional_metadata
-                file:
-                  type: string
-                  title: file
-              title: UploadFileReq
-              additionalProperties: false
         required: true
       responses:
         default:
@@ -172,9 +148,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-          application/proto:
-            schema:
-              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
         required: true
       responses:
         default:
@@ -196,9 +169,6 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-          application/proto:
             schema:
               $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
         required: true

@@ -55,29 +55,27 @@ func fileToPathItems(opts options.Options, fd protoreflect.FileDescriptor) (*ord
 	return items, nil
 }
 
-func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor) *v3.PathItem {
+func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor, returnGet bool) *v3.Operation {
 	fd := method.ParentFile()
 	service := method.Parent().(protoreflect.ServiceDescriptor)
 	loc := fd.SourceLocations().ByDescriptor(method)
 	op := &v3.Operation{
+		Summary:     string(method.Name()),
 		OperationId: string(method.FullName()),
 		Deprecated:  util.IsMethodDeprecated(method),
 		Tags:        []string{string(service.FullName())},
 		Description: util.FormatComments(loc),
 	}
 
-	hasGetSupport := methodHasGet(opts, method)
+	isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
 
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
-	id := util.FormatTypeRef(string(method.Output().FullName()))
-	mediaType := orderedmap.New[string, *v3.MediaType]()
-	mediaType.Set("application/json", &v3.MediaType{
-		Schema: base.CreateSchemaProxyRef("#/components/schemas/" + id),
-	})
+	outputId := util.FormatTypeRef(string(method.Output().FullName()))
+	inMediaTypes := util.MakeMediaTypes(opts, base.CreateSchemaProxyRef("#/components/schemas/"+outputId), false, isStreaming)
 	codeMap.Set("200", &v3.Response{
 		Description: "Success",
-		Content:     mediaType,
+		Content:     inMediaTypes,
 	})
 	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
 	errMediaTypes.Set("application/json", &v3.MediaType{
@@ -90,8 +88,6 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 			Content:     errMediaTypes,
 		},
 	}
-
-	isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
 
 	op.Parameters = append(op.Parameters,
 		&v3.Parameter{
@@ -108,9 +104,9 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 	)
 
 	// Request parameters
-	item := &v3.PathItem{}
 	inputId := util.FormatTypeRef(string(method.Input().FullName()))
-	if hasGetSupport {
+	if returnGet {
+		op.OperationId = "get." + op.OperationId
 		op.Parameters = append(op.Parameters,
 			&v3.Parameter{
 				Name: "message",
@@ -158,19 +154,24 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 					isStreaming),
 			},
 		)
-		item.Get = op
 	} else {
-		mediaTypes := orderedmap.New[string, *v3.MediaType]()
-		mediaTypes.Set("application/json", &v3.MediaType{
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + inputId),
-		})
+		outMediaTypes := util.MakeMediaTypes(opts, base.CreateSchemaProxyRef("#/components/schemas/"+inputId), true, isStreaming)
 		op.RequestBody = &v3.RequestBody{
-			Content:  mediaTypes,
+			Content:  outMediaTypes,
 			Required: util.BoolPtr(true),
 		}
-		item.Post = op
 	}
 
+	return op
+}
+
+func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor) *v3.PathItem {
+	hasGetSupport := methodHasGet(opts, method)
+	item := &v3.PathItem{}
+	if hasGetSupport {
+		item.Get = methodToOperaton(opts, method, true)
+	}
+	item.Post = methodToOperaton(opts, method, false)
 	item = gnostic.PathItemWithMethodAnnotations(item, method)
 
 	return item

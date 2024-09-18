@@ -28,13 +28,6 @@
           }
         ],
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest"
-              }
-            }
-          },
           "required": true
         },
         "responses": {
@@ -49,14 +42,7 @@
             }
           },
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
@@ -85,13 +71,6 @@
           }
         ],
         "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest"
-              }
-            }
-          },
           "required": true
         },
         "responses": {
@@ -106,14 +85,7 @@
             }
           },
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }

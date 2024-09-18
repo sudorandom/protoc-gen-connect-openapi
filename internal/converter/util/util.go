@@ -84,9 +84,8 @@ func MethodToRequestBody(opts options.Options, method protoreflect.MethodDescrip
 func MakeMediaTypes(opts options.Options, s *base.SchemaProxy, isRequest, isStreaming bool) *orderedmap.Map[string, *v3.MediaType] {
 	mediaTypes := orderedmap.New[string, *v3.MediaType]()
 	for _, protocol := range options.Protocols {
-		isNotAStreamingMethod := isStreaming != protocol.IsStreaming
 		isStreamingDisabled := isStreaming && !opts.WithStreaming
-		if isNotAStreamingMethod || isStreamingDisabled {
+		if isStreaming != protocol.IsStreaming || isStreamingDisabled {
 			continue
 		}
 
@@ -95,29 +94,7 @@ func MakeMediaTypes(opts options.Options, s *base.SchemaProxy, isRequest, isStre
 			continue
 		}
 
-		var description string
-		if isRequest {
-			description = protocol.RequestDesc
-		} else {
-			description = protocol.ResponseDesc
-		}
-
-		// Since this protocol has a description, wrap it
-		if description != "" {
-			props := orderedmap.New[string, *base.SchemaProxy]()
-			props.Set("protobufBinaryContents", s)
-			schema := &base.Schema{
-				Type:        []string{"object"},
-				Format:      "binary",
-				Properties:  props,
-				Description: description,
-			}
-			mediaTypes.Set(protocol.ContentType, &v3.MediaType{
-				Schema: base.CreateSchemaProxy(schema),
-			})
-		} else {
-			mediaTypes.Set(protocol.ContentType, &v3.MediaType{Schema: s})
-		}
+		mediaTypes.Set(protocol.ContentType, &v3.MediaType{Schema: s})
 	}
 	return mediaTypes
 }

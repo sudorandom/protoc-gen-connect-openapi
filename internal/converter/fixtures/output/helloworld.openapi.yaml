@@ -24,16 +24,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/helloworld.HelloRequest'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
         - name: encoding
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/encoding'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/encoding'
         - name: base64
@@ -42,25 +36,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/base64'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/base64'
         - name: compression
           in: query
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/compression'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/compression'
         - name: connect
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/connect-protocol-version'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/connect-protocol-version'
       responses:
