@@ -106,7 +106,7 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 	// Request parameters
 	inputId := util.FormatTypeRef(string(method.Input().FullName()))
 	if returnGet {
-		op.OperationId = "get." + op.OperationId
+		op.OperationId = op.OperationId + ".get"
 		op.Parameters = append(op.Parameters,
 			&v3.Parameter{
 				Name: "message",

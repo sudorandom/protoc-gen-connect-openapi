@@ -6,6 +6,7 @@ paths:
     post:
       tags:
         - samples.Test
+      summary: HealthCheck
       operationId: samples.Test.HealthCheck
       parameters:
         - name: Connect-Protocol-Version
@@ -40,6 +41,7 @@ paths:
     post:
       tags:
         - samples.Test
+      summary: Empty
       operationId: samples.Test.Empty
       parameters:
         - name: Connect-Protocol-Version

@@ -6,6 +6,7 @@ paths:
     post:
       tags:
         - envoy.test.ClusterDiscoveryService
+      summary: StreamClusters
       operationId: envoy.test.ClusterDiscoveryService.StreamClusters
       parameters:
         - name: Connect-Protocol-Version
@@ -32,6 +33,7 @@ paths:
     post:
       tags:
         - envoy.test.ClusterDiscoveryService
+      summary: DeltaClusters
       operationId: envoy.test.ClusterDiscoveryService.DeltaClusters
       parameters:
         - name: Connect-Protocol-Version
@@ -58,6 +60,7 @@ paths:
     post:
       tags:
         - envoy.test.ClusterDiscoveryService
+      summary: FetchClusters
       operationId: envoy.test.ClusterDiscoveryService.FetchClusters
       parameters:
         - name: Connect-Protocol-Version

@@ -6,6 +6,7 @@ paths:
     post:
       tags:
         - protovalidate.MessageFields
+      summary: OneOfRPC
       operationId: protovalidate.MessageFields.OneOfRPC
       parameters:
         - name: Connect-Protocol-Version
@@ -40,6 +41,7 @@ paths:
     post:
       tags:
         - protovalidate.MessageFields
+      summary: CELRPC
       operationId: protovalidate.MessageFields.CELRPC
       parameters:
         - name: Connect-Protocol-Version
@@ -74,6 +76,7 @@ paths:
     post:
       tags:
         - protovalidate.FieldsService
+      summary: CELRPC
       operationId: protovalidate.FieldsService.CELRPC
       parameters:
         - name: Connect-Protocol-Version

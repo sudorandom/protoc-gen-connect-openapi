@@ -20,8 +20,9 @@
         "tags": [
           "example_with_gnostic.Greeter"
         ],
+        "summary": "SayHello",
         "description": "Sends a greeting",
-        "operationId": "example_with_gnostic.Greeter.SayHello",
+        "operationId": "example_with_gnostic.Greeter.SayHello.get",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -94,6 +95,69 @@
             }
           }
         ],
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "BasicAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "example_with_gnostic.Greeter"
+        ],
+        "summary": "SayHello",
+        "description": "Sends a greeting",
+        "operationId": "example_with_gnostic.Greeter.SayHello",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/example_with_gnostic.HelloRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "default": {
             "description": "Error",
