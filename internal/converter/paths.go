@@ -68,6 +68,9 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 	}
 
 	isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
+	if isStreaming && !opts.WithStreaming {
+		return nil
+	}
 
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()

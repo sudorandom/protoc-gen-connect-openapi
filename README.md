@@ -114,4 +114,4 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings |
 | path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | proto | - | Generate requests/repsonses with the protobuf content type |
-| with-streaming | - | Generate OpenAPI with content types related to streaming (can be messy). |
+| with-streaming | - | Generate OpenAPI for client/server/bidirectional streaming RPCs (can be messy). |

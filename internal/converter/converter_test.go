@@ -42,7 +42,7 @@ func TestConvert(t *testing.T) {
 				pf, err := utils.LoadDescriptorSet("fixtures", "fileset.binpb")
 				require.NoError(t, err)
 				req := utils.CreateGenRequest(pf, relPath)
-				params := fmt.Sprintf("format=%s,allow-get", format)
+				params := fmt.Sprintf("format=%s,allow-get,with-streaming", format)
 				req.Parameter = &params
 
 				b, err := proto.Marshal(req)

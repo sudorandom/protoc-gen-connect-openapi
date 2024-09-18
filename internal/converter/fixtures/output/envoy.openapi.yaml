@@ -19,6 +19,31 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
         required: true
       responses:
         default:
@@ -29,6 +54,31 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
   /envoy.test.ClusterDiscoveryService/DeltaClusters:
     post:
       tags:
@@ -46,6 +96,31 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryRequest'
         required: true
       responses:
         default:
@@ -56,6 +131,31 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DeltaDiscoveryResponse'
   /envoy.test.ClusterDiscoveryService/FetchClusters:
     post:
       tags:

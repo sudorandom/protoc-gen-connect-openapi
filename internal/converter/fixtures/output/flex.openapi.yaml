@@ -56,6 +56,31 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
         required: true
       responses:
         default:
@@ -66,6 +91,31 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
   /flex.FlexService/ServerStream:
     post:
       tags:
@@ -84,6 +134,31 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
         required: true
       responses:
         default:
@@ -94,6 +169,31 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
   /flex.FlexService/BiDirectorionalStream:
     post:
       tags:
@@ -112,6 +212,31 @@ paths:
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
       requestBody:
+        content:
+          application/connect+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/connect+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web+proto:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
+          application/grpc-web+json:
+            schema:
+              $ref: '#/components/schemas/flex.FlexRequest'
         required: true
       responses:
         default:
@@ -122,6 +247,31 @@ paths:
                 $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
+          content:
+            application/connect+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/connect+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web+proto:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
+            application/grpc-web+json:
+              schema:
+                $ref: '#/components/schemas/flex.FlexReply'
   /flex.FlexService/EmptyRPC:
     post:
       tags:
