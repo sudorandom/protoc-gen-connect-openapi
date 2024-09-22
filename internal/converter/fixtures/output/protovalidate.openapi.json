@@ -34,11 +34,6 @@
               "schema": {
                 "$ref": "#/components/schemas/protovalidate.OneOfMessage"
               }
-            },
-            "application/proto": {
-              "schema": {
-                "$ref": "#/components/schemas/protovalidate.OneOfMessage"
-              }
             }
           },
           "required": true
@@ -58,11 +53,6 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/protovalidate.DisabledMessage"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/protovalidate.DisabledMessage"
                 }
@@ -102,11 +92,6 @@
               "schema": {
                 "$ref": "#/components/schemas/protovalidate.CELMessage"
               }
-            },
-            "application/proto": {
-              "schema": {
-                "$ref": "#/components/schemas/protovalidate.CELMessage"
-              }
             }
           },
           "required": true
@@ -126,11 +111,6 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/google.protobuf.Empty"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/google.protobuf.Empty"
                 }
@@ -170,11 +150,6 @@
               "schema": {
                 "$ref": "#/components/schemas/protovalidate.LotsOfValidationRules"
               }
-            },
-            "application/proto": {
-              "schema": {
-                "$ref": "#/components/schemas/protovalidate.LotsOfValidationRules"
-              }
             }
           },
           "required": true
@@ -194,11 +169,6 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/google.protobuf.Empty"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/google.protobuf.Empty"
                 }

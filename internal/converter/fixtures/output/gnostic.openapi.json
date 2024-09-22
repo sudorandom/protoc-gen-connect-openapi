@@ -47,11 +47,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/example_with_gnostic.HelloRequest"
                 }
-              },
-              "application/proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/example_with_gnostic.HelloRequest"
-                }
               }
             }
           },
@@ -60,11 +55,6 @@
             "in": "query",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/encoding"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/encoding"
                 }
@@ -79,11 +69,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/base64"
                 }
-              },
-              "application/proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/base64"
-                }
               }
             }
           },
@@ -95,11 +80,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/compression"
                 }
-              },
-              "application/proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/compression"
-                }
               }
             }
           },
@@ -108,11 +88,6 @@
             "in": "query",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect-protocol-version"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/connect-protocol-version"
                 }
@@ -135,11 +110,6 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
                 }
@@ -184,11 +154,6 @@
               "schema": {
                 "$ref": "#/components/schemas/example_with_gnostic.HelloRequest"
               }
-            },
-            "application/proto": {
-              "schema": {
-                "$ref": "#/components/schemas/example_with_gnostic.HelloRequest"
-              }
             }
           },
           "required": true
@@ -208,11 +173,6 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
-                }
-              },
-              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
                 }

@@ -23,9 +23,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/protovalidate.OneOfMessage'
-          application/proto:
-            schema:
-              $ref: '#/components/schemas/protovalidate.OneOfMessage'
         required: true
       responses:
         default:
@@ -38,9 +35,6 @@ paths:
           description: Success
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/protovalidate.DisabledMessage'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/protovalidate.DisabledMessage'
   /protovalidate.MessageFields/CELRPC:
@@ -64,9 +58,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/protovalidate.CELMessage'
-          application/proto:
-            schema:
-              $ref: '#/components/schemas/protovalidate.CELMessage'
         required: true
       responses:
         default:
@@ -79,9 +70,6 @@ paths:
           description: Success
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/google.protobuf.Empty'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
   /protovalidate.FieldsService/CELRPC:
@@ -105,9 +93,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/protovalidate.LotsOfValidationRules'
-          application/proto:
-            schema:
-              $ref: '#/components/schemas/protovalidate.LotsOfValidationRules'
         required: true
       responses:
         default:
@@ -120,9 +105,6 @@ paths:
           description: Success
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/google.protobuf.Empty'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:
