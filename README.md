@@ -1,5 +1,5 @@
 # protoc-gen-connect-openapi
-[![Go](https://github.com/sudorandom/protoc-gen-connect-openapi/actions/workflows/go.yml/badge.svg)](https://github.com/sudorandom/protoc-gen-connect-openapi/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/sudorandom/protoc-gen-connect-openapi)](https://goreportcard.com/report/github.com/sudorandom/protoc-gen-connect-openapi)
+[![Go](https://github.com/sudorandom/protoc-gen-connect-openapi/actions/workflows/go.yml/badge.svg)](https://github.com/sudorandom/protoc-gen-connect-openapi/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/sudorandom/protoc-gen-connect-openapi)](https://goreportcard.com/report/github.com/sudorandom/protoc-gen-connect-openapi) [![Go Reference](https://pkg.go.dev/badge/github.com/sudorandom/protoc-gen-connect-openapi.svg)](https://pkg.go.dev/github.com/sudorandom/protoc-gen-connect-openapi)
 
 Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://connectrpc.com/docs/protocol). With these [OpenAPI](https://www.openapis.org/what-is-openapi), you can:
 
@@ -14,6 +14,7 @@ Features:
 - Support for many [protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
 - Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
 - Support for [gRPC-Gateway annotations](https://github.com/grpc-ecosystem/grpc-gateway) ([more info](grpcgateway.md))
+- Has [an easy interface](https://pkg.go.dev/github.com/sudorandom/protoc-gen-connect-openapi/converter) for generating OpenAPI specs within the process
 
 Example Pipeline:
 - Protobuf file: [example](examples/basic.proto)
@@ -114,4 +115,4 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings |
 | path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | proto | - | Generate requests/repsonses with the protobuf content type |
-| with-streaming | - | Generate OpenAPI with content types related to streaming (can be messy). |
+| with-streaming | - | Generate OpenAPI for client/server/bidirectional streaming RPCs (can be messy). |

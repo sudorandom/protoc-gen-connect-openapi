@@ -6,7 +6,9 @@ toolchain go1.23.0
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240508200655-46a4cf4ba109.2
+	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.17.0-20230913231627-233fca715f49.1
 	github.com/bufbuild/protovalidate-go v0.6.2
+	github.com/golang/protobuf v1.5.4
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.0.4
 	github.com/pb33f/libopenapi v0.17.0
@@ -19,11 +21,12 @@ require (
 )
 
 require (
+	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.34.2-20230913231627-233fca715f49.2 // indirect
+	connectrpc.com/connect v1.17.0 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dprotaso/go-yit v0.0.0-20240618133044-5a0af90af097 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/gnostic-models v0.6.9-0.20230804172637-c7be7c783f49 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
@@ -33,5 +36,4 @@ require (
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.9-0.20240815153524-6ea36470d1bd // indirect
 	golang.org/x/net v0.28.0 // indirect
-	golang.org/x/sys v0.23.0 // indirect
 )

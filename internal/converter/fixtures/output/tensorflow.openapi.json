@@ -9,6 +9,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "CreateSession",
         "description": "Creates a session.",
         "operationId": "tensorflowtest.MasterService.CreateSession",
         "parameters": [
@@ -67,6 +68,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "ExtendSession",
         "description": "Extends a session.",
         "operationId": "tensorflowtest.MasterService.ExtendSession",
         "parameters": [
@@ -125,6 +127,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "PartialRunSetup",
         "description": "Prepares future partial run calls.",
         "operationId": "tensorflowtest.MasterService.PartialRunSetup",
         "parameters": [
@@ -183,6 +186,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "RunStep",
         "description": "Drives the graph computation.",
         "operationId": "tensorflowtest.MasterService.RunStep",
         "parameters": [
@@ -241,6 +245,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "CloseSession",
         "description": "Closes a session.",
         "operationId": "tensorflowtest.MasterService.CloseSession",
         "parameters": [
@@ -299,6 +304,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "ListDevices",
         "description": "List the devices usable by the master.",
         "operationId": "tensorflowtest.MasterService.ListDevices",
         "parameters": [
@@ -357,6 +363,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "Reset",
         "description": "Close and abandon all existing sessions.  Ongoing computations\n will no longer affect fresh ones via the resources in containers listed in\n the ResetRequest.  See ResetRequest for more details.",
         "operationId": "tensorflowtest.MasterService.Reset",
         "parameters": [
@@ -415,6 +422,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "MakeCallable",
         "description": "Registers a callable for execution with RunCallable.",
         "operationId": "tensorflowtest.MasterService.MakeCallable",
         "parameters": [
@@ -473,6 +481,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "RunCallable",
         "description": "Executes a callable registered with MakeCallable.",
         "operationId": "tensorflowtest.MasterService.RunCallable",
         "parameters": [
@@ -531,6 +540,7 @@
         "tags": [
           "tensorflowtest.MasterService"
         ],
+        "summary": "ReleaseCallable",
         "description": "Frees resources associated with a callable registered with MakeCallable.",
         "operationId": "tensorflowtest.MasterService.ReleaseCallable",
         "parameters": [

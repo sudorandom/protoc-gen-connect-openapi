@@ -6,7 +6,6 @@ import (
 	"io"
 	"log/slog"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 
@@ -29,71 +28,6 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-func parseOptions(s string) (options.Options, error) {
-	opts := options.Options{
-		Format:       "yaml",
-		ContentTypes: map[string]struct{}{},
-	}
-
-	supportedProtocols := map[string]struct{}{}
-	for _, proto := range options.Protocols {
-		supportedProtocols[proto.Name] = struct{}{}
-	}
-
-	for _, param := range strings.Split(s, ",") {
-		switch {
-		case param == "":
-		case param == "debug":
-			opts.Debug = true
-		case param == "include-number-enum-values":
-			opts.IncludeNumberEnumValues = true
-		case param == "allow-get":
-			opts.AllowGET = true
-		case param == "with-streaming":
-			opts.WithStreaming = true
-		case strings.HasPrefix(param, "content-types="):
-			for _, contentType := range strings.Split(param[14:], ";") {
-				contentType = strings.TrimSpace(contentType)
-				_, isSupportedProtocol := supportedProtocols[contentType]
-				if !isSupportedProtocol {
-					return opts, fmt.Errorf("invalid content type: '%s'", contentType)
-				}
-				opts.ContentTypes[contentType] = struct{}{}
-			}
-		case strings.HasPrefix(param, "path="):
-			opts.Path = param[5:]
-		case strings.HasPrefix(param, "format="):
-			format := param[7:]
-			switch format {
-			case "yaml":
-				opts.Format = "yaml"
-			case "json":
-				opts.Format = "json"
-			default:
-				return opts, fmt.Errorf("format be yaml or json, not '%s'", format)
-			}
-		case strings.HasPrefix(param, "base="):
-			basePath := param[5:]
-			ext := path.Ext(basePath)
-			switch ext {
-			case ".yaml", ".yml", ".json":
-				opts.BaseOpenAPIPath = basePath
-			default:
-				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
-			}
-		default:
-			return opts, fmt.Errorf("invalid parameter: %s", param)
-		}
-	}
-	if len(opts.ContentTypes) == 0 {
-		opts.ContentTypes = map[string]struct{}{
-			"json":  {},
-			"proto": {},
-		}
-	}
-	return opts, nil
-}
-
 func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
 	input, err := io.ReadAll(rd)
 	if err != nil {
@@ -109,12 +43,17 @@ func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
 	return Convert(req)
 }
 
+// Convert is the primary entrypoint for the protoc plugin. It takes a *pluginpb.CodeGeneratorRequest
+// and returns a *pluginpb.CodeGeneratorResponse.
 func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
-	opts, err := parseOptions(req.GetParameter())
+	opts, err := options.FromString(req.GetParameter())
 	if err != nil {
 		return nil, err
 	}
+	return ConvertWithOptions(req, opts)
+}
 
+func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options) (*pluginpb.CodeGeneratorResponse, error) {
 	if opts.Debug {
 		slog.SetDefault(slog.New(
 			tint.NewHandler(os.Stderr, &tint.Options{
@@ -142,14 +81,9 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 		initializeDoc(model)
 		return model, nil
 	}
-	if opts.BaseOpenAPIPath != "" {
+	if len(opts.BaseOpenAPI) > 0 {
 		newSpec = func() (*v3.Document, error) {
-			base, err := os.ReadFile(opts.BaseOpenAPIPath)
-			if err != nil {
-				return &v3.Document{}, err
-			}
-
-			document, err := libopenapi.NewDocument(base)
+			document, err := libopenapi.NewDocument(opts.BaseOpenAPI)
 			if err != nil {
 				return &v3.Document{}, fmt.Errorf("unmarshalling base: %w", err)
 			}
@@ -312,7 +246,6 @@ func initializeDoc(doc *v3.Document) {
 	if doc.Rolodex == nil {
 		doc.Rolodex = &index.Rolodex{}
 	}
-
 	if doc.Components == nil {
 		doc.Components = &v3.Components{}
 	}

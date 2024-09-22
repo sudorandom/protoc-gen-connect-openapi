@@ -6,6 +6,7 @@ paths:
     get:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: GetPetByID
       operationId: io.swagger.petstore.v2.PetService.GetPetByID
       parameters:
         - name: pet_id
@@ -32,6 +33,7 @@ paths:
     post:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: UpdatePetWithForm
       operationId: io.swagger.petstore.v2.PetService.UpdatePetWithForm
       parameters:
         - name: pet_id
@@ -45,18 +47,6 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  title: name
-                status:
-                  type: string
-                  title: status
-              title: UpdatePetWithFormReq
-              additionalProperties: false
-          application/proto:
             schema:
               type: object
               properties:
@@ -85,6 +75,7 @@ paths:
     delete:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: DeletePet
       operationId: io.swagger.petstore.v2.PetService.DeletePet
       parameters:
         - name: pet_id
@@ -112,6 +103,7 @@ paths:
     post:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: UploadFile
       operationId: io.swagger.petstore.v2.PetService.UploadFile
       parameters:
         - name: pet_id
@@ -125,18 +117,6 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
-              type: object
-              properties:
-                additionalMetadata:
-                  type: string
-                  title: additional_metadata
-                file:
-                  type: string
-                  title: file
-              title: UploadFileReq
-              additionalProperties: false
-          application/proto:
             schema:
               type: object
               properties:
@@ -166,13 +146,11 @@ paths:
     put:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: UpdatePet
       operationId: io.swagger.petstore.v2.PetService.UpdatePet
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-          application/proto:
             schema:
               $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
         required: true
@@ -192,13 +170,11 @@ paths:
     post:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: AddPet
       operationId: io.swagger.petstore.v2.PetService.AddPet
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
-          application/proto:
             schema:
               $ref: '#/components/schemas/io.swagger.petstore.v2.Pet'
         required: true
@@ -219,6 +195,7 @@ paths:
     get:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: FindPetsByTag
       operationId: io.swagger.petstore.v2.PetService.FindPetsByTag
       parameters:
         - name: tag
@@ -245,6 +222,7 @@ paths:
     get:
       tags:
         - io.swagger.petstore.v2.PetService
+      summary: FindPetsByStatus
       operationId: io.swagger.petstore.v2.PetService.FindPetsByStatus
       parameters:
         - name: status

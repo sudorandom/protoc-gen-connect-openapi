@@ -15,8 +15,9 @@ paths:
     get:
       tags:
         - example_with_gnostic.Greeter
+      summary: SayHello
       description: Sends a greeting
-      operationId: example_with_gnostic.Greeter.SayHello
+      operationId: example_with_gnostic.Greeter.SayHello.get
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -33,16 +34,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
         - name: encoding
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/encoding'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/encoding'
         - name: base64
@@ -51,16 +46,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/base64'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/base64'
         - name: compression
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/compression'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/compression'
         - name: connect
@@ -69,9 +58,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect-protocol-version'
-            application/proto:
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
               schema:
-                $ref: '#/components/schemas/connect-protocol-version'
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/example_with_gnostic.HelloReply'
+      deprecated: true
+      security:
+        - BasicAuth: []
+    post:
+      tags:
+        - example_with_gnostic.Greeter
+      summary: SayHello
+      description: Sends a greeting
+      operationId: example_with_gnostic.Greeter.SayHello
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/example_with_gnostic.HelloRequest'
+        required: true
       responses:
         default:
           description: Error

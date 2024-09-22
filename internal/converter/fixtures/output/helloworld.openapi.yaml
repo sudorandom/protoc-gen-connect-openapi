@@ -6,8 +6,9 @@ paths:
     get:
       tags:
         - helloworld.Greeter
+      summary: SayHello
       description: Sends a greeting
-      operationId: helloworld.Greeter.SayHello
+      operationId: helloworld.Greeter.SayHello.get
       parameters:
         - name: Connect-Protocol-Version
           in: header
@@ -24,16 +25,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/helloworld.HelloRequest'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/helloworld.HelloRequest'
         - name: encoding
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/encoding'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/encoding'
         - name: base64
@@ -42,16 +37,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/base64'
-            application/proto:
-              schema:
-                $ref: '#/components/schemas/base64'
         - name: compression
           in: query
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/compression'
-            application/proto:
               schema:
                 $ref: '#/components/schemas/compression'
         - name: connect
@@ -60,9 +49,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect-protocol-version'
-            application/proto:
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
               schema:
-                $ref: '#/components/schemas/connect-protocol-version'
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/helloworld.HelloReply'
+    post:
+      tags:
+        - helloworld.Greeter
+      summary: SayHello
+      description: Sends a greeting
+      operationId: helloworld.Greeter.SayHello
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/helloworld.HelloRequest'
+        required: true
       responses:
         default:
           description: Error
@@ -80,6 +101,7 @@ paths:
     post:
       tags:
         - helloworld.Greeter
+      summary: WriteHello
       description: Writes a greeting (has side effects)
       operationId: helloworld.Greeter.WriteHello
       parameters:

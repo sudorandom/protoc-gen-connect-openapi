@@ -9,6 +9,7 @@
         "tags": [
           "flex.FlexService"
         ],
+        "summary": "NormalRPC",
         "description": "Normal RPC method",
         "operationId": "flex.FlexService.NormalRPC",
         "parameters": [
@@ -67,6 +68,7 @@
         "tags": [
           "flex.FlexService"
         ],
+        "summary": "ClientStream",
         "description": "Stream from client to server",
         "operationId": "flex.FlexService.ClientStream",
         "parameters": [
@@ -88,7 +90,42 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/connect+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/connect+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+json": {
               "schema": {
                 "$ref": "#/components/schemas/flex.FlexRequest"
               }
@@ -100,7 +137,42 @@
           "default": {
             "description": "Error",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/connect.error"
                 }
@@ -110,7 +182,42 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/flex.FlexReply"
                 }
@@ -125,6 +232,7 @@
         "tags": [
           "flex.FlexService"
         ],
+        "summary": "ServerStream",
         "description": "Stream from server to client",
         "operationId": "flex.FlexService.ServerStream",
         "parameters": [
@@ -146,7 +254,42 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/connect+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/connect+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+json": {
               "schema": {
                 "$ref": "#/components/schemas/flex.FlexRequest"
               }
@@ -158,7 +301,42 @@
           "default": {
             "description": "Error",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/connect.error"
                 }
@@ -168,7 +346,42 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/flex.FlexReply"
                 }
@@ -183,6 +396,7 @@
         "tags": [
           "flex.FlexService"
         ],
+        "summary": "BiDirectorionalStream",
         "description": "Stream both ways",
         "operationId": "flex.FlexService.BiDirectorionalStream",
         "parameters": [
@@ -204,7 +418,42 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/connect+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/connect+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+json": {
               "schema": {
                 "$ref": "#/components/schemas/flex.FlexRequest"
               }
@@ -216,7 +465,42 @@
           "default": {
             "description": "Error",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/connect.error"
                 }
@@ -226,7 +510,42 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/flex.FlexReply"
                 }
@@ -241,6 +560,7 @@
         "tags": [
           "flex.FlexService"
         ],
+        "summary": "EmptyRPC",
         "description": "Don't send or receive anything",
         "operationId": "flex.FlexService.EmptyRPC",
         "parameters": [

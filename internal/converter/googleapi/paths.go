@@ -70,6 +70,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	service := md.Parent().(protoreflect.ServiceDescriptor)
 	loc := fd.SourceLocations().ByDescriptor(md)
 	op := &v3.Operation{
+		Summary:     string(md.Name()),
 		OperationId: string(md.FullName()),
 		Tags:        []string{string(service.FullName())},
 		Description: util.FormatComments(loc),
@@ -160,15 +161,16 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		Content:     mediaType,
 	})
 
-	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
-	errMediaTypes.Set("application/json", &v3.MediaType{
-		Schema: base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
-	})
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
 		Default: &v3.Response{
 			Description: "Error",
-			Content:     errMediaTypes,
+			Content: util.MakeMediaTypes(
+				opts,
+				base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
+				false,
+				false,
+			),
 		},
 	}
 
