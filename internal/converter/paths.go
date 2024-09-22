@@ -75,20 +75,25 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
 	outputId := util.FormatTypeRef(string(method.Output().FullName()))
-	inMediaTypes := util.MakeMediaTypes(opts, base.CreateSchemaProxyRef("#/components/schemas/"+outputId), false, isStreaming)
 	codeMap.Set("200", &v3.Response{
 		Description: "Success",
-		Content:     inMediaTypes,
-	})
-	errMediaTypes := orderedmap.New[string, *v3.MediaType]()
-	errMediaTypes.Set("application/json", &v3.MediaType{
-		Schema: base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
+		Content: util.MakeMediaTypes(
+			opts,
+			base.CreateSchemaProxyRef("#/components/schemas/"+outputId),
+			false,
+			isStreaming,
+		),
 	})
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
 		Default: &v3.Response{
 			Description: "Error",
-			Content:     errMediaTypes,
+			Content: util.MakeMediaTypes(
+				opts,
+				base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
+				false,
+				isStreaming,
+			),
 		},
 	}
 
@@ -158,9 +163,13 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 			},
 		)
 	} else {
-		outMediaTypes := util.MakeMediaTypes(opts, base.CreateSchemaProxyRef("#/components/schemas/"+inputId), true, isStreaming)
 		op.RequestBody = &v3.RequestBody{
-			Content:  outMediaTypes,
+			Content: util.MakeMediaTypes(
+				opts,
+				base.CreateSchemaProxyRef("#/components/schemas/"+inputId),
+				true,
+				isStreaming,
+			),
 			Required: util.BoolPtr(true),
 		}
 	}
