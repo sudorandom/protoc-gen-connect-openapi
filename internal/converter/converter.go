@@ -43,6 +43,8 @@ func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
 	return Convert(req)
 }
 
+// Convert is the primary entrypoint for the protoc plugin. It takes a *pluginpb.CodeGeneratorRequest
+// and returns a *pluginpb.CodeGeneratorResponse.
 func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorResponse, error) {
 	opts, err := options.FromString(req.GetParameter())
 	if err != nil {
