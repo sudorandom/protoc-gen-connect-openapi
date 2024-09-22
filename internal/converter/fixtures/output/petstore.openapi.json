@@ -94,6 +94,23 @@
                 "title": "UpdatePetWithFormReq",
                 "additionalProperties": false
               }
+            },
+            "application/proto": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "name"
+                  },
+                  "status": {
+                    "type": "string",
+                    "title": "status"
+                  }
+                },
+                "title": "UpdatePetWithFormReq",
+                "additionalProperties": false
+              }
             }
           },
           "required": true
@@ -212,6 +229,23 @@
                 "title": "UploadFileReq",
                 "additionalProperties": false
               }
+            },
+            "application/proto": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "additionalMetadata": {
+                    "type": "string",
+                    "title": "additional_metadata"
+                  },
+                  "file": {
+                    "type": "string",
+                    "title": "file"
+                  }
+                },
+                "title": "UploadFileReq",
+                "additionalProperties": false
+              }
             }
           },
           "required": true
@@ -253,6 +287,11 @@
               "schema": {
                 "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+              }
             }
           },
           "required": true
@@ -289,6 +328,11 @@
         "requestBody": {
           "content": {
             "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+              }
+            },
+            "application/proto": {
               "schema": {
                 "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
               }

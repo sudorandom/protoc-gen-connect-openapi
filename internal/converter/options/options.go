@@ -30,7 +30,8 @@ func NewOptions() Options {
 	return Options{
 		Format: "yaml",
 		ContentTypes: map[string]struct{}{
-			"json": {},
+			"json":  {},
+			"proto": {},
 		},
 	}
 }

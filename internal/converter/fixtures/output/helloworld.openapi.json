@@ -36,6 +36,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/helloworld.HelloRequest"
                 }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/helloworld.HelloRequest"
+                }
               }
             }
           },
@@ -44,6 +49,11 @@
             "in": "query",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/encoding"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/encoding"
                 }
@@ -58,6 +68,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/base64"
                 }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/base64"
+                }
               }
             }
           },
@@ -69,6 +84,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/compression"
                 }
+              },
+              "application/proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/compression"
+                }
               }
             }
           },
@@ -77,6 +97,11 @@
             "in": "query",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect-protocol-version"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/connect-protocol-version"
                 }
@@ -99,6 +124,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/helloworld.HelloReply"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/helloworld.HelloReply"
                 }
@@ -137,6 +167,11 @@
               "schema": {
                 "$ref": "#/components/schemas/helloworld.HelloRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/helloworld.HelloRequest"
+              }
             }
           },
           "required": true
@@ -156,6 +191,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/helloworld.HelloReply"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/helloworld.HelloReply"
                 }
@@ -196,6 +236,11 @@
               "schema": {
                 "$ref": "#/components/schemas/helloworld.HelloRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/helloworld.HelloRequest"
+              }
             }
           },
           "required": true
@@ -215,6 +260,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/helloworld.HelloReply"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/helloworld.HelloReply"
                 }

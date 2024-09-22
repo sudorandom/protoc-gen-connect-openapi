@@ -177,6 +177,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryRequest'
         required: true
       responses:
         default:
@@ -189,6 +192,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/envoy.service.discovery.v3.DiscoveryResponse'
 components:

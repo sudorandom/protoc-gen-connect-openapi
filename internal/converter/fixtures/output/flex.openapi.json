@@ -35,6 +35,11 @@
               "schema": {
                 "$ref": "#/components/schemas/flex.FlexRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
             }
           },
           "required": true
@@ -54,6 +59,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/flex.FlexReply"
                 }
@@ -481,6 +491,11 @@
               "schema": {
                 "$ref": "#/components/schemas/google.protobuf.Empty"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/google.protobuf.Empty"
+              }
             }
           },
           "required": true
@@ -500,6 +515,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/google.protobuf.Empty"
                 }

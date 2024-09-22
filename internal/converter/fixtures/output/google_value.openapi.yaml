@@ -23,6 +23,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/google.protobuf.StringValue'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/google.protobuf.StringValue'
         required: true
       responses:
         default:
@@ -35,6 +38,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Int64Value'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Int64Value'
   /samples.Test/Empty:
@@ -58,6 +64,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/google.protobuf.Empty'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/google.protobuf.Empty'
         required: true
       responses:
         default:
@@ -70,6 +79,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:

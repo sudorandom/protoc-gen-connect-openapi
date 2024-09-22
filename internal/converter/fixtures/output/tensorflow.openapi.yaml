@@ -24,6 +24,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.CreateSessionRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.CreateSessionRequest'
         required: true
       responses:
         default:
@@ -36,6 +39,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.CreateSessionResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.CreateSessionResponse'
   /tensorflowtest.MasterService/ExtendSession:
@@ -60,6 +66,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.ExtendSessionRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.ExtendSessionRequest'
         required: true
       responses:
         default:
@@ -72,6 +81,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.ExtendSessionResponse'
   /tensorflowtest.MasterService/PartialRunSetup:
@@ -96,6 +108,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.PartialRunSetupRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.PartialRunSetupRequest'
         required: true
       responses:
         default:
@@ -108,6 +123,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.PartialRunSetupResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.PartialRunSetupResponse'
   /tensorflowtest.MasterService/RunStep:
@@ -132,6 +150,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.RunStepRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.RunStepRequest'
         required: true
       responses:
         default:
@@ -144,6 +165,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.RunStepResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.RunStepResponse'
   /tensorflowtest.MasterService/CloseSession:
@@ -168,6 +192,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.CloseSessionRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.CloseSessionRequest'
         required: true
       responses:
         default:
@@ -180,6 +207,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.CloseSessionResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.CloseSessionResponse'
   /tensorflowtest.MasterService/ListDevices:
@@ -204,6 +234,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.ListDevicesRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.ListDevicesRequest'
         required: true
       responses:
         default:
@@ -216,6 +249,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.ListDevicesResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.ListDevicesResponse'
   /tensorflowtest.MasterService/Reset:
@@ -243,6 +279,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.ResetRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.ResetRequest'
         required: true
       responses:
         default:
@@ -255,6 +294,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.ResetResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.ResetResponse'
   /tensorflowtest.MasterService/MakeCallable:
@@ -279,6 +321,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.MakeCallableRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.MakeCallableRequest'
         required: true
       responses:
         default:
@@ -291,6 +336,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.MakeCallableResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.MakeCallableResponse'
   /tensorflowtest.MasterService/RunCallable:
@@ -315,6 +363,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.RunCallableRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.RunCallableRequest'
         required: true
       responses:
         default:
@@ -327,6 +378,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.RunCallableResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.RunCallableResponse'
   /tensorflowtest.MasterService/ReleaseCallable:
@@ -351,6 +405,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tensorflow.ReleaseCallableRequest'
+          application/proto:
+            schema:
+              $ref: '#/components/schemas/tensorflow.ReleaseCallableRequest'
         required: true
       responses:
         default:
@@ -363,6 +420,9 @@ paths:
           description: Success
           content:
             application/json:
+              schema:
+                $ref: '#/components/schemas/tensorflow.ReleaseCallableResponse'
+            application/proto:
               schema:
                 $ref: '#/components/schemas/tensorflow.ReleaseCallableResponse'
 components:

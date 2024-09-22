@@ -35,6 +35,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.CreateSessionRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.CreateSessionRequest"
+              }
             }
           },
           "required": true
@@ -54,6 +59,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.CreateSessionResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.CreateSessionResponse"
                 }
@@ -94,6 +104,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.ExtendSessionRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ExtendSessionRequest"
+              }
             }
           },
           "required": true
@@ -113,6 +128,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ExtendSessionResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.ExtendSessionResponse"
                 }
@@ -153,6 +173,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.PartialRunSetupRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.PartialRunSetupRequest"
+              }
             }
           },
           "required": true
@@ -172,6 +197,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.PartialRunSetupResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.PartialRunSetupResponse"
                 }
@@ -212,6 +242,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.RunStepRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.RunStepRequest"
+              }
             }
           },
           "required": true
@@ -231,6 +266,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.RunStepResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.RunStepResponse"
                 }
@@ -271,6 +311,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.CloseSessionRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.CloseSessionRequest"
+              }
             }
           },
           "required": true
@@ -290,6 +335,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.CloseSessionResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.CloseSessionResponse"
                 }
@@ -330,6 +380,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.ListDevicesRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ListDevicesRequest"
+              }
             }
           },
           "required": true
@@ -349,6 +404,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ListDevicesResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.ListDevicesResponse"
                 }
@@ -389,6 +449,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.ResetRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ResetRequest"
+              }
             }
           },
           "required": true
@@ -408,6 +473,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ResetResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.ResetResponse"
                 }
@@ -448,6 +518,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.MakeCallableRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.MakeCallableRequest"
+              }
             }
           },
           "required": true
@@ -467,6 +542,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.MakeCallableResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.MakeCallableResponse"
                 }
@@ -507,6 +587,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.RunCallableRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.RunCallableRequest"
+              }
             }
           },
           "required": true
@@ -526,6 +611,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.RunCallableResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.RunCallableResponse"
                 }
@@ -566,6 +656,11 @@
               "schema": {
                 "$ref": "#/components/schemas/tensorflow.ReleaseCallableRequest"
               }
+            },
+            "application/proto": {
+              "schema": {
+                "$ref": "#/components/schemas/tensorflow.ReleaseCallableRequest"
+              }
             }
           },
           "required": true
@@ -585,6 +680,11 @@
             "description": "Success",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tensorflow.ReleaseCallableResponse"
+                }
+              },
+              "application/proto": {
                 "schema": {
                   "$ref": "#/components/schemas/tensorflow.ReleaseCallableResponse"
                 }
