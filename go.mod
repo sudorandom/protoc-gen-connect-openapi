@@ -5,7 +5,7 @@ go 1.23
 toolchain go1.23.0
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240508200655-46a4cf4ba109.2
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.34.2-20240920164238-5a7b106cbb87.2
 	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.17.0-20230913231627-233fca715f49.1
 	github.com/bufbuild/protovalidate-go v0.6.2
 	github.com/golang/protobuf v1.5.4

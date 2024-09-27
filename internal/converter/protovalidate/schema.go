@@ -29,7 +29,7 @@ func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDesc
 		return schema
 	}
 	updateWithCEL(schema, constraints.GetCel())
-	if constraints.Required {
+	if constraints.Required != nil && *constraints.Required {
 		parent := schema.ParentProxy.Schema()
 		if parent != nil {
 			parent.Required = append(parent.Required, desc.JSONName())
@@ -48,7 +48,7 @@ func PopulateParentProperties(parent *base.Schema, desc protoreflect.FieldDescri
 	if constraints == nil {
 		return
 	}
-	if constraints.Required {
+	if constraints.Required != nil && *constraints.Required {
 		parent.Required = append(parent.Required, desc.JSONName())
 	}
 }
@@ -119,10 +119,14 @@ func updateWithCEL(schema *base.Schema, constraints []*validate.Constraint) {
 		b.WriteByte('\n')
 	}
 	for _, cel := range constraints {
-		b.WriteString(cel.Message)
-		b.WriteString(":\n```\n")
-		b.WriteString(cel.Expression)
-		b.WriteString("\n```\n\n")
+		if cel.Message != nil {
+			b.WriteString(*cel.Message)
+			b.WriteString(":\n```\n")
+		}
+		if cel.Expression != nil {
+			b.WriteString(*cel.Expression)
+			b.WriteString("\n```\n\n")
+		}
 	}
 	s := b.String()
 	schema.Description = s
@@ -162,6 +166,9 @@ func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 32)))
+	}
 }
 
 func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
@@ -197,6 +204,9 @@ func updateSchemaDouble(schema *base.Schema, constraint *validate.DoubleRules) {
 			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64)))
 	}
 }
 
@@ -234,6 +244,9 @@ func updateSchemaInt32(schema *base.Schema, constraint *validate.Int32Rules) {
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(item), 10)))
+	}
 }
 
 func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
@@ -269,6 +282,9 @@ func updateSchemaInt64(schema *base.Schema, constraint *validate.Int64Rules) {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(item, 10)))
 	}
 }
 
@@ -306,6 +322,9 @@ func updateSchemaUint32(schema *base.Schema, constraint *validate.UInt32Rules) {
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatUint(uint64(item), 10)))
+	}
 }
 
 func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
@@ -341,6 +360,9 @@ func updateSchemaUint64(schema *base.Schema, constraint *validate.UInt64Rules) {
 			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatUint(uint64(item), 10)))
 	}
 }
 
@@ -378,6 +400,9 @@ func updateSchemaSint32(schema *base.Schema, constraint *validate.SInt32Rules) {
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(item), 10)))
+	}
 }
 
 func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
@@ -413,6 +438,9 @@ func updateSchemaSint64(schema *base.Schema, constraint *validate.SInt64Rules) {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(item, 10)))
 	}
 }
 
@@ -450,6 +478,9 @@ func updateSchemaFixed32(schema *base.Schema, constraint *validate.Fixed32Rules)
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatUint(uint64(item), 10)))
+	}
 }
 
 func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules) {
@@ -485,6 +516,9 @@ func updateSchemaFixed64(schema *base.Schema, constraint *validate.Fixed64Rules)
 			items[i] = utils.CreateStringNode(strconv.FormatUint(item, 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatUint(item, 10)))
 	}
 }
 
@@ -522,6 +556,9 @@ func updateSchemaSfixed32(schema *base.Schema, constraint *validate.SFixed32Rule
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, OneOf: schema.OneOf, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(item), 10)))
+	}
 }
 
 func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rules) {
@@ -558,6 +595,9 @@ func updateSchemaSfixed64(schema *base.Schema, constraint *validate.SFixed64Rule
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(item, 10)))
+	}
 }
 
 func updateSchemaBool(schema *base.Schema, constraint *validate.BoolRules) {
@@ -567,6 +607,13 @@ func updateSchemaBool(schema *base.Schema, constraint *validate.BoolRules) {
 		} else {
 			schema.Const = utils.CreateStringNode("false")
 		}
+	}
+	for _, item := range constraint.Example {
+		value := "false"
+		if item {
+			value = "true"
+		}
+		schema.Examples = append(schema.Examples, utils.CreateBoolNode(value))
 	}
 }
 
@@ -655,6 +702,9 @@ func updateSchemaString(schema *base.Schema, constraint *validate.StringRules) {
 		case validate.KnownRegex_KNOWN_REGEX_HTTP_HEADER_VALUE:
 		}
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item))
+	}
 }
 
 func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
@@ -705,6 +755,9 @@ func updateSchemaBytes(schema *base.Schema, constraint *validate.BytesRules) {
 			schema.Format = "ipv6"
 		}
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(string(item)))
+	}
 }
 
 func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
@@ -724,6 +777,9 @@ func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(item), 10)))
 	}
 }
 
@@ -799,10 +855,16 @@ func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRule
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.String()))
+	}
 }
 
 func updateSchemaTimestamp(schema *base.Schema, constraint *validate.TimestampRules) {
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(constraint.Const.String())
+	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.String()))
 	}
 }

@@ -1,0 +1,834 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "buf.validate.conformance.cases"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "buf.validate.conformance.cases.StringAddress": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "address"
+          }
+        },
+        "title": "StringAddress",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringConst": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "const": "foo"
+          }
+        },
+        "title": "StringConst",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringContains": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringContains",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringEmail": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "email"
+          }
+        },
+        "title": "StringEmail",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringEqualMinMaxBytes": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringEqualMinMaxBytes",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringEqualMinMaxLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "maxLength": 5,
+            "minLength": 5
+          }
+        },
+        "title": "StringEqualMinMaxLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringExample": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "examples": [
+              "foo"
+            ],
+            "title": "val"
+          }
+        },
+        "title": "StringExample",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHostAndOptionalPort": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "description": "value must be a host and (optional) port pair:\n```\nthis.isHostAndPort(false)\n```\n\n"
+          }
+        },
+        "title": "StringHostAndOptionalPort",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHostAndPort": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringHostAndPort",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHostname": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "hostname"
+          }
+        },
+        "title": "StringHostname",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHttpHeaderName": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringHttpHeaderName",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHttpHeaderNameLoose": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringHttpHeaderNameLoose",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHttpHeaderValue": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringHttpHeaderValue",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringHttpHeaderValueLoose": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringHttpHeaderValueLoose",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIP": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "ip"
+          }
+        },
+        "title": "StringIP",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPPrefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringIPPrefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPWithPrefixLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringIPWithPrefixLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPv4": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "ipv4"
+          }
+        },
+        "title": "StringIPv4",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPv4Prefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringIPv4Prefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPv4WithPrefixLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringIPv4WithPrefixLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPv6": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "ipv6"
+          }
+        },
+        "title": "StringIPv6",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPv6Prefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringIPv6Prefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIPv6WithPrefixLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringIPv6WithPrefixLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "enum": [
+              "bar",
+              "baz"
+            ]
+          }
+        },
+        "title": "StringIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringInOneof": {
+        "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "bar"
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "bar"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "bar"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "bar"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "properties": {
+          "bar": {
+            "type": "string",
+            "title": "bar",
+            "enum": [
+              "a",
+              "b"
+            ]
+          }
+        },
+        "title": "StringInOneof",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "maxLength": 3,
+            "minLength": 3
+          }
+        },
+        "title": "StringLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringLenBytes": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringLenBytes",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringMaxBytes": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringMaxBytes",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringMaxLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "maxLength": 5
+          }
+        },
+        "title": "StringMaxLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringMinBytes": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringMinBytes",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringMinLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "minLength": 3
+          }
+        },
+        "title": "StringMinLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringMinMaxBytes": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringMinMaxBytes",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringMinMaxLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "maxLength": 5,
+            "minLength": 3
+          }
+        },
+        "title": "StringMinMaxLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNone": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNone",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotAddress": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotAddress",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotContains": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotContains",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotEmail": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotEmail",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotHostname": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotHostname",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIP": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIP",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPPrefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPPrefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPWithPrefixLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPWithPrefixLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPv4": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPv4",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPv4Prefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPv4Prefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPv4WithPrefixLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPv4WithPrefixLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPv6": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPv6",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPv6Prefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPv6Prefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIPv6WithPrefixLen": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotIPv6WithPrefixLen",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "not": {
+              "type": "string",
+              "enum": [
+                "fizz",
+                "buzz"
+              ]
+            },
+            "title": "val"
+          }
+        },
+        "title": "StringNotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotTUUID": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotTUUID",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotURI": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotURI",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotURIRef": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotURIRef",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringNotUUID": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringNotUUID",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringPattern": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "pattern": "(?i)^[a-z0-9]+$"
+          }
+        },
+        "title": "StringPattern",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringPatternEscapes": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "pattern": "\\* \\\\ \\w"
+          }
+        },
+        "title": "StringPatternEscapes",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringPrefix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringPrefix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringSuffix": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringSuffix",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringTUUID": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val"
+          }
+        },
+        "title": "StringTUUID",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringURI": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "uri"
+          }
+        },
+        "title": "StringURI",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringURIRef": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "uri-ref"
+          }
+        },
+        "title": "StringURIRef",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringUUID": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "uuid"
+          }
+        },
+        "title": "StringUUID",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.StringUUIDIgnore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "string",
+            "title": "val",
+            "format": "uuid"
+          }
+        },
+        "title": "StringUUIDIgnore",
+        "additionalProperties": false
+      },
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "examples": [
+              "CodeNotFound"
+            ],
+            "enum": [
+              "CodeCanceled",
+              "CodeUnknown",
+              "CodeInvalidArgument",
+              "CodeDeadlineExceeded",
+              "CodeNotFound",
+              "CodeAlreadyExists",
+              "CodePermissionDenied",
+              "CodeResourceExhausted",
+              "CodeFailedPrecondition",
+              "CodeAborted",
+              "CodeOutOfRange",
+              "CodeInternal",
+              "CodeUnavailable",
+              "CodeDataLoss",
+              "CodeUnauthenticated"
+            ],
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "detail": {
+            "$ref": "#/components/schemas/google.protobuf.Any"
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "binary"
+          },
+          "debug": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      }
+    }
+  },
+  "security": []
+}

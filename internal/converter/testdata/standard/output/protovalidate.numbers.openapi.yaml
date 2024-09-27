@@ -1,0 +1,2092 @@
+openapi: 3.1.0
+info:
+  title: buf.validate.conformance.cases
+paths: {}
+components:
+  schemas:
+    buf.validate.conformance.cases.DoubleConst:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          const: "1.23"
+      title: DoubleConst
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleExGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 128
+          minimum: 256
+      title: DoubleExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleExample:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          examples:
+            - "0"
+          title: val
+      title: DoubleExample
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleFinite:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleFinite
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleGT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleGT
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleGTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          minimum: 8
+      title: DoubleGTE
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: DoubleGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleGTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleGTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleIgnore:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: DoubleIgnore
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          enum:
+            - "4.56"
+            - "7.89"
+      title: DoubleIn
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleIncorrectType:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleIncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleLT
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleLTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: DoubleLTE
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleNone:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleNone
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleNotFinite:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: DoubleNotFinite
+      additionalProperties: false
+    buf.validate.conformance.cases.DoubleNotIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - "0"
+          title: val
+      title: DoubleNotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32Const:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          const: "1"
+      title: Fixed32Const
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32ExGTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 128
+          minimum: 256
+      title: Fixed32ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          exclusiveMinimum: 10
+          type: integer
+          title: val
+      title: Fixed32ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32Example:
+      type: object
+      properties:
+        val:
+          type: integer
+          examples:
+            - "0"
+          title: val
+      title: Fixed32Example
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          type: integer
+          title: val
+      title: Fixed32GT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32GTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          minimum: 8
+      title: Fixed32GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32GTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Fixed32GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 5
+          type: integer
+          title: val
+      title: Fixed32GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32Ignore:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Fixed32Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32In:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          enum:
+            - "2"
+            - "3"
+      title: Fixed32In
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32IncorrectType:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: Fixed32IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          type: integer
+          title: val
+      title: Fixed32LT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32LTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 64
+      title: Fixed32LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32None:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: Fixed32None
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed32NotIn:
+      type: object
+      properties:
+        val:
+          type: integer
+          not:
+            type: integer
+            enum:
+              - "0"
+          title: val
+      title: Fixed32NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64Const:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          const: "1"
+      title: Fixed64Const
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64ExGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 128
+          minimum: 256
+      title: Fixed64ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          exclusiveMinimum: 10
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Fixed64ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64Example:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          examples:
+            - "0"
+          title: val
+      title: Fixed64Example
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Fixed64GT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64GTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          minimum: 8
+      title: Fixed64GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64GTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Fixed64GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 5
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Fixed64GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64Ignore:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Fixed64Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64In:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          enum:
+            - "2"
+            - "3"
+      title: Fixed64In
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64IncorrectType:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Fixed64IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Fixed64LT
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64LTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: Fixed64LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64None:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Fixed64None
+      additionalProperties: false
+    buf.validate.conformance.cases.Fixed64NotIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - "0"
+          title: val
+      title: Fixed64NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatConst:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+          const: "1.23"
+      title: FloatConst
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatExGTELTE:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatExLTGT:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatExample:
+      type: object
+      properties:
+        val:
+          type: number
+          examples:
+            - "8"
+          title: val
+      title: FloatExample
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatFinite:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatFinite
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatGT:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatGT
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatGTE:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatGTE
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatGTELTE:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatGTLT:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatGTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatIgnore:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatIgnore
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatIn:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatIn
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatIncorrectType:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 0
+          type: number
+          title: val
+      title: FloatIncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatLT:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatLT
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatLTE:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatLTE
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatNone:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatNone
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatNotFinite:
+      type: object
+      properties:
+        val:
+          type: number
+          title: val
+      title: FloatNotFinite
+      additionalProperties: false
+    buf.validate.conformance.cases.FloatNotIn:
+      type: object
+      properties:
+        val:
+          type: number
+          not:
+            type: number
+            enum:
+              - "0"
+          title: val
+      title: FloatNotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32Const:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          const: 1
+      title: Int32Const
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32ExGTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 128
+          minimum: 256
+      title: Int32ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          type: integer
+          title: val
+      title: Int32ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32Example:
+      type: object
+      properties:
+        val:
+          type: integer
+          examples:
+            - 10
+          title: val
+      title: Int32Example
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          type: integer
+          title: val
+      title: Int32GT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32GTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          minimum: 8
+      title: Int32GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32GTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Int32GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          type: integer
+          title: val
+      title: Int32GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32Ignore:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Int32Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32In:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          enum:
+            - 2
+            - 3
+      title: Int32In
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32IncorrectType:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: Int32IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          type: integer
+          title: val
+      title: Int32LT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32LTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 64
+      title: Int32LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32None:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: Int32None
+      additionalProperties: false
+    buf.validate.conformance.cases.Int32NotIn:
+      type: object
+      properties:
+        val:
+          type: integer
+          not:
+            type: integer
+            enum:
+              - 0
+          title: val
+      title: Int32NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64BigConstraints:
+      type: object
+      properties:
+        ltPos:
+          exclusiveMaximum: 5.444333222e+09
+          oneOf:
+            - type: string
+            - type: number
+          title: lt_pos
+          description: Intentionally choose limits that are outside the range of both signed and unsigned 32-bit integers.
+        ltNeg:
+          exclusiveMaximum: -5.444333222e+09
+          oneOf:
+            - type: string
+            - type: number
+          title: lt_neg
+        gtPos:
+          exclusiveMinimum: 5.444333222e+09
+          oneOf:
+            - type: string
+            - type: number
+          title: gt_pos
+        gtNeg:
+          exclusiveMinimum: -5.444333222e+09
+          oneOf:
+            - type: string
+            - type: number
+          title: gt_neg
+        ltePos:
+          oneOf:
+            - type: string
+            - type: number
+          title: lte_pos
+          maximum: 5444333222
+        lteNeg:
+          oneOf:
+            - type: string
+            - type: number
+          title: lte_neg
+        gtePos:
+          oneOf:
+            - type: string
+            - type: number
+          title: gte_pos
+          minimum: 5444333222
+        gteNeg:
+          oneOf:
+            - type: string
+            - type: number
+          title: gte_neg
+        constantPos:
+          oneOf:
+            - type: string
+            - type: number
+          title: constant_pos
+          const: 5444333222
+        constantNeg:
+          oneOf:
+            - type: string
+            - type: number
+          title: constant_neg
+          const: -5444333222
+        in:
+          oneOf:
+            - type: string
+            - type: number
+          title: in
+          enum:
+            - 5444333222
+            - -5444333222
+        notin:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - 5444333222
+              - -5444333222
+          title: notin
+      title: Int64BigConstraints
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64Const:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          const: 1
+      title: Int64Const
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64ExGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 128
+          minimum: 256
+      title: Int64ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Int64ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64Example:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          examples:
+            - 10
+          title: val
+      title: Int64Example
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Int64GT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64GTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          minimum: 8
+      title: Int64GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64GTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Int64GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Int64GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64Ignore:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: Int64Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64In:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          enum:
+            - 2
+            - 3
+      title: Int64In
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64IncorrectType:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Int64IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Int64LT
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64LTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: Int64LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64LTEOptional:
+      type: object
+      allOf:
+        - anyOf:
+            - required:
+                - val
+            - not:
+                anyOf:
+                  - required:
+                      - val
+      anyOf:
+        - required:
+            - val
+        - not:
+            anyOf:
+              - required:
+                  - val
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: Int64LTEOptional
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64None:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: Int64None
+      additionalProperties: false
+    buf.validate.conformance.cases.Int64NotIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - 0
+          title: val
+      title: Int64NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32Const:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          const: 1
+      title: SFixed32Const
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32ExGTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 128
+          minimum: 256
+      title: SFixed32ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          type: integer
+          title: val
+      title: SFixed32ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32Example:
+      type: object
+      properties:
+        val:
+          type: integer
+          examples:
+            - 0
+          title: val
+      title: SFixed32Example
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          type: integer
+          title: val
+      title: SFixed32GT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32GTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          minimum: 8
+      title: SFixed32GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32GTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SFixed32GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          type: integer
+          title: val
+      title: SFixed32GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32Ignore:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SFixed32Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32In:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          enum:
+            - 2
+            - 3
+      title: SFixed32In
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32IncorrectType:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: SFixed32IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          type: integer
+          title: val
+      title: SFixed32LT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32LTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 64
+      title: SFixed32LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32None:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: SFixed32None
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed32NotIn:
+      type: object
+      properties:
+        val:
+          type: integer
+          not:
+            type: integer
+            enum:
+              - 0
+          title: val
+      title: SFixed32NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64Const:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          const: 1
+      title: SFixed64Const
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64ExGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 128
+          minimum: 256
+      title: SFixed64ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SFixed64ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64Example:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          examples:
+            - 0
+          title: val
+      title: SFixed64Example
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SFixed64GT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64GTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          minimum: 8
+      title: SFixed64GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64GTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SFixed64GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SFixed64GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64Ignore:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SFixed64Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64In:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          enum:
+            - 2
+            - 3
+      title: SFixed64In
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64IncorrectType:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SFixed64IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SFixed64LT
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64LTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: SFixed64LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64None:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SFixed64None
+      additionalProperties: false
+    buf.validate.conformance.cases.SFixed64NotIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - 0
+          title: val
+      title: SFixed64NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32Const:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          const: 1
+      title: SInt32Const
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32ExGTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 128
+          minimum: 256
+      title: SInt32ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          type: integer
+          title: val
+      title: SInt32ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32Example:
+      type: object
+      properties:
+        val:
+          type: integer
+          examples:
+            - 0
+          title: val
+      title: SInt32Example
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          type: integer
+          title: val
+      title: SInt32GT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32GTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          minimum: 8
+      title: SInt32GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32GTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SInt32GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          type: integer
+          title: val
+      title: SInt32GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32Ignore:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SInt32Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32In:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          enum:
+            - 2
+            - 3
+      title: SInt32In
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32IncorrectType:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: SInt32IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          type: integer
+          title: val
+      title: SInt32LT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32LTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 64
+      title: SInt32LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32None:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: SInt32None
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt32NotIn:
+      type: object
+      properties:
+        val:
+          type: integer
+          not:
+            type: integer
+            enum:
+              - 0
+          title: val
+      title: SInt32NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64Const:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          const: 1
+      title: SInt64Const
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64ExGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 128
+          minimum: 256
+      title: SInt64ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SInt64ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64Example:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          examples:
+            - 0
+          title: val
+      title: SInt64Example
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SInt64GT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64GTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          minimum: 8
+      title: SInt64GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64GTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SInt64GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SInt64GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64Ignore:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: SInt64Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64In:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          enum:
+            - 2
+            - 3
+      title: SInt64In
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64IncorrectType:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SInt64IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 0
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SInt64LT
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64LTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: SInt64LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64None:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: SInt64None
+      additionalProperties: false
+    buf.validate.conformance.cases.SInt64NotIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - 0
+          title: val
+      title: SInt64NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32Const:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          const: "1"
+      title: UInt32Const
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32ExGTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 128
+          minimum: 256
+      title: UInt32ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          exclusiveMinimum: 10
+          type: integer
+          title: val
+      title: UInt32ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32Example:
+      type: object
+      properties:
+        val:
+          type: integer
+          examples:
+            - "0"
+          title: val
+      title: UInt32Example
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          type: integer
+          title: val
+      title: UInt32GT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32GTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          minimum: 8
+      title: UInt32GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32GTELTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: UInt32GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 5
+          type: integer
+          title: val
+      title: UInt32GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32Ignore:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 256
+          minimum: 128
+      title: UInt32Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32In:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          enum:
+            - "2"
+            - "3"
+      title: UInt32In
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32IncorrectType:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: UInt32IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          type: integer
+          title: val
+      title: UInt32LT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32LTE:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+          maximum: 64
+      title: UInt32LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32None:
+      type: object
+      properties:
+        val:
+          type: integer
+          title: val
+      title: UInt32None
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt32NotIn:
+      type: object
+      properties:
+        val:
+          type: integer
+          not:
+            type: integer
+            enum:
+              - "0"
+          title: val
+      title: UInt32NotIn
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64Const:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          const: "1"
+      title: UInt64Const
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64ExGTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 128
+          minimum: 256
+      title: UInt64ExGTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64ExLTGT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          exclusiveMinimum: 10
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: UInt64ExLTGT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64Example:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          examples:
+            - "0"
+          title: val
+      title: UInt64Example
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64GT:
+      type: object
+      properties:
+        val:
+          exclusiveMinimum: 16
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: UInt64GT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64GTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          minimum: 8
+      title: UInt64GTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64GTELTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: UInt64GTELTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64GTLT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 5
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: UInt64GTLT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64Ignore:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 256
+          minimum: 128
+      title: UInt64Ignore
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64In:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          enum:
+            - "2"
+            - "3"
+      title: UInt64In
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64IncorrectType:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: UInt64IncorrectType
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64LT:
+      type: object
+      properties:
+        val:
+          exclusiveMaximum: 5
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: UInt64LT
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64LTE:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+          maximum: 64
+      title: UInt64LTE
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64None:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          title: val
+      title: UInt64None
+      additionalProperties: false
+    buf.validate.conformance.cases.UInt64NotIn:
+      type: object
+      properties:
+        val:
+          oneOf:
+            - type: string
+            - type: number
+          not:
+            enum:
+              - "0"
+          title: val
+      title: UInt64NotIn
+      additionalProperties: false
+    connect-protocol-version:
+      type: number
+      title: Connect-Protocol-Version
+      enum:
+        - 1
+      description: Define the version of the Connect protocol
+      const: 1
+    connect-timeout-header:
+      type: number
+      title: Connect-Timeout-Ms
+      description: Define the timeout, in ms
+    connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          examples:
+            - CodeNotFound
+          enum:
+            - CodeCanceled
+            - CodeUnknown
+            - CodeInvalidArgument
+            - CodeDeadlineExceeded
+            - CodeNotFound
+            - CodeAlreadyExists
+            - CodePermissionDenied
+            - CodeResourceExhausted
+            - CodeFailedPrecondition
+            - CodeAborted
+            - CodeOutOfRange
+            - CodeInternal
+            - CodeUnavailable
+            - CodeDataLoss
+            - CodeUnauthenticated
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+security: []
