@@ -76,6 +76,7 @@ components:
 | (buf.validate.field).any.in | ✅ | |
 | (buf.validate.field).any.not_in | ✅ | |
 | (buf.validate.field).bool.const | ✅ | |
+| (buf.validate.field).bool.example | ✅ | |
 | (buf.validate.field).bytes.const | ✅ | |
 | (buf.validate.field).bytes.contains | | |
 | (buf.validate.field).bytes.in | ✅ | |
@@ -89,11 +90,13 @@ components:
 | (buf.validate.field).bytes.pattern | ✅ | |
 | (buf.validate.field).bytes.prefix | ❌ | |
 | (buf.validate.field).bytes.suffix | ❌ | |
+| (buf.validate.field).bytes.example | ✅ | |
 | (buf.validate.field).double.const | ✅ | |
 | (buf.validate.field).double.gt | ✅ | |
 | (buf.validate.field).double.gte | ✅ | |
 | (buf.validate.field).double.lt | ✅ | |
 | (buf.validate.field).double.lte | ✅ | |
+| (buf.validate.field).double.example | ✅ | |
 | (buf.validate.field).duration.const | ✅ | |
 | (buf.validate.field).duration.gt | ❌ | |
 | (buf.validate.field).duration.gte | ❌ | |
@@ -101,33 +104,40 @@ components:
 | (buf.validate.field).duration.lt | ❌ | |
 | (buf.validate.field).duration.lte | ❌ | |
 | (buf.validate.field).duration.not_in | ❌ | |
+| (buf.validate.field).duration.example | ✅ | |
 | (buf.validate.field).enum.const | ✅ | |
 | (buf.validate.field).enum.defined_only | ❌ | |
+| (buf.validate.field).enum.example | ✅ | |
 | (buf.validate.field).fixed32.const | ✅ | |
 | (buf.validate.field).fixed32.gt | ✅ | |
 | (buf.validate.field).fixed32.gte | ✅ | |
 | (buf.validate.field).fixed32.lt | ✅ | |
 | (buf.validate.field).fixed32.lte | ✅ | |
+| (buf.validate.field).fixed32.example | ✅ | |
 | (buf.validate.field).fixed64.const | ✅ | |
 | (buf.validate.field).fixed64.gt | ✅ | |
 | (buf.validate.field).fixed64.gte | ✅ | |
 | (buf.validate.field).fixed64.lt | ✅ | |
 | (buf.validate.field).fixed64.lte | ✅ | |
+| (buf.validate.field).fixed64.example | ✅ | |
 | (buf.validate.field).float.const | ✅ | |
 | (buf.validate.field).float.gt | ✅ | |
 | (buf.validate.field).float.gte | ✅ | |
 | (buf.validate.field).float.lt | ✅ | |
 | (buf.validate.field).float.lte | ✅ | |
+| (buf.validate.field).float.example | ✅ | |
 | (buf.validate.field).int32.const | ✅ | |
 | (buf.validate.field).int32.gt | ✅ | |
 | (buf.validate.field).int32.gte | ✅ | |
 | (buf.validate.field).int32.lt | ✅ | |
 | (buf.validate.field).int32.lte | ✅ | |
+| (buf.validate.field).int32.example | ✅ | |
 | (buf.validate.field).int64.const | ✅ | |
 | (buf.validate.field).int64.gt | ✅ | |
 | (buf.validate.field).int64.gte | ✅ | |
 | (buf.validate.field).int64.lt | ✅ | |
 | (buf.validate.field).int64.lte | ✅ | |
+| (buf.validate.field).int64.example | ✅ | |
 | (buf.validate.field).map.keys | ❌ | |
 | (buf.validate.field).map.max_pairs | ✅ | |
 | (buf.validate.field).map.min_pairs | ✅ | |
@@ -142,21 +152,25 @@ components:
 | (buf.validate.field).sfixed32.gte | ✅ | |
 | (buf.validate.field).sfixed32.lt | ✅ | |
 | (buf.validate.field).sfixed32.lte | ✅ | |
+| (buf.validate.field).sfixed32.example | ✅ | |
 | (buf.validate.field).sfixed64.const | ✅ | |
 | (buf.validate.field).sfixed64.gt | ✅ | |
 | (buf.validate.field).sfixed64.gte | ✅ | |
 | (buf.validate.field).sfixed64.lt | ✅ | |
 | (buf.validate.field).sfixed64.lte | ✅ | |
+| (buf.validate.field).sfixed64.example | ✅ | |
 | (buf.validate.field).sint32.const | ✅ | |
 | (buf.validate.field).sint32.gt | ✅ | |
 | (buf.validate.field).sint32.gte | ✅ | |
 | (buf.validate.field).sint32.lt | ✅ | |
 | (buf.validate.field).sint32.lte | ✅ | |
+| (buf.validate.field).sint32.example | ✅ | |
 | (buf.validate.field).sint64.const | ✅ | |
 | (buf.validate.field).sint64.gt | ✅ | |
 | (buf.validate.field).sint64.gte | ✅ | |
 | (buf.validate.field).sint64.lt | ✅ | |
 | (buf.validate.field).sint64.lte | ✅ | |
+| (buf.validate.field).sint64.example | ✅ | |
 | (buf.validate.field).string.address | | |
 | (buf.validate.field).string.const | ✅ | |
 | (buf.validate.field).string.contains | ❌ | |
@@ -188,6 +202,7 @@ components:
 | (buf.validate.field).string.uri_ref | ✅ | |
 | (buf.validate.field).string.uuid | ✅ | |
 | (buf.validate.field).string.well_known_regex | ❌ | |
+| (buf.validate.field).string.example | ✅ | |
 | (buf.validate.field).timestamp.const | ✅ | |
 | (buf.validate.field).timestamp.gt | ❌ | |
 | (buf.validate.field).timestamp.gt_now | ❌ | |
@@ -195,16 +210,19 @@ components:
 | (buf.validate.field).timestamp.lt_now | ❌ | |
 | (buf.validate.field).timestamp.lte | ❌ | |
 | (buf.validate.field).timestamp.within | ❌ | |
+| (buf.validate.field).timestamp.example | ✅ | |
 | (buf.validate.field).uint32.const | ✅ | |
 | (buf.validate.field).uint32.gt | ✅ | |
 | (buf.validate.field).uint32.gte | ✅ | |
 | (buf.validate.field).uint32.lt | ✅ | |
 | (buf.validate.field).uint32.lte | ✅ | |
+| (buf.validate.field).uint32.example | ✅ | |
 | (buf.validate.field).uint64.const | ✅ | |
 | (buf.validate.field).uint64.gt | ✅ | |
 | (buf.validate.field).uint64.gte | ✅ | |
 | (buf.validate.field).uint64.lt | ✅ | |
 | (buf.validate.field).uint64.lte | ✅ | |
+| (buf.validate.field).uint64.example | ✅ | |
 
 ## OneOf Options
 | Option | Supported? | Notes |
