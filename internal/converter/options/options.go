@@ -22,6 +22,8 @@ type Options struct {
 	Debug bool
 	// IncludeNumberEnumValues indicates if numbers are included for enum values in addition to the string representations.
 	IncludeNumberEnumValues bool
+	// WithProtoNames indicates if protobuf field names should be used instead of JSON names.
+	WithProtoNames bool
 	// Path is the output OpenAPI path.
 	Path string
 }
@@ -55,6 +57,8 @@ func FromString(s string) (Options, error) {
 			opts.AllowGET = true
 		case param == "with-streaming":
 			opts.WithStreaming = true
+		case param == "with-proto-names":
+			opts.WithProtoNames = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)

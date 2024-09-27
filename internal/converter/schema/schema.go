@@ -8,12 +8,13 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/protovalidate"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func MessageToSchema(tt protoreflect.MessageDescriptor) (string, *base.Schema) {
+func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 	slog.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
 	defer slog.Debug("/messageToSchema", slog.Any("descriptor", tt.FullName()))
 	if util.IsWellKnown(tt) {
@@ -37,9 +38,9 @@ func MessageToSchema(tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
 		if oneOf := field.ContainingOneof(); oneOf != nil {
-			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], field.JSONName())
+			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], util.MakeFieldName(opts, field))
 		}
-		props.Set(field.JSONName(), FieldToSchema(base.CreateSchemaProxy(s), field))
+		props.Set(util.MakeFieldName(opts, field), FieldToSchema(base.CreateSchemaProxy(s), field))
 	}
 
 	s.Properties = props

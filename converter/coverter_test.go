@@ -40,7 +40,7 @@ var tmplElements = template.Must(template.New("name").Parse(`<!doctype html>
 	</body>
 </html>`))
 
-func ExampleGenerateSingle_WithEndpoints() {
+func ExampleGenerateSingle_withEndpoints() {
 	mux := http.NewServeMux()
 	mux.Handle(elizav1connect.NewElizaServiceHandler(&elizav1connect.UnimplementedElizaServiceHandler{}))
 	openapiBody, err := converter.GenerateSingle(

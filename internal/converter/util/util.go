@@ -98,3 +98,10 @@ func MakeMediaTypes(opts options.Options, s *base.SchemaProxy, isRequest, isStre
 	}
 	return mediaTypes
 }
+
+func MakeFieldName(opts options.Options, fd protoreflect.FieldDescriptor) string {
+	if opts.WithProtoNames {
+		return string(fd.Name())
+	}
+	return fd.JSONName()
+}

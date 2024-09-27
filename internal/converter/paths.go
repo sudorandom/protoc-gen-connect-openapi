@@ -13,8 +13,7 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-func fileToPathItems(opts options.Options, fd protoreflect.FileDescriptor) (*orderedmap.Map[string, *v3.PathItem], error) {
-	items := orderedmap.New[string, *v3.PathItem]()
+func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, paths *v3.Paths) error {
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
@@ -24,8 +23,8 @@ func fileToPathItems(opts options.Options, fd protoreflect.FileDescriptor) (*ord
 			pathItems := googleapi.MakePathItems(opts, method)
 			for pair := pathItems.First(); pair != nil; pair = pair.Next() {
 				path, item := pair.Key(), pair.Value()
-				if existing, ok := items.Get(pair.Key()); !ok {
-					items.Set(path, item)
+				if existing, ok := paths.PathItems.Get(pair.Key()); !ok {
+					paths.PathItems.Set(path, item)
 				} else {
 					if item.Get != nil {
 						existing.Get = item.Get
@@ -42,17 +41,17 @@ func fileToPathItems(opts options.Options, fd protoreflect.FileDescriptor) (*ord
 					if item.Patch != nil {
 						existing.Patch = item.Patch
 					}
-					items.Set(path, existing)
+					paths.PathItems.Set(path, existing)
 				}
 			}
 			// No google.api annotations for this method, so default to the ConnectRPC/gRPC path
 			if pathItems == nil || pathItems.Len() == 0 {
-				items.Set("/"+string(service.FullName())+"/"+string(method.Name()), methodToPathItem(opts, method))
+				paths.PathItems.Set("/"+string(service.FullName())+"/"+string(method.Name()), methodToPathItem(opts, method))
 			}
 		}
 	}
 
-	return items, nil
+	return nil
 }
 
 func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor, returnGet bool) *v3.Operation {

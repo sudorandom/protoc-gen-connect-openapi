@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package json_name;
+
+message Message {
+  string description = 1 [json_name = "json_description"];
+  enum inline {
+    FOO = 0;
+    BAR = 1;
+  }
+  repeated inline stuff = 2 [json_name = "json_stuff"];
+}

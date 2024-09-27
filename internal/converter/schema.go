@@ -161,7 +161,7 @@ func stateToSchema(st *State) *orderedmap.Map[string, *base.SchemaProxy] {
 	}
 
 	for _, message := range st.SortedMessages() {
-		id, schema := schema.MessageToSchema(message)
+		id, schema := schema.MessageToSchema(st.Opts, message)
 		if schema != nil {
 			schemas.Set(id, base.CreateSchemaProxy(schema))
 		}

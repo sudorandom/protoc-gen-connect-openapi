@@ -121,7 +121,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 	case "*":
 		if len(topLevelFieldNamesInPath) > 0 {
-			_, s := schema.MessageToSchema(md.Input())
+			_, s := schema.MessageToSchema(opts, md.Input())
 			for name := range topLevelFieldNamesInPath {
 				s.Properties.Delete(name)
 			}

@@ -1,14 +1,16 @@
-ALL: internal/converter/fixtures/fileset.binpb test install
+ALL: internal/converter/testdata/fileset.binpb test install
 PHONY: test install buf-generate
 
-PROTO_FILES=$(shell find internal/converter/fixtures -type f -name '*.proto')
+PROTO_FILES=$(shell find internal/converter/testdata -type f -name '*.proto')
 
-internal/converter/fixtures/fileset.binpb: $(PROTO_FILES)
+internal/converter/testdata/fileset.binpb: $(PROTO_FILES)
 	@echo "Generating fixture descriptor set"
-	buf build -o internal/converter/fixtures/fileset.binpb
+	buf build -o internal/converter/testdata/fileset.binpb
 
-test: internal/converter/fixtures/fileset.binpb
-	go test ./...
+test: internal/converter/testdata/fileset.binpb
+	go test -coverprofile=coverage.out -coverpkg=./internal/...,./converter/... ./...
+	# To see coverage report:
+	# go tool cover -html=coverage.out
 
 install:
 	go install

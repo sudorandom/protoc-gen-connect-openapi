@@ -194,12 +194,8 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	initializeComponents(components)
 	util.AppendComponents(spec, components)
 
-	pathItems, err := fileToPathItems(opts, fd)
-	if err != nil {
+	if err := addPathItemsFromFile(opts, fd, spec.Paths); err != nil {
 		return err
-	}
-	for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-		spec.Paths.PathItems.Set(pair.Key(), pair.Value())
 	}
 	spec.Tags = append(spec.Tags, fileToTags(fd)...)
 	return nil
