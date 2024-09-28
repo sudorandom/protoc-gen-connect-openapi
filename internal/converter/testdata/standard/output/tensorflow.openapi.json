@@ -1231,19 +1231,59 @@
             "description": "\"bool\""
           },
           "type": {
-            "$ref": "#/components/schemas/tensorflow.DataType"
+            "allOf": [
+              {
+                "title": "type",
+                "description": "\"type\""
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            ]
           },
           "shape": {
-            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+            "allOf": [
+              {
+                "title": "shape",
+                "description": "\"shape\""
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+              }
+            ]
           },
           "tensor": {
-            "$ref": "#/components/schemas/tensorflow.TensorProto"
+            "allOf": [
+              {
+                "title": "tensor",
+                "description": "\"tensor\""
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorProto"
+              }
+            ]
           },
           "list": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue.ListValue"
+            "allOf": [
+              {
+                "title": "list",
+                "description": "any \"list(...)\""
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue.ListValue"
+              }
+            ]
           },
           "func": {
-            "$ref": "#/components/schemas/tensorflow.NameAttrList"
+            "allOf": [
+              {
+                "title": "func",
+                "description": "\"func\" represents a function. func.name is a function's name or\n a primitive op's name. func.attr.first is the name of an attr\n defined for that function. func.attr.second is the value for\n that attr in the instantiation."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.NameAttrList"
+              }
+            ]
           },
           "placeholder": {
             "type": "string",
@@ -1378,7 +1418,15 @@
             "description": "Target Nodes. A list of node names. The named nodes will be run by the\n callable but their outputs will not be returned."
           },
           "runOptions": {
-            "$ref": "#/components/schemas/tensorflow.RunOptions"
+            "allOf": [
+              {
+                "title": "run_options",
+                "description": "Options that will be applied to each run."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunOptions"
+              }
+            ]
           },
           "tensorConnection": {
             "type": "array",
@@ -1527,7 +1575,15 @@
             "description": "When any filters are present sessions will ignore all devices which do not\n match the filters. Each filter can be partially specified, e.g. \"/job:ps\"\n \"/job:worker/replica:3\", etc."
           },
           "gpuOptions": {
-            "$ref": "#/components/schemas/tensorflow.GPUOptions"
+            "allOf": [
+              {
+                "title": "gpu_options",
+                "description": "Options that apply to all GPUs."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GPUOptions"
+              }
+            ]
           },
           "allowSoftPlacement": {
             "type": "boolean",
@@ -1540,7 +1596,15 @@
             "description": "Whether device placements should be logged."
           },
           "graphOptions": {
-            "$ref": "#/components/schemas/tensorflow.GraphOptions"
+            "allOf": [
+              {
+                "title": "graph_options",
+                "description": "Options that apply to all graphs."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphOptions"
+              }
+            ]
           },
           "operationTimeoutInMs": {
             "oneOf": [
@@ -1555,10 +1619,26 @@
             "description": "Global timeout for all blocking operations in this session.  If non-zero,\n and not overridden on a per-operation basis, this value will be used as the\n deadline for all blocking operations."
           },
           "rpcOptions": {
-            "$ref": "#/components/schemas/tensorflow.RPCOptions"
+            "allOf": [
+              {
+                "title": "rpc_options",
+                "description": "Options that apply when this session uses the distributed runtime."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RPCOptions"
+              }
+            ]
           },
           "clusterDef": {
-            "$ref": "#/components/schemas/tensorflow.ClusterDef"
+            "allOf": [
+              {
+                "title": "cluster_def",
+                "description": "Optional list of all workers to use in this session."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.ClusterDef"
+              }
+            ]
           },
           "isolateSessionState": {
             "type": "boolean",
@@ -1571,7 +1651,14 @@
             "description": "When true, WorkerSessions are created with device attributes from the\n full cluster.\n This is helpful when a worker wants to partition a graph\n (for example during a PartitionedCallOp)."
           },
           "experimental": {
-            "$ref": "#/components/schemas/tensorflow.ConfigProto.Experimental"
+            "allOf": [
+              {
+                "title": "experimental"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.ConfigProto.Experimental"
+              }
+            ]
           }
         },
         "title": "ConfigProto",
@@ -1642,7 +1729,15 @@
             "description": "This was promoted to a non-experimental API. Please use\n ConfigProto.share_cluster_devices_in_session instead."
           },
           "sessionMetadata": {
-            "$ref": "#/components/schemas/tensorflow.SessionMetadata"
+            "allOf": [
+              {
+                "title": "session_metadata",
+                "description": "Metadata about the session.\n\n If set, this can be used by the runtime and the Ops for debugging,\n monitoring, etc.\n\n NOTE: This is currently used and propagated only by the direct session\n and EagerContext."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.SessionMetadata"
+              }
+            ]
           },
           "optimizeForStaticGraph": {
             "type": "boolean",
@@ -1655,7 +1750,15 @@
             "description": "Whether to enable the MLIR-based TF-\u003eXLA bridge. This is only used if set\n to true. Default value or false is ignored. Use mlir_bridge_rollout for\n finer control.\n\n If this option is set to true when a session is created, MLIR is used to\n perform the set of graph transformations to put the graph in a form that\n can be executed with delegation of some computations to an accelerator.\n This builds on the model of XLA where a subset of the graph is\n encapsulated and attached to a \"compile\" operation, whose result is fed\n to an \"execute\" operation. The kernel for these operations is responsible\n to lower the encapsulated graph to a particular device."
           },
           "mlirBridgeRollout": {
-            "$ref": "#/components/schemas/tensorflow.ConfigProto.Experimental.MlirBridgeRollout"
+            "allOf": [
+              {
+                "title": "mlir_bridge_rollout",
+                "description": "Whether to enable the MLIR-based TF-\u003eXLA bridge."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.ConfigProto.Experimental.MlirBridgeRollout"
+              }
+            ]
           },
           "enableMlirGraphOptimization": {
             "type": "boolean",
@@ -1695,7 +1798,15 @@
             "description": "Provides a hint to XLA auto clustering to prefer forming a single large\n cluster that encompases most of the graph."
           },
           "coordinationConfig": {
-            "$ref": "#/components/schemas/tensorflow.CoordinationServiceConfig"
+            "allOf": [
+              {
+                "title": "coordination_config",
+                "description": "Distributed coordination service configurations."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.CoordinationServiceConfig"
+              }
+            ]
           },
           "disableOptimizeForStaticGraph": {
             "type": "boolean",
@@ -2036,10 +2147,24 @@
             "description": "If \u003e= 0, the output is an alias of an input. Note that an alias input\n may itself be an alias. The algorithm will therefore need to follow\n those pointers."
           },
           "shape": {
-            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+            "allOf": [
+              {
+                "title": "shape"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+              }
+            ]
           },
           "dtype": {
-            "$ref": "#/components/schemas/tensorflow.DataType"
+            "allOf": [
+              {
+                "title": "dtype"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            ]
           }
         },
         "title": "OutputInfo",
@@ -2050,10 +2175,26 @@
         "type": "object",
         "properties": {
           "graphDef": {
-            "$ref": "#/components/schemas/tensorflow.GraphDef"
+            "allOf": [
+              {
+                "title": "graph_def",
+                "description": "The initial graph definition."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDef"
+              }
+            ]
           },
           "config": {
-            "$ref": "#/components/schemas/tensorflow.ConfigProto"
+            "allOf": [
+              {
+                "title": "config",
+                "description": "Configuration options."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.ConfigProto"
+              }
+            ]
           },
           "target": {
             "type": "string",
@@ -2186,7 +2327,15 @@
             "description": "Memory capacity of device in bytes."
           },
           "locality": {
-            "$ref": "#/components/schemas/tensorflow.DeviceLocality"
+            "allOf": [
+              {
+                "title": "locality",
+                "description": "Platform-specific data about device that may be useful\n for supporting efficient data transfers."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DeviceLocality"
+              }
+            ]
           },
           "incarnation": {
             "oneOf": [
@@ -2235,7 +2384,15 @@
             "description": "Optional NUMA locality of device."
           },
           "links": {
-            "$ref": "#/components/schemas/tensorflow.LocalLinks"
+            "allOf": [
+              {
+                "title": "links",
+                "description": "Optional local interconnect links to other devices."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.LocalLinks"
+              }
+            ]
           }
         },
         "title": "DeviceLocality",
@@ -2292,7 +2449,15 @@
             "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
           },
           "graphDef": {
-            "$ref": "#/components/schemas/tensorflow.GraphDef"
+            "allOf": [
+              {
+                "title": "graph_def",
+                "description": "REQUIRED: The nodes to be added to the session's graph. If any node has\n the same name as an existing node, the operation will fail with\n ILLEGAL_ARGUMENT."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDef"
+              }
+            ]
           },
           "currentGraphVersion": {
             "oneOf": [
@@ -2394,7 +2559,15 @@
         ],
         "properties": {
           "typeId": {
-            "$ref": "#/components/schemas/tensorflow.FullTypeId"
+            "allOf": [
+              {
+                "title": "type_id",
+                "description": "The principal type represented by this object. This may be a concrete type\n (Tensor, Dataset) a type variable (used for dependent types) a type\n symbol (Any, Union). See FullTypeId for details."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.FullTypeId"
+              }
+            ]
           },
           "args": {
             "type": "array",
@@ -2428,13 +2601,28 @@
         "type": "object",
         "properties": {
           "signature": {
-            "$ref": "#/components/schemas/tensorflow.OpDef"
+            "allOf": [
+              {
+                "title": "signature",
+                "description": "The definition of the function's name, arguments, return values,\n attrs etc."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.OpDef"
+              }
+            ]
           },
           "attr": {
             "type": "object",
             "title": "attr",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.AttrValue"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.AttrValue"
+                }
+              ]
             },
             "description": "Attributes specific to this function definition."
           },
@@ -2442,7 +2630,14 @@
             "type": "object",
             "title": "arg_attr",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
+                }
+              ]
             }
           },
           "resourceArgUniqueId": {
@@ -2493,7 +2688,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
+              }
+            ]
           }
         },
         "title": "ArgAttrEntry",
@@ -2506,7 +2708,14 @@
             "type": "object",
             "title": "attr",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.AttrValue"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.AttrValue"
+                }
+              ]
             }
           }
         },
@@ -2522,7 +2731,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           }
         },
         "title": "AttrEntry",
@@ -2536,7 +2752,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           }
         },
         "title": "AttrEntry",
@@ -2674,7 +2897,15 @@
             "description": "Force all tensors to be gpu_compatible. On a GPU-enabled TensorFlow,\n enabling this option forces all CPU tensors to be allocated with Cuda\n pinned memory. Normally, TensorFlow will infer which tensors should be\n allocated as the pinned memory. But in case where the inference is\n incomplete, this option can significantly speed up the cross-device memory\n copy performance as long as it fits the memory.\n Note that this option is not something that should be\n enabled by default for unknown or very large models, since all Cuda pinned\n memory is unpageable, having too much pinned memory might negatively impact\n the overall host system performance."
           },
           "experimental": {
-            "$ref": "#/components/schemas/tensorflow.GPUOptions.Experimental"
+            "allOf": [
+              {
+                "title": "experimental",
+                "description": "Everything inside experimental is subject to change and is not subject\n to API stability guarantees in\n https://www.tensorflow.org/guide/version_compat."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GPUOptions.Experimental"
+              }
+            ]
           }
         },
         "title": "GPUOptions",
@@ -2827,7 +3058,14 @@
             "type": "object",
             "title": "frames_by_id",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+                }
+              ]
             },
             "description": "Stack traces and frames are uniqueified during construction. These maps\n index from the unique id for a frame/trace to the value."
           },
@@ -2835,14 +3073,28 @@
             "type": "object",
             "title": "traces_by_id",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+                }
+              ]
             }
           },
           "traces": {
             "type": "object",
             "title": "traces",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+                }
+              ]
             },
             "description": "Deprecated."
           },
@@ -2914,7 +3166,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+              }
+            ]
           }
         },
         "title": "FramesByIdEntry",
@@ -2987,7 +3246,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              }
+            ]
           }
         },
         "title": "TracesByIdEntry",
@@ -3001,7 +3267,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              }
+            ]
           }
         },
         "title": "TracesEntry",
@@ -3018,7 +3291,15 @@
             "title": "node"
           },
           "versions": {
-            "$ref": "#/components/schemas/tensorflow.VersionDef"
+            "allOf": [
+              {
+                "title": "versions",
+                "description": "Compatibility versions of the graph.  See core/public/version.h for version\n history.  The GraphDef version is distinct from the TensorFlow version, and\n each release of TensorFlow will support a range of GraphDef versions."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.VersionDef"
+              }
+            ]
           },
           "version": {
             "type": "integer",
@@ -3026,10 +3307,26 @@
             "description": "Deprecated single version field; use versions above instead.  Since all\n GraphDef changes before \"versions\" was introduced were forward\n compatible, this field is entirely ignored."
           },
           "library": {
-            "$ref": "#/components/schemas/tensorflow.FunctionDefLibrary"
+            "allOf": [
+              {
+                "title": "library",
+                "description": "\"library\" provides user-defined functions.\n\n Naming:\n   * library.function.name are in a flat namespace.\n     NOTE: We may need to change it to be hierarchical to support\n     different orgs. E.g.,\n     { \"/google/nn\", { ... }},\n     { \"/google/vision\", { ... }}\n     { \"/org_foo/module_bar\", { ... }}\n     map\u003cstring, FunctionDefLib\u003e named_lib;\n   * If node[i].op is the name of one function in \"library\",\n     node[i] is deemed as a function call. Otherwise, node[i].op\n     must be a primitive operation supported by the runtime.\n\n\n Function call semantics:\n\n   * The callee may start execution as soon as some of its inputs\n     are ready. The caller may want to use Tuple() mechanism to\n     ensure all inputs are ready in the same time.\n\n   * The consumer of return values may start executing as soon as\n     the return values the consumer depends on are ready.  The\n     consumer may want to use Tuple() mechanism to ensure the\n     consumer does not start until all return values of the callee\n     function are ready."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.FunctionDefLibrary"
+              }
+            ]
           },
           "debugInfo": {
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo"
+            "allOf": [
+              {
+                "title": "debug_info",
+                "description": "Stack traces for the nodes in this graph."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo"
+              }
+            ]
           }
         },
         "title": "GraphDef",
@@ -3045,7 +3342,15 @@
             "description": "If true, use control flow to schedule the activation of Recv nodes.\n (Currently ignored.)"
           },
           "optimizerOptions": {
-            "$ref": "#/components/schemas/tensorflow.OptimizerOptions"
+            "allOf": [
+              {
+                "title": "optimizer_options",
+                "description": "Options controlling how graph is optimized."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.OptimizerOptions"
+              }
+            ]
           },
           "buildCostModel": {
             "oneOf": [
@@ -3092,7 +3397,15 @@
             "description": "If \u003e 0, record a timeline every this many steps.\n EXPERIMENTAL: This currently has no effect in MasterSession."
           },
           "rewriteOptions": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig"
+            "allOf": [
+              {
+                "title": "rewrite_options",
+                "description": "Options that control the type and amount of graph rewriting.\n Not currently configurable via the public Python API (i.e. there is no API\n stability guarantee if you import RewriterConfig explicitly)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig"
+              }
+            ]
           }
         },
         "title": "GraphOptions",
@@ -3210,7 +3523,15 @@
             "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
           },
           "options": {
-            "$ref": "#/components/schemas/tensorflow.CallableOptions"
+            "allOf": [
+              {
+                "title": "options",
+                "description": "Options that define the behavior of the created callable."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.CallableOptions"
+              }
+            ]
           },
           "requestId": {
             "oneOf": [
@@ -3338,7 +3659,14 @@
             "type": "object",
             "title": "attr",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.AttrValue"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.AttrValue"
+                }
+              ]
             }
           }
         },
@@ -3354,7 +3682,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           }
         },
         "title": "AttrEntry",
@@ -3369,7 +3704,15 @@
             "description": "Name of the tensor."
           },
           "tensor": {
-            "$ref": "#/components/schemas/tensorflow.TensorProto"
+            "allOf": [
+              {
+                "title": "tensor",
+                "description": "The client can populate a TensorProto using a tensorflow::Tensor`, or\n directly using the protobuf field accessors.\n\n The client specifies whether the returned tensor values should be\n filled tensor fields (float_val, int_val, etc.) or encoded in a\n compact form in tensor.tensor_content."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorProto"
+              }
+            ]
           }
         },
         "title": "NamedTensorProto",
@@ -3406,15 +3749,38 @@
             "type": "object",
             "title": "attr",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.AttrValue"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.AttrValue"
+                }
+              ]
             },
             "description": "Operation-specific graph-construction-time configuration.\n Note that this should include all attrs defined in the\n corresponding OpDef, including those with a value matching\n the default -- this allows the default to change and makes\n NodeDefs easier to interpret on their own.  However, if\n an attr with a default is not specified in this list, the\n default will be used.\n The \"names\" (keys) must match the regexp \"[a-z][a-z0-9_]+\" (and\n one of the names from the corresponding OpDef's attr field).\n The values must have a type matching the corresponding OpDef\n attr's type field.\n TODO(josh11b): Add some examples here showing best practices."
           },
           "experimentalDebugInfo": {
-            "$ref": "#/components/schemas/tensorflow.NodeDef.ExperimentalDebugInfo"
+            "allOf": [
+              {
+                "title": "experimental_debug_info",
+                "description": "This stores debug information associated with the node."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.NodeDef.ExperimentalDebugInfo"
+              }
+            ]
           },
           "experimentalType": {
-            "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+            "allOf": [
+              {
+                "title": "experimental_type",
+                "description": "The complete type of this node. Experimental and subject to change.\n Currently, the field only contains the return types of the node. That will\n extend in the future to contain the entire signature of the node, as a\n function type."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+              }
+            ]
           }
         },
         "title": "NodeDef",
@@ -3428,7 +3794,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           }
         },
         "title": "AttrEntry",
@@ -3550,7 +3923,14 @@
             "title": "referenced_tensor"
           },
           "memoryStats": {
-            "$ref": "#/components/schemas/tensorflow.MemoryStats"
+            "allOf": [
+              {
+                "title": "memory_stats"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.MemoryStats"
+              }
+            ]
           },
           "allStartNanos": {
             "oneOf": [
@@ -3620,7 +4000,14 @@
             "title": "slot"
           },
           "tensorDescription": {
-            "$ref": "#/components/schemas/tensorflow.TensorDescription"
+            "allOf": [
+              {
+                "title": "tensor_description"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorDescription"
+              }
+            ]
           }
         },
         "title": "NodeOutput",
@@ -3667,7 +4054,15 @@
             "title": "attr"
           },
           "deprecation": {
-            "$ref": "#/components/schemas/tensorflow.OpDeprecation"
+            "allOf": [
+              {
+                "title": "deprecation",
+                "description": "Optional deprecation based on GraphDef versions."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.OpDeprecation"
+              }
+            ]
           },
           "summary": {
             "type": "string",
@@ -3723,7 +4118,15 @@
             "description": "Human readable description."
           },
           "type": {
-            "$ref": "#/components/schemas/tensorflow.DataType"
+            "allOf": [
+              {
+                "title": "type",
+                "description": "Describes the type of one or more tensors that are accepted/produced\n by this input/output arg.  The only legal combinations are:\n * For a single tensor: either the \"type\" field is set or the\n   \"type_attr\" field is set to the name of an attr with type \"type\".\n * For a sequence of tensors with the same type: the \"number_attr\"\n   field will be set to the name of an attr with type \"int\", and\n   either the \"type\" or \"type_attr\" field will be set as for\n   single tensors.\n * For a sequence of tensors, the \"type_list_attr\" field will be set\n   to the name of an attr with type \"list(type)\"."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            ]
           },
           "typeAttr": {
             "type": "string",
@@ -3754,7 +4157,15 @@
             "description": "For inputs: if true, the inputs are required to be refs.\n   By default, inputs can be either refs or non-refs.\n For outputs: if true, outputs are refs, otherwise they are not."
           },
           "experimentalFullType": {
-            "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+            "allOf": [
+              {
+                "title": "experimental_full_type",
+                "description": "Experimental. Full type declaration for this argument.\n The full type specification combines type, type_attr, type_list_attr,\n etc. into a unified representation.\n This declaration may contain non-concrete types (for example,\n Tensor\u003cTypeVar\u003c'T'\u003e\u003e is a valid type declaration.\n\n Note: this is a transient field. The long-term aim is to represent the\n entire OpDef as a single type: a callable. In that context, this field is\n just the type of a single argument."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+              }
+            ]
           }
         },
         "title": "ArgDef",
@@ -3775,7 +4186,15 @@
             "description": "One of the type names from attr_value.proto (\"string\", \"list(string)\",\n \"int\", etc.)."
           },
           "defaultValue": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "default_value",
+                "description": "A reasonable default for this attribute if the user does not supply\n a value.  If not specified, the user must supply a value."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           },
           "description": {
             "type": "string",
@@ -3799,7 +4218,15 @@
             "title": "minimum"
           },
           "allowedValues": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "allowed_values",
+                "description": "The set of allowed values.  Has type that is the \"list\" version\n of the \"type\" field above (uses the \"list\" field of AttrValue).\n If type == \"type\" or \"list(type)\" above, then the \"type\" field\n of \"allowed_values.list\" has the set of allowed DataTypes.\n If type == \"string\" or \"list(string)\", then the \"s\" field of\n \"allowed_values.list\" has the set of allowed strings."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           }
         },
         "title": "AttrDef",
@@ -3855,10 +4282,25 @@
             "description": "If true, perform function inlining on the graph."
           },
           "optLevel": {
-            "$ref": "#/components/schemas/tensorflow.OptimizerOptions.Level"
+            "allOf": [
+              {
+                "title": "opt_level",
+                "description": "Overall optimization level. The actual optimizations applied will be the\n logical OR of the flags that this level implies and any flags already set."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.OptimizerOptions.Level"
+              }
+            ]
           },
           "globalJitLevel": {
-            "$ref": "#/components/schemas/tensorflow.OptimizerOptions.GlobalJitLevel"
+            "allOf": [
+              {
+                "title": "global_jit_level"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.OptimizerOptions.GlobalJitLevel"
+              }
+            ]
           },
           "cpuGlobalJit": {
             "type": "boolean",
@@ -4096,10 +4538,24 @@
         "type": "object",
         "properties": {
           "dtype": {
-            "$ref": "#/components/schemas/tensorflow.DataType"
+            "allOf": [
+              {
+                "title": "dtype"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            ]
           },
           "shape": {
-            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+            "allOf": [
+              {
+                "title": "shape"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+              }
+            ]
           }
         },
         "title": "DtypeAndShape",
@@ -4110,37 +4566,125 @@
         "type": "object",
         "properties": {
           "cpuLayoutConversion": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.CpuLayout"
+            "allOf": [
+              {
+                "title": "cpu_layout_conversion",
+                "description": "CPU Conversion settings between NHCW and NCHW."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.CpuLayout"
+              }
+            ]
           },
           "layoutOptimizer": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "layout_optimizer",
+                "description": "Optimize tensor layouts (default is ON)\n e.g. This will try to use NCHW layout on GPU which is faster."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "constantFolding": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "constant_folding",
+                "description": "Fold constants (default is ON)\n Statically infer the value of tensors when possible, and materialize the\n result using constants."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "shapeOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "shape_optimization",
+                "description": "Shape optimizations (default is ON)\n Simplify computations made on shapes."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "remapping": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "remapping",
+                "description": "Remapping (default is ON)\n Remap subgraphs onto more efficient implementations."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "commonSubgraphElimination": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "common_subgraph_elimination",
+                "description": "Common subgraph elimination (default is ON)\n e.g. Simplify arithmetic ops; merge ops with same value (like constants)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "arithmeticOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "arithmetic_optimization",
+                "description": "Arithmetic optimizations (default is ON)\n e.g. Simplify arithmetic ops; merge ops with same value (like constants)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "dependencyOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "dependency_optimization",
+                "description": "Control dependency optimizations (default is ON).\n Remove redundant control dependencies, which may enable other optimization."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "loopOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "loop_optimization",
+                "description": "Loop optimizations (default is ON)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "functionOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "function_optimization",
+                "description": "Function optimizations (default is ON)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "debugStripper": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "debug_stripper",
+                "description": "Strips debug-related nodes from the graph (off by default)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "disableModelPruning": {
             "type": "boolean",
@@ -4148,25 +4692,81 @@
             "description": "If true, don't remove unnecessary ops from the graph"
           },
           "scopedAllocatorOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "scoped_allocator_optimization",
+                "description": "Try to allocate some independent Op outputs contiguously in order to\n merge or eliminate downstream Ops (off by default)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "pinToHostOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "pin_to_host_optimization",
+                "description": "Force small ops onto the CPU (default is OFF)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "implementationSelector": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "implementation_selector",
+                "description": "Enable the swap of kernel implementations based on the device placement\n (default is ON)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "autoMixedPrecision": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "auto_mixed_precision",
+                "description": "Optimize data types for CUDA (default is OFF).\n This will try to use float16 on GPU which is faster.\n Note that this can change the numerical stability of the graph and may\n require the use of loss scaling to maintain model convergence."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "autoMixedPrecisionMkl": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "auto_mixed_precision_mkl",
+                "description": "Optimize data types for oneDNN (default is OFF).\n This will try to use bfloat16 on CPUs, which is faster.\n Note that this can change the numerical stability of the graph.\n Note: this is deprecated.\n It is replaced by auto_mixed_precision_onednn_bfloat16"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "autoMixedPrecisionOnednnBfloat16": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "auto_mixed_precision_onednn_bfloat16",
+                "description": "Optimize data types for oneDNN (default is OFF).\n This will try to use bfloat16 on CPUs, which is faster.\n Note that this can change the numerical stability of the graph.\n Note: this is equivalent to the deprecated option auto_mixed_precision_mkl"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "autoMixedPrecisionCpu": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "auto_mixed_precision_cpu",
+                "description": "Emulate a model using data type float16 on CPU (default is OFF).\n This will try to emulate the float16 inputs and outputs of an operator\n on CPU to have better correlation with float16 on GPU; however the\n computation in the operator is based on float32.\n Note that this can change the numerical stability of the graph."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "disableMetaOptimizer": {
             "type": "boolean",
@@ -4179,13 +4779,37 @@
             "description": "Disable the TFG optimizer (off by default)."
           },
           "usePluginOptimizers": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "use_plugin_optimizers",
+                "description": "Optimizers registered by plugin (default is ON)"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "experimentalConditionalCodeMotion": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+            "allOf": [
+              {
+                "title": "experimental_conditional_code_motion",
+                "description": "Conditional code motion (default is ON)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.Toggle"
+              }
+            ]
           },
           "metaOptimizerIterations": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.NumIterationsType"
+            "allOf": [
+              {
+                "title": "meta_optimizer_iterations",
+                "description": "Controls how many times we run the optimizers in meta optimizer (default\n is once)."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.NumIterationsType"
+              }
+            ]
           },
           "minGraphNodes": {
             "type": "integer",
@@ -4203,7 +4827,15 @@
             "description": "Disable folding quantization emulation ops such as FakeQuantWithMinMax* and\n QuantizeAndDequantize*. Some compilers (e.g. the TF-to-tflite converter)\n have to extract quantization configs (e.g. min/max range, number of bits,\n and per-channel) from the quantization emulation ops. Note that this flag\n is experimental and may be removed in the future. See b/174138564 for more\n details."
           },
           "memoryOptimization": {
-            "$ref": "#/components/schemas/tensorflow.RewriterConfig.MemOptType"
+            "allOf": [
+              {
+                "title": "memory_optimization",
+                "description": "Configures memory optimization passes through the meta-optimizer. Has no\n effect on manually requested memory optimization passes in the optimizers\n field."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RewriterConfig.MemOptType"
+              }
+            ]
           },
           "memoryOptimizerTargetNodeNameScope": {
             "type": "string",
@@ -4223,7 +4855,15 @@
             "description": "Maximum number of milliseconds to spend optimizing a single graph before\n timing out. If less than or equal to 0 (default value) the optimizer will\n never time out."
           },
           "autoParallel": {
-            "$ref": "#/components/schemas/tensorflow.AutoParallelOptions"
+            "allOf": [
+              {
+                "title": "auto_parallel",
+                "description": "Configures AutoParallel optimization passes either through the\n meta-optimizer or when manually specified through the optimizers field."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AutoParallelOptions"
+              }
+            ]
           },
           "failOnOptimizerErrors": {
             "type": "boolean",
@@ -4231,7 +4871,14 @@
             "description": "If true, any optimization pass failing will cause the MetaOptimizer to\n stop with an error. By default - or when set to false, failing passes are\n skipped silently."
           },
           "scopedAllocatorOpts": {
-            "$ref": "#/components/schemas/tensorflow.ScopedAllocatorOptions"
+            "allOf": [
+              {
+                "title": "scoped_allocator_opts"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.ScopedAllocatorOptions"
+              }
+            ]
           },
           "optimizers": {
             "type": "array",
@@ -4250,10 +4897,26 @@
             "description": "list of CustomGraphOptimizers to apply."
           },
           "interOptimizerVerifierConfig": {
-            "$ref": "#/components/schemas/tensorflow.VerifierConfig"
+            "allOf": [
+              {
+                "title": "inter_optimizer_verifier_config",
+                "description": "VerifierConfig specifying the verifiers to be run after every optimizer."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.VerifierConfig"
+              }
+            ]
           },
           "postOptimizationVerifierConfig": {
-            "$ref": "#/components/schemas/tensorflow.VerifierConfig"
+            "allOf": [
+              {
+                "title": "post_optimization_verifier_config",
+                "description": "VerifierConfig specifying the verifiers to be run at the end, after all\n optimizers have run."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.VerifierConfig"
+              }
+            ]
           }
         },
         "title": "RewriterConfig",
@@ -4271,7 +4934,14 @@
             "type": "object",
             "title": "parameter_map",
             "additionalProperties": {
-              "$ref": "#/components/schemas/tensorflow.AttrValue"
+              "allOf": [
+                {
+                  "title": "value"
+                },
+                {
+                  "$ref": "#/components/schemas/tensorflow.AttrValue"
+                }
+              ]
             }
           }
         },
@@ -4287,7 +4957,14 @@
             "title": "key"
           },
           "value": {
-            "$ref": "#/components/schemas/tensorflow.AttrValue"
+            "allOf": [
+              {
+                "title": "value"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AttrValue"
+              }
+            ]
           }
         },
         "title": "ParameterMapEntry",
@@ -4349,7 +5026,15 @@
             "description": "Values of the tensors returned by the callable, in the order defined in the\n CallableOptions.fetch field passed to MakeCallable."
           },
           "metadata": {
-            "$ref": "#/components/schemas/tensorflow.RunMetadata"
+            "allOf": [
+              {
+                "title": "metadata",
+                "description": "Returned metadata if requested in the options."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunMetadata"
+              }
+            ]
           }
         },
         "title": "RunCallableResponse",
@@ -4359,10 +5044,26 @@
         "type": "object",
         "properties": {
           "stepStats": {
-            "$ref": "#/components/schemas/tensorflow.StepStats"
+            "allOf": [
+              {
+                "title": "step_stats",
+                "description": "Statistics traced for this step. Populated if tracing is turned on via the\n \"RunOptions\" proto.\n EXPERIMENTAL: The format and set of events may change in future versions."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.StepStats"
+              }
+            ]
           },
           "costGraph": {
-            "$ref": "#/components/schemas/tensorflow.CostGraphDef"
+            "allOf": [
+              {
+                "title": "cost_graph",
+                "description": "The cost graph for the computation defined by the run call."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.CostGraphDef"
+              }
+            ]
           },
           "partitionGraphs": {
             "type": "array",
@@ -4381,7 +5082,15 @@
             "description": "This is only populated for graphs that are run as functions in TensorFlow\n V2. There will be an entry below for each function that is traced.\n The main use cases of the post_optimization_graph and the partition_graphs\n is to give the caller insight into the graphs that were actually run by the\n runtime. Additional information (such as those in step_stats) will match\n these graphs.\n We also include the pre_optimization_graph since it is usually easier to\n read, and is helpful in situations where the caller wants to get a high\n level idea of what the built graph looks like (since the various graph\n optimization passes might change the structure of the graph significantly)."
           },
           "sessionMetadata": {
-            "$ref": "#/components/schemas/tensorflow.SessionMetadata"
+            "allOf": [
+              {
+                "title": "session_metadata",
+                "description": "Metadata about the session."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.SessionMetadata"
+              }
+            ]
           }
         },
         "title": "RunMetadata",
@@ -4400,10 +5109,24 @@
             "description": "TODO(nareshmodi): Include some sort of function/cache-key identifier?"
           },
           "preOptimizationGraph": {
-            "$ref": "#/components/schemas/tensorflow.GraphDef"
+            "allOf": [
+              {
+                "title": "pre_optimization_graph"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDef"
+              }
+            ]
           },
           "postOptimizationGraph": {
-            "$ref": "#/components/schemas/tensorflow.GraphDef"
+            "allOf": [
+              {
+                "title": "post_optimization_graph"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDef"
+              }
+            ]
           }
         },
         "title": "FunctionGraphs",
@@ -4413,7 +5136,14 @@
         "type": "object",
         "properties": {
           "traceLevel": {
-            "$ref": "#/components/schemas/tensorflow.RunOptions.TraceLevel"
+            "allOf": [
+              {
+                "title": "trace_level"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunOptions.TraceLevel"
+              }
+            ]
           },
           "timeoutInMs": {
             "oneOf": [
@@ -4438,7 +5168,15 @@
             "description": "Whether the partition graph(s) executed by the executor(s) should be\n outputted via RunMetadata."
           },
           "debugOptions": {
-            "$ref": "#/components/schemas/tensorflow.DebugOptions"
+            "allOf": [
+              {
+                "title": "debug_options",
+                "description": "EXPERIMENTAL.  Options used to initialize DebuggerState, if enabled."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DebugOptions"
+              }
+            ]
           },
           "reportTensorAllocationsUponOom": {
             "type": "boolean",
@@ -4446,7 +5184,14 @@
             "description": "When enabled, causes tensor allocation information to be included in\n the error message when the Run() call fails because the allocator ran\n out of memory (OOM).\n\n Enabling this option can slow down the Run() call."
           },
           "experimental": {
-            "$ref": "#/components/schemas/tensorflow.RunOptions.Experimental"
+            "allOf": [
+              {
+                "title": "experimental"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunOptions.Experimental"
+              }
+            ]
           }
         },
         "title": "RunOptions",
@@ -4474,7 +5219,14 @@
             "description": "If true, then operations (using the inter-op pool) across all\n session::run() calls will be centrally scheduled, optimizing for (median\n and tail) latency.\n Consider using this option for CPU-bound workloads like inference."
           },
           "runHandlerPoolOptions": {
-            "$ref": "#/components/schemas/tensorflow.RunOptions.Experimental.RunHandlerPoolOptions"
+            "allOf": [
+              {
+                "title": "run_handler_pool_options"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunOptions.Experimental.RunHandlerPoolOptions"
+              }
+            ]
           }
         },
         "title": "Experimental",
@@ -4534,7 +5286,15 @@
             "description": "Target Nodes. A list of node names. The named nodes will be run\n to but their outputs will not be fetched."
           },
           "options": {
-            "$ref": "#/components/schemas/tensorflow.RunOptions"
+            "allOf": [
+              {
+                "title": "options",
+                "description": "Options for the run call."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunOptions"
+              }
+            ]
           },
           "partialRunHandle": {
             "type": "string",
@@ -4574,10 +5334,26 @@
             "description": "NOTE: The order of the returned tensors may or may not match\n the fetch order specified in RunStepRequest."
           },
           "metadata": {
-            "$ref": "#/components/schemas/tensorflow.RunMetadata"
+            "allOf": [
+              {
+                "title": "metadata",
+                "description": "Returned metadata if requested in the options."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.RunMetadata"
+              }
+            ]
           },
           "statusCode": {
-            "$ref": "#/components/schemas/tensorflow.error.Code"
+            "allOf": [
+              {
+                "title": "status_code",
+                "description": "If store_errors_in_response_body is true in the request, then\n optionally the server may return an OK status for the RPC and\n fill the true status into the fields below, to allow for messages\n that are too long to fit in metadata."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.error.Code"
+              }
+            ]
           },
           "statusErrorMessage": {
             "type": "string",
@@ -4662,13 +5438,37 @@
         "type": "object",
         "properties": {
           "dtype": {
-            "$ref": "#/components/schemas/tensorflow.DataType"
+            "allOf": [
+              {
+                "title": "dtype",
+                "description": "Data type of tensor elements"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            ]
           },
           "shape": {
-            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+            "allOf": [
+              {
+                "title": "shape",
+                "description": "Shape of the tensor."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+              }
+            ]
           },
           "allocationDescription": {
-            "$ref": "#/components/schemas/tensorflow.AllocationDescription"
+            "allOf": [
+              {
+                "title": "allocation_description",
+                "description": "Information about the size and allocator used for the data"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.AllocationDescription"
+              }
+            ]
           }
         },
         "title": "TensorDescription",
@@ -4678,10 +5478,25 @@
         "type": "object",
         "properties": {
           "dtype": {
-            "$ref": "#/components/schemas/tensorflow.DataType"
+            "allOf": [
+              {
+                "title": "dtype"
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            ]
           },
           "tensorShape": {
-            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+            "allOf": [
+              {
+                "title": "tensor_shape",
+                "description": "Shape of the tensor.  TODO(touts): sort out the 0-rank issues."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+              }
+            ]
           },
           "versionNumber": {
             "type": "integer",
@@ -4944,7 +5759,15 @@
             "description": "Deadline for completion of all verification i.e. all the Toggle ON\n verifiers must complete execution within this time."
           },
           "structureVerifier": {
-            "$ref": "#/components/schemas/tensorflow.VerifierConfig.Toggle"
+            "allOf": [
+              {
+                "title": "structure_verifier",
+                "description": "Perform structural validation on a tensorflow graph. Default is OFF."
+              },
+              {
+                "$ref": "#/components/schemas/tensorflow.VerifierConfig.Toggle"
+              }
+            ]
           }
         },
         "title": "VerifierConfig",

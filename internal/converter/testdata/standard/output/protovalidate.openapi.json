@@ -635,10 +635,24 @@
             "description": "value must be greater than 42:\n```\nthis \u003e 42\n```\n\n"
           },
           "skippedField": {
-            "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+            "allOf": [
+              {
+                "title": "skipped_field"
+              },
+              {
+                "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+              }
+            ]
           },
           "requiredField": {
-            "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+            "allOf": [
+              {
+                "title": "required_field"
+              },
+              {
+                "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+              }
+            ]
           },
           "uriField": {
             "type": "string",
@@ -1933,17 +1947,56 @@
             "title": "bytes_ipv6",
             "format": "ipv6"
           },
-          "enumCost": {
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+          "enumConst": {
+            "allOf": [
+              {
+                "title": "enum_const",
+                "const": 1
+              },
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ]
           },
           "enumDefinedOnly": {
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            "allOf": [
+              {
+                "title": "enum_defined_only"
+              },
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ]
           },
           "enumIn": {
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            "allOf": [
+              {
+                "title": "enum_in",
+                "enum": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ]
           },
           "enumNotIn": {
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            "allOf": [
+              {
+                "not": {
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                "title": "enum_not_in"
+              },
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ]
           },
           "repeatedMinItems": {
             "type": "array",
@@ -2018,68 +2071,243 @@
             }
           },
           "anyIn": {
-            "$ref": "#/components/schemas/google.protobuf.Any"
+            "allOf": [
+              {
+                "title": "any_in",
+                "enum": [
+                  "type.googleapis.com/MyType1",
+                  "type.googleapis.com/MyType2"
+                ]
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Any"
+              }
+            ]
           },
           "anyNotIn": {
-            "$ref": "#/components/schemas/google.protobuf.Any"
+            "allOf": [
+              {
+                "not": {
+                  "enum": [
+                    "type.googleapis.com/ForbiddenType1",
+                    "type.googleapis.com/ForbiddenType2"
+                  ]
+                },
+                "title": "any_not_in"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Any"
+              }
+            ]
           },
           "durationConst": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_const",
+                "const": "seconds:2000"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationIn": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_in",
+                "enum": [
+                  "seconds:1",
+                  "seconds:2",
+                  "seconds:3"
+                ]
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationNotIn": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "not": {
+                  "enum": [
+                    "seconds:1",
+                    "seconds:2",
+                    "seconds:3"
+                  ]
+                },
+                "title": "duration_not_in"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationLt": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_lt"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationLte": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_lte"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationLtSeconds": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_lt_seconds"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationGt": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_gt"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationRange": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_range"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "durationGte": {
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "allOf": [
+              {
+                "title": "duration_gte"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ]
           },
           "timestampConst": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_const",
+                "const": "seconds:1727998800"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampWithin": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_within"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampLt": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_lt"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampLte": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_lte"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampGt": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_gt"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampGte": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_gte"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampRange": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_range"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampLtNow": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_lt_now"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
           },
           "timestampGtNow": {
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "title": "timestamp_gt_now"
+              },
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ]
+          },
+          "boolConstTrue": {
+            "type": "boolean",
+            "title": "bool_const_true",
+            "const": "true"
+          },
+          "boolConstFalse": {
+            "type": "boolean",
+            "title": "bool_const_false",
+            "const": "false"
           }
         },
         "title": "LotsOfValidationRules",
         "required": [
+          "requiredField",
           "requiredField"
         ],
         "additionalProperties": false

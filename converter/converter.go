@@ -37,7 +37,7 @@ func GenerateSingle(opts ...Option) ([]byte, error) {
 
 // Generate OpenAPI files with the given options.
 func Generate(opts ...Option) ([]*pluginpb.CodeGeneratorResponse_File, error) {
-	g, err := generatorWithOptions()
+	g, err := generatorWithOptions(opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,6 +136,7 @@ func WithAllowGET(allowGet bool) Option {
 // WithContentTypes sets a file to use as a base for all OpenAPI files.
 func WithContentTypes(contentTypes ...string) Option {
 	return func(g *generator) error {
+		g.options.ContentTypes = map[string]struct{}{}
 		for _, contentType := range contentTypes {
 			if !options.IsValidContentType(contentType) {
 				return fmt.Errorf("unknown content type: '%s'", contentType)
@@ -158,6 +159,14 @@ func WithIncludeNumberEnumValues(includeNumberEnumValues bool) Option {
 func WithStreaming(streaming bool) Option {
 	return func(g *generator) error {
 		g.options.WithStreaming = streaming
+		return nil
+	}
+}
+
+// WithDebug sets up the logger to emit debug entries
+func WithDebug(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.Debug = enabled
 		return nil
 	}
 }

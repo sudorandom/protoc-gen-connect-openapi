@@ -12,7 +12,9 @@ paths:
         - name: b
           in: query
           schema:
-            $ref: '#/components/schemas/foo.A.B'
+            allOf:
+              - title: b
+              - $ref: '#/components/schemas/foo.A.B'
       responses:
         default:
           description: Error
@@ -32,18 +34,25 @@ components:
       type: object
       properties:
         b:
-          $ref: '#/components/schemas/foo.A.B'
+          allOf:
+            - title: b
+            - $ref: '#/components/schemas/foo.A.B'
       title: A
       required:
+        - b
         - b
       additionalProperties: false
     foo.A.B:
       type: object
       properties:
         c:
-          $ref: '#/components/schemas/foo.A.B.C'
+          allOf:
+            - title: c
+              description: the learner whose scores are being reported
+            - $ref: '#/components/schemas/foo.A.B.C'
       title: B
       required:
+        - c
         - c
       additionalProperties: false
     foo.A.B.C:

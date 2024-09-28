@@ -6,9 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/annotations"
-	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 type Options struct {
@@ -39,15 +37,11 @@ type Options struct {
 }
 
 func NewOptions() Options {
-	annotator := &noopAnnotator{}
 	return Options{
 		Format: "yaml",
 		ContentTypes: map[string]struct{}{
 			"json": {},
 		},
-		MessageAnnotator:        annotator,
-		FieldAnnotator:          annotator,
-		FieldReferenceAnnotator: annotator,
 	}
 }
 
@@ -126,18 +120,4 @@ func IsValidContentType(contentType string) bool {
 		}
 	}
 	return false
-}
-
-type noopAnnotator struct{}
-
-func (*noopAnnotator) AnnotateMessage(schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
-	return schema
-}
-
-func (*noopAnnotator) AnnotateField(schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
-	return schema
-}
-
-func (*noopAnnotator) AnnotateFieldReference(parent *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
-	return parent
 }

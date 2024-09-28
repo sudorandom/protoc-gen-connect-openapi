@@ -61,12 +61,35 @@ service Greeter {
 
 // The request message containing the user's name.
 message HelloRequest {
-  option (gnostic.openapi.v3.schema) = {title: "Custom title for a message"};
+  option (gnostic.openapi.v3.schema) = {
+    title: "Custom title for a message"
+    description: "Custom description for a message"
+  };
 
-  string name = 1 [
-    (gnostic.openapi.v3.property).title = "Custom title for a field",
-    (gnostic.openapi.v3.property).example = {yaml: "Example value"}
-  ];
+  string name = 1 [(gnostic.openapi.v3.property) = {
+    title: "Custom title for a field"
+    description: "Custom description for a field"
+    example: {yaml: "Example value"}
+    nullable: true
+    read_only: false
+    write_only: false
+    external_docs: {
+      description: "example"
+      url: "https://example.com"
+    }
+    deprecated: true
+    additional_properties: {boolean: false}
+    max_length: 1000
+    min_length: 3
+    pattern: "/^[a-z ,.'-]+$/i"
+  }];
+  int32 number = 2 [(gnostic.openapi.v3.property) = {
+    multiple_of: 20
+    exclusive_maximum: true
+    exclusive_minimum: true
+    minimum: 20
+    maximum: 1000
+  }];
 }
 
 // The response message containing the greetings

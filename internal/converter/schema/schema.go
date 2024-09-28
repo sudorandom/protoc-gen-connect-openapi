@@ -101,10 +101,13 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		return base.CreateSchemaProxy(s)
 	} else {
 		switch tt.Kind() {
-		case protoreflect.MessageKind:
-			return ReferenceFieldToSchema(opts, parent, tt)
-		case protoreflect.EnumKind:
-			return ReferenceFieldToSchema(opts, parent, tt)
+		case protoreflect.MessageKind, protoreflect.EnumKind:
+			return base.CreateSchemaProxy(&base.Schema{
+				AllOf: []*base.SchemaProxy{
+					base.CreateSchemaProxy(ScalarFieldToSchema(opts, parent, tt, false)),
+					ReferenceFieldToSchema(opts, parent, tt),
+				},
+			})
 		}
 
 		return base.CreateSchemaProxy(ScalarFieldToSchema(opts, parent, tt, false))
@@ -143,9 +146,6 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 		s.Format = "byte"
 	}
 	// Apply Updates from Options
-	// s = protovalidate.SchemaWithFieldAnnotations(s, tt, true)
-	// s = gnostic.SchemaWithPropertyAnnotations(s, tt)
-	// s = googleapi.SchemaWithPropertyAnnotations(s, tt)
 	s = opts.FieldAnnotator.AnnotateField(s, tt, false)
 	return s
 }

@@ -759,7 +759,14 @@
             "title": "stringField"
           },
           "msgField": {
-            "$ref": "#/components/schemas/flex.Other"
+            "allOf": [
+              {
+                "title": "msgField"
+              },
+              {
+                "$ref": "#/components/schemas/flex.Other"
+              }
+            ]
           },
           "repeatedMsgField": {
             "type": "array",
@@ -769,7 +776,14 @@
             "title": "repeatedMsgField"
           },
           "optionalMsgField": {
-            "$ref": "#/components/schemas/flex.Other"
+            "allOf": [
+              {
+                "title": "optionalMsgField"
+              },
+              {
+                "$ref": "#/components/schemas/flex.Other"
+              }
+            ]
           }
         },
         "title": "ComplexType",
@@ -780,7 +794,14 @@
         "type": "object",
         "properties": {
           "msg": {
-            "$ref": "#/components/schemas/flex.ComplexType"
+            "allOf": [
+              {
+                "title": "msg"
+              },
+              {
+                "$ref": "#/components/schemas/flex.ComplexType"
+              }
+            ]
           }
         },
         "title": "FlexReply",
@@ -791,7 +812,14 @@
         "type": "object",
         "properties": {
           "msg": {
-            "$ref": "#/components/schemas/flex.ComplexType"
+            "allOf": [
+              {
+                "title": "msg"
+              },
+              {
+                "$ref": "#/components/schemas/flex.ComplexType"
+              }
+            ]
           }
         },
         "title": "FlexRequest",

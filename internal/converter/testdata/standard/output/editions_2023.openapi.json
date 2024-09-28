@@ -36,7 +36,14 @@
             "title": "id"
           },
           "employment": {
-            "$ref": "#/components/schemas/editions.Person.Employment"
+            "allOf": [
+              {
+                "title": "employment"
+              },
+              {
+                "$ref": "#/components/schemas/editions.Person.Employment"
+              }
+            ]
           }
         },
         "title": "Person",

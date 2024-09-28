@@ -211,12 +211,30 @@
             "examples": [
               "Example value"
             ],
-            "title": "Custom title for a field"
+            "title": "Custom title for a field",
+            "maxLength": 1000,
+            "minLength": 3,
+            "pattern": "/^[a-z ,.'-]+$/i",
+            "additionalProperties": false,
+            "description": "Custom description for a field",
+            "nullable": true,
+            "externalDocs": {
+              "description": "example",
+              "url": "https://example.com"
+            },
+            "deprecated": true
+          },
+          "number": {
+            "exclusiveMaximum": 1000,
+            "exclusiveMinimum": 20,
+            "type": "integer",
+            "title": "number",
+            "multipleOf": 20
           }
         },
         "title": "Custom title for a message",
         "additionalProperties": false,
-        "description": "The request message containing the user's name."
+        "description": "Custom description for a message"
       },
       "connect-protocol-version": {
         "type": "number",

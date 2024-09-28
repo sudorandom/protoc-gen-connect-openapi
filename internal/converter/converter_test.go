@@ -42,7 +42,7 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	require.NoError(t, err)
 	req := utils.CreateGenRequest(pf, relPath)
 	var sb strings.Builder
-	sb.WriteString("format=")
+	sb.WriteString("debug,format=")
 	sb.WriteString(format)
 	if len(options) > 0 {
 		sb.WriteString(",")

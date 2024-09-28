@@ -44,14 +44,18 @@ components:
       type: object
       properties:
         msg:
-          $ref: '#/components/schemas/has_unused_types.UsedType'
+          allOf:
+            - title: msg
+            - $ref: '#/components/schemas/has_unused_types.UsedType'
       title: UsedReply
       additionalProperties: false
     has_unused_types.UsedRequest:
       type: object
       properties:
         msg:
-          $ref: '#/components/schemas/has_unused_types.UsedType'
+          allOf:
+            - title: msg
+            - $ref: '#/components/schemas/has_unused_types.UsedType'
       title: UsedRequest
       additionalProperties: false
     has_unused_types.UsedType:

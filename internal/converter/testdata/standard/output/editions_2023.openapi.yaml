@@ -28,7 +28,9 @@ components:
           type: integer
           title: id
         employment:
-          $ref: '#/components/schemas/editions.Person.Employment'
+          allOf:
+            - title: employment
+            - $ref: '#/components/schemas/editions.Person.Employment'
       title: Person
       additionalProperties: false
     connect-protocol-version:

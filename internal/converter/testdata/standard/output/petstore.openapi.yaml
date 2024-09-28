@@ -305,7 +305,9 @@ components:
             - type: number
           title: id
         category:
-          $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
+          allOf:
+            - title: category
+            - $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
         name:
           type: string
           title: name

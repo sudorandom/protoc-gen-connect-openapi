@@ -422,7 +422,7 @@ message LotsOfValidationRules {
   optional bytes bytes_ipv4 = 181 [(buf.validate.field).bytes.ipv4 = true];
   optional bytes bytes_ipv6 = 182 [(buf.validate.field).bytes.ipv6 = true];
 
-  MyEnum enum_cost = 190 [(buf.validate.field).enum.const = 1];
+  MyEnum enum_const = 190 [(buf.validate.field).enum.const = 1];
   MyEnum enum_defined_only = 191 [(buf.validate.field).enum.defined_only = true];
   MyEnum enum_in = 192 [(buf.validate.field).enum = {
     in: [
@@ -504,6 +504,9 @@ message LotsOfValidationRules {
   }];
   google.protobuf.Timestamp timestamp_lt_now = 247 [(buf.validate.field).timestamp.lt_now = true];
   google.protobuf.Timestamp timestamp_gt_now = 248 [(buf.validate.field).timestamp.gt_now = true];
+
+  bool bool_const_true = 260 [(buf.validate.field).bool.const = true];
+  bool bool_const_false = 261 [(buf.validate.field).bool.const = false];
 }
 
 message MyOtherMessage {}

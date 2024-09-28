@@ -55,9 +55,15 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 
 func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options) (*pluginpb.CodeGeneratorResponse, error) {
 	annotator := &annotator{}
-	opts.MessageAnnotator = annotator
-	opts.FieldAnnotator = annotator
-	opts.FieldReferenceAnnotator = annotator
+	if opts.MessageAnnotator == nil {
+		opts.MessageAnnotator = annotator
+	}
+	if opts.FieldAnnotator == nil {
+		opts.FieldAnnotator = annotator
+	}
+	if opts.FieldReferenceAnnotator == nil {
+		opts.FieldReferenceAnnotator = annotator
+	}
 
 	if opts.Debug {
 		slog.SetDefault(slog.New(
