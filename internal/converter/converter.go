@@ -50,15 +50,15 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	if err != nil {
 		return nil, err
 	}
-	annotator := &annotator{}
-
-	opts.MessageAnnotator = annotator
-	opts.FieldAnnotator = annotator
-	opts.FieldReferenceAnnotator = annotator
 	return ConvertWithOptions(req, opts)
 }
 
 func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options) (*pluginpb.CodeGeneratorResponse, error) {
+	annotator := &annotator{}
+	opts.MessageAnnotator = annotator
+	opts.FieldAnnotator = annotator
+	opts.FieldReferenceAnnotator = annotator
+
 	if opts.Debug {
 		slog.SetDefault(slog.New(
 			tint.NewHandler(os.Stderr, &tint.Options{
