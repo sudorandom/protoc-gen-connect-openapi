@@ -39,18 +39,19 @@ func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDesc
 	return schema
 }
 
-func PopulateParentProperties(parent *base.Schema, desc protoreflect.FieldDescriptor) {
+func PopulateParentProperties(parent *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
 	if parent == nil {
-		return
+		return parent
 	}
 	r := resolver.DefaultResolver{}
 	constraints := r.ResolveFieldConstraints(desc)
 	if constraints == nil {
-		return
+		return parent
 	}
 	if constraints.Required != nil && *constraints.Required {
 		parent.Required = append(parent.Required, desc.JSONName())
 	}
+	return parent
 }
 
 //gocyclo:ignore

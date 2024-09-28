@@ -93,7 +93,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Required:    proto.Bool(true),
 				In:          "path",
 				Description: util.FormatComments(loc),
-				Schema:      schema.FieldToSchema(nil, field),
+				Schema:      schema.FieldToSchema(opts, nil, field),
 			})
 		}
 	}
@@ -116,7 +116,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Name:        field.JSONName(),
 				In:          "query",
 				Description: desc,
-				Schema:      schema.FieldToSchema(nil, field),
+				Schema:      schema.FieldToSchema(opts, nil, field),
 			})
 		}
 	case "*":

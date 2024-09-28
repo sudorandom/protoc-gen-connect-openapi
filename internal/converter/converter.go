@@ -50,6 +50,11 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	if err != nil {
 		return nil, err
 	}
+	annotator := &annotator{}
+
+	opts.MessageAnnotator = annotator
+	opts.FieldAnnotator = annotator
+	opts.FieldReferenceAnnotator = annotator
 	return ConvertWithOptions(req, opts)
 }
 

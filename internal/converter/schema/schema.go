@@ -7,9 +7,7 @@ import (
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/protovalidate"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -40,7 +38,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		if oneOf := field.ContainingOneof(); oneOf != nil {
 			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], util.MakeFieldName(opts, field))
 		}
-		props.Set(util.MakeFieldName(opts, field), FieldToSchema(base.CreateSchemaProxy(s), field))
+		props.Set(util.MakeFieldName(opts, field), FieldToSchema(opts, base.CreateSchemaProxy(s), field))
 	}
 
 	s.Properties = props
@@ -65,33 +63,32 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 	}
 
 	// Apply Updates from Options
-	s = protovalidate.SchemaWithMessageAnnotations(s, tt)
-	s = gnostic.SchemaWithSchemaAnnotations(s, tt)
+	s = opts.MessageAnnotator.AnnotateMessage(s, tt)
 	return string(tt.FullName()), s
 }
 
-func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
+func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
 	slog.Debug("FieldToSchema", slog.Any("descriptor", tt.FullName()))
 	defer slog.Debug("/FieldToSchema", slog.Any("descriptor", tt.FullName()))
 
 	if tt.IsMap() {
 		// Handle maps
-		root := ScalarFieldToSchema(parent, tt, false)
+		root := ScalarFieldToSchema(opts, parent, tt, false)
 		root.Title = string(tt.Name())
 		root.Type = []string{"object"}
 		root.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
-		root.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: FieldToSchema(parent, tt.MapValue())}
-		root = protovalidate.SchemaWithFieldAnnotations(root, tt, false)
+		root.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: FieldToSchema(opts, parent, tt.MapValue())}
+		root = opts.FieldAnnotator.AnnotateField(root, tt, false)
 		return base.CreateSchemaProxy(root)
 	} else if tt.IsList() {
 		var itemSchema *base.SchemaProxy
 		switch tt.Kind() {
 		case protoreflect.MessageKind:
-			itemSchema = ReferenceFieldToSchema(parent, tt)
+			itemSchema = ReferenceFieldToSchema(opts, parent, tt)
 		case protoreflect.EnumKind:
-			itemSchema = ReferenceFieldToSchema(parent, tt)
+			itemSchema = ReferenceFieldToSchema(opts, parent, tt)
 		default:
-			itemSchema = base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt, true))
+			itemSchema = base.CreateSchemaProxy(ScalarFieldToSchema(opts, parent, tt, true))
 		}
 		s := &base.Schema{
 			Title:       string(tt.Name()),
@@ -100,21 +97,21 @@ func FieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *b
 			Type:        []string{"array"},
 			Items:       &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
 		}
-		s = protovalidate.SchemaWithFieldAnnotations(s, tt, false)
+		s = opts.FieldAnnotator.AnnotateField(s, tt, false)
 		return base.CreateSchemaProxy(s)
 	} else {
 		switch tt.Kind() {
 		case protoreflect.MessageKind:
-			return ReferenceFieldToSchema(parent, tt)
+			return ReferenceFieldToSchema(opts, parent, tt)
 		case protoreflect.EnumKind:
-			return ReferenceFieldToSchema(parent, tt)
+			return ReferenceFieldToSchema(opts, parent, tt)
 		}
 
-		return base.CreateSchemaProxy(ScalarFieldToSchema(parent, tt, false))
+		return base.CreateSchemaProxy(ScalarFieldToSchema(opts, parent, tt, false))
 	}
 }
 
-func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor, inContainer bool) *base.Schema {
+func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor, inContainer bool) *base.Schema {
 	s := &base.Schema{
 		ParentProxy: parent,
 	}
@@ -146,18 +143,20 @@ func ScalarFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescript
 		s.Format = "byte"
 	}
 	// Apply Updates from Options
-	s = protovalidate.SchemaWithFieldAnnotations(s, tt, true)
-	s = gnostic.SchemaWithPropertyAnnotations(s, tt)
+	// s = protovalidate.SchemaWithFieldAnnotations(s, tt, true)
+	// s = gnostic.SchemaWithPropertyAnnotations(s, tt)
+	// s = googleapi.SchemaWithPropertyAnnotations(s, tt)
+	s = opts.FieldAnnotator.AnnotateField(s, tt, false)
 	return s
 }
 
-func ReferenceFieldToSchema(parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
+func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
 	switch tt.Kind() {
 	case protoreflect.MessageKind:
-		protovalidate.PopulateParentProperties(parent.Schema(), tt)
+		opts.FieldReferenceAnnotator.AnnotateFieldReference(parent.Schema(), tt)
 		return base.CreateSchemaProxyRef("#/components/schemas/" + string(tt.Message().FullName()))
 	case protoreflect.EnumKind:
-		protovalidate.PopulateParentProperties(parent.Schema(), tt)
+		opts.FieldReferenceAnnotator.AnnotateFieldReference(parent.Schema(), tt)
 		return base.CreateSchemaProxyRef("#/components/schemas/" + string(tt.Enum().FullName()))
 	default:
 		panic(fmt.Errorf("ReferenceFieldToSchema called with unknown kind: %T", tt.Kind()))
