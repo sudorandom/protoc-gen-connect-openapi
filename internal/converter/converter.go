@@ -170,6 +170,11 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 }
 
 func specToFile(opts options.Options, spec *v3.Document) (string, error) {
+	if opts.TrimUnusedTypes {
+		if err := trimUnusedTypes(spec); err != nil {
+			return "", err
+		}
+	}
 	switch opts.Format {
 	case "yaml":
 		return string(spec.RenderWithIndention(2)), nil
@@ -182,6 +187,32 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 	default:
 		return "", fmt.Errorf("unknown format: %s", opts.Format)
 	}
+}
+
+func trimUnusedTypes(spec *v3.Document) error {
+	slog.Debug("trimming unused types")
+	b, err := spec.Render()
+	if err != nil {
+		return err
+	}
+	doc, err := libopenapi.NewDocument(b)
+	if err != nil {
+		return err
+	}
+	model, errs := doc.BuildV3Model()
+	if errs != nil {
+		return errors.Join(errs...)
+	}
+	model.Index.BuildIndex()
+	references := model.Model.Rolodex.GetRootIndex().GetAllReferences()
+	for pair := spec.Components.Schemas.First(); pair != nil; pair = pair.Next() {
+		ref := fmt.Sprintf("#/components/schemas/%s", pair.Key())
+		if _, ok := references[ref]; !ok {
+			slog.Debug("trimming unused type", "name", pair.Key())
+			spec.Components.Schemas.Delete(pair.Key())
+		}
+	}
+	return nil
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {

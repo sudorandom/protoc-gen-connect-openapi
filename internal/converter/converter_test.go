@@ -25,6 +25,8 @@ import (
 var scenarios = []Scenario{
 	{Name: "standard", Options: "allow-get,with-streaming"},
 	{Name: "proto_names", Options: "with-proto-names"},
+	{Name: "trim_unused_type", Options: "trim-unused-types"},
+	{Name: "with_base", Options: "base=testdata/with_base/base.yaml,trim-unused-types"},
 }
 
 type Scenario struct {

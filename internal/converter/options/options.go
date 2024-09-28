@@ -26,6 +26,8 @@ type Options struct {
 	WithProtoNames bool
 	// Path is the output OpenAPI path.
 	Path string
+	// TrimUnusedTypes
+	TrimUnusedTypes bool
 }
 
 func NewOptions() Options {
@@ -59,6 +61,8 @@ func FromString(s string) (Options, error) {
 			opts.WithStreaming = true
 		case param == "with-proto-names":
 			opts.WithProtoNames = true
+		case param == "trim-unused-types":
+			opts.TrimUnusedTypes = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)

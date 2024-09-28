@@ -1,0 +1,28 @@
+// Protobuf that flexes a lot of the types
+syntax = "proto3";
+
+package has_unused_types;
+
+import "google/protobuf/empty.proto";
+
+// This service tries to flex the different options
+service FlexService {
+  // Normal RPC method
+  rpc NormalRPC(UsedRequest) returns (UsedReply) {}
+}
+
+message UsedRequest {
+  UsedType msg = 1;
+}
+
+message UsedReply {
+  UsedType msg = 1;
+}
+
+message UsedType {
+  string description = 1;
+}
+
+message Unused {
+  string unused_field = 1;
+}
