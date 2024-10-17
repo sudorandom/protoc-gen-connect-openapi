@@ -234,6 +234,7 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	}
 	initializeDoc(spec)
 	initializeComponents(components)
+	
 	util.AppendComponents(spec, components)
 
 	if err := addPathItemsFromFile(opts, fd, spec.Paths); err != nil {

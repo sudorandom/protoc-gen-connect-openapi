@@ -13,3 +13,12 @@ components:
 # 2) Apply the security globally to all operations
 security:
   - bearerAuth: [] # use the same name as above
+paths:
+  /example_with_gnostic.Greeter/SayHello:
+    get: 
+      x-code-samples:
+        - curl -X GET https://api.example.com/helloworld.Greeter/SayHello
+  /envoy.test.ClusterDiscoveryService/StreamClusters:
+    post:
+      x-code-samples:
+        - curl -X POST https://api.example.com/envoy.test.ClusterDiscoveryService/StreamClusters

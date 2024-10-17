@@ -2,18 +2,20 @@ version: v2
 plugins:
   - local: protoc-gen-connect-openapi
     out: out
+    strategy: all
     opt:
     - base=auth-base.yaml
     - content-types=json
     - allow-get
     - debug
+    - path=openapi.yaml
     # - format=json
 
-  - local: protoc-gen-connect-openapi
-    out: out
-    strategy: all
-    opt:
-    # - base=base.yaml
-    - allow-get
-    - with-streaming
-    - path=openapi.yaml
+  # - local: protoc-gen-connect-openapi
+  #   out: out
+  #   strategy: all
+  #   opt:
+  #   # - base=base.yaml
+  #   - allow-get
+  #   - with-streaming
+  #   - path=openapi.yaml
