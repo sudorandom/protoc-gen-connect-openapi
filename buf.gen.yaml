@@ -9,13 +9,14 @@ plugins:
     - allow-get
     - debug
     - path=openapi.yaml
+    # - merge-base
     # - format=json
 
-  - local: protoc-gen-connect-openapi
-    out: out
-    strategy: all
-    opt:
-    # - base=base.yaml
-    - allow-get
-    - with-streaming
-    - path=openapi.yaml
+  # - local: protoc-gen-connect-openapi
+  #   out: out
+  #   strategy: all
+  #   opt:
+  #   # - base=base.yaml
+  #   - allow-get
+  #   - with-streaming
+  #   - path=openapi.yaml
