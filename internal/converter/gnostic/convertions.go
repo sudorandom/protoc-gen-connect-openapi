@@ -368,6 +368,10 @@ func toHeaders(v *goa3.HeadersOrReferences) *orderedmap.Map[string, *v3.Header] 
 	headers := orderedmap.New[string, *v3.Header]()
 	for _, headerVal := range v.GetAdditionalProperties() {
 		header := headerVal.Value.GetHeader()
+		var exampleRawInfo *yaml.Node
+		if header.Example != nil {
+			exampleRawInfo = header.Example.ToRawInfo()
+		}
 		headers.Set(headerVal.Name, &v3.Header{
 			Description:     header.Description,
 			Required:        header.Required,
@@ -377,7 +381,7 @@ func toHeaders(v *goa3.HeadersOrReferences) *orderedmap.Map[string, *v3.Header] 
 			Explode:         header.Explode,
 			AllowReserved:   header.AllowReserved,
 			Schema:          toSchemaOrReference(header.Schema),
-			Example:         header.Example.ToRawInfo(),
+			Example:         exampleRawInfo,
 			Examples:        toExamples(header.GetExamples()),
 			Content:         toMediaTypes(header.Content),
 			Extensions:      toExtensions(header.GetSpecificationExtension()),
