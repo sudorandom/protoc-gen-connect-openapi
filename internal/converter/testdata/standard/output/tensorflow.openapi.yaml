@@ -591,13 +591,15 @@ components:
         requestedBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: requested_bytes
           description: Total number of bytes requested
         allocatedBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: allocated_bytes
           description: Total number of bytes allocated if known
         allocatorName:
@@ -607,7 +609,8 @@ components:
         allocationId:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: allocation_id
           description: Identifier of the allocated buffer if known
         hasSingleReference:
@@ -617,7 +620,7 @@ components:
         ptr:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: ptr
           description: Address of the allocation.
       title: AllocationDescription
@@ -628,13 +631,15 @@ components:
         allocMicros:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: alloc_micros
           description: The timestamp of the operation.
         allocBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: alloc_bytes
           description: Number of bytes allocated, or de-allocated if negative.
       title: AllocationRecord
@@ -649,18 +654,21 @@ components:
         totalBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: total_bytes
           description: These are per-node allocator memory stats.
         peakBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: peak_bytes
         liveBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: live_bytes
           description: The bytes that are not deallocated.
         allocationRecords:
@@ -672,7 +680,8 @@ components:
         allocatorBytesInUse:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: allocator_bytes_in_use
           description: |-
             These are snapshots of the overall allocator memory stats.
@@ -777,12 +786,14 @@ components:
         i:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: i
           description: '"int"'
         f:
           type: number
           title: f
+          format: float
           description: '"float"'
         b:
           type: boolean
@@ -849,13 +860,15 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
           title: i
           description: '"list(int)"'
         f:
           type: array
           items:
             type: number
+            format: float
           title: f
           description: '"list(float)"'
         b:
@@ -900,6 +913,7 @@ components:
         numReplicas:
           type: integer
           title: num_replicas
+          format: int32
       title: AutoParallelOptions
       additionalProperties: false
     tensorflow.CallableOptions:
@@ -1081,6 +1095,7 @@ components:
           additionalProperties:
             type: integer
             title: value
+            format: int32
           description: |-
             Map from device type name (e.g., "CPU" or "GPU" ) to maximum
              number of devices of that type to use.  If a particular device
@@ -1089,6 +1104,7 @@ components:
         intraOpParallelismThreads:
           type: integer
           title: intra_op_parallelism_threads
+          format: int32
           description: |-
             The execution of an individual op (for some op types) can be
              parallelized on a pool of intra_op_parallelism_threads.
@@ -1107,6 +1123,7 @@ components:
         interOpParallelismThreads:
           type: integer
           title: inter_op_parallelism_threads
+          format: int32
           description: |-
             Nodes that perform blocking operations are enqueued on a pool of
              inter_op_parallelism_threads available in each process.
@@ -1158,6 +1175,7 @@ components:
         placementPeriod:
           type: integer
           title: placement_period
+          format: int32
           description: |-
             Assignment of Nodes to Devices is recomputed every placement_period
              steps until the system warms up (at which point the recomputation
@@ -1199,7 +1217,8 @@ components:
         operationTimeoutInMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: operation_timeout_in_ms
           description: |-
             Global timeout for all blocking operations in this session.  If non-zero,
@@ -1248,6 +1267,7 @@ components:
         value:
           type: integer
           title: value
+          format: int32
       title: DeviceCountEntry
       additionalProperties: false
     tensorflow.ConfigProto.Experimental:
@@ -1266,6 +1286,7 @@ components:
         recvBufMaxChunk:
           type: integer
           title: recv_buf_max_chunk
+          format: int32
           description: |-
             Guidance to formatting of large RecvBuf fields for transfer.
              Any positive value sets the max chunk size.  0 defaults to 4096.
@@ -1390,7 +1411,8 @@ components:
         xlaFusionAutotunerThresh:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: xla_fusion_autotuner_thresh
           description: |-
             Minimum number of batches run through the XLA graph before XLA fusion
@@ -1448,6 +1470,7 @@ components:
         numTasks:
           type: integer
           title: num_tasks
+          format: int32
       title: CoordinatedJob
       additionalProperties: false
       description: |-
@@ -1475,13 +1498,15 @@ components:
         clusterRegisterTimeoutInMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: cluster_register_timeout_in_ms
           description: Maximum wait time for all members in the cluster to be registered.
         heartbeatTimeoutInMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: heartbeat_timeout_in_ms
           description: |-
             Heartbeat timeout, if a task does not record heartbeat in this time
@@ -1497,7 +1522,8 @@ components:
         shutdownBarrierTimeoutInMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: shutdown_barrier_timeout_in_ms
           description: |-
             Denotes how long to wait for all coordination agents to reach the barriers
@@ -1554,6 +1580,7 @@ components:
         cost:
           type: number
           title: cost
+          format: float
           description: Aggregated cost value.
         dimension:
           type: string
@@ -1578,6 +1605,7 @@ components:
         id:
           type: integer
           title: id
+          format: int32
           description: The id of the node. Node ids are only unique inside a partition.
         inputInfo:
           type: array
@@ -1592,40 +1620,47 @@ components:
         temporaryMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: temporary_memory_size
           description: Temporary memory used by this node.
         persistentMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: persistent_memory_size
           description: Persistent memory used by this node.
         hostTempMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: host_temp_memory_size
         deviceTempMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: device_temp_memory_size
         devicePersistentMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: device_persistent_memory_size
         computeCost:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: compute_cost
           description: Estimate of the computational cost of this node, in microseconds.
         computeTime:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: compute_time
           description: |-
             Analytical estimate of the computational cost of this node, in
@@ -1633,7 +1668,8 @@ components:
         memoryTime:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: memory_time
           description: |-
             Analytical estimate of the memory access cost of this node, in
@@ -1648,6 +1684,7 @@ components:
           type: array
           items:
             type: integer
+            format: int32
           title: control_input
           description: Ids of the control inputs for this node.
         inaccurate:
@@ -1662,9 +1699,11 @@ components:
         precedingNode:
           type: integer
           title: preceding_node
+          format: int32
         precedingPort:
           type: integer
           title: preceding_port
+          format: int32
       title: InputInfo
       additionalProperties: false
       description: |-
@@ -1677,12 +1716,14 @@ components:
         size:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: size
         aliasInputPort:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: alias_input_port
           description: |-
             If >= 0, the output is an alias of an input. Note that an alias input
@@ -1732,7 +1773,8 @@ components:
         graphVersion:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: graph_version
           description: |-
             The initial version number for the graph, to be used in the next call
@@ -1751,7 +1793,8 @@ components:
         globalStep:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: global_step
           description: |-
             Caller-specified global step count.
@@ -1781,6 +1824,7 @@ components:
         outputSlot:
           type: integer
           title: output_slot
+          format: int32
           description: |-
             Output slot to watch.
              The semantics of output_slot == -1 is that all outputs of the node
@@ -1845,7 +1889,8 @@ components:
         memoryLimit:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: memory_limit
           description: Memory capacity of device in bytes.
         locality:
@@ -1858,7 +1903,7 @@ components:
         incarnation:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: incarnation
           description: |-
             A device is assigned a global unique number each time it is
@@ -1870,7 +1915,8 @@ components:
         xlaGlobalId:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: xla_global_id
           description: |-
             A physical device ID for use in XLA DeviceAssignments, unique across
@@ -1884,12 +1930,14 @@ components:
         busId:
           type: integer
           title: bus_id
+          format: int32
           description: |-
             Optional bus locality of device.  Default value of 0 means
              no specific locality.  Specific localities are indexed from 1.
         numaNode:
           type: integer
           title: numa_node
+          format: int32
           description: Optional NUMA locality of device.
         links:
           allOf:
@@ -1949,7 +1997,8 @@ components:
         currentGraphVersion:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: current_graph_version
           description: |-
             REQUIRED: The version number of the graph to be extended. This will be
@@ -1963,7 +2012,8 @@ components:
         newGraphVersion:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: new_graph_version
           description: |-
             The new version number for the extended graph, to be used in the next call
@@ -2016,7 +2066,8 @@ components:
         i:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: i
           description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
       title: FullTypeDef
@@ -2212,10 +2263,9 @@ components:
       type: object
       properties:
         perProcessGpuMemoryFraction:
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: per_process_gpu_memory_fraction
+          format: double
           description: |-
             Fraction of the total GPU memory to allocate for each process.
              1 means to allocate all of the GPU memory, 0.5 means the process
@@ -2255,7 +2305,8 @@ components:
         deferredDeletionBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: deferred_deletion_bytes
           description: |-
             Delay deletion of up to this many bytes to reduce the number of
@@ -2289,6 +2340,7 @@ components:
         pollingActiveDelayUsecs:
           type: integer
           title: polling_active_delay_usecs
+          format: int32
           description: |-
             In the event polling loop sleep this many microseconds between
              PollEvents calls, when the queue is not empty.  If value is not
@@ -2296,6 +2348,7 @@ components:
         pollingInactiveDelayMsecs:
           type: integer
           title: polling_inactive_delay_msecs
+          format: int32
           description: This field is deprecated and ignored.
         forceGpuCompatible:
           type: boolean
@@ -2382,6 +2435,7 @@ components:
         numDevToDevCopyStreams:
           type: integer
           title: num_dev_to_dev_copy_streams
+          format: int32
           description: |-
             If > 1, the number of device-to-device copy streams to create
              for each GPUDevice.  Default value is 0, which is automatically
@@ -2407,6 +2461,7 @@ components:
         kernelTrackerMaxInterval:
           type: integer
           title: kernel_tracker_max_interval
+          format: int32
           description: |-
             Parameters for GPUKernelTracker.  By default no kernel tracking is done.
              Note that timestamped_allocator is only effective if some tracking is
@@ -2417,6 +2472,7 @@ components:
         kernelTrackerMaxBytes:
           type: integer
           title: kernel_tracker_max_bytes
+          format: int32
           description: |-
             If kernel_tracker_max_bytes = n > 0, then a tracking event is
              inserted after every series of kernels allocating a sum of
@@ -2426,16 +2482,16 @@ components:
         kernelTrackerMaxPending:
           type: integer
           title: kernel_tracker_max_pending
+          format: int32
           description: |-
             If kernel_tracker_max_pending > 0 then no more than this many
              tracking events can be outstanding at a time.  An attempt to
              launch an additional kernel will stall until an event
              completes.
         internalFragmentationFraction:
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: internal_fragmentation_fraction
+          format: double
           description: |-
             BFC Allocator can return an allocated chunk of memory upto 2x the
              requested size. For virtual devices with tight memory constraints, and
@@ -2460,6 +2516,7 @@ components:
         gpuHostMemLimitInMb:
           type: number
           title: gpu_host_mem_limit_in_mb
+          format: float
           description: |-
             Memory limit for "GPU host allocator", aka pinned memory allocator.  This
              can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB.
@@ -2483,6 +2540,7 @@ components:
           type: array
           items:
             type: number
+            format: float
           title: memory_limit_mb
           description: |-
             Per "virtual" device memory limit, in MB. The number of elements in
@@ -2497,6 +2555,7 @@ components:
           type: array
           items:
             type: integer
+            format: int32
           title: priority
           description: |-
             Priority values to use with the virtual devices. Use the cuda function
@@ -2513,6 +2572,7 @@ components:
           type: array
           items:
             type: integer
+            format: int32
           title: device_ordinal
           description: |-
             Virtual Device ordinal number determines the device ID of the device.
@@ -2598,7 +2658,7 @@ components:
           additionalProperties:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
             title: value
           description: |-
             This maps a node name to a trace id contained in `traces_by_id`.
@@ -2621,16 +2681,19 @@ components:
         fileIndex:
           type: integer
           title: file_index
+          format: int32
           description: |-
             File name index, which can be used to retrieve the file name string from
              `files`. The value should be between 0 and (len(files)-1)
         line:
           type: integer
           title: line
+          format: int32
           description: Line number in the file.
         col:
           type: integer
           title: col
+          format: int32
           description: Col number in the file line.
         func:
           type: string
@@ -2649,7 +2712,7 @@ components:
         key:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: key
         value:
           allOf:
@@ -2666,7 +2729,7 @@ components:
         value:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: value
       title: NameToTraceIdEntry
       additionalProperties: false
@@ -2684,7 +2747,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
           title: frame_id
       title: StackTrace
       additionalProperties: false
@@ -2695,7 +2758,7 @@ components:
         key:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: key
         value:
           allOf:
@@ -2734,6 +2797,7 @@ components:
         version:
           type: integer
           title: version
+          format: int32
           description: |-
             Deprecated single version field; use versions above instead.  Since all
              GraphDef changes before "versions" was introduced were forward
@@ -2794,7 +2858,8 @@ components:
         buildCostModel:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: build_cost_model
           description: |-
             The number of steps to run before returning a cost model detailing
@@ -2803,7 +2868,8 @@ components:
         buildCostModelAfter:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: build_cost_model_after
           description: |-
             The number of steps to skip before collecting statistics for the
@@ -2832,6 +2898,7 @@ components:
         timelineStep:
           type: integer
           title: timeline_step
+          format: int32
           description: |-
             If > 0, record a timeline every this many steps.
              EXPERIMENTAL: This currently has no effect in MasterSession.
@@ -2851,12 +2918,14 @@ components:
         deviceId:
           type: integer
           title: device_id
+          format: int32
         type:
           type: string
           title: type
         strength:
           type: integer
           title: strength
+          format: int32
       title: InterconnectLink
       additionalProperties: false
     tensorflow.JobDef:
@@ -2890,6 +2959,7 @@ components:
         key:
           type: integer
           title: key
+          format: int32
         value:
           type: string
           title: value
@@ -2954,7 +3024,8 @@ components:
         requestId:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: request_id
           description: |-
             Unique identifier for this request. Every MakeCallableRequest must
@@ -2968,7 +3039,8 @@ components:
         handle:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: handle
           description: A handle to the created callable.
       title: MakeCallableResponse
@@ -2979,36 +3051,42 @@ components:
         tempMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: temp_memory_size
         persistentMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: persistent_memory_size
         persistentTensorAllocIds:
           type: array
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
           title: persistent_tensor_alloc_ids
         deviceTempMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: device_temp_memory_size
         devicePersistentMemorySize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: device_persistent_memory_size
         devicePersistentTensorAllocIds:
           type: array
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
           title: device_persistent_tensor_alloc_ids
       title: MemoryStats
       additionalProperties: false
@@ -3208,22 +3286,26 @@ components:
         allStartMicros:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: all_start_micros
         opStartRelMicros:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: op_start_rel_micros
         opEndRelMicros:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: op_end_rel_micros
         allEndRelMicros:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: all_end_rel_micros
         memory:
           type: array
@@ -3241,7 +3323,8 @@ components:
         scheduledMicros:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: scheduled_micros
         threadId:
           type: integer
@@ -3258,27 +3341,32 @@ components:
         allStartNanos:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: all_start_nanos
         opStartRelNanos:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: op_start_rel_nanos
         opEndRelNanos:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: op_end_rel_nanos
         allEndRelNanos:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: all_end_rel_nanos
         scheduledNanos:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: scheduled_nanos
       title: NodeExecStats
       additionalProperties: false
@@ -3289,6 +3377,7 @@ components:
         slot:
           type: integer
           title: slot
+          format: int32
         tensorDescription:
           allOf:
             - title: tensor_description
@@ -3501,7 +3590,8 @@ components:
         minimum:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: minimum
         allowedValues:
           allOf:
@@ -3526,6 +3616,7 @@ components:
         version:
           type: integer
           title: version
+          format: int32
           description: First GraphDef version at which the op is disallowed.
         explanation:
           type: string
@@ -3555,7 +3646,8 @@ components:
         maxFoldedConstantInBytes:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: max_folded_constant_in_bytes
           description: |-
             Constant folding optimization replaces tensors whose values can be
@@ -3624,7 +3716,8 @@ components:
         requestId:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: request_id
           description: |-
             Unique identifier for this request. Every PartialRunSetupRequest must
@@ -3663,6 +3756,7 @@ components:
         compressionLevel:
           type: integer
           title: compression_level
+          format: int32
           description: |-
             If compression_algorithm is set, the compression level to be used.
              From 0 (no compression), up to 3.
@@ -3683,6 +3777,7 @@ components:
         numChannelsPerTarget:
           type: integer
           title: num_channels_per_target
+          format: int32
           description: |-
             Setting num_channels_per_target > 0 allows uses of multiple channels to
              communicate to the same target. This can be used to improve the aggregate
@@ -3723,7 +3818,8 @@ components:
         handle:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: handle
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
@@ -3798,7 +3894,7 @@ components:
         hashCode:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: hash_code
           description: |-
             Hash code for the type of the resource. Is only valid in the same device
@@ -3997,6 +4093,7 @@ components:
         minGraphNodes:
           type: integer
           title: min_graph_nodes
+          format: int32
           description: |-
             The minimum number of nodes in a graph to optimizer. For smaller graphs,
              optimization is skipped.
@@ -4041,7 +4138,8 @@ components:
         metaOptimizerTimeoutMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: meta_optimizer_timeout_ms
           description: |-
             Maximum number of milliseconds to spend optimizing a single graph before
@@ -4146,7 +4244,8 @@ components:
         handle:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: handle
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
@@ -4162,7 +4261,8 @@ components:
         requestId:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: request_id
           description: |-
             Unique identifier for this request. Every RunCallableRequest must
@@ -4263,12 +4363,14 @@ components:
         timeoutInMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: timeout_in_ms
           description: Time to wait for operation to complete in milliseconds.
         interOpThreadPool:
           type: integer
           title: inter_op_thread_pool
+          format: int32
           description: |-
             The thread pool to use, if session_inter_op_thread_pool is configured.
              To use the caller thread set this to -1 - this uses the caller thread
@@ -4309,7 +4411,8 @@ components:
         collectiveGraphKey:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: collective_graph_key
           description: |-
             If non-zero, declares that this graph is going to use collective
@@ -4340,7 +4443,8 @@ components:
         priority:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: priority
           description: |-
             Priority of the request. The run handler thread pool will schedule ops
@@ -4403,7 +4507,8 @@ components:
         requestId:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: request_id
           description: |-
             Unique identifier for this request. Every RunStepRequest must
@@ -4461,7 +4566,8 @@ components:
         version:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: version
           description: The version is optional. If set, needs to be >= 0.
       title: SessionMetadata
@@ -4538,6 +4644,7 @@ components:
         versionNumber:
           type: integer
           title: version_number
+          format: int32
           description: |-
             Version number.
 
@@ -4558,6 +4665,7 @@ components:
           type: array
           items:
             type: integer
+            format: int32
           title: half_val
           description: |-
             DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll
@@ -4566,20 +4674,21 @@ components:
           type: array
           items:
             type: number
+            format: float
           title: float_val
           description: DT_FLOAT.
         doubleVal:
           type: array
           items:
-            oneOf:
-              - type: string
-              - type: number
+            type: number
+            format: double
           title: double_val
           description: DT_DOUBLE.
         intVal:
           type: array
           items:
             type: integer
+            format: int32
           title: int_val
           description: DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8.
         stringVal:
@@ -4593,6 +4702,7 @@ components:
           type: array
           items:
             type: number
+            format: float
           title: scomplex_val
           description: |-
             DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
@@ -4602,7 +4712,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
           title: int64_val
           description: DT_INT64
         boolVal:
@@ -4614,9 +4725,8 @@ components:
         dcomplexVal:
           type: array
           items:
-            oneOf:
-              - type: string
-              - type: number
+            type: number
+            format: double
           title: dcomplex_val
           description: |-
             DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real
@@ -4644,7 +4754,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
           title: uint64_val
           description: DT_UINT64
         float8Val:
@@ -4695,7 +4805,8 @@ components:
         size:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: size
           description: |-
             Size of the tensor in that dimension.
@@ -4716,6 +4827,7 @@ components:
         numThreads:
           type: integer
           title: num_threads
+          format: int32
           description: |-
             The number of threads in the pool.
 
@@ -4769,7 +4881,8 @@ components:
         verificationTimeoutInMs:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: verification_timeout_in_ms
           description: |-
             Deadline for completion of all verification i.e. all the Toggle ON
@@ -4788,15 +4901,18 @@ components:
         producer:
           type: integer
           title: producer
+          format: int32
           description: The version of the code that produced this data.
         minConsumer:
           type: integer
           title: min_consumer
+          format: int32
           description: Any consumer below this version is not allowed to consume this data.
         badConsumers:
           type: array
           items:
             type: integer
+            format: int32
           title: bad_consumers
           description: Specific consumer versions which are disallowed (e.g. due to bugs).
       title: VersionDef
