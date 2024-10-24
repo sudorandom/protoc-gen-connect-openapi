@@ -186,3 +186,202 @@ func makeOutputPath(protofile, format string) string {
 	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi." + format)
 	return filepath.Join(dir, "output", file)
 }
+
+func TestTrimUnusedTypes(t *testing.T) {
+	testCases := []struct {
+		name           string
+		input         string
+		expectedTypes []string
+		excludedTypes []string
+	}{
+		{
+			name: "simple_unused_type",
+			input: `
+openapi: 3.1.0
+components:
+  schemas:
+    Used:
+      type: object
+      properties:
+        name:
+          type: string
+    Unused:
+      type: object
+      properties:
+        description:
+          type: string
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Used'
+`,
+			expectedTypes: []string{"Used"},
+			excludedTypes: []string{"Unused"},
+		},
+		{
+			name: "nested_references",
+			input: `
+openapi: 3.1.0
+components:
+  schemas:
+    Parent:
+      type: object
+      properties:
+        child:
+          $ref: '#/components/schemas/Child'
+    Child:
+      type: object
+      properties:
+        name:
+          type: string
+    Unused:
+      type: object
+      properties:
+        description:
+          type: string
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parent'
+`,
+			expectedTypes: []string{"Parent", "Child"},
+			excludedTypes: []string{"Unused"},
+		},
+		{
+			name: "circular_reference",
+			input: `
+openapi: 3.1.0
+components:
+  schemas:
+    Parent:
+      type: object
+      properties:
+        child:
+          $ref: '#/components/schemas/Child'
+    Child:
+      type: object
+      properties:
+        parent:
+          $ref: '#/components/schemas/Parent'
+    Unused:
+      type: object
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parent'
+`,
+			expectedTypes: []string{"Parent", "Child"},
+			excludedTypes: []string{"Unused"},
+		},
+		{
+			name: "array_references",
+			input: `
+openapi: 3.1.0
+components:
+  schemas:
+    Collection:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+    Item:
+      type: object
+      properties:
+        name:
+          type: string
+    Unused:
+      type: object
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+`,
+			expectedTypes: []string{"Collection", "Item"},
+			excludedTypes: []string{"Unused"},
+		},
+		{
+			name: "composition_references",
+			input: `
+openapi: 3.1.0
+components:
+  schemas:
+    Combined:
+      allOf:
+        - $ref: '#/components/schemas/Part1'
+        - $ref: '#/components/schemas/Part2'
+    Part1:
+      type: object
+      properties:
+        name:
+          type: string
+    Part2:
+      type: object
+      properties:
+        age:
+          type: integer
+    Unused:
+      type: object
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Combined'
+`,
+			expectedTypes: []string{"Combined", "Part1", "Part2"},
+			excludedTypes: []string{"Unused"},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			// Parse the input OpenAPI spec
+			doc, err := libopenapi.NewDocument([]byte(tc.input))
+			require.NoError(t, err)
+			
+			model, errs := doc.BuildV3Model()
+			require.Empty(t, errs)
+
+			// Apply the trimming
+			err = converter.TrimUnusedTypes(&model.Model)
+			require.NoError(t, err)
+
+			// Check that expected types are present
+			for _, expectedType := range tc.expectedTypes {
+				_, ok := model.Model.Components.Schemas.Get(expectedType)
+				assert.True(t, ok, "Expected type %s should be present", expectedType)
+			}
+
+			// Check that excluded types are not present
+			for _, excludedType := range tc.excludedTypes {
+				_, ok := model.Model.Components.Schemas.Get(excludedType)
+				assert.False(t, ok, "Excluded type %s should not be present", excludedType)
+			}
+		})
+	}
+}

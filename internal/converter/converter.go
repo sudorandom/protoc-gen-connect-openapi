@@ -200,8 +200,14 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 	}
 }
 
+func TrimUnusedTypes(spec *v3.Document) error {
+	return trimUnusedTypes(spec)
+}
+
 func trimUnusedTypes(spec *v3.Document) error {
 	slog.Debug("trimming unused types")
+	
+	// Get all references from the document
 	b, err := spec.Render()
 	if err != nil {
 		return err
@@ -216,14 +222,146 @@ func trimUnusedTypes(spec *v3.Document) error {
 	}
 	model.Index.BuildIndex()
 	references := model.Model.Rolodex.GetRootIndex().GetAllReferences()
+
+	// Process each schema
+	deletedKeys := make(map[string]bool)
 	for pair := spec.Components.Schemas.First(); pair != nil; pair = pair.Next() {
-		ref := fmt.Sprintf("#/components/schemas/%s", pair.Key())
-		if _, ok := references[ref]; !ok {
-			slog.Debug("trimming unused type", "name", pair.Key())
-			spec.Components.Schemas.Delete(pair.Key())
+		key := pair.Key()
+		ref := fmt.Sprintf("#/components/schemas/%s", key)
+		
+		// Skip if already used in the root document
+		if _, usedInRootIndex := references[ref]; usedInRootIndex {
+			continue
+		}
+
+		// Check if referenced by other components
+		usedInComponents := false
+		for otherPair := spec.Components.Schemas.First(); otherPair != nil; otherPair = otherPair.Next() {
+			if otherPair.Key() == key || deletedKeys[otherPair.Key()] {
+				continue
+			}
+			
+			otherRefs := getReferencesInSchema(otherPair.Value())
+			if _, ok := otherRefs[ref]; ok {
+				usedInComponents = true
+				break
+			}
+		}
+
+		if !usedInComponents {
+			slog.Debug("trimming unused type", "name", key)
+			trimChildSchemas(spec.Components.Schemas, key)
+			spec.Components.Schemas.Delete(key)
+			deletedKeys[key] = true
 		}
 	}
+
 	return nil
+}
+
+// recursively delete all schemas that are referenced by the given schema, but only if the child is also unused
+func trimChildSchemas(schemas *orderedmap.Map[string, *base.SchemaProxy], key string) {
+    parentSchema, ok := schemas.Get(key)
+    if !ok {
+        return
+    }
+    
+    // Get all references in the schema being deleted
+    childReferences := getReferencesInSchema(parentSchema)
+    
+    // For each child reference, check if it's used by other schemas
+    for childRef := range childReferences {
+        // Extract the schema name from the reference (e.g., "#/components/schemas/Pet" -> "Pet")
+        childKey := strings.TrimPrefix(childRef, "#/components/schemas/")
+        
+        // Skip if this schema doesn't exist
+        _, ok := schemas.Get(childKey)
+        if !ok {
+            continue
+        }
+        
+        // Check if this child schema is referenced by any other schemas
+        isUsedElsewhere := false
+        for pair := schemas.First(); pair != nil; pair = pair.Next() {
+            // Skip the parent schema we're currently processing
+            if pair.Key() == key {
+                continue
+            }
+            
+            otherSchemaRefs := getReferencesInSchema(pair.Value())
+            if _, ok := otherSchemaRefs[childRef]; ok {
+                isUsedElsewhere = true
+                break
+            }
+        }
+        
+        // Only recursively delete if this schema isn't used elsewhere
+        if !isUsedElsewhere {
+            trimChildSchemas(schemas, childKey)
+            schemas.Delete(childKey)
+        }
+    }
+}
+
+func getReferencesInSchema(schProxy *base.SchemaProxy) map[string]string {
+	references := make(map[string]string)
+	if schProxy == nil {
+		return references
+	}
+
+	// Handle direct references
+	if schProxy.IsReference() {
+		ref := schProxy.GetReference()
+		references[ref] = ref
+		return references
+	}
+
+	schema, err := schProxy.BuildSchema()
+	if err != nil {
+		slog.Error("error building schema", slog.Any("error", err))
+		return references
+	}
+
+	// Helper function to process a schema proxy
+	processProxy := func(proxy *base.SchemaProxy) {
+		if proxy == nil {
+			return
+		}
+		for k, v := range getReferencesInSchema(proxy) {
+			references[k] = v
+		}
+	}
+
+	// Process properties
+	for pair := schema.Properties.First(); pair != nil; pair = pair.Next() {
+		processProxy(pair.Value())
+	}
+
+	// Process array items
+	if schema.Items != nil {
+		processProxy(schema.Items.A)
+	}
+
+	// Process additional properties
+	if schema.AdditionalProperties != nil {
+		processProxy(schema.AdditionalProperties.A)
+	}
+
+	// Process composition schemas
+	for _, s := range schema.AllOf {
+		processProxy(s)
+	}
+	for _, s := range schema.OneOf {
+		processProxy(s)
+	}
+	for _, s := range schema.AnyOf {
+		processProxy(s)
+	}
+	if schema.Not != nil {
+		processProxy(schema.Not)
+	}
+
+	return references
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {

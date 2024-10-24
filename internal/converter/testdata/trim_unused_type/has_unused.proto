@@ -25,4 +25,21 @@ message UsedType {
 
 message Unused {
   string unused_field = 1;
+  UnusedChild unused_child = 2;
+  UnusedChild2 unused_child2 = 3;
 }
+
+message UnusedChild {
+  string unused_child_field = 1;
+  UnusedChild3 unused_child3 = 2;
+}
+
+message UnusedChild2 {
+  string unused_child_field = 1;
+}
+
+message UnusedChild3 {
+  string unused_child_field = 1;
+}
+
+
