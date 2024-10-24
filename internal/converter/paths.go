@@ -21,37 +21,198 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
 			pathItems := googleapi.MakePathItems(opts, method)
-			for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-				path, item := pair.Key(), pair.Value()
-				if existing, ok := paths.PathItems.Get(pair.Key()); !ok {
-					paths.PathItems.Set(path, item)
+
+			// Helper function to update or set path items
+			addPathItem := func(path string, newItem *v3.PathItem) {
+				if existing, ok := paths.PathItems.Get(path); !ok {
+					paths.PathItems.Set(path, newItem)
 				} else {
-					if item.Get != nil {
-						existing.Get = item.Get
-					}
-					if item.Post != nil {
-						existing.Post = item.Post
-					}
-					if item.Delete != nil {
-						existing.Delete = item.Delete
-					}
-					if item.Put != nil {
-						existing.Put = item.Put
-					}
-					if item.Patch != nil {
-						existing.Patch = item.Patch
-					}
+					mergePathItems(existing, newItem)
 					paths.PathItems.Set(path, existing)
 				}
 			}
-			// No google.api annotations for this method, so default to the ConnectRPC/gRPC path
+
+			// Update path items from google.api annotations
+			for pair := pathItems.First(); pair != nil; pair = pair.Next() {
+				addPathItem(pair.Key(), pair.Value())
+			}
+
+			// Default to ConnectRPC/gRPC path if no google.api annotations
 			if pathItems == nil || pathItems.Len() == 0 {
-				paths.PathItems.Set("/"+string(service.FullName())+"/"+string(method.Name()), methodToPathItem(opts, method))
+				path := "/" + string(service.FullName()) + "/" + string(method.Name())
+				addPathItem(path, methodToPathItem(opts, method))
 			}
 		}
 	}
 
 	return nil
+}
+
+func mergePathItems(existing, new *v3.PathItem) {
+	// Merge operations
+	operations := []struct {
+		existingOp **v3.Operation
+		newOp      *v3.Operation
+	}{
+		{&existing.Get, new.Get},
+		{&existing.Post, new.Post},
+		{&existing.Put, new.Put},
+		{&existing.Delete, new.Delete},
+		{&existing.Options, new.Options},
+		{&existing.Head, new.Head},
+		{&existing.Patch, new.Patch},
+		{&existing.Trace, new.Trace},
+	}
+
+	for _, op := range operations {
+		if op.newOp != nil {
+			mergeOperation(op.existingOp, op.newOp)
+		}
+	}
+
+	// Merge other fields
+	if new.Summary != "" {
+		existing.Summary = new.Summary
+	}
+	if new.Description != "" {
+		existing.Description = new.Description
+	}
+	existing.Servers = append(existing.Servers, new.Servers...)
+	existing.Parameters = append(existing.Parameters, new.Parameters...)
+
+	// Merge extensions
+	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+		if _, ok := existing.Extensions.Get(pair.Key()); !ok {
+			existing.Extensions.Set(pair.Key(), pair.Value())
+		}
+	}
+}
+
+func mergeOperation(existing **v3.Operation, new *v3.Operation) {
+	if *existing == nil {
+		*existing = new
+		return
+	}
+	// Merge operation fields
+	if new.Summary != "" {
+		(*existing).Summary = new.Summary
+	}
+	if new.Description != "" {
+		(*existing).Description = new.Description
+	}
+	(*existing).Tags = append((*existing).Tags, new.Tags...)
+	(*existing).Parameters = append((*existing).Parameters, new.Parameters...)
+	if new.RequestBody != nil {
+		(*existing).RequestBody = new.RequestBody
+	}
+	if new.Responses != nil {
+		mergeResponses((*existing).Responses, new.Responses)
+	}
+	if new.Deprecated != nil {
+		(*existing).Deprecated = new.Deprecated
+	}
+
+	// Add support for additional Operation fields
+	if new.Callbacks != nil {
+		if (*existing).Callbacks == nil {
+			(*existing).Callbacks = orderedmap.New[string, *v3.Callback]()
+		}
+		for pair := new.Callbacks.First(); pair != nil; pair = pair.Next() {
+			if _, ok := (*existing).Callbacks.Get(pair.Key()); !ok {
+				(*existing).Callbacks.Set(pair.Key(), pair.Value())
+			}
+		}
+	}
+
+	if new.Security != nil {
+		(*existing).Security = append((*existing).Security, new.Security...)
+	}
+
+	if new.Servers != nil {
+		(*existing).Servers = append((*existing).Servers, new.Servers...)
+	}
+
+	if new.ExternalDocs != nil {
+		(*existing).ExternalDocs = new.ExternalDocs
+	}
+
+	// Merge extensions
+	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+		if _, ok := (*existing).Extensions.Get(pair.Key()); !ok {
+			(*existing).Extensions.Set(pair.Key(), pair.Value())
+		}
+	}
+}
+
+func mergeResponses(existing, new *v3.Responses) {
+	if existing == nil || new == nil {
+		return
+	}
+
+	// Merge response codes
+	for pair := new.Codes.First(); pair != nil; pair = pair.Next() {
+		code := pair.Key()
+		if existingResponse, ok := existing.Codes.Get(code); !ok {
+			existing.Codes.Set(code, pair.Value())
+		} else {
+			mergeResponse(existingResponse, pair.Value())
+		}
+	}
+
+	// Merge default response
+	if new.Default != nil {
+		if existing.Default == nil {
+			existing.Default = new.Default
+		} else {
+			mergeResponse(existing.Default, new.Default)
+		}
+	}
+}
+
+func mergeResponse(existing, new *v3.Response) {
+	if new.Description != "" {
+		existing.Description = new.Description
+	}
+
+	// Merge Content
+	for pair := new.Content.First(); pair != nil; pair = pair.Next() {
+		contentType := pair.Key()
+		mediaType := pair.Value()
+		if _, ok := existing.Content.Get(contentType); !ok {
+			existing.Content.Set(contentType, mediaType)
+		}
+	}
+
+	// Merge Headers
+	if new.Headers != nil {
+		if existing.Headers == nil {
+			existing.Headers = orderedmap.New[string, *v3.Header]()
+		}
+		for pair := new.Headers.First(); pair != nil; pair = pair.Next() {
+			if _, ok := existing.Headers.Get(pair.Key()); !ok {
+				existing.Headers.Set(pair.Key(), pair.Value())
+			}
+		}
+	}
+
+	// Merge Links
+	if new.Links != nil {
+		if existing.Links == nil {
+			existing.Links = orderedmap.New[string, *v3.Link]()
+		}
+		for pair := new.Links.First(); pair != nil; pair = pair.Next() {
+			if _, ok := existing.Links.Get(pair.Key()); !ok {
+				existing.Links.Set(pair.Key(), pair.Value())
+			}
+		}
+	}
+
+	// Merge Extensions
+	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+		if _, ok := existing.Extensions.Get(pair.Key()); !ok {
+			existing.Extensions.Set(pair.Key(), pair.Value())
+		}
+	}
 }
 
 func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor, returnGet bool) *v3.Operation {
