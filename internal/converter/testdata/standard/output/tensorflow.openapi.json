@@ -825,7 +825,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "requested_bytes",
@@ -837,7 +838,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "allocated_bytes",
@@ -854,7 +856,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "allocation_id",
@@ -871,7 +874,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "ptr",
@@ -890,7 +893,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "alloc_micros",
@@ -902,7 +906,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "alloc_bytes",
@@ -926,7 +931,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "total_bytes",
@@ -938,7 +944,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "peak_bytes"
@@ -949,7 +956,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "live_bytes",
@@ -969,7 +977,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "allocator_bytes_in_use",
@@ -1214,7 +1223,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "i",
@@ -1223,6 +1233,7 @@
           "f": {
             "type": "number",
             "title": "f",
+            "format": "float",
             "description": "\"float\""
           },
           "b": {
@@ -1315,7 +1326,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer",
+                  "format": "int64"
                 }
               ]
             },
@@ -1325,7 +1337,8 @@
           "f": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "number",
+              "format": "float"
             },
             "title": "f",
             "description": "\"list(float)\""
@@ -1384,7 +1397,8 @@
           },
           "numReplicas": {
             "type": "integer",
-            "title": "num_replicas"
+            "title": "num_replicas",
+            "format": "int32"
           }
         },
         "title": "AutoParallelOptions",
@@ -1534,18 +1548,21 @@
             "title": "device_count",
             "additionalProperties": {
               "type": "integer",
-              "title": "value"
+              "title": "value",
+              "format": "int32"
             },
             "description": "Map from device type name (e.g., \"CPU\" or \"GPU\" ) to maximum\n number of devices of that type to use.  If a particular device\n type is not found in the map, the system picks an appropriate\n number."
           },
           "intraOpParallelismThreads": {
             "type": "integer",
             "title": "intra_op_parallelism_threads",
+            "format": "int32",
             "description": "The execution of an individual op (for some op types) can be\n parallelized on a pool of intra_op_parallelism_threads.\n 0 means the system picks an appropriate number.\n\n If you create an ordinary session, e.g., from Python or C++,\n then there is exactly one intra op thread pool per process.\n The first session created determines the number of threads in this pool.\n All subsequent sessions reuse/share this one global pool.\n\n There are notable exceptions to the default behavior described above:\n 1. There is an environment variable  for overriding this thread pool,\n    named TF_OVERRIDE_GLOBAL_THREADPOOL.\n 2. When connecting to a server, such as a remote `tf.train.Server`\n    instance, then this option will be ignored altogether."
           },
           "interOpParallelismThreads": {
             "type": "integer",
             "title": "inter_op_parallelism_threads",
+            "format": "int32",
             "description": "Nodes that perform blocking operations are enqueued on a pool of\n inter_op_parallelism_threads available in each process.\n\n 0 means the system picks an appropriate number.\n Negative means all operations are performed in caller's thread.\n\n Note that the first Session created in the process sets the\n number of threads for all future sessions unless use_per_session_threads is\n true or session_inter_op_thread_pool is configured."
           },
           "usePerSessionThreads": {
@@ -1564,6 +1581,7 @@
           "placementPeriod": {
             "type": "integer",
             "title": "placement_period",
+            "format": "int32",
             "description": "Assignment of Nodes to Devices is recomputed every placement_period\n steps until the system warms up (at which point the recomputation\n typically slows down automatically)."
           },
           "deviceFilters": {
@@ -1612,7 +1630,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "operation_timeout_in_ms",
@@ -1674,7 +1693,8 @@
           },
           "value": {
             "type": "integer",
-            "title": "value"
+            "title": "value",
+            "format": "int32"
           }
         },
         "title": "DeviceCountEntry",
@@ -1696,6 +1716,7 @@
           "recvBufMaxChunk": {
             "type": "integer",
             "title": "recv_buf_max_chunk",
+            "format": "int32",
             "description": "Guidance to formatting of large RecvBuf fields for transfer.\n Any positive value sets the max chunk size.  0 defaults to 4096.\n Any negative value indicates no max, i.e. one chunk only."
           },
           "useNumaAffinity": {
@@ -1776,7 +1797,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "xla_fusion_autotuner_thresh",
@@ -1827,7 +1849,8 @@
           },
           "numTasks": {
             "type": "integer",
-            "title": "num_tasks"
+            "title": "num_tasks",
+            "format": "int32"
           }
         },
         "title": "CoordinatedJob",
@@ -1858,7 +1881,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "cluster_register_timeout_in_ms",
@@ -1870,7 +1894,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "heartbeat_timeout_in_ms",
@@ -1889,7 +1914,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "shutdown_barrier_timeout_in_ms",
@@ -1945,6 +1971,7 @@
           "cost": {
             "type": "number",
             "title": "cost",
+            "format": "float",
             "description": "Aggregated cost value."
           },
           "dimension": {
@@ -1973,6 +2000,7 @@
           "id": {
             "type": "integer",
             "title": "id",
+            "format": "int32",
             "description": "The id of the node. Node ids are only unique inside a partition."
           },
           "inputInfo": {
@@ -1995,7 +2023,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "temporary_memory_size",
@@ -2007,7 +2036,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "persistent_memory_size",
@@ -2019,7 +2049,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "host_temp_memory_size"
@@ -2030,7 +2061,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "device_temp_memory_size"
@@ -2041,7 +2073,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "device_persistent_memory_size"
@@ -2052,7 +2085,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "compute_cost",
@@ -2064,7 +2098,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "compute_time",
@@ -2076,7 +2111,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "memory_time",
@@ -2090,7 +2126,8 @@
           "controlInput": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "title": "control_input",
             "description": "Ids of the control inputs for this node."
@@ -2109,11 +2146,13 @@
         "properties": {
           "precedingNode": {
             "type": "integer",
-            "title": "preceding_node"
+            "title": "preceding_node",
+            "format": "int32"
           },
           "precedingPort": {
             "type": "integer",
-            "title": "preceding_port"
+            "title": "preceding_port",
+            "format": "int32"
           }
         },
         "title": "InputInfo",
@@ -2129,7 +2168,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "size"
@@ -2140,7 +2180,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "alias_input_port",
@@ -2219,7 +2260,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "graph_version",
@@ -2246,7 +2288,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "global_step",
@@ -2273,6 +2316,7 @@
           "outputSlot": {
             "type": "integer",
             "title": "output_slot",
+            "format": "int32",
             "description": "Output slot to watch.\n The semantics of output_slot == -1 is that all outputs of the node\n will be watched (i.e., a wildcard).\n Other negative values of output_slot are invalid and will lead to\n errors currently."
           },
           "debugOps": {
@@ -2320,7 +2364,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "memory_limit",
@@ -2343,7 +2388,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "incarnation",
@@ -2360,7 +2405,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "xla_global_id",
@@ -2376,11 +2422,13 @@
           "busId": {
             "type": "integer",
             "title": "bus_id",
+            "format": "int32",
             "description": "Optional bus locality of device.  Default value of 0 means\n no specific locality.  Specific localities are indexed from 1."
           },
           "numaNode": {
             "type": "integer",
             "title": "numa_node",
+            "format": "int32",
             "description": "Optional NUMA locality of device."
           },
           "links": {
@@ -2465,7 +2513,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "current_graph_version",
@@ -2484,7 +2533,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "new_graph_version",
@@ -2586,7 +2636,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "i",
@@ -2843,15 +2894,9 @@
         "type": "object",
         "properties": {
           "perProcessGpuMemoryFraction": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "per_process_gpu_memory_fraction",
+            "format": "double",
             "description": "Fraction of the total GPU memory to allocate for each process.\n 1 means to allocate all of the GPU memory, 0.5 means the process\n allocates up to ~50% of the total GPU memory.\n\n GPU memory is pre-allocated unless the allow_growth option is enabled.\n\n If greater than 1.0, uses CUDA unified memory to potentially oversubscribe\n the amount of memory available on the GPU device by using host memory as a\n swap space. Accessing memory not available on the device will be\n significantly slower as that would require memory transfer between the host\n and the device. Options to reduce the memory requirement should be\n considered before enabling this option as this may come with a negative\n performance impact. Oversubscription using the unified memory requires\n Pascal class or newer GPUs and it is currently only supported on the Linux\n operating system. See\n https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements\n for the detailed requirements."
           },
           "allowGrowth": {
@@ -2870,7 +2915,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "deferred_deletion_bytes",
@@ -2884,11 +2930,13 @@
           "pollingActiveDelayUsecs": {
             "type": "integer",
             "title": "polling_active_delay_usecs",
+            "format": "int32",
             "description": "In the event polling loop sleep this many microseconds between\n PollEvents calls, when the queue is not empty.  If value is not\n set or set to 0, gets set to a non-zero default."
           },
           "pollingInactiveDelayMsecs": {
             "type": "integer",
             "title": "polling_inactive_delay_msecs",
+            "format": "int32",
             "description": "This field is deprecated and ignored."
           },
           "forceGpuCompatible": {
@@ -2930,6 +2978,7 @@
           "numDevToDevCopyStreams": {
             "type": "integer",
             "title": "num_dev_to_dev_copy_streams",
+            "format": "int32",
             "description": "If \u003e 1, the number of device-to-device copy streams to create\n for each GPUDevice.  Default value is 0, which is automatically\n converted to 1."
           },
           "collectiveRingOrder": {
@@ -2945,28 +2994,25 @@
           "kernelTrackerMaxInterval": {
             "type": "integer",
             "title": "kernel_tracker_max_interval",
+            "format": "int32",
             "description": "Parameters for GPUKernelTracker.  By default no kernel tracking is done.\n Note that timestamped_allocator is only effective if some tracking is\n specified.\n\n If kernel_tracker_max_interval = n \u003e 0, then a tracking event\n is inserted after every n kernels without an event."
           },
           "kernelTrackerMaxBytes": {
             "type": "integer",
             "title": "kernel_tracker_max_bytes",
+            "format": "int32",
             "description": "If kernel_tracker_max_bytes = n \u003e 0, then a tracking event is\n inserted after every series of kernels allocating a sum of\n memory \u003e= n.  If one kernel allocates b * n bytes, then one\n event will be inserted after it, but it will count as b against\n the pending limit."
           },
           "kernelTrackerMaxPending": {
             "type": "integer",
             "title": "kernel_tracker_max_pending",
+            "format": "int32",
             "description": "If kernel_tracker_max_pending \u003e 0 then no more than this many\n tracking events can be outstanding at a time.  An attempt to\n launch an additional kernel will stall until an event\n completes."
           },
           "internalFragmentationFraction": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "internal_fragmentation_fraction",
+            "format": "double",
             "description": "BFC Allocator can return an allocated chunk of memory upto 2x the\n requested size. For virtual devices with tight memory constraints, and\n proportionately large allocation requests, this can lead to a significant\n reduction in available memory. The threshold below controls when a chunk\n should be split if the chunk size exceeds requested memory size. It is\n expressed as a fraction of total available memory for the tf device. For\n example setting it to 0.05 would imply a chunk needs to be split if its\n size exceeds the requested memory by 5% of the total virtual device/gpu\n memory size."
           },
           "useCudaMallocAsync": {
@@ -2982,6 +3028,7 @@
           "gpuHostMemLimitInMb": {
             "type": "number",
             "title": "gpu_host_mem_limit_in_mb",
+            "format": "float",
             "description": "Memory limit for \"GPU host allocator\", aka pinned memory allocator.  This\n can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB."
           },
           "gpuHostMemDisallowGrowth": {
@@ -2999,7 +3046,8 @@
           "memoryLimitMb": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "number",
+              "format": "float"
             },
             "title": "memory_limit_mb",
             "description": "Per \"virtual\" device memory limit, in MB. The number of elements in\n the list is the number of virtual devices to create on the\n corresponding visible GPU (see \"virtual_devices\" below).\n If empty, it will create single virtual device taking all available\n memory from the device.\n\n For the concept of \"visible\" and \"virtual\" GPU, see the comments for\n \"visible_device_list\" above for more information."
@@ -3007,7 +3055,8 @@
           "priority": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "title": "priority",
             "description": "Priority values to use with the virtual devices. Use the cuda function\n cudaDeviceGetStreamPriorityRange to query for valid range of values for\n priority.\n\n On a P4000 GPU with cuda 10.1, the priority range reported was 0 for\n least priority and -1 for greatest priority.\n\n If this field is not specified, then the virtual devices will be\n created with the default. If this field has values set, then the size\n of this must match with the above memory_limit_mb."
@@ -3015,7 +3064,8 @@
           "deviceOrdinal": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "title": "device_ordinal",
             "description": "Virtual Device ordinal number determines the device ID of the device.\n A Virtual device with a lower ordinal number always receives the a\n smaller device id. The phyiscal device id and location in the\n virtual device list is used to break ties."
@@ -3107,7 +3157,7 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer"
                 }
               ],
               "title": "value"
@@ -3124,16 +3174,19 @@
           "fileIndex": {
             "type": "integer",
             "title": "file_index",
+            "format": "int32",
             "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)"
           },
           "line": {
             "type": "integer",
             "title": "line",
+            "format": "int32",
             "description": "Line number in the file."
           },
           "col": {
             "type": "integer",
             "title": "col",
+            "format": "int32",
             "description": "Col number in the file line."
           },
           "func": {
@@ -3160,7 +3213,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "key"
@@ -3192,7 +3245,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "value"
@@ -3220,7 +3273,7 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer"
                 }
               ]
             },
@@ -3240,7 +3293,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "key"
@@ -3304,6 +3357,7 @@
           "version": {
             "type": "integer",
             "title": "version",
+            "format": "int32",
             "description": "Deprecated single version field; use versions above instead.  Since all\n GraphDef changes before \"versions\" was introduced were forward\n compatible, this field is entirely ignored."
           },
           "library": {
@@ -3358,7 +3412,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "build_cost_model",
@@ -3370,7 +3425,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "build_cost_model_after",
@@ -3394,6 +3450,7 @@
           "timelineStep": {
             "type": "integer",
             "title": "timeline_step",
+            "format": "int32",
             "description": "If \u003e 0, record a timeline every this many steps.\n EXPERIMENTAL: This currently has no effect in MasterSession."
           },
           "rewriteOptions": {
@@ -3416,7 +3473,8 @@
         "properties": {
           "deviceId": {
             "type": "integer",
-            "title": "device_id"
+            "title": "device_id",
+            "format": "int32"
           },
           "type": {
             "type": "string",
@@ -3424,7 +3482,8 @@
           },
           "strength": {
             "type": "integer",
-            "title": "strength"
+            "title": "strength",
+            "format": "int32"
           }
         },
         "title": "InterconnectLink",
@@ -3457,7 +3516,8 @@
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key"
+            "title": "key",
+            "format": "int32"
           },
           "value": {
             "type": "string",
@@ -3539,7 +3599,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "request_id",
@@ -3558,7 +3619,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "handle",
@@ -3577,7 +3639,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "temp_memory_size"
@@ -3588,7 +3651,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "persistent_memory_size"
@@ -3601,7 +3665,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer",
+                  "format": "int64"
                 }
               ]
             },
@@ -3613,7 +3678,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "device_temp_memory_size"
@@ -3624,7 +3690,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "device_persistent_memory_size"
@@ -3637,7 +3704,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer",
+                  "format": "int64"
                 }
               ]
             },
@@ -3844,7 +3912,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "all_start_micros"
@@ -3855,7 +3924,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "op_start_rel_micros"
@@ -3866,7 +3936,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "op_end_rel_micros"
@@ -3877,7 +3948,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "all_end_rel_micros"
@@ -3906,7 +3978,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "scheduled_micros"
@@ -3938,7 +4011,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "all_start_nanos"
@@ -3949,7 +4023,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "op_start_rel_nanos"
@@ -3960,7 +4035,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "op_end_rel_nanos"
@@ -3971,7 +4047,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "all_end_rel_nanos"
@@ -3982,7 +4059,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "scheduled_nanos"
@@ -3997,7 +4075,8 @@
         "properties": {
           "slot": {
             "type": "integer",
-            "title": "slot"
+            "title": "slot",
+            "format": "int32"
           },
           "tensorDescription": {
             "allOf": [
@@ -4212,7 +4291,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "minimum"
@@ -4239,6 +4319,7 @@
           "version": {
             "type": "integer",
             "title": "version",
+            "format": "int32",
             "description": "First GraphDef version at which the op is disallowed."
           },
           "explanation": {
@@ -4270,7 +4351,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "max_folded_constant_in_bytes",
@@ -4350,7 +4432,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "request_id",
@@ -4388,6 +4471,7 @@
           "compressionLevel": {
             "type": "integer",
             "title": "compression_level",
+            "format": "int32",
             "description": "If compression_algorithm is set, the compression level to be used.\n From 0 (no compression), up to 3."
           },
           "cacheRpcResponse": {
@@ -4403,6 +4487,7 @@
           "numChannelsPerTarget": {
             "type": "integer",
             "title": "num_channels_per_target",
+            "format": "int32",
             "description": "Setting num_channels_per_target \u003e 0 allows uses of multiple channels to\n communicate to the same target. This can be used to improve the aggregate\n throughput on high speed links (e.g 100G) where single connection is not\n sufficient to maximize link utilization. Note that a single RPC only goes\n on a single channel, this only helps in situations where there are multiple\n transfers to the same target overlapping in time."
           }
         },
@@ -4442,7 +4527,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "handle",
@@ -4510,7 +4596,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "hash_code",
@@ -4814,6 +4900,7 @@
           "minGraphNodes": {
             "type": "integer",
             "title": "min_graph_nodes",
+            "format": "int32",
             "description": "The minimum number of nodes in a graph to optimizer. For smaller graphs,\n optimization is skipped.\n 0 means the system picks an appropriate number.\n \u003c 0 means do not skip optimization."
           },
           "experimentalDisableCompressedTensorOptimization": {
@@ -4848,7 +4935,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "meta_optimizer_timeout_ms",
@@ -4984,7 +5072,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "handle",
@@ -5004,7 +5093,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "request_id",
@@ -5151,7 +5241,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "timeout_in_ms",
@@ -5160,6 +5251,7 @@
           "interOpThreadPool": {
             "type": "integer",
             "title": "inter_op_thread_pool",
+            "format": "int32",
             "description": "The thread pool to use, if session_inter_op_thread_pool is configured.\n To use the caller thread set this to -1 - this uses the caller thread\n to execute Session::Run() and thus avoids a context switch. Using the\n caller thread to execute Session::Run() should be done ONLY for simple\n graphs, where the overhead of an additional context switch is\n comparable with the overhead of Session::Run()."
           },
           "outputPartitionGraphs": {
@@ -5207,7 +5299,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "collective_graph_key",
@@ -5242,7 +5335,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "priority",
@@ -5312,7 +5406,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "request_id",
@@ -5391,7 +5486,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "version",
@@ -5501,6 +5597,7 @@
           "versionNumber": {
             "type": "integer",
             "title": "version_number",
+            "format": "int32",
             "description": "Version number.\n\n In version 0, if the \"repeated xxx\" representations contain only one\n element, that element is repeated to fill the shape.  This makes it easy\n to represent a constant Tensor with a single value."
           },
           "tensorContent": {
@@ -5512,7 +5609,8 @@
           "halfVal": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "title": "half_val",
             "description": "DT_HALF, DT_BFLOAT16. Note that since protobuf has no int16 type, we'll\n have some pointless zero padding for each value here."
@@ -5520,7 +5618,8 @@
           "floatVal": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "number",
+              "format": "float"
             },
             "title": "float_val",
             "description": "DT_FLOAT."
@@ -5528,14 +5627,8 @@
           "doubleVal": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                }
-              ]
+              "type": "number",
+              "format": "double"
             },
             "title": "double_val",
             "description": "DT_DOUBLE."
@@ -5543,7 +5636,8 @@
           "intVal": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "title": "int_val",
             "description": "DT_INT32, DT_INT16, DT_UINT16, DT_INT8, DT_UINT8."
@@ -5560,7 +5654,8 @@
           "scomplexVal": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "number",
+              "format": "float"
             },
             "title": "scomplex_val",
             "description": "DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real\n and imaginary parts of i-th single precision complex."
@@ -5573,7 +5668,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer",
+                  "format": "int64"
                 }
               ]
             },
@@ -5591,14 +5687,8 @@
           "dcomplexVal": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                }
-              ]
+              "type": "number",
+              "format": "double"
             },
             "title": "dcomplex_val",
             "description": "DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real\n and imaginary parts of i-th double precision complex."
@@ -5635,7 +5725,7 @@
                   "type": "string"
                 },
                 {
-                  "type": "number"
+                  "type": "integer"
                 }
               ]
             },
@@ -5683,7 +5773,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "size",
@@ -5705,6 +5796,7 @@
           "numThreads": {
             "type": "integer",
             "title": "num_threads",
+            "format": "int32",
             "description": "The number of threads in the pool.\n\n 0 means the system picks a value based on where this option proto is used\n (see the declaration of the specific field for more info)."
           },
           "globalName": {
@@ -5752,7 +5844,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "verification_timeout_in_ms",
@@ -5780,17 +5873,20 @@
           "producer": {
             "type": "integer",
             "title": "producer",
+            "format": "int32",
             "description": "The version of the code that produced this data."
           },
           "minConsumer": {
             "type": "integer",
             "title": "min_consumer",
+            "format": "int32",
             "description": "Any consumer below this version is not allowed to consume this data."
           },
           "badConsumers": {
             "type": "array",
             "items": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "title": "bad_consumers",
             "description": "Specific consumer versions which are disallowed (e.g. due to bugs)."

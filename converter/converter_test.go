@@ -31,6 +31,7 @@ func TestGeneratorWithOptions(t *testing.T) {
 			WithIncludeNumberEnumValues(true),
 			WithStreaming(true),
 			WithDebug(true),
+			WithProtoAnnotations(true),
 		)
 		require.NoError(t, err)
 
@@ -41,6 +42,7 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.Equal(t, true, generator.options.IncludeNumberEnumValues)
 		assert.Equal(t, true, generator.options.WithStreaming)
 		assert.Equal(t, true, generator.options.Debug)
+		assert.Equal(t, true, generator.options.WithProtoAnnotations)
 		assert.Equal(t, []string{"connectrpc/eliza/v1/eliza.proto"}, generator.req.FileToGenerate)
 		assert.Equal(
 			t,

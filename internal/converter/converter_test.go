@@ -25,6 +25,7 @@ import (
 var scenarios = []Scenario{
 	{Name: "standard", Options: "allow-get,with-streaming"},
 	{Name: "proto_names", Options: "with-proto-names"},
+	{Name: "with_proto_annotations", Options: "with-proto-annotations"},
 	{Name: "trim_unused_type", Options: "trim-unused-types"},
 	{Name: "with_base", Options: "base=testdata/with_base/base.yaml,trim-unused-types"},
 }
@@ -66,6 +67,7 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	_, statErr := os.Stat(outputPath)
 	switch {
 	case errors.Is(statErr, os.ErrNotExist):
+		assert.NoError(t, os.MkdirAll(filepath.Dir(outputPath), 0755))
 		assert.NoError(t, os.WriteFile(outputPath, []byte(file.GetContent()), 0644))
 	case statErr != nil:
 		require.NoError(t, statErr)

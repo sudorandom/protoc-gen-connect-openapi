@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "test.v1"
+    "title": "with_proto_annotations.test.v1"
   },
   "paths": {},
   "components": {
@@ -14,7 +14,7 @@
         ],
         "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
       },
-      "test.v1.AllTypes.Enum": {
+      "with_proto_annotations.test.v1.AllTypes.Enum": {
         "type": "string",
         "title": "Enum",
         "enum": [
@@ -24,7 +24,7 @@
         ],
         "description": "named types"
       },
-      "test.v1.ParameterValues.Enum": {
+      "with_proto_annotations.test.v1.ParameterValues.Enum": {
         "type": "string",
         "title": "Enum",
         "enum": [
@@ -33,7 +33,7 @@
         ],
         "description": "enum types"
       },
-      "test.v1.ParameterValues.Nested.Enum": {
+      "with_proto_annotations.test.v1.ParameterValues.Nested.Enum": {
         "type": "string",
         "title": "Enum",
         "enum": [
@@ -76,7 +76,7 @@
               "type": "string"
             },
             "title": "paths",
-            "description": "The set of field mask paths."
+            "description": "The set of field mask paths. (proto string)"
           }
         },
         "title": "FieldMask",
@@ -118,7 +118,7 @@
               "$ref": "#/components/schemas/google.protobuf.Value"
             },
             "title": "values",
-            "description": "Repeated field of dynamically typed values."
+            "description": "Repeated field of dynamically typed values. (proto google.protobuf.Value)"
           }
         },
         "title": "ListValue",
@@ -138,14 +138,15 @@
             "additionalProperties": {
               "allOf": [
                 {
-                  "title": "value"
+                  "title": "value",
+                  "description": "(proto google.protobuf.Value)"
                 },
                 {
                   "$ref": "#/components/schemas/google.protobuf.Value"
                 }
               ]
             },
-            "description": "Unordered map of dynamically typed values."
+            "description": "Unordered map of dynamically typed values. (proto google.protobuf.Struct.FieldsEntry)"
           }
         },
         "title": "Struct",
@@ -157,12 +158,14 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto google.protobuf.Value)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Value"
@@ -184,7 +187,7 @@
           "value": {
             "type": "integer",
             "title": "value",
-            "description": "The uint32 value."
+            "description": "The uint32 value. (proto uint32)"
           }
         },
         "title": "UInt32Value",
@@ -204,7 +207,7 @@
               }
             ],
             "title": "value",
-            "description": "The uint64 value."
+            "description": "The uint64 value. (proto uint64)"
           }
         },
         "title": "UInt64Value",
@@ -235,7 +238,7 @@
         ],
         "description": "`Value` represents a dynamically typed value which can be either\n null, a number, a string, a boolean, a recursive struct value, or a\n list of values. A producer of value is expected to set one of these\n variants. Absence of any variant indicates an error.\n\n The JSON representation for `Value` is JSON value."
       },
-      "test.v1.AllTypes": {
+      "with_proto_annotations.test.v1.AllTypes": {
         "type": "object",
         "allOf": [
           {
@@ -764,17 +767,19 @@
             "type": "number",
             "title": "double_value",
             "format": "double",
-            "description": "scalar types"
+            "description": "scalar types (proto double)"
           },
           "floatValue": {
             "type": "number",
             "title": "float_value",
-            "format": "float"
+            "format": "float",
+            "description": "(proto float)"
           },
           "int32Value": {
             "type": "integer",
             "title": "int32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto int32)"
           },
           "int64Value": {
             "oneOf": [
@@ -786,11 +791,13 @@
                 "format": "int64"
               }
             ],
-            "title": "int64_value"
+            "title": "int64_value",
+            "description": "(proto int64)"
           },
           "uint32Value": {
             "type": "integer",
-            "title": "uint32_value"
+            "title": "uint32_value",
+            "description": "(proto uint32)"
           },
           "uint64Value": {
             "oneOf": [
@@ -801,12 +808,14 @@
                 "type": "integer"
               }
             ],
-            "title": "uint64_value"
+            "title": "uint64_value",
+            "description": "(proto uint64)"
           },
           "sint32Value": {
             "type": "integer",
             "title": "sint32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sint32)"
           },
           "sint64Value": {
             "oneOf": [
@@ -818,11 +827,13 @@
                 "format": "int64"
               }
             ],
-            "title": "sint64_value"
+            "title": "sint64_value",
+            "description": "(proto sint64)"
           },
           "fixed32Value": {
             "type": "integer",
-            "title": "fixed32_value"
+            "title": "fixed32_value",
+            "description": "(proto fixed32)"
           },
           "fixed64Value": {
             "oneOf": [
@@ -833,12 +844,14 @@
                 "type": "integer"
               }
             ],
-            "title": "fixed64_value"
+            "title": "fixed64_value",
+            "description": "(proto fixed64)"
           },
           "sfixed32Value": {
             "type": "integer",
             "title": "sfixed32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sfixed32)"
           },
           "sfixed64Value": {
             "oneOf": [
@@ -850,20 +863,24 @@
                 "format": "int64"
               }
             ],
-            "title": "sfixed64_value"
+            "title": "sfixed64_value",
+            "description": "(proto sfixed64)"
           },
           "boolValue": {
             "type": "boolean",
-            "title": "bool_value"
+            "title": "bool_value",
+            "description": "(proto bool)"
           },
           "stringValue": {
             "type": "string",
-            "title": "string_value"
+            "title": "string_value",
+            "description": "(proto string)"
           },
           "bytesValue": {
             "type": "string",
             "title": "bytes_value",
-            "format": "byte"
+            "format": "byte",
+            "description": "(proto bytes)"
           },
           "doubleList": {
             "type": "array",
@@ -872,7 +889,7 @@
               "format": "double"
             },
             "title": "double_list",
-            "description": "repeated types"
+            "description": "repeated types (proto double)"
           },
           "floatList": {
             "type": "array",
@@ -880,7 +897,8 @@
               "type": "number",
               "format": "float"
             },
-            "title": "float_list"
+            "title": "float_list",
+            "description": "(proto float)"
           },
           "int32List": {
             "type": "array",
@@ -888,7 +906,8 @@
               "type": "integer",
               "format": "int32"
             },
-            "title": "int32_list"
+            "title": "int32_list",
+            "description": "(proto int32)"
           },
           "int64List": {
             "type": "array",
@@ -903,14 +922,16 @@
                 }
               ]
             },
-            "title": "int64_list"
+            "title": "int64_list",
+            "description": "(proto int64)"
           },
           "uint32List": {
             "type": "array",
             "items": {
               "type": "integer"
             },
-            "title": "uint32_list"
+            "title": "uint32_list",
+            "description": "(proto uint32)"
           },
           "uint64List": {
             "type": "array",
@@ -924,7 +945,8 @@
                 }
               ]
             },
-            "title": "uint64_list"
+            "title": "uint64_list",
+            "description": "(proto uint64)"
           },
           "sint32List": {
             "type": "array",
@@ -932,7 +954,8 @@
               "type": "integer",
               "format": "int32"
             },
-            "title": "sint32_list"
+            "title": "sint32_list",
+            "description": "(proto sint32)"
           },
           "sint64List": {
             "type": "array",
@@ -947,14 +970,16 @@
                 }
               ]
             },
-            "title": "sint64_list"
+            "title": "sint64_list",
+            "description": "(proto sint64)"
           },
           "fixed32List": {
             "type": "array",
             "items": {
               "type": "integer"
             },
-            "title": "fixed32_list"
+            "title": "fixed32_list",
+            "description": "(proto fixed32)"
           },
           "fixed64List": {
             "type": "array",
@@ -968,7 +993,8 @@
                 }
               ]
             },
-            "title": "fixed64_list"
+            "title": "fixed64_list",
+            "description": "(proto fixed64)"
           },
           "sfixed32List": {
             "type": "array",
@@ -976,7 +1002,8 @@
               "type": "integer",
               "format": "int32"
             },
-            "title": "sfixed32_list"
+            "title": "sfixed32_list",
+            "description": "(proto sfixed32)"
           },
           "sfixed64List": {
             "type": "array",
@@ -991,21 +1018,24 @@
                 }
               ]
             },
-            "title": "sfixed64_list"
+            "title": "sfixed64_list",
+            "description": "(proto sfixed64)"
           },
           "boolList": {
             "type": "array",
             "items": {
               "type": "boolean"
             },
-            "title": "bool_list"
+            "title": "bool_list",
+            "description": "(proto bool)"
           },
           "stringList": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "string_list"
+            "title": "string_list",
+            "description": "(proto string)"
           },
           "bytesList": {
             "type": "array",
@@ -1013,104 +1043,128 @@
               "type": "string",
               "format": "byte"
             },
-            "title": "bytes_list"
+            "title": "bytes_list",
+            "description": "(proto bytes)"
           },
           "int32ToStringMap": {
             "type": "object",
             "title": "int32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
+              "title": "value",
+              "description": "(proto string)"
             },
-            "description": "map key types"
+            "description": "map key types (proto with_proto_annotations.test.v1.AllTypes.Int32ToStringMapEntry)"
           },
           "int64ToStringMap": {
             "type": "object",
             "title": "int64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Int64ToStringMapEntry)"
           },
           "uint32ToStringMap": {
             "type": "object",
             "title": "uint32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Uint32ToStringMapEntry)"
           },
           "uint64ToStringMap": {
             "type": "object",
             "title": "uint64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Uint64ToStringMapEntry)"
           },
           "sint32ToStringMap": {
             "type": "object",
             "title": "sint32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sint32ToStringMapEntry)"
           },
           "sint64ToStringMap": {
             "type": "object",
             "title": "sint64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sint64ToStringMapEntry)"
           },
           "fixed32ToStringMap": {
             "type": "object",
             "title": "fixed32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Fixed32ToStringMapEntry)"
           },
           "fixed64ToStringMap": {
             "type": "object",
             "title": "fixed64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Fixed64ToStringMapEntry)"
           },
           "sfixed32ToStringMap": {
             "type": "object",
             "title": "sfixed32_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sfixed32ToStringMapEntry)"
           },
           "sfixed64ToStringMap": {
             "type": "object",
             "title": "sfixed64_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sfixed64ToStringMapEntry)"
           },
           "boolToStringMap": {
             "type": "object",
             "title": "bool_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.BoolToStringMapEntry)"
           },
           "stringToStringMap": {
             "type": "object",
             "title": "string_to_string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.StringToStringMapEntry)"
           },
           "doubleMap": {
             "type": "object",
@@ -1118,9 +1172,10 @@
             "additionalProperties": {
               "type": "number",
               "title": "value",
-              "format": "double"
+              "format": "double",
+              "description": "(proto double)"
             },
-            "description": "map value types"
+            "description": "map value types (proto with_proto_annotations.test.v1.AllTypes.DoubleMapEntry)"
           },
           "floatMap": {
             "type": "object",
@@ -1128,8 +1183,10 @@
             "additionalProperties": {
               "type": "number",
               "title": "value",
-              "format": "float"
-            }
+              "format": "float",
+              "description": "(proto float)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.FloatMapEntry)"
           },
           "int32Map": {
             "type": "object",
@@ -1137,8 +1194,10 @@
             "additionalProperties": {
               "type": "integer",
               "title": "value",
-              "format": "int32"
-            }
+              "format": "int32",
+              "description": "(proto int32)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Int32MapEntry)"
           },
           "int64Map": {
             "type": "object",
@@ -1153,16 +1212,20 @@
                   "format": "int64"
                 }
               ],
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto int64)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Int64MapEntry)"
           },
           "uint32Map": {
             "type": "object",
             "title": "uint32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto uint32)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Uint32MapEntry)"
           },
           "uint64Map": {
             "type": "object",
@@ -1176,8 +1239,10 @@
                   "type": "integer"
                 }
               ],
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto uint64)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Uint64MapEntry)"
           },
           "sint32Map": {
             "type": "object",
@@ -1185,8 +1250,10 @@
             "additionalProperties": {
               "type": "integer",
               "title": "value",
-              "format": "int32"
-            }
+              "format": "int32",
+              "description": "(proto sint32)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sint32MapEntry)"
           },
           "sint64Map": {
             "type": "object",
@@ -1201,16 +1268,20 @@
                   "format": "int64"
                 }
               ],
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto sint64)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sint64MapEntry)"
           },
           "fixed32Map": {
             "type": "object",
             "title": "fixed32_map",
             "additionalProperties": {
               "type": "integer",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto fixed32)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Fixed32MapEntry)"
           },
           "fixed64Map": {
             "type": "object",
@@ -1224,8 +1295,10 @@
                   "type": "integer"
                 }
               ],
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto fixed64)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Fixed64MapEntry)"
           },
           "sfixed32Map": {
             "type": "object",
@@ -1233,8 +1306,10 @@
             "additionalProperties": {
               "type": "integer",
               "title": "value",
-              "format": "int32"
-            }
+              "format": "int32",
+              "description": "(proto sfixed32)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sfixed32MapEntry)"
           },
           "sfixed64Map": {
             "type": "object",
@@ -1249,24 +1324,30 @@
                   "format": "int64"
                 }
               ],
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto sfixed64)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Sfixed64MapEntry)"
           },
           "boolMap": {
             "type": "object",
             "title": "bool_map",
             "additionalProperties": {
               "type": "boolean",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto bool)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.BoolMapEntry)"
           },
           "stringMap": {
             "type": "object",
             "title": "string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
-            }
+              "title": "value",
+              "description": "(proto string)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.StringMapEntry)"
           },
           "bytesMap": {
             "type": "object",
@@ -1274,24 +1355,28 @@
             "additionalProperties": {
               "type": "string",
               "title": "value",
-              "format": "byte"
-            }
+              "format": "byte",
+              "description": "(proto bytes)"
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.BytesMapEntry)"
           },
           "optDoubleValue": {
             "type": "number",
             "title": "opt_double_value",
             "format": "double",
-            "description": "explicit presence types"
+            "description": "explicit presence types (proto double)"
           },
           "optFloatValue": {
             "type": "number",
             "title": "opt_float_value",
-            "format": "float"
+            "format": "float",
+            "description": "(proto float)"
           },
           "optInt32Value": {
             "type": "integer",
             "title": "opt_int32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto int32)"
           },
           "optInt64Value": {
             "oneOf": [
@@ -1303,11 +1388,13 @@
                 "format": "int64"
               }
             ],
-            "title": "opt_int64_value"
+            "title": "opt_int64_value",
+            "description": "(proto int64)"
           },
           "optUint32Value": {
             "type": "integer",
-            "title": "opt_uint32_value"
+            "title": "opt_uint32_value",
+            "description": "(proto uint32)"
           },
           "optUint64Value": {
             "oneOf": [
@@ -1318,12 +1405,14 @@
                 "type": "integer"
               }
             ],
-            "title": "opt_uint64_value"
+            "title": "opt_uint64_value",
+            "description": "(proto uint64)"
           },
           "optSint32Value": {
             "type": "integer",
             "title": "opt_sint32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sint32)"
           },
           "optSint64Value": {
             "oneOf": [
@@ -1335,11 +1424,13 @@
                 "format": "int64"
               }
             ],
-            "title": "opt_sint64_value"
+            "title": "opt_sint64_value",
+            "description": "(proto sint64)"
           },
           "optFixed32Value": {
             "type": "integer",
-            "title": "opt_fixed32_value"
+            "title": "opt_fixed32_value",
+            "description": "(proto fixed32)"
           },
           "optFixed64Value": {
             "oneOf": [
@@ -1350,12 +1441,14 @@
                 "type": "integer"
               }
             ],
-            "title": "opt_fixed64_value"
+            "title": "opt_fixed64_value",
+            "description": "(proto fixed64)"
           },
           "optSfixed32Value": {
             "type": "integer",
             "title": "opt_sfixed32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sfixed32)"
           },
           "optSfixed64Value": {
             "oneOf": [
@@ -1367,74 +1460,84 @@
                 "format": "int64"
               }
             ],
-            "title": "opt_sfixed64_value"
+            "title": "opt_sfixed64_value",
+            "description": "(proto sfixed64)"
           },
           "optBoolValue": {
             "type": "boolean",
-            "title": "opt_bool_value"
+            "title": "opt_bool_value",
+            "description": "(proto bool)"
           },
           "optStringValue": {
             "type": "string",
-            "title": "opt_string_value"
+            "title": "opt_string_value",
+            "description": "(proto string)"
           },
           "optBytesValue": {
             "type": "string",
             "title": "opt_bytes_value",
-            "format": "byte"
+            "format": "byte",
+            "description": "(proto bytes)"
           },
           "msgValue": {
             "allOf": [
               {
-                "title": "msg_value"
+                "title": "msg_value",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
               }
             ]
           },
           "enumValue": {
             "allOf": [
               {
-                "title": "enum_value"
+                "title": "enum_value",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
               }
             ]
           },
           "optMsgValue": {
             "allOf": [
               {
-                "title": "opt_msg_value"
+                "title": "opt_msg_value",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
               }
             ]
           },
           "optEnumValue": {
             "allOf": [
               {
-                "title": "opt_enum_value"
+                "title": "opt_enum_value",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
               }
             ]
           },
           "msgList": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/test.v1.AllTypes"
+              "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
             },
-            "title": "msg_list"
+            "title": "msg_list",
+            "description": "(proto with_proto_annotations.test.v1.AllTypes)"
           },
           "enumList": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+              "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
             },
-            "title": "enum_list"
+            "title": "enum_list",
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)"
           },
           "msgMap": {
             "type": "object",
@@ -1442,13 +1545,15 @@
             "additionalProperties": {
               "allOf": [
                 {
-                  "title": "value"
+                  "title": "value",
+                  "description": "(proto with_proto_annotations.test.v1.AllTypes)"
                 },
                 {
-                  "$ref": "#/components/schemas/test.v1.AllTypes"
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
                 }
               ]
-            }
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.MsgMapEntry)"
           },
           "enumMap": {
             "type": "object",
@@ -1456,28 +1561,33 @@
             "additionalProperties": {
               "allOf": [
                 {
-                  "title": "value"
+                  "title": "value",
+                  "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)"
                 },
                 {
-                  "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
                 }
               ]
-            }
+            },
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.EnumMapEntry)"
           },
           "doubleOption": {
             "type": "number",
             "title": "double_option",
-            "format": "double"
+            "format": "double",
+            "description": "(proto double)"
           },
           "floatOption": {
             "type": "number",
             "title": "float_option",
-            "format": "float"
+            "format": "float",
+            "description": "(proto float)"
           },
           "int32Option": {
             "type": "integer",
             "title": "int32_option",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto int32)"
           },
           "int64Option": {
             "oneOf": [
@@ -1489,11 +1599,13 @@
                 "format": "int64"
               }
             ],
-            "title": "int64_option"
+            "title": "int64_option",
+            "description": "(proto int64)"
           },
           "uint32Option": {
             "type": "integer",
-            "title": "uint32_option"
+            "title": "uint32_option",
+            "description": "(proto uint32)"
           },
           "uint64Option": {
             "oneOf": [
@@ -1504,12 +1616,14 @@
                 "type": "integer"
               }
             ],
-            "title": "uint64_option"
+            "title": "uint64_option",
+            "description": "(proto uint64)"
           },
           "sint32Option": {
             "type": "integer",
             "title": "sint32_option",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sint32)"
           },
           "sint64Option": {
             "oneOf": [
@@ -1521,11 +1635,13 @@
                 "format": "int64"
               }
             ],
-            "title": "sint64_option"
+            "title": "sint64_option",
+            "description": "(proto sint64)"
           },
           "fixed32Option": {
             "type": "integer",
-            "title": "fixed32_option"
+            "title": "fixed32_option",
+            "description": "(proto fixed32)"
           },
           "fixed64Option": {
             "oneOf": [
@@ -1536,12 +1652,14 @@
                 "type": "integer"
               }
             ],
-            "title": "fixed64_option"
+            "title": "fixed64_option",
+            "description": "(proto fixed64)"
           },
           "sfixed32Option": {
             "type": "integer",
             "title": "sfixed32_option",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sfixed32)"
           },
           "sfixed64Option": {
             "oneOf": [
@@ -1553,38 +1671,44 @@
                 "format": "int64"
               }
             ],
-            "title": "sfixed64_option"
+            "title": "sfixed64_option",
+            "description": "(proto sfixed64)"
           },
           "boolOption": {
             "type": "boolean",
-            "title": "bool_option"
+            "title": "bool_option",
+            "description": "(proto bool)"
           },
           "stringOption": {
             "type": "string",
-            "title": "string_option"
+            "title": "string_option",
+            "description": "(proto string)"
           },
           "bytesOption": {
             "type": "string",
             "title": "bytes_option",
-            "format": "byte"
+            "format": "byte",
+            "description": "(proto bytes)"
           },
           "msgOption": {
             "allOf": [
               {
-                "title": "msg_option"
+                "title": "msg_option",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
               }
             ]
           },
           "enumOption": {
             "allOf": [
               {
-                "title": "enum_option"
+                "title": "enum_option",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
               }
             ]
           }
@@ -1592,82 +1716,92 @@
         "title": "AllTypes",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.BoolMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.BoolMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "boolean",
-            "title": "value"
+            "title": "value",
+            "description": "(proto bool)"
           }
         },
         "title": "BoolMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.BoolToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.BoolToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "boolean",
-            "title": "key"
+            "title": "key",
+            "description": "(proto bool)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "BoolToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.BytesMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.BytesMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "string",
             "title": "value",
-            "format": "byte"
+            "format": "byte",
+            "description": "(proto bytes)"
           }
         },
         "title": "BytesMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.DoubleMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.DoubleMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "number",
             "title": "value",
-            "format": "double"
+            "format": "double",
+            "description": "(proto double)"
           }
         },
         "title": "DoubleMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.EnumMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.EnumMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
               }
             ]
           }
@@ -1675,134 +1809,149 @@
         "title": "EnumMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Fixed32MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Fixed32MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "integer",
-            "title": "value"
+            "title": "value",
+            "description": "(proto fixed32)"
           }
         },
         "title": "Fixed32MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Fixed32ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "Fixed32ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "test.v1.AllTypes.Fixed64MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "Fixed64MapEntry",
-        "additionalProperties": false
-      },
-      "test.v1.AllTypes.Fixed64ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "Fixed64ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "test.v1.AllTypes.FloatMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "number",
-            "title": "value",
-            "format": "float"
-          }
-        },
-        "title": "FloatMapEntry",
-        "additionalProperties": false
-      },
-      "test.v1.AllTypes.Int32MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "integer",
-            "title": "value",
-            "format": "int32"
-          }
-        },
-        "title": "Int32MapEntry",
-        "additionalProperties": false
-      },
-      "test.v1.AllTypes.Int32ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Fixed32ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "integer",
             "title": "key",
-            "format": "int32"
+            "description": "(proto fixed32)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Fixed32ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Fixed64MapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "value",
+            "description": "(proto fixed64)"
+          }
+        },
+        "title": "Fixed64MapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Fixed64ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "key",
+            "description": "(proto fixed64)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Fixed64ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.FloatMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "number",
+            "title": "value",
+            "format": "float",
+            "description": "(proto float)"
+          }
+        },
+        "title": "FloatMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Int32MapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "integer",
+            "title": "value",
+            "format": "int32",
+            "description": "(proto int32)"
+          }
+        },
+        "title": "Int32MapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Int32ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "format": "int32",
+            "description": "(proto int32)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Int32ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Int64MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Int64MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "oneOf": [
@@ -1814,13 +1963,14 @@
                 "format": "int64"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "description": "(proto int64)"
           }
         },
         "title": "Int64MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Int64ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Int64ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -1833,30 +1983,34 @@
                 "format": "int64"
               }
             ],
-            "title": "key"
+            "title": "key",
+            "description": "(proto int64)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Int64ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.MsgMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.MsgMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto with_proto_annotations.test.v1.AllTypes)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.AllTypes"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
               }
             ]
           }
@@ -1864,44 +2018,49 @@
         "title": "MsgMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sfixed32MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sfixed32MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "integer",
             "title": "value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sfixed32)"
           }
         },
         "title": "Sfixed32MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sfixed32ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sfixed32ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "integer",
             "title": "key",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sfixed32)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Sfixed32ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sfixed64MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sfixed64MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "oneOf": [
@@ -1913,13 +2072,14 @@
                 "format": "int64"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "description": "(proto sfixed64)"
           }
         },
         "title": "Sfixed64MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sfixed64ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sfixed64ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -1932,54 +2092,61 @@
                 "format": "int64"
               }
             ],
-            "title": "key"
+            "title": "key",
+            "description": "(proto sfixed64)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Sfixed64ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sint32MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sint32MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "integer",
             "title": "value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sint32)"
           }
         },
         "title": "Sint32MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sint32ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sint32ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "integer",
             "title": "key",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sint32)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Sint32ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sint64MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sint64MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "oneOf": [
@@ -1991,13 +2158,14 @@
                 "format": "int64"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "description": "(proto sint64)"
           }
         },
         "title": "Sint64MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Sint64ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sint64ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -2010,82 +2178,93 @@
                 "format": "int64"
               }
             ],
-            "title": "key"
+            "title": "key",
+            "description": "(proto sint64)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Sint64ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.StringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.StringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "StringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.StringToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.StringToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "StringToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Uint32MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Uint32MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "integer",
-            "title": "value"
+            "title": "value",
+            "description": "(proto uint32)"
           }
         },
         "title": "Uint32MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Uint32ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Uint32ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "integer",
-            "title": "key"
+            "title": "key",
+            "description": "(proto uint32)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Uint32ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Uint64MapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Uint64MapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "oneOf": [
@@ -2096,13 +2275,14 @@
                 "type": "integer"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "description": "(proto uint64)"
           }
         },
         "title": "Uint64MapEntry",
         "additionalProperties": false
       },
-      "test.v1.AllTypes.Uint64ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Uint64ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -2114,17 +2294,19 @@
                 "type": "integer"
               }
             ],
-            "title": "key"
+            "title": "key",
+            "description": "(proto uint64)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "Uint64ToStringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.ParameterValues": {
+      "with_proto_annotations.test.v1.ParameterValues": {
         "type": "object",
         "allOf": [
           {
@@ -2211,17 +2393,19 @@
             "type": "number",
             "title": "double_value",
             "format": "double",
-            "description": "scalar types"
+            "description": "scalar types (proto double)"
           },
           "floatValue": {
             "type": "number",
             "title": "float_value",
-            "format": "float"
+            "format": "float",
+            "description": "(proto float)"
           },
           "int32Value": {
             "type": "integer",
             "title": "int32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto int32)"
           },
           "int64Value": {
             "oneOf": [
@@ -2233,11 +2417,13 @@
                 "format": "int64"
               }
             ],
-            "title": "int64_value"
+            "title": "int64_value",
+            "description": "(proto int64)"
           },
           "uint32Value": {
             "type": "integer",
-            "title": "uint32_value"
+            "title": "uint32_value",
+            "description": "(proto uint32)"
           },
           "uint64Value": {
             "oneOf": [
@@ -2248,12 +2434,14 @@
                 "type": "integer"
               }
             ],
-            "title": "uint64_value"
+            "title": "uint64_value",
+            "description": "(proto uint64)"
           },
           "sint32Value": {
             "type": "integer",
             "title": "sint32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sint32)"
           },
           "sint64Value": {
             "oneOf": [
@@ -2265,11 +2453,13 @@
                 "format": "int64"
               }
             ],
-            "title": "sint64_value"
+            "title": "sint64_value",
+            "description": "(proto sint64)"
           },
           "fixed32Value": {
             "type": "integer",
-            "title": "fixed32_value"
+            "title": "fixed32_value",
+            "description": "(proto fixed32)"
           },
           "fixed64Value": {
             "oneOf": [
@@ -2280,12 +2470,14 @@
                 "type": "integer"
               }
             ],
-            "title": "fixed64_value"
+            "title": "fixed64_value",
+            "description": "(proto fixed64)"
           },
           "sfixed32Value": {
             "type": "integer",
             "title": "sfixed32_value",
-            "format": "int32"
+            "format": "int32",
+            "description": "(proto sfixed32)"
           },
           "sfixed64Value": {
             "oneOf": [
@@ -2297,26 +2489,30 @@
                 "format": "int64"
               }
             ],
-            "title": "sfixed64_value"
+            "title": "sfixed64_value",
+            "description": "(proto sfixed64)"
           },
           "boolValue": {
             "type": "boolean",
-            "title": "bool_value"
+            "title": "bool_value",
+            "description": "(proto bool)"
           },
           "stringValue": {
             "type": "string",
-            "title": "string_value"
+            "title": "string_value",
+            "description": "(proto string)"
           },
           "bytesValue": {
             "type": "string",
             "title": "bytes_value",
-            "format": "byte"
+            "format": "byte",
+            "description": "(proto bytes)"
           },
           "timestamp": {
             "allOf": [
               {
                 "title": "timestamp",
-                "description": "scalar wrappers"
+                "description": "scalar wrappers (proto google.protobuf.Timestamp)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Timestamp"
@@ -2326,7 +2522,8 @@
           "duration": {
             "allOf": [
               {
-                "title": "duration"
+                "title": "duration",
+                "description": "(proto google.protobuf.Duration)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Duration"
@@ -2336,7 +2533,8 @@
           "boolValueWrapper": {
             "allOf": [
               {
-                "title": "bool_value_wrapper"
+                "title": "bool_value_wrapper",
+                "description": "(proto google.protobuf.BoolValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.BoolValue"
@@ -2346,7 +2544,8 @@
           "int32ValueWrapper": {
             "allOf": [
               {
-                "title": "int32_value_wrapper"
+                "title": "int32_value_wrapper",
+                "description": "(proto google.protobuf.Int32Value)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Int32Value"
@@ -2356,7 +2555,8 @@
           "int64ValueWrapper": {
             "allOf": [
               {
-                "title": "int64_value_wrapper"
+                "title": "int64_value_wrapper",
+                "description": "(proto google.protobuf.Int64Value)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Int64Value"
@@ -2366,7 +2566,8 @@
           "uint32ValueWrapper": {
             "allOf": [
               {
-                "title": "uint32_value_wrapper"
+                "title": "uint32_value_wrapper",
+                "description": "(proto google.protobuf.UInt32Value)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.UInt32Value"
@@ -2376,7 +2577,8 @@
           "uint64ValueWrapper": {
             "allOf": [
               {
-                "title": "uint64_value_wrapper"
+                "title": "uint64_value_wrapper",
+                "description": "(proto google.protobuf.UInt64Value)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.UInt64Value"
@@ -2386,7 +2588,8 @@
           "floatValueWrapper": {
             "allOf": [
               {
-                "title": "float_value_wrapper"
+                "title": "float_value_wrapper",
+                "description": "(proto google.protobuf.FloatValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.FloatValue"
@@ -2396,7 +2599,8 @@
           "doubleValueWrapper": {
             "allOf": [
               {
-                "title": "double_value_wrapper"
+                "title": "double_value_wrapper",
+                "description": "(proto google.protobuf.DoubleValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.DoubleValue"
@@ -2406,7 +2610,8 @@
           "bytesValueWrapper": {
             "allOf": [
               {
-                "title": "bytes_value_wrapper"
+                "title": "bytes_value_wrapper",
+                "description": "(proto google.protobuf.BytesValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.BytesValue"
@@ -2416,7 +2621,8 @@
           "stringValueWrapper": {
             "allOf": [
               {
-                "title": "string_value_wrapper"
+                "title": "string_value_wrapper",
+                "description": "(proto google.protobuf.StringValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.StringValue"
@@ -2426,7 +2632,8 @@
           "fieldMask": {
             "allOf": [
               {
-                "title": "field_mask"
+                "title": "field_mask",
+                "description": "(proto google.protobuf.FieldMask)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.FieldMask"
@@ -2436,20 +2643,21 @@
           "enumValue": {
             "allOf": [
               {
-                "title": "enum_value"
+                "title": "enum_value",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
               }
             ]
           },
           "enumList": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+              "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
             },
             "title": "enum_list",
-            "description": "complex types"
+            "description": "complex types (proto with_proto_annotations.test.v1.ParameterValues.Enum)"
           },
           "doubleList": {
             "type": "array",
@@ -2457,24 +2665,28 @@
               "type": "number",
               "format": "double"
             },
-            "title": "double_list"
+            "title": "double_list",
+            "description": "(proto double)"
           },
           "doubleValueList": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/google.protobuf.DoubleValue"
             },
-            "title": "double_value_list"
+            "title": "double_value_list",
+            "description": "(proto google.protobuf.DoubleValue)"
           },
           "oneofDoubleValue": {
             "type": "number",
             "title": "oneof_double_value",
-            "format": "double"
+            "format": "double",
+            "description": "(proto double)"
           },
           "oneofDoubleValueWrapper": {
             "allOf": [
               {
-                "title": "oneof_double_value_wrapper"
+                "title": "oneof_double_value_wrapper",
+                "description": "(proto google.protobuf.DoubleValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.DoubleValue"
@@ -2484,30 +2696,33 @@
           "oneofEnumValue": {
             "allOf": [
               {
-                "title": "oneof_enum_value"
+                "title": "oneof_enum_value",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
               }
             ]
           },
           "nested": {
             "allOf": [
               {
-                "title": "nested"
+                "title": "nested",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
               }
             ]
           },
           "recursive": {
             "allOf": [
               {
-                "title": "recursive"
+                "title": "recursive",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues"
               }
             ]
           },
@@ -2516,9 +2731,10 @@
             "title": "string_map",
             "additionalProperties": {
               "type": "string",
-              "title": "value"
+              "title": "value",
+              "description": "(proto string)"
             },
-            "description": "unsupported"
+            "description": "unsupported (proto with_proto_annotations.test.v1.ParameterValues.StringMapEntry)"
           },
           "stringValueMap": {
             "type": "object",
@@ -2526,13 +2742,15 @@
             "additionalProperties": {
               "allOf": [
                 {
-                  "title": "value"
+                  "title": "value",
+                  "description": "(proto google.protobuf.StringValue)"
                 },
                 {
                   "$ref": "#/components/schemas/google.protobuf.StringValue"
                 }
               ]
-            }
+            },
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry)"
           },
           "enumMap": {
             "type": "object",
@@ -2540,13 +2758,15 @@
             "additionalProperties": {
               "allOf": [
                 {
-                  "title": "value"
+                  "title": "value",
+                  "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)"
                 },
                 {
-                  "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
                 }
               ]
-            }
+            },
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.EnumMapEntry)"
           },
           "nestedMap": {
             "type": "object",
@@ -2554,18 +2774,21 @@
             "additionalProperties": {
               "allOf": [
                 {
-                  "title": "value"
+                  "title": "value",
+                  "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)"
                 },
                 {
-                  "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
                 }
               ]
-            }
+            },
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.NestedMapEntry)"
           },
           "structValue": {
             "allOf": [
               {
-                "title": "struct_value"
+                "title": "struct_value",
+                "description": "(proto google.protobuf.Struct)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Struct"
@@ -2575,7 +2798,8 @@
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto google.protobuf.Value)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.Value"
@@ -2585,28 +2809,31 @@
           "recursiveList": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/test.v1.ParameterValues"
+              "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues"
             },
-            "title": "recursive_list"
+            "title": "recursive_list",
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues)"
           }
         },
         "title": "ParameterValues",
         "additionalProperties": false
       },
-      "test.v1.ParameterValues.EnumMapEntry": {
+      "with_proto_annotations.test.v1.ParameterValues.EnumMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
               }
             ]
           }
@@ -2614,18 +2841,20 @@
         "title": "EnumMapEntry",
         "additionalProperties": false
       },
-      "test.v1.ParameterValues.Nested": {
+      "with_proto_annotations.test.v1.ParameterValues.Nested": {
         "type": "object",
         "properties": {
           "doubleValue": {
             "type": "number",
             "title": "double_value",
-            "format": "double"
+            "format": "double",
+            "description": "(proto double)"
           },
           "doubleValueWrapper": {
             "allOf": [
               {
-                "title": "double_value_wrapper"
+                "title": "double_value_wrapper",
+                "description": "(proto google.protobuf.DoubleValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.DoubleValue"
@@ -2635,10 +2864,11 @@
           "enumValue": {
             "allOf": [
               {
-                "title": "enum_value"
+                "title": "enum_value",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested.Enum)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Nested.Enum"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested.Enum"
               }
             ]
           }
@@ -2646,20 +2876,22 @@
         "title": "Nested",
         "additionalProperties": false
       },
-      "test.v1.ParameterValues.NestedMapEntry": {
+      "with_proto_annotations.test.v1.ParameterValues.NestedMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)"
               },
               {
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
               }
             ]
           }
@@ -2667,32 +2899,36 @@
         "title": "NestedMapEntry",
         "additionalProperties": false
       },
-      "test.v1.ParameterValues.StringMapEntry": {
+      "with_proto_annotations.test.v1.ParameterValues.StringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "type": "string",
-            "title": "value"
+            "title": "value",
+            "description": "(proto string)"
           }
         },
         "title": "StringMapEntry",
         "additionalProperties": false
       },
-      "test.v1.ParameterValues.StringValueMapEntry": {
+      "with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry": {
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "description": "(proto string)"
           },
           "value": {
             "allOf": [
               {
-                "title": "value"
+                "title": "value",
+                "description": "(proto google.protobuf.StringValue)"
               },
               {
                 "$ref": "#/components/schemas/google.protobuf.StringValue"

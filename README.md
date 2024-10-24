@@ -116,5 +116,6 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | proto | - | Generate requests/repsonses with the protobuf content type |
 | trim-unused-types | - | Remove types that aren't references from any method request or response. |
+| with-proto-annotations | - | Add protobuf type annotations to the end of descriptions so users know the protobuf type that the field converts to. |
 | with-proto-names | - | Use protobuf field names instead of the camelCase JSON names for property names. |
 | with-streaming | - | Generate OpenAPI for client/server/bidirectional streaming RPCs (can be messy). |
