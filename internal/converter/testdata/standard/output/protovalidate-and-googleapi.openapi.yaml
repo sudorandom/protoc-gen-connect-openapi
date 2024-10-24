@@ -40,7 +40,6 @@ components:
       title: A
       required:
         - b
-        - b
       additionalProperties: false
     foo.A.B:
       type: object
@@ -52,7 +51,6 @@ components:
             - $ref: '#/components/schemas/foo.A.B.C'
       title: B
       required:
-        - c
         - c
       additionalProperties: false
     foo.A.B.C:

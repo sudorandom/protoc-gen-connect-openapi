@@ -8,6 +8,7 @@ import (
 	"github.com/bufbuild/protovalidate-go/resolver"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/utils"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
 )
@@ -32,7 +33,7 @@ func SchemaWithFieldAnnotations(schema *base.Schema, desc protoreflect.FieldDesc
 	if constraints.Required != nil && *constraints.Required {
 		parent := schema.ParentProxy.Schema()
 		if parent != nil {
-			parent.Required = append(parent.Required, desc.JSONName())
+			parent.Required = util.AppendStringDedupe(parent.Required, desc.JSONName())
 		}
 	}
 	updateSchemaWithFieldConstraints(schema, constraints, onlyScalar)
@@ -49,7 +50,7 @@ func PopulateParentProperties(parent *base.Schema, desc protoreflect.FieldDescri
 		return parent
 	}
 	if constraints.Required != nil && *constraints.Required {
-		parent.Required = append(parent.Required, desc.JSONName())
+		parent.Required = util.AppendStringDedupe(parent.Required, desc.JSONName())
 	}
 	return parent
 }

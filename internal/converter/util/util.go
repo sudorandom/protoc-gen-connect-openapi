@@ -126,3 +126,12 @@ func MakeFieldName(opts options.Options, fd protoreflect.FieldDescriptor) string
 	}
 	return fd.JSONName()
 }
+
+func AppendStringDedupe(strs []string, str string) []string {
+	for _, s := range strs {
+		if str == s {
+			return strs
+		}
+	}
+	return append(strs, str)
+}
