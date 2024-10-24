@@ -14,8 +14,6 @@ type Options struct {
 	Format string
 	// BaseOpenAPI is the file contents of a base OpenAPI file.
 	BaseOpenAPI []byte
-	// MergeBase boolean to merge the base OpenAPI file with the generated OpenAPI file.
-	MergeBase bool
 	// WithStreaming will content types related to streaming (warning: can be messy).
 	WithStreaming bool
 	// AllowGET will let methods with `idempotency_level = NO_SIDE_EFFECTS` to be documented with GET requests.
@@ -109,8 +107,6 @@ func FromString(s string) (Options, error) {
 			default:
 				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
 			}
-		case strings.HasPrefix(param, "merge-base"):
-			opts.MergeBase = true
 		default:
 			return opts, fmt.Errorf("invalid parameter: %s", param)
 		}

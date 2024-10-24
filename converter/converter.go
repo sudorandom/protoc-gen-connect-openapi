@@ -125,12 +125,6 @@ func WithBaseOpenAPI(baseOpenAPI []byte) Option {
 	}
 }
 
-func WithMergeBase(mergeBase bool) Option {
-	return func(g *generator) error {
-		g.options.MergeBase = mergeBase
-		return nil
-	}
-}
 
 // WithAllowGET sets a file to use as a base for all OpenAPI files.
 func WithAllowGET(allowGet bool) Option {

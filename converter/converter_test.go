@@ -26,7 +26,6 @@ func TestGeneratorWithOptions(t *testing.T) {
 			WithFiles(files),
 			WithFormat("json"),
 			WithBaseOpenAPI([]byte("hello!")),
-			WithMergeBase(true),
 			WithAllowGET(true),
 			WithContentTypes("connect+json"),
 			WithIncludeNumberEnumValues(true),
@@ -39,7 +38,6 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.Equal(t, "json", generator.options.Format)
 		assert.Equal(t, []byte("hello!"), generator.options.BaseOpenAPI)
 		assert.Equal(t, true, generator.options.AllowGET)
-		assert.Equal(t, true, generator.options.MergeBase)
 		assert.Equal(t, map[string]struct{}{"connect+json": {}}, generator.options.ContentTypes)
 		assert.Equal(t, true, generator.options.IncludeNumberEnumValues)
 		assert.Equal(t, true, generator.options.WithStreaming)
