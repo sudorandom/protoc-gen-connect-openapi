@@ -437,10 +437,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -456,10 +458,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -478,10 +482,12 @@
             "exclusiveMinimum": 10,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -496,10 +502,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "examples": [
@@ -518,10 +526,12 @@
             "exclusiveMinimum": 16,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -536,10 +546,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -555,10 +567,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -577,10 +591,12 @@
             "exclusiveMinimum": 5,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -595,10 +611,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -615,10 +633,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -637,10 +657,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -656,10 +678,12 @@
             "exclusiveMaximum": 5,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -674,10 +698,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -693,10 +719,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -711,10 +739,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "not": {
@@ -1158,11 +1188,13 @@
             "exclusiveMaximum": 5444333222,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "lt_pos",
@@ -1172,11 +1204,13 @@
             "exclusiveMaximum": -5444333222,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "lt_neg"
@@ -1185,11 +1219,13 @@
             "exclusiveMinimum": 5444333222,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "gt_pos"
@@ -1198,11 +1234,13 @@
             "exclusiveMinimum": -5444333222,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "gt_neg"
@@ -1210,11 +1248,13 @@
           "ltePos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "lte_pos",
@@ -1223,11 +1263,13 @@
           "lteNeg": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "lte_neg"
@@ -1235,11 +1277,13 @@
           "gtePos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "gte_pos",
@@ -1248,11 +1292,13 @@
           "gteNeg": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "gte_neg"
@@ -1260,11 +1306,13 @@
           "constantPos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "constant_pos",
@@ -1273,11 +1321,13 @@
           "constantNeg": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "constant_neg",
@@ -1286,11 +1336,13 @@
           "in": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "in",
@@ -1302,11 +1354,13 @@
           "notin": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "not": {
@@ -1327,11 +1381,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1347,11 +1403,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1370,11 +1428,13 @@
             "exclusiveMinimum": 10,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1389,11 +1449,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "examples": [
@@ -1412,11 +1474,13 @@
             "exclusiveMinimum": 16,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1431,11 +1495,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1451,11 +1517,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1474,11 +1542,13 @@
             "exclusiveMinimum": 0,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1493,11 +1563,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1514,11 +1586,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1537,11 +1611,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1557,11 +1633,13 @@
             "exclusiveMaximum": 0,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1576,11 +1654,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1636,11 +1716,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1656,11 +1738,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1675,11 +1759,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "not": {
@@ -1907,11 +1993,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1927,11 +2015,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -1950,11 +2040,13 @@
             "exclusiveMinimum": 10,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -1969,11 +2061,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "examples": [
@@ -1992,11 +2086,13 @@
             "exclusiveMinimum": 16,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2011,11 +2107,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2031,11 +2129,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2054,11 +2154,13 @@
             "exclusiveMinimum": 0,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2073,11 +2175,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2094,11 +2198,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2117,11 +2223,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2137,11 +2245,13 @@
             "exclusiveMaximum": 0,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2156,11 +2266,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2176,11 +2288,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2195,11 +2309,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "not": {
@@ -2427,11 +2543,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2447,11 +2565,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2470,11 +2590,13 @@
             "exclusiveMinimum": 10,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2489,11 +2611,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "examples": [
@@ -2512,11 +2636,13 @@
             "exclusiveMinimum": 16,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2531,11 +2657,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2551,11 +2679,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2574,11 +2704,13 @@
             "exclusiveMinimum": 0,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2593,11 +2725,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2614,11 +2748,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2637,11 +2773,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2657,11 +2795,13 @@
             "exclusiveMaximum": 0,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2676,11 +2816,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2696,11 +2838,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2715,11 +2859,13 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "not": {
@@ -2932,10 +3078,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2951,10 +3099,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -2973,10 +3123,12 @@
             "exclusiveMinimum": 10,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -2991,10 +3143,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "examples": [
@@ -3013,10 +3167,12 @@
             "exclusiveMinimum": 16,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -3031,10 +3187,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -3050,10 +3208,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -3072,10 +3232,12 @@
             "exclusiveMinimum": 5,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -3090,10 +3252,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -3110,10 +3274,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -3132,10 +3298,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -3151,10 +3319,12 @@
             "exclusiveMaximum": 5,
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -3169,10 +3339,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val",
@@ -3188,10 +3360,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "val"
@@ -3206,10 +3380,12 @@
           "val": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "not": {

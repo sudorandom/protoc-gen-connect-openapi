@@ -14,9 +14,11 @@ paths:
           required: true
           schema:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
             title: pet_id
       responses:
         default:
@@ -42,9 +44,11 @@ paths:
           required: true
           schema:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
             title: pet_id
       requestBody:
         content:
@@ -85,9 +89,11 @@ paths:
           required: true
           schema:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
             title: pet_id
       responses:
         default:
@@ -114,9 +120,11 @@ paths:
           required: true
           schema:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
             title: pet_id
       requestBody:
         content:
@@ -293,9 +301,11 @@ components:
       properties:
         id:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: id
         name:
           type: string
@@ -307,9 +317,11 @@ components:
       properties:
         id:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: id
         category:
           allOf:
@@ -338,9 +350,11 @@ components:
       properties:
         petId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: pet_id
         body:
           type: string
@@ -352,9 +366,11 @@ components:
       properties:
         petId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: pet_id
       title: PetID
       additionalProperties: false
@@ -383,9 +399,11 @@ components:
       properties:
         id:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: id
         name:
           type: string
@@ -407,9 +425,11 @@ components:
       properties:
         petId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: pet_id
         name:
           type: string
@@ -424,9 +444,11 @@ components:
       properties:
         petId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: pet_id
         additionalMetadata:
           type: string

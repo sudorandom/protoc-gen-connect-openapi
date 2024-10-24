@@ -405,17 +405,21 @@ components:
           format: int32
         int64Field:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: int64Field
         uint32Field:
           type: integer
           title: uint32Field
         uint64Field:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: uint64Field
         sint32Field:
           type: integer
@@ -423,17 +427,21 @@ components:
           format: int32
         sint64Field:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: sint64Field
         fixed32Field:
           type: integer
           title: fixed32Field
         fixed64Field:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: fixed64Field
         sfixed32Field:
           type: integer
@@ -441,9 +449,11 @@ components:
           format: int32
         sfixed64Field:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: sfixed64Field
         boolField:
           type: boolean

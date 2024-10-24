@@ -822,11 +822,13 @@
           "requestedBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "requested_bytes",
@@ -835,11 +837,13 @@
           "allocatedBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "allocated_bytes",
@@ -853,11 +857,13 @@
           "allocationId": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "allocation_id",
@@ -871,10 +877,12 @@
           "ptr": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "ptr",
@@ -890,11 +898,13 @@
           "allocMicros": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "alloc_micros",
@@ -903,11 +913,13 @@
           "allocBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "alloc_bytes",
@@ -928,11 +940,13 @@
           "totalBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "total_bytes",
@@ -941,11 +955,13 @@
           "peakBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "peak_bytes"
@@ -953,11 +969,13 @@
           "liveBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "live_bytes",
@@ -974,11 +992,13 @@
           "allocatorBytesInUse": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "allocator_bytes_in_use",
@@ -1220,11 +1240,13 @@
           "i": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "i",
@@ -1323,11 +1345,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -1627,11 +1651,13 @@
           "operationTimeoutInMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "operation_timeout_in_ms",
@@ -1794,11 +1820,13 @@
           "xlaFusionAutotunerThresh": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "xla_fusion_autotuner_thresh",
@@ -1878,11 +1906,13 @@
           "clusterRegisterTimeoutInMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "cluster_register_timeout_in_ms",
@@ -1891,11 +1921,13 @@
           "heartbeatTimeoutInMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "heartbeat_timeout_in_ms",
@@ -1911,11 +1943,13 @@
           "shutdownBarrierTimeoutInMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "shutdown_barrier_timeout_in_ms",
@@ -2020,11 +2054,13 @@
           "temporaryMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "temporary_memory_size",
@@ -2033,11 +2069,13 @@
           "persistentMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "persistent_memory_size",
@@ -2046,11 +2084,13 @@
           "hostTempMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "host_temp_memory_size"
@@ -2058,11 +2098,13 @@
           "deviceTempMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "device_temp_memory_size"
@@ -2070,11 +2112,13 @@
           "devicePersistentMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "device_persistent_memory_size"
@@ -2082,11 +2126,13 @@
           "computeCost": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "compute_cost",
@@ -2095,11 +2141,13 @@
           "computeTime": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "compute_time",
@@ -2108,11 +2156,13 @@
           "memoryTime": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "memory_time",
@@ -2165,11 +2215,13 @@
           "size": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "size"
@@ -2177,11 +2229,13 @@
           "aliasInputPort": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "alias_input_port",
@@ -2257,11 +2311,13 @@
           "graphVersion": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "graph_version",
@@ -2285,11 +2341,13 @@
           "globalStep": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "global_step",
@@ -2361,11 +2419,13 @@
           "memoryLimit": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "memory_limit",
@@ -2385,10 +2445,12 @@
           "incarnation": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "incarnation",
@@ -2402,11 +2464,13 @@
           "xlaGlobalId": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "xla_global_id",
@@ -2510,11 +2574,13 @@
           "currentGraphVersion": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "current_graph_version",
@@ -2530,11 +2596,13 @@
           "newGraphVersion": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "new_graph_version",
@@ -2633,11 +2701,13 @@
           "i": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "i",
@@ -2912,11 +2982,13 @@
           "deferredDeletionBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "deferred_deletion_bytes",
@@ -3154,10 +3226,12 @@
             "additionalProperties": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ],
               "title": "value"
@@ -3210,10 +3284,12 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -3242,10 +3318,12 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value"
@@ -3270,10 +3348,12 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -3290,10 +3370,12 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -3409,11 +3491,13 @@
           "buildCostModel": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "build_cost_model",
@@ -3422,11 +3506,13 @@
           "buildCostModelAfter": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "build_cost_model_after",
@@ -3596,11 +3682,13 @@
           "requestId": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "request_id",
@@ -3616,11 +3704,13 @@
           "handle": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "handle",
@@ -3636,11 +3726,13 @@
           "tempMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "temp_memory_size"
@@ -3648,11 +3740,13 @@
           "persistentMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "persistent_memory_size"
@@ -3662,11 +3756,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -3675,11 +3771,13 @@
           "deviceTempMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "device_temp_memory_size"
@@ -3687,11 +3785,13 @@
           "devicePersistentMemorySize": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "device_persistent_memory_size"
@@ -3701,11 +3801,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -3909,11 +4011,13 @@
           "allStartMicros": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "all_start_micros"
@@ -3921,11 +4025,13 @@
           "opStartRelMicros": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "op_start_rel_micros"
@@ -3933,11 +4039,13 @@
           "opEndRelMicros": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "op_end_rel_micros"
@@ -3945,11 +4053,13 @@
           "allEndRelMicros": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "all_end_rel_micros"
@@ -3975,11 +4085,13 @@
           "scheduledMicros": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "scheduled_micros"
@@ -4008,11 +4120,13 @@
           "allStartNanos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "all_start_nanos"
@@ -4020,11 +4134,13 @@
           "opStartRelNanos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "op_start_rel_nanos"
@@ -4032,11 +4148,13 @@
           "opEndRelNanos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "op_end_rel_nanos"
@@ -4044,11 +4162,13 @@
           "allEndRelNanos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "all_end_rel_nanos"
@@ -4056,11 +4176,13 @@
           "scheduledNanos": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "scheduled_nanos"
@@ -4288,11 +4410,13 @@
           "minimum": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "minimum"
@@ -4348,11 +4472,13 @@
           "maxFoldedConstantInBytes": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "max_folded_constant_in_bytes",
@@ -4429,11 +4555,13 @@
           "requestId": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "request_id",
@@ -4524,11 +4652,13 @@
           "handle": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "handle",
@@ -4593,10 +4723,12 @@
           "hashCode": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "hash_code",
@@ -4932,11 +5064,13 @@
           "metaOptimizerTimeoutMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "meta_optimizer_timeout_ms",
@@ -5069,11 +5203,13 @@
           "handle": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "handle",
@@ -5090,11 +5226,13 @@
           "requestId": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "request_id",
@@ -5238,11 +5376,13 @@
           "timeoutInMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "timeout_in_ms",
@@ -5296,11 +5436,13 @@
           "collectiveGraphKey": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "collective_graph_key",
@@ -5332,11 +5474,13 @@
           "priority": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "priority",
@@ -5403,11 +5547,13 @@
           "requestId": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "request_id",
@@ -5483,11 +5629,13 @@
           "version": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "version",
@@ -5665,11 +5813,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -5722,10 +5872,12 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -5770,11 +5922,13 @@
           "size": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "size",
@@ -5841,11 +5995,13 @@
           "verificationTimeoutInMs": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "verification_timeout_in_ms",

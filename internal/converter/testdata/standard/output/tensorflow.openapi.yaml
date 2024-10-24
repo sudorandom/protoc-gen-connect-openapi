@@ -590,16 +590,20 @@ components:
       properties:
         requestedBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: requested_bytes
           description: Total number of bytes requested
         allocatedBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: allocated_bytes
           description: Total number of bytes allocated if known
         allocatorName:
@@ -608,9 +612,11 @@ components:
           description: Name of the allocator used
         allocationId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: allocation_id
           description: Identifier of the allocated buffer if known
         hasSingleReference:
@@ -619,8 +625,10 @@ components:
           description: Set if this tensor only has one remaining reference
         ptr:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: ptr
           description: Address of the allocation.
       title: AllocationDescription
@@ -630,16 +638,20 @@ components:
       properties:
         allocMicros:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: alloc_micros
           description: The timestamp of the operation.
         allocBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: alloc_bytes
           description: Number of bytes allocated, or de-allocated if negative.
       title: AllocationRecord
@@ -653,22 +665,28 @@ components:
           title: allocator_name
         totalBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: total_bytes
           description: These are per-node allocator memory stats.
         peakBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: peak_bytes
         liveBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: live_bytes
           description: The bytes that are not deallocated.
         allocationRecords:
@@ -679,9 +697,11 @@ components:
           description: The allocation and deallocation timeline.
         allocatorBytesInUse:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: allocator_bytes_in_use
           description: |-
             These are snapshots of the overall allocator memory stats.
@@ -785,9 +805,11 @@ components:
           description: '"string"'
         i:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: i
           description: '"int"'
         f:
@@ -859,9 +881,11 @@ components:
           type: array
           items:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
           title: i
           description: '"list(int)"'
         f:
@@ -1216,9 +1240,11 @@ components:
             - $ref: '#/components/schemas/tensorflow.GraphOptions'
         operationTimeoutInMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: operation_timeout_in_ms
           description: |-
             Global timeout for all blocking operations in this session.  If non-zero,
@@ -1410,9 +1436,11 @@ components:
              `RunOptions.output_partition_graphs` options must not be set.
         xlaFusionAutotunerThresh:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: xla_fusion_autotuner_thresh
           description: |-
             Minimum number of batches run through the XLA graph before XLA fusion
@@ -1497,16 +1525,20 @@ components:
           description: Whether to enable the health check mechanism.
         clusterRegisterTimeoutInMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: cluster_register_timeout_in_ms
           description: Maximum wait time for all members in the cluster to be registered.
         heartbeatTimeoutInMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: heartbeat_timeout_in_ms
           description: |-
             Heartbeat timeout, if a task does not record heartbeat in this time
@@ -1521,9 +1553,11 @@ components:
           title: coordinated_job_list
         shutdownBarrierTimeoutInMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: shutdown_barrier_timeout_in_ms
           description: |-
             Denotes how long to wait for all coordination agents to reach the barriers
@@ -1619,57 +1653,73 @@ components:
           title: output_info
         temporaryMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: temporary_memory_size
           description: Temporary memory used by this node.
         persistentMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: persistent_memory_size
           description: Persistent memory used by this node.
         hostTempMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: host_temp_memory_size
         deviceTempMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: device_temp_memory_size
         devicePersistentMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: device_persistent_memory_size
         computeCost:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: compute_cost
           description: Estimate of the computational cost of this node, in microseconds.
         computeTime:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: compute_time
           description: |-
             Analytical estimate of the computational cost of this node, in
              microseconds.
         memoryTime:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: memory_time
           description: |-
             Analytical estimate of the memory access cost of this node, in
@@ -1715,15 +1765,19 @@ components:
       properties:
         size:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: size
         aliasInputPort:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: alias_input_port
           description: |-
             If >= 0, the output is an alias of an input. Note that an alias input
@@ -1772,9 +1826,11 @@ components:
              session handle to close the session.
         graphVersion:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: graph_version
           description: |-
             The initial version number for the graph, to be used in the next call
@@ -1792,9 +1848,11 @@ components:
           description: Debugging options
         globalStep:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: global_step
           description: |-
             Caller-specified global step count.
@@ -1888,9 +1946,11 @@ components:
           description: String representation of device_type.
         memoryLimit:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: memory_limit
           description: Memory capacity of device in bytes.
         locality:
@@ -1902,8 +1962,10 @@ components:
             - $ref: '#/components/schemas/tensorflow.DeviceLocality'
         incarnation:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: incarnation
           description: |-
             A device is assigned a global unique number each time it is
@@ -1914,9 +1976,11 @@ components:
           description: String representation of the physical device that this device maps to.
         xlaGlobalId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: xla_global_id
           description: |-
             A physical device ID for use in XLA DeviceAssignments, unique across
@@ -1996,9 +2060,11 @@ components:
             - $ref: '#/components/schemas/tensorflow.GraphDef'
         currentGraphVersion:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: current_graph_version
           description: |-
             REQUIRED: The version number of the graph to be extended. This will be
@@ -2011,9 +2077,11 @@ components:
       properties:
         newGraphVersion:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: new_graph_version
           description: |-
             The new version number for the extended graph, to be used in the next call
@@ -2065,9 +2133,11 @@ components:
           title: s
         i:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: i
           description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
       title: FullTypeDef
@@ -2304,9 +2374,11 @@ components:
                     version of dlmalloc.
         deferredDeletionBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: deferred_deletion_bytes
           description: |-
             Delay deletion of up to this many bytes to reduce the number of
@@ -2657,8 +2729,10 @@ components:
           title: name_to_trace_id
           additionalProperties:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
+              - type: string
+                title: string
             title: value
           description: |-
             This maps a node name to a trace id contained in `traces_by_id`.
@@ -2711,8 +2785,10 @@ components:
       properties:
         key:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: key
         value:
           allOf:
@@ -2728,8 +2804,10 @@ components:
           title: key
         value:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: value
       title: NameToTraceIdEntry
       additionalProperties: false
@@ -2746,8 +2824,10 @@ components:
           type: array
           items:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
+              - type: string
+                title: string
           title: frame_id
       title: StackTrace
       additionalProperties: false
@@ -2757,8 +2837,10 @@ components:
       properties:
         key:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: key
         value:
           allOf:
@@ -2857,9 +2939,11 @@ components:
             - $ref: '#/components/schemas/tensorflow.OptimizerOptions'
         buildCostModel:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: build_cost_model
           description: |-
             The number of steps to run before returning a cost model detailing
@@ -2867,9 +2951,11 @@ components:
              no cost model.
         buildCostModelAfter:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: build_cost_model_after
           description: |-
             The number of steps to skip before collecting statistics for the
@@ -3023,9 +3109,11 @@ components:
             - $ref: '#/components/schemas/tensorflow.CallableOptions'
         requestId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: request_id
           description: |-
             Unique identifier for this request. Every MakeCallableRequest must
@@ -3038,9 +3126,11 @@ components:
       properties:
         handle:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: handle
           description: A handle to the created callable.
       title: MakeCallableResponse
@@ -3050,43 +3140,55 @@ components:
       properties:
         tempMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: temp_memory_size
         persistentMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: persistent_memory_size
         persistentTensorAllocIds:
           type: array
           items:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
           title: persistent_tensor_alloc_ids
         deviceTempMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: device_temp_memory_size
         devicePersistentMemorySize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: device_persistent_memory_size
         devicePersistentTensorAllocIds:
           type: array
           items:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
           title: device_persistent_tensor_alloc_ids
       title: MemoryStats
       additionalProperties: false
@@ -3285,27 +3387,35 @@ components:
              the name.
         allStartMicros:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: all_start_micros
         opStartRelMicros:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: op_start_rel_micros
         opEndRelMicros:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: op_end_rel_micros
         allEndRelMicros:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: all_end_rel_micros
         memory:
           type: array
@@ -3322,9 +3432,11 @@ components:
           title: timeline_label
         scheduledMicros:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: scheduled_micros
         threadId:
           type: integer
@@ -3340,33 +3452,43 @@ components:
             - $ref: '#/components/schemas/tensorflow.MemoryStats'
         allStartNanos:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: all_start_nanos
         opStartRelNanos:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: op_start_rel_nanos
         opEndRelNanos:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: op_end_rel_nanos
         allEndRelNanos:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: all_end_rel_nanos
         scheduledNanos:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: scheduled_nanos
       title: NodeExecStats
       additionalProperties: false
@@ -3589,9 +3711,11 @@ components:
              types, this is the minimum length.
         minimum:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: minimum
         allowedValues:
           allOf:
@@ -3645,9 +3769,11 @@ components:
              order to disable constant folding the opt_level has to be set to L0.
         maxFoldedConstantInBytes:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: max_folded_constant_in_bytes
           description: |-
             Constant folding optimization replaces tensors whose values can be
@@ -3715,9 +3841,11 @@ components:
              steps, but their outputs will not be fetched.
         requestId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: request_id
           description: |-
             Unique identifier for this request. Every PartialRunSetupRequest must
@@ -3817,9 +3945,11 @@ components:
              to the same master service.
         handle:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: handle
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
@@ -3893,8 +4023,10 @@ components:
           description: Unique name of this resource.
         hashCode:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: hash_code
           description: |-
             Hash code for the type of the resource. Is only valid in the same device
@@ -4137,9 +4269,11 @@ components:
              "foo/gradients/bar", but not "foo_gradients/"
         metaOptimizerTimeoutMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: meta_optimizer_timeout_ms
           description: |-
             Maximum number of milliseconds to spend optimizing a single graph before
@@ -4243,9 +4377,11 @@ components:
              to the same master service.
         handle:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: handle
           description: |-
             REQUIRED: handle must be returned by a MakeCallable call to the same
@@ -4260,9 +4396,11 @@ components:
              defined in the CallableOptions.feed field passed to MakeCallable.
         requestId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: request_id
           description: |-
             Unique identifier for this request. Every RunCallableRequest must
@@ -4362,9 +4500,11 @@ components:
             - $ref: '#/components/schemas/tensorflow.RunOptions.TraceLevel'
         timeoutInMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: timeout_in_ms
           description: Time to wait for operation to complete in milliseconds.
         interOpThreadPool:
@@ -4410,9 +4550,11 @@ components:
       properties:
         collectiveGraphKey:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: collective_graph_key
           description: |-
             If non-zero, declares that this graph is going to use collective
@@ -4442,9 +4584,11 @@ components:
       properties:
         priority:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: priority
           description: |-
             Priority of the request. The run handler thread pool will schedule ops
@@ -4506,9 +4650,11 @@ components:
              truncate long metadata messages.
         requestId:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: request_id
           description: |-
             Unique identifier for this request. Every RunStepRequest must
@@ -4565,9 +4711,11 @@ components:
           title: name
         version:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: version
           description: The version is optional. If set, needs to be >= 0.
       title: SessionMetadata
@@ -4711,9 +4859,11 @@ components:
           type: array
           items:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
                 format: int64
+              - type: string
+                title: string
           title: int64_val
           description: DT_INT64
         boolVal:
@@ -4753,8 +4903,10 @@ components:
           type: array
           items:
             oneOf:
-              - type: string
               - type: integer
+                title: integer
+              - type: string
+                title: string
           title: uint64_val
           description: DT_UINT64
         float8Val:
@@ -4804,9 +4956,11 @@ components:
       properties:
         size:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: size
           description: |-
             Size of the tensor in that dimension.
@@ -4880,9 +5034,11 @@ components:
       properties:
         verificationTimeoutInMs:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
               format: int64
+            - type: string
+              title: string
           title: verification_timeout_in_ms
           description: |-
             Deadline for completion of all verification i.e. all the Toggle ON

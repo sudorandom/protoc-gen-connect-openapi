@@ -8,13 +8,17 @@ components:
       properties:
         totalSize:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: total_size
         used:
           oneOf:
-            - type: string
             - type: integer
+              title: integer
+            - type: string
+              title: string
           title: used
       title: Allocation
       additionalProperties: false

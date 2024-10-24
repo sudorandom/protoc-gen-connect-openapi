@@ -678,11 +678,13 @@
           "int64Field": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "int64Field"
@@ -694,10 +696,12 @@
           "uint64Field": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "uint64Field"
@@ -710,11 +714,13 @@
           "sint64Field": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sint64Field"
@@ -726,10 +732,12 @@
           "fixed64Field": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "fixed64Field"
@@ -742,11 +750,13 @@
           "sfixed64Field": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sfixed64Field"

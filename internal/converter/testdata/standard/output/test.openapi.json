@@ -197,10 +197,12 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value",
@@ -779,11 +781,13 @@
           "int64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "int64_value"
@@ -795,10 +799,12 @@
           "uint64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "uint64_value"
@@ -811,11 +817,13 @@
           "sint64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sint64_value"
@@ -827,10 +835,12 @@
           "fixed64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "fixed64_value"
@@ -843,11 +853,13 @@
           "sfixed64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sfixed64_value"
@@ -895,11 +907,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -917,10 +931,12 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -939,11 +955,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -961,10 +979,12 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -983,11 +1003,13 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ]
             },
@@ -1146,11 +1168,13 @@
             "additionalProperties": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ],
               "title": "value"
@@ -1170,10 +1194,12 @@
             "additionalProperties": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ],
               "title": "value"
@@ -1194,11 +1220,13 @@
             "additionalProperties": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ],
               "title": "value"
@@ -1218,10 +1246,12 @@
             "additionalProperties": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer"
                 },
                 {
-                  "type": "integer"
+                  "type": "string",
+                  "title": "string"
                 }
               ],
               "title": "value"
@@ -1242,11 +1272,13 @@
             "additionalProperties": {
               "oneOf": [
                 {
-                  "type": "string"
+                  "type": "integer",
+                  "title": "integer",
+                  "format": "int64"
                 },
                 {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "title": "string"
                 }
               ],
               "title": "value"
@@ -1296,11 +1328,13 @@
           "optInt64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "opt_int64_value"
@@ -1312,10 +1346,12 @@
           "optUint64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "opt_uint64_value"
@@ -1328,11 +1364,13 @@
           "optSint64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "opt_sint64_value"
@@ -1344,10 +1382,12 @@
           "optFixed64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "opt_fixed64_value"
@@ -1360,11 +1400,13 @@
           "optSfixed64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "opt_sfixed64_value"
@@ -1482,11 +1524,13 @@
           "int64Option": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "int64_option"
@@ -1498,10 +1542,12 @@
           "uint64Option": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "uint64_option"
@@ -1514,11 +1560,13 @@
           "sint64Option": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sint64_option"
@@ -1530,10 +1578,12 @@
           "fixed64Option": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "fixed64_option"
@@ -1546,11 +1596,13 @@
           "sfixed64Option": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sfixed64_option"
@@ -1715,10 +1767,12 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value"
@@ -1733,10 +1787,12 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -1807,11 +1863,13 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value"
@@ -1826,11 +1884,13 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -1906,11 +1966,13 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value"
@@ -1925,11 +1987,13 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -1984,11 +2048,13 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value"
@@ -2003,11 +2069,13 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -2090,10 +2158,12 @@
           "value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "value"
@@ -2108,10 +2178,12 @@
           "key": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "key"
@@ -2226,11 +2298,13 @@
           "int64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "int64_value"
@@ -2242,10 +2316,12 @@
           "uint64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "uint64_value"
@@ -2258,11 +2334,13 @@
           "sint64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sint64_value"
@@ -2274,10 +2352,12 @@
           "fixed64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer"
               },
               {
-                "type": "integer"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "fixed64_value"
@@ -2290,11 +2370,13 @@
           "sfixed64Value": {
             "oneOf": [
               {
-                "type": "string"
+                "type": "integer",
+                "title": "integer",
+                "format": "int64"
               },
               {
-                "type": "integer",
-                "format": "int64"
+                "type": "string",
+                "title": "string"
               }
             ],
             "title": "sfixed64_value"
