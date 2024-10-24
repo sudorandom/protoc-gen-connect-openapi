@@ -41,6 +41,27 @@ func AppendComponents(spec *v3.Document, components *v3.Components) {
 	}
 }
 
+func TypeFieldDescription(opts options.Options, tt protoreflect.FieldDescriptor) string {
+	b := strings.Builder{}
+	b.WriteString(FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)))
+	if opts.WithProtoAnnotations {
+		if b.Len() > 0 {
+			b.WriteByte(' ')
+		}
+		b.WriteString("(proto ")
+		switch tt.Kind() {
+		case protoreflect.MessageKind:
+			b.WriteString(string(tt.Message().FullName()))
+		case protoreflect.EnumKind:
+			b.WriteString(string(tt.Enum().FullName()))
+		default:
+			b.WriteString(tt.Kind().String())
+		}
+		b.WriteByte(')')
+	}
+	return b.String()
+}
+
 func FormatComments(loc protoreflect.SourceLocation) string {
 	var builder strings.Builder
 	if loc.LeadingComments != "" {
@@ -104,4 +125,13 @@ func MakeFieldName(opts options.Options, fd protoreflect.FieldDescriptor) string
 		return string(fd.Name())
 	}
 	return fd.JSONName()
+}
+
+func AppendStringDedupe(strs []string, str string) []string {
+	for _, s := range strs {
+		if str == s {
+			return strs
+		}
+	}
+	return append(strs, str)
 }

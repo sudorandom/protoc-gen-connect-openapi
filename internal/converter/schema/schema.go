@@ -76,7 +76,7 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		root := ScalarFieldToSchema(opts, parent, tt, false)
 		root.Title = string(tt.Name())
 		root.Type = []string{"object"}
-		root.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
+		root.Description = util.TypeFieldDescription(opts, tt)
 		root.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: FieldToSchema(opts, parent, tt.MapValue())}
 		root = opts.FieldAnnotator.AnnotateField(root, tt, false)
 		return base.CreateSchemaProxy(root)
@@ -93,7 +93,7 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		s := &base.Schema{
 			Title:       string(tt.Name()),
 			ParentProxy: parent,
-			Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
+			Description: util.TypeFieldDescription(opts, tt),
 			Type:        []string{"array"},
 			Items:       &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
 		}
@@ -120,25 +120,35 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 	}
 	if !inContainer {
 		s.Title = string(tt.Name())
-		s.Description = util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt))
+		s.Description = util.TypeFieldDescription(opts, tt)
 	}
 
 	switch tt.Kind() {
 	case protoreflect.BoolKind:
 		s.Type = []string{"boolean"}
-	case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind,
-		protoreflect.Sfixed32Kind, protoreflect.Fixed32Kind:
+	case protoreflect.Int32Kind, protoreflect.Sfixed32Kind, protoreflect.Sint32Kind: // int32 types
 		s.Type = []string{"integer"}
-	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind,
-		protoreflect.Sfixed64Kind, protoreflect.Fixed64Kind, protoreflect.DoubleKind:
-		// NOTE: 64-bit types can be strings or numbers because they sometimes
+		s.Format = "int32"
+	case protoreflect.Fixed32Kind, protoreflect.Uint32Kind: // uint32 types
+		s.Type = []string{"integer"}
+	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Sfixed64Kind: // int64 types
+		// NOTE: 64-bit integer types can be strings or numbers because they sometimes
 		//       cannot fit into a JSON number type
 		s.OneOf = []*base.SchemaProxy{
 			base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
-			base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}}),
+			base.CreateSchemaProxy(&base.Schema{Type: []string{"integer"}, Format: "int64"}),
 		}
+	case protoreflect.Uint64Kind, protoreflect.Fixed64Kind: // uint64 types
+		s.OneOf = []*base.SchemaProxy{
+			base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+			base.CreateSchemaProxy(&base.Schema{Type: []string{"integer"}}),
+		}
+	case protoreflect.DoubleKind:
+		s.Type = []string{"number"}
+		s.Format = "double"
 	case protoreflect.FloatKind:
 		s.Type = []string{"number"}
+		s.Format = "float"
 	case protoreflect.StringKind:
 		s.Type = []string{"string"}
 	case protoreflect.BytesKind:

@@ -10,15 +10,9 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
+            "format": "double",
             "const": "1.23"
           }
         },
@@ -29,17 +23,11 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
             "maximum": 128,
-            "minimum": 256
+            "minimum": 256,
+            "format": "double"
           }
         },
         "title": "DoubleExGTELTE",
@@ -51,15 +39,9 @@
           "val": {
             "exclusiveMaximum": 0,
             "exclusiveMinimum": 10,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleExLTGT",
@@ -69,18 +51,12 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "examples": [
               "0"
             ],
-            "title": "val"
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleExample",
@@ -90,15 +66,9 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleFinite",
@@ -109,15 +79,9 @@
         "properties": {
           "val": {
             "exclusiveMinimum": 16,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleGT",
@@ -127,16 +91,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
-            "minimum": 8
+            "minimum": 8,
+            "format": "double"
           }
         },
         "title": "DoubleGTE",
@@ -146,17 +104,11 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "double"
           }
         },
         "title": "DoubleGTELTE",
@@ -168,15 +120,9 @@
           "val": {
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 0,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleGTLT",
@@ -186,17 +132,11 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "double"
           }
         },
         "title": "DoubleIgnore",
@@ -206,15 +146,9 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
+            "format": "double",
             "enum": [
               "4.56",
               "7.89"
@@ -228,15 +162,9 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleIncorrectType",
@@ -247,15 +175,9 @@
         "properties": {
           "val": {
             "exclusiveMaximum": 0,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleLT",
@@ -265,16 +187,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "title": "val",
-            "maximum": 64
+            "maximum": 64,
+            "format": "double"
           }
         },
         "title": "DoubleLTE",
@@ -284,15 +200,9 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleNone",
@@ -302,15 +212,9 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "val"
+            "type": "number",
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleNotFinite",
@@ -320,20 +224,15 @@
         "type": "object",
         "properties": {
           "val": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
+            "type": "number",
             "not": {
+              "type": "number",
               "enum": [
                 "0"
               ]
             },
-            "title": "val"
+            "title": "val",
+            "format": "double"
           }
         },
         "title": "DoubleNotIn",
@@ -541,7 +440,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -560,7 +459,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -582,7 +481,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -600,7 +499,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "examples": [
@@ -622,7 +521,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -640,7 +539,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -659,7 +558,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -681,7 +580,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -699,7 +598,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -719,7 +618,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -741,7 +640,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -760,7 +659,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -778,7 +677,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -797,7 +696,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -815,7 +714,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "not": {
@@ -835,6 +734,7 @@
           "val": {
             "type": "number",
             "title": "val",
+            "format": "float",
             "const": "1.23"
           }
         },
@@ -846,7 +746,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatExGTELTE",
@@ -857,7 +758,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatExLTGT",
@@ -871,7 +773,8 @@
             "examples": [
               "8"
             ],
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatExample",
@@ -882,7 +785,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatFinite",
@@ -893,7 +797,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatGT",
@@ -904,7 +809,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatGTE",
@@ -915,7 +821,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatGTELTE",
@@ -926,7 +833,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatGTLT",
@@ -937,7 +845,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatIgnore",
@@ -948,7 +857,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatIn",
@@ -960,7 +870,8 @@
           "val": {
             "exclusiveMinimum": 0,
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatIncorrectType",
@@ -971,7 +882,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatLT",
@@ -982,7 +894,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatLTE",
@@ -993,7 +906,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatNone",
@@ -1004,7 +918,8 @@
         "properties": {
           "val": {
             "type": "number",
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatNotFinite",
@@ -1021,7 +936,8 @@
                 "0"
               ]
             },
-            "title": "val"
+            "title": "val",
+            "format": "float"
           }
         },
         "title": "FloatNotIn",
@@ -1033,6 +949,7 @@
           "val": {
             "type": "integer",
             "title": "val",
+            "format": "int32",
             "const": 1
           }
         },
@@ -1046,7 +963,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 128,
-            "minimum": 256
+            "minimum": 256,
+            "format": "int32"
           }
         },
         "title": "Int32ExGTELTE",
@@ -1059,7 +977,8 @@
             "exclusiveMaximum": 0,
             "exclusiveMinimum": 10,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32ExLTGT",
@@ -1073,7 +992,8 @@
             "examples": [
               10
             ],
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32Example",
@@ -1085,7 +1005,8 @@
           "val": {
             "exclusiveMinimum": 16,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32GT",
@@ -1097,7 +1018,8 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "minimum": 8
+            "minimum": 8,
+            "format": "int32"
           }
         },
         "title": "Int32GTE",
@@ -1110,7 +1032,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "int32"
           }
         },
         "title": "Int32GTELTE",
@@ -1123,7 +1046,8 @@
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 0,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32GTLT",
@@ -1136,7 +1060,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "int32"
           }
         },
         "title": "Int32Ignore",
@@ -1148,6 +1073,7 @@
           "val": {
             "type": "integer",
             "title": "val",
+            "format": "int32",
             "enum": [
               2,
               3
@@ -1162,7 +1088,8 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32IncorrectType",
@@ -1174,7 +1101,8 @@
           "val": {
             "exclusiveMaximum": 0,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32LT",
@@ -1186,7 +1114,8 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "maximum": 64
+            "maximum": 64,
+            "format": "int32"
           }
         },
         "title": "Int32LTE",
@@ -1197,7 +1126,8 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32None",
@@ -1214,7 +1144,8 @@
                 0
               ]
             },
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "Int32NotIn",
@@ -1230,7 +1161,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "lt_pos",
@@ -1243,7 +1175,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "lt_neg"
@@ -1255,7 +1188,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "gt_pos"
@@ -1267,7 +1201,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "gt_neg"
@@ -1278,7 +1213,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "lte_pos",
@@ -1290,7 +1226,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "lte_neg"
@@ -1301,7 +1238,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "gte_pos",
@@ -1313,7 +1251,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "gte_neg"
@@ -1324,7 +1263,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "constant_pos",
@@ -1336,7 +1276,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "constant_neg",
@@ -1348,7 +1289,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "in",
@@ -1363,7 +1305,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "not": {
@@ -1387,7 +1330,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1406,7 +1350,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1428,7 +1373,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1446,7 +1392,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "examples": [
@@ -1468,7 +1415,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1486,7 +1434,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1505,7 +1454,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1527,7 +1477,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1545,7 +1496,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1565,7 +1517,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1587,7 +1540,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1606,7 +1560,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1624,7 +1579,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1683,7 +1639,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1702,7 +1659,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1720,7 +1678,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "not": {
@@ -1740,6 +1699,7 @@
           "val": {
             "type": "integer",
             "title": "val",
+            "format": "int32",
             "const": 1
           }
         },
@@ -1753,7 +1713,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 128,
-            "minimum": 256
+            "minimum": 256,
+            "format": "int32"
           }
         },
         "title": "SFixed32ExGTELTE",
@@ -1766,7 +1727,8 @@
             "exclusiveMaximum": 0,
             "exclusiveMinimum": 10,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32ExLTGT",
@@ -1780,7 +1742,8 @@
             "examples": [
               0
             ],
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32Example",
@@ -1792,7 +1755,8 @@
           "val": {
             "exclusiveMinimum": 16,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32GT",
@@ -1804,7 +1768,8 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "minimum": 8
+            "minimum": 8,
+            "format": "int32"
           }
         },
         "title": "SFixed32GTE",
@@ -1817,7 +1782,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "int32"
           }
         },
         "title": "SFixed32GTELTE",
@@ -1830,7 +1796,8 @@
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 0,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32GTLT",
@@ -1843,7 +1810,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "int32"
           }
         },
         "title": "SFixed32Ignore",
@@ -1855,6 +1823,7 @@
           "val": {
             "type": "integer",
             "title": "val",
+            "format": "int32",
             "enum": [
               2,
               3
@@ -1869,7 +1838,8 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32IncorrectType",
@@ -1881,7 +1851,8 @@
           "val": {
             "exclusiveMaximum": 0,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32LT",
@@ -1893,7 +1864,8 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "maximum": 64
+            "maximum": 64,
+            "format": "int32"
           }
         },
         "title": "SFixed32LTE",
@@ -1904,7 +1876,8 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32None",
@@ -1921,7 +1894,8 @@
                 0
               ]
             },
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SFixed32NotIn",
@@ -1936,7 +1910,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1955,7 +1930,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -1977,7 +1953,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -1995,7 +1972,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "examples": [
@@ -2017,7 +1995,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2035,7 +2014,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2054,7 +2034,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2076,7 +2057,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2094,7 +2076,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2114,7 +2097,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2136,7 +2120,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2155,7 +2140,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2173,7 +2159,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2192,7 +2179,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2210,7 +2198,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "not": {
@@ -2230,6 +2219,7 @@
           "val": {
             "type": "integer",
             "title": "val",
+            "format": "int32",
             "const": 1
           }
         },
@@ -2243,7 +2233,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 128,
-            "minimum": 256
+            "minimum": 256,
+            "format": "int32"
           }
         },
         "title": "SInt32ExGTELTE",
@@ -2256,7 +2247,8 @@
             "exclusiveMaximum": 0,
             "exclusiveMinimum": 10,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32ExLTGT",
@@ -2270,7 +2262,8 @@
             "examples": [
               0
             ],
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32Example",
@@ -2282,7 +2275,8 @@
           "val": {
             "exclusiveMinimum": 16,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32GT",
@@ -2294,7 +2288,8 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "minimum": 8
+            "minimum": 8,
+            "format": "int32"
           }
         },
         "title": "SInt32GTE",
@@ -2307,7 +2302,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "int32"
           }
         },
         "title": "SInt32GTELTE",
@@ -2320,7 +2316,8 @@
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 0,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32GTLT",
@@ -2333,7 +2330,8 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128
+            "minimum": 128,
+            "format": "int32"
           }
         },
         "title": "SInt32Ignore",
@@ -2345,6 +2343,7 @@
           "val": {
             "type": "integer",
             "title": "val",
+            "format": "int32",
             "enum": [
               2,
               3
@@ -2359,7 +2358,8 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32IncorrectType",
@@ -2371,7 +2371,8 @@
           "val": {
             "exclusiveMaximum": 0,
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32LT",
@@ -2383,7 +2384,8 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "maximum": 64
+            "maximum": 64,
+            "format": "int32"
           }
         },
         "title": "SInt32LTE",
@@ -2394,7 +2396,8 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32None",
@@ -2411,7 +2414,8 @@
                 0
               ]
             },
-            "title": "val"
+            "title": "val",
+            "format": "int32"
           }
         },
         "title": "SInt32NotIn",
@@ -2426,7 +2430,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2445,7 +2450,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2467,7 +2473,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2485,7 +2492,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "examples": [
@@ -2507,7 +2515,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2525,7 +2534,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2544,7 +2554,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2566,7 +2577,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2584,7 +2596,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2604,7 +2617,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2626,7 +2640,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2645,7 +2660,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2663,7 +2679,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val",
@@ -2682,7 +2699,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "title": "val"
@@ -2700,7 +2718,8 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer",
+                "format": "int64"
               }
             ],
             "not": {
@@ -2916,7 +2935,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -2935,7 +2954,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -2957,7 +2976,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -2975,7 +2994,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "examples": [
@@ -2997,7 +3016,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -3015,7 +3034,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -3034,7 +3053,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -3056,7 +3075,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -3074,7 +3093,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -3094,7 +3113,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -3116,7 +3135,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -3135,7 +3154,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -3153,7 +3172,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val",
@@ -3172,7 +3191,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "title": "val"
@@ -3190,7 +3209,7 @@
                 "type": "string"
               },
               {
-                "type": "number"
+                "type": "integer"
               }
             ],
             "not": {

@@ -2,6 +2,7 @@ package googleapi
 
 import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -25,7 +26,7 @@ func SchemaWithPropertyAnnotations(schema *base.Schema, desc protoreflect.FieldD
 	case annotations.FieldBehavior_OPTIONAL:
 		schema.Description = "(OPTIONAL) " + schema.Description
 	case annotations.FieldBehavior_REQUIRED:
-		schema.ParentProxy.Schema().Required = append(schema.ParentProxy.Schema().Required, string(desc.Name()))
+		schema.ParentProxy.Schema().Required = util.AppendStringDedupe(schema.ParentProxy.Schema().Required, string(desc.Name()))
 	case annotations.FieldBehavior_OUTPUT_ONLY:
 		schema.Description = "(OUTPUT_ONLY) " + schema.Description
 	case annotations.FieldBehavior_INPUT_ONLY:

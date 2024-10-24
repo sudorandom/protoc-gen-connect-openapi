@@ -453,6 +453,7 @@ components:
         celField:
           type: integer
           title: cel_field
+          format: int32
           description: |+
             value must be greater than 42:
             ```
@@ -474,12 +475,14 @@ components:
         floatConst:
           type: number
           title: float_const
+          format: float
           description: Floats
           const: "42"
         floatIn:
           type: array
           items:
             type: number
+            format: float
           title: float_in
         floatNotIn:
           type: array
@@ -491,40 +494,45 @@ components:
                 - "1"
                 - "2"
                 - "3"
+            format: float
           title: float_not_in
         floatFinite:
           type: array
           items:
             type: number
+            format: float
           title: float_finite
         floatLt:
           type: number
           title: float_lt
+          format: float
         floatLte:
           type: number
           title: float_lte
+          format: float
         floatGt:
           type: number
           title: float_gt
+          format: float
         floatGte:
           type: number
           title: float_gte
+          format: float
         floatBounds:
           type: number
           title: float_bounds
+          format: float
         doubleConst:
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: double_const
+          format: double
           description: Double
           const: "42"
         doubleIn:
           type: array
           items:
-            oneOf:
-              - type: string
-              - type: number
+            type: number
+            format: double
             enum:
               - "1"
               - "2"
@@ -533,62 +541,58 @@ components:
         doubleNotIn:
           type: array
           items:
-            oneOf:
-              - type: string
-              - type: number
+            type: number
             not:
+              type: number
               enum:
                 - "1"
                 - "2"
                 - "3"
+            format: double
           title: double_not_in
         doubleFinite:
           type: array
           items:
-            oneOf:
-              - type: string
-              - type: number
+            type: number
+            format: double
           title: double_finite
         doubleLt:
           exclusiveMaximum: 42
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: double_lt
+          format: double
         doubleLte:
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: double_lte
           maximum: 420
+          format: double
         doubleGt:
           exclusiveMinimum: 6.9
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: double_gt
+          format: double
         doubleGte:
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: double_gte
           minimum: 69
+          format: double
         doubleBounds:
           exclusiveMaximum: 10
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: double_bounds
           minimum: 5
+          format: double
         int32Const:
           type: integer
           title: int32_const
+          format: int32
           description: int32
           const: 42
         int32In:
           type: array
           items:
             type: integer
+            format: int32
             enum:
               - 1
               - 2
@@ -604,32 +608,39 @@ components:
                 - 1
                 - 2
                 - 3
+            format: int32
           title: int32_not_in
         int32Lt:
           exclusiveMaximum: 42
           type: integer
           title: int32_lt
+          format: int32
         int32Lte:
           type: integer
           title: int32_lte
           maximum: 420
+          format: int32
         int32Gt:
           exclusiveMinimum: 6
           type: integer
           title: int32_gt
+          format: int32
         int32Gte:
           type: integer
           title: int32_gte
           minimum: 69
+          format: int32
         int32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: int32_bounds
           minimum: 5
+          format: int32
         int64Const:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64_const
           description: int64
           const: 42
@@ -638,7 +649,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
             enum:
               - 1
               - 2
@@ -649,7 +661,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
             not:
               enum:
                 - 1
@@ -660,31 +673,36 @@ components:
           exclusiveMaximum: 42
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64_lt
         int64Lte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64_lte
           maximum: 420
         int64Gt:
           exclusiveMinimum: 6
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64_gt
         int64Gte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64_gte
           minimum: 69
         int64Bounds:
           exclusiveMaximum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64_bounds
           minimum: 5
         uint32Const:
@@ -736,7 +754,7 @@ components:
         uint64Const:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64_const
           description: uint64
           const: "42"
@@ -745,7 +763,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
             enum:
               - "1"
               - "2"
@@ -756,7 +774,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
             not:
               enum:
                 - "1"
@@ -767,42 +785,44 @@ components:
           exclusiveMaximum: 42
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64_lt
         uint64Lte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64_lte
           maximum: 420
         uint64Gt:
           exclusiveMinimum: 6
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64_gt
         uint64Gte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64_gte
           minimum: 69
         uint64Bounds:
           exclusiveMaximum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64_bounds
           minimum: 5
         sint32Const:
           type: integer
           title: sint32_const
+          format: int32
           description: sint32
           const: 42
         sint32In:
           type: array
           items:
             type: integer
+            format: int32
             enum:
               - 1
               - 2
@@ -818,32 +838,39 @@ components:
                 - 1
                 - 2
                 - 3
+            format: int32
           title: sint32_not_in
         sint32Lt:
           exclusiveMaximum: 42
           type: integer
           title: sint32_lt
+          format: int32
         sint32Lte:
           type: integer
           title: sint32_lte
           maximum: 420
+          format: int32
         sint32Gt:
           exclusiveMinimum: 6
           type: integer
           title: sint32_gt
+          format: int32
         sint32Gte:
           type: integer
           title: sint32_gte
           minimum: 69
+          format: int32
         sint32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: sint32_bounds
           minimum: 5
+          format: int32
         sint64Const:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64_const
           description: sint64
           const: 42
@@ -852,7 +879,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
             enum:
               - 1
               - 2
@@ -863,7 +891,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
             not:
               enum:
                 - 1
@@ -874,31 +903,36 @@ components:
           exclusiveMaximum: 42
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64_lt
         sint64Lte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64_lte
           maximum: 420
         sint64Gt:
           exclusiveMinimum: 8
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64_gt
         sint64Gte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64_gte
           minimum: 89
         sint64Bounds:
           exclusiveMaximum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64_bounds
           minimum: 5
         fixed32Const:
@@ -950,7 +984,7 @@ components:
         fixed64Const:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64_const
           description: fixed64
           const: "42"
@@ -959,7 +993,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
             enum:
               - "1"
               - "2"
@@ -970,7 +1004,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
             not:
               enum:
                 - "1"
@@ -981,42 +1015,44 @@ components:
           exclusiveMaximum: 42
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64_lt
         fixed64Lte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64_lte
           maximum: 420
         fixed64Gt:
           exclusiveMinimum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64_gt
         fixed64Gte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64_gte
           minimum: 109
         fixed64Bounds:
           exclusiveMaximum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64_bounds
           minimum: 5
         sfixed32Const:
           type: integer
           title: sfixed32_const
+          format: int32
           description: sfixed32
           const: 42
         sfixed32In:
           type: array
           items:
             type: integer
+            format: int32
             enum:
               - 1
               - 2
@@ -1032,32 +1068,39 @@ components:
                 - 1
                 - 2
                 - 3
+            format: int32
           title: sfixed32_not_in
         sfixed32Lt:
           exclusiveMaximum: 42
           type: integer
           title: sfixed32_lt
+          format: int32
         sfixed32Lte:
           type: integer
           title: sfixed32_lte
           maximum: 420
+          format: int32
         sfixed32Gt:
           exclusiveMinimum: 6
           type: integer
           title: sfixed32_gt
+          format: int32
         sfixed32Gte:
           type: integer
           title: sfixed32_gte
           minimum: 69
+          format: int32
         sfixed32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: sfixed32_bounds
           minimum: 5
+          format: int32
         sfixed64Const:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64_const
           description: sfixed64
           const: 42
@@ -1066,7 +1109,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
             enum:
               - 1
               - 2
@@ -1077,7 +1121,8 @@ components:
           items:
             oneOf:
               - type: string
-              - type: number
+              - type: integer
+                format: int64
             not:
               enum:
                 - 1
@@ -1088,31 +1133,36 @@ components:
           exclusiveMaximum: 42
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64_lt
         sfixed64Lte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64_lte
           maximum: 420
         sfixed64Gt:
           exclusiveMinimum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64_gt
         sfixed64Gte:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64_gte
           minimum: 109
         sfixed64Bounds:
           exclusiveMaximum: 10
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64_bounds
           minimum: 5
         stringConst:
@@ -1491,7 +1541,6 @@ components:
           const: "false"
       title: LotsOfValidationRules
       required:
-        - requiredField
         - requiredField
       additionalProperties: false
     protovalidate.LotsOfValidationRules.MapKeysEntry:

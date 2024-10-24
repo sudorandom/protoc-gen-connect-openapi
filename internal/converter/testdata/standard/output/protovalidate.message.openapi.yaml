@@ -9,12 +9,12 @@ components:
         totalSize:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: total_size
         used:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: used
       title: Allocation
       additionalProperties: false

@@ -177,3 +177,11 @@ func WithDebug(enabled bool) Option {
 		return nil
 	}
 }
+
+// WithProtoAnnotations adds some details about protobuf to descrioptions.
+func WithProtoAnnotations(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.WithProtoAnnotations = enabled
+		return nil
+	}
+}

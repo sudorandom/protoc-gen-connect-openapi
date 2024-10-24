@@ -392,20 +392,22 @@ components:
                   - optionalMsgField
       properties:
         doubleField:
-          oneOf:
-            - type: string
-            - type: number
+          type: number
           title: doubleField
+          format: double
         floatField:
           type: number
           title: floatField
+          format: float
         int32Field:
           type: integer
           title: int32Field
+          format: int32
         int64Field:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: int64Field
         uint32Field:
           type: integer
@@ -413,15 +415,17 @@ components:
         uint64Field:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: uint64Field
         sint32Field:
           type: integer
           title: sint32Field
+          format: int32
         sint64Field:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sint64Field
         fixed32Field:
           type: integer
@@ -429,15 +433,17 @@ components:
         fixed64Field:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
           title: fixed64Field
         sfixed32Field:
           type: integer
           title: sfixed32Field
+          format: int32
         sfixed64Field:
           oneOf:
             - type: string
-            - type: number
+            - type: integer
+              format: int64
           title: sfixed64Field
         boolField:
           type: boolean
