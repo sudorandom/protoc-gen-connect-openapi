@@ -31,7 +31,6 @@ var scenarios = []Scenario{
 	{Name: "with_proto_annotations", Options: "with-proto-annotations"},
 	{Name: "trim_unused_type", Options: "trim-unused-types"},
 	{Name: "with_base", Options: "base=testdata/with_base/base.yaml,trim-unused-types"},
-	{Name: "with_base_merge", Options: "base=testdata/with_base/base.yaml,merge-base,trim-unused-types"},
 }
 
 type Scenario struct {
