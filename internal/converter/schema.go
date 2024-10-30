@@ -34,16 +34,19 @@ func NewState(opts options.Options) *State {
 func (st *State) CollectFile(tt protoreflect.FileDescriptor) {
 	st.CurrentFile = tt
 
-	// Files can have enums
-	enums := tt.Enums()
-	for i := 0; i < enums.Len(); i++ {
-		st.CollectEnum(enums.Get(i))
-	}
+	// Only collect types from the root if TrimUnusedTypes is off
+	if !st.Opts.TrimUnusedTypes {
+		// Files can have enums
+		enums := tt.Enums()
+		for i := 0; i < enums.Len(); i++ {
+			st.CollectEnum(enums.Get(i))
+		}
 
-	// Files can have messages
-	messages := tt.Messages()
-	for i := 0; i < messages.Len(); i++ {
-		st.CollectMessage(messages.Get(i))
+		// Files can have messages
+		messages := tt.Messages()
+		for i := 0; i < messages.Len(); i++ {
+			st.CollectMessage(messages.Get(i))
+		}
 	}
 
 	// Also make sure to pick up messages referenced in service methods

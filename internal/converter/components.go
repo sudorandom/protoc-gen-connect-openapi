@@ -36,6 +36,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 	components.Schemas = stateToSchema(st)
 
 	hasGetRequests := false
+	hasMethods := false
 
 	// Add requestBodies and responses for methods
 	services := fd.Services()
@@ -48,22 +49,9 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			if hasGet {
 				hasGetRequests = true
 			}
+			hasMethods = true
 		}
 	}
-
-	components.Schemas.Set("connect-protocol-version", base.CreateSchemaProxy(&base.Schema{
-		Title:       "Connect-Protocol-Version",
-		Description: "Define the version of the Connect protocol",
-		Type:        []string{"number"},
-		Enum:        []*yaml.Node{utils.CreateIntNode("1")},
-		Const:       utils.CreateIntNode("1"),
-	}))
-
-	components.Schemas.Set("connect-timeout-header", base.CreateSchemaProxy(&base.Schema{
-		Title:       "Connect-Timeout-Ms",
-		Description: "Define the timeout, in ms",
-		Type:        []string{"number"},
-	}))
 
 	if hasGetRequests {
 		components.Schemas.Set("encoding", base.CreateSchemaProxy(&base.Schema{
@@ -91,43 +79,58 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			},
 		}))
 	}
-	connectErrorProps := orderedmap.New[string, *base.SchemaProxy]()
-	connectErrorProps.Set("code", base.CreateSchemaProxy(&base.Schema{
-		Description: "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].",
-		Type:        []string{"string"},
-		Examples:    []*yaml.Node{utils.CreateStringNode("CodeNotFound")},
-		Enum: []*yaml.Node{
-			utils.CreateStringNode("CodeCanceled"),
-			utils.CreateStringNode("CodeUnknown"),
-			utils.CreateStringNode("CodeInvalidArgument"),
-			utils.CreateStringNode("CodeDeadlineExceeded"),
-			utils.CreateStringNode("CodeNotFound"),
-			utils.CreateStringNode("CodeAlreadyExists"),
-			utils.CreateStringNode("CodePermissionDenied"),
-			utils.CreateStringNode("CodeResourceExhausted"),
-			utils.CreateStringNode("CodeFailedPrecondition"),
-			utils.CreateStringNode("CodeAborted"),
-			utils.CreateStringNode("CodeOutOfRange"),
-			utils.CreateStringNode("CodeInternal"),
-			utils.CreateStringNode("CodeUnavailable"),
-			utils.CreateStringNode("CodeDataLoss"),
-			utils.CreateStringNode("CodeUnauthenticated"),
-		},
-	}))
-	connectErrorProps.Set("message", base.CreateSchemaProxy(&base.Schema{
-		Description: "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.",
-		Type:        []string{"string"},
-	}))
-	connectErrorProps.Set("detail", base.CreateSchemaProxyRef("#/components/schemas/google.protobuf.Any"))
-	components.Schemas.Set("connect.error", base.CreateSchemaProxy(&base.Schema{
-		Title:                "Connect Error",
-		Description:          `Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`,
-		Properties:           connectErrorProps,
-		Type:                 []string{"object"},
-		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
-	}))
-	anyPair := util.NewGoogleAny()
-	components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
+	if hasMethods {
+		components.Schemas.Set("connect-protocol-version", base.CreateSchemaProxy(&base.Schema{
+			Title:       "Connect-Protocol-Version",
+			Description: "Define the version of the Connect protocol",
+			Type:        []string{"number"},
+			Enum:        []*yaml.Node{utils.CreateIntNode("1")},
+			Const:       utils.CreateIntNode("1"),
+		}))
+
+		components.Schemas.Set("connect-timeout-header", base.CreateSchemaProxy(&base.Schema{
+			Title:       "Connect-Timeout-Ms",
+			Description: "Define the timeout, in ms",
+			Type:        []string{"number"},
+		}))
+		connectErrorProps := orderedmap.New[string, *base.SchemaProxy]()
+		connectErrorProps.Set("code", base.CreateSchemaProxy(&base.Schema{
+			Description: "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].",
+			Type:        []string{"string"},
+			Examples:    []*yaml.Node{utils.CreateStringNode("CodeNotFound")},
+			Enum: []*yaml.Node{
+				utils.CreateStringNode("CodeCanceled"),
+				utils.CreateStringNode("CodeUnknown"),
+				utils.CreateStringNode("CodeInvalidArgument"),
+				utils.CreateStringNode("CodeDeadlineExceeded"),
+				utils.CreateStringNode("CodeNotFound"),
+				utils.CreateStringNode("CodeAlreadyExists"),
+				utils.CreateStringNode("CodePermissionDenied"),
+				utils.CreateStringNode("CodeResourceExhausted"),
+				utils.CreateStringNode("CodeFailedPrecondition"),
+				utils.CreateStringNode("CodeAborted"),
+				utils.CreateStringNode("CodeOutOfRange"),
+				utils.CreateStringNode("CodeInternal"),
+				utils.CreateStringNode("CodeUnavailable"),
+				utils.CreateStringNode("CodeDataLoss"),
+				utils.CreateStringNode("CodeUnauthenticated"),
+			},
+		}))
+		connectErrorProps.Set("message", base.CreateSchemaProxy(&base.Schema{
+			Description: "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.",
+			Type:        []string{"string"},
+		}))
+		connectErrorProps.Set("detail", base.CreateSchemaProxyRef("#/components/schemas/google.protobuf.Any"))
+		components.Schemas.Set("connect.error", base.CreateSchemaProxy(&base.Schema{
+			Title:                "Connect Error",
+			Description:          `Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`,
+			Properties:           connectErrorProps,
+			Type:                 []string{"object"},
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+		}))
+		anyPair := util.NewGoogleAny()
+		components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
+	}
 
 	return components, nil
 }
