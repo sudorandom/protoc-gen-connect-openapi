@@ -18,7 +18,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/descriptorpb"
+	pluginpb "google.golang.org/protobuf/types/pluginpb"
 	"gopkg.in/yaml.v3"
 )
 
@@ -187,4 +190,70 @@ type TestCase struct {
 func makeOutputPath(protofile, format string) string {
 	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi." + format)
 	return filepath.Join(dir, "output", file)
+}
+
+func TestConvertWithOptions(t *testing.T) {
+	t.Run("with base file", func(t *testing.T) {
+		baseYAML := `
+openapi: 3.1.0
+info:
+  title: Base API
+  version: 1.0.0
+  x-logo:
+    url: https://example.com/logo.png
+paths:
+  /example/api/path:
+    post:
+      x-code-samples:
+        - language: shell
+          label: example-api-path
+          source: |
+            curl -X POST https://api.example.com/example/api/path \
+            -H "Content-Type: application/json" \
+            -d '{"email": "user@example.com"}'
+`
+		opts := options.Options{
+			Path:        "test.openapi.yaml",
+			Format:      "yaml",
+			BaseOpenAPI: []byte(baseYAML),
+		}
+
+		req := &pluginpb.CodeGeneratorRequest{
+			ProtoFile: []*descriptorpb.FileDescriptorProto{
+				{
+					Name:    proto.String("test.proto"),
+					Package: proto.String("test"),
+					MessageType: []*descriptorpb.DescriptorProto{
+						{Name: proto.String("TestMessage")},
+					},
+					Service: []*descriptorpb.ServiceDescriptorProto{
+						{
+							Name: proto.String("ExampleApiService"),
+							Method: []*descriptorpb.MethodDescriptorProto{
+								{
+									Name:       proto.String("ExampleApiPath"),
+									InputType:  proto.String(".test.TestMessage"),
+									OutputType: proto.String(".test.TestMessage"),
+								},
+							},
+						},
+					},
+				},
+			},
+			FileToGenerate: []string{"test.proto"},
+		}
+
+		resp, err := converter.ConvertWithOptions(req, opts)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+		require.Len(t, resp.File, 1)
+
+		content := resp.File[0].GetContent()
+		assert.Contains(t, content, "x-logo:")
+		assert.Contains(t, content, "url: https://example.com/logo.png")
+		assert.Contains(t, content, "x-code-samples:")
+
+		// Check that the generated content is merged with the base file
+		assert.Contains(t, content, "TestMessage")
+	})
 }
