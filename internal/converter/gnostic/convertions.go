@@ -134,6 +134,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 				Type: secScheme.Type,
 			}
 			switch secScheme.Type {
+			case "mutualTLS":
 			case "http":
 				scheme.Scheme = secScheme.Scheme
 			case "apiKey":
