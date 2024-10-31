@@ -42,20 +42,6 @@
         "type": "object",
         "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       },
-      "connect-protocol-version": {
-        "type": "number",
-        "title": "Connect-Protocol-Version",
-        "enum": [
-          1
-        ],
-        "description": "Define the version of the Connect protocol",
-        "const": 1
-      },
-      "connect-timeout-header": {
-        "type": "number",
-        "title": "Connect-Timeout-Ms",
-        "description": "Define the timeout, in ms"
-      },
       "encoding": {
         "title": "encoding",
         "enum": [
@@ -77,6 +63,20 @@
           "br"
         ],
         "description": "Which compression algorithm to use for this request"
+      },
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
       },
       "connect.error": {
         "type": "object",

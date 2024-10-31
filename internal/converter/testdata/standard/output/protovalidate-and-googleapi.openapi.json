@@ -109,20 +109,6 @@
         ],
         "additionalProperties": false
       },
-      "connect-protocol-version": {
-        "type": "number",
-        "title": "Connect-Protocol-Version",
-        "enum": [
-          1
-        ],
-        "description": "Define the version of the Connect protocol",
-        "const": 1
-      },
-      "connect-timeout-header": {
-        "type": "number",
-        "title": "Connect-Timeout-Ms",
-        "description": "Define the timeout, in ms"
-      },
       "encoding": {
         "title": "encoding",
         "enum": [
@@ -144,6 +130,20 @@
           "br"
         ],
         "description": "Which compression algorithm to use for this request"
+      },
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
       },
       "connect.error": {
         "type": "object",
