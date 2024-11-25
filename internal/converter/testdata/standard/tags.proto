@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package io.swagger.petstore.v2;
+
+import "gnostic/openapi/v3/annotations.proto";
+
+option (gnostic.openapi.v3.document) = {
+  tags: [
+    // Override description
+    {
+      name: "io.swagger.petstore.v2.Foo1"
+      description: "Foo 1"
+    },
+    // Do nothing, just check for duplicate
+    {
+      name: "io.swagger.petstore.v2.Foo2"
+    },
+    // Add external docs
+    {
+      name: "io.swagger.petstore.v2.Foo2"
+      external_docs: {
+        url: "http://example.com",
+        description: "Example",
+      }
+    }
+  ]
+};
+
+message FooRequest{
+}
+
+message FooResponse{
+}
+
+service Foo1 {
+  rpc Foo(FooRequest) returns (FooResponse) {}
+}
+
+service Foo2 {
+  rpc Foo(FooRequest) returns (FooResponse) {}
+}
+
+service Foo3 {
+  rpc Foo(FooRequest) returns (FooResponse) {}
+}

@@ -151,6 +151,8 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi." + opts.Format
 			outFiles[filename] = spec
 		}
+
+		spec.Tags = mergeTags(spec.Tags)
 	}
 
 	if opts.Path != "" {
@@ -178,6 +180,38 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 		MaximumEdition:    proto.Int32(int32(descriptor.Edition_EDITION_2024)),
 		File:              files,
 	}, nil
+}
+
+func mergeTags(tags []*base.Tag) []*base.Tag {
+
+	if len(tags) == 0 {
+		return tags
+	}
+
+	res := make([]*base.Tag, 0, len(tags))
+	found := make(map[string]*base.Tag)
+
+	for _, tag := range tags {
+		if found[tag.Name] == nil {
+			found[tag.Name] = tag
+			res = append(res, tag)
+			continue
+		}
+
+		if tag.Description != "" {
+			found[tag.Name].Description = tag.Description
+		}
+
+		if tag.ExternalDocs != nil {
+			found[tag.Name].ExternalDocs = tag.ExternalDocs
+		}
+
+		if tag.Extensions != nil {
+			found[tag.Name].Extensions = tag.Extensions
+		}
+	}
+
+	return res
 }
 
 func specToFile(opts options.Options, spec *v3.Document) (string, error) {
