@@ -48,6 +48,11 @@ func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescript
 	if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
 		spec.ExternalDocs = exDocs
 	}
-	spec.Extensions = toExtensions(opts.SpecificationExtension)
+	if opts.SpecificationExtension != nil {
+		ext := toExtensions(opts.SpecificationExtension)
+		for pair := ext.Oldest(); pair != nil; pair = pair.Next() {
+			spec.Extensions.AddPairs(*pair)
+		}
+	}
 	appendComponents(spec, opts.Components)
 }
