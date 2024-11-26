@@ -206,6 +206,9 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 			Mapping:      mapping,
 		}
 	}
+	if opts.SpecificationExtension != nil {
+		schema.Extensions = toExtensions(opts.SpecificationExtension)
+	}
 
 	return schema
 }

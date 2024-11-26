@@ -143,7 +143,9 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 			case "openIdConnect":
 				scheme.OpenIdConnectUrl = secScheme.OpenIdConnectUrl
 			case "oauth2":
-				flows := &v3.OAuthFlows{}
+				flows := &v3.OAuthFlows{
+					Extensions: toExtensions(secScheme.Flows.SpecificationExtension),
+				}
 				if secScheme.Flows.Implicit != nil {
 					scopes := orderedmap.New[string, string]()
 					for _, scope := range secScheme.Flows.Implicit.Scopes.AdditionalProperties {
@@ -154,6 +156,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 						TokenUrl:         secScheme.Flows.Implicit.TokenUrl,
 						RefreshUrl:       secScheme.Flows.Implicit.RefreshUrl,
 						Scopes:           scopes,
+						Extensions:       toExtensions(secScheme.Flows.Implicit.SpecificationExtension),
 					}
 				}
 				if secScheme.Flows.Password != nil {
@@ -165,6 +168,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 						TokenUrl:   secScheme.Flows.Password.TokenUrl,
 						RefreshUrl: secScheme.Flows.Password.RefreshUrl,
 						Scopes:     scopes,
+						Extensions: toExtensions(secScheme.Flows.Password.SpecificationExtension),
 					}
 				}
 				if secScheme.Flows.ClientCredentials != nil {
@@ -176,6 +180,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 						TokenUrl:   secScheme.Flows.ClientCredentials.TokenUrl,
 						RefreshUrl: secScheme.Flows.ClientCredentials.RefreshUrl,
 						Scopes:     scopes,
+						Extensions: toExtensions(secScheme.Flows.ClientCredentials.SpecificationExtension),
 					}
 				}
 				if secScheme.Flows.AuthorizationCode != nil {
@@ -188,6 +193,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 						TokenUrl:         secScheme.Flows.AuthorizationCode.TokenUrl,
 						RefreshUrl:       secScheme.Flows.AuthorizationCode.RefreshUrl,
 						Scopes:           scopes,
+						Extensions:       toExtensions(secScheme.Flows.AuthorizationCode.SpecificationExtension),
 					}
 				}
 				scheme.Flows = flows
@@ -209,6 +215,7 @@ func toExternalDocs(externalDocs *goa3.ExternalDocs) *base.ExternalDoc {
 	return &base.ExternalDoc{
 		Description: externalDocs.Description,
 		URL:         externalDocs.Url,
+		Extensions:  toExtensions(externalDocs.SpecificationExtension),
 	}
 }
 
@@ -224,12 +231,14 @@ func toTags(tags []*goa3.Tag) []*base.Tag {
 			extDoc = &base.ExternalDoc{
 				Description: tag.Description,
 				URL:         tag.ExternalDocs.Url,
+				Extensions:  toExtensions(tag.ExternalDocs.SpecificationExtension),
 			}
 		}
 		result[i] = &base.Tag{
 			Name:         tag.Name,
 			Description:  tag.Description,
 			ExternalDocs: extDoc,
+			Extensions:   toExtensions(tag.SpecificationExtension),
 		}
 	}
 	return result
@@ -305,7 +314,7 @@ func toExtensions(items []*goa3.NamedAny) *orderedmap.Map[string, *yaml.Node] {
 	}
 	extensions := orderedmap.New[string, *yaml.Node]()
 	for _, namedAny := range items {
-		extensions.Set(namedAny.Name, namedAny.ToRawInfo())
+		extensions.Set(namedAny.Name, namedAny.Value.ToRawInfo())
 	}
 	return extensions
 }
