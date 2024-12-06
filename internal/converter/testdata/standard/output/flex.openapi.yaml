@@ -406,20 +406,19 @@ components:
         int64Field:
           oneOf:
             - type: integer
-              title: integer
+              title: int64Field
               format: int64
             - type: string
-              title: string
-          title: int64Field
+              title: int64Field
         uint32Field:
           type: integer
           title: uint32Field
         uint64Field:
           oneOf:
             - type: integer
-              title: integer
+              title: uint64Field
             - type: string
-              title: string
+              title: uint64Field
           title: uint64Field
         sint32Field:
           type: integer
@@ -428,20 +427,19 @@ components:
         sint64Field:
           oneOf:
             - type: integer
-              title: integer
+              title: sint64Field
               format: int64
             - type: string
-              title: string
-          title: sint64Field
+              title: sint64Field
         fixed32Field:
           type: integer
           title: fixed32Field
         fixed64Field:
           oneOf:
             - type: integer
-              title: integer
+              title: fixed64Field
             - type: string
-              title: string
+              title: fixed64Field
           title: fixed64Field
         sfixed32Field:
           type: integer
@@ -450,11 +448,10 @@ components:
         sfixed64Field:
           oneOf:
             - type: integer
-              title: integer
+              title: sfixed64Field
               format: int64
             - type: string
-              title: string
-          title: sfixed64Field
+              title: sfixed64Field
         boolField:
           type: boolean
           title: boolField

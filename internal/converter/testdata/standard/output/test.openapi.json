@@ -198,15 +198,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "value",
+                "description": "The uint64 value."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value",
+                "description": "The uint64 value."
               }
             ],
-            "title": "value",
-            "description": "The uint64 value."
+            "title": "value"
           }
         },
         "title": "UInt64Value",
@@ -782,15 +783,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "int64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "int64_value"
               }
-            ],
-            "title": "int64_value"
+            ]
           },
           "uint32Value": {
             "type": "integer",
@@ -800,11 +800,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "uint64_value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "uint64_value"
               }
             ],
             "title": "uint64_value"
@@ -818,15 +818,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "sint64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "sint64_value"
               }
-            ],
-            "title": "sint64_value"
+            ]
           },
           "fixed32Value": {
             "type": "integer",
@@ -836,11 +835,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "fixed64_value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "fixed64_value"
               }
             ],
             "title": "fixed64_value"
@@ -854,15 +853,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "sfixed64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "sfixed64_value"
               }
-            ],
-            "title": "sfixed64_value"
+            ]
           },
           "boolValue": {
             "type": "boolean",
@@ -908,12 +906,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -931,12 +927,10 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "integer",
-                  "title": "integer"
+                  "type": "integer"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -956,12 +950,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -979,12 +971,10 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "integer",
-                  "title": "integer"
+                  "type": "integer"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -1004,12 +994,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -1169,15 +1157,14 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
+                  "title": "value",
                   "format": "int64"
                 },
                 {
                   "type": "string",
-                  "title": "string"
+                  "title": "value"
                 }
-              ],
-              "title": "value"
+              ]
             }
           },
           "uint32Map": {
@@ -1195,11 +1182,11 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer"
+                  "title": "value"
                 },
                 {
                   "type": "string",
-                  "title": "string"
+                  "title": "value"
                 }
               ],
               "title": "value"
@@ -1221,15 +1208,14 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
+                  "title": "value",
                   "format": "int64"
                 },
                 {
                   "type": "string",
-                  "title": "string"
+                  "title": "value"
                 }
-              ],
-              "title": "value"
+              ]
             }
           },
           "fixed32Map": {
@@ -1247,11 +1233,11 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer"
+                  "title": "value"
                 },
                 {
                   "type": "string",
-                  "title": "string"
+                  "title": "value"
                 }
               ],
               "title": "value"
@@ -1273,15 +1259,14 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
+                  "title": "value",
                   "format": "int64"
                 },
                 {
                   "type": "string",
-                  "title": "string"
+                  "title": "value"
                 }
-              ],
-              "title": "value"
+              ]
             }
           },
           "boolMap": {
@@ -1329,15 +1314,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "opt_int64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "opt_int64_value"
               }
-            ],
-            "title": "opt_int64_value"
+            ]
           },
           "optUint32Value": {
             "type": "integer",
@@ -1347,11 +1331,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "opt_uint64_value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "opt_uint64_value"
               }
             ],
             "title": "opt_uint64_value"
@@ -1365,15 +1349,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "opt_sint64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "opt_sint64_value"
               }
-            ],
-            "title": "opt_sint64_value"
+            ]
           },
           "optFixed32Value": {
             "type": "integer",
@@ -1383,11 +1366,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "opt_fixed64_value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "opt_fixed64_value"
               }
             ],
             "title": "opt_fixed64_value"
@@ -1401,15 +1384,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "opt_sfixed64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "opt_sfixed64_value"
               }
-            ],
-            "title": "opt_sfixed64_value"
+            ]
           },
           "optBoolValue": {
             "type": "boolean",
@@ -1525,15 +1507,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "int64_option",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "int64_option"
               }
-            ],
-            "title": "int64_option"
+            ]
           },
           "uint32Option": {
             "type": "integer",
@@ -1543,11 +1524,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "uint64_option"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "uint64_option"
               }
             ],
             "title": "uint64_option"
@@ -1561,15 +1542,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "sint64_option",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "sint64_option"
               }
-            ],
-            "title": "sint64_option"
+            ]
           },
           "fixed32Option": {
             "type": "integer",
@@ -1579,11 +1559,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "fixed64_option"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "fixed64_option"
               }
             ],
             "title": "fixed64_option"
@@ -1597,15 +1577,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "sfixed64_option",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "sfixed64_option"
               }
-            ],
-            "title": "sfixed64_option"
+            ]
           },
           "boolOption": {
             "type": "boolean",
@@ -1768,11 +1747,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value"
               }
             ],
             "title": "value"
@@ -1788,11 +1767,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "key"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
             ],
             "title": "key"
@@ -1864,15 +1843,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value"
               }
-            ],
-            "title": "value"
+            ]
           }
         },
         "title": "Int64MapEntry",
@@ -1885,15 +1863,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "key",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
-            ],
-            "title": "key"
+            ]
           },
           "value": {
             "type": "string",
@@ -1967,15 +1944,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value"
               }
-            ],
-            "title": "value"
+            ]
           }
         },
         "title": "Sfixed64MapEntry",
@@ -1988,15 +1964,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "key",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
-            ],
-            "title": "key"
+            ]
           },
           "value": {
             "type": "string",
@@ -2049,15 +2024,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value"
               }
-            ],
-            "title": "value"
+            ]
           }
         },
         "title": "Sint64MapEntry",
@@ -2070,15 +2044,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "key",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
-            ],
-            "title": "key"
+            ]
           },
           "value": {
             "type": "string",
@@ -2159,11 +2132,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value"
               }
             ],
             "title": "value"
@@ -2179,11 +2152,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "key"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
             ],
             "title": "key"
@@ -2299,15 +2272,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "int64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "int64_value"
               }
-            ],
-            "title": "int64_value"
+            ]
           },
           "uint32Value": {
             "type": "integer",
@@ -2317,11 +2289,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "uint64_value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "uint64_value"
               }
             ],
             "title": "uint64_value"
@@ -2335,15 +2307,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "sint64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "sint64_value"
               }
-            ],
-            "title": "sint64_value"
+            ]
           },
           "fixed32Value": {
             "type": "integer",
@@ -2353,11 +2324,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "fixed64_value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "fixed64_value"
               }
             ],
             "title": "fixed64_value"
@@ -2371,15 +2342,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "sfixed64_value",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "sfixed64_value"
               }
-            ],
-            "title": "sfixed64_value"
+            ]
           },
           "boolValue": {
             "type": "boolean",

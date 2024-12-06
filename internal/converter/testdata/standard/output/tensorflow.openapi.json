@@ -823,31 +823,31 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "requested_bytes",
+                "format": "int64",
+                "description": "Total number of bytes requested"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "requested_bytes",
+                "description": "Total number of bytes requested"
               }
-            ],
-            "title": "requested_bytes",
-            "description": "Total number of bytes requested"
+            ]
           },
           "allocatedBytes": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "allocated_bytes",
+                "format": "int64",
+                "description": "Total number of bytes allocated if known"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "allocated_bytes",
+                "description": "Total number of bytes allocated if known"
               }
-            ],
-            "title": "allocated_bytes",
-            "description": "Total number of bytes allocated if known"
+            ]
           },
           "allocatorName": {
             "type": "string",
@@ -858,16 +858,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "allocation_id",
+                "format": "int64",
+                "description": "Identifier of the allocated buffer if known"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "allocation_id",
+                "description": "Identifier of the allocated buffer if known"
               }
-            ],
-            "title": "allocation_id",
-            "description": "Identifier of the allocated buffer if known"
+            ]
           },
           "hasSingleReference": {
             "type": "boolean",
@@ -878,15 +878,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "ptr",
+                "description": "Address of the allocation."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "ptr",
+                "description": "Address of the allocation."
               }
             ],
-            "title": "ptr",
-            "description": "Address of the allocation."
+            "title": "ptr"
           }
         },
         "title": "AllocationDescription",
@@ -899,31 +900,31 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "alloc_micros",
+                "format": "int64",
+                "description": "The timestamp of the operation."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "alloc_micros",
+                "description": "The timestamp of the operation."
               }
-            ],
-            "title": "alloc_micros",
-            "description": "The timestamp of the operation."
+            ]
           },
           "allocBytes": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "alloc_bytes",
+                "format": "int64",
+                "description": "Number of bytes allocated, or de-allocated if negative."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "alloc_bytes",
+                "description": "Number of bytes allocated, or de-allocated if negative."
               }
-            ],
-            "title": "alloc_bytes",
-            "description": "Number of bytes allocated, or de-allocated if negative."
+            ]
           }
         },
         "title": "AllocationRecord",
@@ -941,45 +942,44 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "total_bytes",
+                "format": "int64",
+                "description": "These are per-node allocator memory stats."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "total_bytes",
+                "description": "These are per-node allocator memory stats."
               }
-            ],
-            "title": "total_bytes",
-            "description": "These are per-node allocator memory stats."
+            ]
           },
           "peakBytes": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "peak_bytes",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "peak_bytes"
               }
-            ],
-            "title": "peak_bytes"
+            ]
           },
           "liveBytes": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "live_bytes",
+                "format": "int64",
+                "description": "The bytes that are not deallocated."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "live_bytes",
+                "description": "The bytes that are not deallocated."
               }
-            ],
-            "title": "live_bytes",
-            "description": "The bytes that are not deallocated."
+            ]
           },
           "allocationRecords": {
             "type": "array",
@@ -993,16 +993,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "allocator_bytes_in_use",
+                "format": "int64",
+                "description": "These are snapshots of the overall allocator memory stats.\n The number of live bytes currently allocated by the allocator."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "allocator_bytes_in_use",
+                "description": "These are snapshots of the overall allocator memory stats.\n The number of live bytes currently allocated by the allocator."
               }
-            ],
-            "title": "allocator_bytes_in_use",
-            "description": "These are snapshots of the overall allocator memory stats.\n The number of live bytes currently allocated by the allocator."
+            ]
           }
         },
         "title": "AllocatorMemoryUsed",
@@ -1241,16 +1241,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "i",
+                "format": "int64",
+                "description": "\"int\""
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "i",
+                "description": "\"int\""
               }
-            ],
-            "title": "i",
-            "description": "\"int\""
+            ]
           },
           "f": {
             "type": "number",
@@ -1346,12 +1346,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -1652,16 +1650,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "operation_timeout_in_ms",
+                "format": "int64",
+                "description": "Global timeout for all blocking operations in this session.  If non-zero,\n and not overridden on a per-operation basis, this value will be used as the\n deadline for all blocking operations."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "operation_timeout_in_ms",
+                "description": "Global timeout for all blocking operations in this session.  If non-zero,\n and not overridden on a per-operation basis, this value will be used as the\n deadline for all blocking operations."
               }
-            ],
-            "title": "operation_timeout_in_ms",
-            "description": "Global timeout for all blocking operations in this session.  If non-zero,\n and not overridden on a per-operation basis, this value will be used as the\n deadline for all blocking operations."
+            ]
           },
           "rpcOptions": {
             "allOf": [
@@ -1821,16 +1819,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "xla_fusion_autotuner_thresh",
+                "format": "int64",
+                "description": "Minimum number of batches run through the XLA graph before XLA fusion\n autotuner is enabled. Default value of zero disables the autotuner.\n\n The XLA fusion autotuner can improve performance by executing a heuristic\n search on the compiler parameters."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "xla_fusion_autotuner_thresh",
+                "description": "Minimum number of batches run through the XLA graph before XLA fusion\n autotuner is enabled. Default value of zero disables the autotuner.\n\n The XLA fusion autotuner can improve performance by executing a heuristic\n search on the compiler parameters."
               }
-            ],
-            "title": "xla_fusion_autotuner_thresh",
-            "description": "Minimum number of batches run through the XLA graph before XLA fusion\n autotuner is enabled. Default value of zero disables the autotuner.\n\n The XLA fusion autotuner can improve performance by executing a heuristic\n search on the compiler parameters."
+            ]
           },
           "useTfrt": {
             "type": "boolean",
@@ -1907,31 +1905,31 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "cluster_register_timeout_in_ms",
+                "format": "int64",
+                "description": "Maximum wait time for all members in the cluster to be registered."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "cluster_register_timeout_in_ms",
+                "description": "Maximum wait time for all members in the cluster to be registered."
               }
-            ],
-            "title": "cluster_register_timeout_in_ms",
-            "description": "Maximum wait time for all members in the cluster to be registered."
+            ]
           },
           "heartbeatTimeoutInMs": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "heartbeat_timeout_in_ms",
+                "format": "int64",
+                "description": "Heartbeat timeout, if a task does not record heartbeat in this time\n window, it will be considered disconnected.\n Note: This is also used as a grace period to accept any heartbeats after\n the agent has disconnected, to account for the lag time between the service\n recording the state change and the agent stopping heartbeats."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "heartbeat_timeout_in_ms",
+                "description": "Heartbeat timeout, if a task does not record heartbeat in this time\n window, it will be considered disconnected.\n Note: This is also used as a grace period to accept any heartbeats after\n the agent has disconnected, to account for the lag time between the service\n recording the state change and the agent stopping heartbeats."
               }
-            ],
-            "title": "heartbeat_timeout_in_ms",
-            "description": "Heartbeat timeout, if a task does not record heartbeat in this time\n window, it will be considered disconnected.\n Note: This is also used as a grace period to accept any heartbeats after\n the agent has disconnected, to account for the lag time between the service\n recording the state change and the agent stopping heartbeats."
+            ]
           },
           "coordinatedJobList": {
             "type": "array",
@@ -1944,16 +1942,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "shutdown_barrier_timeout_in_ms",
+                "format": "int64",
+                "description": "Denotes how long to wait for all coordination agents to reach the barriers\n (after the first shutdown request) before disconnecting together. If\n set to 0, no barrier is imposed upon shutdown and each worker can\n disconnect individually."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "shutdown_barrier_timeout_in_ms",
+                "description": "Denotes how long to wait for all coordination agents to reach the barriers\n (after the first shutdown request) before disconnecting together. If\n set to 0, no barrier is imposed upon shutdown and each worker can\n disconnect individually."
               }
-            ],
-            "title": "shutdown_barrier_timeout_in_ms",
-            "description": "Denotes how long to wait for all coordination agents to reach the barriers\n (after the first shutdown request) before disconnecting together. If\n set to 0, no barrier is imposed upon shutdown and each worker can\n disconnect individually."
+            ]
           },
           "agentDestructionWithoutShutdown": {
             "type": "boolean",
@@ -2055,118 +2053,115 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "temporary_memory_size",
+                "format": "int64",
+                "description": "Temporary memory used by this node."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "temporary_memory_size",
+                "description": "Temporary memory used by this node."
               }
-            ],
-            "title": "temporary_memory_size",
-            "description": "Temporary memory used by this node."
+            ]
           },
           "persistentMemorySize": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "persistent_memory_size",
+                "format": "int64",
+                "description": "Persistent memory used by this node."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "persistent_memory_size",
+                "description": "Persistent memory used by this node."
               }
-            ],
-            "title": "persistent_memory_size",
-            "description": "Persistent memory used by this node."
+            ]
           },
           "hostTempMemorySize": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "host_temp_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "host_temp_memory_size"
               }
-            ],
-            "title": "host_temp_memory_size"
+            ]
           },
           "deviceTempMemorySize": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "device_temp_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "device_temp_memory_size"
               }
-            ],
-            "title": "device_temp_memory_size"
+            ]
           },
           "devicePersistentMemorySize": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "device_persistent_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "device_persistent_memory_size"
               }
-            ],
-            "title": "device_persistent_memory_size"
+            ]
           },
           "computeCost": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "compute_cost",
+                "format": "int64",
+                "description": "Estimate of the computational cost of this node, in microseconds."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "compute_cost",
+                "description": "Estimate of the computational cost of this node, in microseconds."
               }
-            ],
-            "title": "compute_cost",
-            "description": "Estimate of the computational cost of this node, in microseconds."
+            ]
           },
           "computeTime": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "compute_time",
+                "format": "int64",
+                "description": "Analytical estimate of the computational cost of this node, in\n microseconds."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "compute_time",
+                "description": "Analytical estimate of the computational cost of this node, in\n microseconds."
               }
-            ],
-            "title": "compute_time",
-            "description": "Analytical estimate of the computational cost of this node, in\n microseconds."
+            ]
           },
           "memoryTime": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "memory_time",
+                "format": "int64",
+                "description": "Analytical estimate of the memory access cost of this node, in\n microseconds."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "memory_time",
+                "description": "Analytical estimate of the memory access cost of this node, in\n microseconds."
               }
-            ],
-            "title": "memory_time",
-            "description": "Analytical estimate of the memory access cost of this node, in\n microseconds."
+            ]
           },
           "isFinal": {
             "type": "boolean",
@@ -2216,30 +2211,29 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "size"
               }
-            ],
-            "title": "size"
+            ]
           },
           "aliasInputPort": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "alias_input_port",
+                "format": "int64",
+                "description": "If \u003e= 0, the output is an alias of an input. Note that an alias input\n may itself be an alias. The algorithm will therefore need to follow\n those pointers."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "alias_input_port",
+                "description": "If \u003e= 0, the output is an alias of an input. Note that an alias input\n may itself be an alias. The algorithm will therefore need to follow\n those pointers."
               }
-            ],
-            "title": "alias_input_port",
-            "description": "If \u003e= 0, the output is an alias of an input. Note that an alias input\n may itself be an alias. The algorithm will therefore need to follow\n those pointers."
+            ]
           },
           "shape": {
             "allOf": [
@@ -2312,16 +2306,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "graph_version",
+                "format": "int64",
+                "description": "The initial version number for the graph, to be used in the next call\n to ExtendSession."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "graph_version",
+                "description": "The initial version number for the graph, to be used in the next call\n to ExtendSession."
               }
-            ],
-            "title": "graph_version",
-            "description": "The initial version number for the graph, to be used in the next call\n to ExtendSession."
+            ]
           }
         },
         "title": "CreateSessionResponse",
@@ -2342,16 +2336,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "global_step",
+                "format": "int64",
+                "description": "Caller-specified global step count.\n Note that this is distinct from the session run count and the executor\n step count."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "global_step",
+                "description": "Caller-specified global step count.\n Note that this is distinct from the session run count and the executor\n step count."
               }
-            ],
-            "title": "global_step",
-            "description": "Caller-specified global step count.\n Note that this is distinct from the session run count and the executor\n step count."
+            ]
           },
           "resetDiskByteUsage": {
             "type": "boolean",
@@ -2420,16 +2414,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "memory_limit",
+                "format": "int64",
+                "description": "Memory capacity of device in bytes."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "memory_limit",
+                "description": "Memory capacity of device in bytes."
               }
-            ],
-            "title": "memory_limit",
-            "description": "Memory capacity of device in bytes."
+            ]
           },
           "locality": {
             "allOf": [
@@ -2446,15 +2440,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "incarnation",
+                "description": "A device is assigned a global unique number each time it is\n initialized. \"incarnation\" should never be 0."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "incarnation",
+                "description": "A device is assigned a global unique number each time it is\n initialized. \"incarnation\" should never be 0."
               }
             ],
-            "title": "incarnation",
-            "description": "A device is assigned a global unique number each time it is\n initialized. \"incarnation\" should never be 0."
+            "title": "incarnation"
           },
           "physicalDeviceDesc": {
             "type": "string",
@@ -2465,16 +2460,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "xla_global_id",
+                "format": "int64",
+                "description": "A physical device ID for use in XLA DeviceAssignments, unique across\n clients in a multi-client setup. Set to -1 if unavailable, non-negative\n otherwise."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "xla_global_id",
+                "description": "A physical device ID for use in XLA DeviceAssignments, unique across\n clients in a multi-client setup. Set to -1 if unavailable, non-negative\n otherwise."
               }
-            ],
-            "title": "xla_global_id",
-            "description": "A physical device ID for use in XLA DeviceAssignments, unique across\n clients in a multi-client setup. Set to -1 if unavailable, non-negative\n otherwise."
+            ]
           }
         },
         "title": "DeviceAttributes",
@@ -2575,16 +2570,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "current_graph_version",
+                "format": "int64",
+                "description": "REQUIRED: The version number of the graph to be extended. This will be\n tested against the current server-side version number, and the operation\n will fail with FAILED_PRECONDITION if they do not match."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "current_graph_version",
+                "description": "REQUIRED: The version number of the graph to be extended. This will be\n tested against the current server-side version number, and the operation\n will fail with FAILED_PRECONDITION if they do not match."
               }
-            ],
-            "title": "current_graph_version",
-            "description": "REQUIRED: The version number of the graph to be extended. This will be\n tested against the current server-side version number, and the operation\n will fail with FAILED_PRECONDITION if they do not match."
+            ]
           }
         },
         "title": "ExtendSessionRequest",
@@ -2597,16 +2592,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "new_graph_version",
+                "format": "int64",
+                "description": "The new version number for the extended graph, to be used in the next call\n to ExtendSession."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "new_graph_version",
+                "description": "The new version number for the extended graph, to be used in the next call\n to ExtendSession."
               }
-            ],
-            "title": "new_graph_version",
-            "description": "The new version number for the extended graph, to be used in the next call\n to ExtendSession."
+            ]
           }
         },
         "title": "ExtendSessionResponse",
@@ -2702,16 +2697,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "i",
+                "format": "int64",
+                "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "i",
+                "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
               }
-            ],
-            "title": "i",
-            "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
+            ]
           }
         },
         "title": "FullTypeDef",
@@ -2983,16 +2978,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "deferred_deletion_bytes",
+                "format": "int64",
+                "description": "Delay deletion of up to this many bytes to reduce the number of\n interactions with gpu driver code.  If 0, the system chooses\n a reasonable default (several MBs)."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "deferred_deletion_bytes",
+                "description": "Delay deletion of up to this many bytes to reduce the number of\n interactions with gpu driver code.  If 0, the system chooses\n a reasonable default (several MBs)."
               }
-            ],
-            "title": "deferred_deletion_bytes",
-            "description": "Delay deletion of up to this many bytes to reduce the number of\n interactions with gpu driver code.  If 0, the system chooses\n a reasonable default (several MBs)."
+            ]
           },
           "visibleDeviceList": {
             "type": "string",
@@ -3227,11 +3222,11 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer"
+                  "title": "value"
                 },
                 {
                   "type": "string",
-                  "title": "string"
+                  "title": "value"
                 }
               ],
               "title": "value"
@@ -3285,11 +3280,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "key"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
             ],
             "title": "key"
@@ -3319,11 +3314,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "value"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "value"
               }
             ],
             "title": "value"
@@ -3348,12 +3343,10 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "integer",
-                  "title": "integer"
+                  "type": "integer"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -3371,11 +3364,11 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "key"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "key"
               }
             ],
             "title": "key"
@@ -3492,31 +3485,31 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "build_cost_model",
+                "format": "int64",
+                "description": "The number of steps to run before returning a cost model detailing\n the memory usage and performance of each node of the graph. 0 means\n no cost model."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "build_cost_model",
+                "description": "The number of steps to run before returning a cost model detailing\n the memory usage and performance of each node of the graph. 0 means\n no cost model."
               }
-            ],
-            "title": "build_cost_model",
-            "description": "The number of steps to run before returning a cost model detailing\n the memory usage and performance of each node of the graph. 0 means\n no cost model."
+            ]
           },
           "buildCostModelAfter": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "build_cost_model_after",
+                "format": "int64",
+                "description": "The number of steps to skip before collecting statistics for the\n cost model."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "build_cost_model_after",
+                "description": "The number of steps to skip before collecting statistics for the\n cost model."
               }
-            ],
-            "title": "build_cost_model_after",
-            "description": "The number of steps to skip before collecting statistics for the\n cost model."
+            ]
           },
           "inferShapes": {
             "type": "boolean",
@@ -3683,16 +3676,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "request_id",
+                "format": "int64",
+                "description": "Unique identifier for this request. Every MakeCallableRequest must\n have a unique request_id, and retried MakeCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "request_id",
+                "description": "Unique identifier for this request. Every MakeCallableRequest must\n have a unique request_id, and retried MakeCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               }
-            ],
-            "title": "request_id",
-            "description": "Unique identifier for this request. Every MakeCallableRequest must\n have a unique request_id, and retried MakeCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+            ]
           }
         },
         "title": "MakeCallableRequest",
@@ -3705,16 +3698,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "handle",
+                "format": "int64",
+                "description": "A handle to the created callable."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "handle",
+                "description": "A handle to the created callable."
               }
-            ],
-            "title": "handle",
-            "description": "A handle to the created callable."
+            ]
           }
         },
         "title": "MakeCallableResponse",
@@ -3727,29 +3720,27 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "temp_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "temp_memory_size"
               }
-            ],
-            "title": "temp_memory_size"
+            ]
           },
           "persistentMemorySize": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "persistent_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "persistent_memory_size"
               }
-            ],
-            "title": "persistent_memory_size"
+            ]
           },
           "persistentTensorAllocIds": {
             "type": "array",
@@ -3757,12 +3748,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -3772,29 +3761,27 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "device_temp_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "device_temp_memory_size"
               }
-            ],
-            "title": "device_temp_memory_size"
+            ]
           },
           "devicePersistentMemorySize": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "device_persistent_memory_size",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "device_persistent_memory_size"
               }
-            ],
-            "title": "device_persistent_memory_size"
+            ]
           },
           "devicePersistentTensorAllocIds": {
             "type": "array",
@@ -3802,12 +3789,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -4012,57 +3997,53 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "all_start_micros",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "all_start_micros"
               }
-            ],
-            "title": "all_start_micros"
+            ]
           },
           "opStartRelMicros": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "op_start_rel_micros",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "op_start_rel_micros"
               }
-            ],
-            "title": "op_start_rel_micros"
+            ]
           },
           "opEndRelMicros": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "op_end_rel_micros",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "op_end_rel_micros"
               }
-            ],
-            "title": "op_end_rel_micros"
+            ]
           },
           "allEndRelMicros": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "all_end_rel_micros",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "all_end_rel_micros"
               }
-            ],
-            "title": "all_end_rel_micros"
+            ]
           },
           "memory": {
             "type": "array",
@@ -4086,15 +4067,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "scheduled_micros",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "scheduled_micros"
               }
-            ],
-            "title": "scheduled_micros"
+            ]
           },
           "threadId": {
             "type": "integer",
@@ -4121,71 +4101,66 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "all_start_nanos",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "all_start_nanos"
               }
-            ],
-            "title": "all_start_nanos"
+            ]
           },
           "opStartRelNanos": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "op_start_rel_nanos",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "op_start_rel_nanos"
               }
-            ],
-            "title": "op_start_rel_nanos"
+            ]
           },
           "opEndRelNanos": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "op_end_rel_nanos",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "op_end_rel_nanos"
               }
-            ],
-            "title": "op_end_rel_nanos"
+            ]
           },
           "allEndRelNanos": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "all_end_rel_nanos",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "all_end_rel_nanos"
               }
-            ],
-            "title": "all_end_rel_nanos"
+            ]
           },
           "scheduledNanos": {
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "scheduled_nanos",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "scheduled_nanos"
               }
-            ],
-            "title": "scheduled_nanos"
+            ]
           }
         },
         "title": "NodeExecStats",
@@ -4411,15 +4386,14 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
+                "title": "minimum",
                 "format": "int64"
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "minimum"
               }
-            ],
-            "title": "minimum"
+            ]
           },
           "allowedValues": {
             "allOf": [
@@ -4473,16 +4447,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "max_folded_constant_in_bytes",
+                "format": "int64",
+                "description": "Constant folding optimization replaces tensors whose values can be\n predetermined, with constant nodes. To avoid inserting too large constants,\n the size of each constant created can be limited. If this value is zero, a\n default limit of 10 MiB will be applied. If constant folding optimization\n is disabled, this value is ignored."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "max_folded_constant_in_bytes",
+                "description": "Constant folding optimization replaces tensors whose values can be\n predetermined, with constant nodes. To avoid inserting too large constants,\n the size of each constant created can be limited. If this value is zero, a\n default limit of 10 MiB will be applied. If constant folding optimization\n is disabled, this value is ignored."
               }
-            ],
-            "title": "max_folded_constant_in_bytes",
-            "description": "Constant folding optimization replaces tensors whose values can be\n predetermined, with constant nodes. To avoid inserting too large constants,\n the size of each constant created can be limited. If this value is zero, a\n default limit of 10 MiB will be applied. If constant folding optimization\n is disabled, this value is ignored."
+            ]
           },
           "doFunctionInlining": {
             "type": "boolean",
@@ -4556,16 +4530,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "request_id",
+                "format": "int64",
+                "description": "Unique identifier for this request. Every PartialRunSetupRequest must\n have a unique request_id, and retried PartialRunSetupRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "request_id",
+                "description": "Unique identifier for this request. Every PartialRunSetupRequest must\n have a unique request_id, and retried PartialRunSetupRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               }
-            ],
-            "title": "request_id",
-            "description": "Unique identifier for this request. Every PartialRunSetupRequest must\n have a unique request_id, and retried PartialRunSetupRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+            ]
           }
         },
         "title": "PartialRunSetupRequest",
@@ -4653,16 +4627,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "handle",
+                "format": "int64",
+                "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "handle",
+                "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
               }
-            ],
-            "title": "handle",
-            "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
+            ]
           }
         },
         "title": "ReleaseCallableRequest",
@@ -4724,15 +4698,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer"
+                "title": "hash_code",
+                "description": "Hash code for the type of the resource. Is only valid in the same device\n and in the same execution."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "hash_code",
+                "description": "Hash code for the type of the resource. Is only valid in the same device\n and in the same execution."
               }
             ],
-            "title": "hash_code",
-            "description": "Hash code for the type of the resource. Is only valid in the same device\n and in the same execution."
+            "title": "hash_code"
           },
           "maybeTypeName": {
             "type": "string",
@@ -5065,16 +5040,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "meta_optimizer_timeout_ms",
+                "format": "int64",
+                "description": "Maximum number of milliseconds to spend optimizing a single graph before\n timing out. If less than or equal to 0 (default value) the optimizer will\n never time out."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "meta_optimizer_timeout_ms",
+                "description": "Maximum number of milliseconds to spend optimizing a single graph before\n timing out. If less than or equal to 0 (default value) the optimizer will\n never time out."
               }
-            ],
-            "title": "meta_optimizer_timeout_ms",
-            "description": "Maximum number of milliseconds to spend optimizing a single graph before\n timing out. If less than or equal to 0 (default value) the optimizer will\n never time out."
+            ]
           },
           "autoParallel": {
             "allOf": [
@@ -5204,16 +5179,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "handle",
+                "format": "int64",
+                "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "handle",
+                "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
               }
-            ],
-            "title": "handle",
-            "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
+            ]
           },
           "feed": {
             "type": "array",
@@ -5227,16 +5202,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "request_id",
+                "format": "int64",
+                "description": "Unique identifier for this request. Every RunCallableRequest must\n have a unique request_id, and retried RunCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "request_id",
+                "description": "Unique identifier for this request. Every RunCallableRequest must\n have a unique request_id, and retried RunCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               }
-            ],
-            "title": "request_id",
-            "description": "Unique identifier for this request. Every RunCallableRequest must\n have a unique request_id, and retried RunCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+            ]
           }
         },
         "title": "RunCallableRequest",
@@ -5377,16 +5352,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "timeout_in_ms",
+                "format": "int64",
+                "description": "Time to wait for operation to complete in milliseconds."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "timeout_in_ms",
+                "description": "Time to wait for operation to complete in milliseconds."
               }
-            ],
-            "title": "timeout_in_ms",
-            "description": "Time to wait for operation to complete in milliseconds."
+            ]
           },
           "interOpThreadPool": {
             "type": "integer",
@@ -5437,16 +5412,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "collective_graph_key",
+                "format": "int64",
+                "description": "If non-zero, declares that this graph is going to use collective\n ops and must synchronize step_ids with any other graph with this\n same group_key value (in a distributed computation where tasks\n run disjoint graphs)."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "collective_graph_key",
+                "description": "If non-zero, declares that this graph is going to use collective\n ops and must synchronize step_ids with any other graph with this\n same group_key value (in a distributed computation where tasks\n run disjoint graphs)."
               }
-            ],
-            "title": "collective_graph_key",
-            "description": "If non-zero, declares that this graph is going to use collective\n ops and must synchronize step_ids with any other graph with this\n same group_key value (in a distributed computation where tasks\n run disjoint graphs)."
+            ]
           },
           "useRunHandlerPool": {
             "type": "boolean",
@@ -5475,16 +5450,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "priority",
+                "format": "int64",
+                "description": "Priority of the request. The run handler thread pool will schedule ops\n based on the priority number. The larger number means higher priority."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "priority",
+                "description": "Priority of the request. The run handler thread pool will schedule ops\n based on the priority number. The larger number means higher priority."
               }
-            ],
-            "title": "priority",
-            "description": "Priority of the request. The run handler thread pool will schedule ops\n based on the priority number. The larger number means higher priority."
+            ]
           }
         },
         "title": "RunHandlerPoolOptions",
@@ -5548,16 +5523,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "request_id",
+                "format": "int64",
+                "description": "Unique identifier for this request. Every RunStepRequest must\n have a unique request_id, and retried RunStepRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "request_id",
+                "description": "Unique identifier for this request. Every RunStepRequest must\n have a unique request_id, and retried RunStepRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
               }
-            ],
-            "title": "request_id",
-            "description": "Unique identifier for this request. Every RunStepRequest must\n have a unique request_id, and retried RunStepRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
+            ]
           }
         },
         "title": "RunStepRequest",
@@ -5630,16 +5605,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "version",
+                "format": "int64",
+                "description": "The version is optional. If set, needs to be \u003e= 0."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "version",
+                "description": "The version is optional. If set, needs to be \u003e= 0."
               }
-            ],
-            "title": "version",
-            "description": "The version is optional. If set, needs to be \u003e= 0."
+            ]
           }
         },
         "title": "SessionMetadata",
@@ -5814,12 +5789,10 @@
               "oneOf": [
                 {
                   "type": "integer",
-                  "title": "integer",
                   "format": "int64"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -5872,12 +5845,10 @@
             "items": {
               "oneOf": [
                 {
-                  "type": "integer",
-                  "title": "integer"
+                  "type": "integer"
                 },
                 {
-                  "type": "string",
-                  "title": "string"
+                  "type": "string"
                 }
               ]
             },
@@ -5923,16 +5894,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "size",
+                "format": "int64",
+                "description": "Size of the tensor in that dimension.\n This value must be \u003e= -1, but values of -1 are reserved for \"unknown\"\n shapes (values of -1 mean \"unknown\" dimension).  Certain wrappers\n that work with TensorShapeProto may fail at runtime when deserializing\n a TensorShapeProto containing a dim value of -1."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "size",
+                "description": "Size of the tensor in that dimension.\n This value must be \u003e= -1, but values of -1 are reserved for \"unknown\"\n shapes (values of -1 mean \"unknown\" dimension).  Certain wrappers\n that work with TensorShapeProto may fail at runtime when deserializing\n a TensorShapeProto containing a dim value of -1."
               }
-            ],
-            "title": "size",
-            "description": "Size of the tensor in that dimension.\n This value must be \u003e= -1, but values of -1 are reserved for \"unknown\"\n shapes (values of -1 mean \"unknown\" dimension).  Certain wrappers\n that work with TensorShapeProto may fail at runtime when deserializing\n a TensorShapeProto containing a dim value of -1."
+            ]
           },
           "name": {
             "type": "string",
@@ -5996,16 +5967,16 @@
             "oneOf": [
               {
                 "type": "integer",
-                "title": "integer",
-                "format": "int64"
+                "title": "verification_timeout_in_ms",
+                "format": "int64",
+                "description": "Deadline for completion of all verification i.e. all the Toggle ON\n verifiers must complete execution within this time."
               },
               {
                 "type": "string",
-                "title": "string"
+                "title": "verification_timeout_in_ms",
+                "description": "Deadline for completion of all verification i.e. all the Toggle ON\n verifiers must complete execution within this time."
               }
-            ],
-            "title": "verification_timeout_in_ms",
-            "description": "Deadline for completion of all verification i.e. all the Toggle ON\n verifiers must complete execution within this time."
+            ]
           },
           "structureVerifier": {
             "allOf": [

@@ -15,7 +15,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
+      - ".*Reason: got number, want string, Location: /properties/name/type.*"
 
   - name: "hello-wrong-key"
     method: GET
@@ -25,7 +25,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
+      - ".*additional properties 'nane' not allowed, Location: /additionalProperties.*"
 
   - name: "hello-with-extra-keys"
     method: GET
@@ -35,7 +35,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*additionalProperties 'extra' not allowed, Location: /additionalProperties.*"
+      - ".*additional properties 'extra' not allowed, Location: /additionalProperties.*"
 
   - name: "writehello"
     path: "helloworld.Greeter/WriteHello"
@@ -51,7 +51,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*Reason: expected string, but got number, Location: /properties/name/type.*"
+      - ".*Reason: got number, want string, Location: /properties/name/type.*"
 
   - name: "writehello-wrong-key"
     path: "helloworld.Greeter/WriteHello"
@@ -60,7 +60,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*additionalProperties 'nane' not allowed, Location: /additionalProperties.*"
+      - ".*additional properties 'nane' not allowed, Location: /additionalProperties.*"
 
   - name: "writehello-with-extra-keys"
     path: "helloworld.Greeter/WriteHello"
@@ -69,4 +69,4 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*additionalProperties 'extra' not allowed, Location: /additionalProperties.*"
+      - ".*additional properties 'extra' not allowed, Location: /additionalProperties.*"

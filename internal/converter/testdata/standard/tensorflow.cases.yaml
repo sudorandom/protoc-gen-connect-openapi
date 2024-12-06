@@ -22,7 +22,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*expected string, but got number, Location: /properties/sessionHandle/type.*"
+      - ".*got number, want string, Location: /properties/sessionHandle/type.*"
 
   - name: "list-devices-with-null"
     path: "tensorflowtest.MasterService/ListDevices"
@@ -31,7 +31,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*expected string, but got null, Location: /properties/sessionHandle/type.*"
+      - ".*got null, want string, Location: /properties/sessionHandle/type.*"
 
   - name: "list-devices-with-array"
     path: "tensorflowtest.MasterService/ListDevices"
@@ -40,7 +40,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*expected string, but got array, Location: /properties/sessionHandle/type.*"
+      - ".*got array, want string, Location: /properties/sessionHandle/type.*"
 
   - name: "make-callable-with-empty"
     path: "tensorflowtest.MasterService/MakeCallable"

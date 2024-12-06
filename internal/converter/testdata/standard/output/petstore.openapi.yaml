@@ -15,11 +15,10 @@ paths:
           schema:
             oneOf:
               - type: integer
-                title: integer
+                title: pet_id
                 format: int64
               - type: string
-                title: string
-            title: pet_id
+                title: pet_id
       responses:
         default:
           description: Error
@@ -45,11 +44,10 @@ paths:
           schema:
             oneOf:
               - type: integer
-                title: integer
+                title: pet_id
                 format: int64
               - type: string
-                title: string
-            title: pet_id
+                title: pet_id
       requestBody:
         content:
           application/json:
@@ -90,11 +88,10 @@ paths:
           schema:
             oneOf:
               - type: integer
-                title: integer
+                title: pet_id
                 format: int64
               - type: string
-                title: string
-            title: pet_id
+                title: pet_id
       responses:
         default:
           description: Error
@@ -121,11 +118,10 @@ paths:
           schema:
             oneOf:
               - type: integer
-                title: integer
+                title: pet_id
                 format: int64
               - type: string
-                title: string
-            title: pet_id
+                title: pet_id
       requestBody:
         content:
           application/json:
@@ -302,11 +298,10 @@ components:
         id:
           oneOf:
             - type: integer
-              title: integer
+              title: id
               format: int64
             - type: string
-              title: string
-          title: id
+              title: id
         name:
           type: string
           title: name
@@ -318,11 +313,10 @@ components:
         id:
           oneOf:
             - type: integer
-              title: integer
+              title: id
               format: int64
             - type: string
-              title: string
-          title: id
+              title: id
         category:
           allOf:
             - title: category
@@ -351,11 +345,10 @@ components:
         petId:
           oneOf:
             - type: integer
-              title: integer
+              title: pet_id
               format: int64
             - type: string
-              title: string
-          title: pet_id
+              title: pet_id
         body:
           type: string
           title: body
@@ -367,11 +360,10 @@ components:
         petId:
           oneOf:
             - type: integer
-              title: integer
+              title: pet_id
               format: int64
             - type: string
-              title: string
-          title: pet_id
+              title: pet_id
       title: PetID
       additionalProperties: false
     io.swagger.petstore.v2.Pets:
@@ -400,11 +392,10 @@ components:
         id:
           oneOf:
             - type: integer
-              title: integer
+              title: id
               format: int64
             - type: string
-              title: string
-          title: id
+              title: id
         name:
           type: string
           title: name
@@ -426,11 +417,10 @@ components:
         petId:
           oneOf:
             - type: integer
-              title: integer
+              title: pet_id
               format: int64
             - type: string
-              title: string
-          title: pet_id
+              title: pet_id
         name:
           type: string
           title: name
@@ -445,11 +435,10 @@ components:
         petId:
           oneOf:
             - type: integer
-              title: integer
+              title: pet_id
               format: int64
             - type: string
-              title: string
-          title: pet_id
+              title: pet_id
         additionalMetadata:
           type: string
           title: additional_metadata

@@ -522,11 +522,12 @@ components:
         value:
           oneOf:
             - type: integer
-              title: integer
+              title: value
+              description: The uint64 value. (proto uint64)
             - type: string
-              title: string
+              title: value
+              description: The uint64 value. (proto uint64)
           title: value
-          description: The uint64 value. (proto uint64)
       title: UInt64Value
       additionalProperties: false
       description: |-
@@ -761,12 +762,12 @@ components:
         int64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: int64_value
               format: int64
+              description: (proto int64)
             - type: string
-              title: string
-          title: int64_value
-          description: (proto int64)
+              title: int64_value
+              description: (proto int64)
         uint32Value:
           type: integer
           title: uint32_value
@@ -774,11 +775,12 @@ components:
         uint64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: uint64_value
+              description: (proto uint64)
             - type: string
-              title: string
+              title: uint64_value
+              description: (proto uint64)
           title: uint64_value
-          description: (proto uint64)
         sint32Value:
           type: integer
           title: sint32_value
@@ -787,12 +789,12 @@ components:
         sint64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: sint64_value
               format: int64
+              description: (proto sint64)
             - type: string
-              title: string
-          title: sint64_value
-          description: (proto sint64)
+              title: sint64_value
+              description: (proto sint64)
         fixed32Value:
           type: integer
           title: fixed32_value
@@ -800,11 +802,12 @@ components:
         fixed64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: fixed64_value
+              description: (proto fixed64)
             - type: string
-              title: string
+              title: fixed64_value
+              description: (proto fixed64)
           title: fixed64_value
-          description: (proto fixed64)
         sfixed32Value:
           type: integer
           title: sfixed32_value
@@ -813,12 +816,12 @@ components:
         sfixed64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: sfixed64_value
               format: int64
+              description: (proto sfixed64)
             - type: string
-              title: string
-          title: sfixed64_value
-          description: (proto sfixed64)
+              title: sfixed64_value
+              description: (proto sfixed64)
         boolValue:
           type: boolean
           title: bool_value
@@ -858,10 +861,8 @@ components:
           items:
             oneOf:
               - type: integer
-                title: integer
                 format: int64
               - type: string
-                title: string
           title: int64_list
           description: (proto int64)
         uint32List:
@@ -875,9 +876,7 @@ components:
           items:
             oneOf:
               - type: integer
-                title: integer
               - type: string
-                title: string
           title: uint64_list
           description: (proto uint64)
         sint32List:
@@ -892,10 +891,8 @@ components:
           items:
             oneOf:
               - type: integer
-                title: integer
                 format: int64
               - type: string
-                title: string
           title: sint64_list
           description: (proto sint64)
         fixed32List:
@@ -909,9 +906,7 @@ components:
           items:
             oneOf:
               - type: integer
-                title: integer
               - type: string
-                title: string
           title: fixed64_list
           description: (proto fixed64)
         sfixed32List:
@@ -926,10 +921,8 @@ components:
           items:
             oneOf:
               - type: integer
-                title: integer
                 format: int64
               - type: string
-                title: string
           title: sfixed64_list
           description: (proto sfixed64)
         boolList:
@@ -1080,12 +1073,12 @@ components:
           additionalProperties:
             oneOf:
               - type: integer
-                title: integer
+                title: value
                 format: int64
+                description: (proto int64)
               - type: string
-                title: string
-            title: value
-            description: (proto int64)
+                title: value
+                description: (proto int64)
           description: (proto with_proto_annotations.test.v1.AllTypes.Int64MapEntry)
         uint32Map:
           type: object
@@ -1101,11 +1094,12 @@ components:
           additionalProperties:
             oneOf:
               - type: integer
-                title: integer
+                title: value
+                description: (proto uint64)
               - type: string
-                title: string
+                title: value
+                description: (proto uint64)
             title: value
-            description: (proto uint64)
           description: (proto with_proto_annotations.test.v1.AllTypes.Uint64MapEntry)
         sint32Map:
           type: object
@@ -1122,12 +1116,12 @@ components:
           additionalProperties:
             oneOf:
               - type: integer
-                title: integer
+                title: value
                 format: int64
+                description: (proto sint64)
               - type: string
-                title: string
-            title: value
-            description: (proto sint64)
+                title: value
+                description: (proto sint64)
           description: (proto with_proto_annotations.test.v1.AllTypes.Sint64MapEntry)
         fixed32Map:
           type: object
@@ -1143,11 +1137,12 @@ components:
           additionalProperties:
             oneOf:
               - type: integer
-                title: integer
+                title: value
+                description: (proto fixed64)
               - type: string
-                title: string
+                title: value
+                description: (proto fixed64)
             title: value
-            description: (proto fixed64)
           description: (proto with_proto_annotations.test.v1.AllTypes.Fixed64MapEntry)
         sfixed32Map:
           type: object
@@ -1164,12 +1159,12 @@ components:
           additionalProperties:
             oneOf:
               - type: integer
-                title: integer
+                title: value
                 format: int64
+                description: (proto sfixed64)
               - type: string
-                title: string
-            title: value
-            description: (proto sfixed64)
+                title: value
+                description: (proto sfixed64)
           description: (proto with_proto_annotations.test.v1.AllTypes.Sfixed64MapEntry)
         boolMap:
           type: object
@@ -1214,12 +1209,12 @@ components:
         optInt64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: opt_int64_value
               format: int64
+              description: (proto int64)
             - type: string
-              title: string
-          title: opt_int64_value
-          description: (proto int64)
+              title: opt_int64_value
+              description: (proto int64)
         optUint32Value:
           type: integer
           title: opt_uint32_value
@@ -1227,11 +1222,12 @@ components:
         optUint64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: opt_uint64_value
+              description: (proto uint64)
             - type: string
-              title: string
+              title: opt_uint64_value
+              description: (proto uint64)
           title: opt_uint64_value
-          description: (proto uint64)
         optSint32Value:
           type: integer
           title: opt_sint32_value
@@ -1240,12 +1236,12 @@ components:
         optSint64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: opt_sint64_value
               format: int64
+              description: (proto sint64)
             - type: string
-              title: string
-          title: opt_sint64_value
-          description: (proto sint64)
+              title: opt_sint64_value
+              description: (proto sint64)
         optFixed32Value:
           type: integer
           title: opt_fixed32_value
@@ -1253,11 +1249,12 @@ components:
         optFixed64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: opt_fixed64_value
+              description: (proto fixed64)
             - type: string
-              title: string
+              title: opt_fixed64_value
+              description: (proto fixed64)
           title: opt_fixed64_value
-          description: (proto fixed64)
         optSfixed32Value:
           type: integer
           title: opt_sfixed32_value
@@ -1266,12 +1263,12 @@ components:
         optSfixed64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: opt_sfixed64_value
               format: int64
+              description: (proto sfixed64)
             - type: string
-              title: string
-          title: opt_sfixed64_value
-          description: (proto sfixed64)
+              title: opt_sfixed64_value
+              description: (proto sfixed64)
         optBoolValue:
           type: boolean
           title: opt_bool_value
@@ -1353,12 +1350,12 @@ components:
         int64Option:
           oneOf:
             - type: integer
-              title: integer
+              title: int64_option
               format: int64
+              description: (proto int64)
             - type: string
-              title: string
-          title: int64_option
-          description: (proto int64)
+              title: int64_option
+              description: (proto int64)
         uint32Option:
           type: integer
           title: uint32_option
@@ -1366,11 +1363,12 @@ components:
         uint64Option:
           oneOf:
             - type: integer
-              title: integer
+              title: uint64_option
+              description: (proto uint64)
             - type: string
-              title: string
+              title: uint64_option
+              description: (proto uint64)
           title: uint64_option
-          description: (proto uint64)
         sint32Option:
           type: integer
           title: sint32_option
@@ -1379,12 +1377,12 @@ components:
         sint64Option:
           oneOf:
             - type: integer
-              title: integer
+              title: sint64_option
               format: int64
+              description: (proto sint64)
             - type: string
-              title: string
-          title: sint64_option
-          description: (proto sint64)
+              title: sint64_option
+              description: (proto sint64)
         fixed32Option:
           type: integer
           title: fixed32_option
@@ -1392,11 +1390,12 @@ components:
         fixed64Option:
           oneOf:
             - type: integer
-              title: integer
+              title: fixed64_option
+              description: (proto fixed64)
             - type: string
-              title: string
+              title: fixed64_option
+              description: (proto fixed64)
           title: fixed64_option
-          description: (proto fixed64)
         sfixed32Option:
           type: integer
           title: sfixed32_option
@@ -1405,12 +1404,12 @@ components:
         sfixed64Option:
           oneOf:
             - type: integer
-              title: integer
+              title: sfixed64_option
               format: int64
+              description: (proto sfixed64)
             - type: string
-              title: string
-          title: sfixed64_option
-          description: (proto sfixed64)
+              title: sfixed64_option
+              description: (proto sfixed64)
         boolOption:
           type: boolean
           title: bool_option
@@ -1540,11 +1539,12 @@ components:
         value:
           oneOf:
             - type: integer
-              title: integer
+              title: value
+              description: (proto fixed64)
             - type: string
-              title: string
+              title: value
+              description: (proto fixed64)
           title: value
-          description: (proto fixed64)
       title: Fixed64MapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Fixed64ToStringMapEntry:
@@ -1553,11 +1553,12 @@ components:
         key:
           oneOf:
             - type: integer
-              title: integer
+              title: key
+              description: (proto fixed64)
             - type: string
-              title: string
+              title: key
+              description: (proto fixed64)
           title: key
-          description: (proto fixed64)
         value:
           type: string
           title: value
@@ -1616,12 +1617,12 @@ components:
         value:
           oneOf:
             - type: integer
-              title: integer
+              title: value
               format: int64
+              description: (proto int64)
             - type: string
-              title: string
-          title: value
-          description: (proto int64)
+              title: value
+              description: (proto int64)
       title: Int64MapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Int64ToStringMapEntry:
@@ -1630,12 +1631,12 @@ components:
         key:
           oneOf:
             - type: integer
-              title: integer
+              title: key
               format: int64
+              description: (proto int64)
             - type: string
-              title: string
-          title: key
-          description: (proto int64)
+              title: key
+              description: (proto int64)
         value:
           type: string
           title: value
@@ -1694,12 +1695,12 @@ components:
         value:
           oneOf:
             - type: integer
-              title: integer
+              title: value
               format: int64
+              description: (proto sfixed64)
             - type: string
-              title: string
-          title: value
-          description: (proto sfixed64)
+              title: value
+              description: (proto sfixed64)
       title: Sfixed64MapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Sfixed64ToStringMapEntry:
@@ -1708,12 +1709,12 @@ components:
         key:
           oneOf:
             - type: integer
-              title: integer
+              title: key
               format: int64
+              description: (proto sfixed64)
             - type: string
-              title: string
-          title: key
-          description: (proto sfixed64)
+              title: key
+              description: (proto sfixed64)
         value:
           type: string
           title: value
@@ -1758,12 +1759,12 @@ components:
         value:
           oneOf:
             - type: integer
-              title: integer
+              title: value
               format: int64
+              description: (proto sint64)
             - type: string
-              title: string
-          title: value
-          description: (proto sint64)
+              title: value
+              description: (proto sint64)
       title: Sint64MapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Sint64ToStringMapEntry:
@@ -1772,12 +1773,12 @@ components:
         key:
           oneOf:
             - type: integer
-              title: integer
+              title: key
               format: int64
+              description: (proto sint64)
             - type: string
-              title: string
-          title: key
-          description: (proto sint64)
+              title: key
+              description: (proto sint64)
         value:
           type: string
           title: value
@@ -1846,11 +1847,12 @@ components:
         value:
           oneOf:
             - type: integer
-              title: integer
+              title: value
+              description: (proto uint64)
             - type: string
-              title: string
+              title: value
+              description: (proto uint64)
           title: value
-          description: (proto uint64)
       title: Uint64MapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Uint64ToStringMapEntry:
@@ -1859,11 +1861,12 @@ components:
         key:
           oneOf:
             - type: integer
-              title: integer
+              title: key
+              description: (proto uint64)
             - type: string
-              title: string
+              title: key
+              description: (proto uint64)
           title: key
-          description: (proto uint64)
         value:
           type: string
           title: value
@@ -1922,12 +1925,12 @@ components:
         int64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: int64_value
               format: int64
+              description: (proto int64)
             - type: string
-              title: string
-          title: int64_value
-          description: (proto int64)
+              title: int64_value
+              description: (proto int64)
         uint32Value:
           type: integer
           title: uint32_value
@@ -1935,11 +1938,12 @@ components:
         uint64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: uint64_value
+              description: (proto uint64)
             - type: string
-              title: string
+              title: uint64_value
+              description: (proto uint64)
           title: uint64_value
-          description: (proto uint64)
         sint32Value:
           type: integer
           title: sint32_value
@@ -1948,12 +1952,12 @@ components:
         sint64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: sint64_value
               format: int64
+              description: (proto sint64)
             - type: string
-              title: string
-          title: sint64_value
-          description: (proto sint64)
+              title: sint64_value
+              description: (proto sint64)
         fixed32Value:
           type: integer
           title: fixed32_value
@@ -1961,11 +1965,12 @@ components:
         fixed64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: fixed64_value
+              description: (proto fixed64)
             - type: string
-              title: string
+              title: fixed64_value
+              description: (proto fixed64)
           title: fixed64_value
-          description: (proto fixed64)
         sfixed32Value:
           type: integer
           title: sfixed32_value
@@ -1974,12 +1979,12 @@ components:
         sfixed64Value:
           oneOf:
             - type: integer
-              title: integer
+              title: sfixed64_value
               format: int64
+              description: (proto sfixed64)
             - type: string
-              title: string
-          title: sfixed64_value
-          description: (proto sfixed64)
+              title: sfixed64_value
+              description: (proto sfixed64)
         boolValue:
           type: boolean
           title: bool_value
