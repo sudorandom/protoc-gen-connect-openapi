@@ -34,7 +34,16 @@ func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDesc
 		}
 
 		if opts.Responses != nil {
-			oper.Responses = toResponses(opts.Responses)
+			responses := toResponses(opts.Responses)
+			for pair := responses.Codes.First(); pair != nil; pair = pair.Next() {
+				oper.Responses.Codes.Set(pair.Key(), pair.Value())
+			}
+			if responses.Default != nil {
+				oper.Responses.Default = responses.Default
+			}
+			for pair := responses.Extensions.First(); pair != nil; pair = pair.Next() {
+				oper.Responses.Extensions.Set(pair.Key(), pair.Value())
+			}
 		}
 
 		if opts.Callbacks != nil {

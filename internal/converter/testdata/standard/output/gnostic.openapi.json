@@ -115,6 +115,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "user is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
           }
         },
         "deprecated": true,
@@ -175,6 +185,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "user is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
                 }
               }
             }

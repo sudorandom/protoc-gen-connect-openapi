@@ -42,6 +42,26 @@ service Greeter {
   rpc SayHello(HelloRequest) returns (HelloReply) {
     option idempotency_level = NO_SIDE_EFFECTS;
     option (gnostic.openapi.v3.operation) = {
+      responses: {
+        response_or_reference: {
+          name: "404"
+          value: {
+            response: {
+              description: "user is not found"
+              content: {
+                additional_properties: {
+                  name: "application/json"
+                  value: {
+                    schema: {
+                      reference: {_ref: "#/components/schemas/connect.error"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       deprecated: true
       security: [
         {

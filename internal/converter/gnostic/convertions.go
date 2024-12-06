@@ -360,13 +360,16 @@ func toMediaTypes(items *goa3.MediaTypes) *orderedmap.Map[string, *v3.MediaType]
 	}
 	content := orderedmap.New[string, *v3.MediaType]()
 	for _, item := range items.GetAdditionalProperties() {
-		content.Set(item.Name, &v3.MediaType{
+		mt := &v3.MediaType{
 			Schema:     toSchemaOrReference(item.Value.Schema),
-			Example:    item.Value.Example.ToRawInfo(),
 			Examples:   toExamples(item.Value.GetExamples()),
 			Encoding:   toEncodings(item.Value.GetEncoding()),
 			Extensions: toExtensions(item.Value.GetSpecificationExtension()),
-		})
+		}
+		if val := item.GetValue().Example; val != nil {
+			mt.Example = val.ToRawInfo()
+		}
+		content.Set(item.Name, mt)
 	}
 	return content
 }
@@ -403,7 +406,11 @@ func toHeaders(v *goa3.HeadersOrReferences) *orderedmap.Map[string, *v3.Header] 
 func toCodes(responses []*goa3.NamedResponseOrReference) *orderedmap.Map[string, *v3.Response] {
 	resps := orderedmap.New[string, *v3.Response]()
 	for _, resp := range responses {
-		resps.Set(resp.Name, toResponse(resp.Value.GetResponse()))
+		switch tt := resp.GetValue().Oneof.(type) {
+		case *goa3.ResponseOrReference_Reference:
+		case *goa3.ResponseOrReference_Response:
+			resps.Set(resp.Name, toResponse(tt.Response))
+		}
 	}
 	return resps
 }
