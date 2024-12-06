@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package with_specification_extensions.foo;
+
+// Attempts to test specification extensions.
+// Most of these are from the Redoc spec:
+// https://redocly.com/docs/api-reference-docs/spec-extensions
+
+import "gnostic/openapi/v3/annotations.proto";
+
+option (gnostic.openapi.v3.document) = {
+  specification_extension: [
+    {
+      // https://redocly.com/docs/api-reference-docs/specification-extensions/x-logo
+      name: 'x-logo'
+      value: {yaml: '{"url": "https://redocly.github.io/redoc/example-logo.png"}'}
+    }
+  ]
+  components: {
+    security_schemes: {
+      additional_properties: [
+        {
+          name: 'Oauth2'
+          value: {
+            security_scheme: {
+              type: 'oauth2'
+              flows: {
+                authorization_code: {
+                  authorization_url: 'https://example.com/authorize'
+                  token_url: 'https://example.com/token'
+                  scopes: {
+                    additional_properties: {
+                      name: 'api'
+                      value: 'Grants complete read/write access to the API'
+                    }
+                  }
+                  specification_extension: {
+                    // https://redocly.com/docs/api-reference-docs/specification-extensions/x-use-pkce
+                    name: 'x-usePkce'
+                    value: {yaml: 'true'}
+                  }
+                }
+                implicit: {
+                  authorization_url: 'https://example.com/authorize'
+                  scopes: {
+                    additional_properties: {
+                      name: 'api'
+                      value: 'Grants complete read/write access to the API'
+                    }
+                  }
+                  specification_extension: {
+                    // https://redocly.com/docs/api-reference-docs/specification-extensions/x-default-clientid
+                    name: 'x-defaultClientId'
+                    value: {yaml: '"123"'}
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+  tags: [
+    {
+      name: "with_specification_extensions.foo.FooService"
+      description: "Foo 1"
+      specification_extension: [
+        // https://redocly.com/docs/api-reference-docs/specification-extensions/x-display-name
+        {
+          name: "x-displayName"
+          value: {yaml: '"Foo Service"'}
+        },
+        // https://redocly.com/docs/api-reference-docs/specification-extensions/x-trait-tag
+        {
+          name: "x-traitTag"
+          value: {yaml: "true"}
+        }
+      ]
+    },
+    {
+      name: "Foo"
+      description: "Foo"
+    }
+  ]
+};
+
+enum Foo {
+  FOO_UNSPECIFIED = 0;
+  FOO_SOMETHING = 1;
+}
+
+message FooRequest {
+  option (gnostic.openapi.v3.schema) = {
+    additional_properties: {
+      schema_or_reference: {
+        schema: {
+          type: 'string'
+          specification_extension: {
+            // https://redocly.com/docs/api-reference-docs/specification-extensions/x-additional-properties-name
+            name: 'x-additionalPropertiesName'
+            value: {yaml: '"Additional property name"'}
+          }
+        }
+      }
+    }
+  };
+  string bar = 1;
+  Foo foo = 2 [(gnostic.openapi.v3.property) = {
+    specification_extension: {
+      // https://redocly.com/docs/api-reference-docs/specification-extensions/x-enum-descriptions
+      name: 'x-enumDescriptions'
+      value: {yaml: '{"FOO_UNSPECIFIED": "Unspecified. Default when empty", "FOO_SOMETHING": "Something"}'}
+    }
+  }];
+}
+
+message FooResponse {
+  option (gnostic.openapi.v3.schema) = {
+    specification_extension: {
+      // https://redocly.com/docs/api-reference-docs/specification-extensions/x-summary
+      name: 'x-summary'
+      value: {yaml: '"Successful request"'}
+    }
+    specification_extension: {
+      // https://redocly.com/docs/api-reference-docs/specification-extensions/x-tags
+      name: 'x-tags'
+      value: {yaml: '["Foo"]'}
+    }
+  };
+}
+
+service FooService {
+  rpc Foo(FooRequest) returns (FooResponse) {
+    option (gnostic.openapi.v3.operation) = {
+      security: {
+        additional_properties: {
+          name: "Oauth2"
+          value: {value: 'api'}
+        }
+      }
+      specification_extension: {
+        // https://redocly.com/docs/api-reference-docs/specification-extensions/x-hidetryitpanel
+        name: 'x-hideTryItPanel'
+        value: {yaml: 'true'}
+      }
+    };
+  }
+}
