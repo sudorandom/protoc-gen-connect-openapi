@@ -30,8 +30,8 @@ components:
           format: int32
         employment:
           allOf:
-            - title: employment
             - $ref: '#/components/schemas/editions.Person.Employment'
+          title: employment
       title: Person
       additionalProperties: false
 security: []

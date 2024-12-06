@@ -39,12 +39,10 @@
           "employment": {
             "allOf": [
               {
-                "title": "employment"
-              },
-              {
                 "$ref": "#/components/schemas/editions.Person.Employment"
               }
-            ]
+            ],
+            "title": "employment"
           }
         },
         "title": "Person",

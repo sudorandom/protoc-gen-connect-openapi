@@ -131,8 +131,8 @@ components:
           title: fields
           additionalProperties:
             allOf:
-              - title: value
               - $ref: '#/components/schemas/google.protobuf.Value'
+            title: value
           description: Unordered map of dynamically typed values.
       title: Struct
       additionalProperties: false
@@ -153,8 +153,8 @@ components:
           title: key
         value:
           allOf:
-            - title: value
             - $ref: '#/components/schemas/google.protobuf.Value'
+          title: value
       title: FieldsEntry
       additionalProperties: false
     google.protobuf.Value:
@@ -178,16 +178,16 @@ components:
       properties:
         arg:
           allOf:
-            - title: arg
             - $ref: '#/components/schemas/google.protobuf.Value'
+          title: arg
         someList:
           allOf:
-            - title: some_list
             - $ref: '#/components/schemas/google.protobuf.ListValue'
+          title: some_list
         someStruct:
           allOf:
-            - title: some_struct
             - $ref: '#/components/schemas/google.protobuf.Struct'
+          title: some_struct
       title: GoogleValue
       additionalProperties: false
     connect-protocol-version:

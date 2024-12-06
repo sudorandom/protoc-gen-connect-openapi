@@ -460,8 +460,8 @@ components:
           title: stringField
         msgField:
           allOf:
-            - title: msgField
             - $ref: '#/components/schemas/flex.Other'
+          title: msgField
         repeatedMsgField:
           type: array
           items:
@@ -469,8 +469,8 @@ components:
           title: repeatedMsgField
         optionalMsgField:
           allOf:
-            - title: optionalMsgField
             - $ref: '#/components/schemas/flex.Other'
+          title: optionalMsgField
       title: ComplexType
       additionalProperties: false
       description: Type that has a bunch of different types
@@ -479,8 +479,8 @@ components:
       properties:
         msg:
           allOf:
-            - title: msg
             - $ref: '#/components/schemas/flex.ComplexType'
+          title: msg
       title: FlexReply
       additionalProperties: false
       description: The response message containing the greetings
@@ -489,8 +489,8 @@ components:
       properties:
         msg:
           allOf:
-            - title: msg
             - $ref: '#/components/schemas/flex.ComplexType'
+          title: msg
       title: FlexRequest
       additionalProperties: false
       description: The request message containing the user's name.

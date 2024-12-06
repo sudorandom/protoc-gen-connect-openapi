@@ -13,8 +13,8 @@ paths:
           in: query
           schema:
             allOf:
-              - title: b
               - $ref: '#/components/schemas/foo.A.B'
+            title: b
       responses:
         default:
           description: Error
@@ -35,8 +35,8 @@ components:
       properties:
         b:
           allOf:
-            - title: b
             - $ref: '#/components/schemas/foo.A.B'
+          title: b
       title: A
       required:
         - b
@@ -46,9 +46,9 @@ components:
       properties:
         c:
           allOf:
-            - title: c
-              description: the learner whose scores are being reported
             - $ref: '#/components/schemas/foo.A.B.C'
+          title: c
+          description: the learner whose scores are being reported
       title: B
       required:
         - c

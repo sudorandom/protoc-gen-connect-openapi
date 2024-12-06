@@ -497,12 +497,10 @@
           "category": {
             "allOf": [
               {
-                "title": "category"
-              },
-              {
                 "$ref": "#/components/schemas/io.swagger.petstore.v2.Category"
               }
-            ]
+            ],
+            "title": "category"
           },
           "name": {
             "type": "string",

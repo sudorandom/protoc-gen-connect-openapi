@@ -492,6 +492,7 @@ message LotsOfValidationRules {
   }];
   google.protobuf.Duration duration_gte = 237 [(buf.validate.field).duration.gte = {seconds: 5}];
 
+  // This is a constant timestamp!
   google.protobuf.Timestamp timestamp_const = 240 [(buf.validate.field).timestamp.const = {seconds: 1727998800}];
   google.protobuf.Timestamp timestamp_within = 241 [(buf.validate.field).timestamp.within = {seconds: 3600}];
   google.protobuf.Timestamp timestamp_lt = 242 [(buf.validate.field).timestamp.lte = {seconds: 1678867200}];

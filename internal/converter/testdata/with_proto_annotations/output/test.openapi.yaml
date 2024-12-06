@@ -381,9 +381,9 @@ components:
           title: fields
           additionalProperties:
             allOf:
-              - title: value
-                description: (proto google.protobuf.Value)
               - $ref: '#/components/schemas/google.protobuf.Value'
+            title: value
+            description: (proto google.protobuf.Value)
           description: Unordered map of dynamically typed values. (proto google.protobuf.Struct.FieldsEntry)
       title: Struct
       additionalProperties: false
@@ -405,9 +405,9 @@ components:
           description: (proto string)
         value:
           allOf:
-            - title: value
-              description: (proto google.protobuf.Value)
             - $ref: '#/components/schemas/google.protobuf.Value'
+          title: value
+          description: (proto google.protobuf.Value)
       title: FieldsEntry
       additionalProperties: false
     google.protobuf.Timestamp:
@@ -1284,24 +1284,24 @@ components:
           description: (proto bytes)
         msgValue:
           allOf:
-            - title: msg_value
-              description: (proto with_proto_annotations.test.v1.AllTypes)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
+          title: msg_value
+          description: (proto with_proto_annotations.test.v1.AllTypes)
         enumValue:
           allOf:
-            - title: enum_value
-              description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
+          title: enum_value
+          description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
         optMsgValue:
           allOf:
-            - title: opt_msg_value
-              description: (proto with_proto_annotations.test.v1.AllTypes)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
+          title: opt_msg_value
+          description: (proto with_proto_annotations.test.v1.AllTypes)
         optEnumValue:
           allOf:
-            - title: opt_enum_value
-              description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
+          title: opt_enum_value
+          description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
         msgList:
           type: array
           items:
@@ -1319,18 +1319,18 @@ components:
           title: msg_map
           additionalProperties:
             allOf:
-              - title: value
-                description: (proto with_proto_annotations.test.v1.AllTypes)
               - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
+            title: value
+            description: (proto with_proto_annotations.test.v1.AllTypes)
           description: (proto with_proto_annotations.test.v1.AllTypes.MsgMapEntry)
         enumMap:
           type: object
           title: enum_map
           additionalProperties:
             allOf:
-              - title: value
-                description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
               - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
+            title: value
+            description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
           description: (proto with_proto_annotations.test.v1.AllTypes.EnumMapEntry)
         doubleOption:
           type: number
@@ -1425,14 +1425,14 @@ components:
           description: (proto bytes)
         msgOption:
           allOf:
-            - title: msg_option
-              description: (proto with_proto_annotations.test.v1.AllTypes)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
+          title: msg_option
+          description: (proto with_proto_annotations.test.v1.AllTypes)
         enumOption:
           allOf:
-            - title: enum_option
-              description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
+          title: enum_option
+          description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
       title: AllTypes
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.BoolMapEntry:
@@ -1498,9 +1498,9 @@ components:
           description: (proto string)
         value:
           allOf:
-            - title: value
-              description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
+          title: value
+          description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
       title: EnumMapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Fixed32MapEntry:
@@ -1652,9 +1652,9 @@ components:
           description: (proto string)
         value:
           allOf:
-            - title: value
-              description: (proto with_proto_annotations.test.v1.AllTypes)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
+          title: value
+          description: (proto with_proto_annotations.test.v1.AllTypes)
       title: MsgMapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.AllTypes.Sfixed32MapEntry:
@@ -2000,69 +2000,69 @@ components:
           description: (proto bytes)
         timestamp:
           allOf:
-            - title: timestamp
-              description: scalar wrappers (proto google.protobuf.Timestamp)
             - $ref: '#/components/schemas/google.protobuf.Timestamp'
+          title: timestamp
+          description: scalar wrappers (proto google.protobuf.Timestamp)
         duration:
           allOf:
-            - title: duration
-              description: (proto google.protobuf.Duration)
             - $ref: '#/components/schemas/google.protobuf.Duration'
+          title: duration
+          description: (proto google.protobuf.Duration)
         boolValueWrapper:
           allOf:
-            - title: bool_value_wrapper
-              description: (proto google.protobuf.BoolValue)
             - $ref: '#/components/schemas/google.protobuf.BoolValue'
+          title: bool_value_wrapper
+          description: (proto google.protobuf.BoolValue)
         int32ValueWrapper:
           allOf:
-            - title: int32_value_wrapper
-              description: (proto google.protobuf.Int32Value)
             - $ref: '#/components/schemas/google.protobuf.Int32Value'
+          title: int32_value_wrapper
+          description: (proto google.protobuf.Int32Value)
         int64ValueWrapper:
           allOf:
-            - title: int64_value_wrapper
-              description: (proto google.protobuf.Int64Value)
             - $ref: '#/components/schemas/google.protobuf.Int64Value'
+          title: int64_value_wrapper
+          description: (proto google.protobuf.Int64Value)
         uint32ValueWrapper:
           allOf:
-            - title: uint32_value_wrapper
-              description: (proto google.protobuf.UInt32Value)
             - $ref: '#/components/schemas/google.protobuf.UInt32Value'
+          title: uint32_value_wrapper
+          description: (proto google.protobuf.UInt32Value)
         uint64ValueWrapper:
           allOf:
-            - title: uint64_value_wrapper
-              description: (proto google.protobuf.UInt64Value)
             - $ref: '#/components/schemas/google.protobuf.UInt64Value'
+          title: uint64_value_wrapper
+          description: (proto google.protobuf.UInt64Value)
         floatValueWrapper:
           allOf:
-            - title: float_value_wrapper
-              description: (proto google.protobuf.FloatValue)
             - $ref: '#/components/schemas/google.protobuf.FloatValue'
+          title: float_value_wrapper
+          description: (proto google.protobuf.FloatValue)
         doubleValueWrapper:
           allOf:
-            - title: double_value_wrapper
-              description: (proto google.protobuf.DoubleValue)
             - $ref: '#/components/schemas/google.protobuf.DoubleValue'
+          title: double_value_wrapper
+          description: (proto google.protobuf.DoubleValue)
         bytesValueWrapper:
           allOf:
-            - title: bytes_value_wrapper
-              description: (proto google.protobuf.BytesValue)
             - $ref: '#/components/schemas/google.protobuf.BytesValue'
+          title: bytes_value_wrapper
+          description: (proto google.protobuf.BytesValue)
         stringValueWrapper:
           allOf:
-            - title: string_value_wrapper
-              description: (proto google.protobuf.StringValue)
             - $ref: '#/components/schemas/google.protobuf.StringValue'
+          title: string_value_wrapper
+          description: (proto google.protobuf.StringValue)
         fieldMask:
           allOf:
-            - title: field_mask
-              description: (proto google.protobuf.FieldMask)
             - $ref: '#/components/schemas/google.protobuf.FieldMask'
+          title: field_mask
+          description: (proto google.protobuf.FieldMask)
         enumValue:
           allOf:
-            - title: enum_value
-              description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum'
+          title: enum_value
+          description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
         enumList:
           type: array
           items:
@@ -2089,24 +2089,24 @@ components:
           description: (proto double)
         oneofDoubleValueWrapper:
           allOf:
-            - title: oneof_double_value_wrapper
-              description: (proto google.protobuf.DoubleValue)
             - $ref: '#/components/schemas/google.protobuf.DoubleValue'
+          title: oneof_double_value_wrapper
+          description: (proto google.protobuf.DoubleValue)
         oneofEnumValue:
           allOf:
-            - title: oneof_enum_value
-              description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum'
+          title: oneof_enum_value
+          description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
         nested:
           allOf:
-            - title: nested
-              description: (proto with_proto_annotations.test.v1.ParameterValues.Nested)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested'
+          title: nested
+          description: (proto with_proto_annotations.test.v1.ParameterValues.Nested)
         recursive:
           allOf:
-            - title: recursive
-              description: (proto with_proto_annotations.test.v1.ParameterValues)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues'
+          title: recursive
+          description: (proto with_proto_annotations.test.v1.ParameterValues)
         stringMap:
           type: object
           title: string_map
@@ -2120,38 +2120,38 @@ components:
           title: string_value_map
           additionalProperties:
             allOf:
-              - title: value
-                description: (proto google.protobuf.StringValue)
               - $ref: '#/components/schemas/google.protobuf.StringValue'
+            title: value
+            description: (proto google.protobuf.StringValue)
           description: (proto with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry)
         enumMap:
           type: object
           title: enum_map
           additionalProperties:
             allOf:
-              - title: value
-                description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
               - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum'
+            title: value
+            description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
           description: (proto with_proto_annotations.test.v1.ParameterValues.EnumMapEntry)
         nestedMap:
           type: object
           title: nested_map
           additionalProperties:
             allOf:
-              - title: value
-                description: (proto with_proto_annotations.test.v1.ParameterValues.Nested)
               - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested'
+            title: value
+            description: (proto with_proto_annotations.test.v1.ParameterValues.Nested)
           description: (proto with_proto_annotations.test.v1.ParameterValues.NestedMapEntry)
         structValue:
           allOf:
-            - title: struct_value
-              description: (proto google.protobuf.Struct)
             - $ref: '#/components/schemas/google.protobuf.Struct'
+          title: struct_value
+          description: (proto google.protobuf.Struct)
         value:
           allOf:
-            - title: value
-              description: (proto google.protobuf.Value)
             - $ref: '#/components/schemas/google.protobuf.Value'
+          title: value
+          description: (proto google.protobuf.Value)
         recursiveList:
           type: array
           items:
@@ -2169,9 +2169,9 @@ components:
           description: (proto string)
         value:
           allOf:
-            - title: value
-              description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum'
+          title: value
+          description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
       title: EnumMapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.ParameterValues.Nested:
@@ -2184,14 +2184,14 @@ components:
           description: (proto double)
         doubleValueWrapper:
           allOf:
-            - title: double_value_wrapper
-              description: (proto google.protobuf.DoubleValue)
             - $ref: '#/components/schemas/google.protobuf.DoubleValue'
+          title: double_value_wrapper
+          description: (proto google.protobuf.DoubleValue)
         enumValue:
           allOf:
-            - title: enum_value
-              description: (proto with_proto_annotations.test.v1.ParameterValues.Nested.Enum)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested.Enum'
+          title: enum_value
+          description: (proto with_proto_annotations.test.v1.ParameterValues.Nested.Enum)
       title: Nested
       additionalProperties: false
     with_proto_annotations.test.v1.ParameterValues.NestedMapEntry:
@@ -2203,9 +2203,9 @@ components:
           description: (proto string)
         value:
           allOf:
-            - title: value
-              description: (proto with_proto_annotations.test.v1.ParameterValues.Nested)
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested'
+          title: value
+          description: (proto with_proto_annotations.test.v1.ParameterValues.Nested)
       title: NestedMapEntry
       additionalProperties: false
     with_proto_annotations.test.v1.ParameterValues.StringMapEntry:
@@ -2230,9 +2230,9 @@ components:
           description: (proto string)
         value:
           allOf:
-            - title: value
-              description: (proto google.protobuf.StringValue)
             - $ref: '#/components/schemas/google.protobuf.StringValue'
+          title: value
+          description: (proto google.protobuf.StringValue)
       title: StringValueMapEntry
       additionalProperties: false
 security: []
