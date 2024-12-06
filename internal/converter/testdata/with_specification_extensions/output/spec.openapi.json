@@ -51,16 +51,14 @@
           "foo": {
             "allOf": [
               {
-                "title": "foo",
-                "x-enumDescriptions": {
-                  "FOO_UNSPECIFIED": "Unspecified. Default when empty",
-                  "FOO_SOMETHING": "Something"
-                }
-              },
-              {
                 "$ref": "#/components/schemas/with_specification_extensions.foo.Foo"
               }
-            ]
+            ],
+            "title": "foo",
+            "x-enumDescriptions": {
+              "FOO_UNSPECIFIED": "Unspecified. Default when empty",
+              "FOO_SOMETHING": "Something"
+            }
           }
         },
         "title": "FooRequest",
