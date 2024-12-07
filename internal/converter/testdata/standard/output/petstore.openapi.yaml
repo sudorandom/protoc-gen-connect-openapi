@@ -13,12 +13,11 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-                title: pet_id
-                format: int64
-              - type: string
-                title: pet_id
+            type:
+              - integer
+              - string
+            title: pet_id
+            format: int64
       responses:
         default:
           description: Error
@@ -42,12 +41,11 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-                title: pet_id
-                format: int64
-              - type: string
-                title: pet_id
+            type:
+              - integer
+              - string
+            title: pet_id
+            format: int64
       requestBody:
         content:
           application/json:
@@ -86,12 +84,11 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-                title: pet_id
-                format: int64
-              - type: string
-                title: pet_id
+            type:
+              - integer
+              - string
+            title: pet_id
+            format: int64
       responses:
         default:
           description: Error
@@ -116,12 +113,11 @@ paths:
           in: path
           required: true
           schema:
-            oneOf:
-              - type: integer
-                title: pet_id
-                format: int64
-              - type: string
-                title: pet_id
+            type:
+              - integer
+              - string
+            title: pet_id
+            format: int64
       requestBody:
         content:
           application/json:
@@ -296,12 +292,11 @@ components:
       type: object
       properties:
         id:
-          oneOf:
-            - type: integer
-              title: id
-              format: int64
-            - type: string
-              title: id
+          type:
+            - integer
+            - string
+          title: id
+          format: int64
         name:
           type: string
           title: name
@@ -311,12 +306,11 @@ components:
       type: object
       properties:
         id:
-          oneOf:
-            - type: integer
-              title: id
-              format: int64
-            - type: string
-              title: id
+          type:
+            - integer
+            - string
+          title: id
+          format: int64
         category:
           allOf:
             - $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
@@ -343,12 +337,11 @@ components:
       type: object
       properties:
         petId:
-          oneOf:
-            - type: integer
-              title: pet_id
-              format: int64
-            - type: string
-              title: pet_id
+          type:
+            - integer
+            - string
+          title: pet_id
+          format: int64
         body:
           type: string
           title: body
@@ -358,12 +351,11 @@ components:
       type: object
       properties:
         petId:
-          oneOf:
-            - type: integer
-              title: pet_id
-              format: int64
-            - type: string
-              title: pet_id
+          type:
+            - integer
+            - string
+          title: pet_id
+          format: int64
       title: PetID
       additionalProperties: false
     io.swagger.petstore.v2.Pets:
@@ -390,12 +382,11 @@ components:
       type: object
       properties:
         id:
-          oneOf:
-            - type: integer
-              title: id
-              format: int64
-            - type: string
-              title: id
+          type:
+            - integer
+            - string
+          title: id
+          format: int64
         name:
           type: string
           title: name
@@ -415,12 +406,11 @@ components:
       type: object
       properties:
         petId:
-          oneOf:
-            - type: integer
-              title: pet_id
-              format: int64
-            - type: string
-              title: pet_id
+          type:
+            - integer
+            - string
+          title: pet_id
+          format: int64
         name:
           type: string
           title: name
@@ -433,12 +423,11 @@ components:
       type: object
       properties:
         petId:
-          oneOf:
-            - type: integer
-              title: pet_id
-              format: int64
-            - type: string
-              title: pet_id
+          type:
+            - integer
+            - string
+          title: pet_id
+          format: int64
         additionalMetadata:
           type: string
           title: additional_metadata

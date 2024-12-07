@@ -404,54 +404,49 @@ components:
           title: int32Field
           format: int32
         int64Field:
-          oneOf:
-            - type: integer
-              title: int64Field
-              format: int64
-            - type: string
-              title: int64Field
+          type:
+            - integer
+            - string
+          title: int64Field
+          format: int64
         uint32Field:
           type: integer
           title: uint32Field
         uint64Field:
-          oneOf:
-            - type: integer
-              title: uint64Field
-            - type: string
-              title: uint64Field
+          type:
+            - integer
+            - string
           title: uint64Field
+          format: int64
         sint32Field:
           type: integer
           title: sint32Field
           format: int32
         sint64Field:
-          oneOf:
-            - type: integer
-              title: sint64Field
-              format: int64
-            - type: string
-              title: sint64Field
+          type:
+            - integer
+            - string
+          title: sint64Field
+          format: int64
         fixed32Field:
           type: integer
           title: fixed32Field
         fixed64Field:
-          oneOf:
-            - type: integer
-              title: fixed64Field
-            - type: string
-              title: fixed64Field
+          type:
+            - integer
+            - string
           title: fixed64Field
+          format: int64
         sfixed32Field:
           type: integer
           title: sfixed32Field
           format: int32
         sfixed64Field:
-          oneOf:
-            - type: integer
-              title: sfixed64Field
-              format: int64
-            - type: string
-              title: sfixed64Field
+          type:
+            - integer
+            - string
+          title: sfixed64Field
+          format: int64
         boolField:
           type: boolean
           title: boolField

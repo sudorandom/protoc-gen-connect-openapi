@@ -517,14 +517,12 @@ components:
       type: object
       properties:
         value:
-          oneOf:
-            - type: integer
-              title: value
-              description: The uint64 value.
-            - type: string
-              title: value
-              description: The uint64 value.
+          type:
+            - integer
+            - string
           title: value
+          format: int64
+          description: The uint64 value.
       title: UInt64Value
       additionalProperties: false
       description: |-
@@ -755,54 +753,49 @@ components:
           title: int32_value
           format: int32
         int64Value:
-          oneOf:
-            - type: integer
-              title: int64_value
-              format: int64
-            - type: string
-              title: int64_value
+          type:
+            - integer
+            - string
+          title: int64_value
+          format: int64
         uint32Value:
           type: integer
           title: uint32_value
         uint64Value:
-          oneOf:
-            - type: integer
-              title: uint64_value
-            - type: string
-              title: uint64_value
+          type:
+            - integer
+            - string
           title: uint64_value
+          format: int64
         sint32Value:
           type: integer
           title: sint32_value
           format: int32
         sint64Value:
-          oneOf:
-            - type: integer
-              title: sint64_value
-              format: int64
-            - type: string
-              title: sint64_value
+          type:
+            - integer
+            - string
+          title: sint64_value
+          format: int64
         fixed32Value:
           type: integer
           title: fixed32_value
         fixed64Value:
-          oneOf:
-            - type: integer
-              title: fixed64_value
-            - type: string
-              title: fixed64_value
+          type:
+            - integer
+            - string
           title: fixed64_value
+          format: int64
         sfixed32Value:
           type: integer
           title: sfixed32_value
           format: int32
         sfixed64Value:
-          oneOf:
-            - type: integer
-              title: sfixed64_value
-              format: int64
-            - type: string
-              title: sfixed64_value
+          type:
+            - integer
+            - string
+          title: sfixed64_value
+          format: int64
         boolValue:
           type: boolean
           title: bool_value
@@ -835,10 +828,10 @@ components:
         int64List:
           type: array
           items:
-            oneOf:
-              - type: integer
-                format: int64
-              - type: string
+            type:
+              - integer
+              - string
+            format: int64
           title: int64_list
         uint32List:
           type: array
@@ -848,9 +841,10 @@ components:
         uint64List:
           type: array
           items:
-            oneOf:
-              - type: integer
-              - type: string
+            type:
+              - integer
+              - string
+            format: int64
           title: uint64_list
         sint32List:
           type: array
@@ -861,10 +855,10 @@ components:
         sint64List:
           type: array
           items:
-            oneOf:
-              - type: integer
-                format: int64
-              - type: string
+            type:
+              - integer
+              - string
+            format: int64
           title: sint64_list
         fixed32List:
           type: array
@@ -874,9 +868,10 @@ components:
         fixed64List:
           type: array
           items:
-            oneOf:
-              - type: integer
-              - type: string
+            type:
+              - integer
+              - string
+            format: int64
           title: fixed64_list
         sfixed32List:
           type: array
@@ -887,10 +882,10 @@ components:
         sfixed64List:
           type: array
           items:
-            oneOf:
-              - type: integer
-                format: int64
-              - type: string
+            type:
+              - integer
+              - string
+            format: int64
           title: sfixed64_list
         boolList:
           type: array
@@ -1007,12 +1002,11 @@ components:
           type: object
           title: int64_map
           additionalProperties:
-            oneOf:
-              - type: integer
-                title: value
-                format: int64
-              - type: string
-                title: value
+            type:
+              - integer
+              - string
+            title: value
+            format: int64
         uint32Map:
           type: object
           title: uint32_map
@@ -1023,12 +1017,11 @@ components:
           type: object
           title: uint64_map
           additionalProperties:
-            oneOf:
-              - type: integer
-                title: value
-              - type: string
-                title: value
+            type:
+              - integer
+              - string
             title: value
+            format: int64
         sint32Map:
           type: object
           title: sint32_map
@@ -1040,12 +1033,11 @@ components:
           type: object
           title: sint64_map
           additionalProperties:
-            oneOf:
-              - type: integer
-                title: value
-                format: int64
-              - type: string
-                title: value
+            type:
+              - integer
+              - string
+            title: value
+            format: int64
         fixed32Map:
           type: object
           title: fixed32_map
@@ -1056,12 +1048,11 @@ components:
           type: object
           title: fixed64_map
           additionalProperties:
-            oneOf:
-              - type: integer
-                title: value
-              - type: string
-                title: value
+            type:
+              - integer
+              - string
             title: value
+            format: int64
         sfixed32Map:
           type: object
           title: sfixed32_map
@@ -1073,12 +1064,11 @@ components:
           type: object
           title: sfixed64_map
           additionalProperties:
-            oneOf:
-              - type: integer
-                title: value
-                format: int64
-              - type: string
-                title: value
+            type:
+              - integer
+              - string
+            title: value
+            format: int64
         boolMap:
           type: object
           title: bool_map
@@ -1112,54 +1102,49 @@ components:
           title: opt_int32_value
           format: int32
         optInt64Value:
-          oneOf:
-            - type: integer
-              title: opt_int64_value
-              format: int64
-            - type: string
-              title: opt_int64_value
+          type:
+            - integer
+            - string
+          title: opt_int64_value
+          format: int64
         optUint32Value:
           type: integer
           title: opt_uint32_value
         optUint64Value:
-          oneOf:
-            - type: integer
-              title: opt_uint64_value
-            - type: string
-              title: opt_uint64_value
+          type:
+            - integer
+            - string
           title: opt_uint64_value
+          format: int64
         optSint32Value:
           type: integer
           title: opt_sint32_value
           format: int32
         optSint64Value:
-          oneOf:
-            - type: integer
-              title: opt_sint64_value
-              format: int64
-            - type: string
-              title: opt_sint64_value
+          type:
+            - integer
+            - string
+          title: opt_sint64_value
+          format: int64
         optFixed32Value:
           type: integer
           title: opt_fixed32_value
         optFixed64Value:
-          oneOf:
-            - type: integer
-              title: opt_fixed64_value
-            - type: string
-              title: opt_fixed64_value
+          type:
+            - integer
+            - string
           title: opt_fixed64_value
+          format: int64
         optSfixed32Value:
           type: integer
           title: opt_sfixed32_value
           format: int32
         optSfixed64Value:
-          oneOf:
-            - type: integer
-              title: opt_sfixed64_value
-              format: int64
-            - type: string
-              title: opt_sfixed64_value
+          type:
+            - integer
+            - string
+          title: opt_sfixed64_value
+          format: int64
         optBoolValue:
           type: boolean
           title: opt_bool_value
@@ -1223,54 +1208,49 @@ components:
           title: int32_option
           format: int32
         int64Option:
-          oneOf:
-            - type: integer
-              title: int64_option
-              format: int64
-            - type: string
-              title: int64_option
+          type:
+            - integer
+            - string
+          title: int64_option
+          format: int64
         uint32Option:
           type: integer
           title: uint32_option
         uint64Option:
-          oneOf:
-            - type: integer
-              title: uint64_option
-            - type: string
-              title: uint64_option
+          type:
+            - integer
+            - string
           title: uint64_option
+          format: int64
         sint32Option:
           type: integer
           title: sint32_option
           format: int32
         sint64Option:
-          oneOf:
-            - type: integer
-              title: sint64_option
-              format: int64
-            - type: string
-              title: sint64_option
+          type:
+            - integer
+            - string
+          title: sint64_option
+          format: int64
         fixed32Option:
           type: integer
           title: fixed32_option
         fixed64Option:
-          oneOf:
-            - type: integer
-              title: fixed64_option
-            - type: string
-              title: fixed64_option
+          type:
+            - integer
+            - string
           title: fixed64_option
+          format: int64
         sfixed32Option:
           type: integer
           title: sfixed32_option
           format: int32
         sfixed64Option:
-          oneOf:
-            - type: integer
-              title: sfixed64_option
-              format: int64
-            - type: string
-              title: sfixed64_option
+          type:
+            - integer
+            - string
+          title: sfixed64_option
+          format: int64
         boolOption:
           type: boolean
           title: bool_option
@@ -1378,24 +1358,22 @@ components:
           type: string
           title: key
         value:
-          oneOf:
-            - type: integer
-              title: value
-            - type: string
-              title: value
+          type:
+            - integer
+            - string
           title: value
+          format: int64
       title: Fixed64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Fixed64ToStringMapEntry:
       type: object
       properties:
         key:
-          oneOf:
-            - type: integer
-              title: key
-            - type: string
-              title: key
+          type:
+            - integer
+            - string
           title: key
+          format: int64
         value:
           type: string
           title: value
@@ -1444,24 +1422,22 @@ components:
           type: string
           title: key
         value:
-          oneOf:
-            - type: integer
-              title: value
-              format: int64
-            - type: string
-              title: value
+          type:
+            - integer
+            - string
+          title: value
+          format: int64
       title: Int64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Int64ToStringMapEntry:
       type: object
       properties:
         key:
-          oneOf:
-            - type: integer
-              title: key
-              format: int64
-            - type: string
-              title: key
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
         value:
           type: string
           title: value
@@ -1510,24 +1486,22 @@ components:
           type: string
           title: key
         value:
-          oneOf:
-            - type: integer
-              title: value
-              format: int64
-            - type: string
-              title: value
+          type:
+            - integer
+            - string
+          title: value
+          format: int64
       title: Sfixed64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Sfixed64ToStringMapEntry:
       type: object
       properties:
         key:
-          oneOf:
-            - type: integer
-              title: key
-              format: int64
-            - type: string
-              title: key
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
         value:
           type: string
           title: value
@@ -1564,24 +1538,22 @@ components:
           type: string
           title: key
         value:
-          oneOf:
-            - type: integer
-              title: value
-              format: int64
-            - type: string
-              title: value
+          type:
+            - integer
+            - string
+          title: value
+          format: int64
       title: Sint64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Sint64ToStringMapEntry:
       type: object
       properties:
         key:
-          oneOf:
-            - type: integer
-              title: key
-              format: int64
-            - type: string
-              title: key
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
         value:
           type: string
           title: value
@@ -1638,24 +1610,22 @@ components:
           type: string
           title: key
         value:
-          oneOf:
-            - type: integer
-              title: value
-            - type: string
-              title: value
+          type:
+            - integer
+            - string
           title: value
+          format: int64
       title: Uint64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Uint64ToStringMapEntry:
       type: object
       properties:
         key:
-          oneOf:
-            - type: integer
-              title: key
-            - type: string
-              title: key
+          type:
+            - integer
+            - string
           title: key
+          format: int64
         value:
           type: string
           title: value
@@ -1709,54 +1679,49 @@ components:
           title: int32_value
           format: int32
         int64Value:
-          oneOf:
-            - type: integer
-              title: int64_value
-              format: int64
-            - type: string
-              title: int64_value
+          type:
+            - integer
+            - string
+          title: int64_value
+          format: int64
         uint32Value:
           type: integer
           title: uint32_value
         uint64Value:
-          oneOf:
-            - type: integer
-              title: uint64_value
-            - type: string
-              title: uint64_value
+          type:
+            - integer
+            - string
           title: uint64_value
+          format: int64
         sint32Value:
           type: integer
           title: sint32_value
           format: int32
         sint64Value:
-          oneOf:
-            - type: integer
-              title: sint64_value
-              format: int64
-            - type: string
-              title: sint64_value
+          type:
+            - integer
+            - string
+          title: sint64_value
+          format: int64
         fixed32Value:
           type: integer
           title: fixed32_value
         fixed64Value:
-          oneOf:
-            - type: integer
-              title: fixed64_value
-            - type: string
-              title: fixed64_value
+          type:
+            - integer
+            - string
           title: fixed64_value
+          format: int64
         sfixed32Value:
           type: integer
           title: sfixed32_value
           format: int32
         sfixed64Value:
-          oneOf:
-            - type: integer
-              title: sfixed64_value
-              format: int64
-            - type: string
-              title: sfixed64_value
+          type:
+            - integer
+            - string
+          title: sfixed64_value
+          format: int64
         boolValue:
           type: boolean
           title: bool_value

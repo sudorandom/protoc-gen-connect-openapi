@@ -131,29 +131,11 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Sfixed64Kind: // int64 types
 		// NOTE: 64-bit integer types can be strings or numbers because they sometimes
 		//       cannot fit into a JSON number type
-		integerSchema := copySchema(s)
-		integerSchema.Type = []string{"integer"}
-		integerSchema.Format = "int64"
-		stringSchema := copySchema(s)
-		stringSchema.Type = []string{"string"}
-		s = &base.Schema{
-			OneOf: []*base.SchemaProxy{
-				base.CreateSchemaProxy(integerSchema),
-				base.CreateSchemaProxy(stringSchema),
-			},
-		}
+		s.Type = []string{"integer", "string"}
+		s.Format = "int64"
 	case protoreflect.Uint64Kind, protoreflect.Fixed64Kind: // uint64 types
-		integerSchema := copySchema(s)
-		integerSchema.Type = []string{"integer"}
-		stringSchema := copySchema(s)
-		stringSchema.Type = []string{"string"}
-		s = &base.Schema{
-			Title: s.Title,
-			OneOf: []*base.SchemaProxy{
-				base.CreateSchemaProxy(integerSchema),
-				base.CreateSchemaProxy(stringSchema),
-			},
-		}
+		s.Type = []string{"integer", "string"}
+		s.Format = "int64"
 	case protoreflect.DoubleKind:
 		s.Type = []string{"number"}
 		s.Format = "double"
@@ -194,62 +176,4 @@ func makeOneOfGroup(fields []string) *base.SchemaProxy {
 
 	rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Not: base.CreateSchemaProxy(&base.Schema{AnyOf: nestedSchemas})}))
 	return base.CreateSchemaProxy(&base.Schema{AnyOf: rootSchemas})
-}
-
-func copySchema(s *base.Schema) *base.Schema {
-	return &base.Schema{
-		SchemaTypeRef:         s.SchemaTypeRef,
-		ExclusiveMaximum:      s.ExclusiveMaximum,
-		ExclusiveMinimum:      s.ExclusiveMinimum,
-		Type:                  s.Type,
-		AllOf:                 s.AllOf,
-		OneOf:                 s.OneOf,
-		AnyOf:                 s.AnyOf,
-		Discriminator:         s.Discriminator,
-		Examples:              s.Examples,
-		PrefixItems:           s.PrefixItems,
-		Contains:              s.Contains,
-		MinContains:           s.MinContains,
-		MaxContains:           s.MaxContains,
-		If:                    s.If,
-		Else:                  s.Else,
-		Then:                  s.Then,
-		DependentSchemas:      s.DependentSchemas,
-		PatternProperties:     s.PatternProperties,
-		PropertyNames:         s.PropertyNames,
-		UnevaluatedItems:      s.UnevaluatedItems,
-		UnevaluatedProperties: s.UnevaluatedProperties,
-		Items:                 s.Items,
-		Anchor:                s.Anchor,
-		Not:                   s.Not,
-		Properties:            s.Properties,
-		Title:                 s.Title,
-		MultipleOf:            s.MultipleOf,
-		Maximum:               s.Maximum,
-		Minimum:               s.Minimum,
-		MaxLength:             s.MaxLength,
-		MinLength:             s.MinLength,
-		Pattern:               s.Pattern,
-		Format:                s.Format,
-		MaxItems:              s.MaxItems,
-		MinItems:              s.MinItems,
-		UniqueItems:           s.UniqueItems,
-		MaxProperties:         s.MaxProperties,
-		MinProperties:         s.MinProperties,
-		Required:              s.Required,
-		Enum:                  s.Enum,
-		AdditionalProperties:  s.AdditionalProperties,
-		Description:           s.Description,
-		Default:               s.Default,
-		Const:                 s.Const,
-		Nullable:              s.Nullable,
-		ReadOnly:              s.ReadOnly,
-		WriteOnly:             s.WriteOnly,
-		XML:                   s.XML,
-		ExternalDocs:          s.ExternalDocs,
-		Example:               s.Example,
-		Deprecated:            s.Deprecated,
-		Extensions:            s.Extensions,
-		ParentProxy:           s.ParentProxy,
-	}
 }

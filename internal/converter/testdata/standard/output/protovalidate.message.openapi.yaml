@@ -7,19 +7,17 @@ components:
       type: object
       properties:
         totalSize:
-          oneOf:
-            - type: integer
-              title: total_size
-            - type: string
-              title: total_size
+          type:
+            - integer
+            - string
           title: total_size
+          format: int64
         used:
-          oneOf:
-            - type: integer
-              title: used
-            - type: string
-              title: used
+          type:
+            - integer
+            - string
           title: used
+          format: int64
       title: Allocation
       additionalProperties: false
       description: |+

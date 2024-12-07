@@ -863,33 +863,23 @@
             "format": "int32"
           },
           "int64Const": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_const",
-                "format": "int64",
-                "description": "int64"
-              },
-              {
-                "type": "string",
-                "title": "int64_const",
-                "description": "int64"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
+            "title": "int64_const",
+            "format": "int64",
+            "description": "int64",
             "const": 42
           },
           "int64In": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
+              "format": "int64",
               "enum": [
                 1,
                 2,
@@ -901,95 +891,70 @@
           "int64NotIn": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
               "not": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
                 "enum": [
                   1,
                   2,
                   3
                 ]
-              }
+              },
+              "format": "int64"
             },
             "title": "int64_not_in"
           },
           "int64Lt": {
             "exclusiveMaximum": 42,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_lt",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "int64_lt"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "int64_lt",
+            "format": "int64"
           },
           "int64Lte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_lte",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "int64_lte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "maximum": 420
+            "title": "int64_lte",
+            "maximum": 420,
+            "format": "int64"
           },
           "int64Gt": {
             "exclusiveMinimum": 6,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_gt",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "int64_gt"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "int64_gt",
+            "format": "int64"
           },
           "int64Gte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_gte",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "int64_gte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "minimum": 69
+            "title": "int64_gte",
+            "minimum": 69,
+            "format": "int64"
           },
           "int64Bounds": {
             "exclusiveMaximum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_bounds",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "int64_bounds"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "minimum": 5
+            "title": "int64_bounds",
+            "minimum": 5,
+            "format": "int64"
           },
           "uint32Const": {
             "type": "integer",
@@ -1051,32 +1016,23 @@
             "minimum": 5
           },
           "uint64Const": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_const",
-                "description": "uint64"
-              },
-              {
-                "type": "string",
-                "title": "uint64_const",
-                "description": "uint64"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "uint64_const",
+            "format": "int64",
+            "description": "uint64",
             "const": "42"
           },
           "uint64In": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
+              "format": "int64",
               "enum": [
                 "1",
                 "2",
@@ -1088,94 +1044,70 @@
           "uint64NotIn": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
               "not": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
                 "enum": [
                   "1",
                   "2",
                   "3"
                 ]
-              }
+              },
+              "format": "int64"
             },
             "title": "uint64_not_in"
           },
           "uint64Lt": {
             "exclusiveMaximum": 42,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_lt"
-              },
-              {
-                "type": "string",
-                "title": "uint64_lt"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "uint64_lt"
+            "title": "uint64_lt",
+            "format": "int64"
           },
           "uint64Lte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_lte"
-              },
-              {
-                "type": "string",
-                "title": "uint64_lte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "uint64_lte",
-            "maximum": 420
+            "maximum": 420,
+            "format": "int64"
           },
           "uint64Gt": {
             "exclusiveMinimum": 6,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_gt"
-              },
-              {
-                "type": "string",
-                "title": "uint64_gt"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "uint64_gt"
+            "title": "uint64_gt",
+            "format": "int64"
           },
           "uint64Gte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_gte"
-              },
-              {
-                "type": "string",
-                "title": "uint64_gte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "uint64_gte",
-            "minimum": 69
+            "minimum": 69,
+            "format": "int64"
           },
           "uint64Bounds": {
             "exclusiveMaximum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_bounds"
-              },
-              {
-                "type": "string",
-                "title": "uint64_bounds"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "uint64_bounds",
-            "minimum": 5
+            "minimum": 5,
+            "format": "int64"
           },
           "sint32Const": {
             "type": "integer",
@@ -1245,33 +1177,23 @@
             "format": "int32"
           },
           "sint64Const": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_const",
-                "format": "int64",
-                "description": "sint64"
-              },
-              {
-                "type": "string",
-                "title": "sint64_const",
-                "description": "sint64"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
+            "title": "sint64_const",
+            "format": "int64",
+            "description": "sint64",
             "const": 42
           },
           "sint64In": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
+              "format": "int64",
               "enum": [
                 1,
                 2,
@@ -1283,95 +1205,70 @@
           "sint64NotIn": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
               "not": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
                 "enum": [
                   1,
                   2,
                   3
                 ]
-              }
+              },
+              "format": "int64"
             },
             "title": "sint64_not_in"
           },
           "sint64Lt": {
             "exclusiveMaximum": 42,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_lt",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sint64_lt"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sint64_lt",
+            "format": "int64"
           },
           "sint64Lte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_lte",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sint64_lte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "maximum": 420
+            "title": "sint64_lte",
+            "maximum": 420,
+            "format": "int64"
           },
           "sint64Gt": {
             "exclusiveMinimum": 8,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_gt",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sint64_gt"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sint64_gt",
+            "format": "int64"
           },
           "sint64Gte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_gte",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sint64_gte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "minimum": 89
+            "title": "sint64_gte",
+            "minimum": 89,
+            "format": "int64"
           },
           "sint64Bounds": {
             "exclusiveMaximum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_bounds",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sint64_bounds"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "minimum": 5
+            "title": "sint64_bounds",
+            "minimum": 5,
+            "format": "int64"
           },
           "fixed32Const": {
             "type": "integer",
@@ -1433,32 +1330,23 @@
             "minimum": 5
           },
           "fixed64Const": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_const",
-                "description": "fixed64"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_const",
-                "description": "fixed64"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "fixed64_const",
+            "format": "int64",
+            "description": "fixed64",
             "const": "42"
           },
           "fixed64In": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
+              "format": "int64",
               "enum": [
                 "1",
                 "2",
@@ -1470,94 +1358,70 @@
           "fixed64NotIn": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
               "not": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
                 "enum": [
                   "1",
                   "2",
                   "3"
                 ]
-              }
+              },
+              "format": "int64"
             },
             "title": "fixed64_not_in"
           },
           "fixed64Lt": {
             "exclusiveMaximum": 42,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_lt"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_lt"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "fixed64_lt"
+            "title": "fixed64_lt",
+            "format": "int64"
           },
           "fixed64Lte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_lte"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_lte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "fixed64_lte",
-            "maximum": 420
+            "maximum": 420,
+            "format": "int64"
           },
           "fixed64Gt": {
             "exclusiveMinimum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_gt"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_gt"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "fixed64_gt"
+            "title": "fixed64_gt",
+            "format": "int64"
           },
           "fixed64Gte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_gte"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_gte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "fixed64_gte",
-            "minimum": 109
+            "minimum": 109,
+            "format": "int64"
           },
           "fixed64Bounds": {
             "exclusiveMaximum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_bounds"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_bounds"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
             "title": "fixed64_bounds",
-            "minimum": 5
+            "minimum": 5,
+            "format": "int64"
           },
           "sfixed32Const": {
             "type": "integer",
@@ -1627,33 +1491,23 @@
             "format": "int32"
           },
           "sfixed64Const": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_const",
-                "format": "int64",
-                "description": "sfixed64"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_const",
-                "description": "sfixed64"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
+            "title": "sfixed64_const",
+            "format": "int64",
+            "description": "sfixed64",
             "const": 42
           },
           "sfixed64In": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
+              "format": "int64",
               "enum": [
                 1,
                 2,
@@ -1665,95 +1519,70 @@
           "sfixed64NotIn": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
               "not": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
                 "enum": [
                   1,
                   2,
                   3
                 ]
-              }
+              },
+              "format": "int64"
             },
             "title": "sfixed64_not_in"
           },
           "sfixed64Lt": {
             "exclusiveMaximum": 42,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_lt",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_lt"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sfixed64_lt",
+            "format": "int64"
           },
           "sfixed64Lte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_lte",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_lte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "maximum": 420
+            "title": "sfixed64_lte",
+            "maximum": 420,
+            "format": "int64"
           },
           "sfixed64Gt": {
             "exclusiveMinimum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_gt",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_gt"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sfixed64_gt",
+            "format": "int64"
           },
           "sfixed64Gte": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_gte",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_gte"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "minimum": 109
+            "title": "sfixed64_gte",
+            "minimum": 109,
+            "format": "int64"
           },
           "sfixed64Bounds": {
             "exclusiveMaximum": 10,
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_bounds",
-                "format": "int64"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_bounds"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "minimum": 5
+            "title": "sfixed64_bounds",
+            "minimum": 5,
+            "format": "int64"
           },
           "stringConst": {
             "type": "string",

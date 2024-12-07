@@ -194,19 +194,13 @@
         "type": "object",
         "properties": {
           "value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "value",
-                "description": "The uint64 value. (proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "value",
-                "description": "The uint64 value. (proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "value"
+            "title": "value",
+            "format": "int64",
+            "description": "The uint64 value. (proto uint64)"
           }
         },
         "title": "UInt64Value",
@@ -781,19 +775,13 @@
             "description": "(proto int32)"
           },
           "int64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_value",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              {
-                "type": "string",
-                "title": "int64_value",
-                "description": "(proto int64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "int64_value",
+            "format": "int64",
+            "description": "(proto int64)"
           },
           "uint32Value": {
             "type": "integer",
@@ -801,19 +789,13 @@
             "description": "(proto uint32)"
           },
           "uint64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_value",
-                "description": "(proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "uint64_value",
-                "description": "(proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "uint64_value"
+            "title": "uint64_value",
+            "format": "int64",
+            "description": "(proto uint64)"
           },
           "sint32Value": {
             "type": "integer",
@@ -822,19 +804,13 @@
             "description": "(proto sint32)"
           },
           "sint64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_value",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              {
-                "type": "string",
-                "title": "sint64_value",
-                "description": "(proto sint64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sint64_value",
+            "format": "int64",
+            "description": "(proto sint64)"
           },
           "fixed32Value": {
             "type": "integer",
@@ -842,19 +818,13 @@
             "description": "(proto fixed32)"
           },
           "fixed64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_value",
-                "description": "(proto fixed64)"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_value",
-                "description": "(proto fixed64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "fixed64_value"
+            "title": "fixed64_value",
+            "format": "int64",
+            "description": "(proto fixed64)"
           },
           "sfixed32Value": {
             "type": "integer",
@@ -863,19 +833,13 @@
             "description": "(proto sfixed32)"
           },
           "sfixed64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_value",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_value",
-                "description": "(proto sfixed64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sfixed64_value",
+            "format": "int64",
+            "description": "(proto sfixed64)"
           },
           "boolValue": {
             "type": "boolean",
@@ -923,15 +887,11 @@
           "int64List": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int64"
             },
             "title": "int64_list",
             "description": "(proto int64)"
@@ -947,14 +907,11 @@
           "uint64List": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int64"
             },
             "title": "uint64_list",
             "description": "(proto uint64)"
@@ -971,15 +928,11 @@
           "sint64List": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int64"
             },
             "title": "sint64_list",
             "description": "(proto sint64)"
@@ -995,14 +948,11 @@
           "fixed64List": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int64"
             },
             "title": "fixed64_list",
             "description": "(proto fixed64)"
@@ -1019,15 +969,11 @@
           "sfixed64List": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int64"
             },
             "title": "sfixed64_list",
             "description": "(proto sfixed64)"
@@ -1214,19 +1160,13 @@
             "type": "object",
             "title": "int64_map",
             "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "title": "value",
-                  "format": "int64",
-                  "description": "(proto int64)"
-                },
-                {
-                  "type": "string",
-                  "title": "value",
-                  "description": "(proto int64)"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "title": "value",
+              "format": "int64",
+              "description": "(proto int64)"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.Int64MapEntry)"
           },
@@ -1244,19 +1184,13 @@
             "type": "object",
             "title": "uint64_map",
             "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "title": "value",
-                  "description": "(proto uint64)"
-                },
-                {
-                  "type": "string",
-                  "title": "value",
-                  "description": "(proto uint64)"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
-              "title": "value"
+              "title": "value",
+              "format": "int64",
+              "description": "(proto uint64)"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.Uint64MapEntry)"
           },
@@ -1275,19 +1209,13 @@
             "type": "object",
             "title": "sint64_map",
             "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "title": "value",
-                  "format": "int64",
-                  "description": "(proto sint64)"
-                },
-                {
-                  "type": "string",
-                  "title": "value",
-                  "description": "(proto sint64)"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "title": "value",
+              "format": "int64",
+              "description": "(proto sint64)"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.Sint64MapEntry)"
           },
@@ -1305,19 +1233,13 @@
             "type": "object",
             "title": "fixed64_map",
             "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "title": "value",
-                  "description": "(proto fixed64)"
-                },
-                {
-                  "type": "string",
-                  "title": "value",
-                  "description": "(proto fixed64)"
-                }
+              "type": [
+                "integer",
+                "string"
               ],
-              "title": "value"
+              "title": "value",
+              "format": "int64",
+              "description": "(proto fixed64)"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.Fixed64MapEntry)"
           },
@@ -1336,19 +1258,13 @@
             "type": "object",
             "title": "sfixed64_map",
             "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "title": "value",
-                  "format": "int64",
-                  "description": "(proto sfixed64)"
-                },
-                {
-                  "type": "string",
-                  "title": "value",
-                  "description": "(proto sfixed64)"
-                }
-              ]
+              "type": [
+                "integer",
+                "string"
+              ],
+              "title": "value",
+              "format": "int64",
+              "description": "(proto sfixed64)"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.Sfixed64MapEntry)"
           },
@@ -1402,19 +1318,13 @@
             "description": "(proto int32)"
           },
           "optInt64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "opt_int64_value",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              {
-                "type": "string",
-                "title": "opt_int64_value",
-                "description": "(proto int64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "opt_int64_value",
+            "format": "int64",
+            "description": "(proto int64)"
           },
           "optUint32Value": {
             "type": "integer",
@@ -1422,19 +1332,13 @@
             "description": "(proto uint32)"
           },
           "optUint64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "opt_uint64_value",
-                "description": "(proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "opt_uint64_value",
-                "description": "(proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "opt_uint64_value"
+            "title": "opt_uint64_value",
+            "format": "int64",
+            "description": "(proto uint64)"
           },
           "optSint32Value": {
             "type": "integer",
@@ -1443,19 +1347,13 @@
             "description": "(proto sint32)"
           },
           "optSint64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "opt_sint64_value",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              {
-                "type": "string",
-                "title": "opt_sint64_value",
-                "description": "(proto sint64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "opt_sint64_value",
+            "format": "int64",
+            "description": "(proto sint64)"
           },
           "optFixed32Value": {
             "type": "integer",
@@ -1463,19 +1361,13 @@
             "description": "(proto fixed32)"
           },
           "optFixed64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "opt_fixed64_value",
-                "description": "(proto fixed64)"
-              },
-              {
-                "type": "string",
-                "title": "opt_fixed64_value",
-                "description": "(proto fixed64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "opt_fixed64_value"
+            "title": "opt_fixed64_value",
+            "format": "int64",
+            "description": "(proto fixed64)"
           },
           "optSfixed32Value": {
             "type": "integer",
@@ -1484,19 +1376,13 @@
             "description": "(proto sfixed32)"
           },
           "optSfixed64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "opt_sfixed64_value",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              {
-                "type": "string",
-                "title": "opt_sfixed64_value",
-                "description": "(proto sfixed64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "opt_sfixed64_value",
+            "format": "int64",
+            "description": "(proto sfixed64)"
           },
           "optBoolValue": {
             "type": "boolean",
@@ -1613,19 +1499,13 @@
             "description": "(proto int32)"
           },
           "int64Option": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_option",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              {
-                "type": "string",
-                "title": "int64_option",
-                "description": "(proto int64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "int64_option",
+            "format": "int64",
+            "description": "(proto int64)"
           },
           "uint32Option": {
             "type": "integer",
@@ -1633,19 +1513,13 @@
             "description": "(proto uint32)"
           },
           "uint64Option": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_option",
-                "description": "(proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "uint64_option",
-                "description": "(proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "uint64_option"
+            "title": "uint64_option",
+            "format": "int64",
+            "description": "(proto uint64)"
           },
           "sint32Option": {
             "type": "integer",
@@ -1654,19 +1528,13 @@
             "description": "(proto sint32)"
           },
           "sint64Option": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_option",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              {
-                "type": "string",
-                "title": "sint64_option",
-                "description": "(proto sint64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sint64_option",
+            "format": "int64",
+            "description": "(proto sint64)"
           },
           "fixed32Option": {
             "type": "integer",
@@ -1674,19 +1542,13 @@
             "description": "(proto fixed32)"
           },
           "fixed64Option": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_option",
-                "description": "(proto fixed64)"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_option",
-                "description": "(proto fixed64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "fixed64_option"
+            "title": "fixed64_option",
+            "format": "int64",
+            "description": "(proto fixed64)"
           },
           "sfixed32Option": {
             "type": "integer",
@@ -1695,19 +1557,13 @@
             "description": "(proto sfixed32)"
           },
           "sfixed64Option": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_option",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_option",
-                "description": "(proto sfixed64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sfixed64_option",
+            "format": "int64",
+            "description": "(proto sfixed64)"
           },
           "boolOption": {
             "type": "boolean",
@@ -1881,19 +1737,13 @@
             "description": "(proto string)"
           },
           "value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "value",
-                "description": "(proto fixed64)"
-              },
-              {
-                "type": "string",
-                "title": "value",
-                "description": "(proto fixed64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "value"
+            "title": "value",
+            "format": "int64",
+            "description": "(proto fixed64)"
           }
         },
         "title": "Fixed64MapEntry",
@@ -1903,19 +1753,13 @@
         "type": "object",
         "properties": {
           "key": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "key",
-                "description": "(proto fixed64)"
-              },
-              {
-                "type": "string",
-                "title": "key",
-                "description": "(proto fixed64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "key"
+            "title": "key",
+            "format": "int64",
+            "description": "(proto fixed64)"
           },
           "value": {
             "type": "string",
@@ -1989,19 +1833,13 @@
             "description": "(proto string)"
           },
           "value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "value",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              {
-                "type": "string",
-                "title": "value",
-                "description": "(proto int64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "value",
+            "format": "int64",
+            "description": "(proto int64)"
           }
         },
         "title": "Int64MapEntry",
@@ -2011,19 +1849,13 @@
         "type": "object",
         "properties": {
           "key": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "key",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              {
-                "type": "string",
-                "title": "key",
-                "description": "(proto int64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto int64)"
           },
           "value": {
             "type": "string",
@@ -2100,19 +1932,13 @@
             "description": "(proto string)"
           },
           "value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "value",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              {
-                "type": "string",
-                "title": "value",
-                "description": "(proto sfixed64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "value",
+            "format": "int64",
+            "description": "(proto sfixed64)"
           }
         },
         "title": "Sfixed64MapEntry",
@@ -2122,19 +1948,13 @@
         "type": "object",
         "properties": {
           "key": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "key",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              {
-                "type": "string",
-                "title": "key",
-                "description": "(proto sfixed64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto sfixed64)"
           },
           "value": {
             "type": "string",
@@ -2190,19 +2010,13 @@
             "description": "(proto string)"
           },
           "value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "value",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              {
-                "type": "string",
-                "title": "value",
-                "description": "(proto sint64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "value",
+            "format": "int64",
+            "description": "(proto sint64)"
           }
         },
         "title": "Sint64MapEntry",
@@ -2212,19 +2026,13 @@
         "type": "object",
         "properties": {
           "key": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "key",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              {
-                "type": "string",
-                "title": "key",
-                "description": "(proto sint64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto sint64)"
           },
           "value": {
             "type": "string",
@@ -2312,19 +2120,13 @@
             "description": "(proto string)"
           },
           "value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "value",
-                "description": "(proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "value",
-                "description": "(proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "value"
+            "title": "value",
+            "format": "int64",
+            "description": "(proto uint64)"
           }
         },
         "title": "Uint64MapEntry",
@@ -2334,19 +2136,13 @@
         "type": "object",
         "properties": {
           "key": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "key",
-                "description": "(proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "key",
-                "description": "(proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "key"
+            "title": "key",
+            "format": "int64",
+            "description": "(proto uint64)"
           },
           "value": {
             "type": "string",
@@ -2459,19 +2255,13 @@
             "description": "(proto int32)"
           },
           "int64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "int64_value",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              {
-                "type": "string",
-                "title": "int64_value",
-                "description": "(proto int64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "int64_value",
+            "format": "int64",
+            "description": "(proto int64)"
           },
           "uint32Value": {
             "type": "integer",
@@ -2479,19 +2269,13 @@
             "description": "(proto uint32)"
           },
           "uint64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "uint64_value",
-                "description": "(proto uint64)"
-              },
-              {
-                "type": "string",
-                "title": "uint64_value",
-                "description": "(proto uint64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "uint64_value"
+            "title": "uint64_value",
+            "format": "int64",
+            "description": "(proto uint64)"
           },
           "sint32Value": {
             "type": "integer",
@@ -2500,19 +2284,13 @@
             "description": "(proto sint32)"
           },
           "sint64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sint64_value",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              {
-                "type": "string",
-                "title": "sint64_value",
-                "description": "(proto sint64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sint64_value",
+            "format": "int64",
+            "description": "(proto sint64)"
           },
           "fixed32Value": {
             "type": "integer",
@@ -2520,19 +2298,13 @@
             "description": "(proto fixed32)"
           },
           "fixed64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "fixed64_value",
-                "description": "(proto fixed64)"
-              },
-              {
-                "type": "string",
-                "title": "fixed64_value",
-                "description": "(proto fixed64)"
-              }
+            "type": [
+              "integer",
+              "string"
             ],
-            "title": "fixed64_value"
+            "title": "fixed64_value",
+            "format": "int64",
+            "description": "(proto fixed64)"
           },
           "sfixed32Value": {
             "type": "integer",
@@ -2541,19 +2313,13 @@
             "description": "(proto sfixed32)"
           },
           "sfixed64Value": {
-            "oneOf": [
-              {
-                "type": "integer",
-                "title": "sfixed64_value",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              {
-                "type": "string",
-                "title": "sfixed64_value",
-                "description": "(proto sfixed64)"
-              }
-            ]
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "sfixed64_value",
+            "format": "int64",
+            "description": "(proto sfixed64)"
           },
           "boolValue": {
             "type": "boolean",
