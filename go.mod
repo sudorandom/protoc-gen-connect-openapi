@@ -8,6 +8,7 @@ require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.35.2-20241127180247-a33202765966.1
 	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.17.0-20230913231627-233fca715f49.1
 	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.34.2-20230913231627-233fca715f49.2
+	github.com/alecthomas/kong v1.6.1
 	github.com/bufbuild/protovalidate-go v0.7.3
 	github.com/golang/protobuf v1.5.4
 	github.com/google/gnostic v0.7.0
