@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log/slog"
 	"os"
@@ -9,7 +10,6 @@ import (
 	"google.golang.org/protobuf/proto"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/alecthomas/kong"
 	"github.com/lmittmann/tint"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 )
@@ -20,31 +20,13 @@ var (
 	date    = "unknown"
 )
 
-type VersionFlag string
-
-func (v VersionFlag) Decode(ctx *kong.DecodeContext) error { return nil }
-func (v VersionFlag) IsBool() bool                         { return true }
-func (v VersionFlag) BeforeApply(app *kong.Kong, vars kong.Vars) error {
-	fmt.Println(vars["version"])
-	app.Exit(0)
-	return nil
-}
-
-type CLI struct {
-	Version VersionFlag `name:"version" help:"Print version information and quit"`
-}
-
 func main() {
-	version := fullVersion()
-	cli := CLI{
-		Version: VersionFlag(version),
+	showVersion := flag.Bool("version", false, "print the version and exit")
+	flag.Parse()
+	if *showVersion {
+		fmt.Printf("protoc-gen-connect-openapi %s\n", fullVersion())
+		return
 	}
-	_ = kong.Parse(&cli,
-		kong.Name("protoc-gen-connect-openapi"),
-		kong.Description("Plugin for generating OpenAPIv3 from protobufs matching the Connect RPC interface."),
-		kong.UsageOnError(),
-		kong.ConfigureHelp(kong.HelpOptions{Compact: true}),
-		kong.Vars{"version": version})
 
 	resp, err := converter.ConvertFrom(os.Stdin)
 	if err != nil {
