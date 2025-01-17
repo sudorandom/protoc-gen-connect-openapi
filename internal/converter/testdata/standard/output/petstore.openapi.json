@@ -344,7 +344,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io.swagger.petstore.v2.Pets"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                  },
+                  "title": "pets"
                 }
               }
             }
@@ -388,7 +392,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io.swagger.petstore.v2.Pets"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                  },
+                  "title": "pets"
                 }
               }
             }
