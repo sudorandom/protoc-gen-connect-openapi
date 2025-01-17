@@ -125,7 +125,6 @@ func WithBaseOpenAPI(baseOpenAPI []byte) Option {
 	}
 }
 
-
 // WithAllowGET sets a file to use as a base for all OpenAPI files.
 func WithAllowGET(allowGet bool) Option {
 	return func(g *generator) error {
@@ -176,6 +175,14 @@ func WithDebug(enabled bool) Option {
 func WithProtoAnnotations(enabled bool) Option {
 	return func(g *generator) error {
 		g.options.WithProtoAnnotations = enabled
+		return nil
+	}
+}
+
+// WithServices will limit the services generated.
+func WithServices(serviceNames []protoreflect.FullName) Option {
+	return func(g *generator) error {
+		g.options.Services = append(g.options.Services, serviceNames...)
 		return nil
 	}
 }

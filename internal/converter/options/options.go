@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/annotations"
+	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 type Options struct {
@@ -32,10 +33,24 @@ type Options struct {
 	TrimUnusedTypes bool
 	// WithProtoAnnotations will add some protobuf annotations for descriptions
 	WithProtoAnnotations bool
+	// Services filters which services will be used for generating OpenAPI spec.
+	Services []protoreflect.FullName
 
 	MessageAnnotator        annotations.MessageAnnotator
 	FieldAnnotator          annotations.FieldAnnotator
 	FieldReferenceAnnotator annotations.FieldReferenceAnnotator
+}
+
+func (opts Options) HasService(serviceName protoreflect.FullName) bool {
+	if len(opts.Services) == 0 {
+		return true
+	}
+	for _, service := range opts.Services {
+		if service == serviceName {
+			return true
+		}
+	}
+	return false
 }
 
 func NewOptions() Options {
@@ -106,6 +121,11 @@ func FromString(s string) (Options, error) {
 				opts.BaseOpenAPI = body
 			default:
 				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
+			}
+		case strings.HasPrefix(param, "services="):
+			services := strings.Split(param[9:], ",")
+			for _, service := range services {
+				opts.Services = append(opts.Services, protoreflect.FullName(service))
 			}
 		default:
 			return opts, fmt.Errorf("invalid parameter: %s", param)

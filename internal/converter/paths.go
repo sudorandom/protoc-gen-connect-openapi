@@ -17,6 +17,9 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
+		if !opts.HasService(service.FullName()) {
+			continue
+		}
 		methods := service.Methods()
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)

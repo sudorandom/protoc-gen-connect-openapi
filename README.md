@@ -119,3 +119,4 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | with-proto-annotations | - | Add protobuf type annotations to the end of descriptions so users know the protobuf type that the field converts to. |
 | with-proto-names | - | Use protobuf field names instead of the camelCase JSON names for property names. |
 | with-streaming | - | Generate OpenAPI for client/server/bidirectional streaming RPCs (can be messy). |
+| services | - | Filter which services have OpenAPI spec generated. The default is all services. Comma-separated, uses the full path of the service "[package name].[service name]" |
