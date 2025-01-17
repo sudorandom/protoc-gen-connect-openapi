@@ -28,9 +28,9 @@ func SchemaWithPropertyAnnotations(schema *base.Schema, desc protoreflect.FieldD
 	case annotations.FieldBehavior_REQUIRED:
 		schema.ParentProxy.Schema().Required = util.AppendStringDedupe(schema.ParentProxy.Schema().Required, string(desc.Name()))
 	case annotations.FieldBehavior_OUTPUT_ONLY:
-		schema.Description = "(OUTPUT_ONLY) " + schema.Description
+		schema.ReadOnly = util.BoolPtr(true)
 	case annotations.FieldBehavior_INPUT_ONLY:
-		schema.Description = "(INPUT_ONLY) " + schema.Description
+		schema.WriteOnly = util.BoolPtr(true)
 	case annotations.FieldBehavior_IMMUTABLE:
 		schema.Description = "(IMMUTABLE) " + schema.Description
 	case annotations.FieldBehavior_UNORDERED_LIST:
