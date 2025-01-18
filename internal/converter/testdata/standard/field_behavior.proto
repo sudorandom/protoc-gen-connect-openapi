@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package field_behavior;
+
+import "google/api/field_behavior.proto";
+
+message User {
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  int32 user_id = 2 [
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (google.api.field_behavior) = IDENTIFIER
+  ];
+  string password = 3 [(google.api.field_behavior) = INPUT_ONLY];
+  string nick_name = 4 [(google.api.field_behavior) = OPTIONAL];
+  string internal_id = 5 [(google.api.field_behavior) = IMMUTABLE];
+  repeated string other_attr = 6 [(google.api.field_behavior) = UNORDERED_LIST];
+  string all_behaviors = 7 [
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.field_behavior) = OUTPUT_ONLY,
+    (google.api.field_behavior) = INPUT_ONLY,
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = UNORDERED_LIST,
+    (google.api.field_behavior) = NON_EMPTY_DEFAULT,
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.field_behavior) = IDENTIFIER
+  ];
+}

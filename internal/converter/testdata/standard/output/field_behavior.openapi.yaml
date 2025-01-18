@@ -1,0 +1,49 @@
+openapi: 3.1.0
+info:
+  title: field_behavior
+paths: {}
+components:
+  schemas:
+    field_behavior.User:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+        userId:
+          type: integer
+          title: user_id
+          format: int32
+          description: '(IDENTIFIER) '
+          readOnly: true
+        password:
+          type: string
+          title: password
+          writeOnly: true
+        nickName:
+          type: string
+          title: nick_name
+          description: '(OPTIONAL) '
+        internalId:
+          type: string
+          title: internal_id
+          description: '(IMMUTABLE) '
+        otherAttr:
+          type: array
+          items:
+            type: string
+            description: '(UNORDERED_LIST) '
+          title: other_attr
+          description: '(UNORDERED_LIST) '
+        allBehaviors:
+          type: string
+          title: all_behaviors
+          description: '(IDENTIFIER) (OPTIONAL) (NON_EMPTY_DEFAULT) (UNORDERED_LIST) (IMMUTABLE) (OPTIONAL) '
+          readOnly: true
+          writeOnly: true
+      title: User
+      required:
+        - name
+        - all_behaviors
+      additionalProperties: false
+security: []
