@@ -1,7 +1,6 @@
 package googleapi
 
 import (
-	"log"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -153,7 +152,6 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	codeMap := orderedmap.New[string, *v3.Response]()
 	mediaType := orderedmap.New[string, *v3.MediaType]()
 	var outputSchema *base.SchemaProxy
-	log.Println("rule.ResponseBody", rule.ResponseBody)
 	if rule.ResponseBody == "" {
 		outputSchema = base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(string(md.Output().FullName())))
 	} else {

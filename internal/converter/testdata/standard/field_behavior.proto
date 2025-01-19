@@ -2,7 +2,14 @@ syntax = "proto3";
 
 package field_behavior;
 
+import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
+
+service Service {
+  rpc Method(User) returns (User) {
+    option (google.api.http) = {get: "/v1/{user_id}"};
+  }
+}
 
 message User {
   string name = 1 [(google.api.field_behavior) = REQUIRED];
