@@ -11,6 +11,7 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSc
 	"google.protobuf.Timestamp": googleTimestamp,
 	"google.protobuf.Empty":     googleEmpty,
 	"google.protobuf.Any":       func(_ protoreflect.MessageDescriptor) *IDSchema { return NewGoogleAny() },
+	"google.protobuf.FieldMask": googleFieldmask,
 
 	// google.protobuf.[Type]Value
 	"google.protobuf.Value":       googleValue,
@@ -180,6 +181,23 @@ func NewGoogleAny() *IDSchema {
 			Type:                 []string{"object"},
 			Properties:           props,
 			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+		},
+	}
+}
+
+func googleFieldmask(msg protoreflect.MessageDescriptor) *IDSchema {
+	return &IDSchema{
+		ID: string(msg.FullName()),
+		Schema: &base.Schema{
+			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
+			Type:        []string{"array"},
+			Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+				N: 0,
+				A: base.CreateSchemaProxy(&base.Schema{
+					Type:  []string{"string"},
+					Title: "paths",
+				}),
+			},
 		},
 	}
 }

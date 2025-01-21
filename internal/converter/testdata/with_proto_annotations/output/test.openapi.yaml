@@ -120,16 +120,10 @@ components:
          be expressed in JSON format as "3.000000001s", and 3 seconds and 1
          microsecond should be expressed in JSON format as "3.000001s".
     google.protobuf.FieldMask:
-      type: object
-      properties:
-        paths:
-          type: array
-          items:
-            type: string
-          title: paths
-          description: The set of field mask paths. (proto string)
-      title: FieldMask
-      additionalProperties: false
+      type: array
+      items:
+        type: string
+        title: paths
       description: |-
         `FieldMask` represents a set of symbolic field paths, for example:
 

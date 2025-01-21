@@ -1,73 +1,9 @@
 openapi: 3.1.0
 info:
-  title: io.swagger.petstore.v2
-paths:
-  /.well-known/jwks.json:
-    get:
-      tags:
-        - io.swagger.petstore.v2.Foo
-      summary: Foo
-      operationId: io.swagger.petstore.v2.Foo.Foo
-      responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/google.protobuf.Empty'
-  /io.swagger.petstore.v2.Foo/Masky:
-    post:
-      tags:
-        - io.swagger.petstore.v2.Foo
-      summary: Masky
-      operationId: io.swagger.petstore.v2.Foo.Masky
-      parameters:
-        - name: Connect-Protocol-Version
-          in: header
-          required: true
-          schema:
-            $ref: '#/components/schemas/connect-protocol-version'
-        - name: Connect-Timeout-Ms
-          in: header
-          schema:
-            $ref: '#/components/schemas/connect-timeout-header'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/io.swagger.petstore.v2.MaskyRequest'
-        required: true
-      responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/google.protobuf.Empty'
+  title: google_fieldmask
+paths: {}
 components:
   schemas:
-    google.protobuf.Empty:
-      type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
     google.protobuf.FieldMask:
       type: array
       items:
@@ -273,88 +209,17 @@ components:
          The implementation of any API method which has a FieldMask type field in the
          request should verify the included field paths, and return an
          `INVALID_ARGUMENT` error if any path is unmappable.
-    io.swagger.petstore.v2.MaskyRequest:
+    google_fieldmask.GetUserRequest:
       type: object
       properties:
         fields:
           allOf:
             - $ref: '#/components/schemas/google.protobuf.FieldMask'
           title: fields
-      title: MaskyRequest
+        id:
+          type: string
+          title: id
+      title: GetUserRequest
       additionalProperties: false
-    encoding:
-      title: encoding
-      enum:
-        - proto
-        - json
-      description: Define which encoding or 'Message-Codec' to use
-    base64:
-      type: boolean
-      title: base64
-      description: Specifies if the message query param is base64 encoded, which may be required for binary data
-    compression:
-      title: compression
-      enum:
-        - identity
-        - gzip
-        - br
-      description: Which compression algorithm to use for this request
-    connect-protocol-version:
-      type: number
-      title: Connect-Protocol-Version
-      enum:
-        - 1
-      description: Define the version of the Connect protocol
-      const: 1
-    connect-timeout-header:
-      type: number
-      title: Connect-Timeout-Ms
-      description: Define the timeout, in ms
-    connect.error:
-      type: object
-      properties:
-        code:
-          type: string
-          examples:
-            - CodeNotFound
-          enum:
-            - CodeCanceled
-            - CodeUnknown
-            - CodeInvalidArgument
-            - CodeDeadlineExceeded
-            - CodeNotFound
-            - CodeAlreadyExists
-            - CodePermissionDenied
-            - CodeResourceExhausted
-            - CodeFailedPrecondition
-            - CodeAborted
-            - CodeOutOfRange
-            - CodeInternal
-            - CodeUnavailable
-            - CodeDataLoss
-            - CodeUnauthenticated
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-        detail:
-          $ref: '#/components/schemas/google.protobuf.Any'
-      title: Connect Error
-      additionalProperties: true
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-    google.protobuf.Any:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-          format: binary
-        debug:
-          type: object
-          additionalProperties: true
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+      description: 'Example of get user request:'
 security: []
-tags:
-  - name: io.swagger.petstore.v2.Foo

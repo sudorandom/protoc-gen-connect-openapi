@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package google_fieldmask;
+
+import "google/protobuf/field_mask.proto";
+
+// Example of get user request:
+message GetUserRequest {
+  google.protobuf.FieldMask fields = 1;
+
+  string id = 2;
+}
