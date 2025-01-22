@@ -33,6 +33,9 @@ type Options struct {
 	TrimUnusedTypes bool
 	// WithProtoAnnotations will add some protobuf annotations for descriptions
 	WithProtoAnnotations bool
+	// FullyQualifiedMessageNames uses the full path for message types: {pkg}.{name} instead of just the name. This
+	// is helpful if you are mixing types from multiple services.
+	FullyQualifiedMessageNames bool
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []protoreflect.FullName
 
@@ -88,6 +91,8 @@ func FromString(s string) (Options, error) {
 			opts.WithProtoAnnotations = true
 		case param == "trim-unused-types":
 			opts.TrimUnusedTypes = true
+		case param == "fully-qualified-message-names":
+			opts.FullyQualifiedMessageNames = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)

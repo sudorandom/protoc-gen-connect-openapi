@@ -186,3 +186,11 @@ func WithServices(serviceNames []protoreflect.FullName) Option {
 		return nil
 	}
 }
+
+// FullyQualifiedMessageNames decides if you want to use the full path in message names.
+func FullyQualifiedMessageNames(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.FullyQualifiedMessageNames = enabled
+		return nil
+	}
+}

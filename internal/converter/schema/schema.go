@@ -22,8 +22,12 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		}
 		return wk.ID, wk.Schema
 	}
+	title := string(tt.Name())
+	if opts.FullyQualifiedMessageNames {
+		title = string(tt.FullName())
+	}
 	s := &base.Schema{
-		Title:                string(tt.Name()),
+		Title:                title,
 		Description:          util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
 		Type:                 []string{"object"},
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
