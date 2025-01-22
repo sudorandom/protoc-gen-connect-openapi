@@ -2302,24 +2302,25 @@
           "code": {
             "type": "string",
             "examples": [
-              "CodeNotFound"
+              "not_found"
             ],
             "enum": [
-              "CodeCanceled",
-              "CodeUnknown",
-              "CodeInvalidArgument",
-              "CodeDeadlineExceeded",
-              "CodeNotFound",
-              "CodeAlreadyExists",
-              "CodePermissionDenied",
-              "CodeResourceExhausted",
-              "CodeFailedPrecondition",
-              "CodeAborted",
-              "CodeOutOfRange",
-              "CodeInternal",
-              "CodeUnavailable",
-              "CodeDataLoss",
-              "CodeUnauthenticated"
+              "canceled",
+              "unknown",
+              "invalid_argument",
+              "deadline_exceeded",
+              "not_found",
+              "already_exists",
+              "permission_denied",
+              "resource_exhausted",
+              "failed_precondition",
+              "aborted",
+              "out_of_range",
+              "unimplemented",
+              "internal",
+              "unavailable",
+              "data_loss",
+              "unauthenticated"
             ],
             "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
           },
