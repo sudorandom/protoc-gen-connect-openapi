@@ -190,14 +190,7 @@ func googleFieldmask(msg protoreflect.MessageDescriptor) *IDSchema {
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:        []string{"array"},
-			Items: &base.DynamicValue[*base.SchemaProxy, bool]{
-				N: 0,
-				A: base.CreateSchemaProxy(&base.Schema{
-					Type:  []string{"string"},
-					Title: "paths",
-				}),
-			},
+			Type:        []string{"string"},
 		},
 	}
 }
