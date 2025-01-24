@@ -57,6 +57,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 		components.Schemas.Set("encoding", base.CreateSchemaProxy(&base.Schema{
 			Title:       "encoding",
 			Description: "Define which encoding or 'Message-Codec' to use",
+			Default:     utils.CreateStringNode("json"),
 			Enum: []*yaml.Node{
 				utils.CreateStringNode("proto"),
 				utils.CreateStringNode("json"),
@@ -67,6 +68,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 			Title:       "base64",
 			Description: "Specifies if the message query param is base64 encoded, which may be required for binary data",
 			Type:        []string{"boolean"},
+			Default:     utils.CreateStringNode("false"),
 		}))
 
 		components.Schemas.Set("compression", base.CreateSchemaProxy(&base.Schema{
@@ -77,6 +79,15 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*hi
 				utils.CreateStringNode("gzip"),
 				utils.CreateStringNode("br"),
 			},
+			Default: utils.CreateStringNode("identity"),
+		}))
+		components.Schemas.Set("connect", base.CreateSchemaProxy(&base.Schema{
+			Title:       "connect",
+			Description: "Define the version of the Connect protocol",
+			Enum: []*yaml.Node{
+				utils.CreateStringNode("v1"),
+			},
+			Default: utils.CreateStringNode("v1"),
 		}))
 	}
 	if hasMethods {

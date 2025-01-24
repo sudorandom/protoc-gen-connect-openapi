@@ -306,7 +306,7 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 			&v3.Parameter{
 				Name:   "connect",
 				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
+				Schema: base.CreateSchemaProxyRef("#/components/schemas/connect"),
 			},
 		)
 	} else {
