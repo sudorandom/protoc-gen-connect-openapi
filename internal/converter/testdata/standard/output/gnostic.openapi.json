@@ -53,45 +53,29 @@
           {
             "name": "encoding",
             "in": "query",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/encoding"
-                }
-              }
+            "schema": {
+              "$ref": "#/components/schemas/encoding"
             }
           },
           {
             "name": "base64",
             "in": "query",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/base64"
-                }
-              }
+            "schema": {
+              "$ref": "#/components/schemas/base64"
             }
           },
           {
             "name": "compression",
             "in": "query",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/compression"
-                }
-              }
+            "schema": {
+              "$ref": "#/components/schemas/compression"
             }
           },
           {
             "name": "connect",
             "in": "query",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect-protocol-version"
-                }
-              }
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
             }
           }
         ],

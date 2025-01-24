@@ -289,40 +289,24 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 					isStreaming),
 			},
 			&v3.Parameter{
-				Name: "encoding",
-				In:   "query",
-				Content: util.MakeMediaTypes(
-					opts,
-					base.CreateSchemaProxyRef("#/components/schemas/encoding"),
-					true,
-					isStreaming),
+				Name:   "encoding",
+				In:     "query",
+				Schema: base.CreateSchemaProxyRef("#/components/schemas/encoding"),
 			},
 			&v3.Parameter{
-				Name: "base64",
-				In:   "query",
-				Content: util.MakeMediaTypes(
-					opts,
-					base.CreateSchemaProxyRef("#/components/schemas/base64"),
-					true,
-					isStreaming),
+				Name:   "base64",
+				In:     "query",
+				Schema: base.CreateSchemaProxyRef("#/components/schemas/base64"),
 			},
 			&v3.Parameter{
-				Name: "compression",
-				In:   "query",
-				Content: util.MakeMediaTypes(
-					opts,
-					base.CreateSchemaProxyRef("#/components/schemas/compression"),
-					true,
-					isStreaming),
+				Name:   "compression",
+				In:     "query",
+				Schema: base.CreateSchemaProxyRef("#/components/schemas/compression"),
 			},
 			&v3.Parameter{
-				Name: "connect",
-				In:   "query",
-				Content: util.MakeMediaTypes(
-					opts,
-					base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
-					true,
-					isStreaming),
+				Name:   "connect",
+				In:     "query",
+				Schema: base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
 			},
 		)
 	} else {
