@@ -21,7 +21,6 @@ paths:
             $ref: '#/components/schemas/connect-timeout-header'
         - name: message
           in: query
-          required: true
           content:
             application/json:
               schema:

@@ -280,9 +280,8 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 		op.OperationId = op.OperationId + ".get"
 		op.Parameters = append(op.Parameters,
 			&v3.Parameter{
-				Name:     "message",
-				In:       "query",
-				Required: util.BoolPtr(true),
+				Name: "message",
+				In:   "query",
 				Content: util.MakeMediaTypes(
 					opts,
 					base.CreateSchemaProxyRef("#/components/schemas/"+util.FormatTypeRef(inputId)),
