@@ -280,8 +280,9 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 		op.OperationId = op.OperationId + ".get"
 		op.Parameters = append(op.Parameters,
 			&v3.Parameter{
-				Name: "message",
-				In:   "query",
+				Name:     "message",
+				In:       "query",
+				Required: util.BoolPtr(true),
 				Content: util.MakeMediaTypes(
 					opts,
 					base.CreateSchemaProxyRef("#/components/schemas/"+util.FormatTypeRef(inputId)),
@@ -289,9 +290,10 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 					isStreaming),
 			},
 			&v3.Parameter{
-				Name:   "encoding",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/encoding"),
+				Name:     "encoding",
+				In:       "query",
+				Required: util.BoolPtr(true),
+				Schema:   base.CreateSchemaProxyRef("#/components/schemas/encoding"),
 			},
 			&v3.Parameter{
 				Name:   "base64",

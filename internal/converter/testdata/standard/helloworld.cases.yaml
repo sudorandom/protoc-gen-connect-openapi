@@ -2,7 +2,7 @@ cases:
   - name: "hello"
     method: GET
     path: "helloworld.Greeter/SayHello"
-    query: 'message=%7B%22name%22%3A%20%22kevin%22%7D'
+    query: 'message=%7B%22name%22%3A%20%22kevin%22%7D&encoding=json'
     headers:
       Content-Type: application/json
       Connect-Protocol-Version: 1
@@ -10,7 +10,7 @@ cases:
   - name: "hello-wrong-value-type"
     method: GET
     path: "helloworld.Greeter/SayHello"
-    query: 'message=%7B%22name%22%3A%201%7D'
+    query: 'message=%7B%22name%22%3A%201%7D&encoding=json'
     headers:
       Content-Type: application/json
       Connect-Protocol-Version: 1
@@ -20,7 +20,7 @@ cases:
   - name: "hello-wrong-key"
     method: GET
     path: "helloworld.Greeter/SayHello"
-    query: 'message=%7B%22nane%22%3A%20%22kevin%22%7D'
+    query: 'message=%7B%22nane%22%3A%20%22kevin%22%7D&encoding=json'
     headers:
       Content-Type: application/json
       Connect-Protocol-Version: 1
@@ -30,7 +30,7 @@ cases:
   - name: "hello-with-extra-keys"
     method: GET
     path: "helloworld.Greeter/SayHello"
-    query: 'message=%7B%22name%22%3A%20%22kevin%22%2C%20%22extra%22%3A%201234%7D'
+    query: 'message=%7B%22name%22%3A%20%22kevin%22%2C%20%22extra%22%3A%201234%7D&encoding=json'
     headers:
       Content-Type: application/json
       Connect-Protocol-Version: 1
