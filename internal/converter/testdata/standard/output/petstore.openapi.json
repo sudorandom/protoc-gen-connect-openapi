@@ -653,12 +653,14 @@
           "proto",
           "json"
         ],
-        "description": "Define which encoding or 'Message-Codec' to use"
+        "description": "Define which encoding or 'Message-Codec' to use",
+        "default": "json"
       },
       "base64": {
         "type": "boolean",
         "title": "base64",
-        "description": "Specifies if the message query param is base64 encoded, which may be required for binary data"
+        "description": "Specifies if the message query param is base64 encoded, which may be required for binary data",
+        "default": "false"
       },
       "compression": {
         "title": "compression",
@@ -667,7 +669,16 @@
           "gzip",
           "br"
         ],
-        "description": "Which compression algorithm to use for this request"
+        "description": "Which compression algorithm to use for this request",
+        "default": "identity"
+      },
+      "connect": {
+        "title": "connect",
+        "enum": [
+          "v1"
+        ],
+        "description": "Define the version of the Connect protocol",
+        "default": "v1"
       },
       "connect-protocol-version": {
         "type": "number",
