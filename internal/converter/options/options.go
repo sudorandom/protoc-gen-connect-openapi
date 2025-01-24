@@ -36,6 +36,8 @@ type Options struct {
 	// FullyQualifiedMessageNames uses the full path for message types: {pkg}.{name} instead of just the name. This
 	// is helpful if you are mixing types from multiple services.
 	FullyQualifiedMessageNames bool
+	// WithServiceDescriptions set to true will cause service names and their comments to be added to the end of info.description.
+	WithServiceDescriptions bool
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []protoreflect.FullName
 
@@ -93,6 +95,8 @@ func FromString(s string) (Options, error) {
 			opts.TrimUnusedTypes = true
 		case param == "fully-qualified-message-names":
 			opts.FullyQualifiedMessageNames = true
+		case param == "with-service-descriptions":
+			opts.WithServiceDescriptions = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)

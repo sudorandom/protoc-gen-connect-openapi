@@ -235,8 +235,10 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	if err != nil {
 		return err
 	}
+
 	initializeDoc(spec)
 	initializeComponents(components)
+	appendServiceDocs(opts, spec, fd)
 	util.AppendComponents(spec, components)
 
 	if err := addPathItemsFromFile(opts, fd, spec.Paths); err != nil {
@@ -244,6 +246,34 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	}
 	spec.Tags = append(spec.Tags, fileToTags(fd)...)
 	return nil
+}
+
+func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) {
+	if !opts.WithServiceDescriptions {
+		return
+	}
+	var builder strings.Builder
+	if spec.Info.Description != "" {
+		builder.WriteString(spec.Info.Description)
+		builder.WriteString("\n\n")
+	}
+	svcs := fd.Services()
+	for i := 0; i < svcs.Len(); i++ {
+		svc := svcs.Get(i)
+
+		builder.WriteString("# ")
+		builder.WriteString(string(svc.FullName()))
+		builder.WriteString("\n\n")
+
+		loc := fd.SourceLocations().ByDescriptor(svc)
+		serviceComments := util.FormatComments(loc)
+		if serviceComments != "" {
+			builder.WriteString(serviceComments)
+			builder.WriteString("\n\n")
+		}
+	}
+
+	spec.Info.Description = strings.TrimSpace(builder.String())
 }
 
 func initializeDoc(doc *v3.Document) {

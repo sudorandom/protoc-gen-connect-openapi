@@ -187,10 +187,18 @@ func WithServices(serviceNames []protoreflect.FullName) Option {
 	}
 }
 
-// FullyQualifiedMessageNames decides if you want to use the full path in message names.
-func FullyQualifiedMessageNames(enabled bool) Option {
+// WithFullyQualifiedMessageNames decides if you want to use the full path in message names.
+func WithFullyQualifiedMessageNames(enabled bool) Option {
 	return func(g *generator) error {
 		g.options.FullyQualifiedMessageNames = enabled
+		return nil
+	}
+}
+
+// WithServiceDescriptions decides if service names and their comments to be added to the end of info.description.
+func WithServiceDescriptions(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.WithServiceDescriptions = enabled
 		return nil
 	}
 }
