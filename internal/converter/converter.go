@@ -257,15 +257,18 @@ func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.
 		builder.WriteString(spec.Info.Description)
 		builder.WriteString("\n\n")
 	}
-	svcs := fd.Services()
-	for i := 0; i < svcs.Len(); i++ {
-		svc := svcs.Get(i)
+	services := fd.Services()
+	for i := 0; i < services.Len(); i++ {
+		service := services.Get(i)
+		if !opts.HasService(service.FullName()) {
+			continue
+		}
 
 		builder.WriteString("# ")
-		builder.WriteString(string(svc.FullName()))
+		builder.WriteString(string(service.FullName()))
 		builder.WriteString("\n\n")
 
-		loc := fd.SourceLocations().ByDescriptor(svc)
+		loc := fd.SourceLocations().ByDescriptor(service)
 		serviceComments := util.FormatComments(loc)
 		if serviceComments != "" {
 			builder.WriteString(serviceComments)
