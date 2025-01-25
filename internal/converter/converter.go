@@ -263,7 +263,7 @@ func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.
 			continue
 		}
 
-		builder.WriteString("# ")
+		builder.WriteString("## ")
 		builder.WriteString(string(service.FullName()))
 		builder.WriteString("\n\n")
 
