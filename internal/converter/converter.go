@@ -243,7 +243,7 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	if err := addPathItemsFromFile(opts, fd, spec.Paths); err != nil {
 		return err
 	}
-	spec.Tags = append(spec.Tags, fileToTags(fd)...)
+	spec.Tags = append(spec.Tags, fileToTags(opts, fd)...)
 	return nil
 }
 
