@@ -22,6 +22,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
+  /v1/{property_in_path_ok}/{parentMsg.property_in_path}/foo:
+    get:
+      tags:
+        - io.swagger.petstore.v2.Foo
+      summary: Foo2
+      operationId: io.swagger.petstore.v2.Foo.Foo2
+      parameters:
+        - name: property_in_path_ok
+          in: path
+          required: true
+          schema:
+            type: string
+            title: property_in_path_ok
+        - name: parentMsg.property_in_path
+          in: path
+          required: true
+          schema:
+            type: string
+            title: property_in_path
+        - name: parentMsg.propertyInQuery
+          in: query
+          schema:
+            type: string
+            title: property_in_query
+        - name: propertyInQueryOk
+          in: query
+          schema:
+            type: string
+            title: property_in_query_ok
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Foo2Response'
   /io.swagger.petstore.v2.Foo/Masky:
     post:
       tags:
@@ -271,6 +313,25 @@ components:
          The implementation of any API method which has a FieldMask type field in the
          request should verify the included field paths, and return an
          `INVALID_ARGUMENT` error if any path is unmappable.
+    io.swagger.petstore.v2.Foo2Request:
+      type: object
+      properties:
+        propertyInPathOk:
+          type: string
+          title: property_in_path_ok
+        parentMsg:
+          allOf:
+            - $ref: '#/components/schemas/io.swagger.petstore.v2.Something'
+          title: parentMsg
+        propertyInQueryOk:
+          type: string
+          title: property_in_query_ok
+      title: Foo2Request
+      additionalProperties: false
+    io.swagger.petstore.v2.Foo2Response:
+      type: object
+      title: Foo2Response
+      additionalProperties: false
     io.swagger.petstore.v2.MaskyRequest:
       type: object
       properties:
@@ -279,6 +340,17 @@ components:
             - $ref: '#/components/schemas/google.protobuf.FieldMask'
           title: fields
       title: MaskyRequest
+      additionalProperties: false
+    io.swagger.petstore.v2.Something:
+      type: object
+      properties:
+        propertyInPath:
+          type: string
+          title: property_in_path
+        propertyInQuery:
+          type: string
+          title: property_in_query
+      title: Something
       additionalProperties: false
     encoding:
       title: encoding

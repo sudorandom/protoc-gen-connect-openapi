@@ -11,6 +11,9 @@ service Foo {
     option idempotency_level = NO_SIDE_EFFECTS;
     option (google.api.http) = {get: "/.well-known/jwks.json"};
   }
+  rpc Foo2(Foo2Request) returns (Foo2Response) {
+    option (google.api.http).get = "/v1/{property_in_path_ok}/{parentMsg.property_in_path}/foo";
+  }
 
   rpc Masky(MaskyRequest) returns (google.protobuf.Empty) {}
 }
@@ -18,3 +21,15 @@ service Foo {
 message MaskyRequest {
   google.protobuf.FieldMask fields = 1;
 }
+
+message Foo2Request {
+  string property_in_path_ok = 1;
+  Something parentMsg = 2;
+  string property_in_query_ok = 3;
+}
+message Something {
+  string property_in_path = 1;
+  string property_in_query = 2;
+}
+
+message Foo2Response {}

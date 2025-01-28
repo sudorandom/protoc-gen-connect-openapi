@@ -10,12 +10,11 @@ paths:
       summary: Score
       operationId: foo.KnowledgeAssessmentReports.Score
       parameters:
-        - name: b
+        - name: b.c.name
           in: query
           schema:
-            allOf:
-              - $ref: '#/components/schemas/foo.A.B'
-            title: b
+            type: string
+            title: name
       responses:
         default:
           description: Error
