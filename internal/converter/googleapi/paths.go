@@ -71,25 +71,21 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	fd := md.ParentFile()
 	service := md.Parent().(protoreflect.ServiceDescriptor)
-	loc := fd.SourceLocations().ByDescriptor(md)
 	op := &v3.Operation{
 		Summary:     string(md.Name()),
 		OperationId: string(md.FullName()),
 		Tags:        []string{string(service.FullName())},
-		Description: util.FormatComments(loc),
+		Description: util.FormatComments(fd.SourceLocations().ByDescriptor(md)),
 	}
 
-	topLevelFieldNamesInPath := map[string]struct{}{}
+	fieldNamesInPath := map[string]struct{}{}
 	for _, param := range partsToParameter(tokens) {
-		field := resolveField(md.Input(), param)
+		field, jsonPath := resolveField(md.Input(), param)
 		if field != nil {
-			parts := strings.Split(param, ".")
 			// This field is only top level, so we will filter out the param from
 			// query/param or request body
-			if len(parts) == 1 {
-				topLevelFieldNamesInPath[parts[0]] = struct{}{}
-				topLevelFieldNamesInPath[field.JSONName()] = struct{}{} // sometimes JSON field names are used
-			}
+			fieldNamesInPath[string(field.FullName())] = struct{}{}
+			fieldNamesInPath[strings.Join(jsonPath, ".")] = struct{}{} // sometimes JSON field names are used
 			loc := fd.SourceLocations().ByDescriptor(field)
 			op.Parameters = append(op.Parameters, &v3.Parameter{
 				Name:        param,
@@ -103,29 +99,11 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	switch rule.Body {
 	case "":
-		fields := md.Input().Fields()
-		for i := 0; i < fields.Len(); i++ {
-			field := fields.Get(i)
-			// exclude fields already found in the path
-			if _, ok := topLevelFieldNamesInPath[string(field.Name())]; ok {
-				continue
-			}
-			if _, ok := topLevelFieldNamesInPath[field.JSONName()]; ok {
-				continue
-			}
-			loc := fd.SourceLocations().ByDescriptor(md)
-			desc := util.FormatComments(loc)
-			op.Parameters = append(op.Parameters, &v3.Parameter{
-				Name:        field.JSONName(),
-				In:          "query",
-				Description: desc,
-				Schema:      schema.FieldToSchema(opts, nil, field),
-			})
-		}
+		op.Parameters = append(op.Parameters, flattenToParams(opts, md.Input(), "", fieldNamesInPath)...)
 	case "*":
-		if len(topLevelFieldNamesInPath) > 0 {
+		if len(fieldNamesInPath) > 0 {
 			_, s := schema.MessageToSchema(opts, md.Input())
-			for name := range topLevelFieldNamesInPath {
+			for name := range fieldNamesInPath {
 				s.Properties.Delete(name)
 			}
 			if s.Properties.Len() > 0 {
@@ -144,7 +122,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			if field.JSONName() != rule.Body {
 				continue
 			}
-			loc := fd.SourceLocations().ByDescriptor(md)
+			loc := fd.SourceLocations().ByDescriptor(field)
 			op.RequestBody = &v3.RequestBody{
 				Description: util.FormatComments(loc),
 			}
@@ -158,7 +136,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	if rule.ResponseBody == "" {
 		outputSchema = base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(string(md.Output().FullName())))
 	} else {
-		if fd := resolveField(md.Output(), rule.ResponseBody); fd != nil {
+		if fd, _ := resolveField(md.Output(), rule.ResponseBody); fd != nil {
 			outputSchema = schema.FieldToSchema(opts, nil, fd)
 		}
 	}
@@ -206,25 +184,29 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	return paths
 }
 
-func resolveField(md protoreflect.MessageDescriptor, param string) protoreflect.FieldDescriptor {
-	var current protoreflect.FieldDescriptor
+func resolveField(md protoreflect.MessageDescriptor, param string) (protoreflect.FieldDescriptor, []string) {
+	jsonParts := []string{}
+	current := md
+	var fd protoreflect.FieldDescriptor
 	for _, paramPart := range strings.Split(param, ".") {
-		field := fieldByName(md, paramPart)
-		if field == nil {
-			return nil
+		if field := fieldByName(current, paramPart); field == nil {
+			return nil, nil
+		} else {
+			fd = field
+			jsonParts = append(jsonParts, fd.JSONName())
+			current = field.Message()
 		}
-		current = field
 	}
-	return current
+	return fd, jsonParts
 }
 
 func fieldByName(md protoreflect.MessageDescriptor, name string) protoreflect.FieldDescriptor {
+	slog.Info("fieldByName", "name", md.FullName(), "name", name)
 	fields := md.Fields()
-	for i := 0; i < fields.Len(); i++ {
-		field := fields.Get(i)
-		if field.JSONName() != name && string(field.Name()) != name {
-			continue
-		}
+	if field := fields.ByName(protoreflect.Name(name)); field != nil {
+		return field
+	}
+	if field := fields.ByJSONName(name); field != nil {
 		return field
 	}
 	return nil
@@ -260,4 +242,37 @@ func partsToOpenAPIPath(tokens []Token) string {
 		}
 	}
 	return b.String()
+}
+
+func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, jsonPrefix string, seen map[string]struct{}) []*v3.Parameter {
+	params := []*v3.Parameter{}
+	fields := md.Fields()
+	for i := 0; i < fields.Len(); i++ {
+		field := fields.Get(i)
+		paramName := jsonPrefix + string(field.JSONName())
+		if opts.WithProtoNames {
+			paramName = string(field.Name())
+		}
+		// exclude fields already found in the path
+		if _, ok := seen[string(field.FullName())]; ok {
+			continue
+		}
+		if _, ok := seen[paramName]; ok {
+			continue
+		}
+		seen[string(field.FullName())] = struct{}{}
+		switch field.Kind() {
+		case protoreflect.MessageKind:
+			params = append(params, flattenToParams(opts, field.Message(), paramName+".", seen)...)
+		default:
+			loc := field.ParentFile().SourceLocations().ByDescriptor(field)
+			params = append(params, &v3.Parameter{
+				Name:        paramName,
+				In:          "query",
+				Description: util.FormatComments(loc),
+				Schema:      schema.FieldToSchema(opts, nil, field),
+			})
+		}
+	}
+	return params
 }

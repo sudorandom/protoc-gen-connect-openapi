@@ -119,7 +119,6 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
-			slog.Debug("skip generating file because it wasn't requested", slog.String("name", fileDesc.GetName()))
 			continue
 		}
 
