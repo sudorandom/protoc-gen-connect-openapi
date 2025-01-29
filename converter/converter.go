@@ -155,6 +155,14 @@ func WithIncludeNumberEnumValues(includeNumberEnumValues bool) Option {
 	}
 }
 
+// WithIgnoreGoogleapiHTTP tells the generator to ignore google.api.http options.
+func WithIgnoreGoogleapiHTTP(ignoreGoogleapiHTTP bool) Option {
+	return func(g *generator) error {
+		g.options.IgnoreGoogleapiHTTP = ignoreGoogleapiHTTP
+		return nil
+	}
+}
+
 // WithStreaming sets a file to use as a base for all OpenAPI files.
 func WithStreaming(streaming bool) Option {
 	return func(g *generator) error {

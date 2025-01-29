@@ -113,6 +113,7 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | debug | - | Emit debug logs |
 | format | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`. |
 | include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings |
+| ignore-googleapi-http | - | Ignore `google.api.http` options on methods when generating openapi specs  |
 | path | `{filepath}` | Output filepath, defaults to per-protofile output if not given. |
 | proto | - | Generate requests/repsonses with the protobuf content type |
 | trim-unused-types | - | Remove types that aren't references from any method request or response. |
