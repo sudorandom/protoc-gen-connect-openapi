@@ -18,6 +18,9 @@ import (
 )
 
 func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) *orderedmap.Map[string, *v3.PathItem] {
+	if opts.IgnoreGoogleapiHTTP {
+		return nil
+	}
 	mdopts := md.Options()
 	if !proto.HasExtension(mdopts, annotations.E_Http) {
 		return nil

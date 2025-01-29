@@ -38,6 +38,8 @@ type Options struct {
 	FullyQualifiedMessageNames bool
 	// WithServiceDescriptions set to true will cause service names and their comments to be added to the end of info.description.
 	WithServiceDescriptions bool
+	// IgnoreGoogleapiHTTP set to true will cause service to always generate OpenAPI specs for connect endpoints, and ignore any google.api.http options.
+	IgnoreGoogleapiHTTP bool
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []protoreflect.FullName
 
@@ -97,6 +99,8 @@ func FromString(s string) (Options, error) {
 			opts.FullyQualifiedMessageNames = true
 		case param == "with-service-descriptions":
 			opts.WithServiceDescriptions = true
+		case param == "ignore-googleapi-http":
+			opts.IgnoreGoogleapiHTTP = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)
