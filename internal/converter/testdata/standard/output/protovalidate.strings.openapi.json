@@ -289,26 +289,22 @@
       },
       "buf.validate.conformance.cases.StringInOneof": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "bar"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bar"
-                      ]
-                    }
+            "required": [
+              "bar"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "bar"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {

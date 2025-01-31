@@ -620,26 +620,22 @@
     "schemas": {
       "flex.ComplexType": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optionalMsgField"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optionalMsgField"
-                      ]
-                    }
+            "required": [
+              "optionalMsgField"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "optionalMsgField"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {

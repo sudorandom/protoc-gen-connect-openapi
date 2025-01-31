@@ -226,36 +226,32 @@
       },
       "protovalidate.CELMessage": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "a"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "b"
-                      ]
-                    }
+            "required": [
+              "a"
+            ]
+          },
+          {
+            "required": [
+              "b"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "a"
+                  ]
+                },
+                {
+                  "required": [
+                    "b"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {
@@ -2181,36 +2177,32 @@
       },
       "protovalidate.OneOfMessage": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "a"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "b"
-                      ]
-                    }
+            "required": [
+              "a"
+            ]
+          },
+          {
+            "required": [
+              "b"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "a"
+                  ]
+                },
+                {
+                  "required": [
+                    "b"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {

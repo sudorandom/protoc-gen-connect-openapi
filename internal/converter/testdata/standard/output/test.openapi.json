@@ -1961,46 +1961,42 @@
       },
       "test.v1.ParameterValues": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "oneofDoubleValue"
-                ]
-              },
-              {
-                "required": [
-                  "oneofDoubleValueWrapper"
-                ]
-              },
-              {
-                "required": [
-                  "oneofEnumValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "oneofDoubleValue"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "oneofDoubleValueWrapper"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "oneofEnumValue"
-                      ]
-                    }
+            "required": [
+              "oneofDoubleValue"
+            ]
+          },
+          {
+            "required": [
+              "oneofDoubleValueWrapper"
+            ]
+          },
+          {
+            "required": [
+              "oneofEnumValue"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "oneofDoubleValue"
+                  ]
+                },
+                {
+                  "required": [
+                    "oneofDoubleValueWrapper"
+                  ]
+                },
+                {
+                  "required": [
+                    "oneofEnumValue"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {

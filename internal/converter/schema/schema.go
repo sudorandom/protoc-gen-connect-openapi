@@ -60,7 +60,11 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			slices.Sort(items)
 			allOfs = append(allOfs, makeOneOfGroup(items))
 		}
-		s.AllOf = append(s.AllOf, allOfs...)
+		if len(allOfs) == 1 {
+			s.AnyOf = allOfs[0].Schema().AnyOf
+		} else {
+			s.AllOf = append(s.AllOf, allOfs...)
+		}
 	}
 
 	// Apply Updates from Options

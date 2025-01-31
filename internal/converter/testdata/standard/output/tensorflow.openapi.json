@@ -952,116 +952,112 @@
       },
       "tensorflow.AttrValue": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "b"
-                ]
-              },
-              {
-                "required": [
-                  "f"
-                ]
-              },
-              {
-                "required": [
-                  "func"
-                ]
-              },
-              {
-                "required": [
-                  "i"
-                ]
-              },
-              {
-                "required": [
-                  "list"
-                ]
-              },
-              {
-                "required": [
-                  "placeholder"
-                ]
-              },
-              {
-                "required": [
-                  "s"
-                ]
-              },
-              {
-                "required": [
-                  "shape"
-                ]
-              },
-              {
-                "required": [
-                  "tensor"
-                ]
-              },
-              {
-                "required": [
-                  "type"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "b"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "f"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "func"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "i"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "list"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "placeholder"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "s"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "shape"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "tensor"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "type"
-                      ]
-                    }
+            "required": [
+              "b"
+            ]
+          },
+          {
+            "required": [
+              "f"
+            ]
+          },
+          {
+            "required": [
+              "func"
+            ]
+          },
+          {
+            "required": [
+              "i"
+            ]
+          },
+          {
+            "required": [
+              "list"
+            ]
+          },
+          {
+            "required": [
+              "placeholder"
+            ]
+          },
+          {
+            "required": [
+              "s"
+            ]
+          },
+          {
+            "required": [
+              "shape"
+            ]
+          },
+          {
+            "required": [
+              "tensor"
+            ]
+          },
+          {
+            "required": [
+              "type"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "b"
+                  ]
+                },
+                {
+                  "required": [
+                    "f"
+                  ]
+                },
+                {
+                  "required": [
+                    "func"
+                  ]
+                },
+                {
+                  "required": [
+                    "i"
+                  ]
+                },
+                {
+                  "required": [
+                    "list"
+                  ]
+                },
+                {
+                  "required": [
+                    "placeholder"
+                  ]
+                },
+                {
+                  "required": [
+                    "s"
+                  ]
+                },
+                {
+                  "required": [
+                    "shape"
+                  ]
+                },
+                {
+                  "required": [
+                    "tensor"
+                  ]
+                },
+                {
+                  "required": [
+                    "type"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {
@@ -2264,36 +2260,32 @@
       },
       "tensorflow.FullTypeDef": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "i"
-                ]
-              },
-              {
-                "required": [
-                  "s"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "i"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "s"
-                      ]
-                    }
+            "required": [
+              "i"
+            ]
+          },
+          {
+            "required": [
+              "s"
+            ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "i"
+                  ]
+                },
+                {
+                  "required": [
+                    "s"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {
