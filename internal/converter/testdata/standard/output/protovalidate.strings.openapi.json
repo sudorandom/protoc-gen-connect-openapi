@@ -311,24 +311,6 @@
             ]
           }
         ],
-        "anyOf": [
-          {
-            "required": [
-              "bar"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "bar"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "bar": {
             "type": "string",

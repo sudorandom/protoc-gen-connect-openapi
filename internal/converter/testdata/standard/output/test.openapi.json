@@ -2003,44 +2003,6 @@
             ]
           }
         ],
-        "anyOf": [
-          {
-            "required": [
-              "oneofDoubleValue"
-            ]
-          },
-          {
-            "required": [
-              "oneofDoubleValueWrapper"
-            ]
-          },
-          {
-            "required": [
-              "oneofEnumValue"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "oneofDoubleValue"
-                  ]
-                },
-                {
-                  "required": [
-                    "oneofDoubleValueWrapper"
-                  ]
-                },
-                {
-                  "required": [
-                    "oneofEnumValue"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "doubleValue": {
             "type": "number",

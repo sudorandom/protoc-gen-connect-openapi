@@ -270,21 +270,6 @@ components:
                       - pipe
                   - required:
                       - socketAddress
-      anyOf:
-        - required:
-            - envoyInternalAddress
-        - required:
-            - pipe
-        - required:
-            - socketAddress
-        - not:
-            anyOf:
-              - required:
-                  - envoyInternalAddress
-              - required:
-                  - pipe
-              - required:
-                  - socketAddress
       properties:
         socketAddress:
           allOf:
@@ -350,13 +335,6 @@ components:
                 anyOf:
                   - required:
                       - serverListenerName
-      anyOf:
-        - required:
-            - serverListenerName
-        - not:
-            anyOf:
-              - required:
-                  - serverListenerName
       properties:
         serverListenerName:
           type: string
@@ -547,17 +525,6 @@ components:
                       - userAgentBuildVersion
                   - required:
                       - userAgentVersion
-      anyOf:
-        - required:
-            - userAgentBuildVersion
-        - required:
-            - userAgentVersion
-        - not:
-            anyOf:
-              - required:
-                  - userAgentBuildVersion
-              - required:
-                  - userAgentVersion
       properties:
         id:
           type: string
@@ -704,17 +671,6 @@ components:
                       - namedPort
                   - required:
                       - portValue
-      anyOf:
-        - required:
-            - namedPort
-        - required:
-            - portValue
-        - not:
-            anyOf:
-              - required:
-                  - namedPort
-              - required:
-                  - portValue
       properties:
         protocol:
           allOf:
@@ -1123,25 +1079,6 @@ components:
                       - notConstraints
                   - required:
                       - orConstraints
-      anyOf:
-        - required:
-            - andConstraints
-        - required:
-            - constraint
-        - required:
-            - notConstraints
-        - required:
-            - orConstraints
-        - not:
-            anyOf:
-              - required:
-                  - andConstraints
-              - required:
-                  - constraint
-              - required:
-                  - notConstraints
-              - required:
-                  - orConstraints
       properties:
         constraint:
           allOf:
@@ -1198,17 +1135,6 @@ components:
                       - exists
                   - required:
                       - value
-      anyOf:
-        - required:
-            - exists
-        - required:
-            - value
-        - not:
-            anyOf:
-              - required:
-                  - exists
-              - required:
-                  - value
       properties:
         key:
           type: string

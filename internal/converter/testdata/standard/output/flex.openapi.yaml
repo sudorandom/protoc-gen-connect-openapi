@@ -387,13 +387,6 @@ components:
                 anyOf:
                   - required:
                       - optionalMsgField
-      anyOf:
-        - required:
-            - optionalMsgField
-        - not:
-            anyOf:
-              - required:
-                  - optionalMsgField
       properties:
         doubleField:
           type: number

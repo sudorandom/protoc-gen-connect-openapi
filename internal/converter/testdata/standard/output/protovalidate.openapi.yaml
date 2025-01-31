@@ -313,17 +313,6 @@ components:
                       - a
                   - required:
                       - b
-      anyOf:
-        - required:
-            - a
-        - required:
-            - b
-        - not:
-            anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
       properties:
         a:
           type: string
@@ -1641,17 +1630,6 @@ components:
                       - a
                   - required:
                       - b
-      anyOf:
-        - required:
-            - a
-        - required:
-            - b
-        - not:
-            anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
       properties:
         a:
           type: string

@@ -1477,24 +1477,6 @@
             ]
           }
         ],
-        "anyOf": [
-          {
-            "required": [
-              "val"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "val"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "val": {
             "type": [

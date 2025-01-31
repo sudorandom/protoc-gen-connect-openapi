@@ -452,44 +452,6 @@
             ]
           }
         ],
-        "anyOf": [
-          {
-            "required": [
-              "envoyInternalAddress"
-            ]
-          },
-          {
-            "required": [
-              "pipe"
-            ]
-          },
-          {
-            "required": [
-              "socketAddress"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "envoyInternalAddress"
-                  ]
-                },
-                {
-                  "required": [
-                    "pipe"
-                  ]
-                },
-                {
-                  "required": [
-                    "socketAddress"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "socketAddress": {
             "allOf": [
@@ -582,24 +544,6 @@
                 }
               }
             ]
-          }
-        ],
-        "anyOf": [
-          {
-            "required": [
-              "serverListenerName"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "serverListenerName"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
@@ -792,34 +736,6 @@
             ]
           }
         ],
-        "anyOf": [
-          {
-            "required": [
-              "userAgentBuildVersion"
-            ]
-          },
-          {
-            "required": [
-              "userAgentVersion"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "userAgentBuildVersion"
-                  ]
-                },
-                {
-                  "required": [
-                    "userAgentVersion"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "id": {
             "type": "string",
@@ -978,34 +894,6 @@
                 }
               }
             ]
-          }
-        ],
-        "anyOf": [
-          {
-            "required": [
-              "namedPort"
-            ]
-          },
-          {
-            "required": [
-              "portValue"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "namedPort"
-                  ]
-                },
-                {
-                  "required": [
-                    "portValue"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
@@ -1350,54 +1238,6 @@
             ]
           }
         ],
-        "anyOf": [
-          {
-            "required": [
-              "andConstraints"
-            ]
-          },
-          {
-            "required": [
-              "constraint"
-            ]
-          },
-          {
-            "required": [
-              "notConstraints"
-            ]
-          },
-          {
-            "required": [
-              "orConstraints"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "andConstraints"
-                  ]
-                },
-                {
-                  "required": [
-                    "constraint"
-                  ]
-                },
-                {
-                  "required": [
-                    "notConstraints"
-                  ]
-                },
-                {
-                  "required": [
-                    "orConstraints"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "constraint": {
             "allOf": [
@@ -1486,34 +1326,6 @@
                 }
               }
             ]
-          }
-        ],
-        "anyOf": [
-          {
-            "required": [
-              "exists"
-            ]
-          },
-          {
-            "required": [
-              "value"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "exists"
-                  ]
-                },
-                {
-                  "required": [
-                    "value"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {

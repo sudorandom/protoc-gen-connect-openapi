@@ -60,9 +60,6 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			slices.Sort(items)
 			allOfs = append(allOfs, makeOneOfGroup(items))
 		}
-		if len(allOfs) == 1 {
-			s.AnyOf = allOfs[0].Schema().AnyOf
-		}
 		s.AllOf = append(s.AllOf, allOfs...)
 	}
 
