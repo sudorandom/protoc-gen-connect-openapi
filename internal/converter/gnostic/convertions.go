@@ -9,6 +9,7 @@ import (
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"gopkg.in/yaml.v3"
 )
@@ -115,7 +116,7 @@ func toResponsesMap(resps *goa3.ResponsesOrReferences) *orderedmap.Map[string, *
 	}
 	m := orderedmap.New[string, *v3.Response]()
 	for _, resp := range resps.GetAdditionalProperties() {
-		m.Set(resp.Name, toResponse(resp.Value.GetResponse()))
+		m.Set(resp.Name, toResponse(resp.Value))
 	}
 	return m
 }
@@ -406,11 +407,7 @@ func toHeaders(v *goa3.HeadersOrReferences) *orderedmap.Map[string, *v3.Header] 
 func toCodes(responses []*goa3.NamedResponseOrReference) *orderedmap.Map[string, *v3.Response] {
 	resps := orderedmap.New[string, *v3.Response]()
 	for _, resp := range responses {
-		switch tt := resp.GetValue().Oneof.(type) {
-		case *goa3.ResponseOrReference_Reference:
-		case *goa3.ResponseOrReference_Response:
-			resps.Set(resp.Name, toResponse(tt.Response))
-		}
+		resps.Set(resp.Name, toResponse(resp.GetValue()))
 	}
 	return resps
 }
@@ -421,22 +418,44 @@ func toResponses(responses *goa3.Responses) *v3.Responses {
 	}
 	return &v3.Responses{
 		Codes:      toCodes(responses.GetResponseOrReference()),
-		Default:    toResponse(responses.GetDefault().GetResponse()),
+		Default:    toResponse(responses.GetDefault()),
 		Extensions: toExtensions(responses.GetSpecificationExtension()),
 	}
 }
 
-func toResponse(r *goa3.Response) *v3.Response {
+func toResponse(r *goa3.ResponseOrReference) *v3.Response {
 	if r == nil {
 		return nil
 	}
-	return &v3.Response{
-		Description: r.Description,
-		Headers:     toHeaders(r.Headers),
-		Content:     toMediaTypes(r.Content),
-		Links:       toLinks(r.Links),
-		Extensions:  toExtensions(r.SpecificationExtension),
+	if v := r.GetReference(); v != nil {
+		return &v3.Response{
+			Description: v.Description,
+			Headers:     nil,
+			Content: util.MakeMediaTypes(
+				options.Options{
+					ContentTypes: map[string]struct{}{
+						"json": struct{}{},
+					},
+				},
+				base.CreateSchemaProxyRef(v.XRef),
+				false,
+				false,
+			),
+			Links:      nil,
+			Extensions: nil,
+		}
 	}
+	if v := r.GetResponse(); v != nil {
+		return &v3.Response{
+			Description: v.Description,
+			Headers:     toHeaders(v.Headers),
+			Content:     toMediaTypes(v.Content),
+			Links:       toLinks(v.Links),
+			Extensions:  toExtensions(v.SpecificationExtension),
+		}
+	}
+
+	return nil
 }
 
 func toLinks(ls *goa3.LinksOrReferences) *orderedmap.Map[string, *v3.Link] {
