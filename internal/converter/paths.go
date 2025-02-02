@@ -37,7 +37,8 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 			// Update path items from google.api annotations
 			for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-				addPathItem(pair.Key(), pair.Value())
+				item := gnostic.PathItemWithMethodAnnotations(pair.Value(), method)
+				addPathItem(pair.Key(), item)
 			}
 
 			// Default to ConnectRPC/gRPC path if no google.api annotations
