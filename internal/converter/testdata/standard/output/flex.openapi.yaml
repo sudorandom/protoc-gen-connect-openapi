@@ -379,14 +379,6 @@ components:
   schemas:
     flex.ComplexType:
       type: object
-      allOf:
-        - anyOf:
-            - required:
-                - optionalMsgField
-            - not:
-                anyOf:
-                  - required:
-                      - optionalMsgField
       anyOf:
         - required:
             - optionalMsgField

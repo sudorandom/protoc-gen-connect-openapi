@@ -226,38 +226,6 @@
       },
       "protovalidate.CELMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "a"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "b"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
         "anyOf": [
           {
             "required": [
@@ -2209,38 +2177,6 @@
       },
       "protovalidate.OneOfMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "a"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "b"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
         "anyOf": [
           {
             "required": [

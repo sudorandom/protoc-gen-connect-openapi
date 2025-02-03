@@ -301,18 +301,6 @@ components:
          ) to obtain a formatter capable of generating timestamps in this format.
     protovalidate.CELMessage:
       type: object
-      allOf:
-        - anyOf:
-            - required:
-                - a
-            - required:
-                - b
-            - not:
-                anyOf:
-                  - required:
-                      - a
-                  - required:
-                      - b
       anyOf:
         - required:
             - a
@@ -1629,18 +1617,6 @@ components:
       additionalProperties: false
     protovalidate.OneOfMessage:
       type: object
-      allOf:
-        - anyOf:
-            - required:
-                - a
-            - required:
-                - b
-            - not:
-                anyOf:
-                  - required:
-                      - a
-                  - required:
-                      - b
       anyOf:
         - required:
             - a

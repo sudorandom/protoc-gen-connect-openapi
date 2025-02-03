@@ -192,6 +192,72 @@
           }
         ]
       }
+    },
+    "/v1/path/to/say-hello2": {
+      "get": {
+        "tags": [
+          "example_with_gnostic.Greeter"
+        ],
+        "summary": "SayHello2",
+        "operationId": "example_with_gnostic.Greeter.SayHello2",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "Example value"
+              ],
+              "title": "Custom title for a field",
+              "maxLength": 1000,
+              "minLength": 3,
+              "pattern": "/^[a-z ,.'-]+$/i",
+              "additionalProperties": false,
+              "description": "Custom description for a field",
+              "nullable": true,
+              "externalDocs": {
+                "description": "example",
+                "url": "https://example.com"
+              },
+              "deprecated": true
+            }
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "schema": {
+              "exclusiveMaximum": 1000,
+              "exclusiveMinimum": 20,
+              "type": "integer",
+              "title": "number",
+              "multipleOf": 20,
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/example_with_gnostic.HelloReply"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

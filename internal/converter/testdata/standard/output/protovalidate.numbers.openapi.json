@@ -1455,28 +1455,6 @@
       },
       "buf.validate.conformance.cases.Int64LTEOptional": {
         "type": "object",
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "val"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "val"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
         "anyOf": [
           {
             "required": [

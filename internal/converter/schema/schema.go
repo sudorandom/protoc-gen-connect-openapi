@@ -62,8 +62,9 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		}
 		if len(allOfs) == 1 {
 			s.AnyOf = allOfs[0].Schema().AnyOf
+		} else {
+			s.AllOf = append(s.AllOf, allOfs...)
 		}
-		s.AllOf = append(s.AllOf, allOfs...)
 	}
 
 	// Apply Updates from Options

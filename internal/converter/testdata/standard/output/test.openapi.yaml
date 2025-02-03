@@ -1624,22 +1624,6 @@ components:
       additionalProperties: false
     test.v1.ParameterValues:
       type: object
-      allOf:
-        - anyOf:
-            - required:
-                - oneofDoubleValue
-            - required:
-                - oneofDoubleValueWrapper
-            - required:
-                - oneofEnumValue
-            - not:
-                anyOf:
-                  - required:
-                      - oneofDoubleValue
-                  - required:
-                      - oneofDoubleValueWrapper
-                  - required:
-                      - oneofEnumValue
       anyOf:
         - required:
             - oneofDoubleValue

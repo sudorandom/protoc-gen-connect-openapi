@@ -289,28 +289,6 @@
       },
       "buf.validate.conformance.cases.StringInOneof": {
         "type": "object",
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bar"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bar"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
         "anyOf": [
           {
             "required": [
