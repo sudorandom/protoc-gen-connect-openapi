@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"slices"
+	"strings"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
@@ -33,16 +34,17 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
 	}
 
-	oneOneGroups := map[protoreflect.FullName][]string{}
+	oneOneGroups := map[protoreflect.FullName][]protoreflect.FieldDescriptor{}
 
 	props := orderedmap.New[string, *base.SchemaProxy]()
 	fields := tt.Fields()
-	for i := 0; i < fields.Len(); i++ {
+	for i := range fields.Len() {
 		field := fields.Get(i)
 		if oneOf := field.ContainingOneof(); oneOf != nil {
-			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], util.MakeFieldName(opts, field))
+			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], field)
+		} else {
+			props.Set(util.MakeFieldName(opts, field), FieldToSchema(opts, base.CreateSchemaProxy(s), field))
 		}
-		props.Set(util.MakeFieldName(opts, field), FieldToSchema(opts, base.CreateSchemaProxy(s), field))
 	}
 
 	s.Properties = props
@@ -54,16 +56,12 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			groupKeys = append(groupKeys, key)
 		}
 		slices.Sort(groupKeys)
-		allOfs := []*base.SchemaProxy{}
 		for _, key := range groupKeys {
 			items := oneOneGroups[key]
-			slices.Sort(items)
-			allOfs = append(allOfs, makeOneOfGroup(items))
-		}
-		if len(allOfs) == 1 {
-			s.AnyOf = allOfs[0].Schema().AnyOf
-		} else {
-			s.AllOf = append(s.AllOf, allOfs...)
+			slices.SortFunc(items, func(a, b protoreflect.FieldDescriptor) int {
+				return strings.Compare(string(a.Name()), string(b.Name()))
+			})
+			s.OneOf = append(s.OneOf, makeOneOfGroup(items, opts))
 		}
 	}
 
@@ -171,14 +169,25 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 	}
 }
 
-func makeOneOfGroup(fields []string) *base.SchemaProxy {
-	nestedSchemas := make([]*base.SchemaProxy, 0, len(fields))
-	rootSchemas := make([]*base.SchemaProxy, 0, len(fields)+1)
+func makeOneOfGroup(fields []protoreflect.FieldDescriptor, opts options.Options) *base.SchemaProxy {
+	oneOfSchemas := make([]*base.SchemaProxy, 0, len(fields))
+
 	for _, field := range fields {
-		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
-		nestedSchemas = append(nestedSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
+		name := util.MakeFieldName(opts, field)
+		schema := &base.Schema{
+			Type:       []string{"object"},
+			Title:      util.TypeFieldDescription(opts, field),
+			Required:   []string{name},
+			Properties: orderedmap.New[string, *base.SchemaProxy](),
+		}
+
+		schema.Properties.Set(name, FieldToSchema(opts, base.CreateSchemaProxy(schema), field))
+
+		oneOfSchemas = append(oneOfSchemas, base.CreateSchemaProxy(schema))
 	}
 
-	rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Not: base.CreateSchemaProxy(&base.Schema{AnyOf: nestedSchemas})}))
-	return base.CreateSchemaProxy(&base.Schema{AnyOf: rootSchemas})
+	return base.CreateSchemaProxy(&base.Schema{
+		Type:  []string{"object"},
+		OneOf: oneOfSchemas,
+	})
 }
