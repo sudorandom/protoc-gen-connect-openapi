@@ -12,6 +12,7 @@ paths:
       parameters:
         - name: b
           in: query
+          required: true
           schema:
             allOf:
               - $ref: '#/components/schemas/foo.A.B'

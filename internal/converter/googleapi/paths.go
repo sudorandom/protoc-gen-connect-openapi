@@ -110,13 +110,20 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			if _, ok := topLevelFieldNamesInPath[field.JSONName()]; ok {
 				continue
 			}
+			parent := &base.Schema{}
+			schema := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)
+			var required *bool
+			if len(parent.Required) > 0 {
+				required = util.BoolPtr(true)
+			}
 			loc := fd.SourceLocations().ByDescriptor(md)
 			desc := util.FormatComments(loc)
 			op.Parameters = append(op.Parameters, &v3.Parameter{
 				Name:        field.JSONName(),
 				In:          "query",
 				Description: desc,
-				Schema:      schema.FieldToSchema(opts, nil, field),
+				Schema:      schema,
+				Required:    required,
 			})
 		}
 	case "*":
