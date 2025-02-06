@@ -2,10 +2,12 @@ syntax = "proto3";
 
 package proto_names;
 
+import "buf/validate/validate.proto";
+
 message Message {
   string description = 1 [json_name = "json_description"];
-  string snake_case = 2;
-  string camelCase = 3;
-  string UpperCamelCase = 4;
-  string UPPER_SNAKE_CASE = 5;
+  string snake_case = 2 [(buf.validate.field).required = true];
+  string camelCase = 3 [(buf.validate.field).required = true];
+  string UpperCamelCase = 4 [(buf.validate.field).required = true];
+  string UPPER_SNAKE_CASE = 5 [(buf.validate.field).required = true];
 }

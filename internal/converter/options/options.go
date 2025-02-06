@@ -6,7 +6,6 @@ import (
 	"path"
 	"strings"
 
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/annotations"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -43,9 +42,9 @@ type Options struct {
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []protoreflect.FullName
 
-	MessageAnnotator        annotations.MessageAnnotator
-	FieldAnnotator          annotations.FieldAnnotator
-	FieldReferenceAnnotator annotations.FieldReferenceAnnotator
+	MessageAnnotator        MessageAnnotator
+	FieldAnnotator          FieldAnnotator
+	FieldReferenceAnnotator FieldReferenceAnnotator
 }
 
 func (opts Options) HasService(serviceName protoreflect.FullName) bool {

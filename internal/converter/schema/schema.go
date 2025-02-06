@@ -68,7 +68,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 	}
 
 	// Apply Updates from Options
-	s = opts.MessageAnnotator.AnnotateMessage(s, tt)
+	s = opts.MessageAnnotator.AnnotateMessage(opts, s, tt)
 	return string(tt.FullName()), s
 }
 
@@ -83,7 +83,7 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		root.Type = []string{"object"}
 		root.Description = util.TypeFieldDescription(opts, tt)
 		root.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: FieldToSchema(opts, parent, tt.MapValue())}
-		root = opts.FieldAnnotator.AnnotateField(root, tt, false)
+		root = opts.FieldAnnotator.AnnotateField(opts, root, tt, false)
 		return base.CreateSchemaProxy(root)
 	} else if tt.IsList() {
 		var itemSchema *base.SchemaProxy
@@ -102,7 +102,7 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 			Type:        []string{"array"},
 			Items:       &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
 		}
-		s = opts.FieldAnnotator.AnnotateField(s, tt, false)
+		s = opts.FieldAnnotator.AnnotateField(opts, s, tt, false)
 		return base.CreateSchemaProxy(s)
 	} else {
 		switch tt.Kind() {
@@ -154,17 +154,17 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 		s.Format = "byte"
 	}
 	// Apply Updates from Options
-	s = opts.FieldAnnotator.AnnotateField(s, tt, false)
+	s = opts.FieldAnnotator.AnnotateField(opts, s, tt, false)
 	return s
 }
 
 func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
 	switch tt.Kind() {
 	case protoreflect.MessageKind:
-		opts.FieldReferenceAnnotator.AnnotateFieldReference(parent.Schema(), tt)
+		opts.FieldReferenceAnnotator.AnnotateFieldReference(opts, parent.Schema(), tt)
 		return base.CreateSchemaProxyRef("#/components/schemas/" + string(tt.Message().FullName()))
 	case protoreflect.EnumKind:
-		opts.FieldReferenceAnnotator.AnnotateFieldReference(parent.Schema(), tt)
+		opts.FieldReferenceAnnotator.AnnotateFieldReference(opts, parent.Schema(), tt)
 		return base.CreateSchemaProxyRef("#/components/schemas/" + string(tt.Enum().FullName()))
 	default:
 		panic(fmt.Errorf("ReferenceFieldToSchema called with unknown kind: %T", tt.Kind()))
