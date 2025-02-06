@@ -379,13 +379,6 @@ components:
   schemas:
     flex.ComplexType:
       type: object
-      anyOf:
-        - required:
-            - optionalMsgField
-        - not:
-            anyOf:
-              - required:
-                  - optionalMsgField
       properties:
         doubleField:
           type: number
@@ -462,6 +455,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/flex.Other'
           title: optionalMsgField
+          nullable: true
       title: ComplexType
       additionalProperties: false
       description: Type that has a bunch of different types

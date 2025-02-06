@@ -39,10 +39,15 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
-		if oneOf := field.ContainingOneof(); oneOf != nil {
+		if oneOf := field.ContainingOneof(); oneOf != nil && !oneOf.IsSynthetic() {
 			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], util.MakeFieldName(opts, field))
 		}
-		props.Set(util.MakeFieldName(opts, field), FieldToSchema(opts, base.CreateSchemaProxy(s), field))
+		prop := FieldToSchema(opts, base.CreateSchemaProxy(s), field)
+		if field.HasOptionalKeyword() {
+			nullable := true
+			prop.Schema().Nullable = &nullable
+		}
+		props.Set(util.MakeFieldName(opts, field), prop)
 	}
 
 	s.Properties = props
