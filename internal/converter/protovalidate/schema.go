@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	"github.com/bufbuild/protovalidate-go/resolver"
+	"github.com/bufbuild/protovalidate-go/resolve"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -15,8 +15,7 @@ import (
 )
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
-	r := resolver.DefaultResolver{}
-	constraints := r.ResolveMessageConstraints(desc)
+	constraints := resolve.MessageConstraints(desc)
 	if constraints == nil || constraints.GetDisabled() {
 		return schema
 	}
@@ -25,8 +24,7 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 }
 
 func SchemaWithFieldAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
-	r := resolver.DefaultResolver{}
-	constraints := r.ResolveFieldConstraints(desc)
+	constraints := resolve.FieldConstraints(desc)
 	if constraints == nil {
 		return schema
 	}
@@ -45,8 +43,7 @@ func PopulateParentProperties(opts options.Options, parent *base.Schema, desc pr
 	if parent == nil {
 		return parent
 	}
-	r := resolver.DefaultResolver{}
-	constraints := r.ResolveFieldConstraints(desc)
+	constraints := resolve.FieldConstraints(desc)
 	if constraints == nil {
 		return parent
 	}
