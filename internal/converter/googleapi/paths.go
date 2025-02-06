@@ -94,6 +94,8 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Description: util.FormatComments(loc),
 				Schema:      schema.FieldToSchema(opts, nil, field),
 			})
+		} else {
+			slog.Warn("path field not found", slog.String("param", param))
 		}
 	}
 
@@ -116,16 +118,15 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 
 	default:
-		fields := md.Input().Fields()
-		for i := 0; i < fields.Len(); i++ {
-			field := fields.Get(i)
-			if field.JSONName() != rule.Body {
-				continue
-			}
+		if field, _ := resolveField(md.Input(), rule.Body); field != nil {
 			loc := fd.SourceLocations().ByDescriptor(field)
+			bodySchema := schema.FieldToSchema(opts, nil, field)
 			op.RequestBody = &v3.RequestBody{
 				Description: util.FormatComments(loc),
+				Content:     util.MakeMediaTypes(opts, bodySchema, false, false),
 			}
+		} else {
+			slog.Warn("body field not found", slog.String("param", rule.Body))
 		}
 	}
 

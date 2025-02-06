@@ -1,0 +1,31 @@
+syntax = "proto3";
+package googleapi_withbody;
+
+import "google/api/annotations.proto";
+
+service FooService {
+  rpc GetFoo(GetFooRequest) returns (GetFooResponse) {
+    option (google.api.http) = {
+      post: "/v1/sendData"
+      body: "data"
+    };
+  }
+  rpc GetFoo2(GetFooRequest) returns (GetFooResponse) {
+    option (google.api.http) = {
+      post: "/v1/sendData2"
+      body: "data.prop1"
+    };
+  }
+}
+
+message GetFooRequest {
+  SomethingData data = 4;
+}
+
+message SomethingData {
+  string prop1 = 1;
+  string prop2 = 2;
+  string prop3 = 3;
+}
+
+message GetFooResponse {}
