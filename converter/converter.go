@@ -210,3 +210,11 @@ func WithServiceDescriptions(enabled bool) Option {
 		return nil
 	}
 }
+
+// WithPathPrefix prepends a given string to each HTTP path.
+func WithPathPrefix(prefix string) Option {
+	return func(g *generator) error {
+		g.options.PathPrefix = prefix
+		return nil
+	}
+}

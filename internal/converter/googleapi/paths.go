@@ -179,7 +179,8 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	for _, binding := range rule.AdditionalBindings {
 		pathMap := httpRuleToPathMap(opts, md, binding)
 		for pair := pathMap.First(); pair != nil; pair = pair.Next() {
-			paths.Set(pair.Key(), pair.Value())
+			path := util.MakePath(opts, pair.Key())
+			paths.Set(path, pair.Value())
 		}
 	}
 	return paths

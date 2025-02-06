@@ -27,6 +27,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 			// Helper function to update or set path items
 			addPathItem := func(path string, newItem *v3.PathItem) {
+				path = util.MakePath(opts, path)
 				if existing, ok := paths.PathItems.Get(path); !ok {
 					paths.PathItems.Set(path, newItem)
 				} else {

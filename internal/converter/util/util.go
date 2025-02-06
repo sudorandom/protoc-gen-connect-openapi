@@ -1,6 +1,7 @@
 package util
 
 import (
+	"path"
 	"strings"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -125,6 +126,10 @@ func MakeFieldName(opts options.Options, fd protoreflect.FieldDescriptor) string
 		return string(fd.Name())
 	}
 	return fd.JSONName()
+}
+
+func MakePath(opts options.Options, main string) string {
+	return path.Join(opts.PathPrefix, main)
 }
 
 func AppendStringDedupe(strs []string, str string) []string {

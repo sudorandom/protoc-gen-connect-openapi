@@ -1,0 +1,33 @@
+// Example description
+syntax = "proto3";
+
+package path_prefixes;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello(HelloRequest) returns (HelloReply) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+
+  // Writes a greeting (has side effects)
+  rpc WriteHello(HelloRequest) returns (HelloReply) {}
+
+  rpc Foo(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (google.api.http) = {get: "/.well-known/jwks.json"};
+  }
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}

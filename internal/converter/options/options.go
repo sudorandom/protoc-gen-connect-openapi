@@ -28,6 +28,8 @@ type Options struct {
 	WithProtoNames bool
 	// Path is the output OpenAPI path.
 	Path string
+	// PathPrefix is a prefix that is prepended to every HTTP path.
+	PathPrefix string
 	// TrimUnusedTypes will remove types that aren't referenced by a service.
 	TrimUnusedTypes bool
 	// WithProtoAnnotations will add some protobuf annotations for descriptions
@@ -111,6 +113,8 @@ func FromString(s string) (Options, error) {
 			}
 		case strings.HasPrefix(param, "path="):
 			opts.Path = param[5:]
+		case strings.HasPrefix(param, "path-prefix="):
+			opts.PathPrefix = param[12:]
 		case strings.HasPrefix(param, "format="):
 			format := param[7:]
 			switch format {
