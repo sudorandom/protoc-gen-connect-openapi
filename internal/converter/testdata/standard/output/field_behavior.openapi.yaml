@@ -21,6 +21,7 @@ paths:
             readOnly: true
         - name: name
           in: query
+          required: true
           schema:
             type: string
             title: name
@@ -53,6 +54,7 @@ paths:
             description: '(UNORDERED_LIST) '
         - name: allBehaviors
           in: query
+          required: true
           schema:
             type: string
             title: all_behaviors

@@ -265,12 +265,19 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, js
 		case protoreflect.MessageKind:
 			params = append(params, flattenToParams(opts, field.Message(), paramName+".", seen)...)
 		default:
+			parent := &base.Schema{}
+			schema := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)
+			var required *bool
+			if len(parent.Required) > 0 {
+				required = util.BoolPtr(true)
+			}
 			loc := field.ParentFile().SourceLocations().ByDescriptor(field)
 			params = append(params, &v3.Parameter{
 				Name:        paramName,
 				In:          "query",
 				Description: util.FormatComments(loc),
-				Schema:      schema.FieldToSchema(opts, nil, field),
+				Schema:      schema,
+				Required:    required,
 			})
 		}
 	}
