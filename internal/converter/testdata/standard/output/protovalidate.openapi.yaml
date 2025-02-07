@@ -328,119 +328,6 @@ components:
       additionalProperties: false
     protovalidate.LotsOfValidationRules:
       type: object
-      allOf:
-        - anyOf:
-            - required:
-                - byteLen
-            - not:
-                anyOf:
-                  - required:
-                      - byteLen
-        - anyOf:
-            - required:
-                - bytesContains
-            - not:
-                anyOf:
-                  - required:
-                      - bytesContains
-        - anyOf:
-            - required:
-                - bytesIn
-            - not:
-                anyOf:
-                  - required:
-                      - bytesIn
-        - anyOf:
-            - required:
-                - bytesIp
-            - not:
-                anyOf:
-                  - required:
-                      - bytesIp
-        - anyOf:
-            - required:
-                - bytesIpv4
-            - not:
-                anyOf:
-                  - required:
-                      - bytesIpv4
-        - anyOf:
-            - required:
-                - bytesIpv6
-            - not:
-                anyOf:
-                  - required:
-                      - bytesIpv6
-        - anyOf:
-            - required:
-                - bytesMaxLen
-            - not:
-                anyOf:
-                  - required:
-                      - bytesMaxLen
-        - anyOf:
-            - required:
-                - bytesMinLen
-            - not:
-                anyOf:
-                  - required:
-                      - bytesMinLen
-        - anyOf:
-            - required:
-                - bytesNotIn
-            - not:
-                anyOf:
-                  - required:
-                      - bytesNotIn
-        - anyOf:
-            - required:
-                - bytesPattern
-            - not:
-                anyOf:
-                  - required:
-                      - bytesPattern
-        - anyOf:
-            - required:
-                - bytesPrefix
-            - not:
-                anyOf:
-                  - required:
-                      - bytesPrefix
-        - anyOf:
-            - required:
-                - bytesSuffix
-            - not:
-                anyOf:
-                  - required:
-                      - bytesSuffix
-        - anyOf:
-            - required:
-                - celField
-            - not:
-                anyOf:
-                  - required:
-                      - celField
-        - anyOf:
-            - required:
-                - requiredField
-            - not:
-                anyOf:
-                  - required:
-                      - requiredField
-        - anyOf:
-            - required:
-                - skippedField
-            - not:
-                anyOf:
-                  - required:
-                      - skippedField
-        - anyOf:
-            - required:
-                - uriField
-            - not:
-                anyOf:
-                  - required:
-                      - uriField
       properties:
         celField:
           type: integer
@@ -452,18 +339,22 @@ components:
             this > 42
             ```
 
+          nullable: true
         skippedField:
           allOf:
             - $ref: '#/components/schemas/protovalidate.MyOtherMessage'
           title: skipped_field
+          nullable: true
         requiredField:
           allOf:
             - $ref: '#/components/schemas/protovalidate.MyOtherMessage'
           title: required_field
+          nullable: true
         uriField:
           type: string
           title: uri_field
           format: uri
+          nullable: true
         floatConst:
           type: number
           title: float_const
@@ -1319,33 +1210,40 @@ components:
           maxLength: 4
           minLength: 4
           format: byte
+          nullable: true
         bytesMinLen:
           type: string
           title: bytes_min_len
           minLength: 2
           format: byte
+          nullable: true
         bytesMaxLen:
           type: string
           title: bytes_max_len
           maxLength: 6
           format: byte
+          nullable: true
         bytesPattern:
           type: string
           title: bytes_pattern
           pattern: ^[a-zA-Z0-9]+$
           format: byte
+          nullable: true
         bytesPrefix:
           type: string
           title: bytes_prefix
           format: byte
+          nullable: true
         bytesSuffix:
           type: string
           title: bytes_suffix
           format: byte
+          nullable: true
         bytesContains:
           type: string
           title: bytes_contains
           format: byte
+          nullable: true
         bytesIn:
           type: string
           title: bytes_in
@@ -1354,6 +1252,7 @@ components:
             - "\x01\x02"
             - "\x02\x03"
             - "\x03\x04"
+          nullable: true
         bytesNotIn:
           type: string
           not:
@@ -1364,18 +1263,22 @@ components:
               - "\x03\x04"
           title: bytes_not_in
           format: byte
+          nullable: true
         bytesIp:
           type: string
           title: bytes_ip
           format: ip
+          nullable: true
         bytesIpv4:
           type: string
           title: bytes_ipv4
           format: ipv4
+          nullable: true
         bytesIpv6:
           type: string
           title: bytes_ipv6
           format: ipv6
+          nullable: true
         enumConst:
           allOf:
             - $ref: '#/components/schemas/protovalidate.MyEnum'

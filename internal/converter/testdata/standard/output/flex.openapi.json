@@ -620,24 +620,6 @@
     "schemas": {
       "flex.ComplexType": {
         "type": "object",
-        "anyOf": [
-          {
-            "required": [
-              "optionalMsgField"
-            ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "optionalMsgField"
-                  ]
-                }
-              ]
-            }
-          }
-        ],
         "properties": {
           "doubleField": {
             "type": "number",
@@ -741,7 +723,8 @@
                 "$ref": "#/components/schemas/flex.Other"
               }
             ],
-            "title": "optionalMsgField"
+            "title": "optionalMsgField",
+            "nullable": true
           }
         },
         "title": "ComplexType",

@@ -541,197 +541,77 @@ components:
          The JSON representation for `Value` is JSON value.
     with_proto_annotations.test.v1.AllTypes:
       type: object
-      allOf:
-        - anyOf:
-            - required:
-                - optBoolValue
-            - not:
-                anyOf:
-                  - required:
-                      - optBoolValue
-        - anyOf:
-            - required:
-                - optBytesValue
-            - not:
-                anyOf:
-                  - required:
-                      - optBytesValue
-        - anyOf:
-            - required:
-                - optDoubleValue
-            - not:
-                anyOf:
-                  - required:
-                      - optDoubleValue
-        - anyOf:
-            - required:
-                - optEnumValue
-            - not:
-                anyOf:
-                  - required:
-                      - optEnumValue
-        - anyOf:
-            - required:
-                - optFixed32Value
-            - not:
-                anyOf:
-                  - required:
-                      - optFixed32Value
-        - anyOf:
-            - required:
-                - optFixed64Value
-            - not:
-                anyOf:
-                  - required:
-                      - optFixed64Value
-        - anyOf:
-            - required:
-                - optFloatValue
-            - not:
-                anyOf:
-                  - required:
-                      - optFloatValue
-        - anyOf:
-            - required:
-                - optInt32Value
-            - not:
-                anyOf:
-                  - required:
-                      - optInt32Value
-        - anyOf:
-            - required:
-                - optInt64Value
-            - not:
-                anyOf:
-                  - required:
-                      - optInt64Value
-        - anyOf:
-            - required:
-                - optMsgValue
-            - not:
-                anyOf:
-                  - required:
-                      - optMsgValue
-        - anyOf:
-            - required:
-                - optSfixed32Value
-            - not:
-                anyOf:
-                  - required:
-                      - optSfixed32Value
-        - anyOf:
-            - required:
-                - optSfixed64Value
-            - not:
-                anyOf:
-                  - required:
-                      - optSfixed64Value
-        - anyOf:
-            - required:
-                - optSint32Value
-            - not:
-                anyOf:
-                  - required:
-                      - optSint32Value
-        - anyOf:
-            - required:
-                - optSint64Value
-            - not:
-                anyOf:
-                  - required:
-                      - optSint64Value
-        - anyOf:
-            - required:
-                - optStringValue
-            - not:
-                anyOf:
-                  - required:
-                      - optStringValue
-        - anyOf:
-            - required:
-                - optUint32Value
-            - not:
-                anyOf:
-                  - required:
-                      - optUint32Value
-        - anyOf:
-            - required:
-                - optUint64Value
-            - not:
-                anyOf:
-                  - required:
-                      - optUint64Value
-        - anyOf:
-            - required:
-                - boolOption
-            - required:
-                - bytesOption
-            - required:
-                - doubleOption
-            - required:
-                - enumOption
-            - required:
-                - fixed32Option
-            - required:
-                - fixed64Option
-            - required:
-                - floatOption
-            - required:
-                - int32Option
-            - required:
-                - int64Option
-            - required:
-                - msgOption
-            - required:
-                - sfixed32Option
-            - required:
-                - sfixed64Option
-            - required:
-                - sint32Option
-            - required:
-                - sint64Option
-            - required:
-                - stringOption
-            - required:
-                - uint32Option
-            - required:
-                - uint64Option
-            - not:
-                anyOf:
-                  - required:
-                      - boolOption
-                  - required:
-                      - bytesOption
-                  - required:
-                      - doubleOption
-                  - required:
-                      - enumOption
-                  - required:
-                      - fixed32Option
-                  - required:
-                      - fixed64Option
-                  - required:
-                      - floatOption
-                  - required:
-                      - int32Option
-                  - required:
-                      - int64Option
-                  - required:
-                      - msgOption
-                  - required:
-                      - sfixed32Option
-                  - required:
-                      - sfixed64Option
-                  - required:
-                      - sint32Option
-                  - required:
-                      - sint64Option
-                  - required:
-                      - stringOption
-                  - required:
-                      - uint32Option
-                  - required:
-                      - uint64Option
+      anyOf:
+        - required:
+            - boolOption
+        - required:
+            - bytesOption
+        - required:
+            - doubleOption
+        - required:
+            - enumOption
+        - required:
+            - fixed32Option
+        - required:
+            - fixed64Option
+        - required:
+            - floatOption
+        - required:
+            - int32Option
+        - required:
+            - int64Option
+        - required:
+            - msgOption
+        - required:
+            - sfixed32Option
+        - required:
+            - sfixed64Option
+        - required:
+            - sint32Option
+        - required:
+            - sint64Option
+        - required:
+            - stringOption
+        - required:
+            - uint32Option
+        - required:
+            - uint64Option
+        - not:
+            anyOf:
+              - required:
+                  - boolOption
+              - required:
+                  - bytesOption
+              - required:
+                  - doubleOption
+              - required:
+                  - enumOption
+              - required:
+                  - fixed32Option
+              - required:
+                  - fixed64Option
+              - required:
+                  - floatOption
+              - required:
+                  - int32Option
+              - required:
+                  - int64Option
+              - required:
+                  - msgOption
+              - required:
+                  - sfixed32Option
+              - required:
+                  - sfixed64Option
+              - required:
+                  - sint32Option
+              - required:
+                  - sint64Option
+              - required:
+                  - stringOption
+              - required:
+                  - uint32Option
+              - required:
+                  - uint64Option
       properties:
         doubleValue:
           type: number
@@ -1167,16 +1047,19 @@ components:
           title: opt_double_value
           format: double
           description: explicit presence types (proto double)
+          nullable: true
         optFloatValue:
           type: number
           title: opt_float_value
           format: float
           description: (proto float)
+          nullable: true
         optInt32Value:
           type: integer
           title: opt_int32_value
           format: int32
           description: (proto int32)
+          nullable: true
         optInt64Value:
           type:
             - integer
@@ -1184,10 +1067,12 @@ components:
           title: opt_int64_value
           format: int64
           description: (proto int64)
+          nullable: true
         optUint32Value:
           type: integer
           title: opt_uint32_value
           description: (proto uint32)
+          nullable: true
         optUint64Value:
           type:
             - integer
@@ -1195,11 +1080,13 @@ components:
           title: opt_uint64_value
           format: int64
           description: (proto uint64)
+          nullable: true
         optSint32Value:
           type: integer
           title: opt_sint32_value
           format: int32
           description: (proto sint32)
+          nullable: true
         optSint64Value:
           type:
             - integer
@@ -1207,10 +1094,12 @@ components:
           title: opt_sint64_value
           format: int64
           description: (proto sint64)
+          nullable: true
         optFixed32Value:
           type: integer
           title: opt_fixed32_value
           description: (proto fixed32)
+          nullable: true
         optFixed64Value:
           type:
             - integer
@@ -1218,11 +1107,13 @@ components:
           title: opt_fixed64_value
           format: int64
           description: (proto fixed64)
+          nullable: true
         optSfixed32Value:
           type: integer
           title: opt_sfixed32_value
           format: int32
           description: (proto sfixed32)
+          nullable: true
         optSfixed64Value:
           type:
             - integer
@@ -1230,19 +1121,23 @@ components:
           title: opt_sfixed64_value
           format: int64
           description: (proto sfixed64)
+          nullable: true
         optBoolValue:
           type: boolean
           title: opt_bool_value
           description: (proto bool)
+          nullable: true
         optStringValue:
           type: string
           title: opt_string_value
           description: (proto string)
+          nullable: true
         optBytesValue:
           type: string
           title: opt_bytes_value
           format: byte
           description: (proto bytes)
+          nullable: true
         msgValue:
           allOf:
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
@@ -1258,11 +1153,13 @@ components:
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
           title: opt_msg_value
           description: (proto with_proto_annotations.test.v1.AllTypes)
+          nullable: true
         optEnumValue:
           allOf:
             - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
           title: opt_enum_value
           description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
+          nullable: true
         msgList:
           type: array
           items:

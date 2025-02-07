@@ -275,334 +275,13 @@
       },
       "protovalidate.LotsOfValidationRules": {
         "type": "object",
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "byteLen"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "byteLen"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesContains"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesContains"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesIn"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesIn"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesIp"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesIp"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesIpv4"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesIpv4"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesIpv6"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesIpv6"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesMaxLen"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesMaxLen"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesMinLen"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesMinLen"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesNotIn"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesNotIn"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesPattern"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesPattern"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesPrefix"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesPrefix"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "bytesSuffix"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "bytesSuffix"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "celField"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "celField"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "requiredField"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "requiredField"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "skippedField"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "skippedField"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "uriField"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "uriField"
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ],
         "properties": {
           "celField": {
             "type": "integer",
             "title": "cel_field",
             "format": "int32",
-            "description": "value must be greater than 42:\n```\nthis \u003e 42\n```\n\n"
+            "description": "value must be greater than 42:\n```\nthis \u003e 42\n```\n\n",
+            "nullable": true
           },
           "skippedField": {
             "allOf": [
@@ -610,7 +289,8 @@
                 "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
               }
             ],
-            "title": "skipped_field"
+            "title": "skipped_field",
+            "nullable": true
           },
           "requiredField": {
             "allOf": [
@@ -618,12 +298,14 @@
                 "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
               }
             ],
-            "title": "required_field"
+            "title": "required_field",
+            "nullable": true
           },
           "uriField": {
             "type": "string",
             "title": "uri_field",
-            "format": "uri"
+            "format": "uri",
+            "nullable": true
           },
           "floatConst": {
             "type": "number",
@@ -1720,40 +1402,47 @@
             "title": "byte_len",
             "maxLength": 4,
             "minLength": 4,
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesMinLen": {
             "type": "string",
             "title": "bytes_min_len",
             "minLength": 2,
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesMaxLen": {
             "type": "string",
             "title": "bytes_max_len",
             "maxLength": 6,
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesPattern": {
             "type": "string",
             "title": "bytes_pattern",
             "pattern": "^[a-zA-Z0-9]+$",
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesPrefix": {
             "type": "string",
             "title": "bytes_prefix",
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesSuffix": {
             "type": "string",
             "title": "bytes_suffix",
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesContains": {
             "type": "string",
             "title": "bytes_contains",
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesIn": {
             "type": "string",
@@ -1763,7 +1452,8 @@
               "\u0001\u0002",
               "\u0002\u0003",
               "\u0003\u0004"
-            ]
+            ],
+            "nullable": true
           },
           "bytesNotIn": {
             "type": "string",
@@ -1776,22 +1466,26 @@
               ]
             },
             "title": "bytes_not_in",
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "bytesIp": {
             "type": "string",
             "title": "bytes_ip",
-            "format": "ip"
+            "format": "ip",
+            "nullable": true
           },
           "bytesIpv4": {
             "type": "string",
             "title": "bytes_ipv4",
-            "format": "ipv4"
+            "format": "ipv4",
+            "nullable": true
           },
           "bytesIpv6": {
             "type": "string",
             "title": "bytes_ipv6",
-            "format": "ipv6"
+            "format": "ipv6",
+            "nullable": true
           },
           "enumConst": {
             "allOf": [

@@ -2821,29 +2821,34 @@
             "type": "integer",
             "title": "file_index",
             "format": "int32",
-            "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)"
+            "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)",
+            "nullable": true
           },
           "line": {
             "type": "integer",
             "title": "line",
             "format": "int32",
-            "description": "Line number in the file."
+            "description": "Line number in the file.",
+            "nullable": true
           },
           "col": {
             "type": "integer",
             "title": "col",
             "format": "int32",
-            "description": "Col number in the file line."
+            "description": "Col number in the file line.",
+            "nullable": true
           },
           "func": {
             "type": "string",
             "title": "func",
-            "description": "Name of function contains the file line."
+            "description": "Name of function contains the file line.",
+            "nullable": true
           },
           "code": {
             "type": "string",
             "title": "code",
-            "description": "Source code contained in this file line."
+            "description": "Source code contained in this file line.",
+            "nullable": true
           }
         },
         "title": "FileLineCol",
@@ -2859,7 +2864,8 @@
               "string"
             ],
             "title": "key",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "value": {
             "allOf": [
@@ -2867,7 +2873,8 @@
                 "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "nullable": true
           }
         },
         "title": "FramesByIdEntry",
@@ -2878,7 +2885,8 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "nullable": true
           },
           "value": {
             "type": [
@@ -2886,7 +2894,8 @@
               "string"
             ],
             "title": "value",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           }
         },
         "title": "NameToTraceIdEntry",
@@ -2928,7 +2937,8 @@
               "string"
             ],
             "title": "key",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "value": {
             "allOf": [
@@ -2936,7 +2946,8 @@
                 "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "nullable": true
           }
         },
         "title": "TracesByIdEntry",
@@ -2947,7 +2958,8 @@
         "properties": {
           "key": {
             "type": "string",
-            "title": "key"
+            "title": "key",
+            "nullable": true
           },
           "value": {
             "allOf": [
@@ -2955,7 +2967,8 @@
                 "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
               }
             ],
-            "title": "value"
+            "title": "value",
+            "nullable": true
           }
         },
         "title": "TracesEntry",

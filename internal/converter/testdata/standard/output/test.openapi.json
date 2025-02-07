@@ -218,526 +218,182 @@
       },
       "test.v1.AllTypes": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optBoolValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optBoolValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "boolOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optBytesValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optBytesValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "bytesOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optDoubleValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optDoubleValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "doubleOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optEnumValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optEnumValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "enumOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optFixed32Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optFixed32Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "fixed32Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optFixed64Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optFixed64Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "fixed64Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optFloatValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optFloatValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "floatOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optInt32Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optInt32Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "int32Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optInt64Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optInt64Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "int64Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optMsgValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optMsgValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "msgOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optSfixed32Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optSfixed32Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "sfixed32Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optSfixed64Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optSfixed64Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "sfixed64Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optSint32Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optSint32Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "sint32Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optSint64Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optSint64Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "sint64Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optStringValue"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optStringValue"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "stringOption"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optUint32Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optUint32Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "uint32Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "optUint64Value"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "optUint64Value"
-                      ]
-                    }
-                  ]
-                }
-              }
+            "required": [
+              "uint64Option"
             ]
           },
           {
-            "anyOf": [
-              {
-                "required": [
-                  "boolOption"
-                ]
-              },
-              {
-                "required": [
-                  "bytesOption"
-                ]
-              },
-              {
-                "required": [
-                  "doubleOption"
-                ]
-              },
-              {
-                "required": [
-                  "enumOption"
-                ]
-              },
-              {
-                "required": [
-                  "fixed32Option"
-                ]
-              },
-              {
-                "required": [
-                  "fixed64Option"
-                ]
-              },
-              {
-                "required": [
-                  "floatOption"
-                ]
-              },
-              {
-                "required": [
-                  "int32Option"
-                ]
-              },
-              {
-                "required": [
-                  "int64Option"
-                ]
-              },
-              {
-                "required": [
-                  "msgOption"
-                ]
-              },
-              {
-                "required": [
-                  "sfixed32Option"
-                ]
-              },
-              {
-                "required": [
-                  "sfixed64Option"
-                ]
-              },
-              {
-                "required": [
-                  "sint32Option"
-                ]
-              },
-              {
-                "required": [
-                  "sint64Option"
-                ]
-              },
-              {
-                "required": [
-                  "stringOption"
-                ]
-              },
-              {
-                "required": [
-                  "uint32Option"
-                ]
-              },
-              {
-                "required": [
-                  "uint64Option"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "boolOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "bytesOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "doubleOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "enumOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "fixed32Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "fixed64Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "floatOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "int32Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "int64Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "msgOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "sfixed32Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "sfixed64Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "sint32Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "sint64Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "stringOption"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "uint32Option"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "uint64Option"
-                      ]
-                    }
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "boolOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "bytesOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "doubleOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "enumOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "fixed32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "fixed64Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "floatOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "int32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "int64Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "msgOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "sfixed32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "sfixed64Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "sint32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "sint64Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "stringOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "uint32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "uint64Option"
                   ]
                 }
-              }
-            ]
+              ]
+            }
           }
         ],
         "properties": {
@@ -1208,17 +864,20 @@
             "type": "number",
             "title": "opt_double_value",
             "format": "double",
-            "description": "explicit presence types"
+            "description": "explicit presence types",
+            "nullable": true
           },
           "optFloatValue": {
             "type": "number",
             "title": "opt_float_value",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "optInt32Value": {
             "type": "integer",
             "title": "opt_int32_value",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "optInt64Value": {
             "type": [
@@ -1226,11 +885,13 @@
               "string"
             ],
             "title": "opt_int64_value",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "optUint32Value": {
             "type": "integer",
-            "title": "opt_uint32_value"
+            "title": "opt_uint32_value",
+            "nullable": true
           },
           "optUint64Value": {
             "type": [
@@ -1238,12 +899,14 @@
               "string"
             ],
             "title": "opt_uint64_value",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "optSint32Value": {
             "type": "integer",
             "title": "opt_sint32_value",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "optSint64Value": {
             "type": [
@@ -1251,11 +914,13 @@
               "string"
             ],
             "title": "opt_sint64_value",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "optFixed32Value": {
             "type": "integer",
-            "title": "opt_fixed32_value"
+            "title": "opt_fixed32_value",
+            "nullable": true
           },
           "optFixed64Value": {
             "type": [
@@ -1263,12 +928,14 @@
               "string"
             ],
             "title": "opt_fixed64_value",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "optSfixed32Value": {
             "type": "integer",
             "title": "opt_sfixed32_value",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "optSfixed64Value": {
             "type": [
@@ -1276,20 +943,24 @@
               "string"
             ],
             "title": "opt_sfixed64_value",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "optBoolValue": {
             "type": "boolean",
-            "title": "opt_bool_value"
+            "title": "opt_bool_value",
+            "nullable": true
           },
           "optStringValue": {
             "type": "string",
-            "title": "opt_string_value"
+            "title": "opt_string_value",
+            "nullable": true
           },
           "optBytesValue": {
             "type": "string",
             "title": "opt_bytes_value",
-            "format": "byte"
+            "format": "byte",
+            "nullable": true
           },
           "msgValue": {
             "allOf": [
@@ -1313,7 +984,8 @@
                 "$ref": "#/components/schemas/test.v1.AllTypes"
               }
             ],
-            "title": "opt_msg_value"
+            "title": "opt_msg_value",
+            "nullable": true
           },
           "optEnumValue": {
             "allOf": [
@@ -1321,7 +993,8 @@
                 "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
               }
             ],
-            "title": "opt_enum_value"
+            "title": "opt_enum_value",
+            "nullable": true
           },
           "msgList": {
             "type": "array",
