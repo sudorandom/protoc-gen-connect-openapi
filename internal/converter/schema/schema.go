@@ -116,9 +116,9 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		case protoreflect.MessageKind, protoreflect.EnumKind:
 			msg := ScalarFieldToSchema(opts, parent, tt, false)
 			ref := ReferenceFieldToSchema(opts, parent, tt)
-			extentions := orderedmap.New[string, *yaml.Node]()
-			extentions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
-			msg.Extensions = extentions
+			extensions := orderedmap.New[string, *yaml.Node]()
+			extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
+			msg.Extensions = extensions
 			return base.CreateSchemaProxy(msg)
 		}
 
