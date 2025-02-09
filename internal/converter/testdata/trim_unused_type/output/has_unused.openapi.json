@@ -70,12 +70,8 @@
         "type": "object",
         "properties": {
           "msg": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/has_unused_types.UsedType"
-              }
-            ],
-            "title": "msg"
+            "title": "msg",
+            "$ref": "#/components/schemas/has_unused_types.UsedType"
           }
         },
         "title": "UsedReply",
@@ -85,12 +81,8 @@
         "type": "object",
         "properties": {
           "msg": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/has_unused_types.UsedType"
-              }
-            ],
-            "title": "msg"
+            "title": "msg",
+            "$ref": "#/components/schemas/has_unused_types.UsedType"
           }
         },
         "title": "UsedRequest",

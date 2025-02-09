@@ -35,9 +35,8 @@ components:
       type: object
       properties:
         b:
-          allOf:
-            - $ref: '#/components/schemas/foo.A.B'
           title: b
+          $ref: '#/components/schemas/foo.A.B'
       title: A
       required:
         - b
@@ -46,10 +45,9 @@ components:
       type: object
       properties:
         c:
-          allOf:
-            - $ref: '#/components/schemas/foo.A.B.C'
           title: c
           description: the learner whose scores are being reported
+          $ref: '#/components/schemas/foo.A.B.C'
       title: B
       required:
         - c

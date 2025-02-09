@@ -7,9 +7,11 @@ import (
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"gopkg.in/yaml.v3"
 )
 
 func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (string, *base.Schema) {
@@ -113,7 +115,10 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		switch tt.Kind() {
 		case protoreflect.MessageKind, protoreflect.EnumKind:
 			msg := ScalarFieldToSchema(opts, parent, tt, false)
-			msg.AllOf = append(msg.AllOf, ReferenceFieldToSchema(opts, parent, tt))
+			ref := ReferenceFieldToSchema(opts, parent, tt)
+			extentions := orderedmap.New[string, *yaml.Node]()
+			extentions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
+			msg.Extensions = extentions
 			return base.CreateSchemaProxy(msg)
 		}
 

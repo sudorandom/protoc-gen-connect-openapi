@@ -319,9 +319,8 @@ components:
           title: id
           format: int64
         category:
-          allOf:
-            - $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
           title: category
+          $ref: '#/components/schemas/io.swagger.petstore.v2.Category'
         name:
           type: string
           title: name

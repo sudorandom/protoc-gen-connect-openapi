@@ -210,9 +210,8 @@ components:
       type: object
       properties:
         fields:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.FieldMask'
           title: fields
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
         id:
           type: string
           title: id
