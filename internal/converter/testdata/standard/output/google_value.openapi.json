@@ -174,12 +174,8 @@
             "type": "object",
             "title": "fields",
             "additionalProperties": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/google.protobuf.Value"
-                }
-              ],
-              "title": "value"
+              "title": "value",
+              "$ref": "#/components/schemas/google.protobuf.Value"
             },
             "description": "Unordered map of dynamically typed values."
           }
@@ -196,12 +192,8 @@
             "title": "key"
           },
           "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Value"
-              }
-            ],
-            "title": "value"
+            "title": "value",
+            "$ref": "#/components/schemas/google.protobuf.Value"
           }
         },
         "title": "FieldsEntry",
@@ -235,28 +227,16 @@
         "type": "object",
         "properties": {
           "arg": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Value"
-              }
-            ],
-            "title": "arg"
+            "title": "arg",
+            "$ref": "#/components/schemas/google.protobuf.Value"
           },
           "someList": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.ListValue"
-              }
-            ],
-            "title": "some_list"
+            "title": "some_list",
+            "$ref": "#/components/schemas/google.protobuf.ListValue"
           },
           "someStruct": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Struct"
-              }
-            ],
-            "title": "some_struct"
+            "title": "some_struct",
+            "$ref": "#/components/schemas/google.protobuf.Struct"
           }
         },
         "title": "GoogleValue",

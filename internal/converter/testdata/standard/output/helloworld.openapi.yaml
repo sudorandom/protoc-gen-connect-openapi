@@ -138,6 +138,7 @@ components:
         message:
           type: string
           title: message
+          description: message contains a textual reply message
       title: HelloReply
       additionalProperties: false
       description: The response message containing the greetings
@@ -147,6 +148,7 @@ components:
         name:
           type: string
           title: name
+          description: name is your name
       title: HelloRequest
       additionalProperties: false
       description: The request message containing the user's name.

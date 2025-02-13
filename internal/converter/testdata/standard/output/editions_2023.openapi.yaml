@@ -29,9 +29,8 @@ components:
           title: id
           format: int32
         employment:
-          allOf:
-            - $ref: '#/components/schemas/editions.Person.Employment'
           title: employment
+          $ref: '#/components/schemas/editions.Person.Employment'
       title: Person
       additionalProperties: false
 security: []

@@ -180,12 +180,8 @@
             "title": "property_in_path_ok"
           },
           "parentMsg": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/io.swagger.petstore.v2.Something"
-              }
-            ],
-            "title": "parentMsg"
+            "title": "parentMsg",
+            "$ref": "#/components/schemas/io.swagger.petstore.v2.Something"
           },
           "propertyInQueryOk": {
             "type": "string",
@@ -204,12 +200,8 @@
         "type": "object",
         "properties": {
           "fields": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.FieldMask"
-              }
-            ],
-            "title": "fields"
+            "title": "fields",
+            "$ref": "#/components/schemas/google.protobuf.FieldMask"
           }
         },
         "title": "MaskyRequest",

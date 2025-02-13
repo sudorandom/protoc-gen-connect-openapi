@@ -271,20 +271,17 @@ components:
                   - socketAddress
       properties:
         socketAddress:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
           title: socket_address
+          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
         pipe:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
           title: pipe
+          $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
         envoyInternalAddress:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress'
           title: envoy_internal_address
           description: |-
             Specifies a user-space address handled by :ref:`internal listeners
              <envoy_v3_api_field_config.listener.v3.Listener.internal_listener>`.
+          $ref: '#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress'
       title: Address
       additionalProperties: false
       description: |-
@@ -295,17 +292,15 @@ components:
       type: object
       properties:
         version:
-          allOf:
-            - $ref: '#/components/schemas/envoy.type.v3.SemanticVersion'
           title: version
           description: SemVer version of extension.
+          $ref: '#/components/schemas/envoy.type.v3.SemanticVersion'
         metadata:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Struct'
           title: metadata
           description: |-
             Free-form build information.
              Envoy defines several well known keys in the source/common/version/version.h file
+          $ref: '#/components/schemas/google.protobuf.Struct'
       title: BuildVersion
       additionalProperties: false
       description: |-
@@ -378,13 +373,12 @@ components:
              [#comment:TODO(yanavlasov): Link to the doc with existing configuration protos.]
              [#comment:TODO(yanavlasov): Add tests when PR #9391 lands.]
         version:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
           title: version
           description: |-
             The version is a property of the extension and maintained independently
              of other extensions and the Envoy API.
              This field is not set when extension did not provide version information.
+          $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
         disabled:
           type: boolean
           title: disabled
@@ -436,9 +430,8 @@ components:
           type: object
           title: filter_metadata
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/google.protobuf.Struct'
             title: value
+            $ref: '#/components/schemas/google.protobuf.Struct'
           description: |-
             Key is the reverse DNS filter name, e.g. com.acme.widget. The ``envoy.*``
              namespace is reserved for Envoy's built-in filters.
@@ -450,9 +443,8 @@ components:
           type: object
           title: typed_filter_metadata
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/google.protobuf.Any'
             title: value
+            $ref: '#/components/schemas/google.protobuf.Any'
           description: |-
             Key is the reverse DNS filter name, e.g. com.acme.widget. The ``envoy.*``
              namespace is reserved for Envoy's built-in filters.
@@ -492,9 +484,8 @@ components:
           type: string
           title: key
         value:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Struct'
           title: value
+          $ref: '#/components/schemas/google.protobuf.Struct'
       title: FilterMetadataEntry
       additionalProperties: false
     envoy.config.core.v3.Metadata.TypedFilterMetadataEntry:
@@ -504,9 +495,8 @@ components:
           type: string
           title: key
         value:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Any'
           title: value
+          $ref: '#/components/schemas/google.protobuf.Any'
       title: TypedFilterMetadataEntry
       additionalProperties: false
     envoy.config.core.v3.Node:
@@ -550,19 +540,17 @@ components:
              <arch_overview_tracing>`, either in this message or via
              :option:`--service-cluster`.
         metadata:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Struct'
           title: metadata
           description: |-
             Opaque metadata extending the node identifier. Envoy will pass this
              directly to the management server.
+          $ref: '#/components/schemas/google.protobuf.Struct'
         dynamicParameters:
           type: object
           title: dynamic_parameters
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/xds.core.v3.ContextParams'
             title: value
+            $ref: '#/components/schemas/xds.core.v3.ContextParams'
           description: |-
             Map from xDS resource type URL to dynamic context parameters. These may vary at runtime (unlike
              other fields in this message). For example, the xDS client may have a shard identifier that
@@ -570,10 +558,9 @@ components:
              dynamic context on the Server::Instance's LocalInfo context provider. The shard ID dynamic
              parameter then appears in this field during future discovery requests.
         locality:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.Locality'
           title: locality
           description: Locality specifying where the Envoy instance is running.
+          $ref: '#/components/schemas/envoy.config.core.v3.Locality'
         userAgentName:
           type: string
           title: user_agent_name
@@ -587,10 +574,9 @@ components:
             Free-form string that identifies the version of the entity requesting config.
              E.g. "1.12.2" or "abcd1234", or "SpecialEnvoyBuild"
         userAgentBuildVersion:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
           title: user_agent_build_version
           description: Structured version of the entity requesting config.
+          $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
         extensions:
           type: array
           items:
@@ -632,9 +618,8 @@ components:
           type: string
           title: key
         value:
-          allOf:
-            - $ref: '#/components/schemas/xds.core.v3.ContextParams'
           title: value
+          $ref: '#/components/schemas/xds.core.v3.ContextParams'
       title: DynamicParametersEntry
       additionalProperties: false
     envoy.config.core.v3.Pipe:
@@ -669,9 +654,8 @@ components:
                   - portValue
       properties:
         protocol:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol'
           title: protocol
+          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol'
         address:
           type: string
           title: address
@@ -721,10 +705,9 @@ components:
       type: object
       properties:
         node:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.Node'
           title: node
           description: The node making the request.
+          $ref: '#/components/schemas/envoy.config.core.v3.Node'
         typeUrl:
           type: string
           title: type_url
@@ -812,13 +795,12 @@ components:
              nonce in the DeltaDiscoveryResponse.
              Otherwise (unlike in DiscoveryRequest) response_nonce must be omitted.
         errorDetail:
-          allOf:
-            - $ref: '#/components/schemas/google.rpc.Status'
           title: error_detail
           description: |-
             This is populated when the previous :ref:`DiscoveryResponse <envoy_v3_api_msg_service.discovery.v3.DiscoveryResponse>`
              failed to update configuration. The ``message`` field in ``error_details``
              provides the Envoy internal exception related to the failure.
+          $ref: '#/components/schemas/google.rpc.Status'
       title: DeltaDiscoveryRequest
       additionalProperties: false
       description: |-
@@ -911,12 +893,11 @@ components:
             The nonce provides a way for DeltaDiscoveryRequests to uniquely
              reference a DeltaDiscoveryResponse when (N)ACKing. The nonce is required.
         controlPlane:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
           title: control_plane
           description: |-
             [#not-implemented-hide:]
              The control plane instance that sent the response.
+          $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
       title: DeltaDiscoveryResponse
       additionalProperties: false
       description: '[#next-free-field: 9]'
@@ -935,10 +916,9 @@ components:
              as applied or the previous API config version respectively. Each type_url
              (see below) has an independent version associated with it.
         node:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.Node'
           title: node
           description: The node making the request.
+          $ref: '#/components/schemas/envoy.config.core.v3.Node'
         resourceNames:
           type: array
           items:
@@ -982,14 +962,13 @@ components:
              or 2) the client has not yet accepted an update in this xDS stream (unlike
              delta, where it is populated only for new explicit ACKs).
         errorDetail:
-          allOf:
-            - $ref: '#/components/schemas/google.rpc.Status'
           title: error_detail
           description: |-
             This is populated when the previous :ref:`DiscoveryResponse <envoy_v3_api_msg_service.discovery.v3.DiscoveryResponse>`
              failed to update configuration. The ``message`` field in ``error_details`` provides the Envoy
              internal exception related to the failure. It is only intended for consumption during manual
              debugging, the string provided is not guaranteed to be stable across Envoy versions.
+          $ref: '#/components/schemas/google.rpc.Status'
       title: DiscoveryRequest
       additionalProperties: false
       description: |-
@@ -1046,10 +1025,9 @@ components:
              DiscoveryRequest bearing the nonce. The nonce is optional and is not
              required for non-stream based xDS implementations.
         controlPlane:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
           title: control_plane
           description: The control plane instance that sent the response.
+          $ref: '#/components/schemas/envoy.config.core.v3.ControlPlane'
       title: DiscoveryResponse
       additionalProperties: false
       description: '[#next-free-field: 7]'
@@ -1076,27 +1054,23 @@ components:
                   - orConstraints
       properties:
         constraint:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint'
           title: constraint
           description: A single constraint to evaluate.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint'
         orConstraints:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
           title: or_constraints
           description: |-
             A list of constraints that match if any one constraint in the list
              matches.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
         andConstraints:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
           title: and_constraints
           description: A list of constraints that must all match.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
         notConstraints:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
           title: not_constraints
           description: The inverse (NOT) of a set of constraints.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
       title: DynamicParameterConstraints
       additionalProperties: false
       description: |-
@@ -1139,14 +1113,13 @@ components:
           title: value
           description: Matches this exact value.
         exists:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
           title: exists
           description: |-
             Key is present (matches any value except for the key being absent).
              This allows setting a default constraint for clients that do
              not send a key at all, while there may be other clients that need
              special configuration based on that key.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
       title: SingleConstraint
       additionalProperties: false
       description: A single constraint for a given key.
@@ -1164,14 +1137,13 @@ components:
             The resource's name, to distinguish it from others of the same type of resource.
              Only one of ``name`` or ``resource_name`` may be set.
         resourceName:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceName'
           title: resource_name
           description: |-
             Alternative to the ``name`` field, to be used when the server supports
              multiple variants of the named resource that are differentiated by
              dynamic parameter constraints.
              Only one of ``name`` or ``resource_name`` may be set.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.ResourceName'
         aliases:
           type: array
           items:
@@ -1185,13 +1157,10 @@ components:
             The resource level version. It allows xDS to track the state of individual
              resources.
         resource:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Any'
           title: resource
           description: The resource being tracked.
+          $ref: '#/components/schemas/google.protobuf.Any'
         ttl:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: ttl
           description: |-
             Time-to-live value for the resource. For each resource, a timer is started. The timer is
@@ -1207,20 +1176,19 @@ components:
              a management server failure. For example, the feature may be used for fault injection
              testing where the fault injection should be terminated in the event that Envoy loses contact
              with the management server.
+          $ref: '#/components/schemas/google.protobuf.Duration'
         cacheControl:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.Resource.CacheControl'
           title: cache_control
           description: |-
             Cache control properties for the resource.
              [#not-implemented-hide:]
+          $ref: '#/components/schemas/envoy.service.discovery.v3.Resource.CacheControl'
         metadata:
-          allOf:
-            - $ref: '#/components/schemas/envoy.config.core.v3.Metadata'
           title: metadata
           description: |-
             The Metadata field can be used to provide additional information for the resource.
              E.g. the trace data for debugging.
+          $ref: '#/components/schemas/envoy.config.core.v3.Metadata'
       title: Resource
       additionalProperties: false
       description: '[#next-free-field: 10]'
@@ -1278,12 +1246,11 @@ components:
           title: name
           description: The name of the resource.
         dynamicParameterConstraints:
-          allOf:
-            - $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
           title: dynamic_parameter_constraints
           description: |-
             Dynamic parameter constraints associated with this resource. To be used by client-side caches
              (including xDS proxies) when matching subscribed resource locators.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
       title: ResourceName
       additionalProperties: false
       description: Specifies a concrete resource name.
@@ -1403,9 +1370,8 @@ components:
           type: object
           title: fields
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/google.protobuf.Value'
             title: value
+            $ref: '#/components/schemas/google.protobuf.Value'
           description: Unordered map of dynamically typed values.
       title: Struct
       additionalProperties: false
@@ -1425,9 +1391,8 @@ components:
           type: string
           title: key
         value:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Value'
           title: value
+          $ref: '#/components/schemas/google.protobuf.Value'
       title: FieldsEntry
       additionalProperties: false
     google.protobuf.Value:

@@ -320,9 +320,8 @@ components:
           type: string
           title: property_in_path_ok
         parentMsg:
-          allOf:
-            - $ref: '#/components/schemas/io.swagger.petstore.v2.Something'
           title: parentMsg
+          $ref: '#/components/schemas/io.swagger.petstore.v2.Something'
         propertyInQueryOk:
           type: string
           title: property_in_query_ok
@@ -336,9 +335,8 @@ components:
       type: object
       properties:
         fields:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.FieldMask'
           title: fields
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: MaskyRequest
       additionalProperties: false
     io.swagger.petstore.v2.Something:

@@ -21,10 +21,12 @@ service Greeter {
 
 // The request message containing the user's name.
 message HelloRequest {
+  // name is your name
   string name = 1;
 }
 
 // The response message containing the greetings
 message HelloReply {
+  // message contains a textual reply message
   string message = 1;
 }
