@@ -1407,19 +1407,9 @@
       },
       "google.protobuf.Struct": {
         "type": "object",
-        "properties": {
-          "fields": {
-            "type": "object",
-            "title": "fields",
-            "additionalProperties": {
-              "title": "value",
-              "$ref": "#/components/schemas/google.protobuf.Value"
-            },
-            "description": "Unordered map of dynamically typed values."
-          }
+        "additionalProperties": {
+          "$ref": "#/components/schemas/google.protobuf.Value"
         },
-        "title": "Struct",
-        "additionalProperties": false,
         "description": "`Struct` represents a structured data value, consisting of fields\n which map to dynamically typed values. In some languages, `Struct`\n might be supported by a native representation. For example, in\n scripting languages like JS a struct is represented as an\n object. The details of that representation are described together\n with the proto support for the language.\n\n The JSON representation for `Struct` is JSON object."
       },
       "google.protobuf.Struct.FieldsEntry": {

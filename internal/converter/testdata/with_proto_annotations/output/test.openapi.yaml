@@ -366,17 +366,8 @@ components:
          The JSON representation for `StringValue` is JSON string.
     google.protobuf.Struct:
       type: object
-      properties:
-        fields:
-          type: object
-          title: fields
-          additionalProperties:
-            title: value
-            description: (proto google.protobuf.Value)
-            $ref: '#/components/schemas/google.protobuf.Value'
-          description: Unordered map of dynamically typed values. (proto google.protobuf.Struct.FieldsEntry)
-      title: Struct
-      additionalProperties: false
+      additionalProperties:
+        $ref: '#/components/schemas/google.protobuf.Value'
       description: |-
         `Struct` represents a structured data value, consisting of fields
          which map to dynamically typed values. In some languages, `Struct`

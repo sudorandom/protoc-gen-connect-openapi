@@ -14,3 +14,17 @@ cases:
       Connect-Protocol-Version: 1
     errors:
       - ".*Reason: got object, want string, Location: /type.*"
+
+  - name: "with struct"
+    path: "samples.Test/WithGoogleValueMessage"
+    body: '{"someStruct": {"name": "kevin"}}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "with struct"
+    path: "samples.Test/WithGoogleValueMessage"
+    body: '{"someStruct": {"name": "kevin", "age": 36, "human": false, "friends_ids": [1, 2, 3, 4]}}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1

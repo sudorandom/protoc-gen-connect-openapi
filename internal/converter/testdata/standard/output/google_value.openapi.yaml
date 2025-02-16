@@ -73,6 +73,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
+  /samples.Test/WithGoogleValueMessage:
+    post:
+      tags:
+        - samples.Test
+      summary: WithGoogleValueMessage
+      operationId: samples.Test.WithGoogleValueMessage
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/samples.GoogleValue'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
     google.protobuf.NullValue:
@@ -126,16 +161,8 @@ components:
          The JSON representation for `StringValue` is JSON string.
     google.protobuf.Struct:
       type: object
-      properties:
-        fields:
-          type: object
-          title: fields
-          additionalProperties:
-            title: value
-            $ref: '#/components/schemas/google.protobuf.Value'
-          description: Unordered map of dynamically typed values.
-      title: Struct
-      additionalProperties: false
+      additionalProperties:
+        $ref: '#/components/schemas/google.protobuf.Value'
       description: |-
         `Struct` represents a structured data value, consisting of fields
          which map to dynamically typed values. In some languages, `Struct`
