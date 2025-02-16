@@ -140,7 +140,7 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 		schema.Required = opts.Required
 	}
 	if len(opts.Enum) > 0 {
-		enums := make([]*yaml.Node, 0)
+		enums := make([]*yaml.Node, len(opts.Enum))
 		for i, enum := range opts.Enum {
 			enums[i] = enum.ToRawInfo()
 		}
