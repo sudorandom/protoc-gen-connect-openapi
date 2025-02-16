@@ -2,13 +2,14 @@ package googleapi
 
 import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func SchemaWithPropertyAnnotations(schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
+func SchemaWithPropertyAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
 	dopts := desc.Options()
 	if !proto.HasExtension(dopts, annotations.E_FieldBehavior) {
 		return schema
@@ -28,7 +29,7 @@ func SchemaWithPropertyAnnotations(schema *base.Schema, desc protoreflect.FieldD
 			schema.Description = "(OPTIONAL) " + schema.Description
 		case annotations.FieldBehavior_REQUIRED:
 			if schema.ParentProxy != nil {
-				schema.ParentProxy.Schema().Required = util.AppendStringDedupe(schema.ParentProxy.Schema().Required, string(desc.Name()))
+				schema.ParentProxy.Schema().Required = util.AppendStringDedupe(schema.ParentProxy.Schema().Required, util.MakeFieldName(opts, desc))
 			}
 		case annotations.FieldBehavior_OUTPUT_ONLY:
 			schema.ReadOnly = util.BoolPtr(true)

@@ -20,7 +20,7 @@ func (*annotator) AnnotateMessage(opts options.Options, schema *base.Schema, des
 func (*annotator) AnnotateField(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
 	schema = protovalidate.SchemaWithFieldAnnotations(opts, schema, desc, onlyScalar)
 	schema = gnostic.SchemaWithPropertyAnnotations(schema, desc)
-	schema = googleapi.SchemaWithPropertyAnnotations(schema, desc)
+	schema = googleapi.SchemaWithPropertyAnnotations(opts, schema, desc)
 	return schema
 }
 
