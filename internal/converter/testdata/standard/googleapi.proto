@@ -16,6 +16,10 @@ service Foo {
   }
 
   rpc Masky(MaskyRequest) returns (google.protobuf.Empty) {}
+
+  rpc NamedPathPatterns(Something) returns (google.protobuf.Empty) {
+    option (google.api.http).get = "/v1/{property_in_path=messages/*}";
+  }
 }
 
 message MaskyRequest {

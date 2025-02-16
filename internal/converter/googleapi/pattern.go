@@ -75,9 +75,20 @@ func RunPathPatternLexer(input string) ([]Token, error) {
 // Helper function to extract a word starting from a given position in the input.
 func getWord(input []rune) string {
 	var word []rune
+	inBrackets := false
 	for i, char := range input {
-		if char == '/' {
+		if !inBrackets && char == '/' {
 			break
+		}
+		if char == '{' && inBrackets {
+			// Multiple bracket sections isn't valid, so start parsing the word here
+			break
+		}
+		if char == '{' {
+			inBrackets = true
+		}
+		if char == '}' {
+			inBrackets = false
 		}
 		word = append(word, char)
 		if i == len(input)-1 {

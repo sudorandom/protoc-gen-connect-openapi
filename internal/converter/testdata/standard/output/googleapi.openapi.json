@@ -160,6 +160,55 @@
           }
         }
       }
+    },
+    "/v1/{property_in_path=messages/*}": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.Foo"
+        ],
+        "summary": "NamedPathPatterns",
+        "operationId": "io.swagger.petstore.v2.Foo.NamedPathPatterns",
+        "parameters": [
+          {
+            "name": "propertyInPath",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "property_in_path"
+            }
+          },
+          {
+            "name": "propertyInQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "property_in_query"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

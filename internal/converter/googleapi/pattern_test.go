@@ -101,6 +101,17 @@ func TestRunPathPatternLexer(t *testing.T) {
 			{Type: "EOF"},
 		}, v)
 	})
+	t.Run("with-value-prefix", func(t *testing.T) {
+		v, err := googleapi.RunPathPatternLexer("/v1/{property_in_path=messages/*}")
+		require.NoError(t, err)
+		assert.Equal(t, []googleapi.Token{
+			{Type: "SLASH", Value: "/"},
+			{Type: "IDENT", Value: "v1"},
+			{Type: "SLASH", Value: "/"},
+			{Type: "VARIABLE", Value: "property_in_path=messages/*"},
+			{Type: "EOF"},
+		}, v)
+	})
 
 	t.Run("well-known", func(t *testing.T) {
 		v, err := googleapi.RunPathPatternLexer("/.well-known/jwks.json")
