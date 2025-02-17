@@ -106,8 +106,9 @@ paths:
       summary: NamedPathPatterns
       operationId: io.swagger.petstore.v2.Foo.NamedPathPatterns
       parameters:
-        - name: propertyInPath
-          in: query
+        - name: property_in_path
+          in: path
+          required: true
           schema:
             type: string
             title: property_in_path

@@ -218,7 +218,7 @@ func partsToParameter(tokens []Token) []string {
 	params := []string{}
 	for _, token := range tokens {
 		if token.Type == TokenVariable {
-			params = append(params, token.Value)
+			params = append(params, strings.SplitN(token.Value, "=", 2)[0])
 		}
 	}
 	return params
