@@ -14,14 +14,13 @@ import (
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
 	"github.com/pb33f/libopenapi/datamodel"
-	"github.com/pseudomuto/protokit/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
-	pluginpb "google.golang.org/protobuf/types/pluginpb"
+	"google.golang.org/protobuf/types/pluginpb"
 	"gopkg.in/yaml.v3"
 )
 
@@ -41,12 +40,24 @@ type Scenario struct {
 }
 
 func generateAndCheckResult(t *testing.T, options, format, protofile string) string {
-	relPath := path.Join("internal", "converter", protofile)
+	relPath := strings.TrimPrefix(protofile, "testdata/")
+
+	// Load descriptor set
+	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
+	require.NoError(t, err)
+
+	pf := new(descriptorpb.FileDescriptorSet)
+	require.NoError(t, proto.Unmarshal(f, pf))
 
 	// Make Generation Request
-	pf, err := utils.LoadDescriptorSet("testdata", "fileset.binpb")
-	require.NoError(t, err)
-	req := utils.CreateGenRequest(pf, relPath)
+	req := new(pluginpb.CodeGeneratorRequest)
+	req.ProtoFile = pf.GetFile()
+
+	for _, f := range req.GetProtoFile() {
+		if relPath == f.GetName() {
+			req.FileToGenerate = append(req.FileToGenerate, f.GetName())
+		}
+	}
 	var sb strings.Builder
 	sb.WriteString("debug,format=")
 	sb.WriteString(format)

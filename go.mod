@@ -5,28 +5,26 @@ go 1.23.0
 toolchain go1.23.2
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.4-20250130201111-63bb56e20495.1
-	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.17.0-20230913231627-233fca715f49.1
-	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.34.2-20230913231627-233fca715f49.2
-	github.com/bufbuild/protovalidate-go v0.9.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.5-20250219170025-d39267d9df8f.1
+	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.18.1-20230913231627-233fca715f49.1
+	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.5-20230913231627-233fca715f49.1
+	github.com/bufbuild/protovalidate-go v0.9.2
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.0.7
-	github.com/pb33f/libopenapi v0.21.2
-	github.com/pb33f/libopenapi-validator v0.2.2
-	github.com/pseudomuto/protokit v0.2.1
+	github.com/pb33f/libopenapi v0.21.5
+	github.com/pb33f/libopenapi-validator v0.3.0
 	github.com/stretchr/testify v1.10.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20250204164813-702378808489
+	google.golang.org/genproto/googleapis/api v0.0.0-20250218202821-56aae31c358a
 	google.golang.org/protobuf v1.36.5
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
-	connectrpc.com/connect v1.17.0 // indirect
+	connectrpc.com/connect v1.18.1 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dprotaso/go-yit v0.0.0-20240618133044-5a0af90af097 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/gnostic-models v0.6.9 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/mailru/easyjson v0.9.0 // indirect
