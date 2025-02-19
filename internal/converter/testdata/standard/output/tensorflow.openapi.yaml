@@ -1581,18 +1581,21 @@ components:
             - string
           title: host_temp_memory_size
           format: int64
+          deprecated: true
         deviceTempMemorySize:
           type:
             - integer
             - string
           title: device_temp_memory_size
           format: int64
+          deprecated: true
         devicePersistentMemorySize:
           type:
             - integer
             - string
           title: device_persistent_memory_size
           format: int64
+          deprecated: true
         computeCost:
           type:
             - integer
@@ -2730,6 +2733,7 @@ components:
             Deprecated single version field; use versions above instead.  Since all
              GraphDef changes before "versions" was introduced were forward
              compatible, this field is entirely ignored.
+          deprecated: true
         library:
           title: library
           description: |-
@@ -2997,12 +3001,14 @@ components:
             - string
           title: device_temp_memory_size
           format: int64
+          deprecated: true
         devicePersistentMemorySize:
           type:
             - integer
             - string
           title: device_persistent_memory_size
           format: int64
+          deprecated: true
         devicePersistentTensorAllocIds:
           type: array
           items:
@@ -3010,7 +3016,9 @@ components:
               - integer
               - string
             format: int64
+            deprecated: true
           title: device_persistent_tensor_alloc_ids
+          deprecated: true
       title: MemoryStats
       additionalProperties: false
       description: For memory tracking.

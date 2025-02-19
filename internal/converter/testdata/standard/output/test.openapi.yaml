@@ -845,6 +845,7 @@ components:
             title: value
             format: double
           description: map value types
+          deprecated: true
         floatMap:
           type: object
           title: float_map
@@ -955,6 +956,7 @@ components:
           format: double
           description: explicit presence types
           nullable: true
+          deprecated: true
         optFloatValue:
           type: number
           title: opt_float_value
@@ -1033,6 +1035,7 @@ components:
           nullable: true
         msgValue:
           title: msg_value
+          deprecated: true
           $ref: '#/components/schemas/test.v1.AllTypes'
         enumValue:
           title: enum_value
@@ -1071,6 +1074,7 @@ components:
           type: number
           title: double_option
           format: double
+          deprecated: true
         floatOption:
           type: number
           title: float_option
@@ -1630,6 +1634,7 @@ components:
             $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
           title: enum_list
           description: complex types
+          deprecated: true
         doubleList:
           type: array
           items:

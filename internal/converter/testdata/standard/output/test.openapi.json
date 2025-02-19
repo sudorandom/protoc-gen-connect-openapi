@@ -703,7 +703,8 @@
               "title": "value",
               "format": "double"
             },
-            "description": "map value types"
+            "description": "map value types",
+            "deprecated": true
           },
           "floatMap": {
             "type": "object",
@@ -847,7 +848,8 @@
             "title": "opt_double_value",
             "format": "double",
             "description": "explicit presence types",
-            "nullable": true
+            "nullable": true,
+            "deprecated": true
           },
           "optFloatValue": {
             "type": "number",
@@ -946,6 +948,7 @@
           },
           "msgValue": {
             "title": "msg_value",
+            "deprecated": true,
             "$ref": "#/components/schemas/test.v1.AllTypes"
           },
           "enumValue": {
@@ -995,7 +998,8 @@
           "doubleOption": {
             "type": "number",
             "title": "double_option",
-            "format": "double"
+            "format": "double",
+            "deprecated": true
           },
           "floatOption": {
             "type": "number",
@@ -1761,7 +1765,8 @@
               "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
             },
             "title": "enum_list",
-            "description": "complex types"
+            "description": "complex types",
+            "deprecated": true
           },
           "doubleList": {
             "type": "array",

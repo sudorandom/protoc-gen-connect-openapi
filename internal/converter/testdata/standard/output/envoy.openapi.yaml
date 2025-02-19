@@ -372,6 +372,7 @@ components:
             [#not-implemented-hide:] Type descriptor of extension configuration proto.
              [#comment:TODO(yanavlasov): Link to the doc with existing configuration protos.]
              [#comment:TODO(yanavlasov): Add tests when PR #9391 lands.]
+          deprecated: true
         version:
           title: version
           description: |-
@@ -604,6 +605,7 @@ components:
              for filtering :ref:`listeners <config_listeners>` to be returned. For example,
              if there is a listener bound to port 80, the list can optionally contain the
              SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.
+          deprecated: true
       title: Node
       additionalProperties: false
       description: |-

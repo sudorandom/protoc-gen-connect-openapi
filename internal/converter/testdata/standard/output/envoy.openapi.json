@@ -550,7 +550,8 @@
           "typeDescriptor": {
             "type": "string",
             "title": "type_descriptor",
-            "description": "[#not-implemented-hide:] Type descriptor of extension configuration proto.\n [#comment:TODO(yanavlasov): Link to the doc with existing configuration protos.]\n [#comment:TODO(yanavlasov): Add tests when PR #9391 lands.]"
+            "description": "[#not-implemented-hide:] Type descriptor of extension configuration proto.\n [#comment:TODO(yanavlasov): Link to the doc with existing configuration protos.]\n [#comment:TODO(yanavlasov): Add tests when PR #9391 lands.]",
+            "deprecated": true
           },
           "version": {
             "title": "version",
@@ -751,7 +752,8 @@
               "$ref": "#/components/schemas/envoy.config.core.v3.Address"
             },
             "title": "listening_addresses",
-            "description": "Known listening ports on the node as a generic hint to the management server\n for filtering :ref:`listeners \u003cconfig_listeners\u003e` to be returned. For example,\n if there is a listener bound to port 80, the list can optionally contain the\n SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint."
+            "description": "Known listening ports on the node as a generic hint to the management server\n for filtering :ref:`listeners \u003cconfig_listeners\u003e` to be returned. For example,\n if there is a listener bound to port 80, the list can optionally contain the\n SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.",
+            "deprecated": true
           }
         },
         "title": "Node",

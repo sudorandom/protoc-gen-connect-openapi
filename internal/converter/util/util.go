@@ -95,6 +95,17 @@ func IsMethodDeprecated(md protoreflect.MethodDescriptor) *bool {
 	return options.Deprecated
 }
 
+func IsFieldDeprecated(fd protoreflect.FieldDescriptor) *bool {
+	options, ok := fd.Options().(*descriptorpb.FieldOptions)
+	if !ok || options == nil {
+		return nil
+	}
+	if options.Deprecated == nil {
+		return nil
+	}
+	return options.Deprecated
+}
+
 func MethodToRequestBody(opts options.Options, method protoreflect.MethodDescriptor, s *base.SchemaProxy, isStreaming bool) *v3.RequestBody {
 	return &v3.RequestBody{
 		Content:  MakeMediaTypes(opts, s, true, isStreaming),
