@@ -48,7 +48,7 @@ message ParameterValues {
   Enum enum_value = 28;
 
   // complex types
-  repeated Enum enum_list = 29;
+  repeated Enum enum_list = 29 [deprecated = true];
   repeated double double_list = 30;
   repeated google.protobuf.DoubleValue double_value_list = 31;
   oneof oneof {
@@ -128,7 +128,7 @@ message AllTypes {
   map<string, string> string_to_string_map = 42;
 
   // map value types
-  map<string, double> double_map = 43;
+  map<string, double> double_map = 43 [deprecated = true];
   map<string, float> float_map = 44;
   map<string, int32> int32_map = 45;
   map<string, int64> int64_map = 46;
@@ -145,7 +145,7 @@ message AllTypes {
   map<string, bytes> bytes_map = 57;
 
   // explicit presence types
-  optional double opt_double_value = 58;
+  optional double opt_double_value = 58 [deprecated = true];
   optional float opt_float_value = 59;
   optional int32 opt_int32_value = 60;
   optional int64 opt_int64_value = 61;
@@ -167,7 +167,7 @@ message AllTypes {
     ENUM_ONE = 1;
     ENUM_TWO = 2;
   }
-  AllTypes msg_value = 73;
+  AllTypes msg_value = 73 [deprecated = true];
   Enum enum_value = 74;
   optional AllTypes opt_msg_value = 75;
   optional Enum opt_enum_value = 76;
@@ -178,7 +178,7 @@ message AllTypes {
 
   // oneof
   oneof option {
-    double double_option = 81;
+    double double_option = 81 [deprecated = true];
     float float_option = 82;
     int32 int32_option = 83;
     int64 int64_option = 84;

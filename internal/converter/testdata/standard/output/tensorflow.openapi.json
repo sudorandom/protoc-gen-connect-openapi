@@ -1779,7 +1779,8 @@
               "string"
             ],
             "title": "host_temp_memory_size",
-            "format": "int64"
+            "format": "int64",
+            "deprecated": true
           },
           "deviceTempMemorySize": {
             "type": [
@@ -1787,7 +1788,8 @@
               "string"
             ],
             "title": "device_temp_memory_size",
-            "format": "int64"
+            "format": "int64",
+            "deprecated": true
           },
           "devicePersistentMemorySize": {
             "type": [
@@ -1795,7 +1797,8 @@
               "string"
             ],
             "title": "device_persistent_memory_size",
-            "format": "int64"
+            "format": "int64",
+            "deprecated": true
           },
           "computeCost": {
             "type": [
@@ -2849,7 +2852,8 @@
             "type": "integer",
             "title": "version",
             "format": "int32",
-            "description": "Deprecated single version field; use versions above instead.  Since all\n GraphDef changes before \"versions\" was introduced were forward\n compatible, this field is entirely ignored."
+            "description": "Deprecated single version field; use versions above instead.  Since all\n GraphDef changes before \"versions\" was introduced were forward\n compatible, this field is entirely ignored.",
+            "deprecated": true
           },
           "library": {
             "title": "library",
@@ -3111,7 +3115,8 @@
               "string"
             ],
             "title": "device_temp_memory_size",
-            "format": "int64"
+            "format": "int64",
+            "deprecated": true
           },
           "devicePersistentMemorySize": {
             "type": [
@@ -3119,7 +3124,8 @@
               "string"
             ],
             "title": "device_persistent_memory_size",
-            "format": "int64"
+            "format": "int64",
+            "deprecated": true
           },
           "devicePersistentTensorAllocIds": {
             "type": "array",
@@ -3128,9 +3134,11 @@
                 "integer",
                 "string"
               ],
-              "format": "int64"
+              "format": "int64",
+              "deprecated": true
             },
-            "title": "device_persistent_tensor_alloc_ids"
+            "title": "device_persistent_tensor_alloc_ids",
+            "deprecated": true
           }
         },
         "title": "MemoryStats",

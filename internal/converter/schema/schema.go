@@ -108,6 +108,7 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 			Description: util.TypeFieldDescription(opts, tt),
 			Type:        []string{"array"},
 			Items:       &base.DynamicValue[*base.SchemaProxy, bool]{A: itemSchema},
+			Deprecated:  util.IsFieldDeprecated(tt),
 		}
 		s = opts.FieldAnnotator.AnnotateField(opts, s, tt, false)
 		return base.CreateSchemaProxy(s)
@@ -122,13 +123,15 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 			return base.CreateSchemaProxy(msg)
 		}
 
-		return base.CreateSchemaProxy(ScalarFieldToSchema(opts, parent, tt, false))
+		s := ScalarFieldToSchema(opts, parent, tt, false)
+		return base.CreateSchemaProxy(s)
 	}
 }
 
 func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor, inContainer bool) *base.Schema {
 	s := &base.Schema{
 		ParentProxy: parent,
+		Deprecated:  util.IsFieldDeprecated(tt),
 	}
 	if !inContainer {
 		s.Title = string(tt.Name())
