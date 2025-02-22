@@ -246,15 +246,12 @@ func partsToOpenAPIPath(tokens []Token) string {
 	return b.String()
 }
 
-func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, jsonPrefix string, seen map[string]struct{}) []*v3.Parameter {
+func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, prefix string, seen map[string]struct{}) []*v3.Parameter {
 	params := []*v3.Parameter{}
 	fields := md.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
-		paramName := jsonPrefix + string(field.JSONName())
-		if opts.WithProtoNames {
-			paramName = string(field.Name())
-		}
+		paramName := prefix + util.MakeFieldName(opts, field)
 		// exclude fields already found in the path
 		if _, ok := seen[string(field.FullName())]; ok {
 			continue

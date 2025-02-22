@@ -6,6 +6,7 @@ PROTO_FILES=$(shell find internal/converter/testdata -type f -name '*.proto')
 generate: $(PROTO_FILES)
 	@echo "Generating fixture descriptor set"
 	go generate ./...
+	go generate ./internal/converter/testdata
 
 test: generate
 	go test -coverprofile=coverage.out -coverpkg=./internal/...,./converter/... ./...

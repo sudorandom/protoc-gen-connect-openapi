@@ -124,7 +124,11 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | with-streaming | - | Generate OpenAPI for client/server/bidirectional streaming RPCs (can be messy). |
 
 ### Contributing
-Contributions are accepted and welcome! Please make sure that all tests pass locally for you. You normally can use normal Go tooling to run tests but if you change any protobuf files in `internal/converter/testdata/`, you need to run `go generate ./...` to ensure the related DescriptorSet gets updated. This exists because it's the easiest way to pull in buf dependencies in a reliable way.
+Contributions are accepted and welcome! Please make sure that all tests pass locally for you. You normally can use normal Go tooling to run tests but if you change any protobuf files in `internal/converter/testdata/`, you need to run this command to ensure the related DescriptorSet gets updated:
+```
+go generate ./internal/converter/testdata
+```
+This exists because it's the easiest way to pull in buf dependencies in a reliable way.
 
 Otherwise, tests are run with:
 ```shell
