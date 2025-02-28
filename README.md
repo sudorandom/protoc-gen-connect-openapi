@@ -89,7 +89,7 @@ plugins:
 ```
 And then run `buf generate`. See [the documentation on buf generate](https://buf.build/docs/reference/cli/buf/generate#usage) for more help.
 
-### Proto Validate Support
+### Protovalidate Support
 protoc-gen-connect-openapi also has support for many [protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every protovalidate constraint translates clearly to OpenAPI.
 
 [See the protovalidate documentation page for more information](protovalidate.md)
