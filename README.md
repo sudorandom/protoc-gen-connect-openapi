@@ -11,7 +11,7 @@ Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://conn
 
 Features:
 - Support for OpenAPIv3.1 (which has support for jsonschema)
-- Support for many [protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
+- Support for many [Protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
 - Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
 - Support for [gRPC-Gateway annotations](https://github.com/grpc-ecosystem/grpc-gateway) ([more info](grpcgateway.md))
 - Has [an easy interface](https://pkg.go.dev/github.com/sudorandom/protoc-gen-connect-openapi/converter) for generating OpenAPI specs within the process
@@ -90,9 +90,9 @@ plugins:
 And then run `buf generate`. See [the documentation on buf generate](https://buf.build/docs/reference/cli/buf/generate#usage) for more help.
 
 ### Protovalidate Support
-protoc-gen-connect-openapi also has support for many [protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every protovalidate constraint translates clearly to OpenAPI.
+protoc-gen-connect-openapi also has support for many [Protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every Protovalidate constraint translates clearly to OpenAPI.
 
-[See the protovalidate documentation page for more information](protovalidate.md)
+[See the Protovalidate documentation page for more information](protovalidate.md)
 
 ### gRPC-Gateway annotations
 protoc-gen-connect-openapi also has support for the [gRPC-Gateway annotations](https://grpc-ecosystem.github.io/grpc-gateway/docs/tutorials/adding_annotations/) provided by the [google/api/annotations.proto](https://github.com/googleapis/googleapis/blob/master/google/api/annotations.proto).

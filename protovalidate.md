@@ -1,5 +1,5 @@
 # Protovalidate Support
-protoc-gen-connect-openapi has support for many [protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every protovalidate constraint translates clearly to OpenAPI.
+protoc-gen-connect-openapi has support for many [Protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every Protovalidate constraint translates clearly to OpenAPI.
 
 Your protobuf that looks like this:
 ```protobuf
