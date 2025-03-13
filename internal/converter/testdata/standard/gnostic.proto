@@ -83,6 +83,7 @@ service Greeter {
     option idempotency_level = NO_SIDE_EFFECTS;
     option (google.api.http).get = "/v1/path/to/say-hello2";
     option (gnostic.openapi.v3.operation) = {
+      tags: ["extra-tag"]
       responses: {
         default: {
           reference: {_ref: "#/components/schemas/example_with_gnostic.HelloReply"}

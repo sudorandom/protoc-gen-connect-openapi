@@ -61,7 +61,7 @@ func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDesc
 		if opts.Description != "" {
 			oper.Description = opts.Description
 		}
-		oper.Tags = append(oper.Tags, opts.Tags...)
+		oper.Tags = append(opts.Tags, oper.Tags...)
 
 		if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
 			oper.ExternalDocs = exDocs
