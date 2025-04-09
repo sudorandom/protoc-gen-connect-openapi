@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package example;
+
+message DefinitionA {
+  int32 id = 1;
+  string name = 2;
+}
+
+message DefinitionB {
+  string description = 1;
+  bool active = 2;
+}
+
+message CombinedDefinition {
+  int32 common_id = 1;
+  oneof type {
+    DefinitionA a = 2;
+    DefinitionB b = 3;
+  }
+}

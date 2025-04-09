@@ -53,7 +53,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 	}
 
 	s.Properties = props
-
+	slog.Debug("props Eduardo")
 	if len(oneOneGroups) > 0 {
 		// make all of groups
 		groupKeys := []protoreflect.FullName{}
@@ -68,7 +68,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			allOfs = append(allOfs, makeOneOfGroup(items))
 		}
 		if len(allOfs) == 1 {
-			s.AnyOf = allOfs[0].Schema().AnyOf
+			s.OneOf = allOfs[0].Schema().OneOf
 		} else {
 			s.AllOf = append(s.AllOf, allOfs...)
 		}
@@ -192,6 +192,5 @@ func makeOneOfGroup(fields []string) *base.SchemaProxy {
 		nestedSchemas = append(nestedSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
 	}
 
-	rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Not: base.CreateSchemaProxy(&base.Schema{AnyOf: nestedSchemas})}))
-	return base.CreateSchemaProxy(&base.Schema{AnyOf: rootSchemas})
+	return base.CreateSchemaProxy(&base.Schema{OneOf: rootSchemas})
 }

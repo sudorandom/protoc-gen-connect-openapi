@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: example
+paths: {}
+components:
+  schemas:
+    example.CombinedDefinition:
+      type: object
+      oneOf:
+        - required:
+            - a
+        - required:
+            - b
+      properties:
+        commonId:
+          type: integer
+          title: common_id
+          format: int32
+        a:
+          title: a
+          $ref: '#/components/schemas/example.DefinitionA'
+        b:
+          title: b
+          $ref: '#/components/schemas/example.DefinitionB'
+      title: CombinedDefinition
+      additionalProperties: false
+    example.DefinitionA:
+      type: object
+      properties:
+        id:
+          type: integer
+          title: id
+          format: int32
+        name:
+          type: string
+          title: name
+      title: DefinitionA
+      additionalProperties: false
+    example.DefinitionB:
+      type: object
+      properties:
+        description:
+          type: string
+          title: description
+        active:
+          type: boolean
+          title: active
+      title: DefinitionB
+      additionalProperties: false
+security: []

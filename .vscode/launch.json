@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "Debug Plugin",
+          "type": "go",
+          "request": "launch",
+          "mode": "debug",
+          "program": "${workspaceRoot}/main.go",
+          "cwd": "${workspaceRoot}",
+          "env": {},
+          "args": [],
+          "stdin": "${workspaceRoot}/test/input.bin"
+      }
+  ]
+}
