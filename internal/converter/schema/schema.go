@@ -37,22 +37,28 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 
 	oneOneGroups := map[protoreflect.FullName][]string{}
 
-	props := orderedmap.New[string, *base.SchemaProxy]()
+	regularProps := orderedmap.New[string, *base.SchemaProxy]()
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
 		if oneOf := field.ContainingOneof(); oneOf != nil && !oneOf.IsSynthetic() {
-			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], util.MakeFieldName(opts, field))
+			// Add the one groups in one specific list
+			oneOneGroups[oneOf.FullName()] = append(
+				oneOneGroups[oneOf.FullName()],
+				util.MakeFieldName(opts, field),
+			)
+
+			continue
 		}
 		prop := FieldToSchema(opts, base.CreateSchemaProxy(s), field)
 		if field.HasOptionalKeyword() {
 			nullable := true
 			prop.Schema().Nullable = &nullable
 		}
-		props.Set(util.MakeFieldName(opts, field), prop)
+		regularProps.Set(util.MakeFieldName(opts, field), prop)
 	}
 
-	s.Properties = props
+	s.Properties = regularProps
 	slog.Debug("props Eduardo")
 	if len(oneOneGroups) > 0 {
 		// make all of groups
@@ -185,11 +191,28 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 }
 
 func makeOneOfGroup(fields []string) *base.SchemaProxy {
-	nestedSchemas := make([]*base.SchemaProxy, 0, len(fields))
-	rootSchemas := make([]*base.SchemaProxy, 0, len(fields)+1)
+	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
 	for _, field := range fields {
-		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
-		nestedSchemas = append(nestedSchemas, base.CreateSchemaProxy(&base.Schema{Required: []string{field}}))
+		schema := &base.Schema{
+			Type:       []string{"object"},
+			Title:      field,
+			Properties: orderedmap.New[string, *base.SchemaProxy](),
+		}
+
+		// Create the reference extension
+		extensions := orderedmap.New[string, *yaml.Node]()
+		extensions.Set("$ref", utils.CreateStringNode(fmt.Sprintf("#/components/schemas/%s", field)))
+
+		// Create property schema with the reference
+		propSchema := &base.Schema{
+			Title:      field,
+			Extensions: extensions,
+		}
+
+		schema.Properties.Set(field, base.CreateSchemaProxy(propSchema))
+		schema.Required = []string{field}
+
+		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(schema))
 	}
 
 	return base.CreateSchemaProxy(&base.Schema{OneOf: rootSchemas})
