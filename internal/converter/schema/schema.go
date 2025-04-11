@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"slices"
+	"strings"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
@@ -13,6 +14,11 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
 )
+
+type oneOfField struct {
+	fieldName   string
+	messageDesc protoreflect.MessageDescriptor
+}
 
 func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 	slog.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
@@ -35,8 +41,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
 	}
 
-	oneOneGroups := map[protoreflect.FullName][]string{}
-
+	oneOneGroups := map[protoreflect.FullName][]oneOfField{}
 	regularProps := orderedmap.New[string, *base.SchemaProxy]()
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
@@ -45,7 +50,10 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			// Add the one groups in one specific list
 			oneOneGroups[oneOf.FullName()] = append(
 				oneOneGroups[oneOf.FullName()],
-				util.MakeFieldName(opts, field),
+				oneOfField{
+					fieldName:   util.MakeFieldName(opts, field),
+					messageDesc: field.Message(),
+				},
 			)
 
 			continue
@@ -59,7 +67,6 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 	}
 
 	s.Properties = regularProps
-	slog.Debug("props Eduardo")
 	if len(oneOneGroups) > 0 {
 		// make all of groups
 		groupKeys := []protoreflect.FullName{}
@@ -70,7 +77,9 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		allOfs := []*base.SchemaProxy{}
 		for _, key := range groupKeys {
 			items := oneOneGroups[key]
-			slices.Sort(items)
+			slices.SortFunc(items, func(a, b oneOfField) int {
+				return strings.Compare(a.fieldName, b.fieldName)
+			})
 			allOfs = append(allOfs, makeOneOfGroup(items))
 		}
 		if len(allOfs) == 1 {
@@ -190,27 +199,27 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 	}
 }
 
-func makeOneOfGroup(fields []string) *base.SchemaProxy {
+func makeOneOfGroup(fields []oneOfField) *base.SchemaProxy {
 	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
 	for _, field := range fields {
 		schema := &base.Schema{
 			Type:       []string{"object"},
-			Title:      field,
+			Title:      field.fieldName,
 			Properties: orderedmap.New[string, *base.SchemaProxy](),
 		}
 
 		// Create the reference extension
 		extensions := orderedmap.New[string, *yaml.Node]()
-		extensions.Set("$ref", utils.CreateStringNode(fmt.Sprintf("#/components/schemas/%s", field)))
+		fullName := string(field.messageDesc.FullName())
+		extensions.Set("$ref", utils.CreateStringNode(fmt.Sprintf("#/components/schemas/%s", fullName)))
 
 		// Create property schema with the reference
 		propSchema := &base.Schema{
-			Title:      field,
 			Extensions: extensions,
 		}
 
-		schema.Properties.Set(field, base.CreateSchemaProxy(propSchema))
-		schema.Required = []string{field}
+		schema.Properties.Set(field.fieldName, base.CreateSchemaProxy(propSchema))
+		schema.Required = []string{field.fieldName}
 
 		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(schema))
 	}
