@@ -10,6 +10,10 @@ message DefinitionA {
 message DefinitionB {
   string description = 1;
   bool active = 2;
+  oneof type {
+    int32 scalar1 = 3;
+    string scalar2 = 4;
+  }
 }
 
 message CombinedDefinition {

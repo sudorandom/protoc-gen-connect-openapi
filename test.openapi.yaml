@@ -42,6 +42,22 @@ components:
       additionalProperties: false
     example.DefinitionB:
       type: object
+      oneOf:
+        - type: object
+          properties:
+            scalar1:
+              type: integer
+              title: scalar1
+              format: int32
+          required:
+            - scalar1
+        - type: object
+          properties:
+            scalar2:
+              type: string
+              title: scalar2
+          required:
+            - scalar2
       properties:
         description:
           type: string
