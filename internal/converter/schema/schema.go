@@ -43,6 +43,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 
 	oneOneGroups := map[protoreflect.FullName][]oneOfField{}
 	regularProps := orderedmap.New[string, *base.SchemaProxy]()
+
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
@@ -55,7 +56,10 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 					messageDesc: field.Message(),
 				},
 			)
-
+			/*
+				If this is a field in a oneof continue because we're going to handle it in a different
+				way
+			*/
 			continue
 		}
 		prop := FieldToSchema(opts, base.CreateSchemaProxy(s), field)
@@ -77,6 +81,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		allOfs := []*base.SchemaProxy{}
 		for _, key := range groupKeys {
 			items := oneOneGroups[key]
+			// This is weird need to better understand this.
 			slices.SortFunc(items, func(a, b oneOfField) int {
 				return strings.Compare(a.fieldName, b.fieldName)
 			})
@@ -202,6 +207,10 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 func makeOneOfGroup(fields []oneOfField) *base.SchemaProxy {
 	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
 	for _, field := range fields {
+		/*
+			The shape that readmes and the actual swagger docs accept requires that every field
+			inside the oneof has it's own schema definition.
+		*/
 		schema := &base.Schema{
 			Type:       []string{"object"},
 			Title:      field.fieldName,
@@ -210,8 +219,6 @@ func makeOneOfGroup(fields []oneOfField) *base.SchemaProxy {
 
 		// Create the reference extension
 		extensions := orderedmap.New[string, *yaml.Node]()
-		slog.Debug("---------field-----------", field.fieldName)
-		slog.Debug("---------FULLNAME FIELD-----------", field.messageDesc.FullName())
 		fullName := string(
 			field.messageDesc.FullName(),
 		)
