@@ -71,7 +71,9 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	require.NoError(t, err)
 
 	// Call the conversion code!
-	resp, err := converter.ConvertFrom(bytes.NewBuffer(b))
+	resp, err := converter.ConvertFrom(
+		bytes.NewBuffer(b),
+	)
 	require.NoError(t, err)
 	require.Nil(t, resp.Error)
 	require.Len(t, resp.File, 1)

@@ -210,7 +210,11 @@ func makeOneOfGroup(fields []oneOfField) *base.SchemaProxy {
 
 		// Create the reference extension
 		extensions := orderedmap.New[string, *yaml.Node]()
-		fullName := string(field.messageDesc.FullName())
+		slog.Debug("---------field-----------", field.fieldName)
+		slog.Debug("---------FULLNAME FIELD-----------", field.messageDesc.FullName())
+		fullName := string(
+			field.messageDesc.FullName(),
+		)
 		extensions.Set("$ref", utils.CreateStringNode(fmt.Sprintf("#/components/schemas/%s", fullName)))
 
 		// Create property schema with the reference
