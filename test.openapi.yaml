@@ -10,15 +10,15 @@ components:
         - type: object
           properties:
             a:
+              title: a
               $ref: '#/components/schemas/example.DefinitionA'
-          title: a
           required:
             - a
         - type: object
           properties:
             b:
+              title: b
               $ref: '#/components/schemas/example.DefinitionB'
-          title: b
           required:
             - b
       properties:

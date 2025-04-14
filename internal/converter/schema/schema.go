@@ -15,11 +15,6 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type oneOfField struct {
-	fieldName   string
-	messageDesc protoreflect.MessageDescriptor
-}
-
 func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (string, *base.Schema) {
 	slog.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
 	defer slog.Debug("/messageToSchema", slog.Any("descriptor", tt.FullName()))
@@ -41,21 +36,14 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false},
 	}
 
-	oneOneGroups := map[protoreflect.FullName][]oneOfField{}
+	oneOneGroups := map[protoreflect.FullName][]protoreflect.FieldDescriptor{}
 	regularProps := orderedmap.New[string, *base.SchemaProxy]()
 
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
 		if oneOf := field.ContainingOneof(); oneOf != nil && !oneOf.IsSynthetic() {
-			// Add the one groups in one specific list
-			oneOneGroups[oneOf.FullName()] = append(
-				oneOneGroups[oneOf.FullName()],
-				oneOfField{
-					fieldName:   util.MakeFieldName(opts, field),
-					messageDesc: field.Message(),
-				},
-			)
+			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], field)
 			/*
 				If this is a field in a oneof continue because we're going to handle it in a different
 				way
@@ -81,11 +69,10 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		allOfs := []*base.SchemaProxy{}
 		for _, key := range groupKeys {
 			items := oneOneGroups[key]
-			// This is weird need to better understand this.
-			slices.SortFunc(items, func(a, b oneOfField) int {
-				return strings.Compare(a.fieldName, b.fieldName)
+			slices.SortFunc(items, func(a, b protoreflect.FieldDescriptor) int {
+				return strings.Compare(string(a.Name()), string(b.Name()))
 			})
-			allOfs = append(allOfs, makeOneOfGroup(items))
+			allOfs = append(allOfs, makeOneOfGroup(opts, items))
 		}
 		if len(allOfs) == 1 {
 			s.OneOf = allOfs[0].Schema().OneOf
@@ -204,33 +191,18 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 	}
 }
 
-func makeOneOfGroup(fields []oneOfField) *base.SchemaProxy {
+func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor) *base.SchemaProxy {
 	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
 	for _, field := range fields {
-		/*
-			The shape that readmes and the actual swagger docs accept requires that every field
-			inside the oneof has it's own schema definition.
-		*/
 		schema := &base.Schema{
 			Type:       []string{"object"},
-			Title:      field.fieldName,
 			Properties: orderedmap.New[string, *base.SchemaProxy](),
 		}
 
-		// Create the reference extension
-		extensions := orderedmap.New[string, *yaml.Node]()
-		fullName := string(
-			field.messageDesc.FullName(),
-		)
-		extensions.Set("$ref", utils.CreateStringNode(fmt.Sprintf("#/components/schemas/%s", fullName)))
-
-		// Create property schema with the reference
-		propSchema := &base.Schema{
-			Extensions: extensions,
-		}
-
-		schema.Properties.Set(field.fieldName, base.CreateSchemaProxy(propSchema))
-		schema.Required = []string{field.fieldName}
+		fieldName := util.MakeFieldName(opts, field)
+		propSchema := FieldToSchema(opts, base.CreateSchemaProxy(schema), field)
+		schema.Properties.Set(fieldName, propSchema)
+		schema.Required = []string{fieldName}
 
 		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(schema))
 	}
