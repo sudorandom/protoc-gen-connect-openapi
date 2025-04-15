@@ -528,77 +528,148 @@ components:
          The JSON representation for `Value` is JSON value.
     test.v1.AllTypes:
       type: object
-      anyOf:
-        - required:
+      oneOf:
+        - properties:
+            boolOption:
+              type: boolean
+              title: bool_option
+          title: bool_option
+          required:
             - boolOption
-        - required:
+        - properties:
+            bytesOption:
+              type: string
+              title: bytes_option
+              format: byte
+          title: bytes_option
+          required:
             - bytesOption
-        - required:
+        - properties:
+            doubleOption:
+              type: number
+              title: double_option
+              format: double
+              deprecated: true
+          title: double_option
+          required:
             - doubleOption
-        - required:
+        - properties:
+            enumOption:
+              title: enum_option
+              $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+          title: enum_option
+          required:
             - enumOption
-        - required:
+        - properties:
+            fixed32Option:
+              type: integer
+              title: fixed32_option
+          title: fixed32_option
+          required:
             - fixed32Option
-        - required:
+        - properties:
+            fixed64Option:
+              type:
+                - integer
+                - string
+              title: fixed64_option
+              format: int64
+          title: fixed64_option
+          required:
             - fixed64Option
-        - required:
+        - properties:
+            floatOption:
+              type: number
+              title: float_option
+              format: float
+          title: float_option
+          required:
             - floatOption
-        - required:
+        - properties:
+            int32Option:
+              type: integer
+              title: int32_option
+              format: int32
+          title: int32_option
+          required:
             - int32Option
-        - required:
+        - properties:
+            int64Option:
+              type:
+                - integer
+                - string
+              title: int64_option
+              format: int64
+          title: int64_option
+          required:
             - int64Option
-        - required:
+        - properties:
+            msgOption:
+              title: msg_option
+              $ref: '#/components/schemas/test.v1.AllTypes'
+          title: msg_option
+          required:
             - msgOption
-        - required:
+        - properties:
+            sfixed32Option:
+              type: integer
+              title: sfixed32_option
+              format: int32
+          title: sfixed32_option
+          required:
             - sfixed32Option
-        - required:
+        - properties:
+            sfixed64Option:
+              type:
+                - integer
+                - string
+              title: sfixed64_option
+              format: int64
+          title: sfixed64_option
+          required:
             - sfixed64Option
-        - required:
+        - properties:
+            sint32Option:
+              type: integer
+              title: sint32_option
+              format: int32
+          title: sint32_option
+          required:
             - sint32Option
-        - required:
+        - properties:
+            sint64Option:
+              type:
+                - integer
+                - string
+              title: sint64_option
+              format: int64
+          title: sint64_option
+          required:
             - sint64Option
-        - required:
+        - properties:
+            stringOption:
+              type: string
+              title: string_option
+          title: string_option
+          required:
             - stringOption
-        - required:
+        - properties:
+            uint32Option:
+              type: integer
+              title: uint32_option
+          title: uint32_option
+          required:
             - uint32Option
-        - required:
+        - properties:
+            uint64Option:
+              type:
+                - integer
+                - string
+              title: uint64_option
+              format: int64
+          title: uint64_option
+          required:
             - uint64Option
-        - not:
-            anyOf:
-              - required:
-                  - boolOption
-              - required:
-                  - bytesOption
-              - required:
-                  - doubleOption
-              - required:
-                  - enumOption
-              - required:
-                  - fixed32Option
-              - required:
-                  - fixed64Option
-              - required:
-                  - floatOption
-              - required:
-                  - int32Option
-              - required:
-                  - int64Option
-              - required:
-                  - msgOption
-              - required:
-                  - sfixed32Option
-              - required:
-                  - sfixed64Option
-              - required:
-                  - sint32Option
-              - required:
-                  - sint64Option
-              - required:
-                  - stringOption
-              - required:
-                  - uint32Option
-              - required:
-                  - uint64Option
       properties:
         doubleValue:
           type: number
@@ -1070,79 +1141,6 @@ components:
           additionalProperties:
             title: value
             $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-        doubleOption:
-          type: number
-          title: double_option
-          format: double
-          deprecated: true
-        floatOption:
-          type: number
-          title: float_option
-          format: float
-        int32Option:
-          type: integer
-          title: int32_option
-          format: int32
-        int64Option:
-          type:
-            - integer
-            - string
-          title: int64_option
-          format: int64
-        uint32Option:
-          type: integer
-          title: uint32_option
-        uint64Option:
-          type:
-            - integer
-            - string
-          title: uint64_option
-          format: int64
-        sint32Option:
-          type: integer
-          title: sint32_option
-          format: int32
-        sint64Option:
-          type:
-            - integer
-            - string
-          title: sint64_option
-          format: int64
-        fixed32Option:
-          type: integer
-          title: fixed32_option
-        fixed64Option:
-          type:
-            - integer
-            - string
-          title: fixed64_option
-          format: int64
-        sfixed32Option:
-          type: integer
-          title: sfixed32_option
-          format: int32
-        sfixed64Option:
-          type:
-            - integer
-            - string
-          title: sfixed64_option
-          format: int64
-        boolOption:
-          type: boolean
-          title: bool_option
-        stringOption:
-          type: string
-          title: string_option
-        bytesOption:
-          type: string
-          title: bytes_option
-          format: byte
-        msgOption:
-          title: msg_option
-          $ref: '#/components/schemas/test.v1.AllTypes'
-        enumOption:
-          title: enum_option
-          $ref: '#/components/schemas/test.v1.AllTypes.Enum'
       title: AllTypes
       additionalProperties: false
     test.v1.AllTypes.BoolMapEntry:
@@ -1505,21 +1503,29 @@ components:
       additionalProperties: false
     test.v1.ParameterValues:
       type: object
-      anyOf:
-        - required:
+      oneOf:
+        - properties:
+            oneofDoubleValue:
+              type: number
+              title: oneof_double_value
+              format: double
+          title: oneof_double_value
+          required:
             - oneofDoubleValue
-        - required:
+        - properties:
+            oneofDoubleValueWrapper:
+              title: oneof_double_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.DoubleValue'
+          title: oneof_double_value_wrapper
+          required:
             - oneofDoubleValueWrapper
-        - required:
+        - properties:
+            oneofEnumValue:
+              title: oneof_enum_value
+              $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+          title: oneof_enum_value
+          required:
             - oneofEnumValue
-        - not:
-            anyOf:
-              - required:
-                  - oneofDoubleValue
-              - required:
-                  - oneofDoubleValueWrapper
-              - required:
-                  - oneofEnumValue
       properties:
         doubleValue:
           type: number
@@ -1646,16 +1652,6 @@ components:
           items:
             $ref: '#/components/schemas/google.protobuf.DoubleValue'
           title: double_value_list
-        oneofDoubleValue:
-          type: number
-          title: oneof_double_value
-          format: double
-        oneofDoubleValueWrapper:
-          title: oneof_double_value_wrapper
-          $ref: '#/components/schemas/google.protobuf.DoubleValue'
-        oneofEnumValue:
-          title: oneof_enum_value
-          $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
         nested:
           title: nested
           $ref: '#/components/schemas/test.v1.ParameterValues.Nested'

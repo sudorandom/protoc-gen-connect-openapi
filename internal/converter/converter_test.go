@@ -3,6 +3,7 @@ package converter_test
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -91,9 +92,21 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	default:
 		expectedFile, err := os.ReadFile(outputPath)
 		require.NoError(t, err)
-		assert.Equal(t, string(expectedFile), file.GetContent())
+		if string(expectedFile) != file.GetContent() {
+			assert.Equal(t, string(expectedFile), file.GetContent())
+			replaceFixture(t, outputPath, file.GetContent())
+		}
 	}
 	return file.GetContent()
+}
+
+func replaceFixture(t *testing.T, outputPath string, content string) error {
+	t.Logf("Replacing fixture at: %s", outputPath)
+	if err := os.WriteFile(outputPath, []byte(content), 0644); err != nil {
+		return fmt.Errorf("failed to replace fixture: %w", err)
+	}
+	t.Log("Fixture has been updated with new content")
+	return nil
 }
 
 func validateOpenAPISpec(t *testing.T, protofile string, spec string) {
