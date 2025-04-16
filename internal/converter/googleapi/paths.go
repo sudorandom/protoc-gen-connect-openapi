@@ -3,6 +3,7 @@ package googleapi
 import (
 	"log/slog"
 	"net/http"
+	"slices"
 	"strings"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -107,6 +108,14 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			_, s := schema.MessageToSchema(opts, md.Input())
 			for name := range fieldNamesInPath {
 				s.Properties.Delete(name)
+				// Also remove from required list to prevent duplicate required properties
+				s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
+					return s == name
+				})
+				// don't serialize []
+				if len(s.Required) == 0 {
+					s.Required = nil
+				}
 			}
 			if s.Properties.Len() > 0 {
 				op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
