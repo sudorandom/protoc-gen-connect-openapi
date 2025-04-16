@@ -1,0 +1,20 @@
+syntax = "proto3";
+package path_params;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/empty.proto";
+
+message Request {
+  string snake_case = 1 [(google.api.field_behavior) = REQUIRED];
+  string something_else = 2;
+}
+
+service PathParams {
+  rpc Go(Request) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/go/{snake_case}"
+      body: "*"
+    };
+  }
+}
