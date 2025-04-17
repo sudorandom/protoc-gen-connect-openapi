@@ -4,13 +4,12 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"google.golang.org/protobuf/reflect/protoreflect"
-	"google.golang.org/protobuf/types/descriptorpb"
-
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, paths *v3.Paths) error {
@@ -224,11 +223,21 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 	fd := method.ParentFile()
 	service := method.Parent().(protoreflect.ServiceDescriptor)
 	loc := fd.SourceLocations().ByDescriptor(method)
+	tagName := string(service.FullName())
+	if opts.ShortServiceTags {
+		tagName = string(service.Name())
+	}
+
+	operationId := string(method.FullName())
+	if opts.ShortOperationIds {
+		operationId = string(service.Name()) + "_" + string(method.Name())
+	}
+
 	op := &v3.Operation{
 		Summary:     string(method.Name()),
-		OperationId: string(method.FullName()),
+		OperationId: operationId,
 		Deprecated:  util.IsMethodDeprecated(method),
-		Tags:        []string{string(service.FullName())},
+		Tags:        []string{tagName},
 		Description: util.FormatComments(loc),
 	}
 

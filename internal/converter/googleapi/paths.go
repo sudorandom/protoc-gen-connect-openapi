@@ -71,10 +71,20 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	fd := md.ParentFile()
 	service := md.Parent().(protoreflect.ServiceDescriptor)
+
+	tagName := string(service.FullName())
+	if opts.ShortServiceTags {
+		tagName = string(service.Name())
+	}
+
+	operationId := string(md.FullName())
+	if opts.ShortOperationIds {
+		operationId = string(service.Name()) + "_" + string(md.Name())
+	}
 	op := &v3.Operation{
 		Summary:     string(md.Name()),
-		OperationId: string(md.FullName()),
-		Tags:        []string{string(service.FullName())},
+		OperationId: operationId,
+		Tags:        []string{tagName},
 		Description: util.FormatComments(fd.SourceLocations().ByDescriptor(md)),
 	}
 
