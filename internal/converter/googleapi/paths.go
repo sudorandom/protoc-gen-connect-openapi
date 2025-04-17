@@ -1,6 +1,8 @@
 package googleapi
 
 import (
+	"fmt"
+	"iter"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -183,7 +185,26 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			paths.Set(path, pair.Value())
 		}
 	}
+	dedupeOperations(op.OperationId, paths.ValuesFromOldest())
 	return paths
+}
+
+// dedupeOperations assigns unique operation ids to additional bindings.
+// From the OpenAPI v3 spec: "The id MUST be unique among all operations described in the API."
+// Since the same gRPC method name is used for operationId, the additional bindings will not be unique,
+// so we append a number, starting at 2, when more than one path binds to the same method.
+func dedupeOperations(id string, value iter.Seq[*v3.PathItem]) {
+	num := 0
+	for path := range value {
+		for op := range path.GetOperations().ValuesFromOldest() {
+			if op.OperationId == id {
+				num++
+				if num > 1 {
+					op.OperationId = fmt.Sprintf("%s%d", id, num)
+				}
+			}
+		}
+	}
 }
 
 func resolveField(md protoreflect.MessageDescriptor, param string) (protoreflect.FieldDescriptor, []string) {

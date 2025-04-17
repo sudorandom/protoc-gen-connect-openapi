@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package additional_bindings;
+
+import "google/api/annotations.proto";
+
+service Directory {
+  // LookupUserInTenant demonstrates the issue with additional_bindings
+  // where the same operation ID is used for different paths.
+  rpc LookupUserInTenant(UserLookup) returns (User) {
+    option (google.api.http) = {
+      get: "/svc/directory/{tenant}/user/{uuid}"
+
+      additional_bindings: {
+        get: "/svc/directory/{tenant}/user"
+      }
+      additional_bindings: {
+        get: "/svc/directory/{tenant}/user/foo"
+      }
+    };
+  }
+}
+
+message UserLookup {
+  string tenant = 1;
+  string uuid = 2;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
