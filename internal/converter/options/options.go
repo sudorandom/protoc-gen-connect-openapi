@@ -43,6 +43,10 @@ type Options struct {
 	IgnoreGoogleapiHTTP bool
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []protoreflect.FullName
+	// ShortServiceTags uses the short service name (Name()) instead of the full name (FullName()) for OpenAPI tags.
+	ShortServiceTags bool
+	// ShortOperationIds sets the operationId to shortServiceName + "_" + method short name instead of the full method name.
+	ShortOperationIds bool
 
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
@@ -102,6 +106,10 @@ func FromString(s string) (Options, error) {
 			opts.WithServiceDescriptions = true
 		case param == "ignore-googleapi-http":
 			opts.IgnoreGoogleapiHTTP = true
+		case param == "short-service-tags":
+			opts.ShortServiceTags = true
+		case param == "short-operation-ids":
+			opts.ShortOperationIds = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)

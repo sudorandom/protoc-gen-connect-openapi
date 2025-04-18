@@ -195,6 +195,22 @@ func WithServices(serviceNames []protoreflect.FullName) Option {
 	}
 }
 
+// WithShortServiceTags uses the short service name instead of the full name for OpenAPI tags.
+func WithShortServiceTags(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.ShortServiceTags = enabled
+		return nil
+	}
+}
+
+// WithShortOperationIds sets the operationId to shortServiceName + "_" + method short name instead of the full method name.
+func WithShortOperationIds(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.ShortOperationIds = enabled
+		return nil
+	}
+}
+
 // WithFullyQualifiedMessageNames decides if you want to use the full path in message names.
 func WithFullyQualifiedMessageNames(enabled bool) Option {
 	return func(g *generator) error {
