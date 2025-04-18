@@ -21,6 +21,24 @@ option (gnostic.openapi.v3.document) = {
     }
   }
   components: {
+    parameters: {
+      additional_properties: [
+        {
+          name: "filter_mask"
+          value: {
+            parameter: {
+              name: "X-TEST-HEADER"
+              in: "header"
+              description: "This header is used to filter results, please refer to AIP-160 for more information"
+              schema: {
+                schema: {type: "string"}
+              }
+              example: {yaml: "'msg_12345'"} /* Use quotes appropriate for proto string literal containing YAML */
+            }
+          }
+        }
+      ]
+    }
     security_schemes: {
       additional_properties: [
         {
@@ -49,6 +67,14 @@ service Greeter {
           value: {
             response: {
               description: "user is not found"
+              headers: {
+                additional_properties: {
+                  name: "filter_mask"
+                  value: {
+                    reference: {_ref: "#/components/parameters/filter_mask"}
+                  }
+                }
+              }
               content: {
                 additional_properties: {
                   name: "application/json"

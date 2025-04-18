@@ -71,6 +71,10 @@ paths:
                 $ref: '#/components/schemas/example_with_gnostic.HelloReply'
         "404":
           description: user is not found
+          headers:
+            filter_mask:
+              schema:
+                $ref: '#/components/parameters/filter_mask'
           content:
             application/json:
               schema:
@@ -115,6 +119,10 @@ paths:
                 $ref: '#/components/schemas/example_with_gnostic.HelloReply'
         "404":
           description: user is not found
+          headers:
+            filter_mask:
+              schema:
+                $ref: '#/components/parameters/filter_mask'
           content:
             application/json:
               schema:
@@ -286,6 +294,16 @@ components:
           additionalProperties: true
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+  parameters:
+    filter_mask:
+      name: X-TEST-HEADER
+      in: header
+      description: This header is used to filter results, please refer to AIP-160 for more information
+      required: false
+      explode: false
+      schema:
+        type: string
+      example: 'msg_12345'
   securitySchemes:
     BasicAuth:
       type: http

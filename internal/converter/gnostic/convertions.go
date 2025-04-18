@@ -381,25 +381,31 @@ func toHeaders(v *goa3.HeadersOrReferences) *orderedmap.Map[string, *v3.Header] 
 	}
 	headers := orderedmap.New[string, *v3.Header]()
 	for _, headerVal := range v.GetAdditionalProperties() {
-		header := headerVal.Value.GetHeader()
-		var exampleRawInfo *yaml.Node
-		if header.Example != nil {
-			exampleRawInfo = header.Example.ToRawInfo()
+		if ref := headerVal.Value.GetReference(); ref != nil {
+			headers.Set(headerVal.Name, &v3.Header{
+				Description: ref.Description,
+				Schema:      base.CreateSchemaProxyRef(ref.XRef),
+			})
+		} else if header := headerVal.Value.GetHeader(); header != nil {
+			var exampleRawInfo *yaml.Node
+			if header.Example != nil {
+				exampleRawInfo = header.Example.ToRawInfo()
+			}
+			headers.Set(headerVal.Name, &v3.Header{
+				Description:     header.Description,
+				Required:        header.Required,
+				Deprecated:      header.Deprecated,
+				AllowEmptyValue: header.AllowEmptyValue,
+				Style:           header.Style,
+				Explode:         header.Explode,
+				AllowReserved:   header.AllowReserved,
+				Schema:          toSchemaOrReference(header.Schema),
+				Example:         exampleRawInfo,
+				Examples:        toExamples(header.GetExamples()),
+				Content:         toMediaTypes(header.Content),
+				Extensions:      toExtensions(header.GetSpecificationExtension()),
+			})
 		}
-		headers.Set(headerVal.Name, &v3.Header{
-			Description:     header.Description,
-			Required:        header.Required,
-			Deprecated:      header.Deprecated,
-			AllowEmptyValue: header.AllowEmptyValue,
-			Style:           header.Style,
-			Explode:         header.Explode,
-			AllowReserved:   header.AllowReserved,
-			Schema:          toSchemaOrReference(header.Schema),
-			Example:         exampleRawInfo,
-			Examples:        toExamples(header.GetExamples()),
-			Content:         toMediaTypes(header.Content),
-			Extensions:      toExtensions(header.GetSpecificationExtension()),
-		})
 	}
 	return headers
 }
