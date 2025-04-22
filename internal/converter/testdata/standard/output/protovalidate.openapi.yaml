@@ -301,25 +301,22 @@ components:
          ) to obtain a formatter capable of generating timestamps in this format.
     protovalidate.CELMessage:
       type: object
-      anyOf:
-        - required:
-            - a
-        - required:
-            - b
-        - not:
-            anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
-      properties:
-        a:
-          type: string
+      oneOf:
+        - properties:
+            a:
+              type: string
+              title: a
+              minLength: 1
           title: a
-          minLength: 1
-        b:
-          type: string
+          required:
+            - a
+        - properties:
+            b:
+              type: string
+              title: b
           title: b
+          required:
+            - b
       title: CELMessage
       additionalProperties: false
     protovalidate.DisabledMessage:
@@ -1494,25 +1491,22 @@ components:
       additionalProperties: false
     protovalidate.OneOfMessage:
       type: object
-      anyOf:
-        - required:
-            - a
-        - required:
-            - b
-        - not:
-            anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
-      properties:
-        a:
-          type: string
+      oneOf:
+        - properties:
+            a:
+              type: string
+              title: a
+              minLength: 1
           title: a
-          minLength: 1
-        b:
-          type: string
+          required:
+            - a
+        - properties:
+            b:
+              type: string
+              title: b
           title: b
+          required:
+            - b
       title: OneOfMessage
       additionalProperties: false
     connect-protocol-version:
