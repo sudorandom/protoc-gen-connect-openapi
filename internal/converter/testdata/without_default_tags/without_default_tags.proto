@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package without_default_tags;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "gnostic/openapi/v3/annotations.proto";
+
+service Foo {
+	rpc Foo(google.protobuf.Empty) returns (google.protobuf.Empty) {
+		option (google.api.http) = {get: "/endpoint1"};
+
+		option (gnostic.openapi.v3.operation) = {
+			summary: "An operation with no tags"
+			operation_id: "Endpoint 1"
+		};
+	}
+	rpc Foo2(google.protobuf.Empty) returns (google.protobuf.Empty) {
+		option (google.api.http) = {get: "/endpoint2"};
+
+		option (gnostic.openapi.v3.operation) = {
+			summary: "An operation with tags"
+			operation_id: "Endpoint 2"
+			tags: ["Endpoint 2"]
+		};
+	}
+}
