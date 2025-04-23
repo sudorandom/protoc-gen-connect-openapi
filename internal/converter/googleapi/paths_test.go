@@ -14,4 +14,11 @@ func TestPartsToOpenAPIPath(t *testing.T) {
 		path := partsToOpenAPIPath(v)
 		assert.Equal(t, "/pet/{pet_id}:addPet", path)
 	})
+
+	t.Run("with glob pattern", func(t *testing.T) {
+		v, err := RunPathPatternLexer("/users/v1/{name=organizations/*/teams/*/members/*}:activate")
+		require.NoError(t, err)
+		path := partsToOpenAPIPath(v)
+		assert.Equal(t, "/users/v1/organizations/{organization}/teams/{team}/members/{member}:activate", path)
+	})
 }

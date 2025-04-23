@@ -151,3 +151,18 @@ func AppendStringDedupe(strs []string, str string) []string {
 	}
 	return append(strs, str)
 }
+
+// Singular returns the singular form of a given plural noun. .
+func Singular(plural string) string {
+
+	if strings.HasSuffix(plural, "ves") {
+		return strings.TrimSuffix(plural, "ves") + "f"
+	}
+	if strings.HasSuffix(plural, "ies") {
+		return strings.TrimSuffix(plural, "ies") + "y"
+	}
+	if strings.HasSuffix(plural, "s") {
+		return strings.TrimSuffix(plural, "s")
+	}
+	return plural
+}
