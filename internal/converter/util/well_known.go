@@ -52,8 +52,7 @@ func googleDuration(msg protoreflect.MessageDescriptor) *IDSchema {
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
 			Type:        []string{"string"},
-			Format:      "regex",
-			Pattern:     `^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$`,
+			Format:      "duration",
 		},
 	}
 }
