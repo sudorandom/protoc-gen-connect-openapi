@@ -5,17 +5,17 @@ go 1.23.0
 toolchain go1.23.2
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.5-20250219170025-d39267d9df8f.1
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250425153114-8976f5be98c1.1
 	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.18.1-20230913231627-233fca715f49.1
 	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.5-20230913231627-233fca715f49.1
-	github.com/bufbuild/protovalidate-go v0.9.2
+	buf.build/go/protovalidate v0.11.0
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.0.7
-	github.com/pb33f/libopenapi v0.21.5
-	github.com/pb33f/libopenapi-validator v0.3.0
+	github.com/pb33f/libopenapi v0.21.10
+	github.com/pb33f/libopenapi-validator v0.4.0
 	github.com/stretchr/testify v1.10.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20250218202821-56aae31c358a
-	google.golang.org/protobuf v1.36.5
+	google.golang.org/genproto/googleapis/api v0.0.0-20250428153025-10db94c68c34
+	google.golang.org/protobuf v1.36.6
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -34,5 +34,5 @@ require (
 	github.com/speakeasy-api/jsonpath v0.6.1 // indirect
 	github.com/vmware-labs/yaml-jsonpath v0.3.2 // indirect
 	github.com/wk8/go-ordered-map/v2 v2.1.9-0.20240815153524-6ea36470d1bd // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/text v0.24.0 // indirect
 )
