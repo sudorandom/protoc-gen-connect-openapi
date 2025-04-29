@@ -1275,8 +1275,7 @@ components:
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     google.protobuf.Duration:
       type: string
-      pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
-      format: regex
+      format: duration
       description: |-
         A Duration represents a signed, fixed-length span of time represented
          as a count of seconds and fractions of seconds at nanosecond
