@@ -120,6 +120,7 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | services | - | Filter which services have OpenAPI spec generated. The default is all services. Comma-separated, uses the full path of the service "[package name].[service name]" |
 | trim-unused-types | - | Remove types that aren't references from any method request or response. |
 | short-service-tags | - | Use the short service name instead of the full name for OpenAPI tags. |
+| without-default-tags | - | Avoid appending default tags in the resulting OAS doc. All tags need to be explicitly defined through annotations. |
 | short-operation-ids | - | Set the operationId to shortServiceName + "_" + method short name instead of the full method name. |
 | with-proto-annotations | - | Add protobuf type annotations to the end of descriptions so users know the protobuf type that the field converts to. |
 | with-proto-names | - | Use protobuf field names instead of the camelCase JSON names for property names. |

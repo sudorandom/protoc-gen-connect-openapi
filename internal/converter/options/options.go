@@ -37,6 +37,8 @@ type Options struct {
 	// FullyQualifiedMessageNames uses the full path for message types: {pkg}.{name} instead of just the name. This
 	// is helpful if you are mixing types from multiple services.
 	FullyQualifiedMessageNames bool
+	// Prevents adding default tags to converted fields
+	WithoutDefaultTags bool
 	// WithServiceDescriptions set to true will cause service names and their comments to be added to the end of info.description.
 	WithServiceDescriptions bool
 	// IgnoreGoogleapiHTTP set to true will cause service to always generate OpenAPI specs for connect endpoints, and ignore any google.api.http options.
@@ -102,6 +104,8 @@ func FromString(s string) (Options, error) {
 			opts.TrimUnusedTypes = true
 		case param == "fully-qualified-message-names":
 			opts.FullyQualifiedMessageNames = true
+		case param == "without-default-tags":
+			opts.WithoutDefaultTags = true
 		case param == "with-service-descriptions":
 			opts.WithServiceDescriptions = true
 		case param == "ignore-googleapi-http":
