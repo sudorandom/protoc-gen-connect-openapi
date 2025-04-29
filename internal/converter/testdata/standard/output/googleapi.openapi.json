@@ -161,7 +161,7 @@
         }
       }
     },
-    "/v1/{property_in_path=messages/*}": {
+    "/v1/messages/{message}": {
       "get": {
         "tags": [
           "io.swagger.petstore.v2.Foo"
@@ -170,9 +170,17 @@
         "operationId": "io.swagger.petstore.v2.Foo.NamedPathPatterns",
         "parameters": [
           {
-            "name": "property_in_path",
+            "name": "message",
             "in": "path",
+            "description": "The message id.",
             "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "propertyInPath",
+            "in": "query",
             "schema": {
               "type": "string",
               "title": "property_in_path"

@@ -5,6 +5,7 @@ import (
 	"iter"
 	"log/slog"
 	"net/http"
+	"regexp"
 	"slices"
 	"strings"
 
@@ -19,6 +20,9 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
+
+// namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
+var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 
 func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) *orderedmap.Map[string, *v3.PathItem] {
 	if opts.IgnoreGoogleapiHTTP {
@@ -93,6 +97,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	fieldNamesInPath := map[string]struct{}{}
 	for _, param := range partsToParameter(tokens) {
+		// Skip the name parameter if it's part of a glob pattern
+		if strings.Contains(param, "=") {
+			continue
+		}
 		field, jsonPath := resolveField(md.Input(), param)
 		if field != nil {
 			// This field is only top level, so we will filter out the param from
@@ -109,6 +117,32 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			})
 		} else {
 			slog.Warn("path field not found", slog.String("param", param))
+		}
+	}
+
+	// Add named path parameters from glob patterns
+	for _, token := range tokens {
+		if token.Type == TokenVariable && strings.Contains(token.Value, "=") {
+			matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
+			if len(matches) == 3 {
+				// Convert the path from the starred form to use named path parameters.
+				starredPath := matches[2]
+				parts := strings.Split(starredPath, "/")
+				// The starred path is assumed to be in the form "things/*/otherthings/*".
+				// We want to convert it to "things/{thingsId}/otherthings/{otherthingsId}".
+				for i := 0; i < len(parts)-1; i += 2 {
+					section := parts[i]
+					namedPathParameter := util.Singular(section)
+					// Add the parameter to the operation
+					op.Parameters = append(op.Parameters, &v3.Parameter{
+						Name:        namedPathParameter,
+						In:          "path",
+						Required:    proto.Bool(true),
+						Description: "The " + namedPathParameter + " id.",
+						Schema:      base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+					})
+				}
+			}
 		}
 	}
 
@@ -258,6 +292,10 @@ func partsToParameter(tokens []Token) []string {
 	params := []string{}
 	for _, token := range tokens {
 		if token.Type == TokenVariable {
+			// Skip parameters that contain = as they are part of a glob pattern
+			if strings.Contains(token.Value, "=") {
+				continue
+			}
 			params = append(params, strings.SplitN(token.Value, "=", 2)[0])
 		}
 	}
@@ -278,9 +316,34 @@ func partsToOpenAPIPath(tokens []Token) string {
 		case TokenIdent:
 			b.WriteString(token.Value)
 		case TokenVariable:
-			b.WriteByte('{')
-			b.WriteString(token.Value)
-			b.WriteByte('}')
+			// Handle the name= prefix by extracting just the path portion
+			if strings.Contains(token.Value, "=") {
+				matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
+				if len(matches) == 3 {
+					// Add the "name=" "name" value to the list of covered parameters.
+					// Convert the path from the starred form to use named path parameters.
+					starredPath := matches[2]
+					parts := strings.Split(starredPath, "/")
+					// The starred path is assumed to be in the form "things/*/otherthings/*".
+					// We want to convert it to "things/{thingsId}/otherthings/{otherthingsId}".
+					for i := 0; i < len(parts)-1; i += 2 {
+						section := parts[i]
+						namedPathParameter := util.Singular(section)
+						parts[i+1] = "{" + namedPathParameter + "}"
+					}
+					// Rewrite the path to use the path parameters.
+					newPath := strings.Join(parts, "/")
+					b.WriteString(newPath)
+				} else {
+					b.WriteByte('{')
+					b.WriteString(token.Value)
+					b.WriteByte('}')
+				}
+			} else {
+				b.WriteByte('{')
+				b.WriteString(token.Value)
+				b.WriteByte('}')
+			}
 		}
 	}
 	return b.String()
