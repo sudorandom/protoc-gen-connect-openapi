@@ -58,8 +58,7 @@ components:
          The JSON representation for `DoubleValue` is JSON number.
     google.protobuf.Duration:
       type: string
-      pattern: ^[-\+]?([0-9]+\.?[0-9]*|\.[0-9]+)s$
-      format: regex
+      format: duration
       description: |-
         A Duration represents a signed, fixed-length span of time represented
          as a count of seconds and fractions of seconds at nanosecond
