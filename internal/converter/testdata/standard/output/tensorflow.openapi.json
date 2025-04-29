@@ -952,172 +952,144 @@
       },
       "tensorflow.AttrValue": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "b": {
+                "type": "boolean",
+                "title": "b",
+                "description": "\"bool\""
+              }
+            },
+            "title": "b",
             "required": [
               "b"
             ]
           },
           {
+            "properties": {
+              "f": {
+                "type": "number",
+                "title": "f",
+                "format": "float",
+                "description": "\"float\""
+              }
+            },
+            "title": "f",
             "required": [
               "f"
             ]
           },
           {
+            "properties": {
+              "func": {
+                "title": "func",
+                "description": "\"func\" represents a function. func.name is a function's name or\n a primitive op's name. func.attr.first is the name of an attr\n defined for that function. func.attr.second is the value for\n that attr in the instantiation.",
+                "$ref": "#/components/schemas/tensorflow.NameAttrList"
+              }
+            },
+            "title": "func",
             "required": [
               "func"
             ]
           },
           {
+            "properties": {
+              "i": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "i",
+                "format": "int64",
+                "description": "\"int\""
+              }
+            },
+            "title": "i",
             "required": [
               "i"
             ]
           },
           {
+            "properties": {
+              "list": {
+                "title": "list",
+                "description": "any \"list(...)\"",
+                "$ref": "#/components/schemas/tensorflow.AttrValue.ListValue"
+              }
+            },
+            "title": "list",
             "required": [
               "list"
             ]
           },
           {
+            "properties": {
+              "placeholder": {
+                "type": "string",
+                "title": "placeholder",
+                "description": "This is a placeholder only used in nodes defined inside a\n function.  It indicates the attr value will be supplied when\n the function is instantiated.  For example, let us suppose a\n node \"N\" in function \"FN\". \"N\" has an attr \"A\" with value\n placeholder = \"foo\". When FN is instantiated with attr \"foo\"\n set to \"bar\", the instantiated node N's attr A will have been\n given the value \"bar\"."
+              }
+            },
+            "title": "placeholder",
             "required": [
               "placeholder"
             ]
           },
           {
+            "properties": {
+              "s": {
+                "type": "string",
+                "title": "s",
+                "format": "byte",
+                "description": "\"string\""
+              }
+            },
+            "title": "s",
             "required": [
               "s"
             ]
           },
           {
+            "properties": {
+              "shape": {
+                "title": "shape",
+                "description": "\"shape\"",
+                "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
+              }
+            },
+            "title": "shape",
             "required": [
               "shape"
             ]
           },
           {
+            "properties": {
+              "tensor": {
+                "title": "tensor",
+                "description": "\"tensor\"",
+                "$ref": "#/components/schemas/tensorflow.TensorProto"
+              }
+            },
+            "title": "tensor",
             "required": [
               "tensor"
             ]
           },
           {
+            "properties": {
+              "type": {
+                "title": "type",
+                "description": "\"type\"",
+                "$ref": "#/components/schemas/tensorflow.DataType"
+              }
+            },
+            "title": "type",
             "required": [
               "type"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "b"
-                  ]
-                },
-                {
-                  "required": [
-                    "f"
-                  ]
-                },
-                {
-                  "required": [
-                    "func"
-                  ]
-                },
-                {
-                  "required": [
-                    "i"
-                  ]
-                },
-                {
-                  "required": [
-                    "list"
-                  ]
-                },
-                {
-                  "required": [
-                    "placeholder"
-                  ]
-                },
-                {
-                  "required": [
-                    "s"
-                  ]
-                },
-                {
-                  "required": [
-                    "shape"
-                  ]
-                },
-                {
-                  "required": [
-                    "tensor"
-                  ]
-                },
-                {
-                  "required": [
-                    "type"
-                  ]
-                }
-              ]
-            }
           }
         ],
-        "properties": {
-          "s": {
-            "type": "string",
-            "title": "s",
-            "format": "byte",
-            "description": "\"string\""
-          },
-          "i": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "i",
-            "format": "int64",
-            "description": "\"int\""
-          },
-          "f": {
-            "type": "number",
-            "title": "f",
-            "format": "float",
-            "description": "\"float\""
-          },
-          "b": {
-            "type": "boolean",
-            "title": "b",
-            "description": "\"bool\""
-          },
-          "type": {
-            "title": "type",
-            "description": "\"type\"",
-            "$ref": "#/components/schemas/tensorflow.DataType"
-          },
-          "shape": {
-            "title": "shape",
-            "description": "\"shape\"",
-            "$ref": "#/components/schemas/tensorflow.TensorShapeProto"
-          },
-          "tensor": {
-            "title": "tensor",
-            "description": "\"tensor\"",
-            "$ref": "#/components/schemas/tensorflow.TensorProto"
-          },
-          "list": {
-            "title": "list",
-            "description": "any \"list(...)\"",
-            "$ref": "#/components/schemas/tensorflow.AttrValue.ListValue"
-          },
-          "func": {
-            "title": "func",
-            "description": "\"func\" represents a function. func.name is a function's name or\n a primitive op's name. func.attr.first is the name of an attr\n defined for that function. func.attr.second is the value for\n that attr in the instantiation.",
-            "$ref": "#/components/schemas/tensorflow.NameAttrList"
-          },
-          "placeholder": {
-            "type": "string",
-            "title": "placeholder",
-            "description": "This is a placeholder only used in nodes defined inside a\n function.  It indicates the attr value will be supplied when\n the function is instantiated.  For example, let us suppose a\n node \"N\" in function \"FN\". \"N\" has an attr \"A\" with value\n placeholder = \"foo\". When FN is instantiated with attr \"foo\"\n set to \"bar\", the instantiated node N's attr A will have been\n given the value \"bar\"."
-          }
-        },
         "title": "AttrValue",
         "additionalProperties": false,
         "description": "Protocol buffer representing the value for an attr used to configure an Op.\n Comment indicates the corresponding attr type.  Only the field matching the\n attr type may be filled."
@@ -2179,32 +2151,35 @@
       },
       "tensorflow.FullTypeDef": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "i": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "i",
+                "format": "int64",
+                "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
+              }
+            },
+            "title": "i",
             "required": [
               "i"
             ]
           },
           {
+            "properties": {
+              "s": {
+                "type": "string",
+                "title": "s"
+              }
+            },
+            "title": "s",
             "required": [
               "s"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "i"
-                  ]
-                },
-                {
-                  "required": [
-                    "s"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
@@ -2219,19 +2194,6 @@
               "$ref": "#/components/schemas/tensorflow.FullTypeDef"
             },
             "title": "args"
-          },
-          "s": {
-            "type": "string",
-            "title": "s"
-          },
-          "i": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "i",
-            "format": "int64",
-            "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
           }
         },
         "title": "FullTypeDef",

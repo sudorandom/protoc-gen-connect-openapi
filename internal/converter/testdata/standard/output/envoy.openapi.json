@@ -410,59 +410,45 @@
       },
       "envoy.config.core.v3.Address": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "envoyInternalAddress": {
+                "title": "envoy_internal_address",
+                "description": "Specifies a user-space address handled by :ref:`internal listeners\n \u003cenvoy_v3_api_field_config.listener.v3.Listener.internal_listener\u003e`.",
+                "$ref": "#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress"
+              }
+            },
+            "title": "envoy_internal_address",
             "required": [
               "envoyInternalAddress"
             ]
           },
           {
+            "properties": {
+              "pipe": {
+                "title": "pipe",
+                "$ref": "#/components/schemas/envoy.config.core.v3.Pipe"
+              }
+            },
+            "title": "pipe",
             "required": [
               "pipe"
             ]
           },
           {
+            "properties": {
+              "socketAddress": {
+                "title": "socket_address",
+                "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress"
+              }
+            },
+            "title": "socket_address",
             "required": [
               "socketAddress"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "envoyInternalAddress"
-                  ]
-                },
-                {
-                  "required": [
-                    "pipe"
-                  ]
-                },
-                {
-                  "required": [
-                    "socketAddress"
-                  ]
-                }
-              ]
-            }
           }
         ],
-        "properties": {
-          "socketAddress": {
-            "title": "socket_address",
-            "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress"
-          },
-          "pipe": {
-            "title": "pipe",
-            "$ref": "#/components/schemas/envoy.config.core.v3.Pipe"
-          },
-          "envoyInternalAddress": {
-            "title": "envoy_internal_address",
-            "description": "Specifies a user-space address handled by :ref:`internal listeners\n \u003cenvoy_v3_api_field_config.listener.v3.Listener.internal_listener\u003e`.",
-            "$ref": "#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress"
-          }
-        },
         "title": "Address",
         "additionalProperties": false,
         "description": "Addresses specify either a logical or physical address and port, which are\n used to tell Envoy where to bind/listen, connect to upstream and find\n management servers."
@@ -500,30 +486,22 @@
       },
       "envoy.config.core.v3.EnvoyInternalAddress": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "serverListenerName": {
+                "type": "string",
+                "title": "server_listener_name",
+                "description": "Specifies the :ref:`name \u003cenvoy_v3_api_field_config.listener.v3.Listener.name\u003e` of the\n internal listener."
+              }
+            },
+            "title": "server_listener_name",
             "required": [
               "serverListenerName"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "serverListenerName"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
-          "serverListenerName": {
-            "type": "string",
-            "title": "server_listener_name",
-            "description": "Specifies the :ref:`name \u003cenvoy_v3_api_field_config.listener.v3.Listener.name\u003e` of the\n internal listener."
-          },
           "endpointId": {
             "type": "string",
             "title": "endpoint_id",
@@ -657,32 +635,32 @@
       },
       "envoy.config.core.v3.Node": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "userAgentBuildVersion": {
+                "title": "user_agent_build_version",
+                "description": "Structured version of the entity requesting config.",
+                "$ref": "#/components/schemas/envoy.config.core.v3.BuildVersion"
+              }
+            },
+            "title": "user_agent_build_version",
             "required": [
               "userAgentBuildVersion"
             ]
           },
           {
+            "properties": {
+              "userAgentVersion": {
+                "type": "string",
+                "title": "user_agent_version",
+                "description": "Free-form string that identifies the version of the entity requesting config.\n E.g. \"1.12.2\" or \"abcd1234\", or \"SpecialEnvoyBuild\""
+              }
+            },
+            "title": "user_agent_version",
             "required": [
               "userAgentVersion"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "userAgentBuildVersion"
-                  ]
-                },
-                {
-                  "required": [
-                    "userAgentVersion"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
@@ -719,16 +697,6 @@
             "type": "string",
             "title": "user_agent_name",
             "description": "Free-form string that identifies the entity requesting config.\n E.g. \"envoy\" or \"grpc\""
-          },
-          "userAgentVersion": {
-            "type": "string",
-            "title": "user_agent_version",
-            "description": "Free-form string that identifies the version of the entity requesting config.\n E.g. \"1.12.2\" or \"abcd1234\", or \"SpecialEnvoyBuild\""
-          },
-          "userAgentBuildVersion": {
-            "title": "user_agent_build_version",
-            "description": "Structured version of the entity requesting config.",
-            "$ref": "#/components/schemas/envoy.config.core.v3.BuildVersion"
           },
           "extensions": {
             "type": "array",
@@ -794,32 +762,31 @@
       },
       "envoy.config.core.v3.SocketAddress": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "namedPort": {
+                "type": "string",
+                "title": "named_port",
+                "description": "This is only valid if :ref:`resolver_name\n \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e` is specified below and the\n named resolver is capable of named port resolution."
+              }
+            },
+            "title": "named_port",
             "required": [
               "namedPort"
             ]
           },
           {
+            "properties": {
+              "portValue": {
+                "type": "integer",
+                "title": "port_value"
+              }
+            },
+            "title": "port_value",
             "required": [
               "portValue"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "namedPort"
-                  ]
-                },
-                {
-                  "required": [
-                    "portValue"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
@@ -831,15 +798,6 @@
             "type": "string",
             "title": "address",
             "description": "The address for this socket. :ref:`Listeners \u003cconfig_listeners\u003e` will bind\n to the address. An empty address is not allowed. Specify ``0.0.0.0`` or ``::``\n to bind to any address. [#comment:TODO(zuercher) reinstate when implemented:\n It is possible to distinguish a Listener address via the prefix/suffix matching\n in :ref:`FilterChainMatch \u003cenvoy_v3_api_msg_config.listener.v3.FilterChainMatch\u003e`.] When used\n within an upstream :ref:`BindConfig \u003cenvoy_v3_api_msg_config.core.v3.BindConfig\u003e`, the address\n controls the source address of outbound connections. For :ref:`clusters\n \u003cenvoy_v3_api_msg_config.cluster.v3.Cluster\u003e`, the cluster type determines whether the\n address must be an IP (``STATIC`` or ``EDS`` clusters) or a hostname resolved by DNS\n (``STRICT_DNS`` or ``LOGICAL_DNS`` clusters). Address resolution can be customized\n via :ref:`resolver_name \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e`."
-          },
-          "portValue": {
-            "type": "integer",
-            "title": "port_value"
-          },
-          "namedPort": {
-            "type": "string",
-            "title": "named_port",
-            "description": "This is only valid if :ref:`resolver_name\n \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e` is specified below and the\n named resolver is capable of named port resolution."
           },
           "resolverName": {
             "type": "string",
@@ -1084,76 +1042,60 @@
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "andConstraints": {
+                "title": "and_constraints",
+                "description": "A list of constraints that must all match.",
+                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList"
+              }
+            },
+            "title": "and_constraints",
             "required": [
               "andConstraints"
             ]
           },
           {
+            "properties": {
+              "constraint": {
+                "title": "constraint",
+                "description": "A single constraint to evaluate.",
+                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint"
+              }
+            },
+            "title": "constraint",
             "required": [
               "constraint"
             ]
           },
           {
+            "properties": {
+              "notConstraints": {
+                "title": "not_constraints",
+                "description": "The inverse (NOT) of a set of constraints.",
+                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints"
+              }
+            },
+            "title": "not_constraints",
             "required": [
               "notConstraints"
             ]
           },
           {
+            "properties": {
+              "orConstraints": {
+                "title": "or_constraints",
+                "description": "A list of constraints that match if any one constraint in the list\n matches.",
+                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList"
+              }
+            },
+            "title": "or_constraints",
             "required": [
               "orConstraints"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "andConstraints"
-                  ]
-                },
-                {
-                  "required": [
-                    "constraint"
-                  ]
-                },
-                {
-                  "required": [
-                    "notConstraints"
-                  ]
-                },
-                {
-                  "required": [
-                    "orConstraints"
-                  ]
-                }
-              ]
-            }
           }
         ],
-        "properties": {
-          "constraint": {
-            "title": "constraint",
-            "description": "A single constraint to evaluate.",
-            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint"
-          },
-          "orConstraints": {
-            "title": "or_constraints",
-            "description": "A list of constraints that match if any one constraint in the list\n matches.",
-            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList"
-          },
-          "andConstraints": {
-            "title": "and_constraints",
-            "description": "A list of constraints that must all match.",
-            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList"
-          },
-          "notConstraints": {
-            "title": "not_constraints",
-            "description": "The inverse (NOT) of a set of constraints.",
-            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints"
-          }
-        },
         "title": "DynamicParameterConstraints",
         "additionalProperties": false,
         "description": "A set of dynamic parameter constraints associated with a variant of an individual xDS resource.\n These constraints determine whether the resource matches a subscription based on the set of\n dynamic parameters in the subscription, as specified in the\n :ref:`ResourceLocator.dynamic_parameters\u003cenvoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters\u003e`\n field. This allows xDS implementations (clients, servers, and caching proxies) to determine\n which variant of a resource is appropriate for a given client."
@@ -1174,32 +1116,32 @@
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "exists": {
+                "title": "exists",
+                "description": "Key is present (matches any value except for the key being absent).\n This allows setting a default constraint for clients that do\n not send a key at all, while there may be other clients that need\n special configuration based on that key.",
+                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists"
+              }
+            },
+            "title": "exists",
             "required": [
               "exists"
             ]
           },
           {
+            "properties": {
+              "value": {
+                "type": "string",
+                "title": "value",
+                "description": "Matches this exact value."
+              }
+            },
+            "title": "value",
             "required": [
               "value"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "exists"
-                  ]
-                },
-                {
-                  "required": [
-                    "value"
-                  ]
-                }
-              ]
-            }
           }
         ],
         "properties": {
@@ -1207,16 +1149,6 @@
             "type": "string",
             "title": "key",
             "description": "The key to match against."
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "Matches this exact value."
-          },
-          "exists": {
-            "title": "exists",
-            "description": "Key is present (matches any value except for the key being absent).\n This allows setting a default constraint for clients that do\n not send a key at all, while there may be other clients that need\n special configuration based on that key.",
-            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists"
           }
         },
         "title": "SingleConstraint",

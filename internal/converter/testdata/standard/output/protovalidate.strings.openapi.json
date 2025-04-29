@@ -289,34 +289,24 @@
       },
       "buf.validate.conformance.cases.StringInOneof": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "bar": {
+                "type": "string",
+                "title": "bar",
+                "enum": [
+                  "a",
+                  "b"
+                ]
+              }
+            },
+            "title": "bar",
             "required": [
               "bar"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "bar"
-                  ]
-                }
-              ]
-            }
           }
         ],
-        "properties": {
-          "bar": {
-            "type": "string",
-            "title": "bar",
-            "enum": [
-              "a",
-              "b"
-            ]
-          }
-        },
         "title": "StringInOneof",
         "additionalProperties": false
       },

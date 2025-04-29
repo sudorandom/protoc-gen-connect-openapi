@@ -218,20 +218,17 @@ components:
       additionalProperties: false
     buf.validate.conformance.cases.StringInOneof:
       type: object
-      anyOf:
-        - required:
-            - bar
-        - not:
-            anyOf:
-              - required:
-                  - bar
-      properties:
-        bar:
-          type: string
+      oneOf:
+        - properties:
+            bar:
+              type: string
+              title: bar
+              enum:
+                - a
+                - b
           title: bar
-          enum:
-            - a
-            - b
+          required:
+            - bar
       title: StringInOneof
       additionalProperties: false
     buf.validate.conformance.cases.StringLen:

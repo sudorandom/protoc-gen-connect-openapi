@@ -226,45 +226,33 @@
       },
       "protovalidate.CELMessage": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "a": {
+                "type": "string",
+                "title": "a",
+                "minLength": 1
+              }
+            },
+            "title": "a",
             "required": [
               "a"
             ]
           },
           {
+            "properties": {
+              "b": {
+                "type": "string",
+                "title": "b"
+              }
+            },
+            "title": "b",
             "required": [
               "b"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "a"
-                  ]
-                },
-                {
-                  "required": [
-                    "b"
-                  ]
-                }
-              ]
-            }
           }
         ],
-        "properties": {
-          "a": {
-            "type": "string",
-            "title": "a",
-            "minLength": 1
-          },
-          "b": {
-            "type": "string",
-            "title": "b"
-          }
-        },
         "title": "CELMessage",
         "additionalProperties": false
       },
@@ -1767,45 +1755,33 @@
       },
       "protovalidate.OneOfMessage": {
         "type": "object",
-        "anyOf": [
+        "oneOf": [
           {
+            "properties": {
+              "a": {
+                "type": "string",
+                "title": "a",
+                "minLength": 1
+              }
+            },
+            "title": "a",
             "required": [
               "a"
             ]
           },
           {
+            "properties": {
+              "b": {
+                "type": "string",
+                "title": "b"
+              }
+            },
+            "title": "b",
             "required": [
               "b"
             ]
-          },
-          {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "a"
-                  ]
-                },
-                {
-                  "required": [
-                    "b"
-                  ]
-                }
-              ]
-            }
           }
         ],
-        "properties": {
-          "a": {
-            "type": "string",
-            "title": "a",
-            "minLength": 1
-          },
-          "b": {
-            "type": "string",
-            "title": "b"
-          }
-        },
         "title": "OneOfMessage",
         "additionalProperties": false
       },
