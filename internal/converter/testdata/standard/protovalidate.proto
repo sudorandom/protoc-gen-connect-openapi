@@ -19,6 +19,30 @@ message OneOfMessage {
     string a = 1 [(buf.validate.field).string.min_len = 1];
     string b = 2;
   }
+  oneof additional_oneof {
+    option (buf.validate.oneof).required = true;
+    string c = 3 [(buf.validate.field).string.min_len = 1];
+    string d = 4;
+  }
+  oneof nested_oneof {
+    NestedMessage1 nested_message1 = 5;
+    NestedMessage2 nested_message2 = 6;
+  }
+  string i = 7;
+}
+
+message NestedMessage1 {
+  oneof nested_value {
+    string e = 1;
+    string f = 2;
+  }
+}
+
+message NestedMessage2 {
+  oneof nested_value {
+    string g = 1;
+    string h = 2;
+  }
 }
 
 message CELMessage {
