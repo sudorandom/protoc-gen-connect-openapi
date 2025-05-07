@@ -1,6 +1,7 @@
 package protovalidate
 
 import (
+	"log/slog"
 	"strconv"
 	"strings"
 
@@ -15,7 +16,11 @@ import (
 )
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
-	constraints := resolve.MessageRules(desc)
+	constraints, err := resolve.MessageRules(desc)
+	if err != nil {
+		slog.Warn("unable to resolve message rules", slog.Any("error", err))
+		return schema
+	}
 	if constraints == nil || constraints.GetDisabled() {
 		return schema
 	}
@@ -24,7 +29,11 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 }
 
 func SchemaWithFieldAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
-	constraints := resolve.FieldRules(desc)
+	constraints, err := resolve.FieldRules(desc)
+	if err != nil {
+		slog.Warn("unable to resolve field rules", slog.Any("error", err))
+		return schema
+	}
 	if constraints == nil {
 		return schema
 	}
@@ -43,7 +52,11 @@ func PopulateParentProperties(opts options.Options, parent *base.Schema, desc pr
 	if parent == nil {
 		return parent
 	}
-	constraints := resolve.FieldRules(desc)
+	constraints, err := resolve.FieldRules(desc)
+	if err != nil {
+		slog.Warn("unable to resolve field rules", slog.Any("error", err))
+		return parent
+	}
 	if constraints == nil {
 		return parent
 	}
