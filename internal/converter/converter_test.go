@@ -93,7 +93,13 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	default:
 		expectedFile, err := os.ReadFile(outputPath)
 		require.NoError(t, err)
-		assert.Equal(t, string(expectedFile), file.GetContent())
+		equal := assert.Equal(t, string(expectedFile), file.GetContent())
+		if !equal {
+			t.Logf("Test failed - updating fixture at: %s", outputPath)
+			err := os.WriteFile(outputPath, []byte(file.GetContent()), 0644)
+			require.NoError(t, err)
+			t.Fail()
+		}
 	}
 	return file.GetContent()
 }

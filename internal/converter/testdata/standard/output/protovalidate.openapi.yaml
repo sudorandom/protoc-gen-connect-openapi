@@ -1491,24 +1491,98 @@ components:
       type: object
       title: MyOtherMessage
       additionalProperties: false
-    protovalidate.OneOfMessage:
+    protovalidate.NestedMessage1:
       type: object
       oneOf:
         - properties:
-            a:
+            e:
               type: string
-              title: a
-              minLength: 1
-          title: a
+              title: e
+          title: e
           required:
-            - a
+            - e
         - properties:
-            b:
+            f:
               type: string
-              title: b
-          title: b
+              title: f
+          title: f
           required:
-            - b
+            - f
+      title: NestedMessage1
+      additionalProperties: false
+    protovalidate.NestedMessage2:
+      type: object
+      oneOf:
+        - properties:
+            g:
+              type: string
+              title: g
+          title: g
+          required:
+            - g
+        - properties:
+            h:
+              type: string
+              title: h
+          title: h
+          required:
+            - h
+      title: NestedMessage2
+      additionalProperties: false
+    protovalidate.OneOfMessage:
+      type: object
+      allOf:
+        - oneOf:
+            - properties:
+                c:
+                  type: string
+                  title: c
+                  minLength: 1
+              title: c
+              required:
+                - c
+            - properties:
+                d:
+                  type: string
+                  title: d
+              title: d
+              required:
+                - d
+        - oneOf:
+            - properties:
+                nestedMessage1:
+                  title: nested_message1
+                  $ref: '#/components/schemas/protovalidate.NestedMessage1'
+              title: nested_message1
+              required:
+                - nestedMessage1
+            - properties:
+                nestedMessage2:
+                  title: nested_message2
+                  $ref: '#/components/schemas/protovalidate.NestedMessage2'
+              title: nested_message2
+              required:
+                - nestedMessage2
+        - oneOf:
+            - properties:
+                a:
+                  type: string
+                  title: a
+                  minLength: 1
+              title: a
+              required:
+                - a
+            - properties:
+                b:
+                  type: string
+                  title: b
+              title: b
+              required:
+                - b
+      properties:
+        i:
+          type: string
+          title: i
       title: OneOfMessage
       additionalProperties: false
     connect-protocol-version:
