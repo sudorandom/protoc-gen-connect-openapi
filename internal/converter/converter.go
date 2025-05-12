@@ -111,6 +111,11 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 		}
 	}
 
+	overrideComponents, err := getOverrideComponents(opts)
+	if err != nil {
+		return nil, err
+	}
+
 	spec, err := newSpec()
 	if err != nil {
 		return nil, err
@@ -151,6 +156,9 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 		}
 
 		spec.Tags = mergeTags(spec.Tags)
+		if overrideComponents != nil {
+			util.AppendComponents(spec, overrideComponents)
+		}
 	}
 
 	if opts.Path != "" {
@@ -178,6 +186,25 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 		MaximumEdition:    proto.Int32(int32(descriptorpb.Edition_EDITION_2024)),
 		File:              files,
 	}, nil
+}
+
+func getOverrideComponents(opts options.Options) (*v3.Components, error) {
+	if len(opts.OverrideOpenAPI) == 0 {
+		return nil, nil
+	}
+	document, err := libopenapi.NewDocument(opts.OverrideOpenAPI)
+	if err != nil {
+		return nil, fmt.Errorf("unmarshalling base: %w", err)
+	}
+	v3Document, errs := document.BuildV3Model()
+	if len(errs) > 0 {
+		var merr error
+		for _, err := range errs {
+			merr = errors.Join(merr, err)
+		}
+		return nil, merr
+	}
+	return v3Document.Model.Components, nil
 }
 
 func mergeTags(tags []*base.Tag) []*base.Tag {
