@@ -1,0 +1,15 @@
+openapi: 3.1.0
+components:
+  schemas:
+    with_override.override.MyMessage:
+      type: object
+      properties:
+        field1:
+          type: string
+          title: field1
+        field2:
+          type: string
+          title: field2
+          description: new description for field 2 to suggest it's a string and not an int as originally set in the proto
+      title: MyMessage
+      additionalProperties: false

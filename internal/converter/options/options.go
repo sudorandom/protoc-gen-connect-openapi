@@ -14,6 +14,8 @@ type Options struct {
 	Format string
 	// BaseOpenAPI is the file contents of a base OpenAPI file.
 	BaseOpenAPI []byte
+	// OverrideOpenAPI is the file contents of an override OpenAPI file.
+	OverrideOpenAPI []byte
 	// WithStreaming will content types related to streaming (warning: can be messy).
 	WithStreaming bool
 	// AllowGET will let methods with `idempotency_level = NO_SIDE_EFFECTS` to be documented with GET requests.
@@ -149,6 +151,19 @@ func FromString(s string) (Options, error) {
 				opts.BaseOpenAPI = body
 			default:
 				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
+			}
+		case strings.HasPrefix(param, "override="):
+			overridePath := strings.TrimPrefix(param, "override=")
+			ext := path.Ext(overridePath)
+			switch ext {
+			case ".yaml", ".yml", ".json":
+				body, err := os.ReadFile(overridePath)
+				if err != nil {
+					return opts, err
+				}
+				opts.OverrideOpenAPI = body
+			default:
+				return opts, fmt.Errorf("the file extension for 'override' should end with yaml or json, not '%s'", ext)
 			}
 		case strings.HasPrefix(param, "services="):
 			services := strings.Split(param[9:], ",")
