@@ -14,7 +14,7 @@ type Options struct {
 	Format string
 	// BaseOpenAPI is the file contents of a base OpenAPI file.
 	BaseOpenAPI []byte
-	// BaseOpenAPI is the file contents of a base OpenAPI file.
+	// OverrideOpenAPI is the file contents of an override OpenAPI file.
 	OverrideOpenAPI []byte
 	// WithStreaming will content types related to streaming (warning: can be messy).
 	WithStreaming bool
