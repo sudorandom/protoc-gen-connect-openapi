@@ -127,6 +127,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		if token.Type == TokenVariable && strings.Contains(token.Value, "=") {
 			matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
 			if len(matches) == 3 {
+				// Store the original field name from the glob pattern to prevent it from appearing
+				// in both the path parameters and request body/query parameters
+				orignalName := matches[1]
+				fieldNamesInPath[orignalName] = struct{}{}
 				// Convert the path from the starred form to use named path parameters.
 				starredPath := matches[2]
 				parts := strings.Split(starredPath, "/")
@@ -154,19 +158,23 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	case "*":
 		if len(fieldNamesInPath) > 0 {
 			_, s := schema.MessageToSchema(opts, md.Input())
-			for name := range fieldNamesInPath {
-				s.Properties.Delete(name)
-				// Also remove from required list to prevent duplicate required properties
-				s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
-					return s == name
-				})
-				// don't serialize []
-				if len(s.Required) == 0 {
-					s.Required = nil
+			if s != nil && s.Properties != nil {
+				for name := range fieldNamesInPath {
+					s.Properties.Delete(name)
+					// Also remove from required list to prevent duplicate required properties
+					if s.Required != nil {
+						s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
+							return s == name
+						})
+						// don't serialize []
+						if len(s.Required) == 0 {
+							s.Required = nil
+						}
+					}
 				}
-			}
-			if s.Properties.Len() > 0 {
-				op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
+				if s.Properties.Len() > 0 {
+					op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
+				}
 			}
 		} else {
 			inputName := string(md.Input().FullName())
