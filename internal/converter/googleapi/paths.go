@@ -21,6 +21,73 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
+func mergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Parameter) []*v3.Parameter {
+	found := false
+	for _, p := range existingParams {
+		if !(p.Name == newParam.Name && p.In == newParam.In) {
+			continue
+		}
+		found = true
+		if p.Description == "" && newParam.Description != "" {
+			p.Description = newParam.Description
+		}
+		// If p.Required is nil (not set) and newParam.Required is set, then use newParam.Required.
+		// This preserves an explicitly set false in p.Required.
+		if p.Required == nil && newParam.Required != nil {
+			p.Required = newParam.Required
+		}
+		if p.Schema == nil && newParam.Schema != nil {
+			p.Schema = newParam.Schema
+		} else if p.Schema != nil && newParam.Schema != nil {
+			// Merge schema properties
+			if p.Schema.Schema().Title == "" {
+				p.Schema.Schema().Title = newParam.Schema.Schema().Title
+			}
+			if p.Schema.Schema().Description == "" {
+				p.Schema.Schema().Description = newParam.Schema.Schema().Description
+			}
+			if len(p.Schema.Schema().Type) == 0 {
+				p.Schema.Schema().Type = newParam.Schema.Schema().Type
+			}
+			if p.Schema.Schema().Format == "" {
+				p.Schema.Schema().Format = newParam.Schema.Schema().Format
+			}
+			if len(p.Schema.Schema().Enum) == 0 {
+				p.Schema.Schema().Enum = newParam.Schema.Schema().Enum
+			}
+			if p.Schema.Schema().Default == nil {
+				p.Schema.Schema().Default = newParam.Schema.Schema().Default
+			}
+			if p.Schema.Schema().Items == nil {
+				p.Schema.Schema().Items = newParam.Schema.Schema().Items
+			}
+		}
+		// If p.Explode is nil (not set) and newParam.Explode is set, then use newParam.Explode.
+		// This preserves an explicitly set false in p.Explode.
+		if p.Explode == nil {
+			p.Explode = newParam.Explode
+		}
+		// Assuming Deprecated, AllowEmptyValue, AllowReserved are bool (non-pointer) based on compiler errors
+		// This means "empty/nil" is false. We update if current is false.
+		if !p.Deprecated { // If p.Deprecated is false
+			p.Deprecated = newParam.Deprecated // Set it from newParam
+		}
+		if !p.AllowEmptyValue { // If p.AllowEmptyValue is false
+			p.AllowEmptyValue = newParam.AllowEmptyValue // Set it from newParam
+		}
+		if p.Style == "" {
+			p.Style = newParam.Style
+		}
+		if !p.AllowReserved { // If p.AllowReserved is false
+			p.AllowReserved = newParam.AllowReserved // Set it from newParam
+		}
+	}
+	if !found {
+		existingParams = append(existingParams, newParam)
+	}
+	return existingParams
+}
+
 // namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
 var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 
@@ -110,13 +177,14 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			fieldNamesInPath[string(field.FullName())] = struct{}{}
 			fieldNamesInPath[strings.Join(jsonPath, ".")] = struct{}{} // sometimes JSON field names are used
 			loc := fd.SourceLocations().ByDescriptor(field)
-			op.Parameters = append(op.Parameters, &v3.Parameter{
+			newParameter := &v3.Parameter{
 				Name:        param,
 				Required:    proto.Bool(true),
 				In:          "path",
 				Description: util.FormatComments(loc),
 				Schema:      schema.FieldToSchema(opts, nil, field),
-			})
+			}
+			op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
 		} else {
 			slog.Warn("path field not found", slog.String("param", param))
 		}
@@ -140,13 +208,14 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 					section := parts[i]
 					namedPathParameter := util.Singular(section)
 					// Add the parameter to the operation
-					op.Parameters = append(op.Parameters, &v3.Parameter{
+					newParameter := &v3.Parameter{
 						Name:        namedPathParameter,
 						In:          "path",
 						Required:    proto.Bool(true),
 						Description: "The " + namedPathParameter + " id.",
 						Schema:      base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
-					})
+					}
+					op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
 				}
 			}
 		}
@@ -154,7 +223,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	switch rule.Body {
 	case "":
-		op.Parameters = append(op.Parameters, flattenToParams(opts, md.Input(), "", fieldNamesInPath)...)
+		newQueryParams := flattenToParams(opts, md.Input(), "", fieldNamesInPath)
+		for _, newQueryParam := range newQueryParams {
+			op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
+		}
 	case "*":
 		if len(fieldNamesInPath) > 0 {
 			_, s := schema.MessageToSchema(opts, md.Input())
