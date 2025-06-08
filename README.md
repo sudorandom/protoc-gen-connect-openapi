@@ -139,5 +139,5 @@ Otherwise, tests are run with:
 go test ./...
 
 # or, if you prefer:
-make test
+just test
 ```
