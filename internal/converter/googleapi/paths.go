@@ -21,6 +21,39 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
+func mergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Parameter) []*v3.Parameter {
+	found := false
+	for _, p := range existingParams {
+		if p.Name == newParam.Name && p.In == newParam.In {
+			found = true
+			if p.Description == "" && newParam.Description != "" {
+				p.Description = newParam.Description
+			}
+			if (p.Required == nil && newParam.Required != nil) || (newParam.Required != nil && *newParam.Required) {
+				p.Required = newParam.Required
+			}
+			if p.Schema == nil && newParam.Schema != nil {
+				p.Schema = newParam.Schema
+			} else if p.Schema != nil && newParam.Schema != nil {
+				// Merge schema properties
+				if p.Schema.Schema().Title == "" && newParam.Schema.Schema().Title != "" {
+					p.Schema.Schema().Title = newParam.Schema.Schema().Title
+				}
+				// TODO: Merge other schema properties like Description, Type (if compatible), etc.
+			}
+			if p.Explode == nil && newParam.Explode != nil {
+				p.Explode = newParam.Explode
+			}
+			// TODO: Add other relevant scalar properties from newParam to p only if p's corresponding property is empty/nil.
+			break
+		}
+	}
+	if !found {
+		existingParams = append(existingParams, newParam)
+	}
+	return existingParams
+}
+
 // namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
 var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 
@@ -110,13 +143,14 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			fieldNamesInPath[string(field.FullName())] = struct{}{}
 			fieldNamesInPath[strings.Join(jsonPath, ".")] = struct{}{} // sometimes JSON field names are used
 			loc := fd.SourceLocations().ByDescriptor(field)
-			op.Parameters = append(op.Parameters, &v3.Parameter{
+			newParameter := &v3.Parameter{
 				Name:        param,
 				Required:    proto.Bool(true),
 				In:          "path",
 				Description: util.FormatComments(loc),
 				Schema:      schema.FieldToSchema(opts, nil, field),
-			})
+			}
+			op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
 		} else {
 			slog.Warn("path field not found", slog.String("param", param))
 		}
@@ -140,13 +174,14 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 					section := parts[i]
 					namedPathParameter := util.Singular(section)
 					// Add the parameter to the operation
-					op.Parameters = append(op.Parameters, &v3.Parameter{
+					newParameter := &v3.Parameter{
 						Name:        namedPathParameter,
 						In:          "path",
 						Required:    proto.Bool(true),
 						Description: "The " + namedPathParameter + " id.",
 						Schema:      base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
-					})
+					}
+					op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
 				}
 			}
 		}
@@ -154,7 +189,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	switch rule.Body {
 	case "":
-		op.Parameters = append(op.Parameters, flattenToParams(opts, md.Input(), "", fieldNamesInPath)...)
+		newQueryParams := flattenToParams(opts, md.Input(), "", fieldNamesInPath)
+		for _, newQueryParam := range newQueryParams {
+			op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
+		}
 	case "*":
 		if len(fieldNamesInPath) > 0 {
 			_, s := schema.MessageToSchema(opts, md.Input())
