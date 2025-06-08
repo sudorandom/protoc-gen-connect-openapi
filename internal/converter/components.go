@@ -4,7 +4,6 @@ import (
 	"log/slog"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
-	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
@@ -15,9 +14,9 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*highv3.Components, error) {
+func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3.Components, error) {
 	// Add schema from messages/enums
-	components := &highv3.Components{
+	components := &v3.Components{
 		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
 		Responses:       orderedmap.New[string, *v3.Response](),
 		Parameters:      orderedmap.New[string, *v3.Parameter](),

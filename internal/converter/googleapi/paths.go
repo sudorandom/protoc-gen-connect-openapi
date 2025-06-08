@@ -24,7 +24,7 @@ import (
 func mergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Parameter) []*v3.Parameter {
 	found := false
 	for _, p := range existingParams {
-		if !(p.Name == newParam.Name && p.In == newParam.In) {
+		if p.Name != newParam.Name || p.In != newParam.In {
 			continue
 		}
 		found = true

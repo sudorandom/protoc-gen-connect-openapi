@@ -123,7 +123,7 @@ func MakeMediaTypes(opts options.Options, s *base.SchemaProxy, isRequest, isStre
 		}
 
 		_, shouldUse := opts.ContentTypes[protocol.Name]
-		if !(isStreaming || shouldUse) {
+		if !isStreaming && !shouldUse {
 			continue
 		}
 

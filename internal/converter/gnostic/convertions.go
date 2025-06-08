@@ -5,7 +5,6 @@ import (
 
 	goa3 "github.com/google/gnostic/openapiv3"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
-	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
@@ -67,7 +66,7 @@ func toSecurityRequirements(securityReq []*goa3.SecurityRequirement) []*base.Sec
 	return result
 }
 
-func appendComponents(spec *highv3.Document, c *goa3.Components) {
+func appendComponents(spec *v3.Document, c *goa3.Components) {
 	if c == nil {
 		return
 	}
