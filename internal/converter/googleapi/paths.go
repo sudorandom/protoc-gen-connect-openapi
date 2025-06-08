@@ -29,7 +29,9 @@ func mergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Paramet
 			if p.Description == "" && newParam.Description != "" {
 				p.Description = newParam.Description
 			}
-			if (p.Required == nil && newParam.Required != nil) || (newParam.Required != nil && *newParam.Required) {
+			// If p.Required is nil (not set) and newParam.Required is set, then use newParam.Required.
+			// This preserves an explicitly set false in p.Required.
+			if p.Required == nil && newParam.Required != nil {
 				p.Required = newParam.Required
 			}
 			if p.Schema == nil && newParam.Schema != nil {
@@ -39,12 +41,44 @@ func mergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Paramet
 				if p.Schema.Schema().Title == "" && newParam.Schema.Schema().Title != "" {
 					p.Schema.Schema().Title = newParam.Schema.Schema().Title
 				}
-				// TODO: Merge other schema properties like Description, Type (if compatible), etc.
+				if p.Schema.Schema().Description == "" && newParam.Schema.Schema().Description != "" {
+					p.Schema.Schema().Description = newParam.Schema.Schema().Description
+				}
+				if (p.Schema.Schema().Type == nil || len(p.Schema.Schema().Type) == 0) && newParam.Schema.Schema().Type != nil && len(newParam.Schema.Schema().Type) > 0 {
+					p.Schema.Schema().Type = newParam.Schema.Schema().Type
+				}
+				if p.Schema.Schema().Format == "" && newParam.Schema.Schema().Format != "" {
+					p.Schema.Schema().Format = newParam.Schema.Schema().Format
+				}
+				if (p.Schema.Schema().Enum == nil || len(p.Schema.Schema().Enum) == 0) && newParam.Schema.Schema().Enum != nil && len(newParam.Schema.Schema().Enum) > 0 {
+					p.Schema.Schema().Enum = newParam.Schema.Schema().Enum
+				}
+				if p.Schema.Schema().Default == nil && newParam.Schema.Schema().Default != nil {
+					p.Schema.Schema().Default = newParam.Schema.Schema().Default
+				}
+				if p.Schema.Schema().Items == nil && newParam.Schema.Schema().Items != nil {
+					p.Schema.Schema().Items = newParam.Schema.Schema().Items
+				}
 			}
+			// If p.Explode is nil (not set) and newParam.Explode is set, then use newParam.Explode.
+			// This preserves an explicitly set false in p.Explode.
 			if p.Explode == nil && newParam.Explode != nil {
 				p.Explode = newParam.Explode
 			}
-			// TODO: Add other relevant scalar properties from newParam to p only if p's corresponding property is empty/nil.
+			// Assuming Deprecated, AllowEmptyValue, AllowReserved are bool (non-pointer) based on compiler errors
+			// This means "empty/nil" is false. We update if current is false.
+			if !p.Deprecated { // If p.Deprecated is false
+				p.Deprecated = newParam.Deprecated // Set it from newParam
+			}
+			if !p.AllowEmptyValue { // If p.AllowEmptyValue is false
+				p.AllowEmptyValue = newParam.AllowEmptyValue // Set it from newParam
+			}
+			if p.Style == "" && newParam.Style != "" {
+				p.Style = newParam.Style
+			}
+			if !p.AllowReserved { // If p.AllowReserved is false
+				p.AllowReserved = newParam.AllowReserved // Set it from newParam
+			}
 			break
 		}
 	}
