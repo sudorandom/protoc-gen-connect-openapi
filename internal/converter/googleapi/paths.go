@@ -262,6 +262,21 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Description: util.FormatComments(loc),
 				Content:     util.MakeMediaTypes(opts, bodySchema, false, false),
 			}
+			
+			// Add any unhandled fields in the request message as query parameters.
+			// This covers the case where body: "specific_field" is used, and any fields
+			// not in the path or body should become query parameters.
+			// This follows Google AIP-127 specification and matches the original gnostic behavior.
+			coveredFields := make(map[string]struct{})
+			for name := range fieldNamesInPath {
+				coveredFields[name] = struct{}{}
+			}
+			coveredFields[rule.Body] = struct{}{}
+			
+			newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
+			for _, newQueryParam := range newQueryParams {
+				op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
+			}
 		} else {
 			slog.Warn("body field not found", slog.String("param", rule.Body))
 		}

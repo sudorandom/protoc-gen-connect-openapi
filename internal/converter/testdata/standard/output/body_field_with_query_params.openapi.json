@@ -1,82 +1,46 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "googleapi_withbody",
-    "description": "## googleapi_withbody.FooService"
+    "title": "body_field_with_query_params",
+    "description": "## body_field_with_query_params.BookService"
   },
   "paths": {
-    "/v1/sendData": {
+    "/v1/publishers/{publisher}/books": {
       "post": {
         "tags": [
-          "googleapi_withbody.FooService"
+          "body_field_with_query_params.BookService"
         ],
-        "summary": "GetFoo",
-        "operationId": "googleapi_withbody.FooService.GetFoo",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "data",
-                "$ref": "#/components/schemas/googleapi_withbody.SomethingData"
-              }
-            }
-          }
-        },
-        "responses": {
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/googleapi_withbody.GetFooResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/sendData2": {
-      "post": {
-        "tags": [
-          "googleapi_withbody.FooService"
-        ],
-        "summary": "GetFoo2",
-        "operationId": "googleapi_withbody.FooService.GetFoo2",
+        "summary": "CreateBook",
+        "operationId": "body_field_with_query_params.BookService.CreateBook",
         "parameters": [
           {
-            "name": "data.prop2",
-            "in": "query",
+            "name": "publisher",
+            "in": "path",
+            "description": "The publisher id.",
+            "required": true,
             "schema": {
-              "type": "string",
-              "title": "prop2"
+              "type": "string"
             }
           },
           {
-            "name": "data.prop3",
+            "name": "bookId",
             "in": "query",
+            "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body.",
             "schema": {
               "type": "string",
-              "title": "prop3"
+              "title": "book_id",
+              "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body."
             }
           }
         ],
         "requestBody": {
+          "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
           "content": {
             "application/json": {
               "schema": {
-                "type": "string",
-                "title": "prop1"
+                "title": "book",
+                "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
+                "$ref": "#/components/schemas/body_field_with_query_params.Book"
               }
             }
           }
@@ -97,7 +61,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/googleapi_withbody.GetFooResponse"
+                  "$ref": "#/components/schemas/body_field_with_query_params.Book"
                 }
               }
             }
@@ -108,39 +72,49 @@
   },
   "components": {
     "schemas": {
-      "googleapi_withbody.GetFooRequest": {
+      "body_field_with_query_params.Book": {
         "type": "object",
         "properties": {
-          "data": {
-            "title": "data",
-            "$ref": "#/components/schemas/googleapi_withbody.SomethingData"
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "author": {
+            "type": "string",
+            "title": "author"
+          },
+          "isbn": {
+            "type": "string",
+            "title": "isbn"
           }
         },
-        "title": "GetFooRequest",
+        "title": "Book",
         "additionalProperties": false
       },
-      "googleapi_withbody.GetFooResponse": {
-        "type": "object",
-        "title": "GetFooResponse",
-        "additionalProperties": false
-      },
-      "googleapi_withbody.SomethingData": {
+      "body_field_with_query_params.CreateBookRequest": {
         "type": "object",
         "properties": {
-          "prop1": {
+          "parent": {
             "type": "string",
-            "title": "prop1"
+            "title": "parent",
+            "description": "The publisher who will publish this book.\n When using HTTP/JSON, this field is automatically populated based\n on the URI, because of the `{parent=publishers/*}` syntax."
           },
-          "prop2": {
-            "type": "string",
-            "title": "prop2"
+          "book": {
+            "title": "book",
+            "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
+            "$ref": "#/components/schemas/body_field_with_query_params.Book"
           },
-          "prop3": {
+          "bookId": {
             "type": "string",
-            "title": "prop3"
+            "title": "book_id",
+            "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body."
           }
         },
-        "title": "SomethingData",
+        "title": "CreateBookRequest",
+        "required": [
+          "parent",
+          "book"
+        ],
         "additionalProperties": false
       },
       "connect-protocol-version": {
@@ -220,7 +194,7 @@
   "security": [],
   "tags": [
     {
-      "name": "googleapi_withbody.FooService"
+      "name": "body_field_with_query_params.BookService"
     }
   ]
 }

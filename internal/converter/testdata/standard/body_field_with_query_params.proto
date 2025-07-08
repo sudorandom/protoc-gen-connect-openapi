@@ -1,0 +1,43 @@
+syntax = "proto3";
+package body_field_with_query_params;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
+
+service BookService {
+  rpc CreateBook(CreateBookRequest) returns (Book) {
+    option (google.api.http) = {
+      post: "/v1/{parent=publishers/*}/books"
+      body: "book"
+    };
+  }
+}
+
+message CreateBookRequest {
+  // The publisher who will publish this book.
+  // When using HTTP/JSON, this field is automatically populated based
+  // on the URI, because of the `{parent=publishers/*}` syntax.
+  string parent = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference) = {
+      child_type: "library.googleapis.com/Book"
+    }];
+
+  // The book to create.
+  // When using HTTP/JSON, this field is populated based on the HTTP body,
+  // because of the `body: "book"` syntax.
+  Book book = 2 [(google.api.field_behavior) = REQUIRED];
+
+  // The user-specified ID for the book.
+  // When using HTTP/JSON, this field is populated based on a query string
+  // argument, such as `?bookId=foo`. This is the fallback for fields that
+  // are not included in either the URI or the body.
+  string book_id = 3;
+}
+
+message Book {
+  string title = 1;
+  string author = 2;
+  string isbn = 3;
+}

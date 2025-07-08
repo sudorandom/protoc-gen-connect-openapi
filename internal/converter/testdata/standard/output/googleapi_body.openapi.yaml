@@ -34,6 +34,17 @@ paths:
         - googleapi_withbody.FooService
       summary: GetFoo2
       operationId: googleapi_withbody.FooService.GetFoo2
+      parameters:
+        - name: data.prop2
+          in: query
+          schema:
+            type: string
+            title: prop2
+        - name: data.prop3
+          in: query
+          schema:
+            type: string
+            title: prop3
       requestBody:
         content:
           application/json:

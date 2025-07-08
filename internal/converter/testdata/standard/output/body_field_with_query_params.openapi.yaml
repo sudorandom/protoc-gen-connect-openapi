@@ -1,0 +1,166 @@
+openapi: 3.1.0
+info:
+  title: body_field_with_query_params
+  description: '## body_field_with_query_params.BookService'
+paths:
+  /v1/publishers/{publisher}/books:
+    post:
+      tags:
+        - body_field_with_query_params.BookService
+      summary: CreateBook
+      operationId: body_field_with_query_params.BookService.CreateBook
+      parameters:
+        - name: publisher
+          in: path
+          description: The publisher id.
+          required: true
+          schema:
+            type: string
+        - name: bookId
+          in: query
+          description: |-
+            The user-specified ID for the book.
+             When using HTTP/JSON, this field is populated based on a query string
+             argument, such as `?bookId=foo`. This is the fallback for fields that
+             are not included in either the URI or the body.
+          schema:
+            type: string
+            title: book_id
+            description: |-
+              The user-specified ID for the book.
+               When using HTTP/JSON, this field is populated based on a query string
+               argument, such as `?bookId=foo`. This is the fallback for fields that
+               are not included in either the URI or the body.
+      requestBody:
+        description: |-
+          The book to create.
+           When using HTTP/JSON, this field is populated based on the HTTP body,
+           because of the `body: "book"` syntax.
+        content:
+          application/json:
+            schema:
+              title: book
+              description: |-
+                The book to create.
+                 When using HTTP/JSON, this field is populated based on the HTTP body,
+                 because of the `body: "book"` syntax.
+              $ref: '#/components/schemas/body_field_with_query_params.Book'
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/body_field_with_query_params.Book'
+components:
+  schemas:
+    body_field_with_query_params.Book:
+      type: object
+      properties:
+        title:
+          type: string
+          title: title
+        author:
+          type: string
+          title: author
+        isbn:
+          type: string
+          title: isbn
+      title: Book
+      additionalProperties: false
+    body_field_with_query_params.CreateBookRequest:
+      type: object
+      properties:
+        parent:
+          type: string
+          title: parent
+          description: |-
+            The publisher who will publish this book.
+             When using HTTP/JSON, this field is automatically populated based
+             on the URI, because of the `{parent=publishers/*}` syntax.
+        book:
+          title: book
+          description: |-
+            The book to create.
+             When using HTTP/JSON, this field is populated based on the HTTP body,
+             because of the `body: "book"` syntax.
+          $ref: '#/components/schemas/body_field_with_query_params.Book'
+        bookId:
+          type: string
+          title: book_id
+          description: |-
+            The user-specified ID for the book.
+             When using HTTP/JSON, this field is populated based on a query string
+             argument, such as `?bookId=foo`. This is the fallback for fields that
+             are not included in either the URI or the body.
+      title: CreateBookRequest
+      required:
+        - parent
+        - book
+      additionalProperties: false
+    connect-protocol-version:
+      type: number
+      title: Connect-Protocol-Version
+      enum:
+        - 1
+      description: Define the version of the Connect protocol
+      const: 1
+    connect-timeout-header:
+      type: number
+      title: Connect-Timeout-Ms
+      description: Define the timeout, in ms
+    connect.error:
+      type: object
+      properties:
+        code:
+          type: string
+          examples:
+            - not_found
+          enum:
+            - canceled
+            - unknown
+            - invalid_argument
+            - deadline_exceeded
+            - not_found
+            - already_exists
+            - permission_denied
+            - resource_exhausted
+            - failed_precondition
+            - aborted
+            - out_of_range
+            - unimplemented
+            - internal
+            - unavailable
+            - data_loss
+            - unauthenticated
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        detail:
+          $ref: '#/components/schemas/google.protobuf.Any'
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    google.protobuf.Any:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+          format: binary
+        debug:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+security: []
+tags:
+  - name: body_field_with_query_params.BookService
