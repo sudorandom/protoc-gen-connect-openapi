@@ -68,10 +68,134 @@
           }
         }
       }
+    },
+    "/v1/authors": {
+      "post": {
+        "tags": [
+          "body_field_with_query_params.BookService"
+        ],
+        "summary": "CreateAuthor",
+        "description": "Test case for the coveredFields bug - nested message fields \n should not appear as query parameters when the parent message is in body",
+        "operationId": "body_field_with_query_params.BookService.CreateAuthor",
+        "parameters": [
+          {
+            "name": "authorId",
+            "in": "query",
+            "description": "This field should be a query parameter",
+            "schema": {
+              "type": "string",
+              "title": "author_id",
+              "description": "This field should be a query parameter"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "This field should be in the body based on the HTTP annotation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "author_profile",
+                "description": "This field should be in the body based on the HTTP annotation",
+                "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/body_field_with_query_params.Author"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "body_field_with_query_params.Author": {
+        "type": "object",
+        "properties": {
+          "authorId": {
+            "type": "string",
+            "title": "author_id"
+          },
+          "status": {
+            "type": "string",
+            "title": "status"
+          },
+          "profile": {
+            "title": "profile",
+            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+          }
+        },
+        "title": "Author",
+        "additionalProperties": false
+      },
+      "body_field_with_query_params.AuthorProfile": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "These nested fields should be in the body, not query parameters\n This is the bug case - these fields were incorrectly being added as query params"
+          },
+          "email": {
+            "type": "string",
+            "title": "email"
+          },
+          "biography": {
+            "title": "biography",
+            "$ref": "#/components/schemas/body_field_with_query_params.Biography"
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "genres"
+          }
+        },
+        "title": "AuthorProfile",
+        "additionalProperties": false
+      },
+      "body_field_with_query_params.Biography": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "text"
+          },
+          "birthDate": {
+            "type": "string",
+            "title": "birth_date"
+          },
+          "awards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "awards"
+          }
+        },
+        "title": "Biography",
+        "additionalProperties": false
+      },
       "body_field_with_query_params.Book": {
         "type": "object",
         "properties": {
@@ -89,6 +213,26 @@
           }
         },
         "title": "Book",
+        "additionalProperties": false
+      },
+      "body_field_with_query_params.CreateAuthorRequest": {
+        "type": "object",
+        "properties": {
+          "authorProfile": {
+            "title": "author_profile",
+            "description": "This field should be in the body based on the HTTP annotation",
+            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+          },
+          "authorId": {
+            "type": "string",
+            "title": "author_id",
+            "description": "This field should be a query parameter"
+          }
+        },
+        "title": "CreateAuthorRequest",
+        "required": [
+          "authorProfile"
+        ],
         "additionalProperties": false
       },
       "body_field_with_query_params.CreateBookRequest": {

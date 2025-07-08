@@ -12,6 +12,15 @@ service BookService {
       body: "book"
     };
   }
+  
+  // Test case for the coveredFields bug - nested message fields 
+  // should not appear as query parameters when the parent message is in body
+  rpc CreateAuthor(CreateAuthorRequest) returns (Author) {
+    option (google.api.http) = {
+      post: "/v1/authors"
+      body: "author_profile"
+    };
+  }
 }
 
 message CreateBookRequest {
@@ -40,4 +49,33 @@ message Book {
   string title = 1;
   string author = 2;
   string isbn = 3;
+}
+
+message CreateAuthorRequest {
+  // This field should be in the body based on the HTTP annotation
+  AuthorProfile author_profile = 1 [(google.api.field_behavior) = REQUIRED];
+  
+  // This field should be a query parameter
+  string author_id = 2;
+}
+
+message AuthorProfile {
+  // These nested fields should be in the body, not query parameters
+  // This is the bug case - these fields were incorrectly being added as query params
+  string name = 1;
+  string email = 2;
+  Biography biography = 3;
+  repeated string genres = 4;
+}
+
+message Biography {
+  string text = 1;
+  string birth_date = 2;
+  repeated string awards = 3;
+}
+
+message Author {
+  string author_id = 1;
+  string status = 2;
+  AuthorProfile profile = 3;
 }

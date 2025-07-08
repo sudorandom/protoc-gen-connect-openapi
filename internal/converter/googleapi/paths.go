@@ -255,7 +255,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 
 	default:
-		if field, _ := resolveField(md.Input(), rule.Body); field != nil {
+		if field, jsonPath := resolveField(md.Input(), rule.Body); field != nil {
 			loc := fd.SourceLocations().ByDescriptor(field)
 			bodySchema := schema.FieldToSchema(opts, nil, field)
 			op.RequestBody = &v3.RequestBody{
@@ -272,6 +272,11 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				coveredFields[name] = struct{}{}
 			}
 			coveredFields[rule.Body] = struct{}{}
+			// Also exclude JSON name and descriptor name to prevent snake_case vs camelCase mismatch
+			coveredFields[field.JSONName()] = struct{}{}
+			coveredFields[string(field.FullName())] = struct{}{}
+			// If body is a nested path (a.b.c) also skip its JSON path
+			coveredFields[strings.Join(jsonPath, ".")] = struct{}{}
 			
 			newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
 			for _, newQueryParam := range newQueryParams {
