@@ -15,10 +15,16 @@ test: generate
     # To see coverage report:
     # go tool cover -html=coverage.out
 
+lint:
+    golangci-lint run
+
 # Install the application binary.
 install:
     go install
+# Build the application binary locally.
+build:
+    go build -o protoc-gen-connect-openapi .
 
 # Run buf to generate code from protobuf definitions.
 buf-generate: install
-    buf generate --path internal/
+    buf generate --path internal/proto

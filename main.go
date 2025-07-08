@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"os"
 	"runtime"
+	"runtime/debug"
 
 	"google.golang.org/protobuf/proto"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
@@ -14,11 +15,32 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 )
 
-var (
+func getVersionInfo() (version, commit, date string) {
 	version = "dev"
-	commit  = "none"
-	date    = "unknown"
-)
+	commit = "none"
+	date = "unknown"
+
+	if info, ok := debug.ReadBuildInfo(); ok {
+		if info.Main.Version != "(devel)" && info.Main.Version != "" {
+			version = info.Main.Version
+		}
+
+		for _, setting := range info.Settings {
+			switch setting.Key {
+			case "vcs.revision":
+				if len(setting.Value) >= 7 {
+					commit = setting.Value[:7] // Short commit hash
+				} else {
+					commit = setting.Value
+				}
+			case "vcs.time":
+				date = setting.Value
+			}
+		}
+	}
+
+	return version, commit, date
+}
 
 func main() {
 	showVersion := flag.Bool("version", false, "print the version and exit")
@@ -61,5 +83,6 @@ func renderResponse(resp *pluginpb.CodeGeneratorResponse) {
 	}
 }
 func fullVersion() string {
+	version, commit, date := getVersionInfo()
 	return fmt.Sprintf("%s (%s) @ %s; %s", version, commit, date, runtime.Version())
 }

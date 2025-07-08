@@ -48,11 +48,24 @@ This is what a GET request looks like. Note that GET requests are available for 
 We can document this API as if it's a real JSON/HTTP API... because it is, and the gRPC "flavor" isn't so noticable due to Connect. With protoc-gen-connect-openapi you can declare your API using protobuf, serve it using gRPC and Connect and fully document it without the API consumers ever knowing what protobuf is or how to read it.
 
 ## Install
+
+### Binaries
+You can download pre-built binaries from the [Github releases page](https://github.com/sudorandom/protoc-gen-connect-openapi/releases/latest).
+
+### asdf
+
+```shell
+$ asdf plugin add protoc-gen-connect-openapi https://github.com/sudorandom/asdf-protoc-gen-connect-openapi.git
+$ asdf list all protoc-gen-connect-openapi
+$ asdf install protoc-gen-connect-openapi latest
+$ asdf global protoc-gen-connect-openapi latest
+```
+
+### Using Go
+It isn't recommended, but you can also install directly using Go:
 ```shell
 go install github.com/sudorandom/protoc-gen-connect-openapi@main
 ```
-
-or you can download pre-built binaries from the [Github releases page](https://github.com/sudorandom/protoc-gen-connect-openapi/releases/latest).
 
 ## Usage
 ### With protoc
