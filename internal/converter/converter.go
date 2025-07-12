@@ -309,15 +309,6 @@ func initializeDoc(doc *v3.Document) {
 	if doc.Version == "" {
 		doc.Version = "3.1.0"
 	}
-	if doc.Paths == nil {
-		doc.Paths = &v3.Paths{}
-	}
-	if doc.Paths.PathItems == nil {
-		doc.Paths.PathItems = orderedmap.New[string, *v3.PathItem]()
-	}
-	if doc.Paths.Extensions == nil {
-		doc.Paths.Extensions = orderedmap.New[string, *yaml.Node]()
-	}
 	if doc.Info == nil {
 		doc.Info = &base.Info{}
 	}
