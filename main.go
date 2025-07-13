@@ -82,6 +82,7 @@ func renderResponse(resp *pluginpb.CodeGeneratorResponse) {
 		return
 	}
 }
+
 func fullVersion() string {
 	version, commit, date := getVersionInfo()
 	return fmt.Sprintf("%s (%s) @ %s; %s", version, commit, date, runtime.Version())
