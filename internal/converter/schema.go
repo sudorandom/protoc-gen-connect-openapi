@@ -98,8 +98,7 @@ func (st *State) CollectMessage(tt protoreflect.MessageDescriptor) {
 	// Messages can have messages
 	messages := tt.Messages()
 	for i := 0; i < messages.Len(); i++ {
-		message := messages.Get(i)
-		st.CollectMessage(message)
+		st.CollectMessage(messages.Get(i))
 	}
 }
 
