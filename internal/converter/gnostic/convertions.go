@@ -6,6 +6,8 @@ import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	low "github.com/pb33f/libopenapi/datamodel/low"
+	lowBase "github.com/pb33f/libopenapi/datamodel/low/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -342,14 +344,22 @@ func toExamples(exes *goa3.ExamplesOrReferences) *orderedmap.Map[string, *base.E
 	}
 	examples := orderedmap.New[string, *base.Example]()
 	for _, item := range exes.GetAdditionalProperties() {
-		example := item.GetValue().GetExample()
-		examples.Set(item.Name, &base.Example{
-			Summary:       example.Summary,
-			Description:   example.Description,
-			Value:         example.Value.ToRawInfo(),
-			ExternalValue: example.ExternalValue,
-			Extensions:    toExtensions(example.SpecificationExtension),
-		})
+		if example := item.GetValue().GetExample(); example != nil {
+			examples.Set(item.Name, &base.Example{
+				Summary:       example.Summary,
+				Description:   example.Description,
+				Value:         example.Value.ToRawInfo(),
+				ExternalValue: example.ExternalValue,
+				Extensions:    toExtensions(example.SpecificationExtension),
+			})
+		}
+		if ref := item.GetValue().GetReference(); ref != nil {
+			example := &lowBase.Example{
+				Reference: &low.Reference{},
+			}
+			example.SetReference(ref.XRef, utils.CreateRefNode(ref.XRef))
+			examples.Set(item.Name, base.NewExample(example))
+		}
 	}
 	return examples
 }
