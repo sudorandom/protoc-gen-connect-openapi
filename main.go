@@ -52,7 +52,7 @@ func main() {
 
 	resp, err := converter.ConvertFrom(os.Stdin)
 	if err != nil {
-		message := fmt.Sprintf("Failed to read input: %v", err)
+		message := err.Error()
 		slog.Error(message)
 		renderResponse(&pluginpb.CodeGeneratorResponse{
 			Error: &message,

@@ -1,4 +1,6 @@
 version: v2
+inputs:
+  - directory: ./internal/converter/testdata
 plugins:
   - local: protoc-gen-connect-openapi
     out: out
