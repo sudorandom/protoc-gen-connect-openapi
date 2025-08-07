@@ -1,6 +1,7 @@
 package options
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -140,6 +141,9 @@ func FromString(s string) (Options, error) {
 				return opts, fmt.Errorf("format be yaml or json, not '%s'", format)
 			}
 		case strings.HasPrefix(param, "base="):
+			if msg, ok := disabledOptions["base"]; ok {
+				return opts, errors.New(msg)
+			}
 			basePath := param[5:]
 			ext := path.Ext(basePath)
 			switch ext {
@@ -153,6 +157,9 @@ func FromString(s string) (Options, error) {
 				return opts, fmt.Errorf("the file extension for 'base' should end with yaml or json, not '%s'", ext)
 			}
 		case strings.HasPrefix(param, "override="):
+			if msg, ok := disabledOptions["override"]; ok {
+				return opts, errors.New(msg)
+			}
 			overridePath := strings.TrimPrefix(param, "override=")
 			ext := path.Ext(overridePath)
 			switch ext {

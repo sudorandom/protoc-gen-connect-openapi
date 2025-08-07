@@ -62,9 +62,37 @@ $ asdf global protoc-gen-connect-openapi latest
 ```
 
 ### Using Go
+
 It isn't recommended, but you can also install directly using Go:
 ```shell
-go install github.com/sudorandom/protoc-gen-connect-openapi@main
+go install github.com/sudorandom/protoc-gen-connect-openapi@latest
+protoc-gen-connect-openapi --version
+```
+
+Or you can actually use `go run` directly from `buf.gen.yaml`, if that's the protobuf generation tool that you're using:
+
+```yaml
+version: v2
+plugins:
+  - local: ["go", "run", "github.com/sudorandom/protoc-gen-connect-openapi@latest"]
+    out: out
+```
+
+### Using "go tool" support
+
+If you are already using Go, it may make sense to also use the new "go tool" support added in Go 1.24:
+```
+go get -tool github.com/sudorandom/protoc-gen-connect-openapi@latest
+go tool protoc-gen-connect-openapi --version
+```
+
+Again, you can run the plugin in this mode with `buf generate` using this `buf.gen.yaml` file:
+
+```yaml
+version: v2
+plugins:
+  - local: ["go", "tool", "protoc-gen-connect-openapi"]
+    out: out
 ```
 
 ## Usage
