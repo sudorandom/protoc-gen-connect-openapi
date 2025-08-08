@@ -67,9 +67,11 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 				if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &node); err != nil {
 					slog.Warn("unable to unmarshal example", slog.Any("error", err))
 				} else {
+					schema.Example = &node
 					schema.Examples = append(schema.Examples, &node)
 				}
 			} else {
+				schema.Example = utils.CreateStringNode(v)
 				schema.Examples = append(schema.Examples, utils.CreateStringNode(v))
 			}
 		}
