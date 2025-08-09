@@ -7,6 +7,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/gobwas/glob"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -47,7 +48,7 @@ type Options struct {
 	// IgnoreGoogleapiHTTP set to true will cause service to always generate OpenAPI specs for connect endpoints, and ignore any google.api.http options.
 	IgnoreGoogleapiHTTP bool
 	// Services filters which services will be used for generating OpenAPI spec.
-	Services []protoreflect.FullName
+	Services []glob.Glob
 	// ShortServiceTags uses the short service name (Name()) instead of the full name (FullName()) for OpenAPI tags.
 	ShortServiceTags bool
 	// ShortOperationIds sets the operationId to shortServiceName + "_" + method short name instead of the full method name.
@@ -62,8 +63,8 @@ func (opts Options) HasService(serviceName protoreflect.FullName) bool {
 	if len(opts.Services) == 0 {
 		return true
 	}
-	for _, service := range opts.Services {
-		if service == serviceName {
+	for _, pattern := range opts.Services {
+		if pattern.Match(string(serviceName)) {
 			return true
 		}
 	}
@@ -174,9 +175,11 @@ func FromString(s string) (Options, error) {
 			}
 		case strings.HasPrefix(param, "services="):
 			services := strings.Split(param[9:], ",")
-			for _, service := range services {
-				opts.Services = append(opts.Services, protoreflect.FullName(service))
+			patterns, err := CompileServicePatterns(services)
+			if err != nil {
+				return opts, err
 			}
+			opts.Services = append(opts.Services, patterns...)
 		default:
 			return opts, fmt.Errorf("invalid parameter: %s", param)
 		}
@@ -194,4 +197,16 @@ func IsValidContentType(contentType string) bool {
 		}
 	}
 	return false
+}
+
+func CompileServicePatterns(services []string) ([]glob.Glob, error) {
+	var patterns []glob.Glob
+	for _, service := range services {
+		pattern, err := glob.Compile(service, '.')
+		if err != nil {
+			return patterns, fmt.Errorf("invalid service glob pattern '%s': %w", service, err)
+		}
+		patterns = append(patterns, pattern)
+	}
+	return patterns, nil
 }
