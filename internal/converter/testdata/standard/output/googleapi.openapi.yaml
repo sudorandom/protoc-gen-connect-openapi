@@ -10,12 +10,6 @@ paths:
       summary: Foo
       operationId: io.swagger.petstore.v2.Foo.Foo
       responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
           content:
@@ -52,12 +46,6 @@ paths:
             type: string
             title: property_in_query_ok
       responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
           content:
@@ -123,12 +111,6 @@ paths:
             type: string
             title: property_in_query
       responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
           content:

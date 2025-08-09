@@ -22,7 +22,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 		methods := service.Methods()
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
-			pathItems := googleapi.MakePathItems(opts, method)
+			pathItems, isGoogleHTTP := googleapi.MakePathItems(opts, method)
 
 			// Helper function to update or set path items
 			addPathItem := func(path string, newItem *v3.PathItem) {
@@ -44,7 +44,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			// Default to ConnectRPC/gRPC path if no google.api annotations
 			if pathItems == nil || pathItems.Len() == 0 {
 				path := "/" + string(service.FullName()) + "/" + string(method.Name())
-				addPathItem(path, methodToPathItem(opts, method))
+				addPathItem(path, methodToPathItem(opts, method, isGoogleHTTP))
 			}
 		}
 	}
@@ -260,17 +260,17 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 	})
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
-		Default: &v3.Response{
-			Description: "Error",
-			Content: util.MakeMediaTypes(
-				opts,
-				base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
-				false,
-				isStreaming,
-			),
-		},
 	}
 
+	op.Responses.Default = &v3.Response{
+		Description: "Error",
+		Content: util.MakeMediaTypes(
+			opts,
+			base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
+			false,
+			isStreaming,
+		),
+	}
 	op.Parameters = append(op.Parameters,
 		&v3.Parameter{
 			Name:     "Connect-Protocol-Version",
@@ -336,13 +336,15 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 	return op
 }
 
-func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor) *v3.PathItem {
+func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor, isGoogleHTTP bool) *v3.PathItem {
 	hasGetSupport := methodHasGet(opts, method)
 	item := &v3.PathItem{}
-	if hasGetSupport {
-		item.Get = methodToOperaton(opts, method, true)
+	if !isGoogleHTTP {
+		if hasGetSupport {
+			item.Get = methodToOperaton(opts, method, true)
+		}
+		item.Post = methodToOperaton(opts, method, false)
 	}
-	item.Post = methodToOperaton(opts, method, false)
 	item = gnostic.PathItemWithMethodAnnotations(item, method)
 
 	return item

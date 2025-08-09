@@ -1,86 +1,50 @@
 openapi: 3.1.0
 info:
-  title: path_prefixes
+  title: tests.googleapi_and_connect
+  description: '## tests.googleapi_and_connect.Foo'
 paths:
-  /testing/1234/path_prefixes.Greeter/SayHello:
-    post:
-      tags:
-        - path_prefixes.Greeter
-      summary: SayHello
-      description: Sends a greeting
-      operationId: path_prefixes.Greeter.SayHello
-      parameters:
-        - name: Connect-Protocol-Version
-          in: header
-          required: true
-          schema:
-            $ref: '#/components/schemas/connect-protocol-version'
-        - name: Connect-Timeout-Ms
-          in: header
-          schema:
-            $ref: '#/components/schemas/connect-timeout-header'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/path_prefixes.HelloRequest'
-        required: true
-      responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/path_prefixes.HelloReply'
-  /testing/1234/path_prefixes.Greeter/WriteHello:
-    post:
-      tags:
-        - path_prefixes.Greeter
-      summary: WriteHello
-      description: Writes a greeting (has side effects)
-      operationId: path_prefixes.Greeter.WriteHello
-      parameters:
-        - name: Connect-Protocol-Version
-          in: header
-          required: true
-          schema:
-            $ref: '#/components/schemas/connect-protocol-version'
-        - name: Connect-Timeout-Ms
-          in: header
-          schema:
-            $ref: '#/components/schemas/connect-timeout-header'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/path_prefixes.HelloRequest'
-        required: true
-      responses:
-        default:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/connect.error'
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/path_prefixes.HelloReply'
-  /testing/1234/.well-known/jwks.json:
+  /simple/http/path:
     get:
       tags:
-        - path_prefixes.Greeter
-      summary: Foo
-      operationId: path_prefixes.Greeter.Foo
+        - tests.googleapi_and_connect.Foo
+      summary: RPCWithHTTPEndpoint
+      operationId: tests.googleapi_and_connect.Foo.RPCWithHTTPEndpoint
       responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+  /tests.googleapi_and_connect.Foo/RPC:
+    post:
+      tags:
+        - tests.googleapi_and_connect.Foo
+      summary: RPC
+      operationId: tests.googleapi_and_connect.Foo.RPC
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/google.protobuf.Empty'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
         "200":
           description: Success
           content:
@@ -99,24 +63,6 @@ components:
              service Foo {
                rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
              }
-    path_prefixes.HelloReply:
-      type: object
-      properties:
-        message:
-          type: string
-          title: message
-      title: HelloReply
-      additionalProperties: false
-      description: The response message containing the greetings
-    path_prefixes.HelloRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          title: name
-      title: HelloRequest
-      additionalProperties: false
-      description: The request message containing the user's name.
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -176,5 +122,4 @@ components:
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
 security: []
 tags:
-  - name: path_prefixes.Greeter
-    description: The greeting service definition.
+  - name: tests.googleapi_and_connect.Foo

@@ -7,6 +7,8 @@ import (
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
+	"google.golang.org/genproto/googleapis/api/annotations"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
 
@@ -35,7 +37,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 	components.Schemas = stateToSchema(st)
 
 	hasGetRequests := false
-	hasMethods := false
+	hasConnectRPCMethods := false
 
 	// Add requestBodies and responses for methods
 	services := fd.Services()
@@ -48,7 +50,10 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			if hasGet {
 				hasGetRequests = true
 			}
-			hasMethods = true
+			// Check for methods that don't have google.api.http rules.
+			if !proto.HasExtension(method.Options(), annotations.E_Http) {
+				hasConnectRPCMethods = true
+			}
 		}
 	}
 
@@ -85,7 +90,7 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			},
 		}))
 	}
-	if hasMethods {
+	if hasConnectRPCMethods {
 		components.Schemas.Set("connect-protocol-version", base.CreateSchemaProxy(&base.Schema{
 			Title:       "Connect-Protocol-Version",
 			Description: "Define the version of the Connect protocol",
