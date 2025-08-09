@@ -13,7 +13,6 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
 func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3.Components, error) {
@@ -132,7 +131,9 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			Description: "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.",
 			Type:        []string{"string"},
 		}))
-		connectErrorProps.Set("detail", base.CreateSchemaProxyRef("#/components/schemas/google.protobuf.Any"))
+
+		connectErrorProps.Set("details", base.CreateSchemaProxyRef("#/components/schemas/connect.error_details.Any"))
+
 		components.Schemas.Set("connect.error", base.CreateSchemaProxy(&base.Schema{
 			Title:                "Connect Error",
 			Description:          `Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`,
@@ -140,8 +141,43 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			Type:                 []string{"object"},
 			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
 		}))
-		anyPair := util.NewGoogleAny()
-		components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
+		connectAnyProps := orderedmap.New[string, *base.SchemaProxy]()
+		connectAnyProps.Set("type", base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}))
+		connectAnyProps.Set("value", base.CreateSchemaProxy(&base.Schema{
+			Type:   []string{"string"},
+			Format: "binary",
+		}))
+
+		errorDetailOptions := []*base.SchemaProxy{
+			base.CreateSchemaProxy(&base.Schema{
+				Title:                "Error Details",
+				Description:          "Detailed error information for Connect errors.",
+				Type:                 []string{"object"},
+				AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+			}),
+		}
+		if opts.WithGoogleErrorDetail {
+			googleRPCSchemas := newGoogleRPCErrorDetailSchemas()
+			for pair := googleRPCSchemas.First(); pair != nil; pair = pair.Next() {
+				components.Schemas.Set(pair.Key(), pair.Value())
+				errorDetailOptions = append(errorDetailOptions, base.CreateSchemaProxyRef("#/components/schemas/"+pair.Key()))
+			}
+		}
+		if len(errorDetailOptions) == 1 {
+			connectAnyProps.Set("debug", errorDetailOptions[0])
+		} else {
+			connectAnyProps.Set("debug", base.CreateSchemaProxy(&base.Schema{
+				Type:  []string{"object"},
+				OneOf: errorDetailOptions,
+			}))
+		}
+
+		components.Schemas.Set("connect.error_details.Any", base.CreateSchemaProxy(&base.Schema{
+			Description:          "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.",
+			Type:                 []string{"object"},
+			Properties:           connectAnyProps,
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+		}))
 	}
 
 	return components, nil

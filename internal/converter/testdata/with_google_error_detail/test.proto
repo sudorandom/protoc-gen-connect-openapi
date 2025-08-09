@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package test.with_google_error_detail;
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/with_google_error_detail";
+
+message TestRequest {
+  string name = 1;
+}
+
+message TestResponse {
+  string message = 1;
+}
+
+service TestService {
+  rpc Test(TestRequest) returns (TestResponse) {}
+}

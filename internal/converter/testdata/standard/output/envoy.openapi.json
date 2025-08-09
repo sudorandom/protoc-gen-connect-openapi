@@ -1308,10 +1308,6 @@
           "value": {
             "type": "string",
             "format": "binary"
-          },
-          "debug": {
-            "type": "object",
-            "additionalProperties": true
           }
         },
         "additionalProperties": true,
@@ -1488,13 +1484,33 @@
             "type": "string",
             "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
           },
-          "detail": {
-            "$ref": "#/components/schemas/google.protobuf.Any"
+          "details": {
+            "$ref": "#/components/schemas/connect.error_details.Any"
           }
         },
         "title": "Connect Error",
         "additionalProperties": true,
         "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "connect.error_details.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "binary"
+          },
+          "debug": {
+            "type": "object",
+            "title": "Error Details",
+            "additionalProperties": true,
+            "description": "Detailed error information for Connect errors."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
       }
     }
   },

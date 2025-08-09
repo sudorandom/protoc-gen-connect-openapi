@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	"buf.build/go/protovalidate/resolve"
+	"buf.build/go/protovalidate"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -16,12 +16,12 @@ import (
 )
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
-	constraints, err := resolve.MessageRules(desc)
+	constraints, err := protovalidate.ResolveMessageRules(desc)
 	if err != nil {
 		slog.Warn("unable to resolve message rules", slog.Any("error", err))
 		return schema
 	}
-	if constraints == nil || constraints.GetDisabled() {
+	if constraints == nil {
 		return schema
 	}
 	updateWithCEL(schema, constraints.GetCel())
@@ -29,7 +29,7 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 }
 
 func SchemaWithFieldAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
-	constraints, err := resolve.FieldRules(desc)
+	constraints, err := protovalidate.ResolveFieldRules(desc)
 	if err != nil {
 		slog.Warn("unable to resolve field rules", slog.Any("error", err))
 		return schema
@@ -52,7 +52,7 @@ func PopulateParentProperties(opts options.Options, parent *base.Schema, desc pr
 	if parent == nil {
 		return parent
 	}
-	constraints, err := resolve.FieldRules(desc)
+	constraints, err := protovalidate.ResolveFieldRules(desc)
 	if err != nil {
 		slog.Warn("unable to resolve field rules", slog.Any("error", err))
 		return parent

@@ -53,6 +53,8 @@ type Options struct {
 	ShortServiceTags bool
 	// ShortOperationIds sets the operationId to shortServiceName + "_" + method short name instead of the full method name.
 	ShortOperationIds bool
+	// WithGoogleErrorDetail will add google error detail to the connect error response.
+	WithGoogleErrorDetail bool
 
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
@@ -118,6 +120,8 @@ func FromString(s string) (Options, error) {
 			opts.ShortServiceTags = true
 		case param == "short-operation-ids":
 			opts.ShortOperationIds = true
+		case param == "with-google-error-detail":
+			opts.WithGoogleErrorDetail = true
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)

@@ -188,10 +188,6 @@ func NewGoogleAny() *IDSchema {
 		Type:   []string{"string"},
 		Format: "binary",
 	}))
-	props.Set("debug", base.CreateSchemaProxy(&base.Schema{
-		Type:                 []string{"object"},
-		AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
-	}))
 
 	return &IDSchema{
 		ID: "google.protobuf.Any",

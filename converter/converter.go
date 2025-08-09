@@ -255,3 +255,11 @@ func WithPathPrefix(prefix string) Option {
 		return nil
 	}
 }
+
+// WithGoogleErrorDetail enables the generation of error details using error_details.proto from google.rpc.
+func WithGoogleErrorDetail(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.WithGoogleErrorDetail = enabled
+		return nil
+	}
+}
