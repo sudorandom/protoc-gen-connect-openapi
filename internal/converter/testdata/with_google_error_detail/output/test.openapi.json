@@ -168,7 +168,7 @@
           "retry_delay": {
             "type": "string",
             "format": "duration",
-            "description": "Clients consuming this error should wait at least this long before retrying. Units?"
+            "description": "Clients consuming this error should wait at least this long before retrying. The value is a duration string, following the protobuf Duration format (e.g., \"1.5s\" for one and a half seconds)."
           }
         },
         "description": "Describes when the clients can retry a failed request."

@@ -39,7 +39,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 	retryInfoProps.Set("retry_delay", base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"string"},
 		Format:      "duration",
-		Description: "Clients consuming this error should wait at least this long before retrying. Units?",
+		Description: "Clients consuming this error should wait at least this long before retrying. The value is a duration string, following the protobuf Duration format (e.g., \"1.5s\" for one and a half seconds).",
 	}))
 	schemas.Set("google.rpc.RetryInfo", base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"object"},
