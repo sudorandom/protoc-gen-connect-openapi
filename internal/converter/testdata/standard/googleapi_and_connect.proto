@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package tests.googleapi_and_connect;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service Foo {
+  rpc RPCWithHTTPEndpoint(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http).get = "/simple/http/path";
+  }
+  rpc RPC(google.protobuf.Empty) returns (google.protobuf.Empty) {}
+}

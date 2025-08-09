@@ -91,19 +91,19 @@ func mergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Paramet
 // namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
 var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 
-func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) *orderedmap.Map[string, *v3.PathItem] {
+func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*orderedmap.Map[string, *v3.PathItem], bool) {
 	if opts.IgnoreGoogleapiHTTP {
-		return nil
+		return nil, false
 	}
 	mdopts := md.Options()
 	if !proto.HasExtension(mdopts, annotations.E_Http) {
-		return nil
+		return nil, false
 	}
 	rule, ok := proto.GetExtension(mdopts, annotations.E_Http).(*annotations.HttpRule)
 	if !ok {
-		return nil
+		return nil, false
 	}
-	return httpRuleToPathMap(opts, md, rule)
+	return httpRuleToPathMap(opts, md, rule), true
 }
 
 func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule) *orderedmap.Map[string, *v3.PathItem] {
@@ -307,15 +307,6 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
-		Default: &v3.Response{
-			Description: "Error",
-			Content: util.MakeMediaTypes(
-				opts,
-				base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
-				false,
-				false,
-			),
-		},
 	}
 
 	switch method {
