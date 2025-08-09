@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package testing.filters.v1;
+
+message Empty {}
+
+service SearchService {
+  rpc Search(Empty) returns (Empty) {}
+}
+
+service ImageService {
+  rpc Upload(Empty) returns (Empty) {}
+}
+
+service StorageService {
+  rpc Upload(Empty) returns (Empty) {}
+}
+
+service UserService {
+  rpc GetUser(Empty) returns (Empty) {}
+}
+
+service UserAdminService {
+  rpc DeleteUser(Empty) returns (Empty) {}
+}
+
+service NewSearchService {
+  rpc Search(Empty) returns (Empty) {}
+}

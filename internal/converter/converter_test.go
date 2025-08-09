@@ -35,6 +35,7 @@ var scenarios = []Scenario{
 	{Name: "with_specification_extensions", Options: "base=testdata/with_specification_extensions/base.yaml,trim-unused-types"},
 	{Name: "additional_bindings"},
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
+	{Name: "with_service_filters", Options: "services=**.User*"},
 }
 
 type Scenario struct {

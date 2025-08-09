@@ -9,6 +9,7 @@ require (
 	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.18.1-20230913231627-233fca715f49.1
 	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.6-20230913231627-233fca715f49.1
 	buf.build/go/protovalidate v0.12.0
+	github.com/gobwas/glob v0.2.3
 	github.com/google/gnostic v0.7.0
 	github.com/lmittmann/tint v1.1.2
 	github.com/pb33f/libopenapi v0.22.3

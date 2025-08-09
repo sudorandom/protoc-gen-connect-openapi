@@ -190,7 +190,28 @@ func WithProtoAnnotations(enabled bool) Option {
 // WithServices will limit the services generated.
 func WithServices(serviceNames []protoreflect.FullName) Option {
 	return func(g *generator) error {
-		g.options.Services = append(g.options.Services, serviceNames...)
+		serviceNameStrs := make([]string, len(serviceNames))
+		for i, serviceName := range serviceNames {
+			serviceNameStrs[i] = string(serviceName)
+		}
+		services, err := options.CompileServicePatterns(serviceNameStrs)
+		if err != nil {
+			panic(err)
+		}
+		g.options.Services = append(g.options.Services, services...)
+		return nil
+	}
+}
+
+// WithServicePatterns will limit the services generated using glob patterns "company.service.*Service"
+func WithServicePatterns(serviceNames []string) Option {
+	return func(g *generator) error {
+		services, err := options.CompileServicePatterns(serviceNames)
+		if err != nil {
+			return fmt.Errorf("invalid service patterns: %w", err)
+		}
+		g.options.Services = append(g.options.Services, services...)
+
 		return nil
 	}
 }
