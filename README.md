@@ -100,7 +100,7 @@ plugins:
 ### Using buf
 This plugin is now available [as a remote plugin in the BSR](https://buf.build/community/sudorandom-connect-openapi).
 
-```
+```yaml
 version: v2
 plugins:
   - remote: buf.build/community/sudorandom-connect-openapi:v0.19.1
@@ -184,7 +184,7 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 
 ### Contributing
 Contributions are accepted and welcome! Please make sure that all tests pass locally for you. You normally can use normal Go tooling to run tests but if you change any protobuf files in `internal/converter/testdata/`, you need to run this command to ensure the related DescriptorSet gets updated:
-```
+```shell
 go generate ./internal/converter/testdata
 ```
 This exists because it's the easiest way to pull in buf dependencies in a reliable way.
