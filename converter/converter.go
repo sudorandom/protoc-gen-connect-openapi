@@ -196,7 +196,7 @@ func WithServices(serviceNames []protoreflect.FullName) Option {
 		}
 		services, err := options.CompileServicePatterns(serviceNameStrs)
 		if err != nil {
-			panic(err)
+			return fmt.Errorf("invalid service patterns: %w", err)
 		}
 		g.options.Services = append(g.options.Services, services...)
 		return nil
