@@ -233,12 +233,16 @@ func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor
 		operationId = string(service.Name()) + "_" + string(method.Name())
 	}
 
+	summary, description := util.FormatOperationComments(loc)
+	if summary == "" {
+		summary = string(method.Name())
+	}
 	op := &v3.Operation{
-		Summary:     string(method.Name()),
+		Summary:     summary,
 		OperationId: operationId,
 		Deprecated:  util.IsMethodDeprecated(method),
 		Tags:        []string{tagName},
-		Description: util.FormatComments(loc),
+		Description: description,
 	}
 
 	isStreaming := method.IsStreamingClient() || method.IsStreamingServer()

@@ -595,12 +595,12 @@ components:
           minimum: 5
           format: int32
           description: |
-            int32.lt = 10
             int32.gte = 5
             int32.gte_lt = 5
             int32.gte_lt_exclusive = 5
             int32.gte_lte = 5
             int32.gte_lte_exclusive = 5
+            int32.lt = 10
         int64Const:
           type:
             - integer
@@ -696,12 +696,12 @@ components:
           minimum: 5
           format: int64
           description: |
-            int64.lt = 10
             int64.gte = 5
             int64.gte_lt = 5
             int64.gte_lt_exclusive = 5
             int64.gte_lte = 5
             int64.gte_lte_exclusive = 5
+            int64.lt = 10
         uint32Const:
           type: integer
           title: uint32_const
@@ -771,12 +771,12 @@ components:
           title: uint32_bounds
           minimum: 5
           description: |
-            uint32.lt = 10
             uint32.gte = 5
             uint32.gte_lt = 5
             uint32.gte_lt_exclusive = 5
             uint32.gte_lte = 5
             uint32.gte_lte_exclusive = 5
+            uint32.lt = 10
         uint64Const:
           type:
             - integer
@@ -872,12 +872,12 @@ components:
           minimum: 5
           format: int64
           description: |
-            uint64.lt = 10
             uint64.gte = 5
             uint64.gte_lt = 5
             uint64.gte_lt_exclusive = 5
             uint64.gte_lte = 5
             uint64.gte_lte_exclusive = 5
+            uint64.lt = 10
         sint32Const:
           type: integer
           title: sint32_const
@@ -955,12 +955,12 @@ components:
           minimum: 5
           format: int32
           description: |
-            sint32.lt = 10
             sint32.gte = 5
             sint32.gte_lt = 5
             sint32.gte_lt_exclusive = 5
             sint32.gte_lte = 5
             sint32.gte_lte_exclusive = 5
+            sint32.lt = 10
         sint64Const:
           type:
             - integer
@@ -1056,12 +1056,12 @@ components:
           minimum: 5
           format: int64
           description: |
-            sint64.lt = 10
             sint64.gte = 5
             sint64.gte_lt = 5
             sint64.gte_lt_exclusive = 5
             sint64.gte_lte = 5
             sint64.gte_lte_exclusive = 5
+            sint64.lt = 10
         fixed32Const:
           type: integer
           title: fixed32_const
@@ -1131,12 +1131,12 @@ components:
           title: fixed32_bounds
           minimum: 5
           description: |
-            fixed32.lt = 10
             fixed32.gte = 5
             fixed32.gte_lt = 5
             fixed32.gte_lt_exclusive = 5
             fixed32.gte_lte = 5
             fixed32.gte_lte_exclusive = 5
+            fixed32.lt = 10
         fixed64Const:
           type:
             - integer
@@ -1232,12 +1232,12 @@ components:
           minimum: 5
           format: int64
           description: |
-            fixed64.lt = 10
             fixed64.gte = 5
             fixed64.gte_lt = 5
             fixed64.gte_lt_exclusive = 5
             fixed64.gte_lte = 5
             fixed64.gte_lte_exclusive = 5
+            fixed64.lt = 10
         sfixed32Const:
           type: integer
           title: sfixed32_const
@@ -1315,12 +1315,12 @@ components:
           minimum: 5
           format: int32
           description: |
-            sfixed32.lt = 10
             sfixed32.gte = 5
             sfixed32.gte_lt = 5
             sfixed32.gte_lt_exclusive = 5
             sfixed32.gte_lte = 5
             sfixed32.gte_lte_exclusive = 5
+            sfixed32.lt = 10
         sfixed64Const:
           type:
             - integer
@@ -1416,12 +1416,12 @@ components:
           minimum: 5
           format: int64
           description: |
-            sfixed64.lt = 10
             sfixed64.gte = 5
             sfixed64.gte_lt = 5
             sfixed64.gte_lt_exclusive = 5
             sfixed64.gte_lte = 5
             sfixed64.gte_lte_exclusive = 5
+            sfixed64.lt = 10
         stringConst:
           type: string
           title: string_const
@@ -1786,8 +1786,8 @@ components:
             maxLength: 10
             minLength: 3
             description: |
-              string.min_len = 3
               string.max_len = 10
+              string.min_len = 3
           title: repeated_items
         mapMinPairs:
           type: object
@@ -1818,8 +1818,8 @@ components:
             maxLength: 20
             minLength: 5
             description: |
-              string.min_len = 5
               string.max_len = 20
+              string.min_len = 5
         anyIn:
           title: any_in
           enum:
@@ -1885,12 +1885,12 @@ components:
         durationRange:
           title: duration_range
           description: |
-            duration.lt = 10s
             duration.gt = 5s
             duration.gt_lt = 5s
             duration.gt_lt_exclusive = 5s
             duration.gt_lte = 5s
             duration.gt_lte_exclusive = 5s
+            duration.lt = 10s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationGte:
           title: duration_gte
@@ -1944,12 +1944,12 @@ components:
         timestampRange:
           title: timestamp_range
           description: |
-            timestamp.lt = 2023-01-01T00:00:00Z
             timestamp.gt = 2022-12-31T00:00:00Z
             timestamp.gt_lt = 2022-12-31T00:00:00Z
             timestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z
             timestamp.gt_lte = 2022-12-31T00:00:00Z
             timestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z
+            timestamp.lt = 2023-01-01T00:00:00Z
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLtNow:
           title: timestamp_lt_now

@@ -76,6 +76,40 @@ func FormatComments(loc protoreflect.SourceLocation) string {
 	return strings.TrimSpace(builder.String())
 }
 
+func FormatOperationComments(loc protoreflect.SourceLocation) (summary string, description string) {
+	var leadingComments = strings.TrimSpace(loc.LeadingComments)
+	var trailingComments = strings.TrimSpace(loc.TrailingComments)
+
+	if leadingComments == "" && trailingComments == "" {
+		return "", ""
+	}
+
+	// Split leading comments by double newline to separate blocks
+	blocks := strings.Split(leadingComments, "\n\n")
+
+	// The first block is the summary
+	summary = strings.ReplaceAll(strings.TrimSpace(blocks[0]), "\n", " ") // Summary should be single line, replace newlines with spaces
+
+	// The rest of the blocks form the description
+	if len(blocks) > 1 {
+		description = strings.Join(blocks[1:], "\n\n")
+		description = strings.TrimSpace(description)
+	} else {
+		// If there's only one block, it serves as both summary and description
+		description = strings.TrimSpace(blocks[0])
+	}
+
+	// Append trailing comments to the description
+	if trailingComments != "" {
+		if description != "" {
+			description += "\n\n" // Add a blank line if description already exists
+		}
+		description += trailingComments
+	}
+
+	return summary, description
+}
+
 func BoolPtr(b bool) *bool {
 	return &b
 }

@@ -146,18 +146,34 @@ func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules
 			slog.Error("failed to reparse unrecognized fields", "error", err)
 		}
 
+		// Collect rules to sort them for consistent output
+		type ruleEntry struct {
+			fd protoreflect.FieldDescriptor
+			v  protoreflect.Value
+		}
+		var ruleEntries []ruleEntry
+
 		innerRules.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
-			predefinedRules, err := protovalidate.ResolvePredefinedRules(fd)
-			if err != nil {
-				slog.Error("error resolving predefined rules", "error", err)
-				return true
-			}
-			if predefinedRules == nil {
-				return true
-			}
-			updateWithCEL(schema, predefinedRules.GetCel(), &v, fd)
+			ruleEntries = append(ruleEntries, ruleEntry{fd: fd, v: v})
 			return true
 		})
+
+		// Sort rules by field name for consistent output
+		slices.SortFunc(ruleEntries, func(a, b ruleEntry) int {
+			return strings.Compare(string(a.fd.Name()), string(b.fd.Name()))
+		})
+
+		for _, entry := range ruleEntries {
+			predefinedRules, err := protovalidate.ResolvePredefinedRules(entry.fd)
+			if err != nil {
+				slog.Error("error resolving predefined rules", "error", err)
+				continue // Continue to next rule, don't return true to Range
+			}
+			if predefinedRules == nil {
+				continue // Continue to next rule
+			}
+			updateWithCEL(schema, predefinedRules.GetCel(), &entry.v, entry.fd)
+		}
 	}
 
 	if !onlyScalar {
