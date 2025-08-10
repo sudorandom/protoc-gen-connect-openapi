@@ -1,6 +1,7 @@
 package gnostic
 
 import (
+	"fmt"
 	"log/slog"
 
 	goa3 "github.com/google/gnostic/openapiv3"
@@ -63,11 +64,11 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 		if opts.Example.Yaml != "" {
 			var v string
 			if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &v); err != nil {
-				var node yaml.Node
+				var node any
 				if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &node); err != nil {
 					slog.Warn("unable to unmarshal example", slog.Any("error", err))
 				} else {
-					schema.Examples = append(schema.Examples, &node)
+					schema.Examples = append(schema.Examples, expandExampleEntry(node))
 				}
 			} else {
 				schema.Examples = append(schema.Examples, utils.CreateStringNode(v))
@@ -221,4 +222,32 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 	}
 
 	return schema
+}
+
+func expandExampleEntry(entry any) *yaml.Node {
+	switch vv := entry.(type) {
+	//Handle mapping nodes
+	case map[any]any:
+		node := utils.CreateEmptyMapNode()
+		for k, v := range vv {
+			keyNode := utils.CreateStringNode(k.(string))
+			node.Content = append(node.Content, keyNode, expandExampleEntry(v))
+		}
+		return node
+	// Handle sequence nodes
+	case []any:
+		node := utils.CreateEmptySequenceNode()
+		for _, v := range vv {
+			node.Content = append(node.Content, expandExampleEntry(v))
+		}
+		return node
+	case float64:
+		return utils.CreateFloatNode(fmt.Sprintf("%v", vv))
+	case int:
+		return utils.CreateIntNode(fmt.Sprintf("%v", vv))
+	case string:
+		return utils.CreateStringNode(vv)
+	default:
+		return utils.CreateStringNode(fmt.Sprintf("%v", vv))
+	}
 }

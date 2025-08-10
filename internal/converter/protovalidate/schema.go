@@ -2,6 +2,7 @@ package protovalidate
 
 import (
 	"log/slog"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -178,6 +179,11 @@ func updateWithCEL(schema *base.Schema, rules []*validate.Rule, val *protoreflec
 		b.WriteString(strings.TrimSpace(schema.Description))
 		b.WriteByte('\n')
 	}
+
+	slices.SortFunc(rules, func(a, b *validate.Rule) int {
+		return strings.Compare(a.GetId(), b.GetId())
+	})
+
 	for _, cel := range rules {
 		if cel.HasId() {
 			b.WriteString(cel.GetId())

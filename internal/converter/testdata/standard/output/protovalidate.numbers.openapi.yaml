@@ -26,12 +26,12 @@ components:
           minimum: 256
           format: double
           description: |
-            double.lte = 128
             double.gte = 256
             double.gte_lt = 256
             double.gte_lt_exclusive = 256
             double.gte_lte = 256
             double.gte_lte_exclusive = 256
+            double.lte = 128
       title: DoubleExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.DoubleExLTGT:
@@ -44,12 +44,12 @@ components:
           title: val
           format: double
           description: |
-            double.lt = 0
             double.gt = 10
             double.gt_lt = 10
             double.gt_lt_exclusive = 10
             double.gt_lte = 10
             double.gt_lte_exclusive = 10
+            double.lt = 0
       title: DoubleExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.DoubleExample:
@@ -118,12 +118,12 @@ components:
           minimum: 128
           format: double
           description: |
-            double.lte = 256
             double.gte = 128
             double.gte_lt = 128
             double.gte_lt_exclusive = 128
             double.gte_lte = 128
             double.gte_lte_exclusive = 128
+            double.lte = 256
       title: DoubleGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.DoubleGTLT:
@@ -136,12 +136,12 @@ components:
           title: val
           format: double
           description: |
-            double.lt = 10
             double.gt = 0
             double.gt_lt = 0
             double.gt_lt_exclusive = 0
             double.gt_lte = 0
             double.gt_lte_exclusive = 0
+            double.lt = 10
       title: DoubleGTLT
       additionalProperties: false
     buf.validate.conformance.cases.DoubleIgnore:
@@ -154,12 +154,12 @@ components:
           minimum: 128
           format: double
           description: |
-            double.lte = 256
             double.gte = 128
             double.gte_lt = 128
             double.gte_lt_exclusive = 128
             double.gte_lte = 128
             double.gte_lte_exclusive = 128
+            double.lte = 256
       title: DoubleIgnore
       additionalProperties: false
     buf.validate.conformance.cases.DoubleIn:
@@ -735,12 +735,12 @@ components:
           title: val
           format: float
           description: |
-            float.lte = 128
             float.gte = 256
             float.gte_lt = 256
             float.gte_lt_exclusive = 256
             float.gte_lte = 256
             float.gte_lte_exclusive = 256
+            float.lte = 128
       title: FloatExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.FloatExLTGT:
@@ -751,12 +751,12 @@ components:
           title: val
           format: float
           description: |
-            float.lt = 0
             float.gt = 10
             float.gt_lt = 10
             float.gt_lt_exclusive = 10
             float.gt_lte = 10
             float.gt_lte_exclusive = 10
+            float.lt = 0
       title: FloatExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.FloatExample:
@@ -821,12 +821,12 @@ components:
           title: val
           format: float
           description: |
-            float.lte = 256
             float.gte = 128
             float.gte_lt = 128
             float.gte_lt_exclusive = 128
             float.gte_lte = 128
             float.gte_lte_exclusive = 128
+            float.lte = 256
       title: FloatGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.FloatGTLT:
@@ -837,12 +837,12 @@ components:
           title: val
           format: float
           description: |
-            float.lt = 10
             float.gt = 0
             float.gt_lt = 0
             float.gt_lt_exclusive = 0
             float.gt_lte = 0
             float.gt_lte_exclusive = 0
+            float.lt = 10
       title: FloatGTLT
       additionalProperties: false
     buf.validate.conformance.cases.FloatIgnore:
@@ -853,12 +853,12 @@ components:
           title: val
           format: float
           description: |
-            float.lte = 256
             float.gte = 128
             float.gte_lt = 128
             float.gte_lt_exclusive = 128
             float.gte_lte = 128
             float.gte_lte_exclusive = 128
+            float.lte = 256
       title: FloatIgnore
       additionalProperties: false
     buf.validate.conformance.cases.FloatIn:
