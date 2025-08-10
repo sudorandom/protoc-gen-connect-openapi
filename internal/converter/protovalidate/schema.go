@@ -999,8 +999,8 @@ func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.Fiel
 		if m, ok := v.Interface().(*timestamppb.Timestamp); ok {
 			return m.AsTime().Format(time.RFC3339Nano)
 		}
-		return val.String()
+		data, _ := protojson.Marshal(val.Message().Interface())
+		return string(data)
 	}
-	data, _ := protojson.Marshal(val.Message().Interface())
-	return string(data)
+	return val.String()
 }
