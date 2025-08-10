@@ -473,7 +473,9 @@
     "securitySchemes": {
       "BasicAuth": {
         "type": "http",
-        "scheme": "basic"
+        "description": "Api Token",
+        "scheme": "bearer",
+        "bearerFormat": "ApiToken"
       }
     }
   },

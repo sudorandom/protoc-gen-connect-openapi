@@ -328,7 +328,9 @@ components:
   securitySchemes:
     BasicAuth:
       type: http
-      scheme: basic
+      description: Api Token
+      scheme: bearer
+      bearerFormat: ApiToken
 security: []
 tags:
   - name: example_with_gnostic.Greeter
