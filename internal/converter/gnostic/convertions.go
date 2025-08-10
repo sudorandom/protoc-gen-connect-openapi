@@ -133,18 +133,15 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 		secScheme := addProp.Value.GetSecurityScheme()
 		if secScheme != nil {
 			scheme := &v3.SecurityScheme{
-				Type: secScheme.Type,
+				Name:             secScheme.Name,
+				Description:      secScheme.Description,
+				Type:             secScheme.Type,
+				Scheme:           secScheme.Scheme,
+				BearerFormat:     secScheme.BearerFormat,
+				In:               secScheme.In,
+				OpenIdConnectUrl: secScheme.OpenIdConnectUrl,
 			}
-			switch secScheme.Type {
-			case "mutualTLS":
-			case "http":
-				scheme.Scheme = secScheme.Scheme
-			case "apiKey":
-				scheme.Name = secScheme.Name
-				scheme.In = secScheme.In
-			case "openIdConnect":
-				scheme.OpenIdConnectUrl = secScheme.OpenIdConnectUrl
-			case "oauth2":
+			if secScheme.Flows != nil {
 				flows := &v3.OAuthFlows{
 					Extensions: toExtensions(secScheme.Flows.SpecificationExtension),
 				}
@@ -199,8 +196,6 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 					}
 				}
 				scheme.Flows = flows
-			default:
-				continue
 			}
 			secSchemas.Set(addProp.Name, scheme)
 		}

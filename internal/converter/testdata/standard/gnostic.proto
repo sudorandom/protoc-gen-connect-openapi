@@ -46,7 +46,9 @@ option (gnostic.openapi.v3.document) = {
           value: {
             security_scheme: {
               type: "http"
-              scheme: "basic"
+              scheme: "bearer"
+              description: "Api Token"
+              bearer_format: "ApiToken"
             }
           }
         }
