@@ -13,7 +13,6 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
 func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3.Components, error) {
@@ -132,7 +131,16 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			Description: "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.",
 			Type:        []string{"string"},
 		}))
-		connectErrorProps.Set("detail", base.CreateSchemaProxyRef("#/components/schemas/google.protobuf.Any"))
+
+		connectErrorProps.Set("details", base.CreateSchemaProxy(&base.Schema{
+			Type: []string{"array"},
+			Items: &base.DynamicValue[*base.SchemaProxy, bool]{
+				N: 0,
+				A: base.CreateSchemaProxyRef("#/components/schemas/connect.error_details.Any"),
+			},
+			Description: "A list of messages that carry the error details. There is no limit on the number of messages.",
+		}))
+
 		components.Schemas.Set("connect.error", base.CreateSchemaProxy(&base.Schema{
 			Title:                "Connect Error",
 			Description:          `Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`,
@@ -140,8 +148,56 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			Type:                 []string{"object"},
 			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
 		}))
-		anyPair := util.NewGoogleAny()
-		components.Schemas.Set(anyPair.ID, base.CreateSchemaProxy(anyPair.Schema))
+		connectAnyProps := orderedmap.New[string, *base.SchemaProxy]()
+		connectAnyProps.Set("type", base.CreateSchemaProxy(&base.Schema{
+			Type:        []string{"string"},
+			Description: "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field.",
+		}))
+		connectAnyProps.Set("value", base.CreateSchemaProxy(&base.Schema{
+			Type:        []string{"string"},
+			Format:      "binary",
+			Description: "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.",
+		}))
+
+		errorDetailOptions := []*base.SchemaProxy{
+			base.CreateSchemaProxy(&base.Schema{
+				Title:                "Any",
+				Description:          "Detailed error information.",
+				Type:                 []string{"object"},
+				AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+			}),
+		}
+		mapping := orderedmap.New[string, string]()
+		if opts.WithGoogleErrorDetail {
+			googleRPCSchemas := newGoogleRPCErrorDetailSchemas()
+			for pair := googleRPCSchemas.First(); pair != nil; pair = pair.Next() {
+				components.Schemas.Set(pair.Key(), pair.Value())
+				errorDetailOptions = append(errorDetailOptions, base.CreateSchemaProxyRef("#/components/schemas/"+pair.Key()))
+			}
+			for pair := googleRPCSchemas.First(); pair != nil; pair = pair.Next() {
+				// The key is the full type URL, the value is the schema reference
+				mapping.Set("type.googleapis.com/"+pair.Key(), "#/components/schemas/"+pair.Key())
+			}
+		}
+
+		// Now create the schema for the "debug" field with the discriminator
+		debugSchema := base.CreateSchemaProxy(&base.Schema{
+			Title:       "Debug",
+			Description: `Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.`,
+			OneOf:       errorDetailOptions,
+			Discriminator: &base.Discriminator{
+				PropertyName: "type",
+				Mapping:      mapping,
+			},
+		})
+		connectAnyProps.Set("debug", debugSchema)
+
+		components.Schemas.Set("connect.error_details.Any", base.CreateSchemaProxy(&base.Schema{
+			Description:          "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.",
+			Type:                 []string{"object"},
+			Properties:           connectAnyProps,
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
+		}))
 	}
 
 	return components, nil
