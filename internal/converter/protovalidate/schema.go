@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"strconv"
 	"strings"
+	"time"
 
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	"buf.build/go/protovalidate"
@@ -15,6 +16,8 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
+	"google.golang.org/protobuf/types/known/durationpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"gopkg.in/yaml.v3"
 )
 
@@ -29,23 +32,6 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 	}
 	updateWithCEL(schema, rules.GetCel(), nil, nil)
 	return schema
-}
-
-func reparseUnrecognized(
-	extensionTypeResolver protoregistry.ExtensionTypeResolver,
-	reflectMessage protoreflect.Message,
-) error {
-	if unknown := reflectMessage.GetUnknown(); len(unknown) > 0 {
-		reflectMessage.SetUnknown(nil)
-		options := proto.UnmarshalOptions{
-			Resolver: extensionTypeResolver,
-			Merge:    true,
-		}
-		if err := options.Unmarshal(unknown, reflectMessage.Interface()); err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func SchemaWithFieldAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
@@ -214,33 +200,6 @@ func updateWithCEL(schema *base.Schema, rules []*validate.Rule, val *protoreflec
 	}
 	s := b.String()
 	schema.Description = s
-}
-
-func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.FieldDescriptor) string {
-	switch v := val.Interface().(type) {
-	case protoreflect.List:
-		var elements []string
-		for i := 0; i < v.Len(); i++ {
-			elements = append(elements, formatProtoreflectValue(v.Get(i), fieldDesc))
-		}
-		return "[" + strings.Join(elements, ", ") + "]"
-	case protoreflect.EnumNumber:
-		if fieldDesc != nil && fieldDesc.Kind() == protoreflect.EnumKind {
-			enumDesc := fieldDesc.Enum()
-			enumValDesc := enumDesc.Values().ByNumber(v)
-			if enumValDesc != nil {
-				return string(enumValDesc.Name())
-			}
-		}
-		return strconv.Itoa(int(v))
-	case string:
-		return strconv.Quote(v)
-	case proto.Message:
-		data, _ := protojson.Marshal(v)
-		return string(data)
-	default:
-		return val.String()
-	}
 }
 
 func updateSchemaFloat(schema *base.Schema, constraint *validate.FloatRules) {
@@ -950,32 +909,98 @@ func updateSchemaAny(schema *base.Schema, constraint *validate.AnyRules) {
 
 func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRules) {
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(constraint.Const.String())
+		schema.Const = utils.CreateStringNode(constraint.Const.AsDuration().String())
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(item.String())
+			items[i] = utils.CreateStringNode(item.AsDuration().String())
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(item.String())
+			items[i] = utils.CreateStringNode(item.AsDuration().String())
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.String()))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsDuration().String()))
 	}
 }
 
 func updateSchemaTimestamp(schema *base.Schema, constraint *validate.TimestampRules) {
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(constraint.Const.String())
+		schema.Const = utils.CreateStringNode(constraint.Const.AsTime().String())
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.String()))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsTime().String()))
 	}
+}
+
+func reparseUnrecognized(
+	extensionTypeResolver protoregistry.ExtensionTypeResolver,
+	reflectMessage protoreflect.Message,
+) error {
+	if unknown := reflectMessage.GetUnknown(); len(unknown) > 0 {
+		reflectMessage.SetUnknown(nil)
+		options := proto.UnmarshalOptions{
+			Resolver: extensionTypeResolver,
+			Merge:    true,
+		}
+		if err := options.Unmarshal(unknown, reflectMessage.Interface()); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.FieldDescriptor) string {
+	switch v := val.Interface().(type) {
+	case protoreflect.List:
+		var elements []string
+		for i := 0; i < v.Len(); i++ {
+			elements = append(elements, formatProtoreflectValue(v.Get(i), fieldDesc))
+		}
+		return "[" + strings.Join(elements, ", ") + "]"
+	case protoreflect.EnumNumber:
+		if fieldDesc != nil && fieldDesc.Kind() == protoreflect.EnumKind {
+			enumDesc := fieldDesc.Enum()
+			enumValDesc := enumDesc.Values().ByNumber(v)
+			if enumValDesc != nil {
+				return string(enumValDesc.Name())
+			}
+		}
+		return strconv.Itoa(int(v))
+	case string:
+		return strconv.Quote(v)
+	case *durationpb.Duration:
+		return v.AsDuration().String()
+	case *timestamppb.Timestamp:
+		// RFC3339Nano for OpenAPI compatibility
+		return v.AsTime().Format(time.RFC3339Nano)
+	case proto.Message:
+		// Special handling for Duration and Timestamp proto messages
+		switch msg := v.(type) {
+		case *durationpb.Duration:
+			return msg.AsDuration().String()
+		case *timestamppb.Timestamp:
+			return msg.AsTime().Format(time.RFC3339Nano)
+		default:
+			data, _ := protojson.Marshal(msg)
+			return string(data)
+		}
+	case protoreflect.Message:
+		// Try to convert to well-known types
+		if m, ok := v.Interface().(*durationpb.Duration); ok {
+			return m.AsDuration().String()
+		}
+		if m, ok := v.Interface().(*timestamppb.Timestamp); ok {
+			return m.AsTime().Format(time.RFC3339Nano)
+		}
+		return val.String()
+	}
+	data, _ := protojson.Marshal(val.Message().Interface())
+	return string(data)
 }

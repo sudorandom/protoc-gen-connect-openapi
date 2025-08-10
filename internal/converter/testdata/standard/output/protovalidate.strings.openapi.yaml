@@ -56,8 +56,8 @@ components:
           type: string
           title: val
           description: |
-            string.max_bytes = 4
             string.min_bytes = 4
+            string.max_bytes = 4
       title: StringEqualMinMaxBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringEqualMinMaxLen:
@@ -369,8 +369,8 @@ components:
           type: string
           title: val
           description: |
-            string.max_bytes = 8
             string.min_bytes = 4
+            string.max_bytes = 8
       title: StringMinMaxBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringMinMaxLen:

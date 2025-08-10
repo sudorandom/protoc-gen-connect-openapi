@@ -1836,120 +1836,120 @@ components:
         durationConst:
           title: duration_const
           description: |
-            duration.const = &{{} [] [] 0x140001d4600}
-          const: seconds:2000
+            duration.const = 33m20s
+          const: 33m20s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationIn:
           title: duration_in
           enum:
-            - seconds:1
-            - seconds:2
-            - seconds:3
+            - 1s
+            - 2s
+            - 3s
           description: |
-            duration.in = [&{{} [] [] 0x140001d4600}, &{{} [] [] 0x140001d4600}, &{{} [] [] 0x140001d4600}]
+            duration.in = [1s, 2s, 3s]
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationNotIn:
           not:
             enum:
-              - seconds:1
-              - seconds:2
-              - seconds:3
+              - 1s
+              - 2s
+              - 3s
           title: duration_not_in
           description: |
-            duration.not_in = [&{{} [] [] 0x140001d4600}, &{{} [] [] 0x140001d4600}, &{{} [] [] 0x140001d4600}]
+            duration.not_in = [1s, 2s, 3s]
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationLt:
           title: duration_lt
           description: |
-            duration.lt = &{{} [] [] 0x140001d4600}
+            duration.lt = 5s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationLte:
           title: duration_lte
           description: |
-            duration.lte = &{{} [] [] 0x140001d4600}
+            duration.lte = 10s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationLtSeconds:
           title: duration_lt_seconds
           description: |
-            duration.lt = &{{} [] [] 0x140001d4600}
+            duration.lt = 72h0m0s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationGt:
           title: duration_gt
           description: |
-            duration.gt = &{{} [] [] 0x140001d4600}
-            duration.gt_lt = &{{} [] [] 0x140001d4600}
-            duration.gt_lt_exclusive = &{{} [] [] 0x140001d4600}
-            duration.gt_lte = &{{} [] [] 0x140001d4600}
-            duration.gt_lte_exclusive = &{{} [] [] 0x140001d4600}
+            duration.gt = 5s
+            duration.gt_lt = 5s
+            duration.gt_lt_exclusive = 5s
+            duration.gt_lte = 5s
+            duration.gt_lte_exclusive = 5s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationRange:
           title: duration_range
           description: |
-            duration.lt = &{{} [] [] 0x140001d4600}
-            duration.gt = &{{} [] [] 0x140001d4600}
-            duration.gt_lt = &{{} [] [] 0x140001d4600}
-            duration.gt_lt_exclusive = &{{} [] [] 0x140001d4600}
-            duration.gt_lte = &{{} [] [] 0x140001d4600}
-            duration.gt_lte_exclusive = &{{} [] [] 0x140001d4600}
+            duration.lt = 10s
+            duration.gt = 5s
+            duration.gt_lt = 5s
+            duration.gt_lt_exclusive = 5s
+            duration.gt_lte = 5s
+            duration.gt_lte_exclusive = 5s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationGte:
           title: duration_gte
           description: |
-            duration.gte = &{{} [] [] 0x140001d4600}
-            duration.gte_lt = &{{} [] [] 0x140001d4600}
-            duration.gte_lt_exclusive = &{{} [] [] 0x140001d4600}
-            duration.gte_lte = &{{} [] [] 0x140001d4600}
-            duration.gte_lte_exclusive = &{{} [] [] 0x140001d4600}
+            duration.gte = 5s
+            duration.gte_lt = 5s
+            duration.gte_lt_exclusive = 5s
+            duration.gte_lte = 5s
+            duration.gte_lte_exclusive = 5s
           $ref: '#/components/schemas/google.protobuf.Duration'
         timestampConst:
           title: timestamp_const
           description: |
             This is a constant timestamp!
-            timestamp.const = &{{} [] [] 0x140001d4900}
-          const: seconds:1727998800
+            timestamp.const = 2024-10-03T23:40:00Z
+          const: 2024-10-03 23:40:00 +0000 UTC
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampWithin:
           title: timestamp_within
           description: |
-            timestamp.within = &{{} [] [] 0x140001d4600}
+            timestamp.within = 1h0m0s
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLt:
           title: timestamp_lt
           description: |
-            timestamp.lte = &{{} [] [] 0x140001d4900}
+            timestamp.lte = 2023-03-15T08:00:00Z
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLte:
           title: timestamp_lte
           description: |
-            timestamp.lte = &{{} [] [] 0x140001d4900}
+            timestamp.lte = 2023-03-15T08:00:00Z
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampGt:
           title: timestamp_gt
           description: |
-            timestamp.gt = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lt = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lt_exclusive = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lte = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lte_exclusive = &{{} [] [] 0x140001d4900}
+            timestamp.gt = 2022-12-31T00:00:00Z
+            timestamp.gt_lt = 2022-12-31T00:00:00Z
+            timestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z
+            timestamp.gt_lte = 2022-12-31T00:00:00Z
+            timestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampGte:
           title: timestamp_gte
           description: |
-            timestamp.gte = &{{} [] [] 0x140001d4900}
-            timestamp.gte_lt = &{{} [] [] 0x140001d4900}
-            timestamp.gte_lt_exclusive = &{{} [] [] 0x140001d4900}
-            timestamp.gte_lte = &{{} [] [] 0x140001d4900}
-            timestamp.gte_lte_exclusive = &{{} [] [] 0x140001d4900}
+            timestamp.gte = 2022-12-31T00:00:00Z
+            timestamp.gte_lt = 2022-12-31T00:00:00Z
+            timestamp.gte_lt_exclusive = 2022-12-31T00:00:00Z
+            timestamp.gte_lte = 2022-12-31T00:00:00Z
+            timestamp.gte_lte_exclusive = 2022-12-31T00:00:00Z
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampRange:
           title: timestamp_range
           description: |
-            timestamp.gt = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lt = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lt_exclusive = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lte = &{{} [] [] 0x140001d4900}
-            timestamp.gt_lte_exclusive = &{{} [] [] 0x140001d4900}
-            timestamp.lt = &{{} [] [] 0x140001d4900}
+            timestamp.lt = 2023-01-01T00:00:00Z
+            timestamp.gt = 2022-12-31T00:00:00Z
+            timestamp.gt_lt = 2022-12-31T00:00:00Z
+            timestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z
+            timestamp.gt_lte = 2022-12-31T00:00:00Z
+            timestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLtNow:
           title: timestamp_lt_now

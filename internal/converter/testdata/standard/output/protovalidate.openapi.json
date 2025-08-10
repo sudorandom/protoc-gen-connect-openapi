@@ -1716,96 +1716,96 @@
           },
           "durationConst": {
             "title": "duration_const",
-            "description": "duration.const = \u0026{{} [] [] 0x140001d4600}\n",
-            "const": "seconds:2000",
+            "description": "duration.const = 33m20s\n",
+            "const": "33m20s",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationIn": {
             "title": "duration_in",
             "enum": [
-              "seconds:1",
-              "seconds:2",
-              "seconds:3"
+              "1s",
+              "2s",
+              "3s"
             ],
-            "description": "duration.in = [\u0026{{} [] [] 0x140001d4600}, \u0026{{} [] [] 0x140001d4600}, \u0026{{} [] [] 0x140001d4600}]\n",
+            "description": "duration.in = [1s, 2s, 3s]\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationNotIn": {
             "not": {
               "enum": [
-                "seconds:1",
-                "seconds:2",
-                "seconds:3"
+                "1s",
+                "2s",
+                "3s"
               ]
             },
             "title": "duration_not_in",
-            "description": "duration.not_in = [\u0026{{} [] [] 0x140001d4600}, \u0026{{} [] [] 0x140001d4600}, \u0026{{} [] [] 0x140001d4600}]\n",
+            "description": "duration.not_in = [1s, 2s, 3s]\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationLt": {
             "title": "duration_lt",
-            "description": "duration.lt = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "duration.lt = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationLte": {
             "title": "duration_lte",
-            "description": "duration.lte = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "duration.lte = 10s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationLtSeconds": {
             "title": "duration_lt_seconds",
-            "description": "duration.lt = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "duration.lt = 72h0m0s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationGt": {
             "title": "duration_gt",
-            "description": "duration.gt = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lt = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lt_exclusive = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lte = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lte_exclusive = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationRange": {
             "title": "duration_range",
-            "description": "duration.lt = \u0026{{} [] [] 0x140001d4600}\nduration.gt = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lt = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lt_exclusive = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lte = \u0026{{} [] [] 0x140001d4600}\nduration.gt_lte_exclusive = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "duration.lt = 10s\nduration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationGte": {
             "title": "duration_gte",
-            "description": "duration.gte = \u0026{{} [] [] 0x140001d4600}\nduration.gte_lt = \u0026{{} [] [] 0x140001d4600}\nduration.gte_lt_exclusive = \u0026{{} [] [] 0x140001d4600}\nduration.gte_lte = \u0026{{} [] [] 0x140001d4600}\nduration.gte_lte_exclusive = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "duration.gte = 5s\nduration.gte_lt = 5s\nduration.gte_lt_exclusive = 5s\nduration.gte_lte = 5s\nduration.gte_lte_exclusive = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "timestampConst": {
             "title": "timestamp_const",
-            "description": "This is a constant timestamp!\ntimestamp.const = \u0026{{} [] [] 0x140001d4900}\n",
-            "const": "seconds:1727998800",
+            "description": "This is a constant timestamp!\ntimestamp.const = 2024-10-03T23:40:00Z\n",
+            "const": "2024-10-03 23:40:00 +0000 UTC",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampWithin": {
             "title": "timestamp_within",
-            "description": "timestamp.within = \u0026{{} [] [] 0x140001d4600}\n",
+            "description": "timestamp.within = 1h0m0s\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLt": {
             "title": "timestamp_lt",
-            "description": "timestamp.lte = \u0026{{} [] [] 0x140001d4900}\n",
+            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLte": {
             "title": "timestamp_lte",
-            "description": "timestamp.lte = \u0026{{} [] [] 0x140001d4900}\n",
+            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampGt": {
             "title": "timestamp_gt",
-            "description": "timestamp.gt = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lt = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lt_exclusive = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lte = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lte_exclusive = \u0026{{} [] [] 0x140001d4900}\n",
+            "description": "timestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampGte": {
             "title": "timestamp_gte",
-            "description": "timestamp.gte = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gte_lt = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gte_lt_exclusive = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gte_lte = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gte_lte_exclusive = \u0026{{} [] [] 0x140001d4900}\n",
+            "description": "timestamp.gte = 2022-12-31T00:00:00Z\ntimestamp.gte_lt = 2022-12-31T00:00:00Z\ntimestamp.gte_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gte_lte = 2022-12-31T00:00:00Z\ntimestamp.gte_lte_exclusive = 2022-12-31T00:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampRange": {
             "title": "timestamp_range",
-            "description": "timestamp.gt = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lt = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lt_exclusive = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lte = \u0026{{} [] [] 0x140001d4900}\ntimestamp.gt_lte_exclusive = \u0026{{} [] [] 0x140001d4900}\ntimestamp.lt = \u0026{{} [] [] 0x140001d4900}\n",
+            "description": "timestamp.lt = 2023-01-01T00:00:00Z\ntimestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLtNow": {
