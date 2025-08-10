@@ -29,6 +29,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		Description: `Additional structured details about this error. Keys must match a regular expression of ` + "`[a-z][a-zA-Z0-9-_]+`" + ` but should ideally be lowerCamelCase. Also, they must be limited to 64 characters in length. When identifying the current value of an exceeded limit, the units should be contained in the key, not the value.  For example, rather than ` + "`{\"instanceLimit\": \"100/request\"}`" + `, should be returned as, ` + "`{\"instanceLimitPerRequest\": \"100\"}`" + `, if the client exceeds the number of instances that can be created in a single (batch) request.`,
 	}))
 	schemas.Set("google.rpc.ErrorInfo", base.CreateSchemaProxy(&base.Schema{
+		Title:       "ErrorInfo",
 		Type:        []string{"object"},
 		Properties:  errorInfoProps,
 		Description: "Describes the cause of the error with structured details.",
@@ -42,6 +43,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		Description: "Clients consuming this error should wait at least this long before retrying. The value is a duration string, following the protobuf Duration format (e.g., \"1.5s\" for one and a half seconds).",
 	}))
 	schemas.Set("google.rpc.RetryInfo", base.CreateSchemaProxy(&base.Schema{
+		Title:       "RetryInfo",
 		Type:        []string{"object"},
 		Properties:  retryInfoProps,
 		Description: "Describes when the clients can retry a failed request.",
@@ -62,6 +64,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		Type: []string{"string"},
 	}))
 	schemas.Set("google.rpc.DebugInfo", base.CreateSchemaProxy(&base.Schema{
+		Title:       "DebugInfo",
 		Type:        []string{"object"},
 		Properties:  debugInfoProps,
 		Description: "Contains debugging information.",
@@ -89,6 +92,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		},
 	}))
 	schemas.Set("google.rpc.QuotaFailure", base.CreateSchemaProxy(&base.Schema{
+		Title:       "QuotaFailure",
 		Type:        []string{"object"},
 		Properties:  quotaFailureProps,
 		Description: "Describes how a quota check failed.",
@@ -120,6 +124,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		},
 	}))
 	schemas.Set("google.rpc.PreconditionFailure", base.CreateSchemaProxy(&base.Schema{
+		Title:       "PreconditionFailure",
 		Type:        []string{"object"},
 		Properties:  preconditionFailureProps,
 		Description: "A message type used to describe a failed precondition.",
@@ -147,6 +152,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		},
 	}))
 	schemas.Set("google.rpc.BadRequest", base.CreateSchemaProxy(&base.Schema{
+		Title:       "BadRequest",
 		Type:        []string{"object"},
 		Properties:  badRequestProps,
 		Description: "A message type used to describe a bad request.",
@@ -163,6 +169,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		Description: "The serving data that were used to process the request.",
 	}))
 	schemas.Set("google.rpc.RequestInfo", base.CreateSchemaProxy(&base.Schema{
+		Title:       "RequestInfo",
 		Type:        []string{"object"},
 		Properties:  requestInfoProps,
 		Description: "Contains metadata about the request that clients can attach when filing a bug or providing other forms of feedback.",
@@ -187,6 +194,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		Description: "A description of the resource (optional).",
 	}))
 	schemas.Set("google.rpc.ResourceInfo", base.CreateSchemaProxy(&base.Schema{
+		Title:       "ResourceInfo",
 		Type:        []string{"object"},
 		Properties:  resourceInfoProps,
 		Description: "Describes the resource that is being accessed.",
@@ -214,6 +222,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		},
 	}))
 	schemas.Set("google.rpc.Help", base.CreateSchemaProxy(&base.Schema{
+		Title:       "Help",
 		Type:        []string{"object"},
 		Properties:  helpProps,
 		Description: "Provides links to documentation or for performing an out-of-band action.",
@@ -230,6 +239,7 @@ func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy]
 		Description: "The localized message in the locale.",
 	}))
 	schemas.Set("google.rpc.LocalizedMessage", base.CreateSchemaProxy(&base.Schema{
+		Title:       "LocalizedMessage",
 		Type:        []string{"object"},
 		Properties:  localizedMessageProps,
 		Description: "A message type used to provide a localized message.",
