@@ -167,10 +167,10 @@ func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules
 			predefinedRules, err := protovalidate.ResolvePredefinedRules(entry.fd)
 			if err != nil {
 				slog.Error("error resolving predefined rules", "error", err)
-				continue // Continue to next rule, don't return true to Range
+				continue
 			}
 			if predefinedRules == nil {
-				continue // Continue to next rule
+				continue
 			}
 			updateWithCEL(schema, predefinedRules.GetCel(), &entry.v, entry.fd)
 		}
