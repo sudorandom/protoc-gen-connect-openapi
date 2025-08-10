@@ -11,6 +11,9 @@ components:
           type: string
           title: val
           format: address
+          description: |
+            string.address = true // value must be a valid hostname, or ip address
+            string.address_empty = true // value is empty, which is not a valid hostname, or ip address
       title: StringAddress
       additionalProperties: false
     buf.validate.conformance.cases.StringConst:
@@ -19,6 +22,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.const = "foo"
           const: foo
       title: StringConst
       additionalProperties: false
@@ -28,6 +33,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.contains = "bar"
       title: StringContains
       additionalProperties: false
     buf.validate.conformance.cases.StringEmail:
@@ -37,6 +44,9 @@ components:
           type: string
           title: val
           format: email
+          description: |
+            string.email = true // value must be a valid email address
+            string.email_empty = true // value is empty, which is not a valid email address
       title: StringEmail
       additionalProperties: false
     buf.validate.conformance.cases.StringEqualMinMaxBytes:
@@ -45,6 +55,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.max_bytes = 4
+            string.min_bytes = 4
       title: StringEqualMinMaxBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringEqualMinMaxLen:
@@ -55,6 +68,9 @@ components:
           title: val
           maxLength: 5
           minLength: 5
+          description: |
+            string.min_len = 5
+            string.max_len = 5
       title: StringEqualMinMaxLen
       additionalProperties: false
     buf.validate.conformance.cases.StringExample:
@@ -65,6 +81,8 @@ components:
           examples:
             - foo
           title: val
+          description: |
+            string.example = ["foo"]
       title: StringExample
       additionalProperties: false
     buf.validate.conformance.cases.StringHostAndOptionalPort:
@@ -73,12 +91,8 @@ components:
         val:
           type: string
           title: val
-          description: |+
-            value must be a host and (optional) port pair:
-            ```
-            this.isHostAndPort(false)
-            ```
-
+          description: |
+            string.host_and_port.optional_port // value must be a host and (optional) port pair
       title: StringHostAndOptionalPort
       additionalProperties: false
     buf.validate.conformance.cases.StringHostAndPort:
@@ -87,6 +101,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair
+            string.host_and_port_empty = true // value is empty, which is not a valid host and port pair
       title: StringHostAndPort
       additionalProperties: false
     buf.validate.conformance.cases.StringHostname:
@@ -96,6 +113,9 @@ components:
           type: string
           title: val
           format: hostname
+          description: |
+            string.hostname = true // value must be a valid hostname
+            string.hostname_empty = true // value is empty, which is not a valid hostname
       title: StringHostname
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderName:
@@ -104,6 +124,10 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
       title: StringHttpHeaderName
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderNameLoose:
@@ -112,6 +136,10 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
       title: StringHttpHeaderNameLoose
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderValue:
@@ -120,6 +148,10 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
       title: StringHttpHeaderValue
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderValueLoose:
@@ -128,6 +160,10 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
       title: StringHttpHeaderValueLoose
       additionalProperties: false
     buf.validate.conformance.cases.StringIP:
@@ -137,6 +173,9 @@ components:
           type: string
           title: val
           format: ip
+          description: |
+            string.ip = true // value must be a valid IP address
+            string.ip_empty = true // value is empty, which is not a valid IP address
       title: StringIP
       additionalProperties: false
     buf.validate.conformance.cases.StringIPPrefix:
@@ -145,6 +184,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ip_prefix = true // value must be a valid IP prefix
+            string.ip_prefix_empty = true // value is empty, which is not a valid IP prefix
       title: StringIPPrefix
       additionalProperties: false
     buf.validate.conformance.cases.StringIPWithPrefixLen:
@@ -153,6 +195,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ip_with_prefixlen = true // value must be a valid IP prefix
+            string.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix
       title: StringIPWithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv4:
@@ -162,6 +207,9 @@ components:
           type: string
           title: val
           format: ipv4
+          description: |
+            string.ipv4 = true // value must be a valid IPv4 address
+            string.ipv4_empty = true // value is empty, which is not a valid IPv4 address
       title: StringIPv4
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv4Prefix:
@@ -170,6 +218,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv4_prefix = true // value must be a valid IPv4 prefix
+            string.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix
       title: StringIPv4Prefix
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv4WithPrefixLen:
@@ -178,6 +229,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length
       title: StringIPv4WithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv6:
@@ -187,6 +241,9 @@ components:
           type: string
           title: val
           format: ipv6
+          description: |
+            string.ipv6 = true // value must be a valid IPv6 address
+            string.ipv6_empty = true // value is empty, which is not a valid IPv6 address
       title: StringIPv6
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv6Prefix:
@@ -195,6 +252,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv6_prefix = true // value must be a valid IPv6 prefix
+            string.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix
       title: StringIPv6Prefix
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv6WithPrefixLen:
@@ -203,6 +263,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length
       title: StringIPv6WithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringIn:
@@ -214,6 +277,8 @@ components:
           enum:
             - bar
             - baz
+          description: |
+            string.in = ["bar", "baz"]
       title: StringIn
       additionalProperties: false
     buf.validate.conformance.cases.StringInOneof:
@@ -226,6 +291,8 @@ components:
               enum:
                 - a
                 - b
+              description: |
+                string.in = ["a", "b"]
           title: bar
           required:
             - bar
@@ -239,6 +306,8 @@ components:
           title: val
           maxLength: 3
           minLength: 3
+          description: |
+            string.len = 3
       title: StringLen
       additionalProperties: false
     buf.validate.conformance.cases.StringLenBytes:
@@ -247,6 +316,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.len_bytes = 4
       title: StringLenBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringMaxBytes:
@@ -255,6 +326,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.max_bytes = 8
       title: StringMaxBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringMaxLen:
@@ -264,6 +337,8 @@ components:
           type: string
           title: val
           maxLength: 5
+          description: |
+            string.max_len = 5
       title: StringMaxLen
       additionalProperties: false
     buf.validate.conformance.cases.StringMinBytes:
@@ -272,6 +347,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.min_bytes = 4
       title: StringMinBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringMinLen:
@@ -281,6 +358,8 @@ components:
           type: string
           title: val
           minLength: 3
+          description: |
+            string.min_len = 3
       title: StringMinLen
       additionalProperties: false
     buf.validate.conformance.cases.StringMinMaxBytes:
@@ -289,6 +368,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.max_bytes = 8
+            string.min_bytes = 4
       title: StringMinMaxBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringMinMaxLen:
@@ -299,6 +381,9 @@ components:
           title: val
           maxLength: 5
           minLength: 3
+          description: |
+            string.min_len = 3
+            string.max_len = 5
       title: StringMinMaxLen
       additionalProperties: false
     buf.validate.conformance.cases.StringNone:
@@ -315,6 +400,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.address = false // value must be a valid hostname, or ip address
+            string.address_empty = false // value is empty, which is not a valid hostname, or ip address
       title: StringNotAddress
       additionalProperties: false
     buf.validate.conformance.cases.StringNotContains:
@@ -323,6 +411,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.not_contains = "bar"
       title: StringNotContains
       additionalProperties: false
     buf.validate.conformance.cases.StringNotEmail:
@@ -331,6 +421,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.email = false // value must be a valid email address
+            string.email_empty = false // value is empty, which is not a valid email address
       title: StringNotEmail
       additionalProperties: false
     buf.validate.conformance.cases.StringNotHostname:
@@ -339,6 +432,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.hostname = false // value must be a valid hostname
+            string.hostname_empty = false // value is empty, which is not a valid hostname
       title: StringNotHostname
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIP:
@@ -347,6 +443,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ip = false // value must be a valid IP address
+            string.ip_empty = false // value is empty, which is not a valid IP address
       title: StringNotIP
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPPrefix:
@@ -355,6 +454,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ip_prefix = false // value must be a valid IP prefix
+            string.ip_prefix_empty = false // value is empty, which is not a valid IP prefix
       title: StringNotIPPrefix
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPWithPrefixLen:
@@ -363,6 +465,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ip_with_prefixlen = false // value must be a valid IP prefix
+            string.ip_with_prefixlen_empty = false // value is empty, which is not a valid IP prefix
       title: StringNotIPWithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPv4:
@@ -371,6 +476,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv4 = false // value must be a valid IPv4 address
+            string.ipv4_empty = false // value is empty, which is not a valid IPv4 address
       title: StringNotIPv4
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPv4Prefix:
@@ -379,6 +487,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv4_prefix = false // value must be a valid IPv4 prefix
+            string.ipv4_prefix_empty = false // value is empty, which is not a valid IPv4 prefix
       title: StringNotIPv4Prefix
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPv4WithPrefixLen:
@@ -387,6 +498,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv4_with_prefixlen = false // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen_empty = false // value is empty, which is not a valid IPv4 address with prefix length
       title: StringNotIPv4WithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPv6:
@@ -395,6 +509,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv6 = false // value must be a valid IPv6 address
+            string.ipv6_empty = false // value is empty, which is not a valid IPv6 address
       title: StringNotIPv6
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPv6Prefix:
@@ -403,6 +520,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv6_prefix = false // value must be a valid IPv6 prefix
+            string.ipv6_prefix_empty = false // value is empty, which is not a valid IPv6 prefix
       title: StringNotIPv6Prefix
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIPv6WithPrefixLen:
@@ -411,6 +531,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.ipv6_with_prefixlen = false // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen_empty = false // value is empty, which is not a valid IPv6 address with prefix length
       title: StringNotIPv6WithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIn:
@@ -424,6 +547,8 @@ components:
               - fizz
               - buzz
           title: val
+          description: |
+            string.not_in = ["fizz", "buzz"]
       title: StringNotIn
       additionalProperties: false
     buf.validate.conformance.cases.StringNotTUUID:
@@ -432,6 +557,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.tuuid = false // value must be a valid trimmed UUID
+            string.tuuid_empty = false // value is empty, which is not a valid trimmed UUID
       title: StringNotTUUID
       additionalProperties: false
     buf.validate.conformance.cases.StringNotURI:
@@ -440,6 +568,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.uri = false // value must be a valid URI
+            string.uri_empty = false // value is empty, which is not a valid URI
       title: StringNotURI
       additionalProperties: false
     buf.validate.conformance.cases.StringNotURIRef:
@@ -448,6 +579,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.uri_ref = false // value must be a valid URI Reference
       title: StringNotURIRef
       additionalProperties: false
     buf.validate.conformance.cases.StringNotUUID:
@@ -456,6 +589,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.uuid = false // value must be a valid UUID
+            string.uuid_empty = false // value is empty, which is not a valid UUID
       title: StringNotUUID
       additionalProperties: false
     buf.validate.conformance.cases.StringPattern:
@@ -465,6 +601,8 @@ components:
           type: string
           title: val
           pattern: (?i)^[a-z0-9]+$
+          description: |
+            string.pattern = "(?i)^[a-z0-9]+$"
       title: StringPattern
       additionalProperties: false
     buf.validate.conformance.cases.StringPatternEscapes:
@@ -474,6 +612,8 @@ components:
           type: string
           title: val
           pattern: \* \\ \w
+          description: |
+            string.pattern = "\\* \\\\ \\w"
       title: StringPatternEscapes
       additionalProperties: false
     buf.validate.conformance.cases.StringPrefix:
@@ -482,6 +622,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.prefix = "foo"
       title: StringPrefix
       additionalProperties: false
     buf.validate.conformance.cases.StringSuffix:
@@ -490,6 +632,8 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.suffix = "baz"
       title: StringSuffix
       additionalProperties: false
     buf.validate.conformance.cases.StringTUUID:
@@ -498,6 +642,9 @@ components:
         val:
           type: string
           title: val
+          description: |
+            string.tuuid = true // value must be a valid trimmed UUID
+            string.tuuid_empty = true // value is empty, which is not a valid trimmed UUID
       title: StringTUUID
       additionalProperties: false
     buf.validate.conformance.cases.StringURI:
@@ -507,6 +654,9 @@ components:
           type: string
           title: val
           format: uri
+          description: |
+            string.uri = true // value must be a valid URI
+            string.uri_empty = true // value is empty, which is not a valid URI
       title: StringURI
       additionalProperties: false
     buf.validate.conformance.cases.StringURIRef:
@@ -516,6 +666,8 @@ components:
           type: string
           title: val
           format: uri-ref
+          description: |
+            string.uri_ref = true // value must be a valid URI Reference
       title: StringURIRef
       additionalProperties: false
     buf.validate.conformance.cases.StringUUID:
@@ -525,6 +677,9 @@ components:
           type: string
           title: val
           format: uuid
+          description: |
+            string.uuid = true // value must be a valid UUID
+            string.uuid_empty = true // value is empty, which is not a valid UUID
       title: StringUUID
       additionalProperties: false
     buf.validate.conformance.cases.StringUUIDIgnore:
@@ -534,6 +689,9 @@ components:
           type: string
           title: val
           format: uuid
+          description: |
+            string.uuid = true // value must be a valid UUID
+            string.uuid_empty = true // value is empty, which is not a valid UUID
       title: StringUUIDIgnore
       additionalProperties: false
 security: []

@@ -20,10 +20,6 @@ components:
           format: int64
       title: Allocation
       additionalProperties: false
-      description: |+
-        Used should be less or equal to the total size:
-        ```
-        this.used <= this.total_size
-        ```
-
+      description: |
+        allocation.used // Used should be less or equal to the total size
 security: []

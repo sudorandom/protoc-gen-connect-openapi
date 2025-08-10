@@ -9,6 +9,7 @@ import (
 
 	"github.com/gobwas/glob"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/reflect/protoregistry"
 )
 
 type Options struct {
@@ -59,6 +60,8 @@ type Options struct {
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
 	FieldReferenceAnnotator FieldReferenceAnnotator
+
+	ExtensionTypeResolver protoregistry.ExtensionTypeResolver
 }
 
 func (opts Options) HasService(serviceName protoreflect.FullName) bool {
@@ -80,6 +83,13 @@ func NewOptions() Options {
 			"json": {},
 		},
 	}
+}
+
+func (opts Options) GetExtensionTypeResolver() protoregistry.ExtensionTypeResolver {
+	if opts.ExtensionTypeResolver == nil {
+		return protoregistry.GlobalTypes
+	}
+	return opts.ExtensionTypeResolver
 }
 
 func FromString(s string) (Options, error) {

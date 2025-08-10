@@ -19,6 +19,7 @@ import (
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"google.golang.org/protobuf/types/dynamicpb"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 	"gopkg.in/yaml.v3"
 
@@ -85,6 +86,8 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 	if err != nil {
 		return nil, err
 	}
+
+	opts.ExtensionTypeResolver = dynamicpb.NewTypes(resolver)
 
 	newSpec := func() (*v3.Document, error) {
 		model := &v3.Document{}

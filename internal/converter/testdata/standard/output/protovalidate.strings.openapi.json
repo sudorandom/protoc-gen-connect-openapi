@@ -12,7 +12,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "address"
+            "format": "address",
+            "description": "string.address = true // value must be a valid hostname, or ip address\nstring.address_empty = true // value is empty, which is not a valid hostname, or ip address\n"
           }
         },
         "title": "StringAddress",
@@ -24,6 +25,7 @@
           "val": {
             "type": "string",
             "title": "val",
+            "description": "string.const = \"foo\"\n",
             "const": "foo"
           }
         },
@@ -35,7 +37,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.contains = \"bar\"\n"
           }
         },
         "title": "StringContains",
@@ -47,7 +50,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "email"
+            "format": "email",
+            "description": "string.email = true // value must be a valid email address\nstring.email_empty = true // value is empty, which is not a valid email address\n"
           }
         },
         "title": "StringEmail",
@@ -58,7 +62,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.max_bytes = 4\nstring.min_bytes = 4\n"
           }
         },
         "title": "StringEqualMinMaxBytes",
@@ -71,7 +76,8 @@
             "type": "string",
             "title": "val",
             "maxLength": 5,
-            "minLength": 5
+            "minLength": 5,
+            "description": "string.min_len = 5\nstring.max_len = 5\n"
           }
         },
         "title": "StringEqualMinMaxLen",
@@ -85,7 +91,8 @@
             "examples": [
               "foo"
             ],
-            "title": "val"
+            "title": "val",
+            "description": "string.example = [\"foo\"]\n"
           }
         },
         "title": "StringExample",
@@ -97,7 +104,7 @@
           "val": {
             "type": "string",
             "title": "val",
-            "description": "value must be a host and (optional) port pair:\n```\nthis.isHostAndPort(false)\n```\n\n"
+            "description": "string.host_and_port.optional_port // value must be a host and (optional) port pair\n"
           }
         },
         "title": "StringHostAndOptionalPort",
@@ -108,7 +115,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair\nstring.host_and_port_empty = true // value is empty, which is not a valid host and port pair\n"
           }
         },
         "title": "StringHostAndPort",
@@ -120,7 +128,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "hostname"
+            "format": "hostname",
+            "description": "string.hostname = true // value must be a valid hostname\nstring.hostname_empty = true // value is empty, which is not a valid hostname\n"
           }
         },
         "title": "StringHostname",
@@ -131,7 +140,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value\n"
           }
         },
         "title": "StringHttpHeaderName",
@@ -142,7 +152,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value\n"
           }
         },
         "title": "StringHttpHeaderNameLoose",
@@ -153,7 +164,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value\n"
           }
         },
         "title": "StringHttpHeaderValue",
@@ -164,7 +176,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value\n"
           }
         },
         "title": "StringHttpHeaderValueLoose",
@@ -176,7 +189,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "ip"
+            "format": "ip",
+            "description": "string.ip = true // value must be a valid IP address\nstring.ip_empty = true // value is empty, which is not a valid IP address\n"
           }
         },
         "title": "StringIP",
@@ -187,7 +201,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ip_prefix = true // value must be a valid IP prefix\nstring.ip_prefix_empty = true // value is empty, which is not a valid IP prefix\n"
           }
         },
         "title": "StringIPPrefix",
@@ -198,7 +213,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ip_with_prefixlen = true // value must be a valid IP prefix\nstring.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix\n"
           }
         },
         "title": "StringIPWithPrefixLen",
@@ -210,7 +226,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "ipv4"
+            "format": "ipv4",
+            "description": "string.ipv4 = true // value must be a valid IPv4 address\nstring.ipv4_empty = true // value is empty, which is not a valid IPv4 address\n"
           }
         },
         "title": "StringIPv4",
@@ -221,7 +238,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv4_prefix = true // value must be a valid IPv4 prefix\nstring.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix\n"
           }
         },
         "title": "StringIPv4Prefix",
@@ -232,7 +250,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length\nstring.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length\n"
           }
         },
         "title": "StringIPv4WithPrefixLen",
@@ -244,7 +263,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "ipv6"
+            "format": "ipv6",
+            "description": "string.ipv6 = true // value must be a valid IPv6 address\nstring.ipv6_empty = true // value is empty, which is not a valid IPv6 address\n"
           }
         },
         "title": "StringIPv6",
@@ -255,7 +275,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv6_prefix = true // value must be a valid IPv6 prefix\nstring.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix\n"
           }
         },
         "title": "StringIPv6Prefix",
@@ -266,7 +287,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length\nstring.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length\n"
           }
         },
         "title": "StringIPv6WithPrefixLen",
@@ -281,7 +303,8 @@
             "enum": [
               "bar",
               "baz"
-            ]
+            ],
+            "description": "string.in = [\"bar\", \"baz\"]\n"
           }
         },
         "title": "StringIn",
@@ -298,7 +321,8 @@
                 "enum": [
                   "a",
                   "b"
-                ]
+                ],
+                "description": "string.in = [\"a\", \"b\"]\n"
               }
             },
             "title": "bar",
@@ -317,7 +341,8 @@
             "type": "string",
             "title": "val",
             "maxLength": 3,
-            "minLength": 3
+            "minLength": 3,
+            "description": "string.len = 3\n"
           }
         },
         "title": "StringLen",
@@ -328,7 +353,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.len_bytes = 4\n"
           }
         },
         "title": "StringLenBytes",
@@ -339,7 +365,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.max_bytes = 8\n"
           }
         },
         "title": "StringMaxBytes",
@@ -351,7 +378,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maxLength": 5
+            "maxLength": 5,
+            "description": "string.max_len = 5\n"
           }
         },
         "title": "StringMaxLen",
@@ -362,7 +390,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.min_bytes = 4\n"
           }
         },
         "title": "StringMinBytes",
@@ -374,7 +403,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "minLength": 3
+            "minLength": 3,
+            "description": "string.min_len = 3\n"
           }
         },
         "title": "StringMinLen",
@@ -385,7 +415,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.max_bytes = 8\nstring.min_bytes = 4\n"
           }
         },
         "title": "StringMinMaxBytes",
@@ -398,7 +429,8 @@
             "type": "string",
             "title": "val",
             "maxLength": 5,
-            "minLength": 3
+            "minLength": 3,
+            "description": "string.min_len = 3\nstring.max_len = 5\n"
           }
         },
         "title": "StringMinMaxLen",
@@ -420,7 +452,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.address = false // value must be a valid hostname, or ip address\nstring.address_empty = false // value is empty, which is not a valid hostname, or ip address\n"
           }
         },
         "title": "StringNotAddress",
@@ -431,7 +464,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.not_contains = \"bar\"\n"
           }
         },
         "title": "StringNotContains",
@@ -442,7 +476,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.email = false // value must be a valid email address\nstring.email_empty = false // value is empty, which is not a valid email address\n"
           }
         },
         "title": "StringNotEmail",
@@ -453,7 +488,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.hostname = false // value must be a valid hostname\nstring.hostname_empty = false // value is empty, which is not a valid hostname\n"
           }
         },
         "title": "StringNotHostname",
@@ -464,7 +500,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ip = false // value must be a valid IP address\nstring.ip_empty = false // value is empty, which is not a valid IP address\n"
           }
         },
         "title": "StringNotIP",
@@ -475,7 +512,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ip_prefix = false // value must be a valid IP prefix\nstring.ip_prefix_empty = false // value is empty, which is not a valid IP prefix\n"
           }
         },
         "title": "StringNotIPPrefix",
@@ -486,7 +524,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ip_with_prefixlen = false // value must be a valid IP prefix\nstring.ip_with_prefixlen_empty = false // value is empty, which is not a valid IP prefix\n"
           }
         },
         "title": "StringNotIPWithPrefixLen",
@@ -497,7 +536,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv4 = false // value must be a valid IPv4 address\nstring.ipv4_empty = false // value is empty, which is not a valid IPv4 address\n"
           }
         },
         "title": "StringNotIPv4",
@@ -508,7 +548,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv4_prefix = false // value must be a valid IPv4 prefix\nstring.ipv4_prefix_empty = false // value is empty, which is not a valid IPv4 prefix\n"
           }
         },
         "title": "StringNotIPv4Prefix",
@@ -519,7 +560,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv4_with_prefixlen = false // value must be a valid IPv4 address with prefix length\nstring.ipv4_with_prefixlen_empty = false // value is empty, which is not a valid IPv4 address with prefix length\n"
           }
         },
         "title": "StringNotIPv4WithPrefixLen",
@@ -530,7 +572,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv6 = false // value must be a valid IPv6 address\nstring.ipv6_empty = false // value is empty, which is not a valid IPv6 address\n"
           }
         },
         "title": "StringNotIPv6",
@@ -541,7 +584,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv6_prefix = false // value must be a valid IPv6 prefix\nstring.ipv6_prefix_empty = false // value is empty, which is not a valid IPv6 prefix\n"
           }
         },
         "title": "StringNotIPv6Prefix",
@@ -552,7 +596,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.ipv6_with_prefixlen = false // value must be a valid IPv6 address with prefix length\nstring.ipv6_with_prefixlen_empty = false // value is empty, which is not a valid IPv6 address with prefix length\n"
           }
         },
         "title": "StringNotIPv6WithPrefixLen",
@@ -570,7 +615,8 @@
                 "buzz"
               ]
             },
-            "title": "val"
+            "title": "val",
+            "description": "string.not_in = [\"fizz\", \"buzz\"]\n"
           }
         },
         "title": "StringNotIn",
@@ -581,7 +627,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.tuuid = false // value must be a valid trimmed UUID\nstring.tuuid_empty = false // value is empty, which is not a valid trimmed UUID\n"
           }
         },
         "title": "StringNotTUUID",
@@ -592,7 +639,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.uri = false // value must be a valid URI\nstring.uri_empty = false // value is empty, which is not a valid URI\n"
           }
         },
         "title": "StringNotURI",
@@ -603,7 +651,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.uri_ref = false // value must be a valid URI Reference\n"
           }
         },
         "title": "StringNotURIRef",
@@ -614,7 +663,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.uuid = false // value must be a valid UUID\nstring.uuid_empty = false // value is empty, which is not a valid UUID\n"
           }
         },
         "title": "StringNotUUID",
@@ -626,7 +676,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "pattern": "(?i)^[a-z0-9]+$"
+            "pattern": "(?i)^[a-z0-9]+$",
+            "description": "string.pattern = \"(?i)^[a-z0-9]+$\"\n"
           }
         },
         "title": "StringPattern",
@@ -638,7 +689,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "pattern": "\\* \\\\ \\w"
+            "pattern": "\\* \\\\ \\w",
+            "description": "string.pattern = \"\\\\* \\\\\\\\ \\\\w\"\n"
           }
         },
         "title": "StringPatternEscapes",
@@ -649,7 +701,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.prefix = \"foo\"\n"
           }
         },
         "title": "StringPrefix",
@@ -660,7 +713,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.suffix = \"baz\"\n"
           }
         },
         "title": "StringSuffix",
@@ -671,7 +725,8 @@
         "properties": {
           "val": {
             "type": "string",
-            "title": "val"
+            "title": "val",
+            "description": "string.tuuid = true // value must be a valid trimmed UUID\nstring.tuuid_empty = true // value is empty, which is not a valid trimmed UUID\n"
           }
         },
         "title": "StringTUUID",
@@ -683,7 +738,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "uri"
+            "format": "uri",
+            "description": "string.uri = true // value must be a valid URI\nstring.uri_empty = true // value is empty, which is not a valid URI\n"
           }
         },
         "title": "StringURI",
@@ -695,7 +751,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "uri-ref"
+            "format": "uri-ref",
+            "description": "string.uri_ref = true // value must be a valid URI Reference\n"
           }
         },
         "title": "StringURIRef",
@@ -707,7 +764,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "uuid"
+            "format": "uuid",
+            "description": "string.uuid = true // value must be a valid UUID\nstring.uuid_empty = true // value is empty, which is not a valid UUID\n"
           }
         },
         "title": "StringUUID",
@@ -719,7 +777,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "format": "uuid"
+            "format": "uuid",
+            "description": "string.uuid = true // value must be a valid UUID\nstring.uuid_empty = true // value is empty, which is not a valid UUID\n"
           }
         },
         "title": "StringUUIDIgnore",

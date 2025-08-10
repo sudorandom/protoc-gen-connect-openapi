@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info:
+  title: test.bufbuild.people.v1
+paths: {}
+components:
+  schemas:
+    test.bufbuild.people.v1.Person:
+      type: object
+      properties:
+        firstName:
+          type: string
+          title: first_name
+          description: |
+            string.required.medium = true // this is required and must be 50 or fewer characters
+        middleName:
+          type: string
+          title: middle_name
+          description: |
+            string.optional.medium = true // this must be 50 or fewer characters
+        lastName:
+          type: string
+          title: last_name
+          description: |
+            string.required.medium = true // this is required and must be 50 or fewer characters
+        title:
+          type: string
+          title: title
+          description: |
+            string.optional.medium = true // this must be 50 or fewer characters
+      title: Person
+      additionalProperties: false
+security: []
