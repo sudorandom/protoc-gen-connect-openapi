@@ -270,12 +270,12 @@ components:
           maximum: 128
           minimum: 256
           description: |
-            fixed32.lte = 128
             fixed32.gte = 256
             fixed32.gte_lt = 256
             fixed32.gte_lt_exclusive = 256
             fixed32.gte_lte = 256
             fixed32.gte_lte_exclusive = 256
+            fixed32.lte = 128
       title: Fixed32ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32ExLTGT:
@@ -287,12 +287,12 @@ components:
           type: integer
           title: val
           description: |
-            fixed32.lt = 5
             fixed32.gt = 10
             fixed32.gt_lt = 10
             fixed32.gt_lt_exclusive = 10
             fixed32.gt_lte = 10
             fixed32.gt_lte_exclusive = 10
+            fixed32.lt = 5
       title: Fixed32ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32Example:
@@ -346,12 +346,12 @@ components:
           maximum: 256
           minimum: 128
           description: |
-            fixed32.lte = 256
             fixed32.gte = 128
             fixed32.gte_lt = 128
             fixed32.gte_lt_exclusive = 128
             fixed32.gte_lte = 128
             fixed32.gte_lte_exclusive = 128
+            fixed32.lte = 256
       title: Fixed32GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32GTLT:
@@ -363,12 +363,12 @@ components:
           type: integer
           title: val
           description: |
-            fixed32.lt = 10
             fixed32.gt = 5
             fixed32.gt_lt = 5
             fixed32.gt_lt_exclusive = 5
             fixed32.gt_lte = 5
             fixed32.gt_lte_exclusive = 5
+            fixed32.lt = 10
       title: Fixed32GTLT
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32Ignore:
@@ -380,12 +380,12 @@ components:
           maximum: 256
           minimum: 128
           description: |
-            fixed32.lte = 256
             fixed32.gte = 128
             fixed32.gte_lt = 128
             fixed32.gte_lt_exclusive = 128
             fixed32.gte_lte = 128
             fixed32.gte_lte_exclusive = 128
+            fixed32.lte = 256
       title: Fixed32Ignore
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32In:
@@ -485,12 +485,12 @@ components:
           minimum: 256
           format: int64
           description: |
-            fixed64.lte = 128
             fixed64.gte = 256
             fixed64.gte_lt = 256
             fixed64.gte_lt_exclusive = 256
             fixed64.gte_lte = 256
             fixed64.gte_lte_exclusive = 256
+            fixed64.lte = 128
       title: Fixed64ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64ExLTGT:
@@ -505,12 +505,12 @@ components:
           title: val
           format: int64
           description: |
-            fixed64.lt = 5
             fixed64.gt = 10
             fixed64.gt_lt = 10
             fixed64.gt_lt_exclusive = 10
             fixed64.gt_lte = 10
             fixed64.gt_lte_exclusive = 10
+            fixed64.lt = 5
       title: Fixed64ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64Example:
@@ -576,12 +576,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            fixed64.lte = 256
             fixed64.gte = 128
             fixed64.gte_lt = 128
             fixed64.gte_lt_exclusive = 128
             fixed64.gte_lte = 128
             fixed64.gte_lte_exclusive = 128
+            fixed64.lte = 256
       title: Fixed64GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64GTLT:
@@ -596,12 +596,12 @@ components:
           title: val
           format: int64
           description: |
-            fixed64.lt = 10
             fixed64.gt = 5
             fixed64.gt_lt = 5
             fixed64.gt_lt_exclusive = 5
             fixed64.gt_lte = 5
             fixed64.gt_lte_exclusive = 5
+            fixed64.lt = 10
       title: Fixed64GTLT
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64Ignore:
@@ -616,12 +616,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            fixed64.lte = 256
             fixed64.gte = 128
             fixed64.gte_lt = 128
             fixed64.gte_lt_exclusive = 128
             fixed64.gte_lte = 128
             fixed64.gte_lte_exclusive = 128
+            fixed64.lte = 256
       title: Fixed64Ignore
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64In:
@@ -967,12 +967,12 @@ components:
           minimum: 256
           format: int32
           description: |
-            int32.lte = 128
             int32.gte = 256
             int32.gte_lt = 256
             int32.gte_lt_exclusive = 256
             int32.gte_lte = 256
             int32.gte_lte_exclusive = 256
+            int32.lte = 128
       title: Int32ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Int32ExLTGT:
@@ -985,12 +985,12 @@ components:
           title: val
           format: int32
           description: |
-            int32.lt = 0
             int32.gt = 10
             int32.gt_lt = 10
             int32.gt_lt_exclusive = 10
             int32.gt_lte = 10
             int32.gt_lte_exclusive = 10
+            int32.lt = 0
       title: Int32ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.Int32Example:
@@ -1048,12 +1048,12 @@ components:
           minimum: 128
           format: int32
           description: |
-            int32.lte = 256
             int32.gte = 128
             int32.gte_lt = 128
             int32.gte_lt_exclusive = 128
             int32.gte_lte = 128
             int32.gte_lte_exclusive = 128
+            int32.lte = 256
       title: Int32GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Int32GTLT:
@@ -1066,12 +1066,12 @@ components:
           title: val
           format: int32
           description: |
-            int32.lt = 10
             int32.gt = 0
             int32.gt_lt = 0
             int32.gt_lt_exclusive = 0
             int32.gt_lte = 0
             int32.gt_lte_exclusive = 0
+            int32.lt = 10
       title: Int32GTLT
       additionalProperties: false
     buf.validate.conformance.cases.Int32Ignore:
@@ -1084,12 +1084,12 @@ components:
           minimum: 128
           format: int32
           description: |
-            int32.lte = 256
             int32.gte = 128
             int32.gte_lt = 128
             int32.gte_lt_exclusive = 128
             int32.gte_lte = 128
             int32.gte_lte_exclusive = 128
+            int32.lte = 256
       title: Int32Ignore
       additionalProperties: false
     buf.validate.conformance.cases.Int32In:
@@ -1333,12 +1333,12 @@ components:
           minimum: 256
           format: int64
           description: |
-            int64.lte = 128
             int64.gte = 256
             int64.gte_lt = 256
             int64.gte_lt_exclusive = 256
             int64.gte_lte = 256
             int64.gte_lte_exclusive = 256
+            int64.lte = 128
       title: Int64ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Int64ExLTGT:
@@ -1353,12 +1353,12 @@ components:
           title: val
           format: int64
           description: |
-            int64.lt = 0
             int64.gt = 10
             int64.gt_lt = 10
             int64.gt_lt_exclusive = 10
             int64.gt_lte = 10
             int64.gt_lte_exclusive = 10
+            int64.lt = 0
       title: Int64ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.Int64Example:
@@ -1424,12 +1424,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            int64.lte = 256
             int64.gte = 128
             int64.gte_lt = 128
             int64.gte_lt_exclusive = 128
             int64.gte_lte = 128
             int64.gte_lte_exclusive = 128
+            int64.lte = 256
       title: Int64GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.Int64GTLT:
@@ -1444,12 +1444,12 @@ components:
           title: val
           format: int64
           description: |
-            int64.lt = 10
             int64.gt = 0
             int64.gt_lt = 0
             int64.gt_lt_exclusive = 0
             int64.gt_lte = 0
             int64.gt_lte_exclusive = 0
+            int64.lt = 10
       title: Int64GTLT
       additionalProperties: false
     buf.validate.conformance.cases.Int64Ignore:
@@ -1464,12 +1464,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            int64.lte = 256
             int64.gte = 128
             int64.gte_lt = 128
             int64.gte_lt_exclusive = 128
             int64.gte_lte = 128
             int64.gte_lte_exclusive = 128
+            int64.lte = 256
       title: Int64Ignore
       additionalProperties: false
     buf.validate.conformance.cases.Int64In:
@@ -1600,12 +1600,12 @@ components:
           minimum: 256
           format: int32
           description: |
-            sfixed32.lte = 128
             sfixed32.gte = 256
             sfixed32.gte_lt = 256
             sfixed32.gte_lt_exclusive = 256
             sfixed32.gte_lte = 256
             sfixed32.gte_lte_exclusive = 256
+            sfixed32.lte = 128
       title: SFixed32ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SFixed32ExLTGT:
@@ -1618,12 +1618,12 @@ components:
           title: val
           format: int32
           description: |
-            sfixed32.lt = 0
             sfixed32.gt = 10
             sfixed32.gt_lt = 10
             sfixed32.gt_lt_exclusive = 10
             sfixed32.gt_lte = 10
             sfixed32.gt_lte_exclusive = 10
+            sfixed32.lt = 0
       title: SFixed32ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.SFixed32Example:
@@ -1681,12 +1681,12 @@ components:
           minimum: 128
           format: int32
           description: |
-            sfixed32.lte = 256
             sfixed32.gte = 128
             sfixed32.gte_lt = 128
             sfixed32.gte_lt_exclusive = 128
             sfixed32.gte_lte = 128
             sfixed32.gte_lte_exclusive = 128
+            sfixed32.lte = 256
       title: SFixed32GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SFixed32GTLT:
@@ -1699,12 +1699,12 @@ components:
           title: val
           format: int32
           description: |
-            sfixed32.lt = 10
             sfixed32.gt = 0
             sfixed32.gt_lt = 0
             sfixed32.gt_lt_exclusive = 0
             sfixed32.gt_lte = 0
             sfixed32.gt_lte_exclusive = 0
+            sfixed32.lt = 10
       title: SFixed32GTLT
       additionalProperties: false
     buf.validate.conformance.cases.SFixed32Ignore:
@@ -1717,12 +1717,12 @@ components:
           minimum: 128
           format: int32
           description: |
-            sfixed32.lte = 256
             sfixed32.gte = 128
             sfixed32.gte_lt = 128
             sfixed32.gte_lt_exclusive = 128
             sfixed32.gte_lte = 128
             sfixed32.gte_lte_exclusive = 128
+            sfixed32.lte = 256
       title: SFixed32Ignore
       additionalProperties: false
     buf.validate.conformance.cases.SFixed32In:
@@ -1828,12 +1828,12 @@ components:
           minimum: 256
           format: int64
           description: |
-            sfixed64.lte = 128
             sfixed64.gte = 256
             sfixed64.gte_lt = 256
             sfixed64.gte_lt_exclusive = 256
             sfixed64.gte_lte = 256
             sfixed64.gte_lte_exclusive = 256
+            sfixed64.lte = 128
       title: SFixed64ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64ExLTGT:
@@ -1848,12 +1848,12 @@ components:
           title: val
           format: int64
           description: |
-            sfixed64.lt = 0
             sfixed64.gt = 10
             sfixed64.gt_lt = 10
             sfixed64.gt_lt_exclusive = 10
             sfixed64.gt_lte = 10
             sfixed64.gt_lte_exclusive = 10
+            sfixed64.lt = 0
       title: SFixed64ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64Example:
@@ -1919,12 +1919,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            sfixed64.lte = 256
             sfixed64.gte = 128
             sfixed64.gte_lt = 128
             sfixed64.gte_lt_exclusive = 128
             sfixed64.gte_lte = 128
             sfixed64.gte_lte_exclusive = 128
+            sfixed64.lte = 256
       title: SFixed64GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64GTLT:
@@ -1939,12 +1939,12 @@ components:
           title: val
           format: int64
           description: |
-            sfixed64.lt = 10
             sfixed64.gt = 0
             sfixed64.gt_lt = 0
             sfixed64.gt_lt_exclusive = 0
             sfixed64.gt_lte = 0
             sfixed64.gt_lte_exclusive = 0
+            sfixed64.lt = 10
       title: SFixed64GTLT
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64Ignore:
@@ -1959,12 +1959,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            sfixed64.lte = 256
             sfixed64.gte = 128
             sfixed64.gte_lt = 128
             sfixed64.gte_lt_exclusive = 128
             sfixed64.gte_lte = 128
             sfixed64.gte_lte_exclusive = 128
+            sfixed64.lte = 256
       title: SFixed64Ignore
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64In:
@@ -2080,12 +2080,12 @@ components:
           minimum: 256
           format: int32
           description: |
-            sint32.lte = 128
             sint32.gte = 256
             sint32.gte_lt = 256
             sint32.gte_lt_exclusive = 256
             sint32.gte_lte = 256
             sint32.gte_lte_exclusive = 256
+            sint32.lte = 128
       title: SInt32ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SInt32ExLTGT:
@@ -2098,12 +2098,12 @@ components:
           title: val
           format: int32
           description: |
-            sint32.lt = 0
             sint32.gt = 10
             sint32.gt_lt = 10
             sint32.gt_lt_exclusive = 10
             sint32.gt_lte = 10
             sint32.gt_lte_exclusive = 10
+            sint32.lt = 0
       title: SInt32ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.SInt32Example:
@@ -2161,12 +2161,12 @@ components:
           minimum: 128
           format: int32
           description: |
-            sint32.lte = 256
             sint32.gte = 128
             sint32.gte_lt = 128
             sint32.gte_lt_exclusive = 128
             sint32.gte_lte = 128
             sint32.gte_lte_exclusive = 128
+            sint32.lte = 256
       title: SInt32GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SInt32GTLT:
@@ -2179,12 +2179,12 @@ components:
           title: val
           format: int32
           description: |
-            sint32.lt = 10
             sint32.gt = 0
             sint32.gt_lt = 0
             sint32.gt_lt_exclusive = 0
             sint32.gt_lte = 0
             sint32.gt_lte_exclusive = 0
+            sint32.lt = 10
       title: SInt32GTLT
       additionalProperties: false
     buf.validate.conformance.cases.SInt32Ignore:
@@ -2197,12 +2197,12 @@ components:
           minimum: 128
           format: int32
           description: |
-            sint32.lte = 256
             sint32.gte = 128
             sint32.gte_lt = 128
             sint32.gte_lt_exclusive = 128
             sint32.gte_lte = 128
             sint32.gte_lte_exclusive = 128
+            sint32.lte = 256
       title: SInt32Ignore
       additionalProperties: false
     buf.validate.conformance.cases.SInt32In:
@@ -2308,12 +2308,12 @@ components:
           minimum: 256
           format: int64
           description: |
-            sint64.lte = 128
             sint64.gte = 256
             sint64.gte_lt = 256
             sint64.gte_lt_exclusive = 256
             sint64.gte_lte = 256
             sint64.gte_lte_exclusive = 256
+            sint64.lte = 128
       title: SInt64ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SInt64ExLTGT:
@@ -2328,12 +2328,12 @@ components:
           title: val
           format: int64
           description: |
-            sint64.lt = 0
             sint64.gt = 10
             sint64.gt_lt = 10
             sint64.gt_lt_exclusive = 10
             sint64.gt_lte = 10
             sint64.gt_lte_exclusive = 10
+            sint64.lt = 0
       title: SInt64ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.SInt64Example:
@@ -2399,12 +2399,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            sint64.lte = 256
             sint64.gte = 128
             sint64.gte_lt = 128
             sint64.gte_lt_exclusive = 128
             sint64.gte_lte = 128
             sint64.gte_lte_exclusive = 128
+            sint64.lte = 256
       title: SInt64GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.SInt64GTLT:
@@ -2419,12 +2419,12 @@ components:
           title: val
           format: int64
           description: |
-            sint64.lt = 10
             sint64.gt = 0
             sint64.gt_lt = 0
             sint64.gt_lt_exclusive = 0
             sint64.gt_lte = 0
             sint64.gt_lte_exclusive = 0
+            sint64.lt = 10
       title: SInt64GTLT
       additionalProperties: false
     buf.validate.conformance.cases.SInt64Ignore:
@@ -2439,12 +2439,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            sint64.lte = 256
             sint64.gte = 128
             sint64.gte_lt = 128
             sint64.gte_lt_exclusive = 128
             sint64.gte_lte = 128
             sint64.gte_lte_exclusive = 128
+            sint64.lte = 256
       title: SInt64Ignore
       additionalProperties: false
     buf.validate.conformance.cases.SInt64In:
@@ -2558,12 +2558,12 @@ components:
           maximum: 128
           minimum: 256
           description: |
-            uint32.lte = 128
             uint32.gte = 256
             uint32.gte_lt = 256
             uint32.gte_lt_exclusive = 256
             uint32.gte_lte = 256
             uint32.gte_lte_exclusive = 256
+            uint32.lte = 128
       title: UInt32ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.UInt32ExLTGT:
@@ -2575,12 +2575,12 @@ components:
           type: integer
           title: val
           description: |
-            uint32.lt = 5
             uint32.gt = 10
             uint32.gt_lt = 10
             uint32.gt_lt_exclusive = 10
             uint32.gt_lte = 10
             uint32.gt_lte_exclusive = 10
+            uint32.lt = 5
       title: UInt32ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.UInt32Example:
@@ -2634,12 +2634,12 @@ components:
           maximum: 256
           minimum: 128
           description: |
-            uint32.lte = 256
             uint32.gte = 128
             uint32.gte_lt = 128
             uint32.gte_lt_exclusive = 128
             uint32.gte_lte = 128
             uint32.gte_lte_exclusive = 128
+            uint32.lte = 256
       title: UInt32GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.UInt32GTLT:
@@ -2651,12 +2651,12 @@ components:
           type: integer
           title: val
           description: |
-            uint32.lt = 10
             uint32.gt = 5
             uint32.gt_lt = 5
             uint32.gt_lt_exclusive = 5
             uint32.gt_lte = 5
             uint32.gt_lte_exclusive = 5
+            uint32.lt = 10
       title: UInt32GTLT
       additionalProperties: false
     buf.validate.conformance.cases.UInt32Ignore:
@@ -2668,12 +2668,12 @@ components:
           maximum: 256
           minimum: 128
           description: |
-            uint32.lte = 256
             uint32.gte = 128
             uint32.gte_lt = 128
             uint32.gte_lt_exclusive = 128
             uint32.gte_lte = 128
             uint32.gte_lte_exclusive = 128
+            uint32.lte = 256
       title: UInt32Ignore
       additionalProperties: false
     buf.validate.conformance.cases.UInt32In:
@@ -2773,12 +2773,12 @@ components:
           minimum: 256
           format: int64
           description: |
-            uint64.lte = 128
             uint64.gte = 256
             uint64.gte_lt = 256
             uint64.gte_lt_exclusive = 256
             uint64.gte_lte = 256
             uint64.gte_lte_exclusive = 256
+            uint64.lte = 128
       title: UInt64ExGTELTE
       additionalProperties: false
     buf.validate.conformance.cases.UInt64ExLTGT:
@@ -2793,12 +2793,12 @@ components:
           title: val
           format: int64
           description: |
-            uint64.lt = 5
             uint64.gt = 10
             uint64.gt_lt = 10
             uint64.gt_lt_exclusive = 10
             uint64.gt_lte = 10
             uint64.gt_lte_exclusive = 10
+            uint64.lt = 5
       title: UInt64ExLTGT
       additionalProperties: false
     buf.validate.conformance.cases.UInt64Example:
@@ -2864,12 +2864,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            uint64.lte = 256
             uint64.gte = 128
             uint64.gte_lt = 128
             uint64.gte_lt_exclusive = 128
             uint64.gte_lte = 128
             uint64.gte_lte_exclusive = 128
+            uint64.lte = 256
       title: UInt64GTELTE
       additionalProperties: false
     buf.validate.conformance.cases.UInt64GTLT:
@@ -2884,12 +2884,12 @@ components:
           title: val
           format: int64
           description: |
-            uint64.lt = 10
             uint64.gt = 5
             uint64.gt_lt = 5
             uint64.gt_lt_exclusive = 5
             uint64.gt_lte = 5
             uint64.gt_lte_exclusive = 5
+            uint64.lt = 10
       title: UInt64GTLT
       additionalProperties: false
     buf.validate.conformance.cases.UInt64Ignore:
@@ -2904,12 +2904,12 @@ components:
           minimum: 128
           format: int64
           description: |
-            uint64.lte = 256
             uint64.gte = 128
             uint64.gte_lt = 128
             uint64.gte_lt_exclusive = 128
             uint64.gte_lte = 128
             uint64.gte_lte_exclusive = 128
+            uint64.lte = 256
       title: UInt64Ignore
       additionalProperties: false
     buf.validate.conformance.cases.UInt64In:
