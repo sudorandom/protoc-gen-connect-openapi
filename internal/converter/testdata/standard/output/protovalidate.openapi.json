@@ -55,7 +55,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/protovalidate.DisabledMessage"
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
                 }
               }
             }
@@ -231,7 +231,8 @@
               "a": {
                 "type": "string",
                 "title": "a",
-                "minLength": 1
+                "minLength": 1,
+                "description": "string.min_len = 1\n"
               }
             },
             "title": "a",
@@ -255,11 +256,6 @@
         "title": "CELMessage",
         "additionalProperties": false
       },
-      "protovalidate.DisabledMessage": {
-        "type": "object",
-        "title": "DisabledMessage",
-        "additionalProperties": false
-      },
       "protovalidate.LotsOfValidationRules": {
         "type": "object",
         "properties": {
@@ -267,7 +263,7 @@
             "type": "integer",
             "title": "cel_field",
             "format": "int32",
-            "description": "value must be greater than 42:\n```\nthis \u003e 42\n```\n\n",
+            "description": "my_message.value // value must be greater than 42\n",
             "nullable": true
           },
           "skippedField": {
@@ -284,20 +280,22 @@
             "type": "string",
             "title": "uri_field",
             "format": "uri",
+            "description": "string.uri = true // value must be a valid URI\nstring.uri_empty = true // value is empty, which is not a valid URI\n",
             "nullable": true
           },
           "floatConst": {
             "type": "number",
             "title": "float_const",
             "format": "float",
-            "description": "Floats",
+            "description": "Floats\nfloat.const = 42\n",
             "const": "42"
           },
           "floatIn": {
             "type": "array",
             "items": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "description": "float.in = [1, 2, 3]\n"
             },
             "title": "float_in"
           },
@@ -313,7 +311,8 @@
                   "3"
                 ]
               },
-              "format": "float"
+              "format": "float",
+              "description": "float.not_in = [1, 2, 3]\n"
             },
             "title": "float_not_in"
           },
@@ -321,40 +320,46 @@
             "type": "array",
             "items": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "description": "float.finite = true\n"
             },
             "title": "float_finite"
           },
           "floatLt": {
             "type": "number",
             "title": "float_lt",
-            "format": "float"
+            "format": "float",
+            "description": "float.lt = 42\n"
           },
           "floatLte": {
             "type": "number",
             "title": "float_lte",
-            "format": "float"
+            "format": "float",
+            "description": "float.lte = 420\n"
           },
           "floatGt": {
             "type": "number",
             "title": "float_gt",
-            "format": "float"
+            "format": "float",
+            "description": "float.gt = 6.9\nfloat.gt_lt = 6.9\nfloat.gt_lt_exclusive = 6.9\nfloat.gt_lte = 6.9\nfloat.gt_lte_exclusive = 6.9\n"
           },
           "floatGte": {
             "type": "number",
             "title": "float_gte",
-            "format": "float"
+            "format": "float",
+            "description": "float.gte = 69\nfloat.gte_lt = 69\nfloat.gte_lt_exclusive = 69\nfloat.gte_lte = 69\nfloat.gte_lte_exclusive = 69\n"
           },
           "floatBounds": {
             "type": "number",
             "title": "float_bounds",
-            "format": "float"
+            "format": "float",
+            "description": "float.lt = 10\nfloat.gte = 5\nfloat.gte_lt = 5\nfloat.gte_lt_exclusive = 5\nfloat.gte_lte = 5\nfloat.gte_lte_exclusive = 5\n"
           },
           "doubleConst": {
             "type": "number",
             "title": "double_const",
             "format": "double",
-            "description": "Double",
+            "description": "Double\ndouble.const = 42\n",
             "const": "42"
           },
           "doubleIn": {
@@ -366,7 +371,8 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "description": "double.in = [1, 2, 3]\n"
             },
             "title": "double_in"
           },
@@ -382,7 +388,8 @@
                   "3"
                 ]
               },
-              "format": "double"
+              "format": "double",
+              "description": "double.not_in = [1, 2, 3]\n"
             },
             "title": "double_not_in"
           },
@@ -390,7 +397,8 @@
             "type": "array",
             "items": {
               "type": "number",
-              "format": "double"
+              "format": "double",
+              "description": "double.finite = true\n"
             },
             "title": "double_finite"
           },
@@ -398,38 +406,43 @@
             "exclusiveMaximum": 42,
             "type": "number",
             "title": "double_lt",
-            "format": "double"
+            "format": "double",
+            "description": "double.lt = 42\n"
           },
           "doubleLte": {
             "type": "number",
             "title": "double_lte",
             "maximum": 420,
-            "format": "double"
+            "format": "double",
+            "description": "double.lte = 420\n"
           },
           "doubleGt": {
             "exclusiveMinimum": 6.9,
             "type": "number",
             "title": "double_gt",
-            "format": "double"
+            "format": "double",
+            "description": "double.gt = 6.9\ndouble.gt_lt = 6.9\ndouble.gt_lt_exclusive = 6.9\ndouble.gt_lte = 6.9\ndouble.gt_lte_exclusive = 6.9\n"
           },
           "doubleGte": {
             "type": "number",
             "title": "double_gte",
             "minimum": 69,
-            "format": "double"
+            "format": "double",
+            "description": "double.gte = 69\ndouble.gte_lt = 69\ndouble.gte_lt_exclusive = 69\ndouble.gte_lte = 69\ndouble.gte_lte_exclusive = 69\n"
           },
           "doubleBounds": {
             "exclusiveMaximum": 10,
             "type": "number",
             "title": "double_bounds",
             "minimum": 5,
-            "format": "double"
+            "format": "double",
+            "description": "double.lt = 10\ndouble.gte = 5\ndouble.gte_lt = 5\ndouble.gte_lt_exclusive = 5\ndouble.gte_lte = 5\ndouble.gte_lte_exclusive = 5\n"
           },
           "int32Const": {
             "type": "integer",
             "title": "int32_const",
             "format": "int32",
-            "description": "int32",
+            "description": "int32\nint32.const = 42\n",
             "const": 42
           },
           "int32In": {
@@ -441,7 +454,8 @@
                 1,
                 2,
                 3
-              ]
+              ],
+              "description": "int32.in = [1, 2, 3]\n"
             },
             "title": "int32_in"
           },
@@ -457,7 +471,8 @@
                   3
                 ]
               },
-              "format": "int32"
+              "format": "int32",
+              "description": "int32.not_in = [1, 2, 3]\n"
             },
             "title": "int32_not_in"
           },
@@ -465,32 +480,37 @@
             "exclusiveMaximum": 42,
             "type": "integer",
             "title": "int32_lt",
-            "format": "int32"
+            "format": "int32",
+            "description": "int32.lt = 42\n"
           },
           "int32Lte": {
             "type": "integer",
             "title": "int32_lte",
             "maximum": 420,
-            "format": "int32"
+            "format": "int32",
+            "description": "int32.lte = 420\n"
           },
           "int32Gt": {
             "exclusiveMinimum": 6,
             "type": "integer",
             "title": "int32_gt",
-            "format": "int32"
+            "format": "int32",
+            "description": "int32.gt = 6\nint32.gt_lt = 6\nint32.gt_lt_exclusive = 6\nint32.gt_lte = 6\nint32.gt_lte_exclusive = 6\n"
           },
           "int32Gte": {
             "type": "integer",
             "title": "int32_gte",
             "minimum": 69,
-            "format": "int32"
+            "format": "int32",
+            "description": "int32.gte = 69\nint32.gte_lt = 69\nint32.gte_lt_exclusive = 69\nint32.gte_lte = 69\nint32.gte_lte_exclusive = 69\n"
           },
           "int32Bounds": {
             "exclusiveMaximum": 10,
             "type": "integer",
             "title": "int32_bounds",
             "minimum": 5,
-            "format": "int32"
+            "format": "int32",
+            "description": "int32.lt = 10\nint32.gte = 5\nint32.gte_lt = 5\nint32.gte_lt_exclusive = 5\nint32.gte_lte = 5\nint32.gte_lte_exclusive = 5\n"
           },
           "int64Const": {
             "type": [
@@ -499,7 +519,7 @@
             ],
             "title": "int64_const",
             "format": "int64",
-            "description": "int64",
+            "description": "int64\nint64.const = 42\n",
             "const": 42
           },
           "int64In": {
@@ -514,7 +534,8 @@
                 1,
                 2,
                 3
-              ]
+              ],
+              "description": "int64.in = [1, 2, 3]\n"
             },
             "title": "int64_in"
           },
@@ -536,7 +557,8 @@
                   3
                 ]
               },
-              "format": "int64"
+              "format": "int64",
+              "description": "int64.not_in = [1, 2, 3]\n"
             },
             "title": "int64_not_in"
           },
@@ -547,7 +569,8 @@
               "string"
             ],
             "title": "int64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 42\n"
           },
           "int64Lte": {
             "type": [
@@ -556,7 +579,8 @@
             ],
             "title": "int64_lte",
             "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 420\n"
           },
           "int64Gt": {
             "exclusiveMinimum": 6,
@@ -565,7 +589,8 @@
               "string"
             ],
             "title": "int64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gt = 6\nint64.gt_lt = 6\nint64.gt_lt_exclusive = 6\nint64.gt_lte = 6\nint64.gt_lte_exclusive = 6\n"
           },
           "int64Gte": {
             "type": [
@@ -574,7 +599,8 @@
             ],
             "title": "int64_gte",
             "minimum": 69,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gte = 69\nint64.gte_lt = 69\nint64.gte_lt_exclusive = 69\nint64.gte_lte = 69\nint64.gte_lte_exclusive = 69\n"
           },
           "int64Bounds": {
             "exclusiveMaximum": 10,
@@ -584,12 +610,13 @@
             ],
             "title": "int64_bounds",
             "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 10\nint64.gte = 5\nint64.gte_lt = 5\nint64.gte_lt_exclusive = 5\nint64.gte_lte = 5\nint64.gte_lte_exclusive = 5\n"
           },
           "uint32Const": {
             "type": "integer",
             "title": "uint32_const",
-            "description": "uint32",
+            "description": "uint32\nuint32.const = 42\n",
             "const": "42"
           },
           "uint32In": {
@@ -600,7 +627,8 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "description": "uint32.in = [1, 2, 3]\n"
             },
             "title": "uint32_in"
           },
@@ -615,35 +643,41 @@
                   "2",
                   "3"
                 ]
-              }
+              },
+              "description": "uint32.not_in = [1, 2, 3]\n"
             },
             "title": "uint32_not_in"
           },
           "uint32Lt": {
             "exclusiveMaximum": 42,
             "type": "integer",
-            "title": "uint32_lt"
+            "title": "uint32_lt",
+            "description": "uint32.lt = 42\n"
           },
           "uint32Lte": {
             "type": "integer",
             "title": "uint32_lte",
-            "maximum": 420
+            "maximum": 420,
+            "description": "uint32.lte = 420\n"
           },
           "uint32Gt": {
             "exclusiveMinimum": 6,
             "type": "integer",
-            "title": "uint32_gt"
+            "title": "uint32_gt",
+            "description": "uint32.gt = 6\nuint32.gt_lt = 6\nuint32.gt_lt_exclusive = 6\nuint32.gt_lte = 6\nuint32.gt_lte_exclusive = 6\n"
           },
           "uint32Gte": {
             "type": "integer",
             "title": "uint32_gte",
-            "minimum": 69
+            "minimum": 69,
+            "description": "uint32.gte = 69\nuint32.gte_lt = 69\nuint32.gte_lt_exclusive = 69\nuint32.gte_lte = 69\nuint32.gte_lte_exclusive = 69\n"
           },
           "uint32Bounds": {
             "exclusiveMaximum": 10,
             "type": "integer",
             "title": "uint32_bounds",
-            "minimum": 5
+            "minimum": 5,
+            "description": "uint32.lt = 10\nuint32.gte = 5\nuint32.gte_lt = 5\nuint32.gte_lt_exclusive = 5\nuint32.gte_lte = 5\nuint32.gte_lte_exclusive = 5\n"
           },
           "uint64Const": {
             "type": [
@@ -652,7 +686,7 @@
             ],
             "title": "uint64_const",
             "format": "int64",
-            "description": "uint64",
+            "description": "uint64\nuint64.const = 42\n",
             "const": "42"
           },
           "uint64In": {
@@ -667,7 +701,8 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "description": "uint64.in = [1, 2, 3]\n"
             },
             "title": "uint64_in"
           },
@@ -689,7 +724,8 @@
                   "3"
                 ]
               },
-              "format": "int64"
+              "format": "int64",
+              "description": "uint64.not_in = [1, 2, 3]\n"
             },
             "title": "uint64_not_in"
           },
@@ -700,7 +736,8 @@
               "string"
             ],
             "title": "uint64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 42\n"
           },
           "uint64Lte": {
             "type": [
@@ -709,7 +746,8 @@
             ],
             "title": "uint64_lte",
             "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 420\n"
           },
           "uint64Gt": {
             "exclusiveMinimum": 6,
@@ -718,7 +756,8 @@
               "string"
             ],
             "title": "uint64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gt = 6\nuint64.gt_lt = 6\nuint64.gt_lt_exclusive = 6\nuint64.gt_lte = 6\nuint64.gt_lte_exclusive = 6\n"
           },
           "uint64Gte": {
             "type": [
@@ -727,7 +766,8 @@
             ],
             "title": "uint64_gte",
             "minimum": 69,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gte = 69\nuint64.gte_lt = 69\nuint64.gte_lt_exclusive = 69\nuint64.gte_lte = 69\nuint64.gte_lte_exclusive = 69\n"
           },
           "uint64Bounds": {
             "exclusiveMaximum": 10,
@@ -737,13 +777,14 @@
             ],
             "title": "uint64_bounds",
             "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 10\nuint64.gte = 5\nuint64.gte_lt = 5\nuint64.gte_lt_exclusive = 5\nuint64.gte_lte = 5\nuint64.gte_lte_exclusive = 5\n"
           },
           "sint32Const": {
             "type": "integer",
             "title": "sint32_const",
             "format": "int32",
-            "description": "sint32",
+            "description": "sint32\nsint32.const = 42\n",
             "const": 42
           },
           "sint32In": {
@@ -755,7 +796,8 @@
                 1,
                 2,
                 3
-              ]
+              ],
+              "description": "sint32.in = [1, 2, 3]\n"
             },
             "title": "sint32_in"
           },
@@ -771,7 +813,8 @@
                   3
                 ]
               },
-              "format": "int32"
+              "format": "int32",
+              "description": "sint32.not_in = [1, 2, 3]\n"
             },
             "title": "sint32_not_in"
           },
@@ -779,32 +822,37 @@
             "exclusiveMaximum": 42,
             "type": "integer",
             "title": "sint32_lt",
-            "format": "int32"
+            "format": "int32",
+            "description": "sint32.lt = 42\n"
           },
           "sint32Lte": {
             "type": "integer",
             "title": "sint32_lte",
             "maximum": 420,
-            "format": "int32"
+            "format": "int32",
+            "description": "sint32.lte = 420\n"
           },
           "sint32Gt": {
             "exclusiveMinimum": 6,
             "type": "integer",
             "title": "sint32_gt",
-            "format": "int32"
+            "format": "int32",
+            "description": "sint32.gt = 6\nsint32.gt_lt = 6\nsint32.gt_lt_exclusive = 6\nsint32.gt_lte = 6\nsint32.gt_lte_exclusive = 6\n"
           },
           "sint32Gte": {
             "type": "integer",
             "title": "sint32_gte",
             "minimum": 69,
-            "format": "int32"
+            "format": "int32",
+            "description": "sint32.gte = 69\nsint32.gte_lt = 69\nsint32.gte_lt_exclusive = 69\nsint32.gte_lte = 69\nsint32.gte_lte_exclusive = 69\n"
           },
           "sint32Bounds": {
             "exclusiveMaximum": 10,
             "type": "integer",
             "title": "sint32_bounds",
             "minimum": 5,
-            "format": "int32"
+            "format": "int32",
+            "description": "sint32.lt = 10\nsint32.gte = 5\nsint32.gte_lt = 5\nsint32.gte_lt_exclusive = 5\nsint32.gte_lte = 5\nsint32.gte_lte_exclusive = 5\n"
           },
           "sint64Const": {
             "type": [
@@ -813,7 +861,7 @@
             ],
             "title": "sint64_const",
             "format": "int64",
-            "description": "sint64",
+            "description": "sint64\nsint64.const = 42\n",
             "const": 42
           },
           "sint64In": {
@@ -828,7 +876,8 @@
                 1,
                 2,
                 3
-              ]
+              ],
+              "description": "sint64.in = [1, 2, 3]\n"
             },
             "title": "sint64_in"
           },
@@ -850,7 +899,8 @@
                   3
                 ]
               },
-              "format": "int64"
+              "format": "int64",
+              "description": "sint64.not_in = [1, 2, 3]\n"
             },
             "title": "sint64_not_in"
           },
@@ -861,7 +911,8 @@
               "string"
             ],
             "title": "sint64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 42\n"
           },
           "sint64Lte": {
             "type": [
@@ -870,7 +921,8 @@
             ],
             "title": "sint64_lte",
             "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 420\n"
           },
           "sint64Gt": {
             "exclusiveMinimum": 8,
@@ -879,7 +931,8 @@
               "string"
             ],
             "title": "sint64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gt = 8\nsint64.gt_lt = 8\nsint64.gt_lt_exclusive = 8\nsint64.gt_lte = 8\nsint64.gt_lte_exclusive = 8\n"
           },
           "sint64Gte": {
             "type": [
@@ -888,7 +941,8 @@
             ],
             "title": "sint64_gte",
             "minimum": 89,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gte = 89\nsint64.gte_lt = 89\nsint64.gte_lt_exclusive = 89\nsint64.gte_lte = 89\nsint64.gte_lte_exclusive = 89\n"
           },
           "sint64Bounds": {
             "exclusiveMaximum": 10,
@@ -898,12 +952,13 @@
             ],
             "title": "sint64_bounds",
             "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 10\nsint64.gte = 5\nsint64.gte_lt = 5\nsint64.gte_lt_exclusive = 5\nsint64.gte_lte = 5\nsint64.gte_lte_exclusive = 5\n"
           },
           "fixed32Const": {
             "type": "integer",
             "title": "fixed32_const",
-            "description": "fixed32",
+            "description": "fixed32\nfixed32.const = 42\n",
             "const": "42"
           },
           "fixed32In": {
@@ -914,7 +969,8 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "description": "fixed32.in = [1, 2, 3]\n"
             },
             "title": "fixed32_in"
           },
@@ -929,35 +985,41 @@
                   "2",
                   "3"
                 ]
-              }
+              },
+              "description": "fixed32.not_in = [1, 2, 3]\n"
             },
             "title": "fixed32_not_in"
           },
           "fixed32Lt": {
             "exclusiveMaximum": 42,
             "type": "integer",
-            "title": "fixed32_lt"
+            "title": "fixed32_lt",
+            "description": "fixed32.lt = 42\n"
           },
           "fixed32Lte": {
             "type": "integer",
             "title": "fixed32_lte",
-            "maximum": 420
+            "maximum": 420,
+            "description": "fixed32.lte = 420\n"
           },
           "fixed32Gt": {
             "exclusiveMinimum": 6,
             "type": "integer",
-            "title": "fixed32_gt"
+            "title": "fixed32_gt",
+            "description": "fixed32.gt = 6\nfixed32.gt_lt = 6\nfixed32.gt_lt_exclusive = 6\nfixed32.gt_lte = 6\nfixed32.gt_lte_exclusive = 6\n"
           },
           "fixed32Gte": {
             "type": "integer",
             "title": "fixed32_gte",
-            "minimum": 69
+            "minimum": 69,
+            "description": "fixed32.gte = 69\nfixed32.gte_lt = 69\nfixed32.gte_lt_exclusive = 69\nfixed32.gte_lte = 69\nfixed32.gte_lte_exclusive = 69\n"
           },
           "fixed32Bounds": {
             "exclusiveMaximum": 10,
             "type": "integer",
             "title": "fixed32_bounds",
-            "minimum": 5
+            "minimum": 5,
+            "description": "fixed32.lt = 10\nfixed32.gte = 5\nfixed32.gte_lt = 5\nfixed32.gte_lt_exclusive = 5\nfixed32.gte_lte = 5\nfixed32.gte_lte_exclusive = 5\n"
           },
           "fixed64Const": {
             "type": [
@@ -966,7 +1028,7 @@
             ],
             "title": "fixed64_const",
             "format": "int64",
-            "description": "fixed64",
+            "description": "fixed64\nfixed64.const = 42\n",
             "const": "42"
           },
           "fixed64In": {
@@ -981,7 +1043,8 @@
                 "1",
                 "2",
                 "3"
-              ]
+              ],
+              "description": "fixed64.in = [1, 2, 3]\n"
             },
             "title": "fixed64_in"
           },
@@ -1003,7 +1066,8 @@
                   "3"
                 ]
               },
-              "format": "int64"
+              "format": "int64",
+              "description": "fixed64.not_in = [1, 2, 3]\n"
             },
             "title": "fixed64_not_in"
           },
@@ -1014,7 +1078,8 @@
               "string"
             ],
             "title": "fixed64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 42\n"
           },
           "fixed64Lte": {
             "type": [
@@ -1023,7 +1088,8 @@
             ],
             "title": "fixed64_lte",
             "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 420\n"
           },
           "fixed64Gt": {
             "exclusiveMinimum": 10,
@@ -1032,7 +1098,8 @@
               "string"
             ],
             "title": "fixed64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gt = 10\nfixed64.gt_lt = 10\nfixed64.gt_lt_exclusive = 10\nfixed64.gt_lte = 10\nfixed64.gt_lte_exclusive = 10\n"
           },
           "fixed64Gte": {
             "type": [
@@ -1041,7 +1108,8 @@
             ],
             "title": "fixed64_gte",
             "minimum": 109,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gte = 109\nfixed64.gte_lt = 109\nfixed64.gte_lt_exclusive = 109\nfixed64.gte_lte = 109\nfixed64.gte_lte_exclusive = 109\n"
           },
           "fixed64Bounds": {
             "exclusiveMaximum": 10,
@@ -1051,13 +1119,14 @@
             ],
             "title": "fixed64_bounds",
             "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 10\nfixed64.gte = 5\nfixed64.gte_lt = 5\nfixed64.gte_lt_exclusive = 5\nfixed64.gte_lte = 5\nfixed64.gte_lte_exclusive = 5\n"
           },
           "sfixed32Const": {
             "type": "integer",
             "title": "sfixed32_const",
             "format": "int32",
-            "description": "sfixed32",
+            "description": "sfixed32\nsfixed32.const = 42\n",
             "const": 42
           },
           "sfixed32In": {
@@ -1069,7 +1138,8 @@
                 1,
                 2,
                 3
-              ]
+              ],
+              "description": "sfixed32.in = [1, 2, 3]\n"
             },
             "title": "sfixed32_in"
           },
@@ -1085,7 +1155,8 @@
                   3
                 ]
               },
-              "format": "int32"
+              "format": "int32",
+              "description": "sfixed32.not_in = [1, 2, 3]\n"
             },
             "title": "sfixed32_not_in"
           },
@@ -1093,32 +1164,37 @@
             "exclusiveMaximum": 42,
             "type": "integer",
             "title": "sfixed32_lt",
-            "format": "int32"
+            "format": "int32",
+            "description": "sfixed32.lt = 42\n"
           },
           "sfixed32Lte": {
             "type": "integer",
             "title": "sfixed32_lte",
             "maximum": 420,
-            "format": "int32"
+            "format": "int32",
+            "description": "sfixed32.lte = 420\n"
           },
           "sfixed32Gt": {
             "exclusiveMinimum": 6,
             "type": "integer",
             "title": "sfixed32_gt",
-            "format": "int32"
+            "format": "int32",
+            "description": "sfixed32.gt = 6\nsfixed32.gt_lt = 6\nsfixed32.gt_lt_exclusive = 6\nsfixed32.gt_lte = 6\nsfixed32.gt_lte_exclusive = 6\n"
           },
           "sfixed32Gte": {
             "type": "integer",
             "title": "sfixed32_gte",
             "minimum": 69,
-            "format": "int32"
+            "format": "int32",
+            "description": "sfixed32.gte = 69\nsfixed32.gte_lt = 69\nsfixed32.gte_lt_exclusive = 69\nsfixed32.gte_lte = 69\nsfixed32.gte_lte_exclusive = 69\n"
           },
           "sfixed32Bounds": {
             "exclusiveMaximum": 10,
             "type": "integer",
             "title": "sfixed32_bounds",
             "minimum": 5,
-            "format": "int32"
+            "format": "int32",
+            "description": "sfixed32.lt = 10\nsfixed32.gte = 5\nsfixed32.gte_lt = 5\nsfixed32.gte_lt_exclusive = 5\nsfixed32.gte_lte = 5\nsfixed32.gte_lte_exclusive = 5\n"
           },
           "sfixed64Const": {
             "type": [
@@ -1127,7 +1203,7 @@
             ],
             "title": "sfixed64_const",
             "format": "int64",
-            "description": "sfixed64",
+            "description": "sfixed64\nsfixed64.const = 42\n",
             "const": 42
           },
           "sfixed64In": {
@@ -1142,7 +1218,8 @@
                 1,
                 2,
                 3
-              ]
+              ],
+              "description": "sfixed64.in = [1, 2, 3]\n"
             },
             "title": "sfixed64_in"
           },
@@ -1164,7 +1241,8 @@
                   3
                 ]
               },
-              "format": "int64"
+              "format": "int64",
+              "description": "sfixed64.not_in = [1, 2, 3]\n"
             },
             "title": "sfixed64_not_in"
           },
@@ -1175,7 +1253,8 @@
               "string"
             ],
             "title": "sfixed64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 42\n"
           },
           "sfixed64Lte": {
             "type": [
@@ -1184,7 +1263,8 @@
             ],
             "title": "sfixed64_lte",
             "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 420\n"
           },
           "sfixed64Gt": {
             "exclusiveMinimum": 10,
@@ -1193,7 +1273,8 @@
               "string"
             ],
             "title": "sfixed64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gt = 10\nsfixed64.gt_lt = 10\nsfixed64.gt_lt_exclusive = 10\nsfixed64.gt_lte = 10\nsfixed64.gt_lte_exclusive = 10\n"
           },
           "sfixed64Gte": {
             "type": [
@@ -1202,7 +1283,8 @@
             ],
             "title": "sfixed64_gte",
             "minimum": 109,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gte = 109\nsfixed64.gte_lt = 109\nsfixed64.gte_lt_exclusive = 109\nsfixed64.gte_lte = 109\nsfixed64.gte_lte_exclusive = 109\n"
           },
           "sfixed64Bounds": {
             "exclusiveMaximum": 10,
@@ -1212,12 +1294,13 @@
             ],
             "title": "sfixed64_bounds",
             "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 10\nsfixed64.gte = 5\nsfixed64.gte_lt = 5\nsfixed64.gte_lt_exclusive = 5\nsfixed64.gte_lte = 5\nsfixed64.gte_lte_exclusive = 5\n"
           },
           "stringConst": {
             "type": "string",
             "title": "string_const",
-            "description": "string",
+            "description": "string\nstring.const = \"hello\"\n",
             "const": "hello"
           },
           "stringIn": {
@@ -1227,7 +1310,8 @@
               "enum": [
                 "orange",
                 "grape"
-              ]
+              ],
+              "description": "string.in = [\"orange\", \"grape\"]\n"
             },
             "title": "string_in"
           },
@@ -1241,139 +1325,169 @@
                   "orange",
                   "grape"
                 ]
-              }
+              },
+              "description": "string.not_in = [\"orange\", \"grape\"]\n"
             },
             "title": "string_not_in"
           },
           "stringMinLen": {
             "type": "string",
             "title": "string_min_len",
-            "minLength": 3
+            "minLength": 3,
+            "description": "string.min_len = 3\n"
           },
           "stringMaxLen": {
             "type": "string",
             "title": "string_max_len",
-            "maxLength": 10
+            "maxLength": 10,
+            "description": "string.max_len = 10\n"
           },
           "stringLen": {
             "type": "string",
             "title": "string_len",
             "maxLength": 10,
-            "minLength": 10
+            "minLength": 10,
+            "description": "string.len = 10\n"
           },
           "stringLenBytes": {
             "type": "string",
-            "title": "string_len_bytes"
+            "title": "string_len_bytes",
+            "description": "string.len_bytes = 10\n"
           },
           "stringMinBytes": {
             "type": "string",
-            "title": "string_min_bytes"
+            "title": "string_min_bytes",
+            "description": "string.min_bytes = 10\n"
           },
           "stringMaxBytes": {
             "type": "string",
-            "title": "string_max_bytes"
+            "title": "string_max_bytes",
+            "description": "string.max_bytes = 10\n"
           },
           "stringPrefix": {
             "type": "string",
-            "title": "string_prefix"
+            "title": "string_prefix",
+            "description": "string.prefix = \"pre\"\n"
           },
           "stringSuffix": {
             "type": "string",
-            "title": "string_suffix"
+            "title": "string_suffix",
+            "description": "string.suffix = \"post\"\n"
           },
           "stringContains": {
             "type": "string",
-            "title": "string_contains"
+            "title": "string_contains",
+            "description": "string.contains = \"inside\"\n"
           },
           "stringNotContains": {
             "type": "string",
-            "title": "string_not_contains"
+            "title": "string_not_contains",
+            "description": "string.not_contains = \"inside\"\n"
           },
           "stringStrict": {
             "type": "string",
-            "title": "string_strict"
+            "title": "string_strict",
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value\n"
           },
           "stringEmail": {
             "type": "string",
             "title": "string_email",
-            "format": "email"
+            "format": "email",
+            "description": "string.email = true // value must be a valid email address\nstring.email_empty = true // value is empty, which is not a valid email address\n"
           },
           "stringHostname": {
             "type": "string",
             "title": "string_hostname",
-            "format": "hostname"
+            "format": "hostname",
+            "description": "string.hostname = true // value must be a valid hostname\nstring.hostname_empty = true // value is empty, which is not a valid hostname\n"
           },
           "stringIp": {
             "type": "string",
             "title": "string_ip",
-            "format": "ip"
+            "format": "ip",
+            "description": "string.ip = true // value must be a valid IP address\nstring.ip_empty = true // value is empty, which is not a valid IP address\n"
           },
           "stringIpv4": {
             "type": "string",
             "title": "string_ipv4",
-            "format": "ipv4"
+            "format": "ipv4",
+            "description": "string.ipv4 = true // value must be a valid IPv4 address\nstring.ipv4_empty = true // value is empty, which is not a valid IPv4 address\n"
           },
           "stringIpv6": {
             "type": "string",
             "title": "string_ipv6",
-            "format": "ipv6"
+            "format": "ipv6",
+            "description": "string.ipv6 = true // value must be a valid IPv6 address\nstring.ipv6_empty = true // value is empty, which is not a valid IPv6 address\n"
           },
           "stringUri": {
             "type": "string",
             "title": "string_uri",
-            "format": "uri"
+            "format": "uri",
+            "description": "string.uri = true // value must be a valid URI\nstring.uri_empty = true // value is empty, which is not a valid URI\n"
           },
           "stringUriRef": {
             "type": "string",
             "title": "string_uri_ref",
-            "format": "uri-ref"
+            "format": "uri-ref",
+            "description": "string.uri_ref = true // value must be a valid URI Reference\n"
           },
           "stringAddress": {
             "type": "string",
             "title": "string_address",
-            "format": "address"
+            "format": "address",
+            "description": "string.address = true // value must be a valid hostname, or ip address\nstring.address_empty = true // value is empty, which is not a valid hostname, or ip address\n"
           },
           "stringUuid": {
             "type": "string",
             "title": "string_uuid",
-            "format": "uuid"
+            "format": "uuid",
+            "description": "string.uuid = true // value must be a valid UUID\nstring.uuid_empty = true // value is empty, which is not a valid UUID\n"
           },
           "stringIpWithPrefixlen": {
             "type": "string",
-            "title": "string_ip_with_prefixlen"
+            "title": "string_ip_with_prefixlen",
+            "description": "string.ip_with_prefixlen = true // value must be a valid IP prefix\nstring.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix\n"
           },
           "stringIpv4WithPrefixlen": {
             "type": "string",
-            "title": "string_ipv4_with_prefixlen"
+            "title": "string_ipv4_with_prefixlen",
+            "description": "string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length\nstring.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length\n"
           },
           "stringIpv6WithPrefixlen": {
             "type": "string",
-            "title": "string_ipv6_with_prefixlen"
+            "title": "string_ipv6_with_prefixlen",
+            "description": "string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length\nstring.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length\n"
           },
           "stringIpPrefix": {
             "type": "string",
-            "title": "string_ip_prefix"
+            "title": "string_ip_prefix",
+            "description": "string.ip_prefix = true // value must be a valid IP prefix\nstring.ip_prefix_empty = true // value is empty, which is not a valid IP prefix\n"
           },
           "stringIpv4Prefix": {
             "type": "string",
-            "title": "string_ipv4_prefix"
+            "title": "string_ipv4_prefix",
+            "description": "string.ipv4_prefix = true // value must be a valid IPv4 prefix\nstring.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix\n"
           },
           "stringIpv6Prefix": {
             "type": "string",
-            "title": "string_ipv6_prefix"
+            "title": "string_ipv6_prefix",
+            "description": "string.ipv6_prefix = true // value must be a valid IPv6 prefix\nstring.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix\n"
           },
           "stringHostAndPort": {
             "type": "string",
-            "title": "string_host_and_port"
+            "title": "string_host_and_port",
+            "description": "string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair\nstring.host_and_port_empty = true // value is empty, which is not a valid host and port pair\n"
           },
           "stringWellKnownRegex": {
             "type": "string",
-            "title": "string_well_known_regex"
+            "title": "string_well_known_regex",
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value\n"
           },
           "byteConst": {
             "type": "string",
             "title": "byte_const",
             "format": "byte",
+            "description": "bytes.const = [1 2 3 4]\n",
             "const": "\u0001\u0002\u0003\u0004"
           },
           "byteLen": {
@@ -1382,6 +1496,7 @@
             "maxLength": 4,
             "minLength": 4,
             "format": "byte",
+            "description": "bytes.len = 4\n",
             "nullable": true
           },
           "bytesMinLen": {
@@ -1389,6 +1504,7 @@
             "title": "bytes_min_len",
             "minLength": 2,
             "format": "byte",
+            "description": "bytes.min_len = 2\n",
             "nullable": true
           },
           "bytesMaxLen": {
@@ -1396,6 +1512,7 @@
             "title": "bytes_max_len",
             "maxLength": 6,
             "format": "byte",
+            "description": "bytes.max_len = 6\n",
             "nullable": true
           },
           "bytesPattern": {
@@ -1403,24 +1520,28 @@
             "title": "bytes_pattern",
             "pattern": "^[a-zA-Z0-9]+$",
             "format": "byte",
+            "description": "bytes.pattern = \"^[a-zA-Z0-9]+$\"\n",
             "nullable": true
           },
           "bytesPrefix": {
             "type": "string",
             "title": "bytes_prefix",
             "format": "byte",
+            "description": "bytes.prefix = [1 2]\n",
             "nullable": true
           },
           "bytesSuffix": {
             "type": "string",
             "title": "bytes_suffix",
             "format": "byte",
+            "description": "bytes.suffix = [3 4]\n",
             "nullable": true
           },
           "bytesContains": {
             "type": "string",
             "title": "bytes_contains",
             "format": "byte",
+            "description": "bytes.contains = [2 3]\n",
             "nullable": true
           },
           "bytesIn": {
@@ -1432,6 +1553,7 @@
               "\u0002\u0003",
               "\u0003\u0004"
             ],
+            "description": "bytes.in = [[1 2], [2 3], [3 4]]\n",
             "nullable": true
           },
           "bytesNotIn": {
@@ -1446,28 +1568,33 @@
             },
             "title": "bytes_not_in",
             "format": "byte",
+            "description": "bytes.not_in = [[1 2], [2 3], [3 4]]\n",
             "nullable": true
           },
           "bytesIp": {
             "type": "string",
             "title": "bytes_ip",
             "format": "ip",
+            "description": "bytes.ip = true // value must be a valid IP address\nbytes.ip_empty = true // value is empty, which is not a valid IP address\n",
             "nullable": true
           },
           "bytesIpv4": {
             "type": "string",
             "title": "bytes_ipv4",
             "format": "ipv4",
+            "description": "bytes.ipv4 = true // value must be a valid IPv4 address\nbytes.ipv4_empty = true // value is empty, which is not a valid IPv4 address\n",
             "nullable": true
           },
           "bytesIpv6": {
             "type": "string",
             "title": "bytes_ipv6",
             "format": "ipv6",
+            "description": "bytes.ipv6 = true // value must be a valid IPv6 address\nbytes.ipv6_empty = true // value is empty, which is not a valid IPv6 address\n",
             "nullable": true
           },
           "enumConst": {
             "title": "enum_const",
+            "description": "enum.const = 1\n",
             "const": 1,
             "$ref": "#/components/schemas/protovalidate.MyEnum"
           },
@@ -1481,6 +1608,7 @@
               1,
               2
             ],
+            "description": "enum.in = [1, 2]\n",
             "$ref": "#/components/schemas/protovalidate.MyEnum"
           },
           "enumNotIn": {
@@ -1491,6 +1619,7 @@
               ]
             },
             "title": "enum_not_in",
+            "description": "enum.not_in = [1, 2]\n",
             "$ref": "#/components/schemas/protovalidate.MyEnum"
           },
           "repeatedMinItems": {
@@ -1525,7 +1654,8 @@
             "items": {
               "type": "string",
               "maxLength": 10,
-              "minLength": 3
+              "minLength": 3,
+              "description": "string.min_len = 3\nstring.max_len = 10\n"
             },
             "title": "repeated_items"
           },
@@ -1562,7 +1692,8 @@
               "type": "string",
               "title": "value",
               "maxLength": 20,
-              "minLength": 5
+              "minLength": 5,
+              "description": "string.min_len = 5\nstring.max_len = 20\n"
             }
           },
           "anyIn": {
@@ -1585,99 +1716,118 @@
           },
           "durationConst": {
             "title": "duration_const",
-            "const": "seconds:2000",
+            "description": "duration.const = 33m20s\n",
+            "const": "33m20s",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationIn": {
             "title": "duration_in",
             "enum": [
-              "seconds:1",
-              "seconds:2",
-              "seconds:3"
+              "1s",
+              "2s",
+              "3s"
             ],
+            "description": "duration.in = [1s, 2s, 3s]\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationNotIn": {
             "not": {
               "enum": [
-                "seconds:1",
-                "seconds:2",
-                "seconds:3"
+                "1s",
+                "2s",
+                "3s"
               ]
             },
             "title": "duration_not_in",
+            "description": "duration.not_in = [1s, 2s, 3s]\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationLt": {
             "title": "duration_lt",
+            "description": "duration.lt = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationLte": {
             "title": "duration_lte",
+            "description": "duration.lte = 10s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationLtSeconds": {
             "title": "duration_lt_seconds",
+            "description": "duration.lt = 72h0m0s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationGt": {
             "title": "duration_gt",
+            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationRange": {
             "title": "duration_range",
+            "description": "duration.lt = 10s\nduration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationGte": {
             "title": "duration_gte",
+            "description": "duration.gte = 5s\nduration.gte_lt = 5s\nduration.gte_lt_exclusive = 5s\nduration.gte_lte = 5s\nduration.gte_lte_exclusive = 5s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "timestampConst": {
             "title": "timestamp_const",
-            "description": "This is a constant timestamp!",
-            "const": "seconds:1727998800",
+            "description": "This is a constant timestamp!\ntimestamp.const = 2024-10-03T23:40:00Z\n",
+            "const": "2024-10-03 23:40:00 +0000 UTC",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampWithin": {
             "title": "timestamp_within",
+            "description": "timestamp.within = 1h0m0s\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLt": {
             "title": "timestamp_lt",
+            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLte": {
             "title": "timestamp_lte",
+            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampGt": {
             "title": "timestamp_gt",
+            "description": "timestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampGte": {
             "title": "timestamp_gte",
+            "description": "timestamp.gte = 2022-12-31T00:00:00Z\ntimestamp.gte_lt = 2022-12-31T00:00:00Z\ntimestamp.gte_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gte_lte = 2022-12-31T00:00:00Z\ntimestamp.gte_lte_exclusive = 2022-12-31T00:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampRange": {
             "title": "timestamp_range",
+            "description": "timestamp.lt = 2023-01-01T00:00:00Z\ntimestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLtNow": {
             "title": "timestamp_lt_now",
+            "description": "timestamp.lt_now = true\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampGtNow": {
             "title": "timestamp_gt_now",
+            "description": "timestamp.gt_now = true\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "boolConstTrue": {
             "type": "boolean",
             "title": "bool_const_true",
+            "description": "bool.const = true\n",
             "const": "true"
           },
           "boolConstFalse": {
             "type": "boolean",
             "title": "bool_const_false",
+            "description": "bool.const = false\n",
             "const": "false"
           }
         },
@@ -1760,7 +1910,8 @@
               "a": {
                 "type": "string",
                 "title": "a",
-                "minLength": 1
+                "minLength": 1,
+                "description": "string.min_len = 1\n"
               }
             },
             "title": "a",

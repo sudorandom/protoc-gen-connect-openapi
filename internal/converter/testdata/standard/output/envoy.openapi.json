@@ -808,11 +808,16 @@
             "type": "boolean",
             "title": "ipv4_compat",
             "description": "When binding to an IPv6 address above, this enables `IPv4 compatibility\n \u003chttps://tools.ietf.org/html/rfc3493#page-11\u003e`_. Binding to ``::`` will\n allow both IPv4 and IPv6 connections, with peer IPv4 addresses mapped into\n IPv6 space as ``::FFFF:\u003cIPv4-address\u003e``."
+          },
+          "networkNamespaceFilepath": {
+            "type": "string",
+            "title": "network_namespace_filepath",
+            "description": "Filepath that specifies the Linux network namespace this socket will be created in (see ``man 7\n network_namespaces``). If this field is set, Envoy will create the socket in the specified\n network namespace.\n\n .. note::\n    Setting this parameter requires Envoy to run with the ``CAP_NET_ADMIN`` capability.\n\n .. note::\n    Currently only used for Listener sockets.\n\n .. attention::\n     Network namespaces are only configurable on Linux. Otherwise, this field has no effect."
           }
         },
         "title": "SocketAddress",
         "additionalProperties": false,
-        "description": "[#next-free-field: 7]"
+        "description": "[#next-free-field: 8]"
       },
       "envoy.service.discovery.v3.DeltaDiscoveryRequest": {
         "type": "object",
@@ -833,7 +838,7 @@
               "type": "string"
             },
             "title": "resource_names_subscribe",
-            "description": "DeltaDiscoveryRequests allow the client to add or remove individual\n resources to the set of tracked resources in the context of a stream.\n All resource names in the resource_names_subscribe list are added to the\n set of tracked resources and all resource names in the resource_names_unsubscribe\n list are removed from the set of tracked resources.\n\n *Unlike* state-of-the-world xDS, an empty resource_names_subscribe or\n resource_names_unsubscribe list simply means that no resources are to be\n added or removed to the resource list.\n *Like* state-of-the-world xDS, the server must send updates for all tracked\n resources, but can also send updates for resources the client has not subscribed to.\n\n NOTE: the server must respond with all resources listed in resource_names_subscribe,\n even if it believes the client has the most recent version of them. The reason:\n the client may have dropped them, but then regained interest before it had a chance\n to send the unsubscribe message. See DeltaSubscriptionStateTest.RemoveThenAdd.\n\n These two fields can be set in any DeltaDiscoveryRequest, including ACKs\n and initial_resource_versions.\n\n A list of Resource names to add to the list of tracked resources."
+            "description": "DeltaDiscoveryRequests allow the client to add or remove individual\n resources to the set of tracked resources in the context of a stream.\n All resource names in the ``resource_names_subscribe`` list are added to the\n set of tracked resources and all resource names in the ``resource_names_unsubscribe``\n list are removed from the set of tracked resources.\n\n *Unlike* state-of-the-world xDS, an empty ``resource_names_subscribe`` or\n ``resource_names_unsubscribe`` list simply means that no resources are to be\n added or removed to the resource list.\n *Like* state-of-the-world xDS, the server must send updates for all tracked\n resources, but can also send updates for resources the client has not subscribed to.\n\n .. note::\n   The server must respond with all resources listed in ``resource_names_subscribe``,\n   even if it believes the client has the most recent version of them. The reason:\n   the client may have dropped them, but then regained interest before it had a chance\n   to send the unsubscribe message. See DeltaSubscriptionStateTest.RemoveThenAdd.\n\n These two fields can be set in any ``DeltaDiscoveryRequest``, including ACKs\n and ``initial_resource_versions``.\n\n A list of Resource names to add to the list of tracked resources."
           },
           "resourceNamesUnsubscribe": {
             "type": "array",
@@ -849,7 +854,7 @@
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceLocator"
             },
             "title": "resource_locators_subscribe",
-            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names_subscribe`` field that allows specifying dynamic parameters\n along with each resource name.\n Note that it is legal for a request to have some resources listed\n in ``resource_names_subscribe`` and others in ``resource_locators_subscribe``."
+            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names_subscribe`` field that allows specifying dynamic parameters\n along with each resource name.\n\n .. note::\n   It is legal for a request to have some resources listed\n   in ``resource_names_subscribe`` and others in ``resource_locators_subscribe``."
           },
           "resourceLocatorsUnsubscribe": {
             "type": "array",
@@ -857,7 +862,7 @@
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceLocator"
             },
             "title": "resource_locators_unsubscribe",
-            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names_unsubscribe`` field that allows specifying dynamic parameters\n along with each resource name.\n Note that it is legal for a request to have some resources listed\n in ``resource_names_unsubscribe`` and others in ``resource_locators_unsubscribe``."
+            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names_unsubscribe`` field that allows specifying dynamic parameters\n along with each resource name.\n\n .. note::\n   It is legal for a request to have some resources listed\n   in ``resource_names_unsubscribe`` and others in ``resource_locators_unsubscribe``."
           },
           "initialResourceVersions": {
             "type": "object",
@@ -866,12 +871,12 @@
               "type": "string",
               "title": "value"
             },
-            "description": "Informs the server of the versions of the resources the xDS client knows of, to enable the\n client to continue the same logical xDS session even in the face of gRPC stream reconnection.\n It will not be populated: [1] in the very first stream of a session, since the client will\n not yet have any resources,  [2] in any message after the first in a stream (for a given\n type_url), since the server will already be correctly tracking the client's state.\n (In ADS, the first message *of each type_url* of a reconnected stream populates this map.)\n The map's keys are names of xDS resources known to the xDS client.\n The map's values are opaque resource versions."
+            "description": "Informs the server of the versions of the resources the xDS client knows of, to enable the\n client to continue the same logical xDS session even in the face of gRPC stream reconnection.\n It will not be populated:\n\n * In the very first stream of a session, since the client will not yet have any resources.\n * In any message after the first in a stream (for a given ``type_url``), since the server will\n   already be correctly tracking the client's state.\n\n (In ADS, the first message ``of each type_url`` of a reconnected stream populates this map.)\n The map's keys are names of xDS resources known to the xDS client.\n The map's values are opaque resource versions."
           },
           "responseNonce": {
             "type": "string",
             "title": "response_nonce",
-            "description": "When the DeltaDiscoveryRequest is a ACK or NACK message in response\n to a previous DeltaDiscoveryResponse, the response_nonce must be the\n nonce in the DeltaDiscoveryResponse.\n Otherwise (unlike in DiscoveryRequest) response_nonce must be omitted."
+            "description": "When the ``DeltaDiscoveryRequest`` is a ACK or NACK message in response\n to a previous ``DeltaDiscoveryResponse``, the ``response_nonce`` must be the\n nonce in the ``DeltaDiscoveryResponse``.\n Otherwise (unlike in ``DiscoveryRequest``) ``response_nonce`` must be omitted."
           },
           "errorDetail": {
             "title": "error_detail",
@@ -881,7 +886,7 @@
         },
         "title": "DeltaDiscoveryRequest",
         "additionalProperties": false,
-        "description": "DeltaDiscoveryRequest and DeltaDiscoveryResponse are used in a new gRPC\n endpoint for Delta xDS.\n\n With Delta xDS, the DeltaDiscoveryResponses do not need to include a full\n snapshot of the tracked resources. Instead, DeltaDiscoveryResponses are a\n diff to the state of a xDS client.\n In Delta XDS there are per-resource versions, which allow tracking state at\n the resource granularity.\n An xDS Delta session is always in the context of a gRPC bidirectional\n stream. This allows the xDS server to keep track of the state of xDS clients\n connected to it.\n\n In Delta xDS the nonce field is required and used to pair\n DeltaDiscoveryResponse to a DeltaDiscoveryRequest ACK or NACK.\n Optionally, a response message level system_version_info is present for\n debugging purposes only.\n\n DeltaDiscoveryRequest plays two independent roles. Any DeltaDiscoveryRequest\n can be either or both of: [1] informing the server of what resources the\n client has gained/lost interest in (using resource_names_subscribe and\n resource_names_unsubscribe), or [2] (N)ACKing an earlier resource update from\n the server (using response_nonce, with presence of error_detail making it a NACK).\n Additionally, the first message (for a given type_url) of a reconnected gRPC stream\n has a third role: informing the server of the resources (and their versions)\n that the client already possesses, using the initial_resource_versions field.\n\n As with state-of-the-world, when multiple resource types are multiplexed (ADS),\n all requests/acknowledgments/updates are logically walled off by type_url:\n a Cluster ACK exists in a completely separate world from a prior Route NACK.\n In particular, initial_resource_versions being sent at the \"start\" of every\n gRPC stream actually entails a message for each type_url, each with its own\n initial_resource_versions.\n [#next-free-field: 10]"
+        "description": "DeltaDiscoveryRequest and DeltaDiscoveryResponse are used in a new gRPC\n endpoint for Delta xDS.\n\n With Delta xDS, the DeltaDiscoveryResponses do not need to include a full\n snapshot of the tracked resources. Instead, DeltaDiscoveryResponses are a\n diff to the state of a xDS client.\n In Delta XDS there are per-resource versions, which allow tracking state at\n the resource granularity.\n An xDS Delta session is always in the context of a gRPC bidirectional\n stream. This allows the xDS server to keep track of the state of xDS clients\n connected to it.\n\n In Delta xDS the nonce field is required and used to pair\n ``DeltaDiscoveryResponse`` to a ``DeltaDiscoveryRequest`` ACK or NACK.\n Optionally, a response message level ``system_version_info`` is present for\n debugging purposes only.\n\n ``DeltaDiscoveryRequest`` plays two independent roles. Any ``DeltaDiscoveryRequest``\n can be either or both of:\n\n * Informing the server of what resources the client has gained/lost interest in\n   (using ``resource_names_subscribe`` and ``resource_names_unsubscribe``), or\n * (N)ACKing an earlier resource update from the server (using ``response_nonce``,\n   with presence of ``error_detail`` making it a NACK).\n\n Additionally, the first message (for a given ``type_url``) of a reconnected gRPC stream\n has a third role: informing the server of the resources (and their versions)\n that the client already possesses, using the ``initial_resource_versions`` field.\n\n As with state-of-the-world, when multiple resource types are multiplexed (ADS),\n all requests/acknowledgments/updates are logically walled off by ``type_url``:\n a Cluster ACK exists in a completely separate world from a prior Route NACK.\n In particular, ``initial_resource_versions`` being sent at the \"start\" of every\n gRPC stream actually entails a message for each ``type_url``, each with its own\n ``initial_resource_versions``.\n [#next-free-field: 10]"
       },
       "envoy.service.discovery.v3.DeltaDiscoveryRequest.InitialResourceVersionsEntry": {
         "type": "object",
@@ -912,12 +917,12 @@
               "$ref": "#/components/schemas/envoy.service.discovery.v3.Resource"
             },
             "title": "resources",
-            "description": "The response resources. These are typed resources, whose types must match\n the type_url field."
+            "description": "The response resources. These are typed resources, whose types must match\n the ``type_url`` field."
           },
           "typeUrl": {
             "type": "string",
             "title": "type_url",
-            "description": "Type URL for resources. Identifies the xDS API when muxing over ADS.\n Must be consistent with the type_url in the Any within 'resources' if 'resources' is non-empty."
+            "description": "Type URL for resources. Identifies the xDS API when muxing over ADS.\n Must be consistent with the ``type_url`` in the Any within 'resources' if 'resources' is non-empty."
           },
           "removedResources": {
             "type": "array",
@@ -925,7 +930,7 @@
               "type": "string"
             },
             "title": "removed_resources",
-            "description": "Resources names of resources that have be deleted and to be removed from the xDS Client.\n Removed resources for missing resources can be ignored."
+            "description": "Resource names of resources that have been deleted and to be removed from the xDS Client.\n Removed resources for missing resources can be ignored."
           },
           "removedResourceNames": {
             "type": "array",
@@ -933,22 +938,30 @@
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceName"
             },
             "title": "removed_resource_names",
-            "description": "Alternative to removed_resources that allows specifying which variant of\n a resource is being removed. This variant must be used for any resource\n for which dynamic parameter constraints were sent to the client."
+            "description": "Alternative to ``removed_resources`` that allows specifying which variant of\n a resource is being removed. This variant must be used for any resource\n for which dynamic parameter constraints were sent to the client."
           },
           "nonce": {
             "type": "string",
             "title": "nonce",
-            "description": "The nonce provides a way for DeltaDiscoveryRequests to uniquely\n reference a DeltaDiscoveryResponse when (N)ACKing. The nonce is required."
+            "description": "The nonce provides a way for ``DeltaDiscoveryRequests`` to uniquely\n reference a ``DeltaDiscoveryResponse`` when (N)ACKing. The nonce is required."
           },
           "controlPlane": {
             "title": "control_plane",
             "description": "[#not-implemented-hide:]\n The control plane instance that sent the response.",
             "$ref": "#/components/schemas/envoy.config.core.v3.ControlPlane"
+          },
+          "resourceErrors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceError"
+            },
+            "title": "resource_errors",
+            "description": "[#not-implemented-hide:]\n Errors associated with specific resources.\n\n .. note::\n   A resource in this field with a status of NOT_FOUND should be treated the same as\n   a resource listed in the ``removed_resources`` or ``removed_resource_names`` fields."
           }
         },
         "title": "DeltaDiscoveryResponse",
         "additionalProperties": false,
-        "description": "[#next-free-field: 9]"
+        "description": "[#next-free-field: 10]"
       },
       "envoy.service.discovery.v3.DiscoveryRequest": {
         "type": "object",
@@ -956,7 +969,7 @@
           "versionInfo": {
             "type": "string",
             "title": "version_info",
-            "description": "The version_info provided in the request messages will be the version_info\n received with the most recent successfully processed response or empty on\n the first request. It is expected that no new request is sent after a\n response is received until the Envoy instance is ready to ACK/NACK the new\n configuration. ACK/NACK takes place by returning the new API config version\n as applied or the previous API config version respectively. Each type_url\n (see below) has an independent version associated with it."
+            "description": "The ``version_info`` provided in the request messages will be the ``version_info``\n received with the most recent successfully processed response or empty on\n the first request. It is expected that no new request is sent after a\n response is received until the Envoy instance is ready to ACK/NACK the new\n configuration. ACK/NACK takes place by returning the new API config version\n as applied or the previous API config version respectively. Each ``type_url``\n (see below) has an independent version associated with it."
           },
           "node": {
             "title": "node",
@@ -969,7 +982,7 @@
               "type": "string"
             },
             "title": "resource_names",
-            "description": "List of resources to subscribe to, e.g. list of cluster names or a route\n configuration name. If this is empty, all resources for the API are\n returned. LDS/CDS may have empty resource_names, which will cause all\n resources for the Envoy instance to be returned. The LDS and CDS responses\n will then imply a number of resources that need to be fetched via EDS/RDS,\n which will be explicitly enumerated in resource_names."
+            "description": "List of resources to subscribe to, e.g. list of cluster names or a route\n configuration name. If this is empty, all resources for the API are\n returned. LDS/CDS may have empty ``resource_names``, which will cause all\n resources for the Envoy instance to be returned. The LDS and CDS responses\n will then imply a number of resources that need to be fetched via EDS/RDS,\n which will be explicitly enumerated in ``resource_names``."
           },
           "resourceLocators": {
             "type": "array",
@@ -977,17 +990,17 @@
               "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceLocator"
             },
             "title": "resource_locators",
-            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names`` field that allows specifying dynamic\n parameters along with each resource name. Clients that populate this\n field must be able to handle responses from the server where resources\n are wrapped in a Resource message.\n Note that it is legal for a request to have some resources listed\n in ``resource_names`` and others in ``resource_locators``."
+            "description": "[#not-implemented-hide:]\n Alternative to ``resource_names`` field that allows specifying dynamic\n parameters along with each resource name. Clients that populate this\n field must be able to handle responses from the server where resources\n are wrapped in a Resource message.\n\n .. note::\n   It is legal for a request to have some resources listed\n   in ``resource_names`` and others in ``resource_locators``."
           },
           "typeUrl": {
             "type": "string",
             "title": "type_url",
-            "description": "Type of the resource that is being requested, e.g.\n \"type.googleapis.com/envoy.api.v2.ClusterLoadAssignment\". This is implicit\n in requests made via singleton xDS APIs such as CDS, LDS, etc. but is\n required for ADS."
+            "description": "Type of the resource that is being requested, e.g.\n ``type.googleapis.com/envoy.api.v2.ClusterLoadAssignment``. This is implicit\n in requests made via singleton xDS APIs such as CDS, LDS, etc. but is\n required for ADS."
           },
           "responseNonce": {
             "type": "string",
             "title": "response_nonce",
-            "description": "nonce corresponding to DiscoveryResponse being ACK/NACKed. See above\n discussion on version_info and the DiscoveryResponse nonce comment. This\n may be empty only if 1) this is a non-persistent-stream xDS such as HTTP,\n or 2) the client has not yet accepted an update in this xDS stream (unlike\n delta, where it is populated only for new explicit ACKs)."
+            "description": "nonce corresponding to ``DiscoveryResponse`` being ACK/NACKed. See above\n discussion on ``version_info`` and the ``DiscoveryResponse`` nonce comment. This\n may be empty only if:\n\n * This is a non-persistent-stream xDS such as HTTP, or\n * The client has not yet accepted an update in this xDS stream (unlike\n   delta, where it is populated only for new explicit ACKs)."
           },
           "errorDetail": {
             "title": "error_detail",
@@ -1018,27 +1031,35 @@
           "canary": {
             "type": "boolean",
             "title": "canary",
-            "description": "[#not-implemented-hide:]\n Canary is used to support two Envoy command line flags:\n\n * --terminate-on-canary-transition-failure. When set, Envoy is able to\n   terminate if it detects that configuration is stuck at canary. Consider\n   this example sequence of updates:\n   - Management server applies a canary config successfully.\n   - Management server rolls back to a production config.\n   - Envoy rejects the new production config.\n   Since there is no sensible way to continue receiving configuration\n   updates, Envoy will then terminate and apply production config from a\n   clean slate.\n * --dry-run-canary. When set, a canary response will never be applied, only\n   validated via a dry run."
+            "description": "[#not-implemented-hide:]\n Canary is used to support two Envoy command line flags:\n\n * ``--terminate-on-canary-transition-failure``. When set, Envoy is able to\n   terminate if it detects that configuration is stuck at canary. Consider\n   this example sequence of updates:\n\n   * Management server applies a canary config successfully.\n   * Management server rolls back to a production config.\n   * Envoy rejects the new production config.\n\n   Since there is no sensible way to continue receiving configuration\n   updates, Envoy will then terminate and apply production config from a\n   clean slate.\n\n * ``--dry-run-canary``. When set, a canary response will never be applied, only\n   validated via a dry run."
           },
           "typeUrl": {
             "type": "string",
             "title": "type_url",
-            "description": "Type URL for resources. Identifies the xDS API when muxing over ADS.\n Must be consistent with the type_url in the 'resources' repeated Any (if non-empty)."
+            "description": "Type URL for resources. Identifies the xDS API when muxing over ADS.\n Must be consistent with the ``type_url`` in the 'resources' repeated Any (if non-empty)."
           },
           "nonce": {
             "type": "string",
             "title": "nonce",
-            "description": "For gRPC based subscriptions, the nonce provides a way to explicitly ack a\n specific DiscoveryResponse in a following DiscoveryRequest. Additional\n messages may have been sent by Envoy to the management server for the\n previous version on the stream prior to this DiscoveryResponse, that were\n unprocessed at response send time. The nonce allows the management server\n to ignore any further DiscoveryRequests for the previous version until a\n DiscoveryRequest bearing the nonce. The nonce is optional and is not\n required for non-stream based xDS implementations."
+            "description": "For gRPC based subscriptions, the nonce provides a way to explicitly ack a\n specific ``DiscoveryResponse`` in a following ``DiscoveryRequest``. Additional\n messages may have been sent by Envoy to the management server for the\n previous version on the stream prior to this ``DiscoveryResponse``, that were\n unprocessed at response send time. The nonce allows the management server\n to ignore any further ``DiscoveryRequests`` for the previous version until a\n ``DiscoveryRequest`` bearing the nonce. The nonce is optional and is not\n required for non-stream based xDS implementations."
           },
           "controlPlane": {
             "title": "control_plane",
             "description": "The control plane instance that sent the response.",
             "$ref": "#/components/schemas/envoy.config.core.v3.ControlPlane"
+          },
+          "resourceErrors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceError"
+            },
+            "title": "resource_errors",
+            "description": "[#not-implemented-hide:]\n Errors associated with specific resources. Clients are expected to\n remember the most recent error for a given resource across responses;\n the error condition is not considered to be cleared until a response is\n received that contains the resource in the 'resources' field."
           }
         },
         "title": "DiscoveryResponse",
         "additionalProperties": false,
-        "description": "[#next-free-field: 7]"
+        "description": "[#next-free-field: 8]"
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints": {
         "type": "object",
@@ -1098,7 +1119,7 @@
         ],
         "title": "DynamicParameterConstraints",
         "additionalProperties": false,
-        "description": "A set of dynamic parameter constraints associated with a variant of an individual xDS resource.\n These constraints determine whether the resource matches a subscription based on the set of\n dynamic parameters in the subscription, as specified in the\n :ref:`ResourceLocator.dynamic_parameters\u003cenvoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters\u003e`\n field. This allows xDS implementations (clients, servers, and caching proxies) to determine\n which variant of a resource is appropriate for a given client."
+        "description": "A set of dynamic parameter constraints associated with a variant of an individual xDS resource.\n These constraints determine whether the resource matches a subscription based on the set of\n dynamic parameters in the subscription, as specified in the\n :ref:`ResourceLocator.dynamic_parameters \u003cenvoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters\u003e`\n field. This allows xDS implementations (clients, servers, and caching proxies) to determine\n which variant of a resource is appropriate for a given client."
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList": {
         "type": "object",
@@ -1193,7 +1214,7 @@
           },
           "ttl": {
             "title": "ttl",
-            "description": "Time-to-live value for the resource. For each resource, a timer is started. The timer is\n reset each time the resource is received with a new TTL. If the resource is received with\n no TTL set, the timer is removed for the resource. Upon expiration of the timer, the\n configuration for the resource will be removed.\n\n The TTL can be refreshed or changed by sending a response that doesn't change the resource\n version. In this case the resource field does not need to be populated, which allows for\n light-weight \"heartbeat\" updates to keep a resource with a TTL alive.\n\n The TTL feature is meant to support configurations that should be removed in the event of\n a management server failure. For example, the feature may be used for fault injection\n testing where the fault injection should be terminated in the event that Envoy loses contact\n with the management server.",
+            "description": "Time-to-live value for the resource. For each resource, a timer is started. The timer is\n reset each time the resource is received with a new TTL. If the resource is received with\n no TTL set, the timer is removed for the resource. Upon expiration of the timer, the\n configuration for the resource will be removed.\n\n The TTL can be refreshed or changed by sending a response that doesn't change the resource\n version. In this case the ``resource`` field does not need to be populated, which allows for\n light-weight \"heartbeat\" updates to keep a resource with a TTL alive.\n\n The TTL feature is meant to support configurations that should be removed in the event of\n a management server failure. For example, the feature may be used for fault injection\n testing where the fault injection should be terminated in the event that Envoy loses contact\n with the management server.",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "cacheControl": {
@@ -1217,12 +1238,30 @@
           "doNotCache": {
             "type": "boolean",
             "title": "do_not_cache",
-            "description": "If true, xDS proxies may not cache this resource.\n Note that this does not apply to clients other than xDS proxies, which must cache resources\n for their own use, regardless of the value of this field."
+            "description": "If true, xDS proxies may not cache this resource.\n\n .. note::\n   This does not apply to clients other than xDS proxies, which must cache resources\n   for their own use, regardless of the value of this field."
           }
         },
         "title": "CacheControl",
         "additionalProperties": false,
         "description": "Cache control properties for the resource.\n [#not-implemented-hide:]"
+      },
+      "envoy.service.discovery.v3.ResourceError": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "title": "resource_name",
+            "description": "The name of the resource.",
+            "$ref": "#/components/schemas/envoy.service.discovery.v3.ResourceName"
+          },
+          "errorDetail": {
+            "title": "error_detail",
+            "description": "The error reported for the resource.",
+            "$ref": "#/components/schemas/google.rpc.Status"
+          }
+        },
+        "title": "ResourceError",
+        "additionalProperties": false,
+        "description": "[#not-implemented-hide:]\n An error associated with a specific resource name, returned to the\n client by the server."
       },
       "envoy.service.discovery.v3.ResourceLocator": {
         "type": "object",

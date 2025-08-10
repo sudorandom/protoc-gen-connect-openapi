@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"strconv"
 	"strings"
+	"time"
 
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	"buf.build/go/protovalidate"
@@ -11,40 +12,46 @@ import (
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/reflect/protoregistry"
+	"google.golang.org/protobuf/types/known/durationpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"gopkg.in/yaml.v3"
 )
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
-	constraints, err := protovalidate.ResolveMessageRules(desc)
+	rules, err := protovalidate.ResolveMessageRules(desc)
 	if err != nil {
 		slog.Warn("unable to resolve message rules", slog.Any("error", err))
 		return schema
 	}
-	if constraints == nil {
+	if rules == nil {
 		return schema
 	}
-	updateWithCEL(schema, constraints.GetCel())
+	updateWithCEL(schema, rules.GetCel(), nil, nil)
 	return schema
 }
 
 func SchemaWithFieldAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
-	constraints, err := protovalidate.ResolveFieldRules(desc)
+	rules, err := protovalidate.ResolveFieldRules(desc)
 	if err != nil {
 		slog.Warn("unable to resolve field rules", slog.Any("error", err))
 		return schema
 	}
-	if constraints == nil {
+	if rules == nil {
 		return schema
 	}
-	updateWithCEL(schema, constraints.GetCel())
-	if constraints.Required != nil && *constraints.Required {
+
+	updateWithCEL(schema, rules.GetCel(), nil, nil)
+	if rules.Required != nil && *rules.Required {
 		parent := schema.ParentProxy.Schema()
 		if parent != nil {
 			parent.Required = util.AppendStringDedupe(parent.Required, util.MakeFieldName(opts, desc))
 		}
 	}
-	updateSchemaWithFieldRules(schema, constraints, onlyScalar)
+	updateSchemaWithFieldRules(opts, schema, rules, onlyScalar)
 	return schema
 }
 
@@ -52,94 +59,144 @@ func PopulateParentProperties(opts options.Options, parent *base.Schema, desc pr
 	if parent == nil {
 		return parent
 	}
-	constraints, err := protovalidate.ResolveFieldRules(desc)
+	rules, err := protovalidate.ResolveFieldRules(desc)
 	if err != nil {
 		slog.Warn("unable to resolve field rules", slog.Any("error", err))
 		return parent
 	}
-	if constraints == nil {
+	if rules == nil {
 		return parent
 	}
-	if constraints.Required != nil && *constraints.Required {
+	if rules.Required != nil && *rules.Required {
 		parent.Required = util.AppendStringDedupe(parent.Required, util.MakeFieldName(opts, desc))
 	}
 	return parent
 }
 
 //gocyclo:ignore
-func updateSchemaWithFieldRules(schema *base.Schema, constraints *validate.FieldRules, onlyScalar bool) {
-	if constraints == nil {
+func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules *validate.FieldRules, onlyScalar bool) {
+	if rules == nil {
 		return
 	}
-	switch t := constraints.Type.(type) {
+
+	var innerRules protoreflect.Message
+	switch t := rules.Type.(type) {
 	case *validate.FieldRules_Float:
+		innerRules = t.Float.ProtoReflect()
 		updateSchemaFloat(schema, t.Float)
 	case *validate.FieldRules_Double:
+		innerRules = t.Double.ProtoReflect()
 		updateSchemaDouble(schema, t.Double)
 	case *validate.FieldRules_Int32:
+		innerRules = t.Int32.ProtoReflect()
 		updateSchemaInt32(schema, t.Int32)
 	case *validate.FieldRules_Int64:
+		innerRules = t.Int64.ProtoReflect()
 		updateSchemaInt64(schema, t.Int64)
 	case *validate.FieldRules_Uint32:
+		innerRules = t.Uint32.ProtoReflect()
 		updateSchemaUint32(schema, t.Uint32)
 	case *validate.FieldRules_Uint64:
+		innerRules = t.Uint64.ProtoReflect()
 		updateSchemaUint64(schema, t.Uint64)
 	case *validate.FieldRules_Sint32:
+		innerRules = t.Sint32.ProtoReflect()
 		updateSchemaSint32(schema, t.Sint32)
 	case *validate.FieldRules_Sint64:
+		innerRules = t.Sint64.ProtoReflect()
 		updateSchemaSint64(schema, t.Sint64)
 	case *validate.FieldRules_Fixed32:
+		innerRules = t.Fixed32.ProtoReflect()
 		updateSchemaFixed32(schema, t.Fixed32)
 	case *validate.FieldRules_Fixed64:
+		innerRules = t.Fixed64.ProtoReflect()
 		updateSchemaFixed64(schema, t.Fixed64)
 	case *validate.FieldRules_Sfixed32:
+		innerRules = t.Sfixed32.ProtoReflect()
 		updateSchemaSfixed32(schema, t.Sfixed32)
 	case *validate.FieldRules_Sfixed64:
+		innerRules = t.Sfixed64.ProtoReflect()
 		updateSchemaSfixed64(schema, t.Sfixed64)
 	case *validate.FieldRules_Bool:
+		innerRules = t.Bool.ProtoReflect()
 		updateSchemaBool(schema, t.Bool)
 	case *validate.FieldRules_String_:
+		innerRules = t.String_.ProtoReflect()
 		updateSchemaString(schema, t.String_)
 	case *validate.FieldRules_Bytes:
+		innerRules = t.Bytes.ProtoReflect()
 		updateSchemaBytes(schema, t.Bytes)
 	case *validate.FieldRules_Enum:
+		innerRules = t.Enum.ProtoReflect()
 		updateSchemaEnum(schema, t.Enum)
 	case *validate.FieldRules_Any:
+		innerRules = t.Any.ProtoReflect()
 		updateSchemaAny(schema, t.Any)
 	case *validate.FieldRules_Duration:
+		innerRules = t.Duration.ProtoReflect()
 		updateSchemaDuration(schema, t.Duration)
 	case *validate.FieldRules_Timestamp:
+		innerRules = t.Timestamp.ProtoReflect()
 		updateSchemaTimestamp(schema, t.Timestamp)
 	}
 
+	if innerRules != nil {
+		if err := reparseUnrecognized(opts.GetExtensionTypeResolver(), innerRules); err != nil {
+			slog.Error("failed to reparse unrecognized fields", "error", err)
+		}
+
+		innerRules.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+			predefinedRules, err := protovalidate.ResolvePredefinedRules(fd)
+			if err != nil {
+				slog.Error("error resolving predefined rules", "error", err)
+				return true
+			}
+			if predefinedRules == nil {
+				return true
+			}
+			updateWithCEL(schema, predefinedRules.GetCel(), &v, fd)
+			return true
+		})
+	}
+
 	if !onlyScalar {
-		switch t := constraints.Type.(type) {
+		switch t := rules.Type.(type) {
 		case *validate.FieldRules_Repeated:
-			updateSchemaRepeated(schema, t.Repeated)
+			updateSchemaRepeated(opts, schema, t.Repeated)
 		case *validate.FieldRules_Map:
-			updateSchemaMap(schema, t.Map)
+			updateSchemaMap(opts, schema, t.Map)
 		}
 	}
 }
 
-func updateWithCEL(schema *base.Schema, constraints []*validate.Rule) {
-	if len(constraints) == 0 {
+func updateWithCEL(schema *base.Schema, rules []*validate.Rule, val *protoreflect.Value, fieldDesc protoreflect.FieldDescriptor) {
+	if len(rules) == 0 {
 		return
 	}
 	b := strings.Builder{}
 	if schema.Description != "" {
-		b.WriteString(schema.Description)
+		b.WriteString(strings.TrimSpace(schema.Description))
 		b.WriteByte('\n')
 	}
-	for _, cel := range constraints {
-		if cel.Message != nil {
-			b.WriteString(*cel.Message)
-			b.WriteString(":\n```\n")
+	for _, cel := range rules {
+		if cel.HasId() {
+			b.WriteString(cel.GetId())
 		}
-		if cel.Expression != nil {
-			b.WriteString(*cel.Expression)
-			b.WriteString("\n```\n\n")
+		if val != nil {
+			b.WriteString(" = ")
+			b.WriteString(formatProtoreflectValue(*val, fieldDesc))
 		}
+		if cel.HasMessage() {
+			b.WriteString(" // ")
+			b.WriteString(cel.GetMessage())
+		}
+		// This is excluded because it's very verbose.
+		// if cel.HasExpression() {
+		// 	b.WriteString("\n```\n")
+		// 	b.WriteString(cel.GetExpression())
+		// 	b.WriteString("\n```\n")
+		// }
+		b.WriteString("\n")
 	}
 	s := b.String()
 	schema.Description = s
@@ -796,7 +853,7 @@ func updateSchemaEnum(schema *base.Schema, constraint *validate.EnumRules) {
 	}
 }
 
-func updateSchemaRepeated(schema *base.Schema, constraint *validate.RepeatedRules) {
+func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint *validate.RepeatedRules) {
 	if constraint.Unique != nil {
 		schema.UniqueItems = constraint.Unique
 	}
@@ -813,11 +870,11 @@ func updateSchemaRepeated(schema *base.Schema, constraint *validate.RepeatedRule
 		schema.MaxItems = &v
 	}
 	if constraint.Items != nil && schema.Items != nil && schema.Items.A != nil && !schema.Items.A.IsReference() {
-		updateSchemaWithFieldRules(schema.Items.A.Schema(), constraint.Items, false)
+		updateSchemaWithFieldRules(opts, schema.Items.A.Schema(), constraint.Items, false)
 	}
 }
 
-func updateSchemaMap(schema *base.Schema, constraint *validate.MapRules) {
+func updateSchemaMap(opts options.Options, schema *base.Schema, constraint *validate.MapRules) {
 	if constraint.MinPairs != nil {
 		v := int64(*constraint.MinPairs)
 		schema.MinProperties = &v
@@ -829,7 +886,7 @@ func updateSchemaMap(schema *base.Schema, constraint *validate.MapRules) {
 	// NOTE: Most of these properties don't make sense for object keys
 	// updateSchemaWithFieldRules(schema, constraint.Keys)
 	if schema.AdditionalProperties != nil && constraint.Values != nil {
-		updateSchemaWithFieldRules(schema.AdditionalProperties.A.Schema(), constraint.Values, false)
+		updateSchemaWithFieldRules(opts, schema.AdditionalProperties.A.Schema(), constraint.Values, false)
 	}
 }
 
@@ -852,32 +909,98 @@ func updateSchemaAny(schema *base.Schema, constraint *validate.AnyRules) {
 
 func updateSchemaDuration(schema *base.Schema, constraint *validate.DurationRules) {
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(constraint.Const.String())
+		schema.Const = utils.CreateStringNode(constraint.Const.AsDuration().String())
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(item.String())
+			items[i] = utils.CreateStringNode(item.AsDuration().String())
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(item.String())
+			items[i] = utils.CreateStringNode(item.AsDuration().String())
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.String()))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsDuration().String()))
 	}
 }
 
 func updateSchemaTimestamp(schema *base.Schema, constraint *validate.TimestampRules) {
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(constraint.Const.String())
+		schema.Const = utils.CreateStringNode(constraint.Const.AsTime().String())
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.String()))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsTime().String()))
 	}
+}
+
+func reparseUnrecognized(
+	extensionTypeResolver protoregistry.ExtensionTypeResolver,
+	reflectMessage protoreflect.Message,
+) error {
+	if unknown := reflectMessage.GetUnknown(); len(unknown) > 0 {
+		reflectMessage.SetUnknown(nil)
+		options := proto.UnmarshalOptions{
+			Resolver: extensionTypeResolver,
+			Merge:    true,
+		}
+		if err := options.Unmarshal(unknown, reflectMessage.Interface()); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.FieldDescriptor) string {
+	switch v := val.Interface().(type) {
+	case protoreflect.List:
+		var elements []string
+		for i := 0; i < v.Len(); i++ {
+			elements = append(elements, formatProtoreflectValue(v.Get(i), fieldDesc))
+		}
+		return "[" + strings.Join(elements, ", ") + "]"
+	case protoreflect.EnumNumber:
+		if fieldDesc != nil && fieldDesc.Kind() == protoreflect.EnumKind {
+			enumDesc := fieldDesc.Enum()
+			enumValDesc := enumDesc.Values().ByNumber(v)
+			if enumValDesc != nil {
+				return string(enumValDesc.Name())
+			}
+		}
+		return strconv.Itoa(int(v))
+	case string:
+		return strconv.Quote(v)
+	case *durationpb.Duration:
+		return v.AsDuration().String()
+	case *timestamppb.Timestamp:
+		// RFC3339Nano for OpenAPI compatibility
+		return v.AsTime().Format(time.RFC3339Nano)
+	case proto.Message:
+		// Special handling for Duration and Timestamp proto messages
+		switch msg := v.(type) {
+		case *durationpb.Duration:
+			return msg.AsDuration().String()
+		case *timestamppb.Timestamp:
+			return msg.AsTime().Format(time.RFC3339Nano)
+		default:
+			data, _ := protojson.Marshal(msg)
+			return string(data)
+		}
+	case protoreflect.Message:
+		// Try to convert to well-known types
+		if m, ok := v.Interface().(*durationpb.Duration); ok {
+			return m.AsDuration().String()
+		}
+		if m, ok := v.Interface().(*timestamppb.Timestamp); ok {
+			return m.AsTime().Format(time.RFC3339Nano)
+		}
+		data, _ := protojson.Marshal(val.Message().Interface())
+		return string(data)
+	}
+	return val.String()
 }

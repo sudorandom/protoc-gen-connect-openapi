@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package test.bufbuild.people.v1;
+
+import "buf/validate/validate.proto";
+
+extend buf.validate.StringRules {
+  optional bool required_medium = 80048953 [(buf.validate.predefined).cel = {
+    id: "string.required.medium"
+    message: "this is required and must be 50 or fewer characters"
+    expression: "this.size() > 0 && this.size() <= 50"
+  }];
+  optional bool optional_medium = 80048954 [(buf.validate.predefined).cel = {
+    id: "string.optional.medium"
+    message: "this must be 50 or fewer characters"
+    expression: "this.size() <= 50"
+  }];
+}

@@ -43,12 +43,12 @@
       },
       "google.protobuf.BoolValue": {
         "type": "boolean",
-        "description": "Wrapper message for `bool`.\n\n The JSON representation for `BoolValue` is JSON `true` and `false`."
+        "description": "Wrapper message for `bool`.\n\n The JSON representation for `BoolValue` is JSON `true` and `false`.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.BytesValue": {
         "type": "string",
         "format": "binary",
-        "description": "Wrapper message for `bytes`.\n\n The JSON representation for `BytesValue` is JSON string."
+        "description": "Wrapper message for `bytes`.\n\n The JSON representation for `BytesValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.DoubleValue": {
         "oneOf": [
@@ -59,7 +59,7 @@
             "type": "number"
           }
         ],
-        "description": "Wrapper message for `double`.\n\n The JSON representation for `DoubleValue` is JSON number."
+        "description": "Wrapper message for `double`.\n\n The JSON representation for `DoubleValue` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.Duration": {
         "type": "string",
@@ -79,11 +79,11 @@
             "type": "number"
           }
         ],
-        "description": "Wrapper message for `float`.\n\n The JSON representation for `FloatValue` is JSON number."
+        "description": "Wrapper message for `float`.\n\n The JSON representation for `FloatValue` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.Int32Value": {
         "type": "number",
-        "description": "Wrapper message for `int32`.\n\n The JSON representation for `Int32Value` is JSON number."
+        "description": "Wrapper message for `int32`.\n\n The JSON representation for `Int32Value` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.Int64Value": {
         "oneOf": [
@@ -94,7 +94,7 @@
             "type": "number"
           }
         ],
-        "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string."
+        "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.ListValue": {
         "type": "object",
@@ -114,7 +114,7 @@
       },
       "google.protobuf.StringValue": {
         "type": "string",
-        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string."
+        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.Struct": {
         "type": "object",
@@ -160,7 +160,7 @@
         },
         "title": "UInt32Value",
         "additionalProperties": false,
-        "description": "Wrapper message for `uint32`.\n\n The JSON representation for `UInt32Value` is JSON number."
+        "description": "Wrapper message for `uint32`.\n\n The JSON representation for `UInt32Value` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.UInt64Value": {
         "type": "object",
@@ -177,7 +177,7 @@
         },
         "title": "UInt64Value",
         "additionalProperties": false,
-        "description": "Wrapper message for `uint64`.\n\n The JSON representation for `UInt64Value` is JSON string."
+        "description": "Wrapper message for `uint64`.\n\n The JSON representation for `UInt64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.Value": {
         "oneOf": [

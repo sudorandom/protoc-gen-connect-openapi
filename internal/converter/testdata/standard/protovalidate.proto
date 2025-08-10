@@ -9,7 +9,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 service MessageFields {
-  rpc OneOfRPC(OneOfMessage) returns (DisabledMessage) {}
+  rpc OneOfRPC(OneOfMessage) returns (google.protobuf.Empty) {}
   rpc CELRPC(CELMessage) returns (google.protobuf.Empty) {}
 }
 
@@ -29,10 +29,6 @@ message CELMessage {
   }
 }
 
-message DisabledMessage {
-  option (buf.validate.message).disabled = true;
-}
-
 service FieldsService {
   rpc CELRPC(LotsOfValidationRules) returns (google.protobuf.Empty) {}
 }
@@ -49,10 +45,10 @@ message LotsOfValidationRules {
     message: "value must be greater than 42"
     expression: "this > 42"
   }];
-  optional MyOtherMessage skipped_field = 3 [(buf.validate.field).skipped = true];
+  optional MyOtherMessage skipped_field = 3 [(buf.validate.field).ignore = IGNORE_ALWAYS];
   optional MyOtherMessage required_field = 4 [(buf.validate.field).required = true];
   optional string uri_field = 5 [
-    (buf.validate.field).ignore = IGNORE_DEFAULT,
+    (buf.validate.field).ignore = IGNORE_IF_ZERO_VALUE,
     (buf.validate.field).string.uri = true
   ];
 

@@ -11,12 +11,8 @@ components:
           type: integer
           title: age
           format: int32
-          description: |+
-            The user can't be a minor (younger than 18 years old):
-            ```
-            this < 18 ? 'User must be at least 18 years old': ''
-            ```
-
+          description: |
+            user.age // The user can't be a minor (younger than 18 years old)
       title: User
       additionalProperties: false
 security: []
