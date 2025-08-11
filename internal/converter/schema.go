@@ -151,10 +151,14 @@ func enumToSchema(state *State, tt protoreflect.EnumDescriptor) (string, *base.S
 	if state.Opts.FullyQualifiedMessageNames {
 		title = string(tt.FullName())
 	}
+	types := []string{"string"}
+	if state.Opts.IncludeNumberEnumValues {
+		types = append(types, "number")
+	}
 	s := &base.Schema{
 		Title:       title,
 		Description: util.FormatComments(tt.ParentFile().SourceLocations().ByDescriptor(tt)),
-		Type:        []string{"string"},
+		Type:        types,
 		Enum:        children,
 	}
 	return string(tt.FullName()), s
