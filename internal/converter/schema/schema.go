@@ -79,7 +79,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 
 	// if there are oneOfs and properties, we should merge them under a allOf.
 	// having properties and oneOfs at the same level creates conflicts.
-	if opts.WrapOneOfProperties && len(s.OneOf) > 0 && s.Properties.Len() > 0 {
+	if len(s.OneOf) > 0 && s.Properties.Len() > 0 {
 		s.AllOf = append(s.AllOf,
 			base.CreateSchemaProxy(&base.Schema{Properties: s.Properties}),
 			base.CreateSchemaProxy(&base.Schema{OneOf: s.OneOf}),

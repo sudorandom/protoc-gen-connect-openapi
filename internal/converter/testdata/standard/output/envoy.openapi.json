@@ -486,28 +486,34 @@
       },
       "envoy.config.core.v3.EnvoyInternalAddress": {
         "type": "object",
-        "oneOf": [
+        "allOf": [
           {
             "properties": {
-              "serverListenerName": {
+              "endpointId": {
                 "type": "string",
-                "title": "server_listener_name",
-                "description": "Specifies the :ref:`name \u003cenvoy_v3_api_field_config.listener.v3.Listener.name\u003e` of the\n internal listener."
+                "title": "endpoint_id",
+                "description": "Specifies an endpoint identifier to distinguish between multiple endpoints for the same internal listener in a\n single upstream pool. Only used in the upstream addresses for tracking changes to individual endpoints. This, for\n example, may be set to the final destination IP for the target internal listener."
               }
-            },
-            "title": "server_listener_name",
-            "required": [
-              "serverListenerName"
+            }
+          },
+          {
+            "oneOf": [
+              {
+                "properties": {
+                  "serverListenerName": {
+                    "type": "string",
+                    "title": "server_listener_name",
+                    "description": "Specifies the :ref:`name \u003cenvoy_v3_api_field_config.listener.v3.Listener.name\u003e` of the\n internal listener."
+                  }
+                },
+                "title": "server_listener_name",
+                "required": [
+                  "serverListenerName"
+                ]
+              }
             ]
           }
         ],
-        "properties": {
-          "endpointId": {
-            "type": "string",
-            "title": "endpoint_id",
-            "description": "Specifies an endpoint identifier to distinguish between multiple endpoints for the same internal listener in a\n single upstream pool. Only used in the upstream addresses for tracking changes to individual endpoints. This, for\n example, may be set to the final destination IP for the target internal listener."
-          }
-        },
         "title": "EnvoyInternalAddress",
         "additionalProperties": false,
         "description": "The address represents an envoy internal listener.\n [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]"
@@ -635,95 +641,101 @@
       },
       "envoy.config.core.v3.Node": {
         "type": "object",
-        "oneOf": [
+        "allOf": [
           {
             "properties": {
-              "userAgentBuildVersion": {
-                "title": "user_agent_build_version",
-                "description": "Structured version of the entity requesting config.",
-                "$ref": "#/components/schemas/envoy.config.core.v3.BuildVersion"
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "An opaque node identifier for the Envoy node. This also provides the local\n service node name. It should be set if any of the following features are\n used: :ref:`statsd \u003carch_overview_statistics\u003e`, :ref:`CDS\n \u003cconfig_cluster_manager_cds\u003e`, and :ref:`HTTP tracing\n \u003carch_overview_tracing\u003e`, either in this message or via\n :option:`--service-node`."
+              },
+              "cluster": {
+                "type": "string",
+                "title": "cluster",
+                "description": "Defines the local service cluster name where Envoy is running. Though\n optional, it should be set if any of the following features are used:\n :ref:`statsd \u003carch_overview_statistics\u003e`, :ref:`health check cluster\n verification\n \u003cenvoy_v3_api_field_config.core.v3.HealthCheck.HttpHealthCheck.service_name_matcher\u003e`,\n :ref:`runtime override directory \u003cenvoy_v3_api_msg_config.bootstrap.v3.Runtime\u003e`,\n :ref:`user agent addition\n \u003cenvoy_v3_api_field_extensions.filters.network.http_connection_manager.v3.HttpConnectionManager.add_user_agent\u003e`,\n :ref:`HTTP global rate limiting \u003cconfig_http_filters_rate_limit\u003e`,\n :ref:`CDS \u003cconfig_cluster_manager_cds\u003e`, and :ref:`HTTP tracing\n \u003carch_overview_tracing\u003e`, either in this message or via\n :option:`--service-cluster`."
+              },
+              "metadata": {
+                "title": "metadata",
+                "description": "Opaque metadata extending the node identifier. Envoy will pass this\n directly to the management server.",
+                "$ref": "#/components/schemas/google.protobuf.Struct"
+              },
+              "dynamicParameters": {
+                "type": "object",
+                "title": "dynamic_parameters",
+                "additionalProperties": {
+                  "title": "value",
+                  "$ref": "#/components/schemas/xds.core.v3.ContextParams"
+                },
+                "description": "Map from xDS resource type URL to dynamic context parameters. These may vary at runtime (unlike\n other fields in this message). For example, the xDS client may have a shard identifier that\n changes during the lifetime of the xDS client. In Envoy, this would be achieved by updating the\n dynamic context on the Server::Instance's LocalInfo context provider. The shard ID dynamic\n parameter then appears in this field during future discovery requests."
+              },
+              "locality": {
+                "title": "locality",
+                "description": "Locality specifying where the Envoy instance is running.",
+                "$ref": "#/components/schemas/envoy.config.core.v3.Locality"
+              },
+              "userAgentName": {
+                "type": "string",
+                "title": "user_agent_name",
+                "description": "Free-form string that identifies the entity requesting config.\n E.g. \"envoy\" or \"grpc\""
+              },
+              "extensions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/envoy.config.core.v3.Extension"
+                },
+                "title": "extensions",
+                "description": "List of extensions and their versions supported by the node."
+              },
+              "clientFeatures": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "client_features",
+                "description": "Client feature support list. These are well known features described\n in the Envoy API repository for a given major version of an API. Client features\n use reverse DNS naming scheme, for example ``com.acme.feature``.\n See :ref:`the list of features \u003cclient_features\u003e` that xDS client may\n support."
+              },
+              "listeningAddresses": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/envoy.config.core.v3.Address"
+                },
+                "title": "listening_addresses",
+                "description": "Known listening ports on the node as a generic hint to the management server\n for filtering :ref:`listeners \u003cconfig_listeners\u003e` to be returned. For example,\n if there is a listener bound to port 80, the list can optionally contain the\n SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.",
+                "deprecated": true
               }
-            },
-            "title": "user_agent_build_version",
-            "required": [
-              "userAgentBuildVersion"
-            ]
+            }
           },
           {
-            "properties": {
-              "userAgentVersion": {
-                "type": "string",
+            "oneOf": [
+              {
+                "properties": {
+                  "userAgentBuildVersion": {
+                    "title": "user_agent_build_version",
+                    "description": "Structured version of the entity requesting config.",
+                    "$ref": "#/components/schemas/envoy.config.core.v3.BuildVersion"
+                  }
+                },
+                "title": "user_agent_build_version",
+                "required": [
+                  "userAgentBuildVersion"
+                ]
+              },
+              {
+                "properties": {
+                  "userAgentVersion": {
+                    "type": "string",
+                    "title": "user_agent_version",
+                    "description": "Free-form string that identifies the version of the entity requesting config.\n E.g. \"1.12.2\" or \"abcd1234\", or \"SpecialEnvoyBuild\""
+                  }
+                },
                 "title": "user_agent_version",
-                "description": "Free-form string that identifies the version of the entity requesting config.\n E.g. \"1.12.2\" or \"abcd1234\", or \"SpecialEnvoyBuild\""
+                "required": [
+                  "userAgentVersion"
+                ]
               }
-            },
-            "title": "user_agent_version",
-            "required": [
-              "userAgentVersion"
             ]
           }
         ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "An opaque node identifier for the Envoy node. This also provides the local\n service node name. It should be set if any of the following features are\n used: :ref:`statsd \u003carch_overview_statistics\u003e`, :ref:`CDS\n \u003cconfig_cluster_manager_cds\u003e`, and :ref:`HTTP tracing\n \u003carch_overview_tracing\u003e`, either in this message or via\n :option:`--service-node`."
-          },
-          "cluster": {
-            "type": "string",
-            "title": "cluster",
-            "description": "Defines the local service cluster name where Envoy is running. Though\n optional, it should be set if any of the following features are used:\n :ref:`statsd \u003carch_overview_statistics\u003e`, :ref:`health check cluster\n verification\n \u003cenvoy_v3_api_field_config.core.v3.HealthCheck.HttpHealthCheck.service_name_matcher\u003e`,\n :ref:`runtime override directory \u003cenvoy_v3_api_msg_config.bootstrap.v3.Runtime\u003e`,\n :ref:`user agent addition\n \u003cenvoy_v3_api_field_extensions.filters.network.http_connection_manager.v3.HttpConnectionManager.add_user_agent\u003e`,\n :ref:`HTTP global rate limiting \u003cconfig_http_filters_rate_limit\u003e`,\n :ref:`CDS \u003cconfig_cluster_manager_cds\u003e`, and :ref:`HTTP tracing\n \u003carch_overview_tracing\u003e`, either in this message or via\n :option:`--service-cluster`."
-          },
-          "metadata": {
-            "title": "metadata",
-            "description": "Opaque metadata extending the node identifier. Envoy will pass this\n directly to the management server.",
-            "$ref": "#/components/schemas/google.protobuf.Struct"
-          },
-          "dynamicParameters": {
-            "type": "object",
-            "title": "dynamic_parameters",
-            "additionalProperties": {
-              "title": "value",
-              "$ref": "#/components/schemas/xds.core.v3.ContextParams"
-            },
-            "description": "Map from xDS resource type URL to dynamic context parameters. These may vary at runtime (unlike\n other fields in this message). For example, the xDS client may have a shard identifier that\n changes during the lifetime of the xDS client. In Envoy, this would be achieved by updating the\n dynamic context on the Server::Instance's LocalInfo context provider. The shard ID dynamic\n parameter then appears in this field during future discovery requests."
-          },
-          "locality": {
-            "title": "locality",
-            "description": "Locality specifying where the Envoy instance is running.",
-            "$ref": "#/components/schemas/envoy.config.core.v3.Locality"
-          },
-          "userAgentName": {
-            "type": "string",
-            "title": "user_agent_name",
-            "description": "Free-form string that identifies the entity requesting config.\n E.g. \"envoy\" or \"grpc\""
-          },
-          "extensions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/envoy.config.core.v3.Extension"
-            },
-            "title": "extensions",
-            "description": "List of extensions and their versions supported by the node."
-          },
-          "clientFeatures": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "client_features",
-            "description": "Client feature support list. These are well known features described\n in the Envoy API repository for a given major version of an API. Client features\n use reverse DNS naming scheme, for example ``com.acme.feature``.\n See :ref:`the list of features \u003cclient_features\u003e` that xDS client may\n support."
-          },
-          "listeningAddresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/envoy.config.core.v3.Address"
-            },
-            "title": "listening_addresses",
-            "description": "Known listening ports on the node as a generic hint to the management server\n for filtering :ref:`listeners \u003cconfig_listeners\u003e` to be returned. For example,\n if there is a listener bound to port 80, the list can optionally contain the\n SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.",
-            "deprecated": true
-          }
-        },
         "title": "Node",
         "additionalProperties": false,
         "description": "Identifies a specific Envoy instance. The node identifier is presented to the\n management server, which may use this identifier to distinguish per Envoy\n configuration for serving.\n [#next-free-field: 13]"
@@ -762,59 +774,65 @@
       },
       "envoy.config.core.v3.SocketAddress": {
         "type": "object",
-        "oneOf": [
+        "allOf": [
           {
             "properties": {
-              "namedPort": {
+              "protocol": {
+                "title": "protocol",
+                "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol"
+              },
+              "address": {
                 "type": "string",
-                "title": "named_port",
-                "description": "This is only valid if :ref:`resolver_name\n \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e` is specified below and the\n named resolver is capable of named port resolution."
+                "title": "address",
+                "description": "The address for this socket. :ref:`Listeners \u003cconfig_listeners\u003e` will bind\n to the address. An empty address is not allowed. Specify ``0.0.0.0`` or ``::``\n to bind to any address. [#comment:TODO(zuercher) reinstate when implemented:\n It is possible to distinguish a Listener address via the prefix/suffix matching\n in :ref:`FilterChainMatch \u003cenvoy_v3_api_msg_config.listener.v3.FilterChainMatch\u003e`.] When used\n within an upstream :ref:`BindConfig \u003cenvoy_v3_api_msg_config.core.v3.BindConfig\u003e`, the address\n controls the source address of outbound connections. For :ref:`clusters\n \u003cenvoy_v3_api_msg_config.cluster.v3.Cluster\u003e`, the cluster type determines whether the\n address must be an IP (``STATIC`` or ``EDS`` clusters) or a hostname resolved by DNS\n (``STRICT_DNS`` or ``LOGICAL_DNS`` clusters). Address resolution can be customized\n via :ref:`resolver_name \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e`."
+              },
+              "resolverName": {
+                "type": "string",
+                "title": "resolver_name",
+                "description": "The name of the custom resolver. This must have been registered with Envoy. If\n this is empty, a context dependent default applies. If the address is a concrete\n IP address, no resolution will occur. If address is a hostname this\n should be set for resolution other than DNS. Specifying a custom resolver with\n ``STRICT_DNS`` or ``LOGICAL_DNS`` will generate an error at runtime."
+              },
+              "ipv4Compat": {
+                "type": "boolean",
+                "title": "ipv4_compat",
+                "description": "When binding to an IPv6 address above, this enables `IPv4 compatibility\n \u003chttps://tools.ietf.org/html/rfc3493#page-11\u003e`_. Binding to ``::`` will\n allow both IPv4 and IPv6 connections, with peer IPv4 addresses mapped into\n IPv6 space as ``::FFFF:\u003cIPv4-address\u003e``."
+              },
+              "networkNamespaceFilepath": {
+                "type": "string",
+                "title": "network_namespace_filepath",
+                "description": "Filepath that specifies the Linux network namespace this socket will be created in (see ``man 7\n network_namespaces``). If this field is set, Envoy will create the socket in the specified\n network namespace.\n\n .. note::\n    Setting this parameter requires Envoy to run with the ``CAP_NET_ADMIN`` capability.\n\n .. note::\n    Currently only used for Listener sockets.\n\n .. attention::\n     Network namespaces are only configurable on Linux. Otherwise, this field has no effect."
               }
-            },
-            "title": "named_port",
-            "required": [
-              "namedPort"
-            ]
+            }
           },
           {
-            "properties": {
-              "portValue": {
-                "type": "integer",
-                "title": "port_value"
+            "oneOf": [
+              {
+                "properties": {
+                  "namedPort": {
+                    "type": "string",
+                    "title": "named_port",
+                    "description": "This is only valid if :ref:`resolver_name\n \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e` is specified below and the\n named resolver is capable of named port resolution."
+                  }
+                },
+                "title": "named_port",
+                "required": [
+                  "namedPort"
+                ]
+              },
+              {
+                "properties": {
+                  "portValue": {
+                    "type": "integer",
+                    "title": "port_value"
+                  }
+                },
+                "title": "port_value",
+                "required": [
+                  "portValue"
+                ]
               }
-            },
-            "title": "port_value",
-            "required": [
-              "portValue"
             ]
           }
         ],
-        "properties": {
-          "protocol": {
-            "title": "protocol",
-            "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol"
-          },
-          "address": {
-            "type": "string",
-            "title": "address",
-            "description": "The address for this socket. :ref:`Listeners \u003cconfig_listeners\u003e` will bind\n to the address. An empty address is not allowed. Specify ``0.0.0.0`` or ``::``\n to bind to any address. [#comment:TODO(zuercher) reinstate when implemented:\n It is possible to distinguish a Listener address via the prefix/suffix matching\n in :ref:`FilterChainMatch \u003cenvoy_v3_api_msg_config.listener.v3.FilterChainMatch\u003e`.] When used\n within an upstream :ref:`BindConfig \u003cenvoy_v3_api_msg_config.core.v3.BindConfig\u003e`, the address\n controls the source address of outbound connections. For :ref:`clusters\n \u003cenvoy_v3_api_msg_config.cluster.v3.Cluster\u003e`, the cluster type determines whether the\n address must be an IP (``STATIC`` or ``EDS`` clusters) or a hostname resolved by DNS\n (``STRICT_DNS`` or ``LOGICAL_DNS`` clusters). Address resolution can be customized\n via :ref:`resolver_name \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e`."
-          },
-          "resolverName": {
-            "type": "string",
-            "title": "resolver_name",
-            "description": "The name of the custom resolver. This must have been registered with Envoy. If\n this is empty, a context dependent default applies. If the address is a concrete\n IP address, no resolution will occur. If address is a hostname this\n should be set for resolution other than DNS. Specifying a custom resolver with\n ``STRICT_DNS`` or ``LOGICAL_DNS`` will generate an error at runtime."
-          },
-          "ipv4Compat": {
-            "type": "boolean",
-            "title": "ipv4_compat",
-            "description": "When binding to an IPv6 address above, this enables `IPv4 compatibility\n \u003chttps://tools.ietf.org/html/rfc3493#page-11\u003e`_. Binding to ``::`` will\n allow both IPv4 and IPv6 connections, with peer IPv4 addresses mapped into\n IPv6 space as ``::FFFF:\u003cIPv4-address\u003e``."
-          },
-          "networkNamespaceFilepath": {
-            "type": "string",
-            "title": "network_namespace_filepath",
-            "description": "Filepath that specifies the Linux network namespace this socket will be created in (see ``man 7\n network_namespaces``). If this field is set, Envoy will create the socket in the specified\n network namespace.\n\n .. note::\n    Setting this parameter requires Envoy to run with the ``CAP_NET_ADMIN`` capability.\n\n .. note::\n    Currently only used for Listener sockets.\n\n .. attention::\n     Network namespaces are only configurable on Linux. Otherwise, this field has no effect."
-          }
-        },
         "title": "SocketAddress",
         "additionalProperties": false,
         "description": "[#next-free-field: 8]"
@@ -1137,41 +1155,47 @@
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint": {
         "type": "object",
-        "oneOf": [
+        "allOf": [
           {
             "properties": {
-              "exists": {
-                "title": "exists",
-                "description": "Key is present (matches any value except for the key being absent).\n This allows setting a default constraint for clients that do\n not send a key at all, while there may be other clients that need\n special configuration based on that key.",
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists"
+              "key": {
+                "type": "string",
+                "title": "key",
+                "description": "The key to match against."
               }
-            },
-            "title": "exists",
-            "required": [
-              "exists"
-            ]
+            }
           },
           {
-            "properties": {
-              "value": {
-                "type": "string",
+            "oneOf": [
+              {
+                "properties": {
+                  "exists": {
+                    "title": "exists",
+                    "description": "Key is present (matches any value except for the key being absent).\n This allows setting a default constraint for clients that do\n not send a key at all, while there may be other clients that need\n special configuration based on that key.",
+                    "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists"
+                  }
+                },
+                "title": "exists",
+                "required": [
+                  "exists"
+                ]
+              },
+              {
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "title": "value",
+                    "description": "Matches this exact value."
+                  }
+                },
                 "title": "value",
-                "description": "Matches this exact value."
+                "required": [
+                  "value"
+                ]
               }
-            },
-            "title": "value",
-            "required": [
-              "value"
             ]
           }
         ],
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "The key to match against."
-          }
-        },
         "title": "SingleConstraint",
         "additionalProperties": false,
         "description": "A single constraint for a given key."
