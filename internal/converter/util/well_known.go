@@ -67,8 +67,8 @@ func googleTimestamp(msg protoreflect.MessageDescriptor) *IDSchema {
 			Type:        []string{"string"},
 			Format:      "date-time",
 			Examples: []*yaml.Node{
-				utils.CreateStringNode("1s"),
-				utils.CreateStringNode("1.000340012s"),
+				utils.CreateStringNode("2023-01-15T01:30:15.01Z"),
+				utils.CreateStringNode("2024-12-25T12:00:00Z"),
 			},
 		},
 	}
