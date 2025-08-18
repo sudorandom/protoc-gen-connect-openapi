@@ -2151,51 +2151,57 @@
       },
       "tensorflow.FullTypeDef": {
         "type": "object",
-        "oneOf": [
+        "allOf": [
           {
             "properties": {
-              "i": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
-                "title": "i",
-                "format": "int64",
-                "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
+              "typeId": {
+                "title": "type_id",
+                "description": "The principal type represented by this object. This may be a concrete type\n (Tensor, Dataset) a type variable (used for dependent types) a type\n symbol (Any, Union). See FullTypeId for details.",
+                "$ref": "#/components/schemas/tensorflow.FullTypeId"
+              },
+              "args": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+                },
+                "title": "args"
               }
-            },
-            "title": "i",
-            "required": [
-              "i"
-            ]
+            }
           },
           {
-            "properties": {
-              "s": {
-                "type": "string",
-                "title": "s"
+            "oneOf": [
+              {
+                "properties": {
+                  "i": {
+                    "type": [
+                      "integer",
+                      "string"
+                    ],
+                    "title": "i",
+                    "format": "int64",
+                    "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
+                  }
+                },
+                "title": "i",
+                "required": [
+                  "i"
+                ]
+              },
+              {
+                "properties": {
+                  "s": {
+                    "type": "string",
+                    "title": "s"
+                  }
+                },
+                "title": "s",
+                "required": [
+                  "s"
+                ]
               }
-            },
-            "title": "s",
-            "required": [
-              "s"
             ]
           }
         ],
-        "properties": {
-          "typeId": {
-            "title": "type_id",
-            "description": "The principal type represented by this object. This may be a concrete type\n (Tensor, Dataset) a type variable (used for dependent types) a type\n symbol (Any, Union). See FullTypeId for details.",
-            "$ref": "#/components/schemas/tensorflow.FullTypeId"
-          },
-          "args": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/tensorflow.FullTypeDef"
-            },
-            "title": "args"
-          }
-        },
         "title": "FullTypeDef",
         "additionalProperties": false,
         "description": "Highly experimental and very likely to change.\n This encoding uses tags instead of dedicated messages for regularity. In\n particular the encoding imposes no restrictions on what the parameters of any\n type should be, which in particular needs to be true for type symbols."
