@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package wrap_oneof.example;
+
+// Example message with both regular properties and oneof fields
+message ExampleRequest {
+  // Regular properties
+  string name = 1;
+  int32 id = 2;
+  bool active = 3;
+  
+  // Oneof field with multiple options
+  oneof choice {
+    string text_value = 10;
+    int32 number_value = 11;
+    bool flag_value = 12;
+  }
+  
+  // Another regular property after oneof
+  string description = 4;
+}
+
+message ExampleResponse {
+  string message = 1;
+  int32 status_code = 2;
+}
+
+// Service to trigger OpenAPI generation
+service ExampleService {
+  rpc GetExample(ExampleRequest) returns (ExampleResponse);
+}
