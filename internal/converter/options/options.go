@@ -56,7 +56,7 @@ type Options struct {
 	ShortOperationIds bool
 	// WithGoogleErrorDetail will add google error detail to the connect error response.
 	WithGoogleErrorDetail bool
-	// Wrap oneof and properties into a anyOf schema where applicable
+	// Wrap oneof and properties into a allOf schema where applicable
 	WrapOneOfProperties bool
 
 	MessageAnnotator        MessageAnnotator
