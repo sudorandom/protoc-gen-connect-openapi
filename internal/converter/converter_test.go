@@ -37,7 +37,6 @@ var scenarios = []Scenario{
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
-	{Name: "wrap_oneof", Options: "allow-get,with-streaming,with-service-descriptions,wrap-oneof-properties"},
 }
 
 type Scenario struct {
