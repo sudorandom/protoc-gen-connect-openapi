@@ -15,7 +15,7 @@ require (
 	github.com/pb33f/libopenapi v0.25.3
 	github.com/pb33f/libopenapi-validator v0.4.7
 	github.com/stretchr/testify v1.10.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20250804133106-a7a43d27e69b
+	google.golang.org/genproto/googleapis/api v0.0.0-20250811230008-5f3141c8851a
 	google.golang.org/protobuf v1.36.7
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -34,7 +34,7 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2 // indirect
 	github.com/speakeasy-api/jsonpath v0.6.2 // indirect
 	github.com/stoewer/go-strcase v1.3.1 // indirect
-	golang.org/x/exp v0.0.0-20250808145144-a408d31f581a // indirect
+	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6 // indirect
 	golang.org/x/text v0.28.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250804133106-a7a43d27e69b // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250811230008-5f3141c8851a // indirect
 )
