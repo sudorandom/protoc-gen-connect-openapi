@@ -13,7 +13,6 @@
             "type": "number",
             "title": "val",
             "format": "double",
-            "description": "double.const = 1.23\n",
             "const": "1.23"
           }
         },
@@ -28,8 +27,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "double",
-            "description": "double.gte = 256\ndouble.gte_lt = 256\ndouble.gte_lt_exclusive = 256\ndouble.gte_lte = 256\ndouble.gte_lte_exclusive = 256\ndouble.lte = 128\n"
+            "format": "double"
           }
         },
         "title": "DoubleExGTELTE",
@@ -43,8 +41,7 @@
             "exclusiveMinimum": 10,
             "type": "number",
             "title": "val",
-            "format": "double",
-            "description": "double.gt = 10\ndouble.gt_lt = 10\ndouble.gt_lt_exclusive = 10\ndouble.gt_lte = 10\ndouble.gt_lte_exclusive = 10\ndouble.lt = 0\n"
+            "format": "double"
           }
         },
         "title": "DoubleExLTGT",
@@ -59,8 +56,7 @@
               "0"
             ],
             "title": "val",
-            "format": "double",
-            "description": "double.example = [0]\n"
+            "format": "double"
           }
         },
         "title": "DoubleExample",
@@ -86,8 +82,7 @@
             "exclusiveMinimum": 16,
             "type": "number",
             "title": "val",
-            "format": "double",
-            "description": "double.gt = 16\ndouble.gt_lt = 16\ndouble.gt_lt_exclusive = 16\ndouble.gt_lte = 16\ndouble.gt_lte_exclusive = 16\n"
+            "format": "double"
           }
         },
         "title": "DoubleGT",
@@ -100,8 +95,7 @@
             "type": "number",
             "title": "val",
             "minimum": 8,
-            "format": "double",
-            "description": "double.gte = 8\ndouble.gte_lt = 8\ndouble.gte_lt_exclusive = 8\ndouble.gte_lte = 8\ndouble.gte_lte_exclusive = 8\n"
+            "format": "double"
           }
         },
         "title": "DoubleGTE",
@@ -115,8 +109,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "double",
-            "description": "double.gte = 128\ndouble.gte_lt = 128\ndouble.gte_lt_exclusive = 128\ndouble.gte_lte = 128\ndouble.gte_lte_exclusive = 128\ndouble.lte = 256\n"
+            "format": "double"
           }
         },
         "title": "DoubleGTELTE",
@@ -130,8 +123,7 @@
             "exclusiveMinimum": 0,
             "type": "number",
             "title": "val",
-            "format": "double",
-            "description": "double.gt = 0\ndouble.gt_lt = 0\ndouble.gt_lt_exclusive = 0\ndouble.gt_lte = 0\ndouble.gt_lte_exclusive = 0\ndouble.lt = 10\n"
+            "format": "double"
           }
         },
         "title": "DoubleGTLT",
@@ -145,8 +137,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "double",
-            "description": "double.gte = 128\ndouble.gte_lt = 128\ndouble.gte_lt_exclusive = 128\ndouble.gte_lte = 128\ndouble.gte_lte_exclusive = 128\ndouble.lte = 256\n"
+            "format": "double"
           }
         },
         "title": "DoubleIgnore",
@@ -162,8 +153,7 @@
             "enum": [
               "4.56",
               "7.89"
-            ],
-            "description": "double.in = [4.56, 7.89]\n"
+            ]
           }
         },
         "title": "DoubleIn",
@@ -175,8 +165,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "double",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "double"
           }
         },
         "title": "DoubleIncorrectType",
@@ -189,8 +178,7 @@
             "exclusiveMaximum": 0,
             "type": "number",
             "title": "val",
-            "format": "double",
-            "description": "double.lt = 0\n"
+            "format": "double"
           }
         },
         "title": "DoubleLT",
@@ -203,8 +191,7 @@
             "type": "number",
             "title": "val",
             "maximum": 64,
-            "format": "double",
-            "description": "double.lte = 64\n"
+            "format": "double"
           }
         },
         "title": "DoubleLTE",
@@ -247,8 +234,7 @@
               ]
             },
             "title": "val",
-            "format": "double",
-            "description": "double.not_in = [0]\n"
+            "format": "double"
           }
         },
         "title": "DoubleNotIn",
@@ -260,7 +246,6 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "description": "fixed32.const = 1\n",
             "const": "1"
           }
         },
@@ -274,8 +259,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 128,
-            "minimum": 256,
-            "description": "fixed32.gte = 256\nfixed32.gte_lt = 256\nfixed32.gte_lt_exclusive = 256\nfixed32.gte_lte = 256\nfixed32.gte_lte_exclusive = 256\nfixed32.lte = 128\n"
+            "minimum": 256
           }
         },
         "title": "Fixed32ExGTELTE",
@@ -288,8 +272,7 @@
             "exclusiveMaximum": 5,
             "exclusiveMinimum": 10,
             "type": "integer",
-            "title": "val",
-            "description": "fixed32.gt = 10\nfixed32.gt_lt = 10\nfixed32.gt_lt_exclusive = 10\nfixed32.gt_lte = 10\nfixed32.gt_lte_exclusive = 10\nfixed32.lt = 5\n"
+            "title": "val"
           }
         },
         "title": "Fixed32ExLTGT",
@@ -303,8 +286,7 @@
             "examples": [
               "0"
             ],
-            "title": "val",
-            "description": "fixed32.example = [0]\n"
+            "title": "val"
           }
         },
         "title": "Fixed32Example",
@@ -316,8 +298,7 @@
           "val": {
             "exclusiveMinimum": 16,
             "type": "integer",
-            "title": "val",
-            "description": "fixed32.gt = 16\nfixed32.gt_lt = 16\nfixed32.gt_lt_exclusive = 16\nfixed32.gt_lte = 16\nfixed32.gt_lte_exclusive = 16\n"
+            "title": "val"
           }
         },
         "title": "Fixed32GT",
@@ -329,8 +310,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "minimum": 8,
-            "description": "fixed32.gte = 8\nfixed32.gte_lt = 8\nfixed32.gte_lt_exclusive = 8\nfixed32.gte_lte = 8\nfixed32.gte_lte_exclusive = 8\n"
+            "minimum": 8
           }
         },
         "title": "Fixed32GTE",
@@ -343,8 +323,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128,
-            "description": "fixed32.gte = 128\nfixed32.gte_lt = 128\nfixed32.gte_lt_exclusive = 128\nfixed32.gte_lte = 128\nfixed32.gte_lte_exclusive = 128\nfixed32.lte = 256\n"
+            "minimum": 128
           }
         },
         "title": "Fixed32GTELTE",
@@ -357,8 +336,7 @@
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 5,
             "type": "integer",
-            "title": "val",
-            "description": "fixed32.gt = 5\nfixed32.gt_lt = 5\nfixed32.gt_lt_exclusive = 5\nfixed32.gt_lte = 5\nfixed32.gt_lte_exclusive = 5\nfixed32.lt = 10\n"
+            "title": "val"
           }
         },
         "title": "Fixed32GTLT",
@@ -371,8 +349,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128,
-            "description": "fixed32.gte = 128\nfixed32.gte_lt = 128\nfixed32.gte_lt_exclusive = 128\nfixed32.gte_lte = 128\nfixed32.gte_lte_exclusive = 128\nfixed32.lte = 256\n"
+            "minimum": 128
           }
         },
         "title": "Fixed32Ignore",
@@ -387,8 +364,7 @@
             "enum": [
               "2",
               "3"
-            ],
-            "description": "fixed32.in = [2, 3]\n"
+            ]
           }
         },
         "title": "Fixed32In",
@@ -399,8 +375,7 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "title": "val"
           }
         },
         "title": "Fixed32IncorrectType",
@@ -412,8 +387,7 @@
           "val": {
             "exclusiveMaximum": 5,
             "type": "integer",
-            "title": "val",
-            "description": "fixed32.lt = 5\n"
+            "title": "val"
           }
         },
         "title": "Fixed32LT",
@@ -425,8 +399,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "maximum": 64,
-            "description": "fixed32.lte = 64\n"
+            "maximum": 64
           }
         },
         "title": "Fixed32LTE",
@@ -454,8 +427,7 @@
                 "0"
               ]
             },
-            "title": "val",
-            "description": "fixed32.not_in = [0]\n"
+            "title": "val"
           }
         },
         "title": "Fixed32NotIn",
@@ -471,7 +443,6 @@
             ],
             "title": "val",
             "format": "int64",
-            "description": "fixed64.const = 1\n",
             "const": "1"
           }
         },
@@ -489,8 +460,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int64",
-            "description": "fixed64.gte = 256\nfixed64.gte_lt = 256\nfixed64.gte_lt_exclusive = 256\nfixed64.gte_lte = 256\nfixed64.gte_lte_exclusive = 256\nfixed64.lte = 128\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64ExGTELTE",
@@ -507,8 +477,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "fixed64.gt = 10\nfixed64.gt_lt = 10\nfixed64.gt_lt_exclusive = 10\nfixed64.gt_lte = 10\nfixed64.gt_lte_exclusive = 10\nfixed64.lt = 5\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64ExLTGT",
@@ -526,8 +495,7 @@
               "0"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "fixed64.example = [0]\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64Example",
@@ -543,8 +511,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "fixed64.gt = 16\nfixed64.gt_lt = 16\nfixed64.gt_lt_exclusive = 16\nfixed64.gt_lte = 16\nfixed64.gt_lte_exclusive = 16\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64GT",
@@ -560,8 +527,7 @@
             ],
             "title": "val",
             "minimum": 8,
-            "format": "int64",
-            "description": "fixed64.gte = 8\nfixed64.gte_lt = 8\nfixed64.gte_lt_exclusive = 8\nfixed64.gte_lte = 8\nfixed64.gte_lte_exclusive = 8\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64GTE",
@@ -578,8 +544,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "fixed64.gte = 128\nfixed64.gte_lt = 128\nfixed64.gte_lt_exclusive = 128\nfixed64.gte_lte = 128\nfixed64.gte_lte_exclusive = 128\nfixed64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64GTELTE",
@@ -596,8 +561,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "fixed64.gt = 5\nfixed64.gt_lt = 5\nfixed64.gt_lt_exclusive = 5\nfixed64.gt_lte = 5\nfixed64.gt_lte_exclusive = 5\nfixed64.lt = 10\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64GTLT",
@@ -614,8 +578,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "fixed64.gte = 128\nfixed64.gte_lt = 128\nfixed64.gte_lt_exclusive = 128\nfixed64.gte_lte = 128\nfixed64.gte_lte_exclusive = 128\nfixed64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64Ignore",
@@ -634,8 +597,7 @@
             "enum": [
               "2",
               "3"
-            ],
-            "description": "fixed64.in = [2, 3]\n"
+            ]
           }
         },
         "title": "Fixed64In",
@@ -650,8 +612,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64IncorrectType",
@@ -667,8 +628,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "fixed64.lt = 5\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64LT",
@@ -684,8 +644,7 @@
             ],
             "title": "val",
             "maximum": 64,
-            "format": "int64",
-            "description": "fixed64.lte = 64\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64LTE",
@@ -724,8 +683,7 @@
               ]
             },
             "title": "val",
-            "format": "int64",
-            "description": "fixed64.not_in = [0]\n"
+            "format": "int64"
           }
         },
         "title": "Fixed64NotIn",
@@ -738,7 +696,6 @@
             "type": "number",
             "title": "val",
             "format": "float",
-            "description": "float.const = 1.23\n",
             "const": "1.23"
           }
         },
@@ -751,8 +708,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gte = 256\nfloat.gte_lt = 256\nfloat.gte_lt_exclusive = 256\nfloat.gte_lte = 256\nfloat.gte_lte_exclusive = 256\nfloat.lte = 128\n"
+            "format": "float"
           }
         },
         "title": "FloatExGTELTE",
@@ -764,8 +720,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gt = 10\nfloat.gt_lt = 10\nfloat.gt_lt_exclusive = 10\nfloat.gt_lte = 10\nfloat.gt_lte_exclusive = 10\nfloat.lt = 0\n"
+            "format": "float"
           }
         },
         "title": "FloatExLTGT",
@@ -780,8 +735,7 @@
               "8"
             ],
             "title": "val",
-            "format": "float",
-            "description": "float.example = [8]\n"
+            "format": "float"
           }
         },
         "title": "FloatExample",
@@ -806,8 +760,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gt = 16\nfloat.gt_lt = 16\nfloat.gt_lt_exclusive = 16\nfloat.gt_lte = 16\nfloat.gt_lte_exclusive = 16\n"
+            "format": "float"
           }
         },
         "title": "FloatGT",
@@ -819,8 +772,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gte = 8\nfloat.gte_lt = 8\nfloat.gte_lt_exclusive = 8\nfloat.gte_lte = 8\nfloat.gte_lte_exclusive = 8\n"
+            "format": "float"
           }
         },
         "title": "FloatGTE",
@@ -832,8 +784,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gte = 128\nfloat.gte_lt = 128\nfloat.gte_lt_exclusive = 128\nfloat.gte_lte = 128\nfloat.gte_lte_exclusive = 128\nfloat.lte = 256\n"
+            "format": "float"
           }
         },
         "title": "FloatGTELTE",
@@ -845,8 +796,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\nfloat.lt = 10\n"
+            "format": "float"
           }
         },
         "title": "FloatGTLT",
@@ -858,8 +808,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.gte = 128\nfloat.gte_lt = 128\nfloat.gte_lt_exclusive = 128\nfloat.gte_lte = 128\nfloat.gte_lte_exclusive = 128\nfloat.lte = 256\n"
+            "format": "float"
           }
         },
         "title": "FloatIgnore",
@@ -871,8 +820,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.in = [4.56, 7.89]\n"
+            "format": "float"
           }
         },
         "title": "FloatIn",
@@ -885,8 +833,7 @@
             "exclusiveMinimum": 0,
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "double.gt = 0\ndouble.gt_lt = 0\ndouble.gt_lt_exclusive = 0\ndouble.gt_lte = 0\ndouble.gt_lte_exclusive = 0\n"
+            "format": "float"
           }
         },
         "title": "FloatIncorrectType",
@@ -898,8 +845,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.lt = 0\n"
+            "format": "float"
           }
         },
         "title": "FloatLT",
@@ -911,8 +857,7 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float",
-            "description": "float.lte = 64\n"
+            "format": "float"
           }
         },
         "title": "FloatLTE",
@@ -955,8 +900,7 @@
               ]
             },
             "title": "val",
-            "format": "float",
-            "description": "float.not_in = [0]\n"
+            "format": "float"
           }
         },
         "title": "FloatNotIn",
@@ -969,7 +913,6 @@
             "type": "integer",
             "title": "val",
             "format": "int32",
-            "description": "int32.const = 1\n",
             "const": 1
           }
         },
@@ -984,8 +927,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int32",
-            "description": "int32.gte = 256\nint32.gte_lt = 256\nint32.gte_lt_exclusive = 256\nint32.gte_lte = 256\nint32.gte_lte_exclusive = 256\nint32.lte = 128\n"
+            "format": "int32"
           }
         },
         "title": "Int32ExGTELTE",
@@ -999,8 +941,7 @@
             "exclusiveMinimum": 10,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "int32.gt = 10\nint32.gt_lt = 10\nint32.gt_lt_exclusive = 10\nint32.gt_lte = 10\nint32.gt_lte_exclusive = 10\nint32.lt = 0\n"
+            "format": "int32"
           }
         },
         "title": "Int32ExLTGT",
@@ -1015,8 +956,7 @@
               10
             ],
             "title": "val",
-            "format": "int32",
-            "description": "int32.example = [10]\n"
+            "format": "int32"
           }
         },
         "title": "Int32Example",
@@ -1029,8 +969,7 @@
             "exclusiveMinimum": 16,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "int32.gt = 16\nint32.gt_lt = 16\nint32.gt_lt_exclusive = 16\nint32.gt_lte = 16\nint32.gt_lte_exclusive = 16\n"
+            "format": "int32"
           }
         },
         "title": "Int32GT",
@@ -1043,8 +982,7 @@
             "type": "integer",
             "title": "val",
             "minimum": 8,
-            "format": "int32",
-            "description": "int32.gte = 8\nint32.gte_lt = 8\nint32.gte_lt_exclusive = 8\nint32.gte_lte = 8\nint32.gte_lte_exclusive = 8\n"
+            "format": "int32"
           }
         },
         "title": "Int32GTE",
@@ -1058,8 +996,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int32",
-            "description": "int32.gte = 128\nint32.gte_lt = 128\nint32.gte_lt_exclusive = 128\nint32.gte_lte = 128\nint32.gte_lte_exclusive = 128\nint32.lte = 256\n"
+            "format": "int32"
           }
         },
         "title": "Int32GTELTE",
@@ -1073,8 +1010,7 @@
             "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "int32.gt = 0\nint32.gt_lt = 0\nint32.gt_lt_exclusive = 0\nint32.gt_lte = 0\nint32.gt_lte_exclusive = 0\nint32.lt = 10\n"
+            "format": "int32"
           }
         },
         "title": "Int32GTLT",
@@ -1088,8 +1024,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int32",
-            "description": "int32.gte = 128\nint32.gte_lt = 128\nint32.gte_lt_exclusive = 128\nint32.gte_lte = 128\nint32.gte_lte_exclusive = 128\nint32.lte = 256\n"
+            "format": "int32"
           }
         },
         "title": "Int32Ignore",
@@ -1105,8 +1040,7 @@
             "enum": [
               2,
               3
-            ],
-            "description": "int32.in = [2, 3]\n"
+            ]
           }
         },
         "title": "Int32In",
@@ -1118,8 +1052,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int32"
           }
         },
         "title": "Int32IncorrectType",
@@ -1132,8 +1065,7 @@
             "exclusiveMaximum": 0,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "int32.lt = 0\n"
+            "format": "int32"
           }
         },
         "title": "Int32LT",
@@ -1146,8 +1078,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 64,
-            "format": "int32",
-            "description": "int32.lte = 64\n"
+            "format": "int32"
           }
         },
         "title": "Int32LTE",
@@ -1177,8 +1108,7 @@
               ]
             },
             "title": "val",
-            "format": "int32",
-            "description": "int32.not_in = [0]\n"
+            "format": "int32"
           }
         },
         "title": "Int32NotIn",
@@ -1195,7 +1125,7 @@
             ],
             "title": "lt_pos",
             "format": "int64",
-            "description": "Intentionally choose limits that are outside the range of both signed and unsigned 32-bit integers.\nint64.lt = 5444333222\n"
+            "description": "Intentionally choose limits that are outside the range of both signed and unsigned 32-bit integers."
           },
           "ltNeg": {
             "exclusiveMaximum": -5444333222,
@@ -1204,8 +1134,7 @@
               "string"
             ],
             "title": "lt_neg",
-            "format": "int64",
-            "description": "int64.lt = -5444333222\n"
+            "format": "int64"
           },
           "gtPos": {
             "exclusiveMinimum": 5444333222,
@@ -1214,8 +1143,7 @@
               "string"
             ],
             "title": "gt_pos",
-            "format": "int64",
-            "description": "int64.gt = 5444333222\nint64.gt_lt = 5444333222\nint64.gt_lt_exclusive = 5444333222\nint64.gt_lte = 5444333222\nint64.gt_lte_exclusive = 5444333222\n"
+            "format": "int64"
           },
           "gtNeg": {
             "exclusiveMinimum": -5444333222,
@@ -1224,8 +1152,7 @@
               "string"
             ],
             "title": "gt_neg",
-            "format": "int64",
-            "description": "int64.gt = -5444333222\nint64.gt_lt = -5444333222\nint64.gt_lt_exclusive = -5444333222\nint64.gt_lte = -5444333222\nint64.gt_lte_exclusive = -5444333222\n"
+            "format": "int64"
           },
           "ltePos": {
             "type": [
@@ -1234,8 +1161,7 @@
             ],
             "title": "lte_pos",
             "maximum": 5444333222,
-            "format": "int64",
-            "description": "int64.lte = 5444333222\n"
+            "format": "int64"
           },
           "lteNeg": {
             "type": [
@@ -1244,8 +1170,7 @@
             ],
             "title": "lte_neg",
             "maximum": -5444333222,
-            "format": "int64",
-            "description": "int64.lte = -5444333222\n"
+            "format": "int64"
           },
           "gtePos": {
             "type": [
@@ -1254,8 +1179,7 @@
             ],
             "title": "gte_pos",
             "minimum": 5444333222,
-            "format": "int64",
-            "description": "int64.gte = 5444333222\nint64.gte_lt = 5444333222\nint64.gte_lt_exclusive = 5444333222\nint64.gte_lte = 5444333222\nint64.gte_lte_exclusive = 5444333222\n"
+            "format": "int64"
           },
           "gteNeg": {
             "type": [
@@ -1264,8 +1188,7 @@
             ],
             "title": "gte_neg",
             "minimum": -5444333222,
-            "format": "int64",
-            "description": "int64.gte = -5444333222\nint64.gte_lt = -5444333222\nint64.gte_lt_exclusive = -5444333222\nint64.gte_lte = -5444333222\nint64.gte_lte_exclusive = -5444333222\n"
+            "format": "int64"
           },
           "constantPos": {
             "type": [
@@ -1274,7 +1197,6 @@
             ],
             "title": "constant_pos",
             "format": "int64",
-            "description": "int64.const = 5444333222\n",
             "const": 5444333222
           },
           "constantNeg": {
@@ -1284,7 +1206,6 @@
             ],
             "title": "constant_neg",
             "format": "int64",
-            "description": "int64.const = -5444333222\n",
             "const": -5444333222
           },
           "in": {
@@ -1297,8 +1218,7 @@
             "enum": [
               5444333222,
               -5444333222
-            ],
-            "description": "int64.in = [5444333222, -5444333222]\n"
+            ]
           },
           "notin": {
             "type": [
@@ -1316,8 +1236,7 @@
               ]
             },
             "title": "notin",
-            "format": "int64",
-            "description": "int64.not_in = [5444333222, -5444333222]\n"
+            "format": "int64"
           }
         },
         "title": "Int64BigConstraints",
@@ -1333,7 +1252,6 @@
             ],
             "title": "val",
             "format": "int64",
-            "description": "int64.const = 1\n",
             "const": 1
           }
         },
@@ -1351,8 +1269,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int64",
-            "description": "int64.gte = 256\nint64.gte_lt = 256\nint64.gte_lt_exclusive = 256\nint64.gte_lte = 256\nint64.gte_lte_exclusive = 256\nint64.lte = 128\n"
+            "format": "int64"
           }
         },
         "title": "Int64ExGTELTE",
@@ -1369,8 +1286,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "int64.gt = 10\nint64.gt_lt = 10\nint64.gt_lt_exclusive = 10\nint64.gt_lte = 10\nint64.gt_lte_exclusive = 10\nint64.lt = 0\n"
+            "format": "int64"
           }
         },
         "title": "Int64ExLTGT",
@@ -1388,8 +1304,7 @@
               10
             ],
             "title": "val",
-            "format": "int64",
-            "description": "int64.example = [10]\n"
+            "format": "int64"
           }
         },
         "title": "Int64Example",
@@ -1405,8 +1320,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "int64.gt = 16\nint64.gt_lt = 16\nint64.gt_lt_exclusive = 16\nint64.gt_lte = 16\nint64.gt_lte_exclusive = 16\n"
+            "format": "int64"
           }
         },
         "title": "Int64GT",
@@ -1422,8 +1336,7 @@
             ],
             "title": "val",
             "minimum": 8,
-            "format": "int64",
-            "description": "int64.gte = 8\nint64.gte_lt = 8\nint64.gte_lt_exclusive = 8\nint64.gte_lte = 8\nint64.gte_lte_exclusive = 8\n"
+            "format": "int64"
           }
         },
         "title": "Int64GTE",
@@ -1440,8 +1353,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "int64.gte = 128\nint64.gte_lt = 128\nint64.gte_lt_exclusive = 128\nint64.gte_lte = 128\nint64.gte_lte_exclusive = 128\nint64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "Int64GTELTE",
@@ -1458,8 +1370,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "int64.gt = 0\nint64.gt_lt = 0\nint64.gt_lt_exclusive = 0\nint64.gt_lte = 0\nint64.gt_lte_exclusive = 0\nint64.lt = 10\n"
+            "format": "int64"
           }
         },
         "title": "Int64GTLT",
@@ -1476,8 +1387,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "int64.gte = 128\nint64.gte_lt = 128\nint64.gte_lt_exclusive = 128\nint64.gte_lte = 128\nint64.gte_lte_exclusive = 128\nint64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "Int64Ignore",
@@ -1496,8 +1406,7 @@
             "enum": [
               2,
               3
-            ],
-            "description": "int64.in = [2, 3]\n"
+            ]
           }
         },
         "title": "Int64In",
@@ -1512,8 +1421,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int64"
           }
         },
         "title": "Int64IncorrectType",
@@ -1529,8 +1437,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "int64.lt = 0\n"
+            "format": "int64"
           }
         },
         "title": "Int64LT",
@@ -1546,8 +1453,7 @@
             ],
             "title": "val",
             "maximum": 64,
-            "format": "int64",
-            "description": "int64.lte = 64\n"
+            "format": "int64"
           }
         },
         "title": "Int64LTE",
@@ -1564,7 +1470,6 @@
             "title": "val",
             "maximum": 64,
             "format": "int64",
-            "description": "int64.lte = 64\n",
             "nullable": true
           }
         },
@@ -1604,8 +1509,7 @@
               ]
             },
             "title": "val",
-            "format": "int64",
-            "description": "int64.not_in = [0]\n"
+            "format": "int64"
           }
         },
         "title": "Int64NotIn",
@@ -1618,7 +1522,6 @@
             "type": "integer",
             "title": "val",
             "format": "int32",
-            "description": "sfixed32.const = 1\n",
             "const": 1
           }
         },
@@ -1633,8 +1536,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int32",
-            "description": "sfixed32.gte = 256\nsfixed32.gte_lt = 256\nsfixed32.gte_lt_exclusive = 256\nsfixed32.gte_lte = 256\nsfixed32.gte_lte_exclusive = 256\nsfixed32.lte = 128\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32ExGTELTE",
@@ -1648,8 +1550,7 @@
             "exclusiveMinimum": 10,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sfixed32.gt = 10\nsfixed32.gt_lt = 10\nsfixed32.gt_lt_exclusive = 10\nsfixed32.gt_lte = 10\nsfixed32.gt_lte_exclusive = 10\nsfixed32.lt = 0\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32ExLTGT",
@@ -1664,8 +1565,7 @@
               0
             ],
             "title": "val",
-            "format": "int32",
-            "description": "sfixed32.example = [0]\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32Example",
@@ -1678,8 +1578,7 @@
             "exclusiveMinimum": 16,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sfixed32.gt = 16\nsfixed32.gt_lt = 16\nsfixed32.gt_lt_exclusive = 16\nsfixed32.gt_lte = 16\nsfixed32.gt_lte_exclusive = 16\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32GT",
@@ -1692,8 +1591,7 @@
             "type": "integer",
             "title": "val",
             "minimum": 8,
-            "format": "int32",
-            "description": "sfixed32.gte = 8\nsfixed32.gte_lt = 8\nsfixed32.gte_lt_exclusive = 8\nsfixed32.gte_lte = 8\nsfixed32.gte_lte_exclusive = 8\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32GTE",
@@ -1707,8 +1605,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int32",
-            "description": "sfixed32.gte = 128\nsfixed32.gte_lt = 128\nsfixed32.gte_lt_exclusive = 128\nsfixed32.gte_lte = 128\nsfixed32.gte_lte_exclusive = 128\nsfixed32.lte = 256\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32GTELTE",
@@ -1722,8 +1619,7 @@
             "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sfixed32.gt = 0\nsfixed32.gt_lt = 0\nsfixed32.gt_lt_exclusive = 0\nsfixed32.gt_lte = 0\nsfixed32.gt_lte_exclusive = 0\nsfixed32.lt = 10\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32GTLT",
@@ -1737,8 +1633,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int32",
-            "description": "sfixed32.gte = 128\nsfixed32.gte_lt = 128\nsfixed32.gte_lt_exclusive = 128\nsfixed32.gte_lte = 128\nsfixed32.gte_lte_exclusive = 128\nsfixed32.lte = 256\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32Ignore",
@@ -1754,8 +1649,7 @@
             "enum": [
               2,
               3
-            ],
-            "description": "sfixed32.in = [2, 3]\n"
+            ]
           }
         },
         "title": "SFixed32In",
@@ -1767,8 +1661,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32IncorrectType",
@@ -1781,8 +1674,7 @@
             "exclusiveMaximum": 0,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sfixed32.lt = 0\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32LT",
@@ -1795,8 +1687,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 64,
-            "format": "int32",
-            "description": "sfixed32.lte = 64\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32LTE",
@@ -1826,8 +1717,7 @@
               ]
             },
             "title": "val",
-            "format": "int32",
-            "description": "sfixed32.not_in = [0]\n"
+            "format": "int32"
           }
         },
         "title": "SFixed32NotIn",
@@ -1843,7 +1733,6 @@
             ],
             "title": "val",
             "format": "int64",
-            "description": "sfixed64.const = 1\n",
             "const": 1
           }
         },
@@ -1861,8 +1750,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int64",
-            "description": "sfixed64.gte = 256\nsfixed64.gte_lt = 256\nsfixed64.gte_lt_exclusive = 256\nsfixed64.gte_lte = 256\nsfixed64.gte_lte_exclusive = 256\nsfixed64.lte = 128\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64ExGTELTE",
@@ -1879,8 +1767,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sfixed64.gt = 10\nsfixed64.gt_lt = 10\nsfixed64.gt_lt_exclusive = 10\nsfixed64.gt_lte = 10\nsfixed64.gt_lte_exclusive = 10\nsfixed64.lt = 0\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64ExLTGT",
@@ -1898,8 +1785,7 @@
               0
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sfixed64.example = [0]\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64Example",
@@ -1915,8 +1801,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sfixed64.gt = 16\nsfixed64.gt_lt = 16\nsfixed64.gt_lt_exclusive = 16\nsfixed64.gt_lte = 16\nsfixed64.gt_lte_exclusive = 16\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64GT",
@@ -1932,8 +1817,7 @@
             ],
             "title": "val",
             "minimum": 8,
-            "format": "int64",
-            "description": "sfixed64.gte = 8\nsfixed64.gte_lt = 8\nsfixed64.gte_lt_exclusive = 8\nsfixed64.gte_lte = 8\nsfixed64.gte_lte_exclusive = 8\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64GTE",
@@ -1950,8 +1834,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "sfixed64.gte = 128\nsfixed64.gte_lt = 128\nsfixed64.gte_lt_exclusive = 128\nsfixed64.gte_lte = 128\nsfixed64.gte_lte_exclusive = 128\nsfixed64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64GTELTE",
@@ -1968,8 +1851,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sfixed64.gt = 0\nsfixed64.gt_lt = 0\nsfixed64.gt_lt_exclusive = 0\nsfixed64.gt_lte = 0\nsfixed64.gt_lte_exclusive = 0\nsfixed64.lt = 10\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64GTLT",
@@ -1986,8 +1868,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "sfixed64.gte = 128\nsfixed64.gte_lt = 128\nsfixed64.gte_lt_exclusive = 128\nsfixed64.gte_lte = 128\nsfixed64.gte_lte_exclusive = 128\nsfixed64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64Ignore",
@@ -2006,8 +1887,7 @@
             "enum": [
               2,
               3
-            ],
-            "description": "sfixed64.in = [2, 3]\n"
+            ]
           }
         },
         "title": "SFixed64In",
@@ -2022,8 +1902,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64IncorrectType",
@@ -2039,8 +1918,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sfixed64.lt = 0\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64LT",
@@ -2056,8 +1934,7 @@
             ],
             "title": "val",
             "maximum": 64,
-            "format": "int64",
-            "description": "sfixed64.lte = 64\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64LTE",
@@ -2096,8 +1973,7 @@
               ]
             },
             "title": "val",
-            "format": "int64",
-            "description": "sfixed64.not_in = [0]\n"
+            "format": "int64"
           }
         },
         "title": "SFixed64NotIn",
@@ -2110,7 +1986,6 @@
             "type": "integer",
             "title": "val",
             "format": "int32",
-            "description": "sint32.const = 1\n",
             "const": 1
           }
         },
@@ -2125,8 +2000,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int32",
-            "description": "sint32.gte = 256\nsint32.gte_lt = 256\nsint32.gte_lt_exclusive = 256\nsint32.gte_lte = 256\nsint32.gte_lte_exclusive = 256\nsint32.lte = 128\n"
+            "format": "int32"
           }
         },
         "title": "SInt32ExGTELTE",
@@ -2140,8 +2014,7 @@
             "exclusiveMinimum": 10,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sint32.gt = 10\nsint32.gt_lt = 10\nsint32.gt_lt_exclusive = 10\nsint32.gt_lte = 10\nsint32.gt_lte_exclusive = 10\nsint32.lt = 0\n"
+            "format": "int32"
           }
         },
         "title": "SInt32ExLTGT",
@@ -2156,8 +2029,7 @@
               0
             ],
             "title": "val",
-            "format": "int32",
-            "description": "sint32.example = [0]\n"
+            "format": "int32"
           }
         },
         "title": "SInt32Example",
@@ -2170,8 +2042,7 @@
             "exclusiveMinimum": 16,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sint32.gt = 16\nsint32.gt_lt = 16\nsint32.gt_lt_exclusive = 16\nsint32.gt_lte = 16\nsint32.gt_lte_exclusive = 16\n"
+            "format": "int32"
           }
         },
         "title": "SInt32GT",
@@ -2184,8 +2055,7 @@
             "type": "integer",
             "title": "val",
             "minimum": 8,
-            "format": "int32",
-            "description": "sint32.gte = 8\nsint32.gte_lt = 8\nsint32.gte_lt_exclusive = 8\nsint32.gte_lte = 8\nsint32.gte_lte_exclusive = 8\n"
+            "format": "int32"
           }
         },
         "title": "SInt32GTE",
@@ -2199,8 +2069,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int32",
-            "description": "sint32.gte = 128\nsint32.gte_lt = 128\nsint32.gte_lt_exclusive = 128\nsint32.gte_lte = 128\nsint32.gte_lte_exclusive = 128\nsint32.lte = 256\n"
+            "format": "int32"
           }
         },
         "title": "SInt32GTELTE",
@@ -2214,8 +2083,7 @@
             "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sint32.gt = 0\nsint32.gt_lt = 0\nsint32.gt_lt_exclusive = 0\nsint32.gt_lte = 0\nsint32.gt_lte_exclusive = 0\nsint32.lt = 10\n"
+            "format": "int32"
           }
         },
         "title": "SInt32GTLT",
@@ -2229,8 +2097,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int32",
-            "description": "sint32.gte = 128\nsint32.gte_lt = 128\nsint32.gte_lt_exclusive = 128\nsint32.gte_lte = 128\nsint32.gte_lte_exclusive = 128\nsint32.lte = 256\n"
+            "format": "int32"
           }
         },
         "title": "SInt32Ignore",
@@ -2246,8 +2113,7 @@
             "enum": [
               2,
               3
-            ],
-            "description": "sint32.in = [2, 3]\n"
+            ]
           }
         },
         "title": "SInt32In",
@@ -2259,8 +2125,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int32"
           }
         },
         "title": "SInt32IncorrectType",
@@ -2273,8 +2138,7 @@
             "exclusiveMaximum": 0,
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "description": "sint32.lt = 0\n"
+            "format": "int32"
           }
         },
         "title": "SInt32LT",
@@ -2287,8 +2151,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 64,
-            "format": "int32",
-            "description": "sint32.lte = 64\n"
+            "format": "int32"
           }
         },
         "title": "SInt32LTE",
@@ -2318,8 +2181,7 @@
               ]
             },
             "title": "val",
-            "format": "int32",
-            "description": "sint32.not_in = [0]\n"
+            "format": "int32"
           }
         },
         "title": "SInt32NotIn",
@@ -2335,7 +2197,6 @@
             ],
             "title": "val",
             "format": "int64",
-            "description": "sint64.const = 1\n",
             "const": 1
           }
         },
@@ -2353,8 +2214,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int64",
-            "description": "sint64.gte = 256\nsint64.gte_lt = 256\nsint64.gte_lt_exclusive = 256\nsint64.gte_lte = 256\nsint64.gte_lte_exclusive = 256\nsint64.lte = 128\n"
+            "format": "int64"
           }
         },
         "title": "SInt64ExGTELTE",
@@ -2371,8 +2231,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sint64.gt = 10\nsint64.gt_lt = 10\nsint64.gt_lt_exclusive = 10\nsint64.gt_lte = 10\nsint64.gt_lte_exclusive = 10\nsint64.lt = 0\n"
+            "format": "int64"
           }
         },
         "title": "SInt64ExLTGT",
@@ -2390,8 +2249,7 @@
               0
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sint64.example = [0]\n"
+            "format": "int64"
           }
         },
         "title": "SInt64Example",
@@ -2407,8 +2265,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sint64.gt = 16\nsint64.gt_lt = 16\nsint64.gt_lt_exclusive = 16\nsint64.gt_lte = 16\nsint64.gt_lte_exclusive = 16\n"
+            "format": "int64"
           }
         },
         "title": "SInt64GT",
@@ -2424,8 +2281,7 @@
             ],
             "title": "val",
             "minimum": 8,
-            "format": "int64",
-            "description": "sint64.gte = 8\nsint64.gte_lt = 8\nsint64.gte_lt_exclusive = 8\nsint64.gte_lte = 8\nsint64.gte_lte_exclusive = 8\n"
+            "format": "int64"
           }
         },
         "title": "SInt64GTE",
@@ -2442,8 +2298,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "sint64.gte = 128\nsint64.gte_lt = 128\nsint64.gte_lt_exclusive = 128\nsint64.gte_lte = 128\nsint64.gte_lte_exclusive = 128\nsint64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "SInt64GTELTE",
@@ -2460,8 +2315,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sint64.gt = 0\nsint64.gt_lt = 0\nsint64.gt_lt_exclusive = 0\nsint64.gt_lte = 0\nsint64.gt_lte_exclusive = 0\nsint64.lt = 10\n"
+            "format": "int64"
           }
         },
         "title": "SInt64GTLT",
@@ -2478,8 +2332,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "sint64.gte = 128\nsint64.gte_lt = 128\nsint64.gte_lt_exclusive = 128\nsint64.gte_lte = 128\nsint64.gte_lte_exclusive = 128\nsint64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "SInt64Ignore",
@@ -2498,8 +2351,7 @@
             "enum": [
               2,
               3
-            ],
-            "description": "sint64.in = [2, 3]\n"
+            ]
           }
         },
         "title": "SInt64In",
@@ -2514,8 +2366,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int64"
           }
         },
         "title": "SInt64IncorrectType",
@@ -2531,8 +2382,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "sint64.lt = 0\n"
+            "format": "int64"
           }
         },
         "title": "SInt64LT",
@@ -2548,8 +2398,7 @@
             ],
             "title": "val",
             "maximum": 64,
-            "format": "int64",
-            "description": "sint64.lte = 64\n"
+            "format": "int64"
           }
         },
         "title": "SInt64LTE",
@@ -2588,8 +2437,7 @@
               ]
             },
             "title": "val",
-            "format": "int64",
-            "description": "sint64.not_in = [0]\n"
+            "format": "int64"
           }
         },
         "title": "SInt64NotIn",
@@ -2601,7 +2449,6 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "description": "uint32.const = 1\n",
             "const": "1"
           }
         },
@@ -2615,8 +2462,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 128,
-            "minimum": 256,
-            "description": "uint32.gte = 256\nuint32.gte_lt = 256\nuint32.gte_lt_exclusive = 256\nuint32.gte_lte = 256\nuint32.gte_lte_exclusive = 256\nuint32.lte = 128\n"
+            "minimum": 256
           }
         },
         "title": "UInt32ExGTELTE",
@@ -2629,8 +2475,7 @@
             "exclusiveMaximum": 5,
             "exclusiveMinimum": 10,
             "type": "integer",
-            "title": "val",
-            "description": "uint32.gt = 10\nuint32.gt_lt = 10\nuint32.gt_lt_exclusive = 10\nuint32.gt_lte = 10\nuint32.gt_lte_exclusive = 10\nuint32.lt = 5\n"
+            "title": "val"
           }
         },
         "title": "UInt32ExLTGT",
@@ -2644,8 +2489,7 @@
             "examples": [
               "0"
             ],
-            "title": "val",
-            "description": "uint32.example = [0]\n"
+            "title": "val"
           }
         },
         "title": "UInt32Example",
@@ -2657,8 +2501,7 @@
           "val": {
             "exclusiveMinimum": 16,
             "type": "integer",
-            "title": "val",
-            "description": "uint32.gt = 16\nuint32.gt_lt = 16\nuint32.gt_lt_exclusive = 16\nuint32.gt_lte = 16\nuint32.gt_lte_exclusive = 16\n"
+            "title": "val"
           }
         },
         "title": "UInt32GT",
@@ -2670,8 +2513,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "minimum": 8,
-            "description": "uint32.gte = 8\nuint32.gte_lt = 8\nuint32.gte_lt_exclusive = 8\nuint32.gte_lte = 8\nuint32.gte_lte_exclusive = 8\n"
+            "minimum": 8
           }
         },
         "title": "UInt32GTE",
@@ -2684,8 +2526,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128,
-            "description": "uint32.gte = 128\nuint32.gte_lt = 128\nuint32.gte_lt_exclusive = 128\nuint32.gte_lte = 128\nuint32.gte_lte_exclusive = 128\nuint32.lte = 256\n"
+            "minimum": 128
           }
         },
         "title": "UInt32GTELTE",
@@ -2698,8 +2539,7 @@
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 5,
             "type": "integer",
-            "title": "val",
-            "description": "uint32.gt = 5\nuint32.gt_lt = 5\nuint32.gt_lt_exclusive = 5\nuint32.gt_lte = 5\nuint32.gt_lte_exclusive = 5\nuint32.lt = 10\n"
+            "title": "val"
           }
         },
         "title": "UInt32GTLT",
@@ -2712,8 +2552,7 @@
             "type": "integer",
             "title": "val",
             "maximum": 256,
-            "minimum": 128,
-            "description": "uint32.gte = 128\nuint32.gte_lt = 128\nuint32.gte_lt_exclusive = 128\nuint32.gte_lte = 128\nuint32.gte_lte_exclusive = 128\nuint32.lte = 256\n"
+            "minimum": 128
           }
         },
         "title": "UInt32Ignore",
@@ -2728,8 +2567,7 @@
             "enum": [
               "2",
               "3"
-            ],
-            "description": "uint32.in = [2, 3]\n"
+            ]
           }
         },
         "title": "UInt32In",
@@ -2740,8 +2578,7 @@
         "properties": {
           "val": {
             "type": "integer",
-            "title": "val",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "title": "val"
           }
         },
         "title": "UInt32IncorrectType",
@@ -2753,8 +2590,7 @@
           "val": {
             "exclusiveMaximum": 5,
             "type": "integer",
-            "title": "val",
-            "description": "uint32.lt = 5\n"
+            "title": "val"
           }
         },
         "title": "UInt32LT",
@@ -2766,8 +2602,7 @@
           "val": {
             "type": "integer",
             "title": "val",
-            "maximum": 64,
-            "description": "uint32.lte = 64\n"
+            "maximum": 64
           }
         },
         "title": "UInt32LTE",
@@ -2795,8 +2630,7 @@
                 "0"
               ]
             },
-            "title": "val",
-            "description": "uint32.not_in = [0]\n"
+            "title": "val"
           }
         },
         "title": "UInt32NotIn",
@@ -2812,7 +2646,6 @@
             ],
             "title": "val",
             "format": "int64",
-            "description": "uint64.const = 1\n",
             "const": "1"
           }
         },
@@ -2830,8 +2663,7 @@
             "title": "val",
             "maximum": 128,
             "minimum": 256,
-            "format": "int64",
-            "description": "uint64.gte = 256\nuint64.gte_lt = 256\nuint64.gte_lt_exclusive = 256\nuint64.gte_lte = 256\nuint64.gte_lte_exclusive = 256\nuint64.lte = 128\n"
+            "format": "int64"
           }
         },
         "title": "UInt64ExGTELTE",
@@ -2848,8 +2680,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "uint64.gt = 10\nuint64.gt_lt = 10\nuint64.gt_lt_exclusive = 10\nuint64.gt_lte = 10\nuint64.gt_lte_exclusive = 10\nuint64.lt = 5\n"
+            "format": "int64"
           }
         },
         "title": "UInt64ExLTGT",
@@ -2867,8 +2698,7 @@
               "0"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "uint64.example = [0]\n"
+            "format": "int64"
           }
         },
         "title": "UInt64Example",
@@ -2884,8 +2714,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "uint64.gt = 16\nuint64.gt_lt = 16\nuint64.gt_lt_exclusive = 16\nuint64.gt_lte = 16\nuint64.gt_lte_exclusive = 16\n"
+            "format": "int64"
           }
         },
         "title": "UInt64GT",
@@ -2901,8 +2730,7 @@
             ],
             "title": "val",
             "minimum": 8,
-            "format": "int64",
-            "description": "uint64.gte = 8\nuint64.gte_lt = 8\nuint64.gte_lt_exclusive = 8\nuint64.gte_lte = 8\nuint64.gte_lte_exclusive = 8\n"
+            "format": "int64"
           }
         },
         "title": "UInt64GTE",
@@ -2919,8 +2747,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "uint64.gte = 128\nuint64.gte_lt = 128\nuint64.gte_lt_exclusive = 128\nuint64.gte_lte = 128\nuint64.gte_lte_exclusive = 128\nuint64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "UInt64GTELTE",
@@ -2937,8 +2764,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "uint64.gt = 5\nuint64.gt_lt = 5\nuint64.gt_lt_exclusive = 5\nuint64.gt_lte = 5\nuint64.gt_lte_exclusive = 5\nuint64.lt = 10\n"
+            "format": "int64"
           }
         },
         "title": "UInt64GTLT",
@@ -2955,8 +2781,7 @@
             "title": "val",
             "maximum": 256,
             "minimum": 128,
-            "format": "int64",
-            "description": "uint64.gte = 128\nuint64.gte_lt = 128\nuint64.gte_lt_exclusive = 128\nuint64.gte_lte = 128\nuint64.gte_lte_exclusive = 128\nuint64.lte = 256\n"
+            "format": "int64"
           }
         },
         "title": "UInt64Ignore",
@@ -2975,8 +2800,7 @@
             "enum": [
               "2",
               "3"
-            ],
-            "description": "uint64.in = [2, 3]\n"
+            ]
           }
         },
         "title": "UInt64In",
@@ -2991,8 +2815,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "float.gt = 0\nfloat.gt_lt = 0\nfloat.gt_lt_exclusive = 0\nfloat.gt_lte = 0\nfloat.gt_lte_exclusive = 0\n"
+            "format": "int64"
           }
         },
         "title": "UInt64IncorrectType",
@@ -3008,8 +2831,7 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "description": "uint64.lt = 5\n"
+            "format": "int64"
           }
         },
         "title": "UInt64LT",
@@ -3025,8 +2847,7 @@
             ],
             "title": "val",
             "maximum": 64,
-            "format": "int64",
-            "description": "uint64.lte = 64\n"
+            "format": "int64"
           }
         },
         "title": "UInt64LTE",
@@ -3065,8 +2886,7 @@
               ]
             },
             "title": "val",
-            "format": "int64",
-            "description": "uint64.not_in = [0]\n"
+            "format": "int64"
           }
         },
         "title": "UInt64NotIn",

@@ -11,9 +11,6 @@ components:
           type: string
           title: val
           format: address
-          description: |
-            string.address = true // value must be a valid hostname, or ip address
-            string.address_empty = true // value is empty, which is not a valid hostname, or ip address
       title: StringAddress
       additionalProperties: false
     buf.validate.conformance.cases.StringConst:
@@ -22,8 +19,6 @@ components:
         val:
           type: string
           title: val
-          description: |
-            string.const = "foo"
           const: foo
       title: StringConst
       additionalProperties: false
@@ -44,9 +39,6 @@ components:
           type: string
           title: val
           format: email
-          description: |
-            string.email = true // value must be a valid email address
-            string.email_empty = true // value is empty, which is not a valid email address
       title: StringEmail
       additionalProperties: false
     buf.validate.conformance.cases.StringEqualMinMaxBytes:
@@ -68,9 +60,6 @@ components:
           title: val
           maxLength: 5
           minLength: 5
-          description: |
-            string.max_len = 5
-            string.min_len = 5
       title: StringEqualMinMaxLen
       additionalProperties: false
     buf.validate.conformance.cases.StringExample:
@@ -81,8 +70,6 @@ components:
           examples:
             - foo
           title: val
-          description: |
-            string.example = ["foo"]
       title: StringExample
       additionalProperties: false
     buf.validate.conformance.cases.StringHostAndOptionalPort:
@@ -113,9 +100,6 @@ components:
           type: string
           title: val
           format: hostname
-          description: |
-            string.hostname = true // value must be a valid hostname
-            string.hostname_empty = true // value is empty, which is not a valid hostname
       title: StringHostname
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderName:
@@ -173,9 +157,6 @@ components:
           type: string
           title: val
           format: ip
-          description: |
-            string.ip = true // value must be a valid IP address
-            string.ip_empty = true // value is empty, which is not a valid IP address
       title: StringIP
       additionalProperties: false
     buf.validate.conformance.cases.StringIPPrefix:
@@ -207,9 +188,6 @@ components:
           type: string
           title: val
           format: ipv4
-          description: |
-            string.ipv4 = true // value must be a valid IPv4 address
-            string.ipv4_empty = true // value is empty, which is not a valid IPv4 address
       title: StringIPv4
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv4Prefix:
@@ -241,9 +219,6 @@ components:
           type: string
           title: val
           format: ipv6
-          description: |
-            string.ipv6 = true // value must be a valid IPv6 address
-            string.ipv6_empty = true // value is empty, which is not a valid IPv6 address
       title: StringIPv6
       additionalProperties: false
     buf.validate.conformance.cases.StringIPv6Prefix:
@@ -277,8 +252,6 @@ components:
           enum:
             - bar
             - baz
-          description: |
-            string.in = ["bar", "baz"]
       title: StringIn
       additionalProperties: false
     buf.validate.conformance.cases.StringInOneof:
@@ -291,8 +264,6 @@ components:
               enum:
                 - a
                 - b
-              description: |
-                string.in = ["a", "b"]
           title: bar
           required:
             - bar
@@ -306,8 +277,6 @@ components:
           title: val
           maxLength: 3
           minLength: 3
-          description: |
-            string.len = 3
       title: StringLen
       additionalProperties: false
     buf.validate.conformance.cases.StringLenBytes:
@@ -337,8 +306,6 @@ components:
           type: string
           title: val
           maxLength: 5
-          description: |
-            string.max_len = 5
       title: StringMaxLen
       additionalProperties: false
     buf.validate.conformance.cases.StringMinBytes:
@@ -358,8 +325,6 @@ components:
           type: string
           title: val
           minLength: 3
-          description: |
-            string.min_len = 3
       title: StringMinLen
       additionalProperties: false
     buf.validate.conformance.cases.StringMinMaxBytes:
@@ -381,9 +346,6 @@ components:
           title: val
           maxLength: 5
           minLength: 3
-          description: |
-            string.max_len = 5
-            string.min_len = 3
       title: StringMinMaxLen
       additionalProperties: false
     buf.validate.conformance.cases.StringNone:
@@ -547,8 +509,6 @@ components:
               - fizz
               - buzz
           title: val
-          description: |
-            string.not_in = ["fizz", "buzz"]
       title: StringNotIn
       additionalProperties: false
     buf.validate.conformance.cases.StringNotTUUID:
@@ -601,8 +561,6 @@ components:
           type: string
           title: val
           pattern: (?i)^[a-z0-9]+$
-          description: |
-            string.pattern = "(?i)^[a-z0-9]+$"
       title: StringPattern
       additionalProperties: false
     buf.validate.conformance.cases.StringPatternEscapes:
@@ -612,8 +570,6 @@ components:
           type: string
           title: val
           pattern: \* \\ \w
-          description: |
-            string.pattern = "\\* \\\\ \\w"
       title: StringPatternEscapes
       additionalProperties: false
     buf.validate.conformance.cases.StringPrefix:
@@ -626,6 +582,22 @@ components:
             string.prefix = "foo"
       title: StringPrefix
       additionalProperties: false
+    buf.validate.conformance.cases.StringPrefixSuffix:
+      type: object
+      properties:
+        val:
+          type: string
+          examples:
+            - user_john_2025
+          title: val
+          description: |
+            string.prefix = "user_"
+            string.suffix = "_2025"
+      title: StringPrefixSuffix
+      additionalProperties: false
+      description: |-
+        prefix and suffix do not have matching validation within the openapi schema specification,
+         therefore it should appear in the schema description
     buf.validate.conformance.cases.StringSuffix:
       type: object
       properties:
@@ -654,9 +626,6 @@ components:
           type: string
           title: val
           format: uri
-          description: |
-            string.uri = true // value must be a valid URI
-            string.uri_empty = true // value is empty, which is not a valid URI
       title: StringURI
       additionalProperties: false
     buf.validate.conformance.cases.StringURIRef:
@@ -666,8 +635,6 @@ components:
           type: string
           title: val
           format: uri-ref
-          description: |
-            string.uri_ref = true // value must be a valid URI Reference
       title: StringURIRef
       additionalProperties: false
     buf.validate.conformance.cases.StringUUID:
@@ -677,9 +644,6 @@ components:
           type: string
           title: val
           format: uuid
-          description: |
-            string.uuid = true // value must be a valid UUID
-            string.uuid_empty = true // value is empty, which is not a valid UUID
       title: StringUUID
       additionalProperties: false
     buf.validate.conformance.cases.StringUUIDIgnore:
@@ -689,9 +653,6 @@ components:
           type: string
           title: val
           format: uuid
-          description: |
-            string.uuid = true // value must be a valid UUID
-            string.uuid_empty = true // value is empty, which is not a valid UUID
       title: StringUUIDIgnore
       additionalProperties: false
 security: []
