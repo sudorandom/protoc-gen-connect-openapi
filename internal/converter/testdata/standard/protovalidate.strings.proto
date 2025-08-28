@@ -247,3 +247,15 @@ message StringHostAndOptionalPort {
 message StringExample {
   string val = 1 [(buf.validate.field).string.example = "foo"];
 }
+
+// prefix and suffix do not have matching validation within the openapi schema specification,
+// therefore it should appear in the schema description
+message StringPrefixSuffix {
+  string val = 1 [(buf.validate.field) = {
+    string: {
+      prefix: "user_"
+      suffix: "_2025"
+      example: "user_john_2025"
+    }
+  }];
+}
