@@ -45,9 +45,8 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			if pathItems == nil || pathItems.Len() == 0 {
 				path := "/" + string(service.FullName()) + "/" + string(method.Name())
 				addPathItem(path, methodToPathItem(opts, method, isGoogleHTTP))
+				addConnectSchemas(opts, doc.Components)
 			}
-
-			addConnectSchemas(opts, doc.Components)
 
 			if methodHasGet(opts, method) {
 				addConnectGetSchemas(doc.Components)
