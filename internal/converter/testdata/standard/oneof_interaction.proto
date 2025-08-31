@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package standard;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/empty.proto";
+
+service OneofInteractionService {
+  rpc DoSomething(OneofInteractionMessage) returns (google.protobuf.Empty);
+}
+
+message OneofInteractionMessage {
+  option (buf.validate.message).oneof = {
+    required: true,
+    fields: ["c", "d"]
+  };
+
+  oneof a_oneof {
+    string a = 1;
+    int32 b = 2;
+  }
+
+  string c = 3;
+  bool d = 4;
+  string e = 5;
+}
