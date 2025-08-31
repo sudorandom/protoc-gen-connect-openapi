@@ -76,23 +76,21 @@ func RunPathPatternLexer(input string) ([]Token, error) {
 func getWord(input []rune) string {
 	var word []rune
 	inBrackets := false
-	for i, char := range input {
+	for _, char := range input {
 		if !inBrackets && char == '/' {
 			break
 		}
-		if char == '{' && inBrackets {
-			// Multiple bracket sections isn't valid, so start parsing the word here
-			break
-		}
 		if char == '{' {
+			if inBrackets {
+				break
+			}
 			inBrackets = true
 		}
-		if char == '}' {
-			inBrackets = false
-		}
 		word = append(word, char)
-		if i == len(input)-1 {
-			break
+		if char == '}' {
+			if inBrackets {
+				break
+			}
 		}
 	}
 	return string(word)

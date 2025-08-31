@@ -1,0 +1,86 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "double_wildcard",
+    "description": "## double_wildcard.Greeter"
+  },
+  "paths": {
+    "/v1/greet/{name}": {
+      "get": {
+        "tags": [
+          "double_wildcard.Greeter"
+        ],
+        "summary": "Greet",
+        "operationId": "double_wildcard.Greeter.Greet",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "allowReserved": true,
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          },
+          {
+            "name": "greeting",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "greeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/double_wildcard.GreetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "double_wildcard.GreetRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "greeting": {
+            "type": "string",
+            "title": "greeting"
+          }
+        },
+        "title": "GreetRequest",
+        "additionalProperties": false
+      },
+      "double_wildcard.GreetResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "GreetResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "double_wildcard.Greeter"
+    }
+  ]
+}
