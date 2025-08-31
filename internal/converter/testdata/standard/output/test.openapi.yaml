@@ -4,67 +4,298 @@ info:
 paths: {}
 components:
   schemas:
-    google.protobuf.NullValue:
+    test.v1.ParameterValues:
+      type: object
+      allOf:
+        - properties:
+            doubleValue:
+              type: number
+              title: double_value
+              format: double
+              description: scalar types
+            floatValue:
+              type: number
+              title: float_value
+              format: float
+            int32Value:
+              type: integer
+              title: int32_value
+              format: int32
+            int64Value:
+              type:
+                - integer
+                - string
+              title: int64_value
+              format: int64
+            uint32Value:
+              type: integer
+              title: uint32_value
+            uint64Value:
+              type:
+                - integer
+                - string
+              title: uint64_value
+              format: int64
+            sint32Value:
+              type: integer
+              title: sint32_value
+              format: int32
+            sint64Value:
+              type:
+                - integer
+                - string
+              title: sint64_value
+              format: int64
+            fixed32Value:
+              type: integer
+              title: fixed32_value
+            fixed64Value:
+              type:
+                - integer
+                - string
+              title: fixed64_value
+              format: int64
+            sfixed32Value:
+              type: integer
+              title: sfixed32_value
+              format: int32
+            sfixed64Value:
+              type:
+                - integer
+                - string
+              title: sfixed64_value
+              format: int64
+            boolValue:
+              type: boolean
+              title: bool_value
+            stringValue:
+              type: string
+              title: string_value
+            bytesValue:
+              type: string
+              title: bytes_value
+              format: byte
+            timestamp:
+              title: timestamp
+              description: scalar wrappers
+              $ref: '#/components/schemas/google.protobuf.Timestamp'
+            duration:
+              title: duration
+              $ref: '#/components/schemas/google.protobuf.Duration'
+            boolValueWrapper:
+              title: bool_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.BoolValue'
+            int32ValueWrapper:
+              title: int32_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.Int32Value'
+            int64ValueWrapper:
+              title: int64_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.Int64Value'
+            uint32ValueWrapper:
+              title: uint32_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.UInt32Value'
+            uint64ValueWrapper:
+              title: uint64_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.UInt64Value'
+            floatValueWrapper:
+              title: float_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.FloatValue'
+            doubleValueWrapper:
+              title: double_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.DoubleValue'
+            bytesValueWrapper:
+              title: bytes_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.BytesValue'
+            stringValueWrapper:
+              title: string_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.StringValue'
+            fieldMask:
+              title: field_mask
+              $ref: '#/components/schemas/google.protobuf.FieldMask'
+            enumValue:
+              title: enum_value
+              $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+            enumList:
+              type: array
+              items:
+                $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+              title: enum_list
+              description: complex types
+              deprecated: true
+            doubleList:
+              type: array
+              items:
+                type: number
+                format: double
+              title: double_list
+            doubleValueList:
+              type: array
+              items:
+                $ref: '#/components/schemas/google.protobuf.DoubleValue'
+              title: double_value_list
+            nested:
+              title: nested
+              $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
+            recursive:
+              title: recursive
+              $ref: '#/components/schemas/test.v1.ParameterValues'
+            stringMap:
+              type: object
+              title: string_map
+              additionalProperties:
+                type: string
+                title: value
+              description: unsupported
+            stringValueMap:
+              type: object
+              title: string_value_map
+              additionalProperties:
+                title: value
+                $ref: '#/components/schemas/google.protobuf.StringValue'
+            enumMap:
+              type: object
+              title: enum_map
+              additionalProperties:
+                title: value
+                $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+            nestedMap:
+              type: object
+              title: nested_map
+              additionalProperties:
+                title: value
+                $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
+            structValue:
+              title: struct_value
+              $ref: '#/components/schemas/google.protobuf.Struct'
+            value:
+              title: value
+              $ref: '#/components/schemas/google.protobuf.Value'
+            recursiveList:
+              type: array
+              items:
+                $ref: '#/components/schemas/test.v1.ParameterValues'
+              title: recursive_list
+        - oneOf:
+            - properties:
+                oneofDoubleValue:
+                  type: number
+                  title: oneof_double_value
+                  format: double
+              title: oneof_double_value
+              required:
+                - oneofDoubleValue
+            - properties:
+                oneofDoubleValueWrapper:
+                  title: oneof_double_value_wrapper
+                  $ref: '#/components/schemas/google.protobuf.DoubleValue'
+              title: oneof_double_value_wrapper
+              required:
+                - oneofDoubleValueWrapper
+            - properties:
+                oneofEnumValue:
+                  title: oneof_enum_value
+                  $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+              title: oneof_enum_value
+              required:
+                - oneofEnumValue
+      title: ParameterValues
+      additionalProperties: false
+    google.protobuf.Timestamp:
       type: string
-      title: NullValue
-      enum:
-        - NULL_VALUE
+      examples:
+        - "2023-01-15T01:30:15.01Z"
+        - "2024-12-25T12:00:00Z"
+      format: date-time
       description: |-
-        `NullValue` is a singleton enumeration to represent the null value for the
-         `Value` type union.
+        A Timestamp represents a point in time independent of any time zone or local
+         calendar, encoded as a count of seconds and fractions of seconds at
+         nanosecond resolution. The count is relative to an epoch at UTC midnight on
+         January 1, 1970, in the proleptic Gregorian calendar which extends the
+         Gregorian calendar backwards to year one.
 
-         The JSON representation for `NullValue` is JSON `null`.
-    test.v1.AllTypes.Enum:
-      type: string
-      title: Enum
-      enum:
-        - ENUM_UNSPECIFIED
-        - ENUM_ONE
-        - ENUM_TWO
-      description: named types
-    test.v1.ParameterValues.Enum:
-      type: string
-      title: Enum
-      enum:
-        - ENUM_UNSPECIFIED
-        - ENUM_VALUE
-      description: enum types
-    test.v1.ParameterValues.Nested.Enum:
-      type: string
-      title: Enum
-      enum:
-        - ENUM_UNSPECIFIED
-        - ENUM_VALUE
-    google.protobuf.BoolValue:
-      type: boolean
-      description: |-
-        Wrapper message for `bool`.
+         All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
+         second table is needed for interpretation, using a [24-hour linear
+         smear](https://developers.google.com/time/smear).
 
-         The JSON representation for `BoolValue` is JSON `true` and `false`.
+         The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
+         restricting to that range, we ensure that we can convert to and from [RFC
+         3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
 
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.BytesValue:
-      type: string
-      format: binary
-      description: |-
-        Wrapper message for `bytes`.
+         # Examples
 
-         The JSON representation for `BytesValue` is JSON string.
+         Example 1: Compute Timestamp from POSIX `time()`.
 
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.DoubleValue:
-      oneOf:
-        - type: string
-        - type: number
-      description: |-
-        Wrapper message for `double`.
+             Timestamp timestamp;
+             timestamp.set_seconds(time(NULL));
+             timestamp.set_nanos(0);
 
-         The JSON representation for `DoubleValue` is JSON number.
+         Example 2: Compute Timestamp from POSIX `gettimeofday()`.
 
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
+             struct timeval tv;
+             gettimeofday(&tv, NULL);
+
+             Timestamp timestamp;
+             timestamp.set_seconds(tv.tv_sec);
+             timestamp.set_nanos(tv.tv_usec * 1000);
+
+         Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
+
+             FILETIME ft;
+             GetSystemTimeAsFileTime(&ft);
+             UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+
+             // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
+             // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
+             Timestamp timestamp;
+             timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
+             timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
+
+         Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
+
+             long millis = System.currentTimeMillis();
+
+             Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
+                 .setNanos((int) ((millis % 1000) * 1000000)).build();
+
+         Example 5: Compute Timestamp from Java `Instant.now()`.
+
+             Instant now = Instant.now();
+
+             Timestamp timestamp =
+                 Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+                     .setNanos(now.getNano()).build();
+
+         Example 6: Compute Timestamp from current time in Python.
+
+             timestamp = Timestamp()
+             timestamp.GetCurrentTime()
+
+         # JSON Mapping
+
+         In JSON format, the Timestamp type is encoded as a string in the
+         [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
+         format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
+         where {year} is always expressed using four digits while {month}, {day},
+         {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
+         seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
+         are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
+         is required. A proto3 JSON serializer should always use UTC (as indicated by
+         "Z") when printing the Timestamp type and a proto3 JSON parser should be
+         able to accept both UTC and other timezones (as indicated by an offset).
+
+         For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
+         01:30 UTC on January 15, 2017.
+
+         In JavaScript, one can convert a Date object to this format using the
+         standard
+         [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
+         method. In Python, a standard `datetime.datetime` object can be converted
+         to this format using
+         [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
+         the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
+         the Joda Time's [`ISODateTimeFormat.dateTime()`](
+         http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
+         ) to obtain a formatter capable of generating timestamps in this format.
     google.protobuf.Duration:
       type: string
       format: duration
@@ -127,6 +358,111 @@ components:
          encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
          be expressed in JSON format as "3.000000001s", and 3 seconds and 1
          microsecond should be expressed in JSON format as "3.000001s".
+    google.protobuf.BoolValue:
+      type: boolean
+      description: |-
+        Wrapper message for `bool`.
+
+         The JSON representation for `BoolValue` is JSON `true` and `false`.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.Int32Value:
+      type: number
+      description: |-
+        Wrapper message for `int32`.
+
+         The JSON representation for `Int32Value` is JSON number.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.Int64Value:
+      oneOf:
+        - type: string
+        - type: number
+      description: |-
+        Wrapper message for `int64`.
+
+         The JSON representation for `Int64Value` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.UInt32Value:
+      type: object
+      properties:
+        value:
+          type: integer
+          title: value
+          description: The uint32 value.
+      title: UInt32Value
+      additionalProperties: false
+      description: |-
+        Wrapper message for `uint32`.
+
+         The JSON representation for `UInt32Value` is JSON number.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.UInt64Value:
+      type: object
+      properties:
+        value:
+          type:
+            - integer
+            - string
+          title: value
+          format: int64
+          description: The uint64 value.
+      title: UInt64Value
+      additionalProperties: false
+      description: |-
+        Wrapper message for `uint64`.
+
+         The JSON representation for `UInt64Value` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.FloatValue:
+      oneOf:
+        - type: string
+        - type: number
+      description: |-
+        Wrapper message for `float`.
+
+         The JSON representation for `FloatValue` is JSON number.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.DoubleValue:
+      oneOf:
+        - type: string
+        - type: number
+      description: |-
+        Wrapper message for `double`.
+
+         The JSON representation for `DoubleValue` is JSON number.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.BytesValue:
+      type: string
+      format: binary
+      description: |-
+        Wrapper message for `bytes`.
+
+         The JSON representation for `BytesValue` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.StringValue:
+      type: string
+      description: |-
+        Wrapper message for `string`.
+
+         The JSON representation for `StringValue` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
     google.protobuf.FieldMask:
       type: string
       description: |-
@@ -329,61 +665,78 @@ components:
          The implementation of any API method which has a FieldMask type field in the
          request should verify the included field paths, and return an
          `INVALID_ARGUMENT` error if any path is unmappable.
-    google.protobuf.FloatValue:
-      oneOf:
-        - type: string
-        - type: number
-      description: |-
-        Wrapper message for `float`.
-
-         The JSON representation for `FloatValue` is JSON number.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.Int32Value:
-      type: number
-      description: |-
-        Wrapper message for `int32`.
-
-         The JSON representation for `Int32Value` is JSON number.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.Int64Value:
-      oneOf:
-        - type: string
-        - type: number
-      description: |-
-        Wrapper message for `int64`.
-
-         The JSON representation for `Int64Value` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.ListValue:
+    test.v1.ParameterValues.Enum:
+      type: string
+      title: Enum
+      enum:
+        - ENUM_UNSPECIFIED
+        - ENUM_VALUE
+      description: enum types
+    test.v1.ParameterValues.Nested:
       type: object
       properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Value'
-          title: values
-          description: Repeated field of dynamically typed values.
-      title: ListValue
+        doubleValue:
+          type: number
+          title: double_value
+          format: double
+        doubleValueWrapper:
+          title: double_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.DoubleValue'
+        enumValue:
+          title: enum_value
+          $ref: '#/components/schemas/test.v1.ParameterValues.Nested.Enum'
+      title: Nested
       additionalProperties: false
-      description: |-
-        `ListValue` is a wrapper around a repeated field of values.
-
-         The JSON representation for `ListValue` is JSON array.
-    google.protobuf.StringValue:
+    test.v1.ParameterValues.Nested.Enum:
       type: string
-      description: |-
-        Wrapper message for `string`.
-
-         The JSON representation for `StringValue` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
+      title: Enum
+      enum:
+        - ENUM_UNSPECIFIED
+        - ENUM_VALUE
+    test.v1.ParameterValues.StringMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: string
+          title: value
+      title: StringMapEntry
+      additionalProperties: false
+    test.v1.ParameterValues.StringValueMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          title: value
+          $ref: '#/components/schemas/google.protobuf.StringValue'
+      title: StringValueMapEntry
+      additionalProperties: false
+    test.v1.ParameterValues.EnumMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          title: value
+          $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+      title: EnumMapEntry
+      additionalProperties: false
+    test.v1.ParameterValues.NestedMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          title: value
+          $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
+      title: NestedMapEntry
+      additionalProperties: false
     google.protobuf.Struct:
       type: object
       additionalProperties:
@@ -408,137 +761,6 @@ components:
           $ref: '#/components/schemas/google.protobuf.Value'
       title: FieldsEntry
       additionalProperties: false
-    google.protobuf.Timestamp:
-      type: string
-      examples:
-        - "2023-01-15T01:30:15.01Z"
-        - "2024-12-25T12:00:00Z"
-      format: date-time
-      description: |-
-        A Timestamp represents a point in time independent of any time zone or local
-         calendar, encoded as a count of seconds and fractions of seconds at
-         nanosecond resolution. The count is relative to an epoch at UTC midnight on
-         January 1, 1970, in the proleptic Gregorian calendar which extends the
-         Gregorian calendar backwards to year one.
-
-         All minutes are 60 seconds long. Leap seconds are "smeared" so that no leap
-         second table is needed for interpretation, using a [24-hour linear
-         smear](https://developers.google.com/time/smear).
-
-         The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By
-         restricting to that range, we ensure that we can convert to and from [RFC
-         3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.
-
-         # Examples
-
-         Example 1: Compute Timestamp from POSIX `time()`.
-
-             Timestamp timestamp;
-             timestamp.set_seconds(time(NULL));
-             timestamp.set_nanos(0);
-
-         Example 2: Compute Timestamp from POSIX `gettimeofday()`.
-
-             struct timeval tv;
-             gettimeofday(&tv, NULL);
-
-             Timestamp timestamp;
-             timestamp.set_seconds(tv.tv_sec);
-             timestamp.set_nanos(tv.tv_usec * 1000);
-
-         Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.
-
-             FILETIME ft;
-             GetSystemTimeAsFileTime(&ft);
-             UINT64 ticks = (((UINT64)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
-
-             // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z
-             // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.
-             Timestamp timestamp;
-             timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));
-             timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));
-
-         Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.
-
-             long millis = System.currentTimeMillis();
-
-             Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
-                 .setNanos((int) ((millis % 1000) * 1000000)).build();
-
-         Example 5: Compute Timestamp from Java `Instant.now()`.
-
-             Instant now = Instant.now();
-
-             Timestamp timestamp =
-                 Timestamp.newBuilder().setSeconds(now.getEpochSecond())
-                     .setNanos(now.getNano()).build();
-
-         Example 6: Compute Timestamp from current time in Python.
-
-             timestamp = Timestamp()
-             timestamp.GetCurrentTime()
-
-         # JSON Mapping
-
-         In JSON format, the Timestamp type is encoded as a string in the
-         [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the
-         format is "{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z"
-         where {year} is always expressed using four digits while {month}, {day},
-         {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional
-         seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),
-         are optional. The "Z" suffix indicates the timezone ("UTC"); the timezone
-         is required. A proto3 JSON serializer should always use UTC (as indicated by
-         "Z") when printing the Timestamp type and a proto3 JSON parser should be
-         able to accept both UTC and other timezones (as indicated by an offset).
-
-         For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
-         01:30 UTC on January 15, 2017.
-
-         In JavaScript, one can convert a Date object to this format using the
-         standard
-         [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)
-         method. In Python, a standard `datetime.datetime` object can be converted
-         to this format using
-         [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with
-         the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
-         the Joda Time's [`ISODateTimeFormat.dateTime()`](
-         http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
-         ) to obtain a formatter capable of generating timestamps in this format.
-    google.protobuf.UInt32Value:
-      type: object
-      properties:
-        value:
-          type: integer
-          title: value
-          description: The uint32 value.
-      title: UInt32Value
-      additionalProperties: false
-      description: |-
-        Wrapper message for `uint32`.
-
-         The JSON representation for `UInt32Value` is JSON number.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.UInt64Value:
-      type: object
-      properties:
-        value:
-          type:
-            - integer
-            - string
-          title: value
-          format: int64
-          description: The uint64 value.
-      title: UInt64Value
-      additionalProperties: false
-      description: |-
-        Wrapper message for `uint64`.
-
-         The JSON representation for `UInt64Value` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
     google.protobuf.Value:
       oneOf:
         - type: "null"
@@ -555,6 +777,31 @@ components:
          variants. Absence of any variant indicates an error.
 
          The JSON representation for `Value` is JSON value.
+    google.protobuf.NullValue:
+      type: string
+      title: NullValue
+      enum:
+        - NULL_VALUE
+      description: |-
+        `NullValue` is a singleton enumeration to represent the null value for the
+         `Value` type union.
+
+         The JSON representation for `NullValue` is JSON `null`.
+    google.protobuf.ListValue:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Value'
+          title: values
+          description: Repeated field of dynamically typed values.
+      title: ListValue
+      additionalProperties: false
+      description: |-
+        `ListValue` is a wrapper around a repeated field of values.
+
+         The JSON representation for `ListValue` is JSON array.
     test.v1.AllTypes:
       type: object
       allOf:
@@ -1173,73 +1420,82 @@ components:
                 - uint64Option
       title: AllTypes
       additionalProperties: false
-    test.v1.AllTypes.BoolMapEntry:
+    test.v1.AllTypes.Int32ToStringMapEntry:
       type: object
       properties:
         key:
-          type: string
-          title: key
-        value:
-          type: boolean
-          title: value
-      title: BoolMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.BoolToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type: boolean
-          title: key
-        value:
-          type: string
-          title: value
-      title: BoolToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.BytesMapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-          format: byte
-      title: BytesMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.DoubleMapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: number
-          title: value
-          format: double
-      title: DoubleMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.EnumMapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          title: value
-          $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-      title: EnumMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Fixed32MapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
           type: integer
+          title: key
+          format: int32
+        value:
+          type: string
           title: value
-      title: Fixed32MapEntry
+      title: Int32ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Int64ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
+        value:
+          type: string
+          title: value
+      title: Int64ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Uint32ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type: integer
+          title: key
+        value:
+          type: string
+          title: value
+      title: Uint32ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Uint64ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
+        value:
+          type: string
+          title: value
+      title: Uint64ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Sint32ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type: integer
+          title: key
+          format: int32
+        value:
+          type: string
+          title: value
+      title: Sint32ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Sint64ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
+        value:
+          type: string
+          title: value
+      title: Sint64ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Fixed32ToStringMapEntry:
       type: object
@@ -1251,20 +1507,6 @@ components:
           type: string
           title: value
       title: Fixed32ToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Fixed64MapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type:
-            - integer
-            - string
-          title: value
-          format: int64
-      title: Fixed64MapEntry
       additionalProperties: false
     test.v1.AllTypes.Fixed64ToStringMapEntry:
       type: object
@@ -1279,6 +1521,66 @@ components:
           type: string
           title: value
       title: Fixed64ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Sfixed32ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type: integer
+          title: key
+          format: int32
+        value:
+          type: string
+          title: value
+      title: Sfixed32ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Sfixed64ToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type:
+            - integer
+            - string
+          title: key
+          format: int64
+        value:
+          type: string
+          title: value
+      title: Sfixed64ToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.BoolToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type: boolean
+          title: key
+        value:
+          type: string
+          title: value
+      title: BoolToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.StringToStringMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: string
+          title: value
+      title: StringToStringMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.DoubleMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: number
+          title: value
+          format: double
+      title: DoubleMapEntry
       additionalProperties: false
     test.v1.AllTypes.FloatMapEntry:
       type: object
@@ -1304,18 +1606,6 @@ components:
           format: int32
       title: Int32MapEntry
       additionalProperties: false
-    test.v1.AllTypes.Int32ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type: integer
-          title: key
-          format: int32
-        value:
-          type: string
-          title: value
-      title: Int32ToStringMapEntry
-      additionalProperties: false
     test.v1.AllTypes.Int64MapEntry:
       type: object
       properties:
@@ -1330,157 +1620,6 @@ components:
           format: int64
       title: Int64MapEntry
       additionalProperties: false
-    test.v1.AllTypes.Int64ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type:
-            - integer
-            - string
-          title: key
-          format: int64
-        value:
-          type: string
-          title: value
-      title: Int64ToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.MsgMapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          title: value
-          $ref: '#/components/schemas/test.v1.AllTypes'
-      title: MsgMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sfixed32MapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: integer
-          title: value
-          format: int32
-      title: Sfixed32MapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sfixed32ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type: integer
-          title: key
-          format: int32
-        value:
-          type: string
-          title: value
-      title: Sfixed32ToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sfixed64MapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type:
-            - integer
-            - string
-          title: value
-          format: int64
-      title: Sfixed64MapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sfixed64ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type:
-            - integer
-            - string
-          title: key
-          format: int64
-        value:
-          type: string
-          title: value
-      title: Sfixed64ToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sint32MapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: integer
-          title: value
-          format: int32
-      title: Sint32MapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sint32ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type: integer
-          title: key
-          format: int32
-        value:
-          type: string
-          title: value
-      title: Sint32ToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sint64MapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type:
-            - integer
-            - string
-          title: value
-          format: int64
-      title: Sint64MapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Sint64ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type:
-            - integer
-            - string
-          title: key
-          format: int64
-        value:
-          type: string
-          title: value
-      title: Sint64ToStringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.StringMapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-      title: StringMapEntry
-      additionalProperties: false
-    test.v1.AllTypes.StringToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-      title: StringToStringMapEntry
-      additionalProperties: false
     test.v1.AllTypes.Uint32MapEntry:
       type: object
       properties:
@@ -1491,17 +1630,6 @@ components:
           type: integer
           title: value
       title: Uint32MapEntry
-      additionalProperties: false
-    test.v1.AllTypes.Uint32ToStringMapEntry:
-      type: object
-      properties:
-        key:
-          type: integer
-          title: key
-        value:
-          type: string
-          title: value
-      title: Uint32ToStringMapEntry
       additionalProperties: false
     test.v1.AllTypes.Uint64MapEntry:
       type: object
@@ -1517,254 +1645,95 @@ components:
           format: int64
       title: Uint64MapEntry
       additionalProperties: false
-    test.v1.AllTypes.Uint64ToStringMapEntry:
+    test.v1.AllTypes.Sint32MapEntry:
       type: object
       properties:
         key:
+          type: string
+          title: key
+        value:
+          type: integer
+          title: value
+          format: int32
+      title: Sint32MapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Sint64MapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
           type:
             - integer
             - string
-          title: key
+          title: value
           format: int64
-        value:
-          type: string
-          title: value
-      title: Uint64ToStringMapEntry
+      title: Sint64MapEntry
       additionalProperties: false
-    test.v1.ParameterValues:
-      type: object
-      allOf:
-        - properties:
-            doubleValue:
-              type: number
-              title: double_value
-              format: double
-              description: scalar types
-            floatValue:
-              type: number
-              title: float_value
-              format: float
-            int32Value:
-              type: integer
-              title: int32_value
-              format: int32
-            int64Value:
-              type:
-                - integer
-                - string
-              title: int64_value
-              format: int64
-            uint32Value:
-              type: integer
-              title: uint32_value
-            uint64Value:
-              type:
-                - integer
-                - string
-              title: uint64_value
-              format: int64
-            sint32Value:
-              type: integer
-              title: sint32_value
-              format: int32
-            sint64Value:
-              type:
-                - integer
-                - string
-              title: sint64_value
-              format: int64
-            fixed32Value:
-              type: integer
-              title: fixed32_value
-            fixed64Value:
-              type:
-                - integer
-                - string
-              title: fixed64_value
-              format: int64
-            sfixed32Value:
-              type: integer
-              title: sfixed32_value
-              format: int32
-            sfixed64Value:
-              type:
-                - integer
-                - string
-              title: sfixed64_value
-              format: int64
-            boolValue:
-              type: boolean
-              title: bool_value
-            stringValue:
-              type: string
-              title: string_value
-            bytesValue:
-              type: string
-              title: bytes_value
-              format: byte
-            timestamp:
-              title: timestamp
-              description: scalar wrappers
-              $ref: '#/components/schemas/google.protobuf.Timestamp'
-            duration:
-              title: duration
-              $ref: '#/components/schemas/google.protobuf.Duration'
-            boolValueWrapper:
-              title: bool_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.BoolValue'
-            int32ValueWrapper:
-              title: int32_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.Int32Value'
-            int64ValueWrapper:
-              title: int64_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.Int64Value'
-            uint32ValueWrapper:
-              title: uint32_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.UInt32Value'
-            uint64ValueWrapper:
-              title: uint64_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.UInt64Value'
-            floatValueWrapper:
-              title: float_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.FloatValue'
-            doubleValueWrapper:
-              title: double_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.DoubleValue'
-            bytesValueWrapper:
-              title: bytes_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.BytesValue'
-            stringValueWrapper:
-              title: string_value_wrapper
-              $ref: '#/components/schemas/google.protobuf.StringValue'
-            fieldMask:
-              title: field_mask
-              $ref: '#/components/schemas/google.protobuf.FieldMask'
-            enumValue:
-              title: enum_value
-              $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-            enumList:
-              type: array
-              items:
-                $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-              title: enum_list
-              description: complex types
-              deprecated: true
-            doubleList:
-              type: array
-              items:
-                type: number
-                format: double
-              title: double_list
-            doubleValueList:
-              type: array
-              items:
-                $ref: '#/components/schemas/google.protobuf.DoubleValue'
-              title: double_value_list
-            nested:
-              title: nested
-              $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
-            recursive:
-              title: recursive
-              $ref: '#/components/schemas/test.v1.ParameterValues'
-            stringMap:
-              type: object
-              title: string_map
-              additionalProperties:
-                type: string
-                title: value
-              description: unsupported
-            stringValueMap:
-              type: object
-              title: string_value_map
-              additionalProperties:
-                title: value
-                $ref: '#/components/schemas/google.protobuf.StringValue'
-            enumMap:
-              type: object
-              title: enum_map
-              additionalProperties:
-                title: value
-                $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-            nestedMap:
-              type: object
-              title: nested_map
-              additionalProperties:
-                title: value
-                $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
-            structValue:
-              title: struct_value
-              $ref: '#/components/schemas/google.protobuf.Struct'
-            value:
-              title: value
-              $ref: '#/components/schemas/google.protobuf.Value'
-            recursiveList:
-              type: array
-              items:
-                $ref: '#/components/schemas/test.v1.ParameterValues'
-              title: recursive_list
-        - oneOf:
-            - properties:
-                oneofDoubleValue:
-                  type: number
-                  title: oneof_double_value
-                  format: double
-              title: oneof_double_value
-              required:
-                - oneofDoubleValue
-            - properties:
-                oneofDoubleValueWrapper:
-                  title: oneof_double_value_wrapper
-                  $ref: '#/components/schemas/google.protobuf.DoubleValue'
-              title: oneof_double_value_wrapper
-              required:
-                - oneofDoubleValueWrapper
-            - properties:
-                oneofEnumValue:
-                  title: oneof_enum_value
-                  $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-              title: oneof_enum_value
-              required:
-                - oneofEnumValue
-      title: ParameterValues
-      additionalProperties: false
-    test.v1.ParameterValues.EnumMapEntry:
+    test.v1.AllTypes.Fixed32MapEntry:
       type: object
       properties:
         key:
           type: string
           title: key
         value:
+          type: integer
           title: value
-          $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-      title: EnumMapEntry
+      title: Fixed32MapEntry
       additionalProperties: false
-    test.v1.ParameterValues.Nested:
-      type: object
-      properties:
-        doubleValue:
-          type: number
-          title: double_value
-          format: double
-        doubleValueWrapper:
-          title: double_value_wrapper
-          $ref: '#/components/schemas/google.protobuf.DoubleValue'
-        enumValue:
-          title: enum_value
-          $ref: '#/components/schemas/test.v1.ParameterValues.Nested.Enum'
-      title: Nested
-      additionalProperties: false
-    test.v1.ParameterValues.NestedMapEntry:
+    test.v1.AllTypes.Fixed64MapEntry:
       type: object
       properties:
         key:
           type: string
           title: key
         value:
+          type:
+            - integer
+            - string
           title: value
-          $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
-      title: NestedMapEntry
+          format: int64
+      title: Fixed64MapEntry
       additionalProperties: false
-    test.v1.ParameterValues.StringMapEntry:
+    test.v1.AllTypes.Sfixed32MapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: integer
+          title: value
+          format: int32
+      title: Sfixed32MapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Sfixed64MapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type:
+            - integer
+            - string
+          title: value
+          format: int64
+      title: Sfixed64MapEntry
+      additionalProperties: false
+    test.v1.AllTypes.BoolMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: boolean
+          title: value
+      title: BoolMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.StringMapEntry:
       type: object
       properties:
         key:
@@ -1775,7 +1744,27 @@ components:
           title: value
       title: StringMapEntry
       additionalProperties: false
-    test.v1.ParameterValues.StringValueMapEntry:
+    test.v1.AllTypes.BytesMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          type: string
+          title: value
+          format: byte
+      title: BytesMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.Enum:
+      type: string
+      title: Enum
+      enum:
+        - ENUM_UNSPECIFIED
+        - ENUM_ONE
+        - ENUM_TWO
+      description: named types
+    test.v1.AllTypes.MsgMapEntry:
       type: object
       properties:
         key:
@@ -1783,7 +1772,18 @@ components:
           title: key
         value:
           title: value
-          $ref: '#/components/schemas/google.protobuf.StringValue'
-      title: StringValueMapEntry
+          $ref: '#/components/schemas/test.v1.AllTypes'
+      title: MsgMapEntry
+      additionalProperties: false
+    test.v1.AllTypes.EnumMapEntry:
+      type: object
+      properties:
+        key:
+          type: string
+          title: key
+        value:
+          title: value
+          $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+      title: EnumMapEntry
       additionalProperties: false
 security: []

@@ -182,69 +182,23 @@
   },
   "components": {
     "schemas": {
-      "google.protobuf.NullValue": {
-        "type": "string",
-        "title": "NullValue",
-        "enum": [
-          "NULL_VALUE"
-        ],
-        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
-      },
-      "google.protobuf.Empty": {
-        "type": "object",
-        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
-      },
-      "google.protobuf.Int64Value": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          }
-        ],
-        "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
-      },
-      "google.protobuf.ListValue": {
+      "samples.GoogleValue": {
         "type": "object",
         "properties": {
-          "values": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/google.protobuf.Value"
-            },
-            "title": "values",
-            "description": "Repeated field of dynamically typed values."
-          }
-        },
-        "title": "ListValue",
-        "additionalProperties": false,
-        "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array."
-      },
-      "google.protobuf.StringValue": {
-        "type": "string",
-        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
-      },
-      "google.protobuf.Struct": {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/google.protobuf.Value"
-        },
-        "description": "`Struct` represents a structured data value, consisting of fields\n which map to dynamically typed values. In some languages, `Struct`\n might be supported by a native representation. For example, in\n scripting languages like JS a struct is represented as an\n object. The details of that representation are described together\n with the proto support for the language.\n\n The JSON representation for `Struct` is JSON object."
-      },
-      "google.protobuf.Struct.FieldsEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "title": "value",
+          "arg": {
+            "title": "arg",
             "$ref": "#/components/schemas/google.protobuf.Value"
+          },
+          "someList": {
+            "title": "some_list",
+            "$ref": "#/components/schemas/google.protobuf.ListValue"
+          },
+          "someStruct": {
+            "title": "some_struct",
+            "$ref": "#/components/schemas/google.protobuf.Struct"
           }
         },
-        "title": "FieldsEntry",
+        "title": "GoogleValue",
         "additionalProperties": false
       },
       "google.protobuf.Value": {
@@ -271,24 +225,51 @@
         ],
         "description": "`Value` represents a dynamically typed value which can be either\n null, a number, a string, a boolean, a recursive struct value, or a\n list of values. A producer of value is expected to set one of these\n variants. Absence of any variant indicates an error.\n\n The JSON representation for `Value` is JSON value."
       },
-      "samples.GoogleValue": {
+      "google.protobuf.NullValue": {
+        "type": "string",
+        "title": "NullValue",
+        "enum": [
+          "NULL_VALUE"
+        ],
+        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
+      },
+      "google.protobuf.Struct": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/google.protobuf.Value"
+        },
+        "description": "`Struct` represents a structured data value, consisting of fields\n which map to dynamically typed values. In some languages, `Struct`\n might be supported by a native representation. For example, in\n scripting languages like JS a struct is represented as an\n object. The details of that representation are described together\n with the proto support for the language.\n\n The JSON representation for `Struct` is JSON object."
+      },
+      "google.protobuf.Struct.FieldsEntry": {
         "type": "object",
         "properties": {
-          "arg": {
-            "title": "arg",
+          "key": {
+            "type": "string",
+            "title": "key"
+          },
+          "value": {
+            "title": "value",
             "$ref": "#/components/schemas/google.protobuf.Value"
-          },
-          "someList": {
-            "title": "some_list",
-            "$ref": "#/components/schemas/google.protobuf.ListValue"
-          },
-          "someStruct": {
-            "title": "some_struct",
-            "$ref": "#/components/schemas/google.protobuf.Struct"
           }
         },
-        "title": "GoogleValue",
+        "title": "FieldsEntry",
         "additionalProperties": false
+      },
+      "google.protobuf.ListValue": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Value"
+            },
+            "title": "values",
+            "description": "Repeated field of dynamically typed values."
+          }
+        },
+        "title": "ListValue",
+        "additionalProperties": false,
+        "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array."
       },
       "connect-protocol-version": {
         "type": "number",
@@ -378,6 +359,25 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "google.protobuf.StringValue": {
+        "type": "string",
+        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.Int64Value": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       }
     }
   },

@@ -4,55 +4,56 @@ import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	highbase "github.com/pb33f/libopenapi/datamodel/high/base"
 	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func SpecWithFileAnnotations(spec *highv3.Document, fd protoreflect.FileDescriptor) {
+func SpecWithFileAnnotations(opts options.Options, spec *highv3.Document, fd protoreflect.FileDescriptor) {
 	if !proto.HasExtension(fd.Options(), goa3.E_Document.TypeDescriptor().Type()) {
 		return
 	}
 
 	ext := proto.GetExtension(fd.Options(), goa3.E_Document.TypeDescriptor().Type())
-	opts, ok := ext.(*goa3.Document)
+	gnosticDocument, ok := ext.(*goa3.Document)
 	if !ok {
 		return
 	}
-	if opts.Openapi != "" {
-		spec.Info.Version = opts.Openapi
+	if gnosticDocument.Openapi != "" {
+		spec.Info.Version = gnosticDocument.Openapi
 	}
 
-	if opts.Info != nil {
-		spec.Info.Title = opts.Info.Title
-		spec.Info.Summary = opts.Info.Summary
-		spec.Info.Description = opts.Info.Description
-		spec.Info.TermsOfService = opts.Info.TermsOfService
-		if opts.Info.Contact != nil {
+	if gnosticDocument.Info != nil {
+		spec.Info.Title = gnosticDocument.Info.Title
+		spec.Info.Summary = gnosticDocument.Info.Summary
+		spec.Info.Description = gnosticDocument.Info.Description
+		spec.Info.TermsOfService = gnosticDocument.Info.TermsOfService
+		if gnosticDocument.Info.Contact != nil {
 			spec.Info.Contact = &highbase.Contact{
-				Name:  opts.Info.Contact.Name,
-				URL:   opts.Info.Contact.Url,
-				Email: opts.Info.Contact.Email,
+				Name:  gnosticDocument.Info.Contact.Name,
+				URL:   gnosticDocument.Info.Contact.Url,
+				Email: gnosticDocument.Info.Contact.Email,
 			}
 		}
-		if opts.Info.License != nil {
+		if gnosticDocument.Info.License != nil {
 			spec.Info.License = &highbase.License{
-				Name: opts.Info.License.Name,
-				URL:  opts.Info.License.Url,
+				Name: gnosticDocument.Info.License.Name,
+				URL:  gnosticDocument.Info.License.Url,
 			}
 		}
-		spec.Info.Version = opts.Info.Version
+		spec.Info.Version = gnosticDocument.Info.Version
 	}
-	spec.Servers = append(spec.Servers, toServers(opts.Servers)...)
-	spec.Security = append(spec.Security, toSecurityRequirements(opts.Security)...)
-	spec.Tags = append(spec.Tags, toTags(opts.Tags)...)
-	if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
+	spec.Servers = append(spec.Servers, toServers(gnosticDocument.Servers)...)
+	spec.Security = append(spec.Security, toSecurityRequirements(gnosticDocument.Security)...)
+	spec.Tags = append(spec.Tags, toTags(gnosticDocument.Tags)...)
+	if exDocs := toExternalDocs(gnosticDocument.ExternalDocs); exDocs != nil {
 		spec.ExternalDocs = exDocs
 	}
-	if opts.SpecificationExtension != nil {
-		ext := toExtensions(opts.SpecificationExtension)
+	if gnosticDocument.SpecificationExtension != nil {
+		ext := toExtensions(gnosticDocument.SpecificationExtension)
 		for pair := ext.Oldest(); pair != nil; pair = pair.Next() {
 			spec.Extensions.AddPairs(*pair)
 		}
 	}
-	appendComponents(spec, opts.Components)
+	appendComponents(opts, spec, gnosticDocument.Components)
 }

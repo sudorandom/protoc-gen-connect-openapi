@@ -4,12 +4,6 @@ info:
 paths: {}
 components:
   schemas:
-    enums.ArrayOfEnums.inline:
-      type: string
-      title: inline
-      enum:
-        - FOO
-        - BAR
     enums.ArrayOfEnums:
       type: object
       properties:
@@ -23,4 +17,10 @@ components:
           title: stuff
       title: ArrayOfEnums
       additionalProperties: false
+    enums.ArrayOfEnums.inline:
+      type: string
+      title: inline
+      enum:
+        - FOO
+        - BAR
 security: []

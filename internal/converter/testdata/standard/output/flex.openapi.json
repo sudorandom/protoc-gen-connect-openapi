@@ -618,6 +618,18 @@
   },
   "components": {
     "schemas": {
+      "flex.FlexRequest": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "title": "msg",
+            "$ref": "#/components/schemas/flex.ComplexType"
+          }
+        },
+        "title": "FlexRequest",
+        "additionalProperties": false,
+        "description": "The request message containing the user's name."
+      },
       "flex.ComplexType": {
         "type": "object",
         "properties": {
@@ -723,6 +735,11 @@
         "additionalProperties": false,
         "description": "Type that has a bunch of different types"
       },
+      "flex.Other": {
+        "type": "object",
+        "title": "Other",
+        "additionalProperties": false
+      },
       "flex.FlexReply": {
         "type": "object",
         "properties": {
@@ -734,27 +751,6 @@
         "title": "FlexReply",
         "additionalProperties": false,
         "description": "The response message containing the greetings"
-      },
-      "flex.FlexRequest": {
-        "type": "object",
-        "properties": {
-          "msg": {
-            "title": "msg",
-            "$ref": "#/components/schemas/flex.ComplexType"
-          }
-        },
-        "title": "FlexRequest",
-        "additionalProperties": false,
-        "description": "The request message containing the user's name."
-      },
-      "flex.Other": {
-        "type": "object",
-        "title": "Other",
-        "additionalProperties": false
-      },
-      "google.protobuf.Empty": {
-        "type": "object",
-        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       },
       "connect-protocol-version": {
         "type": "number",
@@ -844,6 +840,10 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       }
     }
   },

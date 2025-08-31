@@ -131,6 +131,21 @@
   },
   "components": {
     "schemas": {
+      "additional_bindings.UserLookup": {
+        "type": "object",
+        "properties": {
+          "tenant": {
+            "type": "string",
+            "title": "tenant"
+          },
+          "uuid": {
+            "type": "string",
+            "title": "uuid"
+          }
+        },
+        "title": "UserLookup",
+        "additionalProperties": false
+      },
       "additional_bindings.User": {
         "type": "object",
         "properties": {
@@ -148,21 +163,6 @@
           }
         },
         "title": "User",
-        "additionalProperties": false
-      },
-      "additional_bindings.UserLookup": {
-        "type": "object",
-        "properties": {
-          "tenant": {
-            "type": "string",
-            "title": "tenant"
-          },
-          "uuid": {
-            "type": "string",
-            "title": "uuid"
-          }
-        },
-        "title": "UserLookup",
         "additionalProperties": false
       }
     }

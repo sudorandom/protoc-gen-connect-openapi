@@ -110,6 +110,36 @@ paths:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
+    samples.GoogleValue:
+      type: object
+      properties:
+        arg:
+          title: arg
+          $ref: '#/components/schemas/google.protobuf.Value'
+        someList:
+          title: some_list
+          $ref: '#/components/schemas/google.protobuf.ListValue'
+        someStruct:
+          title: some_struct
+          $ref: '#/components/schemas/google.protobuf.Struct'
+      title: GoogleValue
+      additionalProperties: false
+    google.protobuf.Value:
+      oneOf:
+        - type: "null"
+        - type: number
+        - type: string
+        - type: boolean
+        - type: array
+        - type: object
+          additionalProperties: true
+      description: |-
+        `Value` represents a dynamically typed value which can be either
+         null, a number, a string, a boolean, a recursive struct value, or a
+         list of values. A producer of value is expected to set one of these
+         variants. Absence of any variant indicates an error.
+
+         The JSON representation for `Value` is JSON value.
     google.protobuf.NullValue:
       type: string
       title: NullValue
@@ -120,51 +150,6 @@ components:
          `Value` type union.
 
          The JSON representation for `NullValue` is JSON `null`.
-    google.protobuf.Empty:
-      type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
-    google.protobuf.Int64Value:
-      oneOf:
-        - type: string
-        - type: number
-      description: |-
-        Wrapper message for `int64`.
-
-         The JSON representation for `Int64Value` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.ListValue:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Value'
-          title: values
-          description: Repeated field of dynamically typed values.
-      title: ListValue
-      additionalProperties: false
-      description: |-
-        `ListValue` is a wrapper around a repeated field of values.
-
-         The JSON representation for `ListValue` is JSON array.
-    google.protobuf.StringValue:
-      type: string
-      description: |-
-        Wrapper message for `string`.
-
-         The JSON representation for `StringValue` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
     google.protobuf.Struct:
       type: object
       additionalProperties:
@@ -189,36 +174,21 @@ components:
           $ref: '#/components/schemas/google.protobuf.Value'
       title: FieldsEntry
       additionalProperties: false
-    google.protobuf.Value:
-      oneOf:
-        - type: "null"
-        - type: number
-        - type: string
-        - type: boolean
-        - type: array
-        - type: object
-          additionalProperties: true
-      description: |-
-        `Value` represents a dynamically typed value which can be either
-         null, a number, a string, a boolean, a recursive struct value, or a
-         list of values. A producer of value is expected to set one of these
-         variants. Absence of any variant indicates an error.
-
-         The JSON representation for `Value` is JSON value.
-    samples.GoogleValue:
+    google.protobuf.ListValue:
       type: object
       properties:
-        arg:
-          title: arg
-          $ref: '#/components/schemas/google.protobuf.Value'
-        someList:
-          title: some_list
-          $ref: '#/components/schemas/google.protobuf.ListValue'
-        someStruct:
-          title: some_struct
-          $ref: '#/components/schemas/google.protobuf.Struct'
-      title: GoogleValue
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Value'
+          title: values
+          description: Repeated field of dynamically typed values.
+      title: ListValue
       additionalProperties: false
+      description: |-
+        `ListValue` is a wrapper around a repeated field of values.
+
+         The JSON representation for `ListValue` is JSON array.
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -288,6 +258,36 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    google.protobuf.StringValue:
+      type: string
+      description: |-
+        Wrapper message for `string`.
+
+         The JSON representation for `StringValue` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.Int64Value:
+      oneOf:
+        - type: string
+        - type: number
+      description: |-
+        Wrapper message for `int64`.
+
+         The JSON representation for `Int64Value` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
 security: []
 tags:
   - name: samples.Test

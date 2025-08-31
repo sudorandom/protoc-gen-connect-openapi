@@ -4,14 +4,13 @@ info:
 paths: {}
 components:
   schemas:
-    buf.validate.conformance.cases.StringAddress:
+    buf.validate.conformance.cases.StringNone:
       type: object
       properties:
         val:
           type: string
           title: val
-          format: address
-      title: StringAddress
+      title: StringNone
       additionalProperties: false
     buf.validate.conformance.cases.StringConst:
       type: object
@@ -21,227 +20,6 @@ components:
           title: val
           const: foo
       title: StringConst
-      additionalProperties: false
-    buf.validate.conformance.cases.StringContains:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.contains = "bar"
-      title: StringContains
-      additionalProperties: false
-    buf.validate.conformance.cases.StringEmail:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: email
-      title: StringEmail
-      additionalProperties: false
-    buf.validate.conformance.cases.StringEqualMinMaxBytes:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.max_bytes = 4
-            string.min_bytes = 4
-      title: StringEqualMinMaxBytes
-      additionalProperties: false
-    buf.validate.conformance.cases.StringEqualMinMaxLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          maxLength: 5
-          minLength: 5
-      title: StringEqualMinMaxLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringExample:
-      type: object
-      properties:
-        val:
-          type: string
-          examples:
-            - foo
-          title: val
-      title: StringExample
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHostAndOptionalPort:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.host_and_port.optional_port // value must be a host and (optional) port pair
-      title: StringHostAndOptionalPort
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHostAndPort:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair
-            string.host_and_port_empty = true // value is empty, which is not a valid host and port pair
-      title: StringHostAndPort
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHostname:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: hostname
-      title: StringHostname
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHttpHeaderName:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
-            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
-      title: StringHttpHeaderName
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHttpHeaderNameLoose:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
-            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
-      title: StringHttpHeaderNameLoose
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHttpHeaderValue:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
-            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
-      title: StringHttpHeaderValue
-      additionalProperties: false
-    buf.validate.conformance.cases.StringHttpHeaderValueLoose:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
-            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
-      title: StringHttpHeaderValueLoose
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIP:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: ip
-      title: StringIP
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPPrefix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ip_prefix = true // value must be a valid IP prefix
-            string.ip_prefix_empty = true // value is empty, which is not a valid IP prefix
-      title: StringIPPrefix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPWithPrefixLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ip_with_prefixlen = true // value must be a valid IP prefix
-            string.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix
-      title: StringIPWithPrefixLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPv4:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: ipv4
-      title: StringIPv4
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPv4Prefix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv4_prefix = true // value must be a valid IPv4 prefix
-            string.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix
-      title: StringIPv4Prefix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPv4WithPrefixLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length
-            string.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length
-      title: StringIPv4WithPrefixLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPv6:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: ipv6
-      title: StringIPv6
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPv6Prefix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv6_prefix = true // value must be a valid IPv6 prefix
-            string.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix
-      title: StringIPv6Prefix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringIPv6WithPrefixLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length
-            string.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length
-      title: StringIPv6WithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringIn:
       type: object
@@ -253,250 +31,6 @@ components:
             - bar
             - baz
       title: StringIn
-      additionalProperties: false
-    buf.validate.conformance.cases.StringInOneof:
-      type: object
-      oneOf:
-        - properties:
-            bar:
-              type: string
-              title: bar
-              enum:
-                - a
-                - b
-          title: bar
-          required:
-            - bar
-      title: StringInOneof
-      additionalProperties: false
-    buf.validate.conformance.cases.StringLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          maxLength: 3
-          minLength: 3
-      title: StringLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringLenBytes:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.len_bytes = 4
-      title: StringLenBytes
-      additionalProperties: false
-    buf.validate.conformance.cases.StringMaxBytes:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.max_bytes = 8
-      title: StringMaxBytes
-      additionalProperties: false
-    buf.validate.conformance.cases.StringMaxLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          maxLength: 5
-      title: StringMaxLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringMinBytes:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.min_bytes = 4
-      title: StringMinBytes
-      additionalProperties: false
-    buf.validate.conformance.cases.StringMinLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          minLength: 3
-      title: StringMinLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringMinMaxBytes:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.max_bytes = 8
-            string.min_bytes = 4
-      title: StringMinMaxBytes
-      additionalProperties: false
-    buf.validate.conformance.cases.StringMinMaxLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          maxLength: 5
-          minLength: 3
-      title: StringMinMaxLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNone:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-      title: StringNone
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotAddress:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.address = false // value must be a valid hostname, or ip address
-            string.address_empty = false // value is empty, which is not a valid hostname, or ip address
-      title: StringNotAddress
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotContains:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.not_contains = "bar"
-      title: StringNotContains
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotEmail:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.email = false // value must be a valid email address
-            string.email_empty = false // value is empty, which is not a valid email address
-      title: StringNotEmail
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotHostname:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.hostname = false // value must be a valid hostname
-            string.hostname_empty = false // value is empty, which is not a valid hostname
-      title: StringNotHostname
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIP:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ip = false // value must be a valid IP address
-            string.ip_empty = false // value is empty, which is not a valid IP address
-      title: StringNotIP
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPPrefix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ip_prefix = false // value must be a valid IP prefix
-            string.ip_prefix_empty = false // value is empty, which is not a valid IP prefix
-      title: StringNotIPPrefix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPWithPrefixLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ip_with_prefixlen = false // value must be a valid IP prefix
-            string.ip_with_prefixlen_empty = false // value is empty, which is not a valid IP prefix
-      title: StringNotIPWithPrefixLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPv4:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv4 = false // value must be a valid IPv4 address
-            string.ipv4_empty = false // value is empty, which is not a valid IPv4 address
-      title: StringNotIPv4
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPv4Prefix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv4_prefix = false // value must be a valid IPv4 prefix
-            string.ipv4_prefix_empty = false // value is empty, which is not a valid IPv4 prefix
-      title: StringNotIPv4Prefix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPv4WithPrefixLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv4_with_prefixlen = false // value must be a valid IPv4 address with prefix length
-            string.ipv4_with_prefixlen_empty = false // value is empty, which is not a valid IPv4 address with prefix length
-      title: StringNotIPv4WithPrefixLen
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPv6:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv6 = false // value must be a valid IPv6 address
-            string.ipv6_empty = false // value is empty, which is not a valid IPv6 address
-      title: StringNotIPv6
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPv6Prefix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv6_prefix = false // value must be a valid IPv6 prefix
-            string.ipv6_prefix_empty = false // value is empty, which is not a valid IPv6 prefix
-      title: StringNotIPv6Prefix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringNotIPv6WithPrefixLen:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.ipv6_with_prefixlen = false // value must be a valid IPv6 address with prefix length
-            string.ipv6_with_prefixlen_empty = false // value is empty, which is not a valid IPv6 address with prefix length
-      title: StringNotIPv6WithPrefixLen
       additionalProperties: false
     buf.validate.conformance.cases.StringNotIn:
       type: object
@@ -511,48 +45,105 @@ components:
           title: val
       title: StringNotIn
       additionalProperties: false
-    buf.validate.conformance.cases.StringNotTUUID:
+    buf.validate.conformance.cases.StringLen:
       type: object
       properties:
         val:
           type: string
           title: val
-          description: |
-            string.tuuid = false // value must be a valid trimmed UUID
-            string.tuuid_empty = false // value is empty, which is not a valid trimmed UUID
-      title: StringNotTUUID
+          maxLength: 3
+          minLength: 3
+      title: StringLen
       additionalProperties: false
-    buf.validate.conformance.cases.StringNotURI:
+    buf.validate.conformance.cases.StringMinLen:
       type: object
       properties:
         val:
           type: string
           title: val
-          description: |
-            string.uri = false // value must be a valid URI
-            string.uri_empty = false // value is empty, which is not a valid URI
-      title: StringNotURI
+          minLength: 3
+      title: StringMinLen
       additionalProperties: false
-    buf.validate.conformance.cases.StringNotURIRef:
+    buf.validate.conformance.cases.StringMaxLen:
       type: object
       properties:
         val:
           type: string
           title: val
-          description: |
-            string.uri_ref = false // value must be a valid URI Reference
-      title: StringNotURIRef
+          maxLength: 5
+      title: StringMaxLen
       additionalProperties: false
-    buf.validate.conformance.cases.StringNotUUID:
+    buf.validate.conformance.cases.StringMinMaxLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          maxLength: 5
+          minLength: 3
+      title: StringMinMaxLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringEqualMinMaxLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          maxLength: 5
+          minLength: 5
+      title: StringEqualMinMaxLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringLenBytes:
       type: object
       properties:
         val:
           type: string
           title: val
           description: |
-            string.uuid = false // value must be a valid UUID
-            string.uuid_empty = false // value is empty, which is not a valid UUID
-      title: StringNotUUID
+            string.len_bytes = 4
+      title: StringLenBytes
+      additionalProperties: false
+    buf.validate.conformance.cases.StringMinBytes:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.min_bytes = 4
+      title: StringMinBytes
+      additionalProperties: false
+    buf.validate.conformance.cases.StringMaxBytes:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.max_bytes = 8
+      title: StringMaxBytes
+      additionalProperties: false
+    buf.validate.conformance.cases.StringMinMaxBytes:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.max_bytes = 8
+            string.min_bytes = 4
+      title: StringMinMaxBytes
+      additionalProperties: false
+    buf.validate.conformance.cases.StringEqualMinMaxBytes:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.max_bytes = 4
+            string.min_bytes = 4
+      title: StringEqualMinMaxBytes
       additionalProperties: false
     buf.validate.conformance.cases.StringPattern:
       type: object
@@ -582,6 +173,472 @@ components:
             string.prefix = "foo"
       title: StringPrefix
       additionalProperties: false
+    buf.validate.conformance.cases.StringContains:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.contains = "bar"
+      title: StringContains
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotContains:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.not_contains = "bar"
+      title: StringNotContains
+      additionalProperties: false
+    buf.validate.conformance.cases.StringSuffix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.suffix = "baz"
+      title: StringSuffix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringEmail:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: email
+      title: StringEmail
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotEmail:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.email = false // value must be a valid email address
+            string.email_empty = false // value is empty, which is not a valid email address
+      title: StringNotEmail
+      additionalProperties: false
+    buf.validate.conformance.cases.StringAddress:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: address
+      title: StringAddress
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotAddress:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.address = false // value must be a valid hostname, or ip address
+            string.address_empty = false // value is empty, which is not a valid hostname, or ip address
+      title: StringNotAddress
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHostname:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: hostname
+      title: StringHostname
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotHostname:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.hostname = false // value must be a valid hostname
+            string.hostname_empty = false // value is empty, which is not a valid hostname
+      title: StringNotHostname
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIP:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: ip
+      title: StringIP
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIP:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ip = false // value must be a valid IP address
+            string.ip_empty = false // value is empty, which is not a valid IP address
+      title: StringNotIP
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPv4:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: ipv4
+      title: StringIPv4
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPv4:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv4 = false // value must be a valid IPv4 address
+            string.ipv4_empty = false // value is empty, which is not a valid IPv4 address
+      title: StringNotIPv4
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPv6:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: ipv6
+      title: StringIPv6
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPv6:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv6 = false // value must be a valid IPv6 address
+            string.ipv6_empty = false // value is empty, which is not a valid IPv6 address
+      title: StringNotIPv6
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPWithPrefixLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ip_with_prefixlen = true // value must be a valid IP prefix
+            string.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix
+      title: StringIPWithPrefixLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPWithPrefixLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ip_with_prefixlen = false // value must be a valid IP prefix
+            string.ip_with_prefixlen_empty = false // value is empty, which is not a valid IP prefix
+      title: StringNotIPWithPrefixLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPv4WithPrefixLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length
+      title: StringIPv4WithPrefixLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPv4WithPrefixLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv4_with_prefixlen = false // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen_empty = false // value is empty, which is not a valid IPv4 address with prefix length
+      title: StringNotIPv4WithPrefixLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPv6WithPrefixLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length
+      title: StringIPv6WithPrefixLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPv6WithPrefixLen:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv6_with_prefixlen = false // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen_empty = false // value is empty, which is not a valid IPv6 address with prefix length
+      title: StringNotIPv6WithPrefixLen
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPPrefix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ip_prefix = true // value must be a valid IP prefix
+            string.ip_prefix_empty = true // value is empty, which is not a valid IP prefix
+      title: StringIPPrefix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPPrefix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ip_prefix = false // value must be a valid IP prefix
+            string.ip_prefix_empty = false // value is empty, which is not a valid IP prefix
+      title: StringNotIPPrefix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPv4Prefix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv4_prefix = true // value must be a valid IPv4 prefix
+            string.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix
+      title: StringIPv4Prefix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPv4Prefix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv4_prefix = false // value must be a valid IPv4 prefix
+            string.ipv4_prefix_empty = false // value is empty, which is not a valid IPv4 prefix
+      title: StringNotIPv4Prefix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringIPv6Prefix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv6_prefix = true // value must be a valid IPv6 prefix
+            string.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix
+      title: StringIPv6Prefix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotIPv6Prefix:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.ipv6_prefix = false // value must be a valid IPv6 prefix
+            string.ipv6_prefix_empty = false // value is empty, which is not a valid IPv6 prefix
+      title: StringNotIPv6Prefix
+      additionalProperties: false
+    buf.validate.conformance.cases.StringURI:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: uri
+      title: StringURI
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotURI:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.uri = false // value must be a valid URI
+            string.uri_empty = false // value is empty, which is not a valid URI
+      title: StringNotURI
+      additionalProperties: false
+    buf.validate.conformance.cases.StringURIRef:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: uri-ref
+      title: StringURIRef
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotURIRef:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.uri_ref = false // value must be a valid URI Reference
+      title: StringNotURIRef
+      additionalProperties: false
+    buf.validate.conformance.cases.StringUUID:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: uuid
+      title: StringUUID
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotUUID:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.uuid = false // value must be a valid UUID
+            string.uuid_empty = false // value is empty, which is not a valid UUID
+      title: StringNotUUID
+      additionalProperties: false
+    buf.validate.conformance.cases.StringTUUID:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.tuuid = true // value must be a valid trimmed UUID
+            string.tuuid_empty = true // value is empty, which is not a valid trimmed UUID
+      title: StringTUUID
+      additionalProperties: false
+    buf.validate.conformance.cases.StringNotTUUID:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.tuuid = false // value must be a valid trimmed UUID
+            string.tuuid_empty = false // value is empty, which is not a valid trimmed UUID
+      title: StringNotTUUID
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHttpHeaderName:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
+      title: StringHttpHeaderName
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHttpHeaderValue:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
+      title: StringHttpHeaderValue
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHttpHeaderNameLoose:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
+      title: StringHttpHeaderNameLoose
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHttpHeaderValueLoose:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
+      title: StringHttpHeaderValueLoose
+      additionalProperties: false
+    buf.validate.conformance.cases.StringUUIDIgnore:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          format: uuid
+      title: StringUUIDIgnore
+      additionalProperties: false
+    buf.validate.conformance.cases.StringInOneof:
+      type: object
+      oneOf:
+        - properties:
+            bar:
+              type: string
+              title: bar
+              enum:
+                - a
+                - b
+          title: bar
+          required:
+            - bar
+      title: StringInOneof
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHostAndPort:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair
+            string.host_and_port_empty = true // value is empty, which is not a valid host and port pair
+      title: StringHostAndPort
+      additionalProperties: false
+    buf.validate.conformance.cases.StringHostAndOptionalPort:
+      type: object
+      properties:
+        val:
+          type: string
+          title: val
+          description: |
+            string.host_and_port.optional_port // value must be a host and (optional) port pair
+      title: StringHostAndOptionalPort
+      additionalProperties: false
+    buf.validate.conformance.cases.StringExample:
+      type: object
+      properties:
+        val:
+          type: string
+          examples:
+            - foo
+          title: val
+      title: StringExample
+      additionalProperties: false
     buf.validate.conformance.cases.StringPrefixSuffix:
       type: object
       properties:
@@ -598,61 +655,4 @@ components:
       description: |-
         prefix and suffix do not have matching validation within the openapi schema specification,
          therefore it should appear in the schema description
-    buf.validate.conformance.cases.StringSuffix:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.suffix = "baz"
-      title: StringSuffix
-      additionalProperties: false
-    buf.validate.conformance.cases.StringTUUID:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          description: |
-            string.tuuid = true // value must be a valid trimmed UUID
-            string.tuuid_empty = true // value is empty, which is not a valid trimmed UUID
-      title: StringTUUID
-      additionalProperties: false
-    buf.validate.conformance.cases.StringURI:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: uri
-      title: StringURI
-      additionalProperties: false
-    buf.validate.conformance.cases.StringURIRef:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: uri-ref
-      title: StringURIRef
-      additionalProperties: false
-    buf.validate.conformance.cases.StringUUID:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: uuid
-      title: StringUUID
-      additionalProperties: false
-    buf.validate.conformance.cases.StringUUIDIgnore:
-      type: object
-      properties:
-        val:
-          type: string
-          title: val
-          format: uuid
-      title: StringUUIDIgnore
-      additionalProperties: false
 security: []

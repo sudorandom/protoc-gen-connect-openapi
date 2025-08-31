@@ -3,38 +3,39 @@ package gnostic
 import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
-func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDescriptor) *v3.PathItem {
+func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md protoreflect.MethodDescriptor) *v3.PathItem {
 	if !proto.HasExtension(md.Options(), goa3.E_Operation.TypeDescriptor().Type()) {
 		return item
 	}
 
 	ext := proto.GetExtension(md.Options(), goa3.E_Operation.TypeDescriptor().Type())
-	opts, ok := ext.(*goa3.Operation)
+	gnosticOperation, ok := ext.(*goa3.Operation)
 	if !ok {
 		return item
 	}
 	operations := item.GetOperations()
 	for kv := operations.First(); kv != nil; kv = kv.Next() {
 		oper := kv.Value()
-		if opts.Deprecated {
+		if gnosticOperation.Deprecated {
 			t := true
 			oper.Deprecated = &t
 		}
 
-		for _, param := range opts.Parameters {
-			item.Parameters = append(item.Parameters, toParameter(param))
+		for _, param := range gnosticOperation.Parameters {
+			item.Parameters = append(item.Parameters, toParameter(opts, param))
 		}
 
-		if opts.RequestBody != nil {
-			oper.RequestBody = toRequestBody(opts.RequestBody.GetRequestBody())
+		if gnosticOperation.RequestBody != nil {
+			oper.RequestBody = toRequestBody(opts, gnosticOperation.RequestBody.GetRequestBody())
 		}
 
-		if opts.Responses != nil {
-			responses := toResponses(opts.Responses)
+		if gnosticOperation.Responses != nil {
+			responses := toResponses(opts, gnosticOperation.Responses)
 			for pair := responses.Codes.First(); pair != nil; pair = pair.Next() {
 				oper.Responses.Codes.Set(pair.Key(), pair.Value())
 			}
@@ -46,33 +47,33 @@ func PathItemWithMethodAnnotations(item *v3.PathItem, md protoreflect.MethodDesc
 			}
 		}
 
-		if opts.Callbacks != nil {
-			oper.Callbacks = toCallbacks(opts.Callbacks)
+		if gnosticOperation.Callbacks != nil {
+			oper.Callbacks = toCallbacks(opts, gnosticOperation.Callbacks)
 		}
 
-		if security := toSecurityRequirements(opts.Security); len(security) > 0 {
+		if security := toSecurityRequirements(gnosticOperation.Security); len(security) > 0 {
 			oper.Security = security
 		}
-		oper.Servers = toServers(opts.Servers)
+		oper.Servers = toServers(gnosticOperation.Servers)
 
-		if opts.Summary != "" {
-			oper.Summary = opts.Summary
+		if gnosticOperation.Summary != "" {
+			oper.Summary = gnosticOperation.Summary
 		}
-		if opts.Description != "" {
-			oper.Description = opts.Description
+		if gnosticOperation.Description != "" {
+			oper.Description = gnosticOperation.Description
 		}
-		oper.Tags = append(opts.Tags, oper.Tags...)
+		oper.Tags = append(gnosticOperation.Tags, oper.Tags...)
 
-		if exDocs := toExternalDocs(opts.ExternalDocs); exDocs != nil {
+		if exDocs := toExternalDocs(gnosticOperation.ExternalDocs); exDocs != nil {
 			oper.ExternalDocs = exDocs
 		}
 
-		if opts.OperationId != "" {
-			oper.OperationId = opts.OperationId
+		if gnosticOperation.OperationId != "" {
+			oper.OperationId = gnosticOperation.OperationId
 		}
 
-		if opts.SpecificationExtension != nil {
-			oper.Extensions = toExtensions(opts.GetSpecificationExtension())
+		if gnosticOperation.SpecificationExtension != nil {
+			oper.Extensions = toExtensions(gnosticOperation.GetSpecificationExtension())
 		}
 	}
 	return item

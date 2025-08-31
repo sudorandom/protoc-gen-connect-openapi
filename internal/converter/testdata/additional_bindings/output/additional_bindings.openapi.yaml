@@ -89,6 +89,17 @@ paths:
                 $ref: '#/components/schemas/additional_bindings.User'
 components:
   schemas:
+    additional_bindings.UserLookup:
+      type: object
+      properties:
+        tenant:
+          type: string
+          title: tenant
+        uuid:
+          type: string
+          title: uuid
+      title: UserLookup
+      additionalProperties: false
     additional_bindings.User:
       type: object
       properties:
@@ -102,17 +113,6 @@ components:
           type: string
           title: email
       title: User
-      additionalProperties: false
-    additional_bindings.UserLookup:
-      type: object
-      properties:
-        tenant:
-          type: string
-          title: tenant
-        uuid:
-          type: string
-          title: uuid
-      title: UserLookup
       additionalProperties: false
 security: []
 tags:

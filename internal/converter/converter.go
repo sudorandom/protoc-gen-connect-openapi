@@ -50,10 +50,21 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	if err != nil {
 		return nil, err
 	}
+	opts.Logger = slog.Default()
 	return ConvertWithOptions(req, opts)
 }
 
 func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options) (*pluginpb.CodeGeneratorResponse, error) {
+	if opts.Debug {
+		opts.Logger = slog.New(
+			tint.NewHandler(os.Stderr, &tint.Options{
+				Level: slog.LevelDebug,
+			}),
+		)
+	}
+	if opts.Logger == nil {
+		opts.Logger = slog.New(slog.DiscardHandler)
+	}
 	annotator := &annotator{}
 	if opts.MessageAnnotator == nil {
 		opts.MessageAnnotator = annotator
@@ -63,14 +74,6 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 	}
 	if opts.FieldReferenceAnnotator == nil {
 		opts.FieldReferenceAnnotator = annotator
-	}
-
-	if opts.Debug {
-		slog.SetDefault(slog.New(
-			tint.NewHandler(os.Stderr, &tint.Options{
-				Level: slog.LevelDebug,
-			}),
-		))
 	}
 
 	files := []*pluginpb.CodeGeneratorResponse_File{}
@@ -91,7 +94,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 
 	newSpec := func() (*v3.Document, error) {
 		model := &v3.Document{}
-		initializeDoc(model)
+		initializeDoc(opts, model)
 		return model, nil
 	}
 	if len(opts.BaseOpenAPI) > 0 {
@@ -109,7 +112,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 				return &v3.Document{}, merr
 			}
 			model := &v3Document.Model
-			initializeDoc(model)
+			initializeDoc(opts, model)
 			return model, nil
 		}
 	}
@@ -130,11 +133,11 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			continue
 		}
 
-		slog.Debug("generating file", slog.String("name", fileDesc.GetName()))
+		opts.Logger.Debug("generating file", slog.String("name", fileDesc.GetName()))
 
 		fd, err := resolver.FindFileByPath(fileDesc.GetName())
 		if err != nil {
-			slog.Error("error loading file", slog.Any("error", err))
+			opts.Logger.Error("error loading file", slog.Any("error", err))
 			return nil, err
 		}
 
@@ -197,7 +200,7 @@ func getOverrideComponents(opts options.Options) (*v3.Components, error) {
 	}
 	document, err := libopenapi.NewDocument(opts.OverrideOpenAPI)
 	if err != nil {
-		return nil, fmt.Errorf("unmarshalling base: %w", err)
+		return nil, fmt.Errorf("unmarshaling base: %w", err)
 	}
 	v3Document, errs := document.BuildV3Model()
 	if len(errs) > 0 {
@@ -258,21 +261,60 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
-	gnostic.SpecWithFileAnnotations(spec, fd)
-	components, err := fileToComponents(opts, fd)
-	if err != nil {
-		return err
+	gnostic.SpecWithFileAnnotations(opts, spec, fd)
+
+	components := &v3.Components{
+		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
+		Responses:       orderedmap.New[string, *v3.Response](),
+		Parameters:      orderedmap.New[string, *v3.Parameter](),
+		Examples:        orderedmap.New[string, *base.Example](),
+		RequestBodies:   orderedmap.New[string, *v3.RequestBody](),
+		Headers:         orderedmap.New[string, *v3.Header](),
+		SecuritySchemes: orderedmap.New[string, *v3.SecurityScheme](),
+		Links:           orderedmap.New[string, *v3.Link](),
+		Callbacks:       orderedmap.New[string, *v3.Callback](),
+		Extensions:      orderedmap.New[string, *yaml.Node](),
 	}
 
-	initializeDoc(spec)
-	initializeComponents(components)
+	// Only collect types from the root if TrimUnusedTypes is off
+	if !opts.TrimUnusedTypes {
+		// Files can have enums
+		enums := fd.Enums()
+		for i := 0; i < enums.Len(); i++ {
+			AddEnumToSchema(opts, enums.Get(i), spec)
+		}
+
+		// Files can have messages
+		messages := fd.Messages()
+		for i := 0; i < messages.Len(); i++ {
+			AddMessageSchemas(opts, messages.Get(i), spec)
+		}
+	}
+
+	initializeDoc(opts, spec)
 	appendServiceDocs(opts, spec, fd)
+	initializeComponents(components)
 	util.AppendComponents(spec, components)
 
-	if err := addPathItemsFromFile(opts, fd, spec.Paths); err != nil {
+	if err := addPathItemsFromFile(opts, fd, spec); err != nil {
 		return err
 	}
 	spec.Tags = append(spec.Tags, fileToTags(opts, fd)...)
+
+	// Sort
+	orderedmap.SortAlpha(spec.Paths.PathItems)
+	orderedmap.SortAlpha(spec.Components.Schemas)
+	orderedmap.SortAlpha(spec.Components.Responses)
+	orderedmap.SortAlpha(spec.Components.Parameters)
+	orderedmap.SortAlpha(spec.Components.Examples)
+	orderedmap.SortAlpha(spec.Components.RequestBodies)
+	orderedmap.SortAlpha(spec.Components.Headers)
+	orderedmap.SortAlpha(spec.Components.SecuritySchemes)
+	orderedmap.SortAlpha(spec.Components.Links)
+	orderedmap.SortAlpha(spec.Components.Callbacks)
+	orderedmap.SortAlpha(spec.Components.PathItems)
+	orderedmap.SortAlpha(spec.Components.Extensions)
+
 	return nil
 }
 
@@ -307,8 +349,8 @@ func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.
 	spec.Info.Description = strings.TrimSpace(builder.String())
 }
 
-func initializeDoc(doc *v3.Document) {
-	slog.Debug("initializeDoc")
+func initializeDoc(opts options.Options, doc *v3.Document) {
+	opts.Logger.Debug("initializeDoc")
 	if doc.Version == "" {
 		doc.Version = "3.1.0"
 	}

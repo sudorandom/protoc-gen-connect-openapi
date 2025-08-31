@@ -3,6 +3,7 @@ package converter
 import (
 	"cmp"
 	"fmt"
+	"log/slog"
 	"slices"
 
 	intconverter "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
@@ -260,6 +261,14 @@ func WithPathPrefix(prefix string) Option {
 func WithGoogleErrorDetail(enabled bool) Option {
 	return func(g *generator) error {
 		g.options.WithGoogleErrorDetail = enabled
+		return nil
+	}
+}
+
+// WithLogger sets the logger to a given *slog.Logger instance. The default behavior will discard logs.
+func WithLogger(logger *slog.Logger) Option {
+	return func(g *generator) error {
+		g.options.Logger = logger
 		return nil
 	}
 }

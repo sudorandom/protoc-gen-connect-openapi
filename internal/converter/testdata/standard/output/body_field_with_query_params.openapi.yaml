@@ -84,19 +84,64 @@ paths:
                 $ref: '#/components/schemas/body_field_with_query_params.Author'
 components:
   schemas:
-    body_field_with_query_params.Author:
+    body_field_with_query_params.CreateBookRequest:
       type: object
       properties:
+        parent:
+          type: string
+          title: parent
+          description: |-
+            The publisher who will publish this book.
+             When using HTTP/JSON, this field is automatically populated based
+             on the URI, because of the `{parent=publishers/*}` syntax.
+        book:
+          title: book
+          description: |-
+            The book to create.
+             When using HTTP/JSON, this field is populated based on the HTTP body,
+             because of the `body: "book"` syntax.
+          $ref: '#/components/schemas/body_field_with_query_params.Book'
+        bookId:
+          type: string
+          title: book_id
+          description: |-
+            The user-specified ID for the book.
+             When using HTTP/JSON, this field is populated based on a query string
+             argument, such as `?bookId=foo`. This is the fallback for fields that
+             are not included in either the URI or the body.
+      title: CreateBookRequest
+      required:
+        - parent
+        - book
+      additionalProperties: false
+    body_field_with_query_params.Book:
+      type: object
+      properties:
+        title:
+          type: string
+          title: title
+        author:
+          type: string
+          title: author
+        isbn:
+          type: string
+          title: isbn
+      title: Book
+      additionalProperties: false
+    body_field_with_query_params.CreateAuthorRequest:
+      type: object
+      properties:
+        authorProfile:
+          title: author_profile
+          description: This field should be in the body based on the HTTP annotation
+          $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
         authorId:
           type: string
           title: author_id
-        status:
-          type: string
-          title: status
-        profile:
-          title: profile
-          $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
-      title: Author
+          description: This field should be a query parameter
+      title: CreateAuthorRequest
+      required:
+        - authorProfile
       additionalProperties: false
     body_field_with_query_params.AuthorProfile:
       type: object
@@ -136,64 +181,19 @@ components:
           title: awards
       title: Biography
       additionalProperties: false
-    body_field_with_query_params.Book:
+    body_field_with_query_params.Author:
       type: object
       properties:
-        title:
-          type: string
-          title: title
-        author:
-          type: string
-          title: author
-        isbn:
-          type: string
-          title: isbn
-      title: Book
-      additionalProperties: false
-    body_field_with_query_params.CreateAuthorRequest:
-      type: object
-      properties:
-        authorProfile:
-          title: author_profile
-          description: This field should be in the body based on the HTTP annotation
-          $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
         authorId:
           type: string
           title: author_id
-          description: This field should be a query parameter
-      title: CreateAuthorRequest
-      required:
-        - authorProfile
-      additionalProperties: false
-    body_field_with_query_params.CreateBookRequest:
-      type: object
-      properties:
-        parent:
+        status:
           type: string
-          title: parent
-          description: |-
-            The publisher who will publish this book.
-             When using HTTP/JSON, this field is automatically populated based
-             on the URI, because of the `{parent=publishers/*}` syntax.
-        book:
-          title: book
-          description: |-
-            The book to create.
-             When using HTTP/JSON, this field is populated based on the HTTP body,
-             because of the `body: "book"` syntax.
-          $ref: '#/components/schemas/body_field_with_query_params.Book'
-        bookId:
-          type: string
-          title: book_id
-          description: |-
-            The user-specified ID for the book.
-             When using HTTP/JSON, this field is populated based on a query string
-             argument, such as `?bookId=foo`. This is the fallback for fields that
-             are not included in either the URI or the body.
-      title: CreateBookRequest
-      required:
-        - parent
-        - book
+          title: status
+        profile:
+          title: profile
+          $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
+      title: Author
       additionalProperties: false
 security: []
 tags:

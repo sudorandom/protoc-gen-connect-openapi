@@ -119,16 +119,14 @@ paths:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
-    google.protobuf.Empty:
+    io.swagger.petstore.v2.MaskyRequest:
       type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
+      properties:
+        fields:
+          title: fields
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: MaskyRequest
+      additionalProperties: false
     google.protobuf.FieldMask:
       type: string
       description: |-
@@ -345,18 +343,6 @@ components:
           title: property_in_query_ok
       title: Foo2Request
       additionalProperties: false
-    io.swagger.petstore.v2.Foo2Response:
-      type: object
-      title: Foo2Response
-      additionalProperties: false
-    io.swagger.petstore.v2.MaskyRequest:
-      type: object
-      properties:
-        fields:
-          title: fields
-          $ref: '#/components/schemas/google.protobuf.FieldMask'
-      title: MaskyRequest
-      additionalProperties: false
     io.swagger.petstore.v2.Something:
       type: object
       properties:
@@ -367,6 +353,10 @@ components:
           type: string
           title: property_in_query
       title: Something
+      additionalProperties: false
+    io.swagger.petstore.v2.Foo2Response:
+      type: object
+      title: Foo2Response
       additionalProperties: false
     encoding:
       title: encoding
@@ -390,6 +380,16 @@ components:
       enum:
         - v1
       description: Define the version of the Connect protocol
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version

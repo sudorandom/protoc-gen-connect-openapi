@@ -1,95 +1,17 @@
 package converter
 
 import (
-	"log/slog"
-
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
 	"gopkg.in/yaml.v3"
-	"google.golang.org/genproto/googleapis/api/annotations"
-	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/reflect/protoreflect"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 )
 
-func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3.Components, error) {
-	// Add schema from messages/enums
-	components := &v3.Components{
-		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
-		Responses:       orderedmap.New[string, *v3.Response](),
-		Parameters:      orderedmap.New[string, *v3.Parameter](),
-		Examples:        orderedmap.New[string, *base.Example](),
-		RequestBodies:   orderedmap.New[string, *v3.RequestBody](),
-		Headers:         orderedmap.New[string, *v3.Header](),
-		SecuritySchemes: orderedmap.New[string, *v3.SecurityScheme](),
-		Links:           orderedmap.New[string, *v3.Link](),
-		Callbacks:       orderedmap.New[string, *v3.Callback](),
-		Extensions:      orderedmap.New[string, *yaml.Node](),
-	}
-	st := NewState(opts)
-	slog.Debug("start collection")
-	st.CollectFile(fd)
-	slog.Debug("collection complete", slog.String("file", string(fd.Name())), slog.Int("messages", len(st.Messages)), slog.Int("enum", len(st.Enums)))
-	components.Schemas = stateToSchema(st)
-
-	hasGetRequests := false
-	hasConnectRPCMethods := false
-
-	// Add requestBodies and responses for methods
-	services := fd.Services()
-	for i := 0; i < services.Len(); i++ {
-		service := services.Get(i)
-		methods := service.Methods()
-		for j := 0; j < methods.Len(); j++ {
-			method := methods.Get(j)
-			hasGet := methodHasGet(opts, method)
-			if hasGet {
-				hasGetRequests = true
-			}
-			// Check for methods that don't have google.api.http rules.
-			if !proto.HasExtension(method.Options(), annotations.E_Http) {
-				hasConnectRPCMethods = true
-			}
-		}
-	}
-
-	if hasGetRequests {
-		components.Schemas.Set("encoding", base.CreateSchemaProxy(&base.Schema{
-			Title:       "encoding",
-			Description: "Define which encoding or 'Message-Codec' to use",
-			Enum: []*yaml.Node{
-				utils.CreateStringNode("proto"),
-				utils.CreateStringNode("json"),
-			},
-		}))
-
-		components.Schemas.Set("base64", base.CreateSchemaProxy(&base.Schema{
-			Title:       "base64",
-			Description: "Specifies if the message query param is base64 encoded, which may be required for binary data",
-			Type:        []string{"boolean"},
-		}))
-
-		components.Schemas.Set("compression", base.CreateSchemaProxy(&base.Schema{
-			Title:       "compression",
-			Description: "Which compression algorithm to use for this request",
-			Enum: []*yaml.Node{
-				utils.CreateStringNode("identity"),
-				utils.CreateStringNode("gzip"),
-				utils.CreateStringNode("br"),
-			},
-		}))
-		components.Schemas.Set("connect", base.CreateSchemaProxy(&base.Schema{
-			Title:       "connect",
-			Description: "Define the version of the Connect protocol",
-			Enum: []*yaml.Node{
-				utils.CreateStringNode("v1"),
-			},
-		}))
-	}
-	if hasConnectRPCMethods {
+func addConnectSchemas(opts options.Options, components *v3.Components) {
+	if _, ok := components.Schemas.Get("connect-protocol-version"); !ok {
 		components.Schemas.Set("connect-protocol-version", base.CreateSchemaProxy(&base.Schema{
 			Title:       "Connect-Protocol-Version",
 			Description: "Define the version of the Connect protocol",
@@ -97,12 +19,17 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			Enum:        []*yaml.Node{utils.CreateIntNode("1")},
 			Const:       utils.CreateIntNode("1"),
 		}))
+	}
 
+	if _, ok := components.Schemas.Get("connect-timeout-header"); !ok {
 		components.Schemas.Set("connect-timeout-header", base.CreateSchemaProxy(&base.Schema{
 			Title:       "Connect-Timeout-Ms",
 			Description: "Define the timeout, in ms",
 			Type:        []string{"number"},
 		}))
+	}
+
+	if _, ok := components.Schemas.Get("ct.error"); !ok {
 		connectErrorProps := orderedmap.New[string, *base.SchemaProxy]()
 		connectErrorProps.Set("code", base.CreateSchemaProxy(&base.Schema{
 			Description: "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].",
@@ -140,7 +67,6 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			},
 			Description: "A list of messages that carry the error details. There is no limit on the number of messages.",
 		}))
-
 		components.Schemas.Set("connect.error", base.CreateSchemaProxy(&base.Schema{
 			Title:                "Connect Error",
 			Description:          `Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation`,
@@ -148,6 +74,9 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			Type:                 []string{"object"},
 			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
 		}))
+	}
+
+	if _, ok := components.Schemas.Get("connect.error_details.Any"); !ok {
 		connectAnyProps := orderedmap.New[string, *base.SchemaProxy]()
 		connectAnyProps.Set("type", base.CreateSchemaProxy(&base.Schema{
 			Type:        []string{"string"},
@@ -199,6 +128,47 @@ func fileToComponents(opts options.Options, fd protoreflect.FileDescriptor) (*v3
 			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
 		}))
 	}
+}
 
-	return components, nil
+func addConnectGetSchemas(components *v3.Components) {
+	if _, ok := components.Schemas.Get("encoding"); !ok {
+		components.Schemas.Set("encoding", base.CreateSchemaProxy(&base.Schema{
+			Title:       "encoding",
+			Description: "Define which encoding or 'Message-Codec' to use",
+			Enum: []*yaml.Node{
+				utils.CreateStringNode("proto"),
+				utils.CreateStringNode("json"),
+			},
+		}))
+	}
+
+	if _, ok := components.Schemas.Get("bas64"); !ok {
+		components.Schemas.Set("base64", base.CreateSchemaProxy(&base.Schema{
+			Title:       "base64",
+			Description: "Specifies if the message query param is base64 encoded, which may be required for binary data",
+			Type:        []string{"boolean"},
+		}))
+	}
+
+	if _, ok := components.Schemas.Get("compression"); !ok {
+		components.Schemas.Set("compression", base.CreateSchemaProxy(&base.Schema{
+			Title:       "compression",
+			Description: "Which compression algorithm to use for this request",
+			Enum: []*yaml.Node{
+				utils.CreateStringNode("identity"),
+				utils.CreateStringNode("gzip"),
+				utils.CreateStringNode("br"),
+			},
+		}))
+	}
+
+	if _, ok := components.Schemas.Get("connect"); !ok {
+		components.Schemas.Set("connect", base.CreateSchemaProxy(&base.Schema{
+			Title:       "connect",
+			Description: "Define the version of the Connect protocol",
+			Enum: []*yaml.Node{
+				utils.CreateStringNode("v1"),
+			},
+		}))
+	}
 }
