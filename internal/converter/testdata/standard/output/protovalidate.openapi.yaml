@@ -306,8 +306,6 @@ components:
               type: string
               title: a
               minLength: 1
-              description: |
-                string.min_len = 1
           title: a
           required:
             - a
@@ -342,25 +340,18 @@ components:
           type: string
           title: uri_field
           format: uri
-          description: |
-            string.uri = true // value must be a valid URI
-            string.uri_empty = true // value is empty, which is not a valid URI
           nullable: true
         floatConst:
           type: number
           title: float_const
           format: float
-          description: |
-            Floats
-            float.const = 42
+          description: Floats
           const: "42"
         floatIn:
           type: array
           items:
             type: number
             format: float
-            description: |
-              float.in = [1, 2, 3]
           title: float_in
         floatNotIn:
           type: array
@@ -373,8 +364,6 @@ components:
                 - "2"
                 - "3"
             format: float
-            description: |
-              float.not_in = [1, 2, 3]
           title: float_not_in
         floatFinite:
           type: array
@@ -388,52 +377,27 @@ components:
           type: number
           title: float_lt
           format: float
-          description: |
-            float.lt = 42
         floatLte:
           type: number
           title: float_lte
           format: float
-          description: |
-            float.lte = 420
         floatGt:
           type: number
           title: float_gt
           format: float
-          description: |
-            float.gt = 6.9
-            float.gt_lt = 6.9
-            float.gt_lt_exclusive = 6.9
-            float.gt_lte = 6.9
-            float.gt_lte_exclusive = 6.9
         floatGte:
           type: number
           title: float_gte
           format: float
-          description: |
-            float.gte = 69
-            float.gte_lt = 69
-            float.gte_lt_exclusive = 69
-            float.gte_lte = 69
-            float.gte_lte_exclusive = 69
         floatBounds:
           type: number
           title: float_bounds
           format: float
-          description: |
-            float.gte = 5
-            float.gte_lt = 5
-            float.gte_lt_exclusive = 5
-            float.gte_lte = 5
-            float.gte_lte_exclusive = 5
-            float.lt = 10
         doubleConst:
           type: number
           title: double_const
           format: double
-          description: |
-            Double
-            double.const = 42
+          description: Double
           const: "42"
         doubleIn:
           type: array
@@ -444,8 +408,6 @@ components:
               - "1"
               - "2"
               - "3"
-            description: |
-              double.in = [1, 2, 3]
           title: double_in
         doubleNotIn:
           type: array
@@ -458,8 +420,6 @@ components:
                 - "2"
                 - "3"
             format: double
-            description: |
-              double.not_in = [1, 2, 3]
           title: double_not_in
         doubleFinite:
           type: array
@@ -474,57 +434,32 @@ components:
           type: number
           title: double_lt
           format: double
-          description: |
-            double.lt = 42
         doubleLte:
           type: number
           title: double_lte
           maximum: 420
           format: double
-          description: |
-            double.lte = 420
         doubleGt:
           exclusiveMinimum: 6.9
           type: number
           title: double_gt
           format: double
-          description: |
-            double.gt = 6.9
-            double.gt_lt = 6.9
-            double.gt_lt_exclusive = 6.9
-            double.gt_lte = 6.9
-            double.gt_lte_exclusive = 6.9
         doubleGte:
           type: number
           title: double_gte
           minimum: 69
           format: double
-          description: |
-            double.gte = 69
-            double.gte_lt = 69
-            double.gte_lt_exclusive = 69
-            double.gte_lte = 69
-            double.gte_lte_exclusive = 69
         doubleBounds:
           exclusiveMaximum: 10
           type: number
           title: double_bounds
           minimum: 5
           format: double
-          description: |
-            double.gte = 5
-            double.gte_lt = 5
-            double.gte_lt_exclusive = 5
-            double.gte_lte = 5
-            double.gte_lte_exclusive = 5
-            double.lt = 10
         int32Const:
           type: integer
           title: int32_const
           format: int32
-          description: |
-            int32
-            int32.const = 42
+          description: int32
           const: 42
         int32In:
           type: array
@@ -535,8 +470,6 @@ components:
               - 1
               - 2
               - 3
-            description: |
-              int32.in = [1, 2, 3]
           title: int32_in
         int32NotIn:
           type: array
@@ -549,67 +482,40 @@ components:
                 - 2
                 - 3
             format: int32
-            description: |
-              int32.not_in = [1, 2, 3]
           title: int32_not_in
         int32Lt:
           exclusiveMaximum: 42
           type: integer
           title: int32_lt
           format: int32
-          description: |
-            int32.lt = 42
         int32Lte:
           type: integer
           title: int32_lte
           maximum: 420
           format: int32
-          description: |
-            int32.lte = 420
         int32Gt:
           exclusiveMinimum: 6
           type: integer
           title: int32_gt
           format: int32
-          description: |
-            int32.gt = 6
-            int32.gt_lt = 6
-            int32.gt_lt_exclusive = 6
-            int32.gt_lte = 6
-            int32.gt_lte_exclusive = 6
         int32Gte:
           type: integer
           title: int32_gte
           minimum: 69
           format: int32
-          description: |
-            int32.gte = 69
-            int32.gte_lt = 69
-            int32.gte_lt_exclusive = 69
-            int32.gte_lte = 69
-            int32.gte_lte_exclusive = 69
         int32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: int32_bounds
           minimum: 5
           format: int32
-          description: |
-            int32.gte = 5
-            int32.gte_lt = 5
-            int32.gte_lt_exclusive = 5
-            int32.gte_lte = 5
-            int32.gte_lte_exclusive = 5
-            int32.lt = 10
         int64Const:
           type:
             - integer
             - string
           title: int64_const
           format: int64
-          description: |
-            int64
-            int64.const = 42
+          description: int64
           const: 42
         int64In:
           type: array
@@ -622,8 +528,6 @@ components:
               - 1
               - 2
               - 3
-            description: |
-              int64.in = [1, 2, 3]
           title: int64_in
         int64NotIn:
           type: array
@@ -640,8 +544,6 @@ components:
                 - 2
                 - 3
             format: int64
-            description: |
-              int64.not_in = [1, 2, 3]
           title: int64_not_in
         int64Lt:
           exclusiveMaximum: 42
@@ -650,8 +552,6 @@ components:
             - string
           title: int64_lt
           format: int64
-          description: |
-            int64.lt = 42
         int64Lte:
           type:
             - integer
@@ -659,8 +559,6 @@ components:
           title: int64_lte
           maximum: 420
           format: int64
-          description: |
-            int64.lte = 420
         int64Gt:
           exclusiveMinimum: 6
           type:
@@ -668,12 +566,6 @@ components:
             - string
           title: int64_gt
           format: int64
-          description: |
-            int64.gt = 6
-            int64.gt_lt = 6
-            int64.gt_lt_exclusive = 6
-            int64.gt_lte = 6
-            int64.gt_lte_exclusive = 6
         int64Gte:
           type:
             - integer
@@ -681,12 +573,6 @@ components:
           title: int64_gte
           minimum: 69
           format: int64
-          description: |
-            int64.gte = 69
-            int64.gte_lt = 69
-            int64.gte_lt_exclusive = 69
-            int64.gte_lte = 69
-            int64.gte_lte_exclusive = 69
         int64Bounds:
           exclusiveMaximum: 10
           type:
@@ -695,19 +581,10 @@ components:
           title: int64_bounds
           minimum: 5
           format: int64
-          description: |
-            int64.gte = 5
-            int64.gte_lt = 5
-            int64.gte_lt_exclusive = 5
-            int64.gte_lte = 5
-            int64.gte_lte_exclusive = 5
-            int64.lt = 10
         uint32Const:
           type: integer
           title: uint32_const
-          description: |
-            uint32
-            uint32.const = 42
+          description: uint32
           const: "42"
         uint32In:
           type: array
@@ -717,8 +594,6 @@ components:
               - "1"
               - "2"
               - "3"
-            description: |
-              uint32.in = [1, 2, 3]
           title: uint32_in
         uint32NotIn:
           type: array
@@ -730,62 +605,35 @@ components:
                 - "1"
                 - "2"
                 - "3"
-            description: |
-              uint32.not_in = [1, 2, 3]
           title: uint32_not_in
         uint32Lt:
           exclusiveMaximum: 42
           type: integer
           title: uint32_lt
-          description: |
-            uint32.lt = 42
         uint32Lte:
           type: integer
           title: uint32_lte
           maximum: 420
-          description: |
-            uint32.lte = 420
         uint32Gt:
           exclusiveMinimum: 6
           type: integer
           title: uint32_gt
-          description: |
-            uint32.gt = 6
-            uint32.gt_lt = 6
-            uint32.gt_lt_exclusive = 6
-            uint32.gt_lte = 6
-            uint32.gt_lte_exclusive = 6
         uint32Gte:
           type: integer
           title: uint32_gte
           minimum: 69
-          description: |
-            uint32.gte = 69
-            uint32.gte_lt = 69
-            uint32.gte_lt_exclusive = 69
-            uint32.gte_lte = 69
-            uint32.gte_lte_exclusive = 69
         uint32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: uint32_bounds
           minimum: 5
-          description: |
-            uint32.gte = 5
-            uint32.gte_lt = 5
-            uint32.gte_lt_exclusive = 5
-            uint32.gte_lte = 5
-            uint32.gte_lte_exclusive = 5
-            uint32.lt = 10
         uint64Const:
           type:
             - integer
             - string
           title: uint64_const
           format: int64
-          description: |
-            uint64
-            uint64.const = 42
+          description: uint64
           const: "42"
         uint64In:
           type: array
@@ -798,8 +646,6 @@ components:
               - "1"
               - "2"
               - "3"
-            description: |
-              uint64.in = [1, 2, 3]
           title: uint64_in
         uint64NotIn:
           type: array
@@ -816,8 +662,6 @@ components:
                 - "2"
                 - "3"
             format: int64
-            description: |
-              uint64.not_in = [1, 2, 3]
           title: uint64_not_in
         uint64Lt:
           exclusiveMaximum: 42
@@ -826,8 +670,6 @@ components:
             - string
           title: uint64_lt
           format: int64
-          description: |
-            uint64.lt = 42
         uint64Lte:
           type:
             - integer
@@ -835,8 +677,6 @@ components:
           title: uint64_lte
           maximum: 420
           format: int64
-          description: |
-            uint64.lte = 420
         uint64Gt:
           exclusiveMinimum: 6
           type:
@@ -844,12 +684,6 @@ components:
             - string
           title: uint64_gt
           format: int64
-          description: |
-            uint64.gt = 6
-            uint64.gt_lt = 6
-            uint64.gt_lt_exclusive = 6
-            uint64.gt_lte = 6
-            uint64.gt_lte_exclusive = 6
         uint64Gte:
           type:
             - integer
@@ -857,12 +691,6 @@ components:
           title: uint64_gte
           minimum: 69
           format: int64
-          description: |
-            uint64.gte = 69
-            uint64.gte_lt = 69
-            uint64.gte_lt_exclusive = 69
-            uint64.gte_lte = 69
-            uint64.gte_lte_exclusive = 69
         uint64Bounds:
           exclusiveMaximum: 10
           type:
@@ -871,20 +699,11 @@ components:
           title: uint64_bounds
           minimum: 5
           format: int64
-          description: |
-            uint64.gte = 5
-            uint64.gte_lt = 5
-            uint64.gte_lt_exclusive = 5
-            uint64.gte_lte = 5
-            uint64.gte_lte_exclusive = 5
-            uint64.lt = 10
         sint32Const:
           type: integer
           title: sint32_const
           format: int32
-          description: |
-            sint32
-            sint32.const = 42
+          description: sint32
           const: 42
         sint32In:
           type: array
@@ -895,8 +714,6 @@ components:
               - 1
               - 2
               - 3
-            description: |
-              sint32.in = [1, 2, 3]
           title: sint32_in
         sint32NotIn:
           type: array
@@ -909,67 +726,40 @@ components:
                 - 2
                 - 3
             format: int32
-            description: |
-              sint32.not_in = [1, 2, 3]
           title: sint32_not_in
         sint32Lt:
           exclusiveMaximum: 42
           type: integer
           title: sint32_lt
           format: int32
-          description: |
-            sint32.lt = 42
         sint32Lte:
           type: integer
           title: sint32_lte
           maximum: 420
           format: int32
-          description: |
-            sint32.lte = 420
         sint32Gt:
           exclusiveMinimum: 6
           type: integer
           title: sint32_gt
           format: int32
-          description: |
-            sint32.gt = 6
-            sint32.gt_lt = 6
-            sint32.gt_lt_exclusive = 6
-            sint32.gt_lte = 6
-            sint32.gt_lte_exclusive = 6
         sint32Gte:
           type: integer
           title: sint32_gte
           minimum: 69
           format: int32
-          description: |
-            sint32.gte = 69
-            sint32.gte_lt = 69
-            sint32.gte_lt_exclusive = 69
-            sint32.gte_lte = 69
-            sint32.gte_lte_exclusive = 69
         sint32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: sint32_bounds
           minimum: 5
           format: int32
-          description: |
-            sint32.gte = 5
-            sint32.gte_lt = 5
-            sint32.gte_lt_exclusive = 5
-            sint32.gte_lte = 5
-            sint32.gte_lte_exclusive = 5
-            sint32.lt = 10
         sint64Const:
           type:
             - integer
             - string
           title: sint64_const
           format: int64
-          description: |
-            sint64
-            sint64.const = 42
+          description: sint64
           const: 42
         sint64In:
           type: array
@@ -982,8 +772,6 @@ components:
               - 1
               - 2
               - 3
-            description: |
-              sint64.in = [1, 2, 3]
           title: sint64_in
         sint64NotIn:
           type: array
@@ -1000,8 +788,6 @@ components:
                 - 2
                 - 3
             format: int64
-            description: |
-              sint64.not_in = [1, 2, 3]
           title: sint64_not_in
         sint64Lt:
           exclusiveMaximum: 42
@@ -1010,8 +796,6 @@ components:
             - string
           title: sint64_lt
           format: int64
-          description: |
-            sint64.lt = 42
         sint64Lte:
           type:
             - integer
@@ -1019,8 +803,6 @@ components:
           title: sint64_lte
           maximum: 420
           format: int64
-          description: |
-            sint64.lte = 420
         sint64Gt:
           exclusiveMinimum: 8
           type:
@@ -1028,12 +810,6 @@ components:
             - string
           title: sint64_gt
           format: int64
-          description: |
-            sint64.gt = 8
-            sint64.gt_lt = 8
-            sint64.gt_lt_exclusive = 8
-            sint64.gt_lte = 8
-            sint64.gt_lte_exclusive = 8
         sint64Gte:
           type:
             - integer
@@ -1041,12 +817,6 @@ components:
           title: sint64_gte
           minimum: 89
           format: int64
-          description: |
-            sint64.gte = 89
-            sint64.gte_lt = 89
-            sint64.gte_lt_exclusive = 89
-            sint64.gte_lte = 89
-            sint64.gte_lte_exclusive = 89
         sint64Bounds:
           exclusiveMaximum: 10
           type:
@@ -1055,19 +825,10 @@ components:
           title: sint64_bounds
           minimum: 5
           format: int64
-          description: |
-            sint64.gte = 5
-            sint64.gte_lt = 5
-            sint64.gte_lt_exclusive = 5
-            sint64.gte_lte = 5
-            sint64.gte_lte_exclusive = 5
-            sint64.lt = 10
         fixed32Const:
           type: integer
           title: fixed32_const
-          description: |
-            fixed32
-            fixed32.const = 42
+          description: fixed32
           const: "42"
         fixed32In:
           type: array
@@ -1077,8 +838,6 @@ components:
               - "1"
               - "2"
               - "3"
-            description: |
-              fixed32.in = [1, 2, 3]
           title: fixed32_in
         fixed32NotIn:
           type: array
@@ -1090,62 +849,35 @@ components:
                 - "1"
                 - "2"
                 - "3"
-            description: |
-              fixed32.not_in = [1, 2, 3]
           title: fixed32_not_in
         fixed32Lt:
           exclusiveMaximum: 42
           type: integer
           title: fixed32_lt
-          description: |
-            fixed32.lt = 42
         fixed32Lte:
           type: integer
           title: fixed32_lte
           maximum: 420
-          description: |
-            fixed32.lte = 420
         fixed32Gt:
           exclusiveMinimum: 6
           type: integer
           title: fixed32_gt
-          description: |
-            fixed32.gt = 6
-            fixed32.gt_lt = 6
-            fixed32.gt_lt_exclusive = 6
-            fixed32.gt_lte = 6
-            fixed32.gt_lte_exclusive = 6
         fixed32Gte:
           type: integer
           title: fixed32_gte
           minimum: 69
-          description: |
-            fixed32.gte = 69
-            fixed32.gte_lt = 69
-            fixed32.gte_lt_exclusive = 69
-            fixed32.gte_lte = 69
-            fixed32.gte_lte_exclusive = 69
         fixed32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: fixed32_bounds
           minimum: 5
-          description: |
-            fixed32.gte = 5
-            fixed32.gte_lt = 5
-            fixed32.gte_lt_exclusive = 5
-            fixed32.gte_lte = 5
-            fixed32.gte_lte_exclusive = 5
-            fixed32.lt = 10
         fixed64Const:
           type:
             - integer
             - string
           title: fixed64_const
           format: int64
-          description: |
-            fixed64
-            fixed64.const = 42
+          description: fixed64
           const: "42"
         fixed64In:
           type: array
@@ -1158,8 +890,6 @@ components:
               - "1"
               - "2"
               - "3"
-            description: |
-              fixed64.in = [1, 2, 3]
           title: fixed64_in
         fixed64NotIn:
           type: array
@@ -1176,8 +906,6 @@ components:
                 - "2"
                 - "3"
             format: int64
-            description: |
-              fixed64.not_in = [1, 2, 3]
           title: fixed64_not_in
         fixed64Lt:
           exclusiveMaximum: 42
@@ -1186,8 +914,6 @@ components:
             - string
           title: fixed64_lt
           format: int64
-          description: |
-            fixed64.lt = 42
         fixed64Lte:
           type:
             - integer
@@ -1195,8 +921,6 @@ components:
           title: fixed64_lte
           maximum: 420
           format: int64
-          description: |
-            fixed64.lte = 420
         fixed64Gt:
           exclusiveMinimum: 10
           type:
@@ -1204,12 +928,6 @@ components:
             - string
           title: fixed64_gt
           format: int64
-          description: |
-            fixed64.gt = 10
-            fixed64.gt_lt = 10
-            fixed64.gt_lt_exclusive = 10
-            fixed64.gt_lte = 10
-            fixed64.gt_lte_exclusive = 10
         fixed64Gte:
           type:
             - integer
@@ -1217,12 +935,6 @@ components:
           title: fixed64_gte
           minimum: 109
           format: int64
-          description: |
-            fixed64.gte = 109
-            fixed64.gte_lt = 109
-            fixed64.gte_lt_exclusive = 109
-            fixed64.gte_lte = 109
-            fixed64.gte_lte_exclusive = 109
         fixed64Bounds:
           exclusiveMaximum: 10
           type:
@@ -1231,20 +943,11 @@ components:
           title: fixed64_bounds
           minimum: 5
           format: int64
-          description: |
-            fixed64.gte = 5
-            fixed64.gte_lt = 5
-            fixed64.gte_lt_exclusive = 5
-            fixed64.gte_lte = 5
-            fixed64.gte_lte_exclusive = 5
-            fixed64.lt = 10
         sfixed32Const:
           type: integer
           title: sfixed32_const
           format: int32
-          description: |
-            sfixed32
-            sfixed32.const = 42
+          description: sfixed32
           const: 42
         sfixed32In:
           type: array
@@ -1255,8 +958,6 @@ components:
               - 1
               - 2
               - 3
-            description: |
-              sfixed32.in = [1, 2, 3]
           title: sfixed32_in
         sfixed32NotIn:
           type: array
@@ -1269,67 +970,40 @@ components:
                 - 2
                 - 3
             format: int32
-            description: |
-              sfixed32.not_in = [1, 2, 3]
           title: sfixed32_not_in
         sfixed32Lt:
           exclusiveMaximum: 42
           type: integer
           title: sfixed32_lt
           format: int32
-          description: |
-            sfixed32.lt = 42
         sfixed32Lte:
           type: integer
           title: sfixed32_lte
           maximum: 420
           format: int32
-          description: |
-            sfixed32.lte = 420
         sfixed32Gt:
           exclusiveMinimum: 6
           type: integer
           title: sfixed32_gt
           format: int32
-          description: |
-            sfixed32.gt = 6
-            sfixed32.gt_lt = 6
-            sfixed32.gt_lt_exclusive = 6
-            sfixed32.gt_lte = 6
-            sfixed32.gt_lte_exclusive = 6
         sfixed32Gte:
           type: integer
           title: sfixed32_gte
           minimum: 69
           format: int32
-          description: |
-            sfixed32.gte = 69
-            sfixed32.gte_lt = 69
-            sfixed32.gte_lt_exclusive = 69
-            sfixed32.gte_lte = 69
-            sfixed32.gte_lte_exclusive = 69
         sfixed32Bounds:
           exclusiveMaximum: 10
           type: integer
           title: sfixed32_bounds
           minimum: 5
           format: int32
-          description: |
-            sfixed32.gte = 5
-            sfixed32.gte_lt = 5
-            sfixed32.gte_lt_exclusive = 5
-            sfixed32.gte_lte = 5
-            sfixed32.gte_lte_exclusive = 5
-            sfixed32.lt = 10
         sfixed64Const:
           type:
             - integer
             - string
           title: sfixed64_const
           format: int64
-          description: |
-            sfixed64
-            sfixed64.const = 42
+          description: sfixed64
           const: 42
         sfixed64In:
           type: array
@@ -1342,8 +1016,6 @@ components:
               - 1
               - 2
               - 3
-            description: |
-              sfixed64.in = [1, 2, 3]
           title: sfixed64_in
         sfixed64NotIn:
           type: array
@@ -1360,8 +1032,6 @@ components:
                 - 2
                 - 3
             format: int64
-            description: |
-              sfixed64.not_in = [1, 2, 3]
           title: sfixed64_not_in
         sfixed64Lt:
           exclusiveMaximum: 42
@@ -1370,8 +1040,6 @@ components:
             - string
           title: sfixed64_lt
           format: int64
-          description: |
-            sfixed64.lt = 42
         sfixed64Lte:
           type:
             - integer
@@ -1379,8 +1047,6 @@ components:
           title: sfixed64_lte
           maximum: 420
           format: int64
-          description: |
-            sfixed64.lte = 420
         sfixed64Gt:
           exclusiveMinimum: 10
           type:
@@ -1388,12 +1054,6 @@ components:
             - string
           title: sfixed64_gt
           format: int64
-          description: |
-            sfixed64.gt = 10
-            sfixed64.gt_lt = 10
-            sfixed64.gt_lt_exclusive = 10
-            sfixed64.gt_lte = 10
-            sfixed64.gt_lte_exclusive = 10
         sfixed64Gte:
           type:
             - integer
@@ -1401,12 +1061,6 @@ components:
           title: sfixed64_gte
           minimum: 109
           format: int64
-          description: |
-            sfixed64.gte = 109
-            sfixed64.gte_lt = 109
-            sfixed64.gte_lt_exclusive = 109
-            sfixed64.gte_lte = 109
-            sfixed64.gte_lte_exclusive = 109
         sfixed64Bounds:
           exclusiveMaximum: 10
           type:
@@ -1415,19 +1069,10 @@ components:
           title: sfixed64_bounds
           minimum: 5
           format: int64
-          description: |
-            sfixed64.gte = 5
-            sfixed64.gte_lt = 5
-            sfixed64.gte_lt_exclusive = 5
-            sfixed64.gte_lte = 5
-            sfixed64.gte_lte_exclusive = 5
-            sfixed64.lt = 10
         stringConst:
           type: string
           title: string_const
-          description: |
-            string
-            string.const = "hello"
+          description: string
           const: hello
         stringIn:
           type: array
@@ -1436,8 +1081,6 @@ components:
             enum:
               - orange
               - grape
-            description: |
-              string.in = ["orange", "grape"]
           title: string_in
         stringNotIn:
           type: array
@@ -1448,28 +1091,20 @@ components:
               enum:
                 - orange
                 - grape
-            description: |
-              string.not_in = ["orange", "grape"]
           title: string_not_in
         stringMinLen:
           type: string
           title: string_min_len
           minLength: 3
-          description: |
-            string.min_len = 3
         stringMaxLen:
           type: string
           title: string_max_len
           maxLength: 10
-          description: |
-            string.max_len = 10
         stringLen:
           type: string
           title: string_len
           maxLength: 10
           minLength: 10
-          description: |
-            string.len = 10
         stringLenBytes:
           type: string
           title: string_len_bytes
@@ -1516,64 +1151,38 @@ components:
           type: string
           title: string_email
           format: email
-          description: |
-            string.email = true // value must be a valid email address
-            string.email_empty = true // value is empty, which is not a valid email address
         stringHostname:
           type: string
           title: string_hostname
           format: hostname
-          description: |
-            string.hostname = true // value must be a valid hostname
-            string.hostname_empty = true // value is empty, which is not a valid hostname
         stringIp:
           type: string
           title: string_ip
           format: ip
-          description: |
-            string.ip = true // value must be a valid IP address
-            string.ip_empty = true // value is empty, which is not a valid IP address
         stringIpv4:
           type: string
           title: string_ipv4
           format: ipv4
-          description: |
-            string.ipv4 = true // value must be a valid IPv4 address
-            string.ipv4_empty = true // value is empty, which is not a valid IPv4 address
         stringIpv6:
           type: string
           title: string_ipv6
           format: ipv6
-          description: |
-            string.ipv6 = true // value must be a valid IPv6 address
-            string.ipv6_empty = true // value is empty, which is not a valid IPv6 address
         stringUri:
           type: string
           title: string_uri
           format: uri
-          description: |
-            string.uri = true // value must be a valid URI
-            string.uri_empty = true // value is empty, which is not a valid URI
         stringUriRef:
           type: string
           title: string_uri_ref
           format: uri-ref
-          description: |
-            string.uri_ref = true // value must be a valid URI Reference
         stringAddress:
           type: string
           title: string_address
           format: address
-          description: |
-            string.address = true // value must be a valid hostname, or ip address
-            string.address_empty = true // value is empty, which is not a valid hostname, or ip address
         stringUuid:
           type: string
           title: string_uuid
           format: uuid
-          description: |
-            string.uuid = true // value must be a valid UUID
-            string.uuid_empty = true // value is empty, which is not a valid UUID
         stringIpWithPrefixlen:
           type: string
           title: string_ip_with_prefixlen
@@ -1628,7 +1237,7 @@ components:
           title: byte_const
           format: byte
           description: |
-            bytes.const = [1 2 3 4]
+            bytes.const = []
           const: "\x01\x02\x03\x04"
         byteLen:
           type: string
@@ -1637,7 +1246,7 @@ components:
           minLength: 4
           format: byte
           description: |
-            bytes.len = 4
+            bytes.const = []
           nullable: true
         bytesMinLen:
           type: string
@@ -1645,7 +1254,7 @@ components:
           minLength: 2
           format: byte
           description: |
-            bytes.min_len = 2
+            bytes.const = []
           nullable: true
         bytesMaxLen:
           type: string
@@ -1653,7 +1262,7 @@ components:
           maxLength: 6
           format: byte
           description: |
-            bytes.max_len = 6
+            bytes.const = []
           nullable: true
         bytesPattern:
           type: string
@@ -1661,13 +1270,14 @@ components:
           pattern: ^[a-zA-Z0-9]+$
           format: byte
           description: |
-            bytes.pattern = "^[a-zA-Z0-9]+$"
+            bytes.const = []
           nullable: true
         bytesPrefix:
           type: string
           title: bytes_prefix
           format: byte
           description: |
+            bytes.const = []
             bytes.prefix = [1 2]
           nullable: true
         bytesSuffix:
@@ -1675,6 +1285,7 @@ components:
           title: bytes_suffix
           format: byte
           description: |
+            bytes.const = []
             bytes.suffix = [3 4]
           nullable: true
         bytesContains:
@@ -1682,6 +1293,7 @@ components:
           title: bytes_contains
           format: byte
           description: |
+            bytes.const = []
             bytes.contains = [2 3]
           nullable: true
         bytesIn:
@@ -1693,7 +1305,7 @@ components:
             - "\x02\x03"
             - "\x03\x04"
           description: |
-            bytes.in = [[1 2], [2 3], [3 4]]
+            bytes.const = []
           nullable: true
         bytesNotIn:
           type: string
@@ -1706,36 +1318,31 @@ components:
           title: bytes_not_in
           format: byte
           description: |
-            bytes.not_in = [[1 2], [2 3], [3 4]]
+            bytes.const = []
           nullable: true
         bytesIp:
           type: string
           title: bytes_ip
           format: ip
           description: |
-            bytes.ip = true // value must be a valid IP address
-            bytes.ip_empty = true // value is empty, which is not a valid IP address
+            bytes.const = []
           nullable: true
         bytesIpv4:
           type: string
           title: bytes_ipv4
           format: ipv4
           description: |
-            bytes.ipv4 = true // value must be a valid IPv4 address
-            bytes.ipv4_empty = true // value is empty, which is not a valid IPv4 address
+            bytes.const = []
           nullable: true
         bytesIpv6:
           type: string
           title: bytes_ipv6
           format: ipv6
           description: |
-            bytes.ipv6 = true // value must be a valid IPv6 address
-            bytes.ipv6_empty = true // value is empty, which is not a valid IPv6 address
+            bytes.const = []
           nullable: true
         enumConst:
           title: enum_const
-          description: |
-            enum.const = 1
           const: 1
           $ref: '#/components/schemas/protovalidate.MyEnum'
         enumDefinedOnly:
@@ -1746,8 +1353,6 @@ components:
           enum:
             - 1
             - 2
-          description: |
-            enum.in = [1, 2]
           $ref: '#/components/schemas/protovalidate.MyEnum'
         enumNotIn:
           not:
@@ -1755,8 +1360,6 @@ components:
               - 1
               - 2
           title: enum_not_in
-          description: |
-            enum.not_in = [1, 2]
           $ref: '#/components/schemas/protovalidate.MyEnum'
         repeatedMinItems:
           type: array
@@ -1785,9 +1388,6 @@ components:
             type: string
             maxLength: 10
             minLength: 3
-            description: |
-              string.max_len = 10
-              string.min_len = 3
           title: repeated_items
         mapMinPairs:
           type: object
@@ -1817,9 +1417,6 @@ components:
             title: value
             maxLength: 20
             minLength: 5
-            description: |
-              string.max_len = 20
-              string.min_len = 5
         anyIn:
           title: any_in
           enum:
@@ -1835,8 +1432,6 @@ components:
           $ref: '#/components/schemas/google.protobuf.Any'
         durationConst:
           title: duration_const
-          description: |
-            duration.const = 33m20s
           const: 33m20s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationIn:
@@ -1845,8 +1440,6 @@ components:
             - 1s
             - 2s
             - 3s
-          description: |
-            duration.in = [1s, 2s, 3s]
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationNotIn:
           not:
@@ -1855,8 +1448,6 @@ components:
               - 2s
               - 3s
           title: duration_not_in
-          description: |
-            duration.not_in = [1s, 2s, 3s]
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationLt:
           title: duration_lt
@@ -1964,14 +1555,10 @@ components:
         boolConstTrue:
           type: boolean
           title: bool_const_true
-          description: |
-            bool.const = true
           const: "true"
         boolConstFalse:
           type: boolean
           title: bool_const_false
-          description: |
-            bool.const = false
           const: "false"
       title: LotsOfValidationRules
       required:
@@ -2033,8 +1620,6 @@ components:
               type: string
               title: a
               minLength: 1
-              description: |
-                string.min_len = 1
           title: a
           required:
             - a
