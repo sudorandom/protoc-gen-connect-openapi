@@ -122,21 +122,21 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	case *annotations.HttpRule_Custom:
 		method, template = pattern.Custom.GetKind(), pattern.Custom.GetPath()
 	default:
-		slog.Warn("invalid type of pattern for HTTP rule", slog.Any("pattern", pattern))
+		opts.Logger.Warn("invalid type of pattern for HTTP rule", slog.Any("pattern", pattern))
 		return nil
 	}
 	if method == "" {
-		slog.Warn("invalid HTTP rule: method is blank", slog.Any("method", md))
+		opts.Logger.Warn("invalid HTTP rule: method is blank", slog.Any("method", md))
 		return nil
 	}
 	if template == "" {
-		slog.Warn("invalid HTTP rule: path template is blank", slog.Any("method", md))
+		opts.Logger.Warn("invalid HTTP rule: path template is blank", slog.Any("method", md))
 		return nil
 	}
 
 	tokens, err := RunPathPatternLexer(template)
 	if err != nil {
-		slog.Warn("unable to parse template pattern", slog.Any("error", err), slog.String("template", template))
+		opts.Logger.Warn("unable to parse template pattern", slog.Any("error", err), slog.String("template", template))
 		return nil
 	}
 
@@ -170,7 +170,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		if strings.Contains(param, "=") {
 			continue
 		}
-		field, jsonPath := resolveField(md.Input(), param)
+		field, jsonPath := resolveField(opts, md.Input(), param)
 		if field != nil {
 			// This field is only top level, so we will filter out the param from
 			// query/param or request body
@@ -186,7 +186,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			}
 			op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
 		} else {
-			slog.Warn("path field not found", slog.String("param", param))
+			opts.Logger.Warn("path field not found", slog.String("param", param))
 		}
 	}
 
@@ -208,7 +208,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			if len(matches) == 3 {
 				if matches[2] == "**" {
 					paramName := matches[1]
-					field, _ := resolveField(md.Input(), paramName)
+					field, _ := resolveField(opts, md.Input(), paramName)
 					var newParameter *v3.Parameter
 					if field != nil {
 						fieldNamesInPath[string(field.FullName())] = struct{}{}
@@ -300,7 +300,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 
 	default:
-		if field, jsonPath := resolveField(md.Input(), rule.Body); field != nil {
+		if field, jsonPath := resolveField(opts, md.Input(), rule.Body); field != nil {
 			loc := fd.SourceLocations().ByDescriptor(field)
 			bodySchema := schema.FieldToSchema(opts, nil, field)
 			op.RequestBody = &v3.RequestBody{
@@ -328,7 +328,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
 			}
 		} else {
-			slog.Warn("body field not found", slog.String("param", rule.Body))
+			opts.Logger.Warn("body field not found", slog.String("param", rule.Body))
 		}
 	}
 
@@ -339,7 +339,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	if rule.ResponseBody == "" {
 		outputSchema = base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(string(md.Output().FullName())))
 	} else {
-		if fd, _ := resolveField(md.Output(), rule.ResponseBody); fd != nil {
+		if fd, _ := resolveField(opts, md.Output(), rule.ResponseBody); fd != nil {
 			outputSchema = schema.FieldToSchema(opts, nil, fd)
 		}
 	}
@@ -398,12 +398,12 @@ func dedupeOperations(id string, value iter.Seq[*v3.PathItem]) {
 	}
 }
 
-func resolveField(md protoreflect.MessageDescriptor, param string) (protoreflect.FieldDescriptor, []string) {
+func resolveField(opts options.Options, md protoreflect.MessageDescriptor, param string) (protoreflect.FieldDescriptor, []string) {
 	jsonParts := []string{}
 	current := md
 	var fd protoreflect.FieldDescriptor
 	for _, paramPart := range strings.Split(param, ".") {
-		if field := fieldByName(current, paramPart); field == nil {
+		if field := fieldByName(opts, current, paramPart); field == nil {
 			return nil, nil
 		} else {
 			fd = field
@@ -414,8 +414,8 @@ func resolveField(md protoreflect.MessageDescriptor, param string) (protoreflect
 	return fd, jsonParts
 }
 
-func fieldByName(md protoreflect.MessageDescriptor, name string) protoreflect.FieldDescriptor {
-	slog.Info("fieldByName", "name", md.FullName(), "name", name)
+func fieldByName(opts options.Options, md protoreflect.MessageDescriptor, name string) protoreflect.FieldDescriptor {
+	opts.Logger.Info("fieldByName", "name", md.FullName(), "name", name)
 	fields := md.Fields()
 	if field := fields.ByName(protoreflect.Name(name)); field != nil {
 		return field

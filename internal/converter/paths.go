@@ -37,7 +37,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 			// Update path items from google.api annotations
 			for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-				item := gnostic.PathItemWithMethodAnnotations(pair.Value(), method)
+				item := gnostic.PathItemWithMethodAnnotations(opts, pair.Value(), method)
 				addPathItem(pair.Key(), item)
 			}
 
@@ -357,7 +357,7 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 		}
 		item.Post = methodToOperation(opts, method, false)
 	}
-	item = gnostic.PathItemWithMethodAnnotations(item, method)
+	item = gnostic.PathItemWithMethodAnnotations(opts, item, method)
 
 	return item
 }

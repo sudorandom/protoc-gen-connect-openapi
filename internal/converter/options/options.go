@@ -3,6 +3,7 @@ package options
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path"
 	"strings"
@@ -62,6 +63,8 @@ type Options struct {
 	FieldReferenceAnnotator FieldReferenceAnnotator
 
 	ExtensionTypeResolver protoregistry.ExtensionTypeResolver
+
+	Logger *slog.Logger
 }
 
 func (opts Options) HasService(serviceName protoreflect.FullName) bool {
@@ -82,6 +85,7 @@ func NewOptions() Options {
 		ContentTypes: map[string]struct{}{
 			"json": {},
 		},
+		Logger: slog.New(slog.DiscardHandler), // discard logs by default
 	}
 }
 

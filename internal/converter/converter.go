@@ -50,10 +50,21 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 	if err != nil {
 		return nil, err
 	}
+	opts.Logger = slog.Default()
 	return ConvertWithOptions(req, opts)
 }
 
 func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options) (*pluginpb.CodeGeneratorResponse, error) {
+	if opts.Debug {
+		opts.Logger = slog.New(
+			tint.NewHandler(os.Stderr, &tint.Options{
+				Level: slog.LevelDebug,
+			}),
+		)
+	}
+	if opts.Logger == nil {
+		opts.Logger = slog.New(slog.DiscardHandler)
+	}
 	annotator := &annotator{}
 	if opts.MessageAnnotator == nil {
 		opts.MessageAnnotator = annotator
@@ -63,14 +74,6 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 	}
 	if opts.FieldReferenceAnnotator == nil {
 		opts.FieldReferenceAnnotator = annotator
-	}
-
-	if opts.Debug {
-		slog.SetDefault(slog.New(
-			tint.NewHandler(os.Stderr, &tint.Options{
-				Level: slog.LevelDebug,
-			}),
-		))
 	}
 
 	files := []*pluginpb.CodeGeneratorResponse_File{}
@@ -91,7 +94,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 
 	newSpec := func() (*v3.Document, error) {
 		model := &v3.Document{}
-		initializeDoc(model)
+		initializeDoc(opts, model)
 		return model, nil
 	}
 	if len(opts.BaseOpenAPI) > 0 {
@@ -109,7 +112,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 				return &v3.Document{}, merr
 			}
 			model := &v3Document.Model
-			initializeDoc(model)
+			initializeDoc(opts, model)
 			return model, nil
 		}
 	}
@@ -130,11 +133,11 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			continue
 		}
 
-		slog.Debug("generating file", slog.String("name", fileDesc.GetName()))
+		opts.Logger.Debug("generating file", slog.String("name", fileDesc.GetName()))
 
 		fd, err := resolver.FindFileByPath(fileDesc.GetName())
 		if err != nil {
-			slog.Error("error loading file", slog.Any("error", err))
+			opts.Logger.Error("error loading file", slog.Any("error", err))
 			return nil, err
 		}
 
@@ -258,7 +261,7 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
-	gnostic.SpecWithFileAnnotations(spec, fd)
+	gnostic.SpecWithFileAnnotations(opts, spec, fd)
 
 	components := &v3.Components{
 		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
@@ -288,7 +291,7 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 		}
 	}
 
-	initializeDoc(spec)
+	initializeDoc(opts, spec)
 	appendServiceDocs(opts, spec, fd)
 	initializeComponents(components)
 	util.AppendComponents(spec, components)
@@ -346,8 +349,8 @@ func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.
 	spec.Info.Description = strings.TrimSpace(builder.String())
 }
 
-func initializeDoc(doc *v3.Document) {
-	slog.Debug("initializeDoc")
+func initializeDoc(opts options.Options, doc *v3.Document) {
+	opts.Logger.Debug("initializeDoc")
 	if doc.Version == "" {
 		doc.Version = "3.1.0"
 	}

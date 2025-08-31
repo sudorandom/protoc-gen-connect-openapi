@@ -8,65 +8,66 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"gopkg.in/yaml.v3"
 )
 
-func SchemaWithSchemaAnnotations(schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
+func SchemaWithSchemaAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
 	if !proto.HasExtension(desc.Options(), goa3.E_Schema.TypeDescriptor().Type()) {
 		return schema
 	}
 
 	ext := proto.GetExtension(desc.Options(), goa3.E_Schema.TypeDescriptor().Type())
-	opts, ok := ext.(*goa3.Schema)
+	gnosticSchema, ok := ext.(*goa3.Schema)
 	if !ok {
 		return schema
 	}
-	return schemaWithAnnotations(schema, opts)
+	return schemaWithAnnotations(opts, schema, gnosticSchema)
 }
 
-func SchemaWithPropertyAnnotations(schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
+func SchemaWithPropertyAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
 	if !proto.HasExtension(desc.Options(), goa3.E_Property.TypeDescriptor().Type()) {
 		return schema
 	}
 
 	ext := proto.GetExtension(desc.Options(), goa3.E_Property.TypeDescriptor().Type())
-	opts, ok := ext.(*goa3.Schema)
+	gnosticSchema, ok := ext.(*goa3.Schema)
 	if !ok {
 		return schema
 	}
-	return schemaWithAnnotations(schema, opts)
+	return schemaWithAnnotations(opts, schema, gnosticSchema)
 }
 
 //gocyclo:ignore
-func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema {
-	if opts.Description != "" {
-		schema.Description = opts.Description
+func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSchema *goa3.Schema) *base.Schema {
+	if gnosticSchema.Description != "" {
+		schema.Description = gnosticSchema.Description
 	}
-	if opts.Title != "" {
-		schema.Title = opts.Title
+	if gnosticSchema.Title != "" {
+		schema.Title = gnosticSchema.Title
 	}
-	if opts.Format != "" {
-		schema.Format = opts.Format
+	if gnosticSchema.Format != "" {
+		schema.Format = gnosticSchema.Format
 	}
-	if opts.Nullable {
-		schema.Nullable = &opts.Nullable
+	if gnosticSchema.Nullable {
+		schema.Nullable = &gnosticSchema.Nullable
 	}
-	if opts.ReadOnly {
-		schema.ReadOnly = &opts.ReadOnly
+	if gnosticSchema.ReadOnly {
+		schema.ReadOnly = &gnosticSchema.ReadOnly
 	}
-	if opts.WriteOnly {
-		schema.WriteOnly = &opts.WriteOnly
+	if gnosticSchema.WriteOnly {
+		schema.WriteOnly = &gnosticSchema.WriteOnly
 	}
-	if opts.Example != nil {
+	if gnosticSchema.Example != nil {
 		// If the example is defined with the YAML option
-		if opts.Example.Yaml != "" {
+		if gnosticSchema.Example.Yaml != "" {
 			var v string
-			if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &v); err != nil {
+			if err := yaml.Unmarshal([]byte(gnosticSchema.Example.GetYaml()), &v); err != nil {
 				var node any
-				if err := yaml.Unmarshal([]byte(opts.Example.GetYaml()), &node); err != nil {
-					slog.Warn("unable to unmarshal example", slog.Any("error", err))
+				if err := yaml.Unmarshal([]byte(gnosticSchema.Example.GetYaml()), &node); err != nil {
+					opts.Logger.Warn("unable to unmarshal example", slog.Any("error", err))
 				} else {
 					schema.Examples = append(schema.Examples, expandExampleEntry(node))
 				}
@@ -75,86 +76,86 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 			}
 		}
 		// If the example is defined with google.protobuf.Any
-		if opts.Example.Value != nil {
-			slog.Warn("unable to unmarshal pb.any example")
+		if gnosticSchema.Example.Value != nil {
+			opts.Logger.Warn("unable to unmarshal pb.any example")
 		}
 	}
-	if opts.ExternalDocs != nil {
-		schema.ExternalDocs = toExternalDocs(opts.ExternalDocs)
+	if gnosticSchema.ExternalDocs != nil {
+		schema.ExternalDocs = toExternalDocs(gnosticSchema.ExternalDocs)
 	}
-	if opts.Deprecated {
-		schema.Deprecated = &opts.Deprecated
+	if gnosticSchema.Deprecated {
+		schema.Deprecated = &gnosticSchema.Deprecated
 	}
-	if opts.MultipleOf != 0 {
-		schema.MultipleOf = &opts.MultipleOf
+	if gnosticSchema.MultipleOf != 0 {
+		schema.MultipleOf = &gnosticSchema.MultipleOf
 	}
-	if opts.Maximum != 0 {
-		if opts.ExclusiveMaximum {
-			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: opts.Maximum}
+	if gnosticSchema.Maximum != 0 {
+		if gnosticSchema.ExclusiveMaximum {
+			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: gnosticSchema.Maximum}
 		} else {
-			schema.Maximum = &opts.Maximum
+			schema.Maximum = &gnosticSchema.Maximum
 		}
 	}
-	if opts.Minimum != 0 {
-		if opts.ExclusiveMinimum {
-			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: opts.Minimum}
+	if gnosticSchema.Minimum != 0 {
+		if gnosticSchema.ExclusiveMinimum {
+			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: gnosticSchema.Minimum}
 		} else {
-			schema.Minimum = &opts.Minimum
+			schema.Minimum = &gnosticSchema.Minimum
 		}
 	}
-	if opts.MaxLength > 0 {
-		schema.MaxLength = &opts.MaxLength
+	if gnosticSchema.MaxLength > 0 {
+		schema.MaxLength = &gnosticSchema.MaxLength
 	}
-	if opts.MinLength > 0 {
-		v := opts.MinLength
+	if gnosticSchema.MinLength > 0 {
+		v := gnosticSchema.MinLength
 		schema.MinLength = &v
 	}
-	if opts.Pattern != "" {
-		schema.Pattern = opts.Pattern
+	if gnosticSchema.Pattern != "" {
+		schema.Pattern = gnosticSchema.Pattern
 	}
-	if opts.MaxItems > 0 {
+	if gnosticSchema.MaxItems > 0 {
 		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MaxItems = &opts.MaxItems
+			schema.ParentProxy.Schema().MaxItems = &gnosticSchema.MaxItems
 		}
 	}
-	if opts.MinItems > 0 {
+	if gnosticSchema.MinItems > 0 {
 		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MinItems = &opts.MinItems
+			schema.ParentProxy.Schema().MinItems = &gnosticSchema.MinItems
 		}
 	}
-	if opts.UniqueItems {
+	if gnosticSchema.UniqueItems {
 		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().UniqueItems = &opts.UniqueItems
+			schema.ParentProxy.Schema().UniqueItems = &gnosticSchema.UniqueItems
 		}
 	}
-	if opts.MaxProperties > 0 {
+	if gnosticSchema.MaxProperties > 0 {
 		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MaxProperties = &opts.MaxProperties
+			schema.ParentProxy.Schema().MaxProperties = &gnosticSchema.MaxProperties
 		}
 	}
-	if opts.MinProperties > 0 {
+	if gnosticSchema.MinProperties > 0 {
 		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MinProperties = &opts.MinProperties
+			schema.ParentProxy.Schema().MinProperties = &gnosticSchema.MinProperties
 		}
 	}
-	if len(opts.Required) > 0 {
-		schema.Required = opts.Required
+	if len(gnosticSchema.Required) > 0 {
+		schema.Required = gnosticSchema.Required
 	}
-	if len(opts.Enum) > 0 {
-		enums := make([]*yaml.Node, len(opts.Enum))
-		for i, enum := range opts.Enum {
+	if len(gnosticSchema.Enum) > 0 {
+		enums := make([]*yaml.Node, len(gnosticSchema.Enum))
+		for i, enum := range gnosticSchema.Enum {
 			enums[i] = enum.ToRawInfo()
 		}
 		schema.Enum = enums
 	}
-	if opts.Type != "" {
-		schema.Type = []string{opts.Type}
+	if gnosticSchema.Type != "" {
+		schema.Type = []string{gnosticSchema.Type}
 	}
 
-	if opts.AdditionalProperties != nil {
-		switch v := opts.AdditionalProperties.GetOneof().(type) {
+	if gnosticSchema.AdditionalProperties != nil {
+		switch v := gnosticSchema.AdditionalProperties.GetOneof().(type) {
 		case *goa3.AdditionalPropertiesItem_SchemaOrReference:
-			if vv := toSchemaOrReference(v.SchemaOrReference); vv != nil {
+			if vv := toSchemaOrReference(opts, v.SchemaOrReference); vv != nil {
 				schema.AdditionalProperties = &base.DynamicValue[*base.SchemaProxy, bool]{A: vv}
 			}
 		case *goa3.AdditionalPropertiesItem_Boolean:
@@ -162,20 +163,20 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 		}
 	}
 
-	if len(opts.AllOf) > 0 {
-		schema.AllOf = toSchemaOrReferences(opts.AllOf)
+	if len(gnosticSchema.AllOf) > 0 {
+		schema.AllOf = toSchemaOrReferences(opts, gnosticSchema.AllOf)
 	}
-	if len(opts.OneOf) > 0 {
-		schema.OneOf = toSchemaOrReferences(opts.OneOf)
+	if len(gnosticSchema.OneOf) > 0 {
+		schema.OneOf = toSchemaOrReferences(opts, gnosticSchema.OneOf)
 	}
-	if len(opts.AnyOf) > 0 {
-		schema.AnyOf = toSchemaOrReferences(opts.AnyOf)
+	if len(gnosticSchema.AnyOf) > 0 {
+		schema.AnyOf = toSchemaOrReferences(opts, gnosticSchema.AnyOf)
 	}
-	if opts.Not != nil {
-		schema.Not = base.CreateSchemaProxy(toSchema(opts.Not))
+	if gnosticSchema.Not != nil {
+		schema.Not = base.CreateSchemaProxy(toSchema(opts, gnosticSchema.Not))
 	}
-	if opts.Items != nil {
-		items := toSchemaOrReferences(opts.Items.SchemaOrReference)
+	if gnosticSchema.Items != nil {
+		items := toSchemaOrReferences(opts, gnosticSchema.Items.SchemaOrReference)
 		var itemsSchema *base.SchemaProxy
 		if len(items) == 1 {
 			itemsSchema = items[0]
@@ -184,41 +185,41 @@ func schemaWithAnnotations(schema *base.Schema, opts *goa3.Schema) *base.Schema 
 		}
 		schema.Items = &base.DynamicValue[*base.SchemaProxy, bool]{A: itemsSchema}
 	}
-	if opts.Properties != nil {
-		schema.Properties = toSchemaOrReferenceMap(opts.Properties.GetAdditionalProperties())
+	if gnosticSchema.Properties != nil {
+		schema.Properties = toSchemaOrReferenceMap(opts, gnosticSchema.Properties.GetAdditionalProperties())
 	}
-	if opts.Default != nil {
-		schema.Default = toDefault(opts.Default)
+	if gnosticSchema.Default != nil {
+		schema.Default = toDefault(gnosticSchema.Default)
 	}
-	if opts.AdditionalProperties != nil {
-		schema.AdditionalProperties = toAdditionalPropertiesItem(opts.AdditionalProperties)
+	if gnosticSchema.AdditionalProperties != nil {
+		schema.AdditionalProperties = toAdditionalPropertiesItem(opts, gnosticSchema.AdditionalProperties)
 	}
-	if opts.Xml != nil {
+	if gnosticSchema.Xml != nil {
 		extensions := *orderedmap.New[string, *yaml.Node]()
-		for _, namedAny := range opts.Xml.GetSpecificationExtension() {
+		for _, namedAny := range gnosticSchema.Xml.GetSpecificationExtension() {
 			extensions.Set(namedAny.Name, namedAny.ToRawInfo())
 		}
 		schema.XML = &base.XML{
-			Name:       opts.Xml.Name,
-			Namespace:  opts.Xml.Namespace,
-			Prefix:     opts.Xml.Prefix,
-			Attribute:  opts.Xml.Attribute,
-			Wrapped:    opts.Xml.Wrapped,
+			Name:       gnosticSchema.Xml.Name,
+			Namespace:  gnosticSchema.Xml.Namespace,
+			Prefix:     gnosticSchema.Xml.Prefix,
+			Attribute:  gnosticSchema.Xml.Attribute,
+			Wrapped:    gnosticSchema.Xml.Wrapped,
 			Extensions: &extensions,
 		}
 	}
-	if opts.Discriminator != nil {
+	if gnosticSchema.Discriminator != nil {
 		mapping := orderedmap.New[string, string]()
-		for _, prop := range opts.Discriminator.GetMapping().GetAdditionalProperties() {
+		for _, prop := range gnosticSchema.Discriminator.GetMapping().GetAdditionalProperties() {
 			mapping.Set(prop.Name, prop.Value)
 		}
 		schema.Discriminator = &base.Discriminator{
-			PropertyName: opts.Discriminator.GetPropertyName(),
+			PropertyName: gnosticSchema.Discriminator.GetPropertyName(),
 			Mapping:      mapping,
 		}
 	}
-	if opts.SpecificationExtension != nil {
-		schema.Extensions = toExtensions(opts.SpecificationExtension)
+	if gnosticSchema.SpecificationExtension != nil {
+		schema.Extensions = toExtensions(gnosticSchema.SpecificationExtension)
 	}
 
 	return schema
