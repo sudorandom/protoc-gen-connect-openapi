@@ -200,7 +200,7 @@ func getOverrideComponents(opts options.Options) (*v3.Components, error) {
 	}
 	document, err := libopenapi.NewDocument(opts.OverrideOpenAPI)
 	if err != nil {
-		return nil, fmt.Errorf("unmarshalling base: %w", err)
+		return nil, fmt.Errorf("unmarshaling base: %w", err)
 	}
 	v3Document, errs := document.BuildV3Model()
 	if len(errs) > 0 {
