@@ -33,7 +33,7 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 		return schema
 	}
 	updateWithCEL(schema, rules.GetCel(), nil, nil)
-	if rules.Oneof != nil {
+	if len(rules.Oneof) > 0 {
 		for _, oneofRule := range rules.GetOneof() {
 			if oneofRule.GetRequired() {
 				var oneOfs []*base.SchemaProxy
