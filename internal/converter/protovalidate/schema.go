@@ -33,6 +33,28 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 		return schema
 	}
 	updateWithCEL(schema, rules.GetCel(), nil, nil)
+	if len(rules.Oneof) > 0 {
+		for _, oneofRule := range rules.GetOneof() {
+			if oneofRule.GetRequired() {
+				var oneOfs []*base.SchemaProxy
+				for _, fieldName := range oneofRule.GetFields() {
+					fieldDesc := desc.Fields().ByName(protoreflect.Name(fieldName))
+					if fieldDesc == nil {
+						slog.Warn("oneof rule references unknown field", "field", fieldName, "message", desc.FullName())
+						continue
+					}
+					oneOfs = append(oneOfs, base.CreateSchemaProxy(&base.Schema{
+						Required: []string{util.MakeFieldName(opts, fieldDesc)},
+					}))
+				}
+				if len(oneOfs) > 0 {
+					schema.AllOf = append(schema.AllOf, base.CreateSchemaProxy(&base.Schema{
+						OneOf: oneOfs,
+					}))
+				}
+			}
+		}
+	}
 	return schema
 }
 

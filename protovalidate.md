@@ -68,6 +68,7 @@ components:
 |---|---|---|
 | (buf.validate.message).cel | ✅ | Appended to the 'description' field |
 | (buf.validate.message).disabled | ✅ | |
+| (buf.validate.message).oneOf | ✅ | |
 
 ## Field Options
 | Option | Supported? | Notes |
