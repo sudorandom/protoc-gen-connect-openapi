@@ -259,20 +259,59 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
 	gnostic.SpecWithFileAnnotations(spec, fd)
-	components, err := fileToComponents(opts, fd)
-	if err != nil {
-		return err
+
+	components := &v3.Components{
+		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
+		Responses:       orderedmap.New[string, *v3.Response](),
+		Parameters:      orderedmap.New[string, *v3.Parameter](),
+		Examples:        orderedmap.New[string, *base.Example](),
+		RequestBodies:   orderedmap.New[string, *v3.RequestBody](),
+		Headers:         orderedmap.New[string, *v3.Header](),
+		SecuritySchemes: orderedmap.New[string, *v3.SecurityScheme](),
+		Links:           orderedmap.New[string, *v3.Link](),
+		Callbacks:       orderedmap.New[string, *v3.Callback](),
+		Extensions:      orderedmap.New[string, *yaml.Node](),
+	}
+
+	// Only collect types from the root if TrimUnusedTypes is off
+	if !opts.TrimUnusedTypes {
+		// Files can have enums
+		enums := fd.Enums()
+		for i := 0; i < enums.Len(); i++ {
+			AddEnumToSchema(opts, enums.Get(i), spec)
+		}
+
+		// Files can have messages
+		messages := fd.Messages()
+		for i := 0; i < messages.Len(); i++ {
+			AddMessageSchemas(opts, messages.Get(i), spec)
+		}
 	}
 
 	initializeDoc(spec)
-	initializeComponents(components)
 	appendServiceDocs(opts, spec, fd)
+	initializeComponents(components)
 	util.AppendComponents(spec, components)
 
-	if err := addPathItemsFromFile(opts, fd, spec.Paths); err != nil {
+	if err := addPathItemsFromFile(opts, fd, spec); err != nil {
 		return err
 	}
 	spec.Tags = append(spec.Tags, fileToTags(opts, fd)...)
+
+	// Sort
+	orderedmap.SortAlpha(spec.Paths.PathItems)
+	orderedmap.SortAlpha(spec.Components.Schemas)
+	orderedmap.SortAlpha(spec.Components.Responses)
+	orderedmap.SortAlpha(spec.Components.Parameters)
+	orderedmap.SortAlpha(spec.Components.Examples)
+	orderedmap.SortAlpha(spec.Components.RequestBodies)
+	orderedmap.SortAlpha(spec.Components.Headers)
+	orderedmap.SortAlpha(spec.Components.SecuritySchemes)
+	orderedmap.SortAlpha(spec.Components.Links)
+	orderedmap.SortAlpha(spec.Components.Callbacks)
+	orderedmap.SortAlpha(spec.Components.PathItems)
+	orderedmap.SortAlpha(spec.Components.Extensions)
+
 	return nil
 }
 

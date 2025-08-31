@@ -6,80 +6,337 @@
   "paths": {},
   "components": {
     "schemas": {
-      "google.protobuf.NullValue": {
-        "type": "string",
-        "title": "NullValue",
-        "enum": [
-          "NULL_VALUE"
-        ],
-        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
-      },
-      "with_proto_annotations.test.v1.AllTypes.Enum": {
-        "type": "string",
-        "title": "Enum",
-        "enum": [
-          "ENUM_UNSPECIFIED",
-          "ENUM_ONE",
-          "ENUM_TWO"
-        ],
-        "description": "named types"
-      },
-      "with_proto_annotations.test.v1.ParameterValues.Enum": {
-        "type": "string",
-        "title": "Enum",
-        "enum": [
-          "ENUM_UNSPECIFIED",
-          "ENUM_VALUE"
-        ],
-        "description": "enum types"
-      },
-      "with_proto_annotations.test.v1.ParameterValues.Nested.Enum": {
-        "type": "string",
-        "title": "Enum",
-        "enum": [
-          "ENUM_UNSPECIFIED",
-          "ENUM_VALUE"
-        ]
-      },
-      "google.protobuf.BoolValue": {
-        "type": "boolean",
-        "description": "Wrapper message for `bool`.\n\n The JSON representation for `BoolValue` is JSON `true` and `false`.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
-      },
-      "google.protobuf.BytesValue": {
-        "type": "string",
-        "format": "binary",
-        "description": "Wrapper message for `bytes`.\n\n The JSON representation for `BytesValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
-      },
-      "google.protobuf.DoubleValue": {
-        "oneOf": [
+      "with_proto_annotations.test.v1.ParameterValues": {
+        "type": "object",
+        "allOf": [
           {
-            "type": "string"
+            "properties": {
+              "doubleValue": {
+                "type": "number",
+                "title": "double_value",
+                "format": "double",
+                "description": "scalar types (proto double)"
+              },
+              "floatValue": {
+                "type": "number",
+                "title": "float_value",
+                "format": "float",
+                "description": "(proto float)"
+              },
+              "int32Value": {
+                "type": "integer",
+                "title": "int32_value",
+                "format": "int32",
+                "description": "(proto int32)"
+              },
+              "int64Value": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "int64_value",
+                "format": "int64",
+                "description": "(proto int64)"
+              },
+              "uint32Value": {
+                "type": "integer",
+                "title": "uint32_value",
+                "description": "(proto uint32)"
+              },
+              "uint64Value": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "uint64_value",
+                "format": "int64",
+                "description": "(proto uint64)"
+              },
+              "sint32Value": {
+                "type": "integer",
+                "title": "sint32_value",
+                "format": "int32",
+                "description": "(proto sint32)"
+              },
+              "sint64Value": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "sint64_value",
+                "format": "int64",
+                "description": "(proto sint64)"
+              },
+              "fixed32Value": {
+                "type": "integer",
+                "title": "fixed32_value",
+                "description": "(proto fixed32)"
+              },
+              "fixed64Value": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "fixed64_value",
+                "format": "int64",
+                "description": "(proto fixed64)"
+              },
+              "sfixed32Value": {
+                "type": "integer",
+                "title": "sfixed32_value",
+                "format": "int32",
+                "description": "(proto sfixed32)"
+              },
+              "sfixed64Value": {
+                "type": [
+                  "integer",
+                  "string"
+                ],
+                "title": "sfixed64_value",
+                "format": "int64",
+                "description": "(proto sfixed64)"
+              },
+              "boolValue": {
+                "type": "boolean",
+                "title": "bool_value",
+                "description": "(proto bool)"
+              },
+              "stringValue": {
+                "type": "string",
+                "title": "string_value",
+                "description": "(proto string)"
+              },
+              "bytesValue": {
+                "type": "string",
+                "title": "bytes_value",
+                "format": "byte",
+                "description": "(proto bytes)"
+              },
+              "timestamp": {
+                "title": "timestamp",
+                "description": "scalar wrappers (proto google.protobuf.Timestamp)",
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              },
+              "duration": {
+                "title": "duration",
+                "description": "(proto google.protobuf.Duration)",
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              },
+              "boolValueWrapper": {
+                "title": "bool_value_wrapper",
+                "description": "(proto google.protobuf.BoolValue)",
+                "$ref": "#/components/schemas/google.protobuf.BoolValue"
+              },
+              "int32ValueWrapper": {
+                "title": "int32_value_wrapper",
+                "description": "(proto google.protobuf.Int32Value)",
+                "$ref": "#/components/schemas/google.protobuf.Int32Value"
+              },
+              "int64ValueWrapper": {
+                "title": "int64_value_wrapper",
+                "description": "(proto google.protobuf.Int64Value)",
+                "$ref": "#/components/schemas/google.protobuf.Int64Value"
+              },
+              "uint32ValueWrapper": {
+                "title": "uint32_value_wrapper",
+                "description": "(proto google.protobuf.UInt32Value)",
+                "$ref": "#/components/schemas/google.protobuf.UInt32Value"
+              },
+              "uint64ValueWrapper": {
+                "title": "uint64_value_wrapper",
+                "description": "(proto google.protobuf.UInt64Value)",
+                "$ref": "#/components/schemas/google.protobuf.UInt64Value"
+              },
+              "floatValueWrapper": {
+                "title": "float_value_wrapper",
+                "description": "(proto google.protobuf.FloatValue)",
+                "$ref": "#/components/schemas/google.protobuf.FloatValue"
+              },
+              "doubleValueWrapper": {
+                "title": "double_value_wrapper",
+                "description": "(proto google.protobuf.DoubleValue)",
+                "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+              },
+              "bytesValueWrapper": {
+                "title": "bytes_value_wrapper",
+                "description": "(proto google.protobuf.BytesValue)",
+                "$ref": "#/components/schemas/google.protobuf.BytesValue"
+              },
+              "stringValueWrapper": {
+                "title": "string_value_wrapper",
+                "description": "(proto google.protobuf.StringValue)",
+                "$ref": "#/components/schemas/google.protobuf.StringValue"
+              },
+              "fieldMask": {
+                "title": "field_mask",
+                "description": "(proto google.protobuf.FieldMask)",
+                "$ref": "#/components/schemas/google.protobuf.FieldMask"
+              },
+              "enumValue": {
+                "title": "enum_value",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+              },
+              "enumList": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+                },
+                "title": "enum_list",
+                "description": "complex types (proto with_proto_annotations.test.v1.ParameterValues.Enum)"
+              },
+              "doubleList": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "title": "double_list",
+                "description": "(proto double)"
+              },
+              "doubleValueList": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+                },
+                "title": "double_value_list",
+                "description": "(proto google.protobuf.DoubleValue)"
+              },
+              "nested": {
+                "title": "nested",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
+              },
+              "recursive": {
+                "title": "recursive",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues)",
+                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues"
+              },
+              "stringMap": {
+                "type": "object",
+                "title": "string_map",
+                "additionalProperties": {
+                  "type": "string",
+                  "title": "value",
+                  "description": "(proto string)"
+                },
+                "description": "unsupported (proto with_proto_annotations.test.v1.ParameterValues.StringMapEntry)"
+              },
+              "stringValueMap": {
+                "type": "object",
+                "title": "string_value_map",
+                "additionalProperties": {
+                  "title": "value",
+                  "description": "(proto google.protobuf.StringValue)",
+                  "$ref": "#/components/schemas/google.protobuf.StringValue"
+                },
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry)"
+              },
+              "enumMap": {
+                "type": "object",
+                "title": "enum_map",
+                "additionalProperties": {
+                  "title": "value",
+                  "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+                },
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.EnumMapEntry)"
+              },
+              "nestedMap": {
+                "type": "object",
+                "title": "nested_map",
+                "additionalProperties": {
+                  "title": "value",
+                  "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
+                },
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues.NestedMapEntry)"
+              },
+              "structValue": {
+                "title": "struct_value",
+                "description": "(proto google.protobuf.Struct)",
+                "$ref": "#/components/schemas/google.protobuf.Struct"
+              },
+              "value": {
+                "title": "value",
+                "description": "(proto google.protobuf.Value)",
+                "$ref": "#/components/schemas/google.protobuf.Value"
+              },
+              "recursiveList": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues"
+                },
+                "title": "recursive_list",
+                "description": "(proto with_proto_annotations.test.v1.ParameterValues)"
+              }
+            }
           },
           {
-            "type": "number"
+            "oneOf": [
+              {
+                "properties": {
+                  "oneofDoubleValue": {
+                    "type": "number",
+                    "title": "oneof_double_value",
+                    "format": "double",
+                    "description": "(proto double)"
+                  }
+                },
+                "title": "oneof_double_value",
+                "required": [
+                  "oneofDoubleValue"
+                ]
+              },
+              {
+                "properties": {
+                  "oneofDoubleValueWrapper": {
+                    "title": "oneof_double_value_wrapper",
+                    "description": "(proto google.protobuf.DoubleValue)",
+                    "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+                  }
+                },
+                "title": "oneof_double_value_wrapper",
+                "required": [
+                  "oneofDoubleValueWrapper"
+                ]
+              },
+              {
+                "properties": {
+                  "oneofEnumValue": {
+                    "title": "oneof_enum_value",
+                    "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
+                    "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+                  }
+                },
+                "title": "oneof_enum_value",
+                "required": [
+                  "oneofEnumValue"
+                ]
+              }
+            ]
           }
         ],
-        "description": "Wrapper message for `double`.\n\n The JSON representation for `DoubleValue` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+        "title": "ParameterValues",
+        "additionalProperties": false
+      },
+      "google.protobuf.Timestamp": {
+        "type": "string",
+        "examples": [
+          "2023-01-15T01:30:15.01Z",
+          "2024-12-25T12:00:00Z"
+        ],
+        "format": "date-time",
+        "description": "A Timestamp represents a point in time independent of any time zone or local\n calendar, encoded as a count of seconds and fractions of seconds at\n nanosecond resolution. The count is relative to an epoch at UTC midnight on\n January 1, 1970, in the proleptic Gregorian calendar which extends the\n Gregorian calendar backwards to year one.\n\n All minutes are 60 seconds long. Leap seconds are \"smeared\" so that no leap\n second table is needed for interpretation, using a [24-hour linear\n smear](https://developers.google.com/time/smear).\n\n The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By\n restricting to that range, we ensure that we can convert to and from [RFC\n 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.\n\n # Examples\n\n Example 1: Compute Timestamp from POSIX `time()`.\n\n     Timestamp timestamp;\n     timestamp.set_seconds(time(NULL));\n     timestamp.set_nanos(0);\n\n Example 2: Compute Timestamp from POSIX `gettimeofday()`.\n\n     struct timeval tv;\n     gettimeofday(\u0026tv, NULL);\n\n     Timestamp timestamp;\n     timestamp.set_seconds(tv.tv_sec);\n     timestamp.set_nanos(tv.tv_usec * 1000);\n\n Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.\n\n     FILETIME ft;\n     GetSystemTimeAsFileTime(\u0026ft);\n     UINT64 ticks = (((UINT64)ft.dwHighDateTime) \u003c\u003c 32) | ft.dwLowDateTime;\n\n     // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z\n     // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.\n     Timestamp timestamp;\n     timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));\n     timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));\n\n Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.\n\n     long millis = System.currentTimeMillis();\n\n     Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)\n         .setNanos((int) ((millis % 1000) * 1000000)).build();\n\n Example 5: Compute Timestamp from Java `Instant.now()`.\n\n     Instant now = Instant.now();\n\n     Timestamp timestamp =\n         Timestamp.newBuilder().setSeconds(now.getEpochSecond())\n             .setNanos(now.getNano()).build();\n\n Example 6: Compute Timestamp from current time in Python.\n\n     timestamp = Timestamp()\n     timestamp.GetCurrentTime()\n\n # JSON Mapping\n\n In JSON format, the Timestamp type is encoded as a string in the\n [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the\n format is \"{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z\"\n where {year} is always expressed using four digits while {month}, {day},\n {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional\n seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),\n are optional. The \"Z\" suffix indicates the timezone (\"UTC\"); the timezone\n is required. A proto3 JSON serializer should always use UTC (as indicated by\n \"Z\") when printing the Timestamp type and a proto3 JSON parser should be\n able to accept both UTC and other timezones (as indicated by an offset).\n\n For example, \"2017-01-15T01:30:15.01Z\" encodes 15.01 seconds past\n 01:30 UTC on January 15, 2017.\n\n In JavaScript, one can convert a Date object to this format using the\n standard\n [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)\n method. In Python, a standard `datetime.datetime` object can be converted\n to this format using\n [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with\n the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use\n the Joda Time's [`ISODateTimeFormat.dateTime()`](\n http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()\n ) to obtain a formatter capable of generating timestamps in this format."
       },
       "google.protobuf.Duration": {
         "type": "string",
         "format": "duration",
         "description": "A Duration represents a signed, fixed-length span of time represented\n as a count of seconds and fractions of seconds at nanosecond\n resolution. It is independent of any calendar and concepts like \"day\"\n or \"month\". It is related to Timestamp in that the difference between\n two Timestamp values is a Duration and it can be added or subtracted\n from a Timestamp. Range is approximately +-10,000 years.\n\n # Examples\n\n Example 1: Compute Duration from two Timestamps in pseudo code.\n\n     Timestamp start = ...;\n     Timestamp end = ...;\n     Duration duration = ...;\n\n     duration.seconds = end.seconds - start.seconds;\n     duration.nanos = end.nanos - start.nanos;\n\n     if (duration.seconds \u003c 0 \u0026\u0026 duration.nanos \u003e 0) {\n       duration.seconds += 1;\n       duration.nanos -= 1000000000;\n     } else if (duration.seconds \u003e 0 \u0026\u0026 duration.nanos \u003c 0) {\n       duration.seconds -= 1;\n       duration.nanos += 1000000000;\n     }\n\n Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.\n\n     Timestamp start = ...;\n     Duration duration = ...;\n     Timestamp end = ...;\n\n     end.seconds = start.seconds + duration.seconds;\n     end.nanos = start.nanos + duration.nanos;\n\n     if (end.nanos \u003c 0) {\n       end.seconds -= 1;\n       end.nanos += 1000000000;\n     } else if (end.nanos \u003e= 1000000000) {\n       end.seconds += 1;\n       end.nanos -= 1000000000;\n     }\n\n Example 3: Compute Duration from datetime.timedelta in Python.\n\n     td = datetime.timedelta(days=3, minutes=10)\n     duration = Duration()\n     duration.FromTimedelta(td)\n\n # JSON Mapping\n\n In JSON format, the Duration type is encoded as a string rather than an\n object, where the string ends in the suffix \"s\" (indicating seconds) and\n is preceded by the number of seconds, with nanoseconds expressed as\n fractional seconds. For example, 3 seconds with 0 nanoseconds should be\n encoded in JSON format as \"3s\", while 3 seconds and 1 nanosecond should\n be expressed in JSON format as \"3.000000001s\", and 3 seconds and 1\n microsecond should be expressed in JSON format as \"3.000001s\"."
       },
-      "google.protobuf.FieldMask": {
-        "type": "string",
-        "description": "`FieldMask` represents a set of symbolic field paths, for example:\n\n     paths: \"f.a\"\n     paths: \"f.b.d\"\n\n Here `f` represents a field in some root message, `a` and `b`\n fields in the message found in `f`, and `d` a field found in the\n message in `f.b`.\n\n Field masks are used to specify a subset of fields that should be\n returned by a get operation or modified by an update operation.\n Field masks also have a custom JSON encoding (see below).\n\n # Field Masks in Projections\n\n When used in the context of a projection, a response message or\n sub-message is filtered by the API to only contain those fields as\n specified in the mask. For example, if the mask in the previous\n example is applied to a response message as follows:\n\n     f {\n       a : 22\n       b {\n         d : 1\n         x : 2\n       }\n       y : 13\n     }\n     z: 8\n\n The result will not contain specific values for fields x,y and z\n (their value will be set to the default, and omitted in proto text\n output):\n\n\n     f {\n       a : 22\n       b {\n         d : 1\n       }\n     }\n\n A repeated field is not allowed except at the last position of a\n paths string.\n\n If a FieldMask object is not present in a get operation, the\n operation applies to all fields (as if a FieldMask of all fields\n had been specified).\n\n Note that a field mask does not necessarily apply to the\n top-level response message. In case of a REST get operation, the\n field mask applies directly to the response, but in case of a REST\n list operation, the mask instead applies to each individual message\n in the returned resource list. In case of a REST custom method,\n other definitions may be used. Where the mask applies will be\n clearly documented together with its declaration in the API.  In\n any case, the effect on the returned resource/resources is required\n behavior for APIs.\n\n # Field Masks in Update Operations\n\n A field mask in update operations specifies which fields of the\n targeted resource are going to be updated. The API is required\n to only change the values of the fields as specified in the mask\n and leave the others untouched. If a resource is passed in to\n describe the updated values, the API ignores the values of all\n fields not covered by the mask.\n\n If a repeated field is specified for an update operation, new values will\n be appended to the existing repeated field in the target resource. Note that\n a repeated field is only allowed in the last position of a `paths` string.\n\n If a sub-message is specified in the last position of the field mask for an\n update operation, then new value will be merged into the existing sub-message\n in the target resource.\n\n For example, given the target message:\n\n     f {\n       b {\n         d: 1\n         x: 2\n       }\n       c: [1]\n     }\n\n And an update message:\n\n     f {\n       b {\n         d: 10\n       }\n       c: [2]\n     }\n\n then if the field mask is:\n\n  paths: [\"f.b\", \"f.c\"]\n\n then the result will be:\n\n     f {\n       b {\n         d: 10\n         x: 2\n       }\n       c: [1, 2]\n     }\n\n An implementation may provide options to override this default behavior for\n repeated and message fields.\n\n In order to reset a field's value to the default, the field must\n be in the mask and set to the default value in the provided resource.\n Hence, in order to reset all fields of a resource, provide a default\n instance of the resource and set all fields in the mask, or do\n not provide a mask as described below.\n\n If a field mask is not present on update, the operation applies to\n all fields (as if a field mask of all fields has been specified).\n Note that in the presence of schema evolution, this may mean that\n fields the client does not know and has therefore not filled into\n the request will be reset to their default. If this is unwanted\n behavior, a specific service may require a client to always specify\n a field mask, producing an error if not.\n\n As with get operations, the location of the resource which\n describes the updated values in the request message depends on the\n operation kind. In any case, the effect of the field mask is\n required to be honored by the API.\n\n ## Considerations for HTTP REST\n\n The HTTP kind of an update operation which uses a field mask must\n be set to PATCH instead of PUT in order to satisfy HTTP semantics\n (PUT must only be used for full updates).\n\n # JSON Encoding of Field Masks\n\n In JSON, a field mask is encoded as a single string where paths are\n separated by a comma. Fields name in each path are converted\n to/from lower-camel naming conventions.\n\n As an example, consider the following message declarations:\n\n     message Profile {\n       User user = 1;\n       Photo photo = 2;\n     }\n     message User {\n       string display_name = 1;\n       string address = 2;\n     }\n\n In proto a field mask for `Profile` may look as such:\n\n     mask {\n       paths: \"user.display_name\"\n       paths: \"photo\"\n     }\n\n In JSON, the same mask is represented as below:\n\n     {\n       mask: \"user.displayName,photo\"\n     }\n\n # Field Masks and Oneof Fields\n\n Field masks treat fields in oneofs just as regular fields. Consider the\n following message:\n\n     message SampleMessage {\n       oneof test_oneof {\n         string name = 4;\n         SubMessage sub_message = 9;\n       }\n     }\n\n The field mask can be:\n\n     mask {\n       paths: \"name\"\n     }\n\n Or:\n\n     mask {\n       paths: \"sub_message\"\n     }\n\n Note that oneof type names (\"test_oneof\" in this case) cannot be used in\n paths.\n\n ## Field Mask Verification\n\n The implementation of any API method which has a FieldMask type field in the\n request should verify the included field paths, and return an\n `INVALID_ARGUMENT` error if any path is unmappable."
-      },
-      "google.protobuf.FloatValue": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          }
-        ],
-        "description": "Wrapper message for `float`.\n\n The JSON representation for `FloatValue` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      "google.protobuf.BoolValue": {
+        "type": "boolean",
+        "description": "Wrapper message for `bool`.\n\n The JSON representation for `BoolValue` is JSON `true` and `false`.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.Int32Value": {
         "type": "number",
@@ -95,59 +352,6 @@
           }
         ],
         "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
-      },
-      "google.protobuf.ListValue": {
-        "type": "object",
-        "properties": {
-          "values": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/google.protobuf.Value"
-            },
-            "title": "values",
-            "description": "Repeated field of dynamically typed values. (proto google.protobuf.Value)"
-          }
-        },
-        "title": "ListValue",
-        "additionalProperties": false,
-        "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array."
-      },
-      "google.protobuf.StringValue": {
-        "type": "string",
-        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
-      },
-      "google.protobuf.Struct": {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/google.protobuf.Value"
-        },
-        "description": "`Struct` represents a structured data value, consisting of fields\n which map to dynamically typed values. In some languages, `Struct`\n might be supported by a native representation. For example, in\n scripting languages like JS a struct is represented as an\n object. The details of that representation are described together\n with the proto support for the language.\n\n The JSON representation for `Struct` is JSON object."
-      },
-      "google.protobuf.Struct.FieldsEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "title": "value",
-            "description": "(proto google.protobuf.Value)",
-            "$ref": "#/components/schemas/google.protobuf.Value"
-          }
-        },
-        "title": "FieldsEntry",
-        "additionalProperties": false
-      },
-      "google.protobuf.Timestamp": {
-        "type": "string",
-        "examples": [
-          "2023-01-15T01:30:15.01Z",
-          "2024-12-25T12:00:00Z"
-        ],
-        "format": "date-time",
-        "description": "A Timestamp represents a point in time independent of any time zone or local\n calendar, encoded as a count of seconds and fractions of seconds at\n nanosecond resolution. The count is relative to an epoch at UTC midnight on\n January 1, 1970, in the proleptic Gregorian calendar which extends the\n Gregorian calendar backwards to year one.\n\n All minutes are 60 seconds long. Leap seconds are \"smeared\" so that no leap\n second table is needed for interpretation, using a [24-hour linear\n smear](https://developers.google.com/time/smear).\n\n The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By\n restricting to that range, we ensure that we can convert to and from [RFC\n 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.\n\n # Examples\n\n Example 1: Compute Timestamp from POSIX `time()`.\n\n     Timestamp timestamp;\n     timestamp.set_seconds(time(NULL));\n     timestamp.set_nanos(0);\n\n Example 2: Compute Timestamp from POSIX `gettimeofday()`.\n\n     struct timeval tv;\n     gettimeofday(\u0026tv, NULL);\n\n     Timestamp timestamp;\n     timestamp.set_seconds(tv.tv_sec);\n     timestamp.set_nanos(tv.tv_usec * 1000);\n\n Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.\n\n     FILETIME ft;\n     GetSystemTimeAsFileTime(\u0026ft);\n     UINT64 ticks = (((UINT64)ft.dwHighDateTime) \u003c\u003c 32) | ft.dwLowDateTime;\n\n     // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z\n     // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.\n     Timestamp timestamp;\n     timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));\n     timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));\n\n Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.\n\n     long millis = System.currentTimeMillis();\n\n     Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)\n         .setNanos((int) ((millis % 1000) * 1000000)).build();\n\n Example 5: Compute Timestamp from Java `Instant.now()`.\n\n     Instant now = Instant.now();\n\n     Timestamp timestamp =\n         Timestamp.newBuilder().setSeconds(now.getEpochSecond())\n             .setNanos(now.getNano()).build();\n\n Example 6: Compute Timestamp from current time in Python.\n\n     timestamp = Timestamp()\n     timestamp.GetCurrentTime()\n\n # JSON Mapping\n\n In JSON format, the Timestamp type is encoded as a string in the\n [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the\n format is \"{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z\"\n where {year} is always expressed using four digits while {month}, {day},\n {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional\n seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),\n are optional. The \"Z\" suffix indicates the timezone (\"UTC\"); the timezone\n is required. A proto3 JSON serializer should always use UTC (as indicated by\n \"Z\") when printing the Timestamp type and a proto3 JSON parser should be\n able to accept both UTC and other timezones (as indicated by an offset).\n\n For example, \"2017-01-15T01:30:15.01Z\" encodes 15.01 seconds past\n 01:30 UTC on January 15, 2017.\n\n In JavaScript, one can convert a Date object to this format using the\n standard\n [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)\n method. In Python, a standard `datetime.datetime` object can be converted\n to this format using\n [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with\n the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use\n the Joda Time's [`ISODateTimeFormat.dateTime()`](\n http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()\n ) to obtain a formatter capable of generating timestamps in this format."
       },
       "google.protobuf.UInt32Value": {
         "type": "object",
@@ -179,6 +383,173 @@
         "additionalProperties": false,
         "description": "Wrapper message for `uint64`.\n\n The JSON representation for `UInt64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
+      "google.protobuf.FloatValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "description": "Wrapper message for `float`.\n\n The JSON representation for `FloatValue` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.DoubleValue": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "description": "Wrapper message for `double`.\n\n The JSON representation for `DoubleValue` is JSON number.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.BytesValue": {
+        "type": "string",
+        "format": "binary",
+        "description": "Wrapper message for `bytes`.\n\n The JSON representation for `BytesValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.StringValue": {
+        "type": "string",
+        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.FieldMask": {
+        "type": "string",
+        "description": "`FieldMask` represents a set of symbolic field paths, for example:\n\n     paths: \"f.a\"\n     paths: \"f.b.d\"\n\n Here `f` represents a field in some root message, `a` and `b`\n fields in the message found in `f`, and `d` a field found in the\n message in `f.b`.\n\n Field masks are used to specify a subset of fields that should be\n returned by a get operation or modified by an update operation.\n Field masks also have a custom JSON encoding (see below).\n\n # Field Masks in Projections\n\n When used in the context of a projection, a response message or\n sub-message is filtered by the API to only contain those fields as\n specified in the mask. For example, if the mask in the previous\n example is applied to a response message as follows:\n\n     f {\n       a : 22\n       b {\n         d : 1\n         x : 2\n       }\n       y : 13\n     }\n     z: 8\n\n The result will not contain specific values for fields x,y and z\n (their value will be set to the default, and omitted in proto text\n output):\n\n\n     f {\n       a : 22\n       b {\n         d : 1\n       }\n     }\n\n A repeated field is not allowed except at the last position of a\n paths string.\n\n If a FieldMask object is not present in a get operation, the\n operation applies to all fields (as if a FieldMask of all fields\n had been specified).\n\n Note that a field mask does not necessarily apply to the\n top-level response message. In case of a REST get operation, the\n field mask applies directly to the response, but in case of a REST\n list operation, the mask instead applies to each individual message\n in the returned resource list. In case of a REST custom method,\n other definitions may be used. Where the mask applies will be\n clearly documented together with its declaration in the API.  In\n any case, the effect on the returned resource/resources is required\n behavior for APIs.\n\n # Field Masks in Update Operations\n\n A field mask in update operations specifies which fields of the\n targeted resource are going to be updated. The API is required\n to only change the values of the fields as specified in the mask\n and leave the others untouched. If a resource is passed in to\n describe the updated values, the API ignores the values of all\n fields not covered by the mask.\n\n If a repeated field is specified for an update operation, new values will\n be appended to the existing repeated field in the target resource. Note that\n a repeated field is only allowed in the last position of a `paths` string.\n\n If a sub-message is specified in the last position of the field mask for an\n update operation, then new value will be merged into the existing sub-message\n in the target resource.\n\n For example, given the target message:\n\n     f {\n       b {\n         d: 1\n         x: 2\n       }\n       c: [1]\n     }\n\n And an update message:\n\n     f {\n       b {\n         d: 10\n       }\n       c: [2]\n     }\n\n then if the field mask is:\n\n  paths: [\"f.b\", \"f.c\"]\n\n then the result will be:\n\n     f {\n       b {\n         d: 10\n         x: 2\n       }\n       c: [1, 2]\n     }\n\n An implementation may provide options to override this default behavior for\n repeated and message fields.\n\n In order to reset a field's value to the default, the field must\n be in the mask and set to the default value in the provided resource.\n Hence, in order to reset all fields of a resource, provide a default\n instance of the resource and set all fields in the mask, or do\n not provide a mask as described below.\n\n If a field mask is not present on update, the operation applies to\n all fields (as if a field mask of all fields has been specified).\n Note that in the presence of schema evolution, this may mean that\n fields the client does not know and has therefore not filled into\n the request will be reset to their default. If this is unwanted\n behavior, a specific service may require a client to always specify\n a field mask, producing an error if not.\n\n As with get operations, the location of the resource which\n describes the updated values in the request message depends on the\n operation kind. In any case, the effect of the field mask is\n required to be honored by the API.\n\n ## Considerations for HTTP REST\n\n The HTTP kind of an update operation which uses a field mask must\n be set to PATCH instead of PUT in order to satisfy HTTP semantics\n (PUT must only be used for full updates).\n\n # JSON Encoding of Field Masks\n\n In JSON, a field mask is encoded as a single string where paths are\n separated by a comma. Fields name in each path are converted\n to/from lower-camel naming conventions.\n\n As an example, consider the following message declarations:\n\n     message Profile {\n       User user = 1;\n       Photo photo = 2;\n     }\n     message User {\n       string display_name = 1;\n       string address = 2;\n     }\n\n In proto a field mask for `Profile` may look as such:\n\n     mask {\n       paths: \"user.display_name\"\n       paths: \"photo\"\n     }\n\n In JSON, the same mask is represented as below:\n\n     {\n       mask: \"user.displayName,photo\"\n     }\n\n # Field Masks and Oneof Fields\n\n Field masks treat fields in oneofs just as regular fields. Consider the\n following message:\n\n     message SampleMessage {\n       oneof test_oneof {\n         string name = 4;\n         SubMessage sub_message = 9;\n       }\n     }\n\n The field mask can be:\n\n     mask {\n       paths: \"name\"\n     }\n\n Or:\n\n     mask {\n       paths: \"sub_message\"\n     }\n\n Note that oneof type names (\"test_oneof\" in this case) cannot be used in\n paths.\n\n ## Field Mask Verification\n\n The implementation of any API method which has a FieldMask type field in the\n request should verify the included field paths, and return an\n `INVALID_ARGUMENT` error if any path is unmappable."
+      },
+      "with_proto_annotations.test.v1.ParameterValues.Enum": {
+        "type": "string",
+        "title": "Enum",
+        "enum": [
+          "ENUM_UNSPECIFIED",
+          "ENUM_VALUE"
+        ],
+        "description": "enum types"
+      },
+      "with_proto_annotations.test.v1.ParameterValues.Nested": {
+        "type": "object",
+        "properties": {
+          "doubleValue": {
+            "type": "number",
+            "title": "double_value",
+            "format": "double",
+            "description": "(proto double)"
+          },
+          "doubleValueWrapper": {
+            "title": "double_value_wrapper",
+            "description": "(proto google.protobuf.DoubleValue)",
+            "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+          },
+          "enumValue": {
+            "title": "enum_value",
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested.Enum)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested.Enum"
+          }
+        },
+        "title": "Nested",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.ParameterValues.Nested.Enum": {
+        "type": "string",
+        "title": "Enum",
+        "enum": [
+          "ENUM_UNSPECIFIED",
+          "ENUM_VALUE"
+        ]
+      },
+      "with_proto_annotations.test.v1.ParameterValues.StringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "StringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "title": "value",
+            "description": "(proto google.protobuf.StringValue)",
+            "$ref": "#/components/schemas/google.protobuf.StringValue"
+          }
+        },
+        "title": "StringValueMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.ParameterValues.EnumMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "title": "value",
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+          }
+        },
+        "title": "EnumMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.ParameterValues.NestedMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "title": "value",
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
+          }
+        },
+        "title": "NestedMapEntry",
+        "additionalProperties": false
+      },
+      "google.protobuf.Struct": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/google.protobuf.Value"
+        },
+        "description": "`Struct` represents a structured data value, consisting of fields\n which map to dynamically typed values. In some languages, `Struct`\n might be supported by a native representation. For example, in\n scripting languages like JS a struct is represented as an\n object. The details of that representation are described together\n with the proto support for the language.\n\n The JSON representation for `Struct` is JSON object."
+      },
+      "google.protobuf.Struct.FieldsEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "title": "value",
+            "description": "(proto google.protobuf.Value)",
+            "$ref": "#/components/schemas/google.protobuf.Value"
+          }
+        },
+        "title": "FieldsEntry",
+        "additionalProperties": false
+      },
       "google.protobuf.Value": {
         "oneOf": [
           {
@@ -202,6 +573,30 @@
           }
         ],
         "description": "`Value` represents a dynamically typed value which can be either\n null, a number, a string, a boolean, a recursive struct value, or a\n list of values. A producer of value is expected to set one of these\n variants. Absence of any variant indicates an error.\n\n The JSON representation for `Value` is JSON value."
+      },
+      "google.protobuf.NullValue": {
+        "type": "string",
+        "title": "NullValue",
+        "enum": [
+          "NULL_VALUE"
+        ],
+        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
+      },
+      "google.protobuf.ListValue": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Value"
+            },
+            "title": "values",
+            "description": "Repeated field of dynamically typed values. (proto google.protobuf.Value)"
+          }
+        },
+        "title": "ListValue",
+        "additionalProperties": false,
+        "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array."
       },
       "with_proto_annotations.test.v1.AllTypes": {
         "type": "object",
@@ -1182,108 +1577,120 @@
         "title": "AllTypes",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.AllTypes.BoolMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Int32ToStringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "boolean",
-            "title": "value",
-            "description": "(proto bool)"
-          }
-        },
-        "title": "BoolMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.BoolToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "boolean",
-            "title": "key",
-            "description": "(proto bool)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "BoolToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.BytesMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "format": "byte",
-            "description": "(proto bytes)"
-          }
-        },
-        "title": "BytesMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.DoubleMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "number",
-            "title": "value",
-            "format": "double",
-            "description": "(proto double)"
-          }
-        },
-        "title": "DoubleMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.EnumMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "title": "value",
-            "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)",
-            "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
-          }
-        },
-        "title": "EnumMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Fixed32MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
             "type": "integer",
+            "title": "key",
+            "format": "int32",
+            "description": "(proto int32)"
+          },
+          "value": {
+            "type": "string",
             "title": "value",
-            "description": "(proto fixed32)"
+            "description": "(proto string)"
           }
         },
-        "title": "Fixed32MapEntry",
+        "title": "Int32ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Int64ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto int64)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Int64ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Uint32ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "description": "(proto uint32)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Uint32ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Uint64ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto uint64)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Uint64ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Sint32ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "format": "int32",
+            "description": "(proto sint32)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Sint32ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Sint64ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto sint64)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Sint64ToStringMapEntry",
         "additionalProperties": false
       },
       "with_proto_annotations.test.v1.AllTypes.Fixed32ToStringMapEntry": {
@@ -1301,27 +1708,6 @@
           }
         },
         "title": "Fixed32ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Fixed64MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "value",
-            "format": "int64",
-            "description": "(proto fixed64)"
-          }
-        },
-        "title": "Fixed64MapEntry",
         "additionalProperties": false
       },
       "with_proto_annotations.test.v1.AllTypes.Fixed64ToStringMapEntry": {
@@ -1343,6 +1729,97 @@
           }
         },
         "title": "Fixed64ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Sfixed32ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "integer",
+            "title": "key",
+            "format": "int32",
+            "description": "(proto sfixed32)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Sfixed32ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Sfixed64ToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "key",
+            "format": "int64",
+            "description": "(proto sfixed64)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "Sfixed64ToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.BoolToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "boolean",
+            "title": "key",
+            "description": "(proto bool)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "BoolToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.StringToStringMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "(proto string)"
+          }
+        },
+        "title": "StringToStringMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.DoubleMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "number",
+            "title": "value",
+            "format": "double",
+            "description": "(proto double)"
+          }
+        },
+        "title": "DoubleMapEntry",
         "additionalProperties": false
       },
       "with_proto_annotations.test.v1.AllTypes.FloatMapEntry": {
@@ -1381,24 +1858,6 @@
         "title": "Int32MapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.AllTypes.Int32ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key",
-            "format": "int32",
-            "description": "(proto int32)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Int32ToStringMapEntry",
-        "additionalProperties": false
-      },
       "with_proto_annotations.test.v1.AllTypes.Int64MapEntry": {
         "type": "object",
         "properties": {
@@ -1420,234 +1879,6 @@
         "title": "Int64MapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.AllTypes.Int64ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "key",
-            "format": "int64",
-            "description": "(proto int64)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Int64ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.MsgMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "title": "value",
-            "description": "(proto with_proto_annotations.test.v1.AllTypes)",
-            "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
-          }
-        },
-        "title": "MsgMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sfixed32MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "integer",
-            "title": "value",
-            "format": "int32",
-            "description": "(proto sfixed32)"
-          }
-        },
-        "title": "Sfixed32MapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sfixed32ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key",
-            "format": "int32",
-            "description": "(proto sfixed32)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Sfixed32ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sfixed64MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "value",
-            "format": "int64",
-            "description": "(proto sfixed64)"
-          }
-        },
-        "title": "Sfixed64MapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sfixed64ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "key",
-            "format": "int64",
-            "description": "(proto sfixed64)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Sfixed64ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sint32MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "integer",
-            "title": "value",
-            "format": "int32",
-            "description": "(proto sint32)"
-          }
-        },
-        "title": "Sint32MapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sint32ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key",
-            "format": "int32",
-            "description": "(proto sint32)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Sint32ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sint64MapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "value",
-            "format": "int64",
-            "description": "(proto sint64)"
-          }
-        },
-        "title": "Sint64MapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Sint64ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "key",
-            "format": "int64",
-            "description": "(proto sint64)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Sint64ToStringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.StringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "StringMapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.StringToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key",
-            "description": "(proto string)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "StringToStringMapEntry",
-        "additionalProperties": false
-      },
       "with_proto_annotations.test.v1.AllTypes.Uint32MapEntry": {
         "type": "object",
         "properties": {
@@ -1663,23 +1894,6 @@
           }
         },
         "title": "Uint32MapEntry",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.AllTypes.Uint32ToStringMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key",
-            "description": "(proto uint32)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
-          }
-        },
-        "title": "Uint32ToStringMapEntry",
         "additionalProperties": false
       },
       "with_proto_annotations.test.v1.AllTypes.Uint64MapEntry": {
@@ -1703,342 +1917,46 @@
         "title": "Uint64MapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.AllTypes.Uint64ToStringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sint32MapEntry": {
         "type": "object",
         "properties": {
           "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "integer",
+            "title": "value",
+            "format": "int32",
+            "description": "(proto sint32)"
+          }
+        },
+        "title": "Sint32MapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Sint64MapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
             "type": [
               "integer",
               "string"
             ],
-            "title": "key",
+            "title": "value",
             "format": "int64",
-            "description": "(proto uint64)"
-          },
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "(proto string)"
+            "description": "(proto sint64)"
           }
         },
-        "title": "Uint64ToStringMapEntry",
+        "title": "Sint64MapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.ParameterValues": {
-        "type": "object",
-        "allOf": [
-          {
-            "properties": {
-              "doubleValue": {
-                "type": "number",
-                "title": "double_value",
-                "format": "double",
-                "description": "scalar types (proto double)"
-              },
-              "floatValue": {
-                "type": "number",
-                "title": "float_value",
-                "format": "float",
-                "description": "(proto float)"
-              },
-              "int32Value": {
-                "type": "integer",
-                "title": "int32_value",
-                "format": "int32",
-                "description": "(proto int32)"
-              },
-              "int64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
-                "title": "int64_value",
-                "format": "int64",
-                "description": "(proto int64)"
-              },
-              "uint32Value": {
-                "type": "integer",
-                "title": "uint32_value",
-                "description": "(proto uint32)"
-              },
-              "uint64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
-                "title": "uint64_value",
-                "format": "int64",
-                "description": "(proto uint64)"
-              },
-              "sint32Value": {
-                "type": "integer",
-                "title": "sint32_value",
-                "format": "int32",
-                "description": "(proto sint32)"
-              },
-              "sint64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
-                "title": "sint64_value",
-                "format": "int64",
-                "description": "(proto sint64)"
-              },
-              "fixed32Value": {
-                "type": "integer",
-                "title": "fixed32_value",
-                "description": "(proto fixed32)"
-              },
-              "fixed64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
-                "title": "fixed64_value",
-                "format": "int64",
-                "description": "(proto fixed64)"
-              },
-              "sfixed32Value": {
-                "type": "integer",
-                "title": "sfixed32_value",
-                "format": "int32",
-                "description": "(proto sfixed32)"
-              },
-              "sfixed64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
-                "title": "sfixed64_value",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              },
-              "boolValue": {
-                "type": "boolean",
-                "title": "bool_value",
-                "description": "(proto bool)"
-              },
-              "stringValue": {
-                "type": "string",
-                "title": "string_value",
-                "description": "(proto string)"
-              },
-              "bytesValue": {
-                "type": "string",
-                "title": "bytes_value",
-                "format": "byte",
-                "description": "(proto bytes)"
-              },
-              "timestamp": {
-                "title": "timestamp",
-                "description": "scalar wrappers (proto google.protobuf.Timestamp)",
-                "$ref": "#/components/schemas/google.protobuf.Timestamp"
-              },
-              "duration": {
-                "title": "duration",
-                "description": "(proto google.protobuf.Duration)",
-                "$ref": "#/components/schemas/google.protobuf.Duration"
-              },
-              "boolValueWrapper": {
-                "title": "bool_value_wrapper",
-                "description": "(proto google.protobuf.BoolValue)",
-                "$ref": "#/components/schemas/google.protobuf.BoolValue"
-              },
-              "int32ValueWrapper": {
-                "title": "int32_value_wrapper",
-                "description": "(proto google.protobuf.Int32Value)",
-                "$ref": "#/components/schemas/google.protobuf.Int32Value"
-              },
-              "int64ValueWrapper": {
-                "title": "int64_value_wrapper",
-                "description": "(proto google.protobuf.Int64Value)",
-                "$ref": "#/components/schemas/google.protobuf.Int64Value"
-              },
-              "uint32ValueWrapper": {
-                "title": "uint32_value_wrapper",
-                "description": "(proto google.protobuf.UInt32Value)",
-                "$ref": "#/components/schemas/google.protobuf.UInt32Value"
-              },
-              "uint64ValueWrapper": {
-                "title": "uint64_value_wrapper",
-                "description": "(proto google.protobuf.UInt64Value)",
-                "$ref": "#/components/schemas/google.protobuf.UInt64Value"
-              },
-              "floatValueWrapper": {
-                "title": "float_value_wrapper",
-                "description": "(proto google.protobuf.FloatValue)",
-                "$ref": "#/components/schemas/google.protobuf.FloatValue"
-              },
-              "doubleValueWrapper": {
-                "title": "double_value_wrapper",
-                "description": "(proto google.protobuf.DoubleValue)",
-                "$ref": "#/components/schemas/google.protobuf.DoubleValue"
-              },
-              "bytesValueWrapper": {
-                "title": "bytes_value_wrapper",
-                "description": "(proto google.protobuf.BytesValue)",
-                "$ref": "#/components/schemas/google.protobuf.BytesValue"
-              },
-              "stringValueWrapper": {
-                "title": "string_value_wrapper",
-                "description": "(proto google.protobuf.StringValue)",
-                "$ref": "#/components/schemas/google.protobuf.StringValue"
-              },
-              "fieldMask": {
-                "title": "field_mask",
-                "description": "(proto google.protobuf.FieldMask)",
-                "$ref": "#/components/schemas/google.protobuf.FieldMask"
-              },
-              "enumValue": {
-                "title": "enum_value",
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
-                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
-              },
-              "enumList": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
-                },
-                "title": "enum_list",
-                "description": "complex types (proto with_proto_annotations.test.v1.ParameterValues.Enum)"
-              },
-              "doubleList": {
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "format": "double"
-                },
-                "title": "double_list",
-                "description": "(proto double)"
-              },
-              "doubleValueList": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/google.protobuf.DoubleValue"
-                },
-                "title": "double_value_list",
-                "description": "(proto google.protobuf.DoubleValue)"
-              },
-              "nested": {
-                "title": "nested",
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
-                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
-              },
-              "recursive": {
-                "title": "recursive",
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues)",
-                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues"
-              },
-              "stringMap": {
-                "type": "object",
-                "title": "string_map",
-                "additionalProperties": {
-                  "type": "string",
-                  "title": "value",
-                  "description": "(proto string)"
-                },
-                "description": "unsupported (proto with_proto_annotations.test.v1.ParameterValues.StringMapEntry)"
-              },
-              "stringValueMap": {
-                "type": "object",
-                "title": "string_value_map",
-                "additionalProperties": {
-                  "title": "value",
-                  "description": "(proto google.protobuf.StringValue)",
-                  "$ref": "#/components/schemas/google.protobuf.StringValue"
-                },
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry)"
-              },
-              "enumMap": {
-                "type": "object",
-                "title": "enum_map",
-                "additionalProperties": {
-                  "title": "value",
-                  "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
-                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
-                },
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues.EnumMapEntry)"
-              },
-              "nestedMap": {
-                "type": "object",
-                "title": "nested_map",
-                "additionalProperties": {
-                  "title": "value",
-                  "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
-                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
-                },
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues.NestedMapEntry)"
-              },
-              "structValue": {
-                "title": "struct_value",
-                "description": "(proto google.protobuf.Struct)",
-                "$ref": "#/components/schemas/google.protobuf.Struct"
-              },
-              "value": {
-                "title": "value",
-                "description": "(proto google.protobuf.Value)",
-                "$ref": "#/components/schemas/google.protobuf.Value"
-              },
-              "recursiveList": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues"
-                },
-                "title": "recursive_list",
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues)"
-              }
-            }
-          },
-          {
-            "oneOf": [
-              {
-                "properties": {
-                  "oneofDoubleValue": {
-                    "type": "number",
-                    "title": "oneof_double_value",
-                    "format": "double",
-                    "description": "(proto double)"
-                  }
-                },
-                "title": "oneof_double_value",
-                "required": [
-                  "oneofDoubleValue"
-                ]
-              },
-              {
-                "properties": {
-                  "oneofDoubleValueWrapper": {
-                    "title": "oneof_double_value_wrapper",
-                    "description": "(proto google.protobuf.DoubleValue)",
-                    "$ref": "#/components/schemas/google.protobuf.DoubleValue"
-                  }
-                },
-                "title": "oneof_double_value_wrapper",
-                "required": [
-                  "oneofDoubleValueWrapper"
-                ]
-              },
-              {
-                "properties": {
-                  "oneofEnumValue": {
-                    "title": "oneof_enum_value",
-                    "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
-                    "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
-                  }
-                },
-                "title": "oneof_enum_value",
-                "required": [
-                  "oneofEnumValue"
-                ]
-              }
-            ]
-          }
-        ],
-        "title": "ParameterValues",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.ParameterValues.EnumMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Fixed32MapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -2047,38 +1965,15 @@
             "description": "(proto string)"
           },
           "value": {
+            "type": "integer",
             "title": "value",
-            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
-            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+            "description": "(proto fixed32)"
           }
         },
-        "title": "EnumMapEntry",
+        "title": "Fixed32MapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.ParameterValues.Nested": {
-        "type": "object",
-        "properties": {
-          "doubleValue": {
-            "type": "number",
-            "title": "double_value",
-            "format": "double",
-            "description": "(proto double)"
-          },
-          "doubleValueWrapper": {
-            "title": "double_value_wrapper",
-            "description": "(proto google.protobuf.DoubleValue)",
-            "$ref": "#/components/schemas/google.protobuf.DoubleValue"
-          },
-          "enumValue": {
-            "title": "enum_value",
-            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested.Enum)",
-            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested.Enum"
-          }
-        },
-        "title": "Nested",
-        "additionalProperties": false
-      },
-      "with_proto_annotations.test.v1.ParameterValues.NestedMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Fixed64MapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -2087,15 +1982,75 @@
             "description": "(proto string)"
           },
           "value": {
+            "type": [
+              "integer",
+              "string"
+            ],
             "title": "value",
-            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
-            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Nested"
+            "format": "int64",
+            "description": "(proto fixed64)"
           }
         },
-        "title": "NestedMapEntry",
+        "title": "Fixed64MapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.ParameterValues.StringMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.Sfixed32MapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "integer",
+            "title": "value",
+            "format": "int32",
+            "description": "(proto sfixed32)"
+          }
+        },
+        "title": "Sfixed32MapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Sfixed64MapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "value",
+            "format": "int64",
+            "description": "(proto sfixed64)"
+          }
+        },
+        "title": "Sfixed64MapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.BoolMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "boolean",
+            "title": "value",
+            "description": "(proto bool)"
+          }
+        },
+        "title": "BoolMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.StringMapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -2112,7 +2067,35 @@
         "title": "StringMapEntry",
         "additionalProperties": false
       },
-      "with_proto_annotations.test.v1.ParameterValues.StringValueMapEntry": {
+      "with_proto_annotations.test.v1.AllTypes.BytesMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "type": "string",
+            "title": "value",
+            "format": "byte",
+            "description": "(proto bytes)"
+          }
+        },
+        "title": "BytesMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.Enum": {
+        "type": "string",
+        "title": "Enum",
+        "enum": [
+          "ENUM_UNSPECIFIED",
+          "ENUM_ONE",
+          "ENUM_TWO"
+        ],
+        "description": "named types"
+      },
+      "with_proto_annotations.test.v1.AllTypes.MsgMapEntry": {
         "type": "object",
         "properties": {
           "key": {
@@ -2122,11 +2105,28 @@
           },
           "value": {
             "title": "value",
-            "description": "(proto google.protobuf.StringValue)",
-            "$ref": "#/components/schemas/google.protobuf.StringValue"
+            "description": "(proto with_proto_annotations.test.v1.AllTypes)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
           }
         },
-        "title": "StringValueMapEntry",
+        "title": "MsgMapEntry",
+        "additionalProperties": false
+      },
+      "with_proto_annotations.test.v1.AllTypes.EnumMapEntry": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "key",
+            "description": "(proto string)"
+          },
+          "value": {
+            "title": "value",
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
+          }
+        },
+        "title": "EnumMapEntry",
         "additionalProperties": false
       }
     }

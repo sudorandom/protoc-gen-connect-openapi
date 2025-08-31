@@ -6,24 +6,6 @@
   "paths": {},
   "components": {
     "schemas": {
-      "editions.Person.Employment": {
-        "type": "string",
-        "title": "Employment",
-        "enum": [
-          "EMPLOYMENT_UNSPECIFIED",
-          "EMPLOYMENT_FULLTIME",
-          "EMPLOYMENT_PARTTIME"
-        ]
-      },
-      "editions.Person.Pay_Type": {
-        "type": "string",
-        "title": "Pay_Type",
-        "enum": [
-          "PAY_TYPE_UNSPECIFIED",
-          "PAY_TYPE_SALARY",
-          "PAY_TYPE_HOURLY"
-        ]
-      },
       "editions.Person": {
         "type": "object",
         "properties": {
@@ -43,6 +25,24 @@
         },
         "title": "Person",
         "additionalProperties": false
+      },
+      "editions.Person.Employment": {
+        "type": "string",
+        "title": "Employment",
+        "enum": [
+          "EMPLOYMENT_UNSPECIFIED",
+          "EMPLOYMENT_FULLTIME",
+          "EMPLOYMENT_PARTTIME"
+        ]
+      },
+      "editions.Person.Pay_Type": {
+        "type": "string",
+        "title": "Pay_Type",
+        "enum": [
+          "PAY_TYPE_UNSPECIFIED",
+          "PAY_TYPE_SALARY",
+          "PAY_TYPE_HOURLY"
+        ]
       }
     }
   },

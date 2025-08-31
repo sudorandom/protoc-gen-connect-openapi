@@ -6,14 +6,6 @@
   "paths": {},
   "components": {
     "schemas": {
-      "json_name.Message.inline": {
-        "type": "string",
-        "title": "inline",
-        "enum": [
-          "FOO",
-          "BAR"
-        ]
-      },
       "json_name.Message": {
         "type": "object",
         "properties": {
@@ -31,6 +23,14 @@
         },
         "title": "Message",
         "additionalProperties": false
+      },
+      "json_name.Message.inline": {
+        "type": "string",
+        "title": "inline",
+        "enum": [
+          "FOO",
+          "BAR"
+        ]
       }
     }
   },

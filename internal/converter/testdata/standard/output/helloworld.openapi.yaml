@@ -132,16 +132,6 @@ paths:
                 $ref: '#/components/schemas/helloworld.HelloReply'
 components:
   schemas:
-    helloworld.HelloReply:
-      type: object
-      properties:
-        message:
-          type: string
-          title: message
-          description: message contains a textual reply message
-      title: HelloReply
-      additionalProperties: false
-      description: The response message containing the greetings
     helloworld.HelloRequest:
       type: object
       properties:
@@ -152,28 +142,16 @@ components:
       title: HelloRequest
       additionalProperties: false
       description: The request message containing the user's name.
-    encoding:
-      title: encoding
-      enum:
-        - proto
-        - json
-      description: Define which encoding or 'Message-Codec' to use
-    base64:
-      type: boolean
-      title: base64
-      description: Specifies if the message query param is base64 encoded, which may be required for binary data
-    compression:
-      title: compression
-      enum:
-        - identity
-        - gzip
-        - br
-      description: Which compression algorithm to use for this request
-    connect:
-      title: connect
-      enum:
-        - v1
-      description: Define the version of the Connect protocol
+    helloworld.HelloReply:
+      type: object
+      properties:
+        message:
+          type: string
+          title: message
+          description: message contains a textual reply message
+      title: HelloReply
+      additionalProperties: false
+      description: The response message containing the greetings
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -243,6 +221,28 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    encoding:
+      title: encoding
+      enum:
+        - proto
+        - json
+      description: Define which encoding or 'Message-Codec' to use
+    base64:
+      type: boolean
+      title: base64
+      description: Specifies if the message query param is base64 encoded, which may be required for binary data
+    compression:
+      title: compression
+      enum:
+        - identity
+        - gzip
+        - br
+      description: Which compression algorithm to use for this request
+    connect:
+      title: connect
+      enum:
+        - v1
+      description: Define the version of the Connect protocol
 security: []
 tags:
   - name: helloworld.Greeter

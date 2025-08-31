@@ -113,16 +113,14 @@ paths:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
-    google.protobuf.Empty:
+    proto_names.io.swagger.petstore.v2.MaskyRequest:
       type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
+      properties:
+        fields:
+          title: fields
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: MaskyRequest
+      additionalProperties: false
     google.protobuf.FieldMask:
       type: string
       description: |-
@@ -339,18 +337,6 @@ components:
           title: property_in_query_ok
       title: Foo2Request
       additionalProperties: false
-    proto_names.io.swagger.petstore.v2.Foo2Response:
-      type: object
-      title: Foo2Response
-      additionalProperties: false
-    proto_names.io.swagger.petstore.v2.MaskyRequest:
-      type: object
-      properties:
-        fields:
-          title: fields
-          $ref: '#/components/schemas/google.protobuf.FieldMask'
-      title: MaskyRequest
-      additionalProperties: false
     proto_names.io.swagger.petstore.v2.Something:
       type: object
       properties:
@@ -361,6 +347,10 @@ components:
           type: string
           title: property_in_query
       title: Something
+      additionalProperties: false
+    proto_names.io.swagger.petstore.v2.Foo2Response:
+      type: object
+      title: Foo2Response
       additionalProperties: false
     connect-protocol-version:
       type: number
@@ -431,6 +421,16 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
 security: []
 tags:
   - name: proto_names.io.swagger.petstore.v2.Foo

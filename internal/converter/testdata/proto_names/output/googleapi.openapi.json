@@ -183,9 +183,16 @@
   },
   "components": {
     "schemas": {
-      "google.protobuf.Empty": {
+      "proto_names.io.swagger.petstore.v2.MaskyRequest": {
         "type": "object",
-        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
+        "properties": {
+          "fields": {
+            "title": "fields",
+            "$ref": "#/components/schemas/google.protobuf.FieldMask"
+          }
+        },
+        "title": "MaskyRequest",
+        "additionalProperties": false
       },
       "google.protobuf.FieldMask": {
         "type": "string",
@@ -210,22 +217,6 @@
         "title": "Foo2Request",
         "additionalProperties": false
       },
-      "proto_names.io.swagger.petstore.v2.Foo2Response": {
-        "type": "object",
-        "title": "Foo2Response",
-        "additionalProperties": false
-      },
-      "proto_names.io.swagger.petstore.v2.MaskyRequest": {
-        "type": "object",
-        "properties": {
-          "fields": {
-            "title": "fields",
-            "$ref": "#/components/schemas/google.protobuf.FieldMask"
-          }
-        },
-        "title": "MaskyRequest",
-        "additionalProperties": false
-      },
       "proto_names.io.swagger.petstore.v2.Something": {
         "type": "object",
         "properties": {
@@ -239,6 +230,11 @@
           }
         },
         "title": "Something",
+        "additionalProperties": false
+      },
+      "proto_names.io.swagger.petstore.v2.Foo2Response": {
+        "type": "object",
+        "title": "Foo2Response",
         "additionalProperties": false
       },
       "connect-protocol-version": {
@@ -329,6 +325,10 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       }
     }
   },

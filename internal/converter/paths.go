@@ -12,7 +12,7 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, paths *v3.Paths) error {
+func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, doc *v3.Document) error {
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
@@ -27,11 +27,11 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			// Helper function to update or set path items
 			addPathItem := func(path string, newItem *v3.PathItem) {
 				path = util.MakePath(opts, path)
-				if existing, ok := paths.PathItems.Get(path); !ok {
-					paths.PathItems.Set(path, newItem)
+				if existing, ok := doc.Paths.PathItems.Get(path); !ok {
+					doc.Paths.PathItems.Set(path, newItem)
 				} else {
 					mergePathItems(existing, newItem)
-					paths.PathItems.Set(path, existing)
+					doc.Paths.PathItems.Set(path, existing)
 				}
 			}
 
@@ -46,6 +46,15 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 				path := "/" + string(service.FullName()) + "/" + string(method.Name())
 				addPathItem(path, methodToPathItem(opts, method, isGoogleHTTP))
 			}
+
+			addConnectSchemas(opts, doc.Components)
+
+			if methodHasGet(opts, method) {
+				addConnectGetSchemas(doc.Components)
+			}
+
+			AddMessageSchemas(opts, method.Input(), doc)
+			AddMessageSchemas(opts, method.Output(), doc)
 		}
 	}
 
@@ -219,7 +228,7 @@ func mergeResponse(existing, new *v3.Response) {
 	}
 }
 
-func methodToOperaton(opts options.Options, method protoreflect.MethodDescriptor, returnGet bool) *v3.Operation {
+func methodToOperation(opts options.Options, method protoreflect.MethodDescriptor, returnGet bool) *v3.Operation {
 	fd := method.ParentFile()
 	service := method.Parent().(protoreflect.ServiceDescriptor)
 	loc := fd.SourceLocations().ByDescriptor(method)
@@ -345,9 +354,9 @@ func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor
 	item := &v3.PathItem{}
 	if !isGoogleHTTP {
 		if hasGetSupport {
-			item.Get = methodToOperaton(opts, method, true)
+			item.Get = methodToOperation(opts, method, true)
 		}
-		item.Post = methodToOperaton(opts, method, false)
+		item.Post = methodToOperation(opts, method, false)
 	}
 	item = gnostic.PathItemWithMethodAnnotations(item, method)
 
