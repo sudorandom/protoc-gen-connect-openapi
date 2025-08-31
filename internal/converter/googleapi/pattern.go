@@ -89,7 +89,8 @@ func getWord(input []rune) string {
 		word = append(word, char)
 		if char == '}' {
 			if inBrackets {
-				break
+				inBrackets = false
+				continue
 			}
 		}
 	}
