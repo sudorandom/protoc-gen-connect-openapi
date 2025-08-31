@@ -192,13 +192,58 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	// Add named path parameters from glob patterns
 	for _, token := range tokens {
+		if token.Type == TokenLiteral && token.Value == "**" {
+			newParameter := &v3.Parameter{
+				Name:          "http_path",
+				In:            "path",
+				Required:      proto.Bool(true),
+				Description:   "The trailing part of the path.",
+				AllowReserved: true,
+				Schema:        base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+			}
+			op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
+		}
 		if token.Type == TokenVariable && strings.Contains(token.Value, "=") {
 			matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
 			if len(matches) == 3 {
+				if matches[2] == "**" {
+					paramName := matches[1]
+					field, _ := resolveField(md.Input(), paramName)
+					var newParameter *v3.Parameter
+					if field != nil {
+						fieldNamesInPath[string(field.FullName())] = struct{}{}
+						fieldNamesInPath[field.JSONName()] = struct{}{}
+						loc := fd.SourceLocations().ByDescriptor(field)
+						parameterSchema := schema.FieldToSchema(opts, nil, field)
+						// Path parameters must be primitives.
+						if slices.Contains(parameterSchema.Schema().Type, "object") || slices.Contains(parameterSchema.Schema().Type, "array") {
+							parameterSchema = base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}})
+						}
+						newParameter = &v3.Parameter{
+							Name:          paramName,
+							Required:      proto.Bool(true),
+							In:            "path",
+							Description:   util.FormatComments(loc),
+							AllowReserved: true,
+							Schema:        parameterSchema,
+						}
+					} else {
+						newParameter = &v3.Parameter{
+							Name:          paramName,
+							Required:      proto.Bool(true),
+							In:            "path",
+							Description:   "The trailing part of the path.",
+							AllowReserved: true,
+							Schema:        base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+						}
+					}
+					op.Parameters = mergeOrAppendParameter(op.Parameters, newParameter)
+					continue
+				}
 				// Store the original field name from the glob pattern to prevent it from appearing
 				// in both the path parameters and request body/query parameters
-				orignalName := matches[1]
-				fieldNamesInPath[orignalName] = struct{}{}
+				originalName := matches[1]
+				fieldNamesInPath[originalName] = struct{}{}
 				// Convert the path from the starred form to use named path parameters.
 				starredPath := matches[2]
 				parts := strings.Split(starredPath, "/")
@@ -262,7 +307,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Description: util.FormatComments(loc),
 				Content:     util.MakeMediaTypes(opts, bodySchema, false, false),
 			}
-			
+
 			// Add any unhandled fields in the request message as query parameters.
 			// This covers the case where body: "specific_field" is used, and any fields
 			// not in the path or body should become query parameters.
@@ -277,7 +322,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			coveredFields[string(field.FullName())] = struct{}{}
 			// If body is a nested path (a.b.c) also skip its JSON path
 			coveredFields[strings.Join(jsonPath, ".")] = struct{}{}
-			
+
 			newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
 			for _, newQueryParam := range newQueryParams {
 				op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
@@ -405,7 +450,11 @@ func partsToOpenAPIPath(tokens []Token) string {
 		case TokenColon:
 			b.WriteByte(':')
 		case TokenLiteral:
-			b.WriteString(token.Value)
+			if token.Value == "**" {
+				b.WriteString("{http_path}")
+			} else {
+				b.WriteString(token.Value)
+			}
 		case TokenIdent:
 			b.WriteString(token.Value)
 		case TokenVariable:
@@ -413,6 +462,12 @@ func partsToOpenAPIPath(tokens []Token) string {
 			if strings.Contains(token.Value, "=") {
 				matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
 				if len(matches) == 3 {
+					if matches[2] == "**" {
+						b.WriteString("{")
+						b.WriteString(matches[1])
+						b.WriteString("}")
+						continue
+					}
 					// Add the "name=" "name" value to the list of covered parameters.
 					// Convert the path from the starred form to use named path parameters.
 					starredPath := matches[2]

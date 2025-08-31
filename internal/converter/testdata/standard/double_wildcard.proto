@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package double_wildcard;
+
+import "google/api/annotations.proto";
+
+service Greeter {
+  rpc Greet(GreetRequest) returns (GreetResponse) {
+    option (google.api.http) = {
+      get: "/v1/greet/{name=**}"
+    };
+  }
+}
+
+message GreetRequest {
+  string name = 1;
+  string greeting = 2;
+}
+
+message GreetResponse {
+  string message = 1;
+}
