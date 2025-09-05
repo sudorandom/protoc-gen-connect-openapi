@@ -42,7 +42,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			}
 
 			// Default to ConnectRPC/gRPC path if no google.api annotations
-			if pathItems == nil || pathItems.Len() == 0 {
+			if !opts.OnlyGoogleapiHTTP && (pathItems == nil || pathItems.Len() == 0) {
 				path := "/" + string(service.FullName()) + "/" + string(method.Name())
 				addPathItem(path, methodToPathItem(opts, method, isGoogleHTTP))
 				addConnectSchemas(opts, doc.Components)
