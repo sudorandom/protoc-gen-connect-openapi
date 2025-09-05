@@ -49,6 +49,8 @@ type Options struct {
 	WithServiceDescriptions bool
 	// IgnoreGoogleapiHTTP set to true will cause service to always generate OpenAPI specs for connect endpoints, and ignore any google.api.http options.
 	IgnoreGoogleapiHTTP bool
+	// OnlyGoogleapiHTTP set to true will only generate OpenAPI specs for methods with explicit google.api.http annotations. Methods without google.api.http will be skipped.
+	OnlyGoogleapiHTTP bool
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []glob.Glob
 	// ShortServiceTags uses the short service name (Name()) instead of the full name (FullName()) for OpenAPI tags.
@@ -130,6 +132,8 @@ func FromString(s string) (Options, error) {
 			opts.WithServiceDescriptions = true
 		case param == "ignore-googleapi-http":
 			opts.IgnoreGoogleapiHTTP = true
+		case param == "only-googleapi-http":
+			opts.OnlyGoogleapiHTTP = true
 		case param == "short-service-tags":
 			opts.ShortServiceTags = true
 		case param == "short-operation-ids":

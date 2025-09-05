@@ -164,6 +164,14 @@ func WithIgnoreGoogleapiHTTP(ignoreGoogleapiHTTP bool) Option {
 	}
 }
 
+// WithOnlyGoogleapiHTTP tells the generator to only include methods with google.api.http options.
+func WithOnlyGoogleapiHTTP(onlyGoogleapiHTTP bool) Option {
+	return func(g *generator) error {
+		g.options.OnlyGoogleapiHTTP = onlyGoogleapiHTTP
+		return nil
+	}
+}
+
 // WithStreaming sets a file to use as a base for all OpenAPI files.
 func WithStreaming(streaming bool) Option {
 	return func(g *generator) error {
