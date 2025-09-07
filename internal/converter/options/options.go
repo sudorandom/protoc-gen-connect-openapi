@@ -162,9 +162,9 @@ func FromString(s string) (Options, error) {
 			opts.ShortOperationIds = true
 		case param == "with-google-error-detail":
 			opts.WithGoogleErrorDetail = true
-		case strings.HasPrefix(param, "plugins="):
+		case strings.HasPrefix(param, "features="):
 			opts.EnabledFeatures = make(map[Feature]bool)
-			for plugin := range strings.SplitSeq(param[8:], ";") {
+			for plugin := range strings.SplitSeq(param[9:], ";") {
 				plugin = strings.TrimSpace(plugin)
 				feature := Feature(plugin)
 				switch feature {

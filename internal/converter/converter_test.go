@@ -37,8 +37,8 @@ var scenarios = []Scenario{
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
-	{Name: "twirp", Options: "plugins=google.api.http;twirp;gnostic;protovalidate"},
-	{Name: "twirp_only", Options: "plugins=twirp"},
+	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
+	{Name: "twirp_only", Options: "features=twirp"},
 }
 
 type Scenario struct {
