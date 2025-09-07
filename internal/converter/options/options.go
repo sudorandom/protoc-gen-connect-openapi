@@ -97,6 +97,20 @@ func (opts Options) HasService(serviceName protoreflect.FullName) bool {
 	return false
 }
 
+func (opts *Options) EnableFeatures(features ...Feature) error {
+	enabledFeatures := make(map[Feature]bool)
+	for _, feature := range features {
+		switch feature {
+		case FeatureGoogleAPIHTTP, FeatureConnectRPC, FeatureTwirp, FeatureGnostic, FeatureProtovalidate:
+			enabledFeatures[feature] = true
+		default:
+			return fmt.Errorf("invalid feature: '%s'", feature)
+		}
+	}
+	opts.EnabledFeatures = enabledFeatures
+	return nil
+}
+
 func NewOptions() Options {
 	return Options{
 		Format: "yaml",
@@ -109,7 +123,7 @@ func NewOptions() Options {
 			FeatureGnostic:       true,
 			FeatureProtovalidate: true,
 		},
-		Logger: slog.New(slog.DiscardHandler), // discard logs by default
+		Logger: slog.New(slog.DiscardHandler), // discard logs by default,
 	}
 }
 
@@ -129,7 +143,7 @@ func FromString(s string) (Options, error) {
 	}
 
 	contentTypes := map[string]struct{}{}
-	for _, param := range strings.Split(s, ",") {
+	for param := range strings.SplitSeq(s, ",") {
 		switch {
 		case param == "":
 		case param == "debug":
@@ -163,16 +177,15 @@ func FromString(s string) (Options, error) {
 		case param == "with-google-error-detail":
 			opts.WithGoogleErrorDetail = true
 		case strings.HasPrefix(param, "features="):
-			opts.EnabledFeatures = make(map[Feature]bool)
+			allFeatures := []Feature{}
 			for feature := range strings.SplitSeq(param[9:], ";") {
 				feature = strings.TrimSpace(feature)
-				feature := Feature(feature)
-				switch feature {
-				case FeatureGoogleAPIHTTP, FeatureConnectRPC, FeatureTwirp, FeatureGnostic, FeatureProtovalidate:
-					opts.EnabledFeatures[feature] = true
-				default:
-					return opts, fmt.Errorf("invalid feature: '%s'", feature)
-				}
+				allFeatures = append(allFeatures, Feature(feature))
+			}
+
+			err := opts.EnableFeatures(allFeatures...)
+			if err != nil {
+				return opts, err
 			}
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
@@ -244,11 +257,19 @@ func FromString(s string) (Options, error) {
 		opts.ContentTypes = contentTypes
 	}
 	if opts.IgnoreGoogleapiHTTP {
+		opts.Logger.Debug("Ignoring google.api.http")
 		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = false
 	}
 	if opts.OnlyGoogleapiHTTP {
+		opts.Logger.Debug("Only google.api.http enabled")
 		opts.EnabledFeatures[FeatureConnectRPC] = false
 		opts.EnabledFeatures[FeatureTwirp] = false
+		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = true
+	}
+	opts.Logger.Debug("Enabled features before final check", "features", opts.EnabledFeatures)
+	hasProtocolFeature := opts.FeatureEnabled(FeatureConnectRPC) || opts.FeatureEnabled(FeatureGoogleAPIHTTP) || opts.FeatureEnabled(FeatureTwirp)
+	if !hasProtocolFeature {
+		return opts, errors.New("at least one protocol feature (connectrpc, google.api.http, or twirp) must be enabled")
 	}
 	return opts, nil
 }
