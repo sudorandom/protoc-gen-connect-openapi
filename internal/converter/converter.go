@@ -261,7 +261,9 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
-	gnostic.SpecWithFileAnnotations(opts, spec, fd)
+	if opts.FeatureEnabled(options.FeatureGnostic) {
+		gnostic.SpecWithFileAnnotations(opts, spec, fd)
+	}
 
 	components := &v3.Components{
 		Schemas:         orderedmap.New[string, *base.SchemaProxy](),

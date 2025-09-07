@@ -13,6 +13,16 @@ import (
 	"google.golang.org/protobuf/reflect/protoregistry"
 )
 
+type Feature string
+
+const (
+	FeatureGoogleAPIHTTP Feature = "google.api.http"
+	FeatureConnectRPC    Feature = "connectrpc"
+	FeatureTwirp         Feature = "twirp"
+	FeatureGnostic       Feature = "gnostic"
+	FeatureProtovalidate Feature = "protovalidate"
+)
+
 type Options struct {
 	// Format is either 'yaml' or 'json' and is the format of the output OpenAPI file(s).
 	Format string
@@ -59,6 +69,8 @@ type Options struct {
 	ShortOperationIds bool
 	// WithGoogleErrorDetail will add google error detail to the connect error response.
 	WithGoogleErrorDetail bool
+	// EnabledFeatures is a map of enabled features.
+	EnabledFeatures map[Feature]bool
 
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
@@ -69,12 +81,8 @@ type Options struct {
 	Logger *slog.Logger
 }
 
-func (opts Options) GoogleEnabled() bool {
-	return true
-}
-
-func (opts Options) ConnectEnabled() bool {
-	return !opts.OnlyGoogleapiHTTP
+func (opts Options) FeatureEnabled(feature Feature) bool {
+	return opts.EnabledFeatures[feature]
 }
 
 func (opts Options) HasService(serviceName protoreflect.FullName) bool {
@@ -94,6 +102,12 @@ func NewOptions() Options {
 		Format: "yaml",
 		ContentTypes: map[string]struct{}{
 			"json": {},
+		},
+		EnabledFeatures: map[Feature]bool{
+			FeatureConnectRPC:    true,
+			FeatureGoogleAPIHTTP: true,
+			FeatureGnostic:       true,
+			FeatureProtovalidate: true,
 		},
 		Logger: slog.New(slog.DiscardHandler), // discard logs by default
 	}
@@ -148,6 +162,18 @@ func FromString(s string) (Options, error) {
 			opts.ShortOperationIds = true
 		case param == "with-google-error-detail":
 			opts.WithGoogleErrorDetail = true
+		case strings.HasPrefix(param, "plugins="):
+			opts.EnabledFeatures = make(map[Feature]bool)
+			for plugin := range strings.SplitSeq(param[8:], ";") {
+				plugin = strings.TrimSpace(plugin)
+				feature := Feature(plugin)
+				switch feature {
+				case FeatureGoogleAPIHTTP, FeatureConnectRPC, FeatureTwirp, FeatureGnostic, FeatureProtovalidate:
+					opts.EnabledFeatures[feature] = true
+				default:
+					return opts, fmt.Errorf("invalid plugin: '%s'", plugin)
+				}
+			}
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)
@@ -216,6 +242,13 @@ func FromString(s string) (Options, error) {
 	}
 	if len(contentTypes) > 0 {
 		opts.ContentTypes = contentTypes
+	}
+	if opts.IgnoreGoogleapiHTTP {
+		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = false
+	}
+	if opts.OnlyGoogleapiHTTP {
+		opts.EnabledFeatures[FeatureConnectRPC] = false
+		opts.EnabledFeatures[FeatureTwirp] = false
 	}
 	return opts, nil
 }

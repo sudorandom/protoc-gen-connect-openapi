@@ -7,6 +7,7 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/twirp"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -28,7 +29,9 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 			// Helper function to update or set path items
 			addPathItem := func(path string, newItem *v3.PathItem) {
-				newItem = gnostic.PathItemWithMethodAnnotations(opts, newItem, method)
+				if opts.FeatureEnabled(options.FeatureGnostic) {
+					newItem = gnostic.PathItemWithMethodAnnotations(opts, newItem, method)
+				}
 				path = util.MakePath(opts, path)
 				if existing, ok := doc.Paths.PathItems.Get(path); !ok {
 					doc.Paths.PathItems.Set(path, newItem)
@@ -39,7 +42,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			}
 
 			var isGoogleHTTP bool
-			if opts.GoogleEnabled() {
+			if opts.FeatureEnabled(options.FeatureGoogleAPIHTTP) {
 				var pathItems *orderedmap.Map[string, *v3.PathItem]
 				pathItems, isGoogleHTTP = googleapi.MakePathItems(opts, method)
 
@@ -50,12 +53,19 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			}
 
 			// Default to ConnectRPC/gRPC path if no google.api annotations
-			if !isGoogleHTTP && opts.ConnectEnabled() {
+			if !isGoogleHTTP && opts.FeatureEnabled(options.FeatureConnectRPC) {
 				pathItems := connectrpc.MakePathItems(opts, service, method)
 				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
 					addPathItem(pair.Key(), pair.Value())
 				}
 				connectrpc.AddSchemas(opts, doc, method)
+			}
+
+			if opts.FeatureEnabled(options.FeatureTwirp) {
+				pathItems := twirp.MakePathItems(opts, service, method)
+				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
+					addPathItem(pair.Key(), pair.Value())
+				}
 			}
 		}
 	}

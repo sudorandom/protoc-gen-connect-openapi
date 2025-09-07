@@ -1,0 +1,128 @@
+openapi: 3.1.0
+info:
+  title: Twirp Haberdasher API
+  description: A simple Twirp Haberdasher API with various annotations.
+  version: 1.0.0
+paths:
+  /twirp/twirp.twirp_and_others.Haberdasher/MakeHat:
+    post:
+      tags:
+        - Hats
+        - twirp.twirp_and_others.Haberdasher
+      summary: Make a new hat
+      description: Creates a new hat with the specified size, color, and name.
+      operationId: twirp.twirp_and_others.Haberdasher.MakeHat
+      requestBody:
+        content:
+          json:
+            schema:
+              $ref: '#/components/schemas/twirp.twirp_and_others.Size'
+      responses:
+        "200":
+          description: OK
+          content:
+            json:
+              schema:
+                $ref: '#/components/schemas/twirp.twirp_and_others.Hat'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    enum:
+                      - canceled
+                      - unknown
+                      - invalid_argument
+                      - malformed
+                      - deadline_exceeded
+                      - not_found
+                      - bad_route
+                      - already_exists
+                      - permission_denied
+                      - unauthenticated
+                      - resource_exhausted
+                      - failed_precondition
+                      - aborted
+                      - out_of_range
+                      - unimplemented
+                      - internal
+                      - unavailable
+                      - dataloss
+                  msg:
+                    type: string
+  /v1/hats:
+    post:
+      tags:
+        - Hats
+        - twirp.twirp_and_others.Haberdasher
+      summary: Make a new hat
+      description: Creates a new hat with the specified size, color, and name.
+      operationId: twirp.twirp_and_others.Haberdasher.MakeHat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/twirp.twirp_and_others.Size'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/twirp.twirp_and_others.Hat'
+components:
+  schemas:
+    twirp.twirp_and_others.Hat:
+      type: object
+      properties:
+        size:
+          type: integer
+          examples:
+            - "12"
+          title: size
+          maximum: 100
+          minimum: 1
+          format: int32
+          description: The size of the hat in inches.
+        color:
+          type: string
+          examples:
+            - red
+          title: color
+          maxLength: 20
+          minLength: 3
+          description: The color of the hat.
+        name:
+          type: string
+          examples:
+            - Fedora
+          title: name
+          maxLength: 50
+          minLength: 3
+          description: The name of the hat.
+      title: Hat Details
+      additionalProperties: false
+      description: Details of a newly created hat.
+    twirp.twirp_and_others.Size:
+      type: object
+      properties:
+        inches:
+          type: integer
+          examples:
+            - "12"
+          title: inches
+          maximum: 100
+          minimum: 1
+          format: int32
+          description: The size of the hat in inches (1-100).
+      title: Hat Size
+      additionalProperties: false
+      description: Defines the size of the hat in inches.
+security: []
+tags:
+  - name: twirp.twirp_and_others.Haberdasher

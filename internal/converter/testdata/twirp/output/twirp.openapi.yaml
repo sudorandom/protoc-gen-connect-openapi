@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  title: twirp
+paths:
+  /twirp/twirp.Haberdasher/MakeHat:
+    post:
+      tags:
+        - twirp.Haberdasher
+      operationId: twirp.Haberdasher.MakeHat
+      requestBody:
+        content:
+          json:
+            schema:
+              $ref: '#/components/schemas/twirp.Size'
+      responses:
+        "200":
+          description: OK
+          content:
+            json:
+              schema:
+                $ref: '#/components/schemas/twirp.Hat'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    enum:
+                      - canceled
+                      - unknown
+                      - invalid_argument
+                      - malformed
+                      - deadline_exceeded
+                      - not_found
+                      - bad_route
+                      - already_exists
+                      - permission_denied
+                      - unauthenticated
+                      - resource_exhausted
+                      - failed_precondition
+                      - aborted
+                      - out_of_range
+                      - unimplemented
+                      - internal
+                      - unavailable
+                      - dataloss
+                  msg:
+                    type: string
+components:
+  schemas:
+    twirp.Hat:
+      type: object
+      properties:
+        size:
+          type: integer
+          title: size
+          format: int32
+        color:
+          type: string
+          title: color
+        name:
+          type: string
+          title: name
+      title: Hat
+      additionalProperties: false
+    twirp.Size:
+      type: object
+      properties:
+        inches:
+          type: integer
+          title: inches
+          format: int32
+      title: Size
+      additionalProperties: false
+security: []
+tags:
+  - name: twirp.Haberdasher
