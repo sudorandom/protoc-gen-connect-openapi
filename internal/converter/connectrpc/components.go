@@ -389,7 +389,7 @@ func addConnectGetSchemas(components *v3.Components) {
 		}))
 	}
 
-	if _, ok := components.Schemas.Get("bas64"); !ok {
+	if _, ok := components.Schemas.Get("base64"); !ok {
 		components.Schemas.Set("base64", base.CreateSchemaProxy(&base.Schema{
 			Title:       "base64",
 			Description: "Specifies if the message query param is base64 encoded, which may be required for binary data",
