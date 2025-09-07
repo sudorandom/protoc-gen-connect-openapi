@@ -1,6 +1,7 @@
 package options_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,7 +12,23 @@ import (
 
 func TestFromString(t *testing.T) {
 	t.Run("booleans", func(t *testing.T) {
-		opts, err := options.FromString("debug,include-number-enum-values,allow-get,with-streaming,with-proto-names,with-proto-annotations,trim-unused-types,fully-qualified-message-names,without-default-tags,with-service-descriptions,ignore-googleapi-http,short-service-tags,short-operation-ids,with-google-error-detail")
+		optionList := []string{
+			"debug",
+			"include-number-enum-values",
+			"allow-get",
+			"with-streaming",
+			"with-proto-names",
+			"with-proto-annotations",
+			"trim-unused-types",
+			"fully-qualified-message-names",
+			"without-default-tags",
+			"with-service-descriptions",
+			"ignore-googleapi-http",
+			"short-service-tags",
+			"short-operation-ids",
+			"with-google-error-detail",
+		}
+		opts, err := options.FromString(strings.Join(optionList, ","))
 		require.NoError(t, err)
 		assert.True(t, opts.Debug)
 		assert.True(t, opts.IncludeNumberEnumValues)
