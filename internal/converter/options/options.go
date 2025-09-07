@@ -13,6 +13,16 @@ import (
 	"google.golang.org/protobuf/reflect/protoregistry"
 )
 
+type Feature string
+
+const (
+	FeatureGoogleAPIHTTP Feature = "google.api.http"
+	FeatureConnectRPC    Feature = "connectrpc"
+	FeatureTwirp         Feature = "twirp"
+	FeatureGnostic       Feature = "gnostic"
+	FeatureProtovalidate Feature = "protovalidate"
+)
+
 type Options struct {
 	// Format is either 'yaml' or 'json' and is the format of the output OpenAPI file(s).
 	Format string
@@ -59,6 +69,8 @@ type Options struct {
 	ShortOperationIds bool
 	// WithGoogleErrorDetail will add google error detail to the connect error response.
 	WithGoogleErrorDetail bool
+	// EnabledFeatures is a map of enabled features.
+	EnabledFeatures map[Feature]bool
 
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
@@ -69,12 +81,8 @@ type Options struct {
 	Logger *slog.Logger
 }
 
-func (opts Options) GoogleEnabled() bool {
-	return true
-}
-
-func (opts Options) ConnectEnabled() bool {
-	return !opts.OnlyGoogleapiHTTP
+func (opts Options) FeatureEnabled(feature Feature) bool {
+	return opts.EnabledFeatures[feature]
 }
 
 func (opts Options) HasService(serviceName protoreflect.FullName) bool {
@@ -89,13 +97,33 @@ func (opts Options) HasService(serviceName protoreflect.FullName) bool {
 	return false
 }
 
+func (opts *Options) EnableFeatures(features ...Feature) error {
+	enabledFeatures := make(map[Feature]bool)
+	for _, feature := range features {
+		switch feature {
+		case FeatureGoogleAPIHTTP, FeatureConnectRPC, FeatureTwirp, FeatureGnostic, FeatureProtovalidate:
+			enabledFeatures[feature] = true
+		default:
+			return fmt.Errorf("invalid feature: '%s'", feature)
+		}
+	}
+	opts.EnabledFeatures = enabledFeatures
+	return nil
+}
+
 func NewOptions() Options {
 	return Options{
 		Format: "yaml",
 		ContentTypes: map[string]struct{}{
 			"json": {},
 		},
-		Logger: slog.New(slog.DiscardHandler), // discard logs by default
+		EnabledFeatures: map[Feature]bool{
+			FeatureConnectRPC:    true,
+			FeatureGoogleAPIHTTP: true,
+			FeatureGnostic:       true,
+			FeatureProtovalidate: true,
+		},
+		Logger: slog.New(slog.DiscardHandler), // discard logs by default,
 	}
 }
 
@@ -115,7 +143,7 @@ func FromString(s string) (Options, error) {
 	}
 
 	contentTypes := map[string]struct{}{}
-	for _, param := range strings.Split(s, ",") {
+	for param := range strings.SplitSeq(s, ",") {
 		switch {
 		case param == "":
 		case param == "debug":
@@ -148,6 +176,17 @@ func FromString(s string) (Options, error) {
 			opts.ShortOperationIds = true
 		case param == "with-google-error-detail":
 			opts.WithGoogleErrorDetail = true
+		case strings.HasPrefix(param, "features="):
+			allFeatures := []Feature{}
+			for feature := range strings.SplitSeq(param[9:], ";") {
+				feature = strings.TrimSpace(feature)
+				allFeatures = append(allFeatures, Feature(feature))
+			}
+
+			err := opts.EnableFeatures(allFeatures...)
+			if err != nil {
+				return opts, err
+			}
 		case strings.HasPrefix(param, "content-types="):
 			for _, contentType := range strings.Split(param[14:], ";") {
 				contentType = strings.TrimSpace(contentType)
@@ -216,6 +255,21 @@ func FromString(s string) (Options, error) {
 	}
 	if len(contentTypes) > 0 {
 		opts.ContentTypes = contentTypes
+	}
+	if opts.IgnoreGoogleapiHTTP {
+		opts.Logger.Debug("Ignoring google.api.http")
+		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = false
+	}
+	if opts.OnlyGoogleapiHTTP {
+		opts.Logger.Debug("Only google.api.http enabled")
+		opts.EnabledFeatures[FeatureConnectRPC] = false
+		opts.EnabledFeatures[FeatureTwirp] = false
+		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = true
+	}
+	opts.Logger.Debug("Enabled features before final check", "features", opts.EnabledFeatures)
+	hasProtocolFeature := opts.FeatureEnabled(FeatureConnectRPC) || opts.FeatureEnabled(FeatureGoogleAPIHTTP) || opts.FeatureEnabled(FeatureTwirp)
+	if !hasProtocolFeature {
+		return opts, errors.New("at least one protocol feature (connectrpc, google.api.http, or twirp) must be enabled")
 	}
 	return opts, nil
 }

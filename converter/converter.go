@@ -280,3 +280,10 @@ func WithLogger(logger *slog.Logger) Option {
 		return nil
 	}
 }
+
+// WithFeatures sets the features that are enabled.
+func WithFeatures(features ...options.Feature) Option {
+	return func(g *generator) error {
+		return g.options.EnableFeatures(features...)
+	}
+}

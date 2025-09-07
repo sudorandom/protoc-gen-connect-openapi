@@ -261,7 +261,9 @@ func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
-	gnostic.SpecWithFileAnnotations(opts, spec, fd)
+	if opts.FeatureEnabled(options.FeatureGnostic) {
+		gnostic.SpecWithFileAnnotations(opts, spec, fd)
+	}
 
 	components := &v3.Components{
 		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
@@ -293,7 +295,7 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 
 	initializeDoc(opts, spec)
 	appendServiceDocs(opts, spec, fd)
-	initializeComponents(components)
+	initializeComponents(opts, components)
 	util.AppendComponents(spec, components)
 
 	if err := addPathItemsFromFile(opts, fd, spec); err != nil {
@@ -384,10 +386,10 @@ func initializeDoc(opts options.Options, doc *v3.Document) {
 	if doc.Components == nil {
 		doc.Components = &v3.Components{}
 	}
-	initializeComponents(doc.Components)
+	initializeComponents(opts, doc.Components)
 }
 
-func initializeComponents(components *v3.Components) {
+func initializeComponents(opts options.Options, components *v3.Components) {
 	if components.Schemas == nil {
 		components.Schemas = orderedmap.New[string, *base.SchemaProxy]()
 	}

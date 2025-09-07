@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package twirp;
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/twirp";
+
+service Haberdasher {
+  rpc MakeHat(Size) returns (Hat);
+}
+
+message Size {
+  int32 inches = 1;
+}
+
+message Hat {
+  int32 size = 1;
+  string color = 2;
+  string name = 3;
+}

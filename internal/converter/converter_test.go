@@ -37,6 +37,8 @@ var scenarios = []Scenario{
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
+	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
+	{Name: "twirp_only", Options: "features=twirp"},
 }
 
 type Scenario struct {
@@ -173,12 +175,8 @@ func TestConvert(t *testing.T) {
 			paths, err := filepath.Glob("testdata/" + scenario.Name + "/**.proto")
 			require.NoError(t, err)
 			for _, protofile := range paths {
-				protofile := protofile
-
 				formats := []string{"yaml", "json"}
-
 				for _, format := range formats {
-					format := format
 					t.Run(path.Base(protofile)+"→"+format, func(t *testing.T) {
 						spec := generateAndCheckResult(t, scenario.Options, format, protofile)
 						// Validate
@@ -231,6 +229,7 @@ paths:
             -H "Content-Type: application/json" \
             -d '{"email": "user@example.com"}'
 `
+
 		opts := options.Options{
 			Path:        "test.openapi.yaml",
 			Format:      "yaml",
