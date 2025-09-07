@@ -4,6 +4,27 @@
     "title": "path_prefixes"
   },
   "paths": {
+    "/testing/1234/.well-known/jwks.json": {
+      "get": {
+        "tags": [
+          "path_prefixes.Greeter"
+        ],
+        "summary": "Foo",
+        "operationId": "path_prefixes.Greeter.Foo",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/testing/1234/path_prefixes.Greeter/SayHello": {
       "post": {
         "tags": [
@@ -121,55 +142,10 @@
           }
         }
       }
-    },
-    "/testing/1234/.well-known/jwks.json": {
-      "get": {
-        "tags": [
-          "path_prefixes.Greeter"
-        ],
-        "summary": "Foo",
-        "operationId": "path_prefixes.Greeter.Foo",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/google.protobuf.Empty"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
-      "path_prefixes.HelloRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "name"
-          }
-        },
-        "title": "HelloRequest",
-        "additionalProperties": false,
-        "description": "The request message containing the user's name."
-      },
-      "path_prefixes.HelloReply": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "title": "message"
-          }
-        },
-        "title": "HelloReply",
-        "additionalProperties": false,
-        "description": "The response message containing the greetings"
-      },
       "connect-protocol-version": {
         "type": "number",
         "title": "Connect-Protocol-Version",
@@ -262,6 +238,30 @@
       "google.protobuf.Empty": {
         "type": "object",
         "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
+      },
+      "path_prefixes.HelloReply": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "HelloReply",
+        "additionalProperties": false,
+        "description": "The response message containing the greetings"
+      },
+      "path_prefixes.HelloRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "HelloRequest",
+        "additionalProperties": false,
+        "description": "The request message containing the user's name."
       }
     }
   },

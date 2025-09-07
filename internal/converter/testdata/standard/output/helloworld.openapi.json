@@ -213,40 +213,6 @@
   },
   "components": {
     "schemas": {
-      "helloworld.HelloRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "name",
-            "description": "name is your name"
-          }
-        },
-        "title": "HelloRequest",
-        "additionalProperties": false,
-        "description": "The request message containing the user's name."
-      },
-      "helloworld.HelloReply": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "title": "message",
-            "description": "message contains a textual reply message"
-          }
-        },
-        "title": "HelloReply",
-        "additionalProperties": false,
-        "description": "The response message containing the greetings"
-      },
-      "encoding": {
-        "title": "encoding",
-        "enum": [
-          "proto",
-          "json"
-        ],
-        "description": "Define which encoding or 'Message-Codec' to use"
-      },
       "base64": {
         "type": "boolean",
         "title": "base64",
@@ -356,6 +322,40 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "encoding": {
+        "title": "encoding",
+        "enum": [
+          "proto",
+          "json"
+        ],
+        "description": "Define which encoding or 'Message-Codec' to use"
+      },
+      "helloworld.HelloReply": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message",
+            "description": "message contains a textual reply message"
+          }
+        },
+        "title": "HelloReply",
+        "additionalProperties": false,
+        "description": "The response message containing the greetings"
+      },
+      "helloworld.HelloRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "name is your name"
+          }
+        },
+        "title": "HelloRequest",
+        "additionalProperties": false,
+        "description": "The request message containing the user's name."
       }
     }
   },

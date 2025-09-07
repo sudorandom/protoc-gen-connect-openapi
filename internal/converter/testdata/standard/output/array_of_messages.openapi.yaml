@@ -4,14 +4,6 @@ info:
 paths: {}
 components:
   schemas:
-    messages.Thing:
-      type: object
-      properties:
-        name:
-          type: string
-          title: name
-      title: Thing
-      additionalProperties: false
     messages.ArrayOfMessages:
       type: object
       properties:
@@ -24,5 +16,13 @@ components:
             $ref: '#/components/schemas/messages.Thing'
           title: things
       title: ArrayOfMessages
+      additionalProperties: false
+    messages.Thing:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+      title: Thing
       additionalProperties: false
 security: []

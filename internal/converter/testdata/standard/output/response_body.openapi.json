@@ -41,25 +41,6 @@
   },
   "components": {
     "schemas": {
-      "response_body.User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id"
-          },
-          "name": {
-            "type": "string",
-            "title": "name"
-          },
-          "email": {
-            "type": "string",
-            "title": "email"
-          }
-        },
-        "title": "User",
-        "additionalProperties": false
-      },
       "response_body.GetUserRequest": {
         "type": "object",
         "properties": {
@@ -80,6 +61,25 @@
           }
         },
         "title": "GetUserResponse",
+        "additionalProperties": false
+      },
+      "response_body.User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "email": {
+            "type": "string",
+            "title": "email"
+          }
+        },
+        "title": "User",
         "additionalProperties": false
       }
     }

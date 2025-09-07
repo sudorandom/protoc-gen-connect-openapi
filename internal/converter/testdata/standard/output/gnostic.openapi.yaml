@@ -183,53 +183,6 @@ paths:
                 $ref: '#/components/schemas/example_with_gnostic.HelloReply'
 components:
   schemas:
-    example_with_gnostic.HelloRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          examples:
-            - Example value
-          title: Custom title for a field
-          maxLength: 1000
-          minLength: 3
-          pattern: /^[a-z ,.'-]+$/i
-          additionalProperties: false
-          description: Custom description for a field
-          nullable: true
-          externalDocs:
-            description: example
-            url: https://example.com
-          deprecated: true
-        number:
-          exclusiveMaximum: 1000
-          exclusiveMinimum: 20
-          type: integer
-          examples:
-            - - 20
-              - 40
-              - 60
-          title: number
-          multipleOf: 20
-          format: int32
-      title: Custom title for a message
-      additionalProperties: false
-      description: Custom description for a message
-    example_with_gnostic.HelloReply:
-      type: object
-      properties:
-        message:
-          type: string
-          title: message
-      title: HelloReply
-      additionalProperties: false
-      description: The response message containing the greetings
-    encoding:
-      title: encoding
-      enum:
-        - proto
-        - json
-      description: Define which encoding or 'Message-Codec' to use
     base64:
       type: boolean
       title: base64
@@ -315,6 +268,53 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    encoding:
+      title: encoding
+      enum:
+        - proto
+        - json
+      description: Define which encoding or 'Message-Codec' to use
+    example_with_gnostic.HelloReply:
+      type: object
+      properties:
+        message:
+          type: string
+          title: message
+      title: HelloReply
+      additionalProperties: false
+      description: The response message containing the greetings
+    example_with_gnostic.HelloRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+            - Example value
+          title: Custom title for a field
+          maxLength: 1000
+          minLength: 3
+          pattern: /^[a-z ,.'-]+$/i
+          additionalProperties: false
+          description: Custom description for a field
+          nullable: true
+          externalDocs:
+            description: example
+            url: https://example.com
+          deprecated: true
+        number:
+          exclusiveMaximum: 1000
+          exclusiveMinimum: 20
+          type: integer
+          examples:
+            - - 20
+              - 40
+              - 60
+          title: number
+          multipleOf: 20
+          format: int32
+      title: Custom title for a message
+      additionalProperties: false
+      description: Custom description for a message
   parameters:
     filter_mask:
       name: X-TEST-HEADER

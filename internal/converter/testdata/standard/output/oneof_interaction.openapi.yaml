@@ -40,52 +40,6 @@ paths:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
-    standard.OneofInteractionMessage:
-      type: object
-      allOf:
-        - properties:
-            c:
-              type: string
-              title: c
-            d:
-              type: boolean
-              title: d
-            e:
-              type: string
-              title: e
-        - oneOf:
-            - properties:
-                a:
-                  type: string
-                  title: a
-              title: a
-              required:
-                - a
-            - properties:
-                b:
-                  type: integer
-                  title: b
-                  format: int32
-              title: b
-              required:
-                - b
-        - oneOf:
-            - required:
-                - c
-            - required:
-                - d
-      title: OneofInteractionMessage
-      additionalProperties: false
-    google.protobuf.Empty:
-      type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -155,6 +109,52 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
+    standard.OneofInteractionMessage:
+      type: object
+      allOf:
+        - properties:
+            c:
+              type: string
+              title: c
+            d:
+              type: boolean
+              title: d
+            e:
+              type: string
+              title: e
+        - oneOf:
+            - properties:
+                a:
+                  type: string
+                  title: a
+              title: a
+              required:
+                - a
+            - properties:
+                b:
+                  type: integer
+                  title: b
+                  format: int32
+              title: b
+              required:
+                - b
+        - oneOf:
+            - required:
+                - c
+            - required:
+                - d
+      title: OneofInteractionMessage
+      additionalProperties: false
 security: []
 tags:
   - name: standard.OneofInteractionService

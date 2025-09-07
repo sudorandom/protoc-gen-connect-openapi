@@ -302,18 +302,18 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	spec.Tags = append(spec.Tags, fileToTags(opts, fd)...)
 
 	// Sort
-	orderedmap.SortAlpha(spec.Paths.PathItems)
-	orderedmap.SortAlpha(spec.Components.Schemas)
-	orderedmap.SortAlpha(spec.Components.Responses)
-	orderedmap.SortAlpha(spec.Components.Parameters)
-	orderedmap.SortAlpha(spec.Components.Examples)
-	orderedmap.SortAlpha(spec.Components.RequestBodies)
-	orderedmap.SortAlpha(spec.Components.Headers)
-	orderedmap.SortAlpha(spec.Components.SecuritySchemes)
-	orderedmap.SortAlpha(spec.Components.Links)
-	orderedmap.SortAlpha(spec.Components.Callbacks)
-	orderedmap.SortAlpha(spec.Components.PathItems)
-	orderedmap.SortAlpha(spec.Components.Extensions)
+	spec.Paths.PathItems = orderedmap.SortAlpha(spec.Paths.PathItems)
+	spec.Components.Schemas = orderedmap.SortAlpha(spec.Components.Schemas)
+	spec.Components.Responses = orderedmap.SortAlpha(spec.Components.Responses)
+	spec.Components.Parameters = orderedmap.SortAlpha(spec.Components.Parameters)
+	spec.Components.Examples = orderedmap.SortAlpha(spec.Components.Examples)
+	spec.Components.RequestBodies = orderedmap.SortAlpha(spec.Components.RequestBodies)
+	spec.Components.Headers = orderedmap.SortAlpha(spec.Components.Headers)
+	spec.Components.SecuritySchemes = orderedmap.SortAlpha(spec.Components.SecuritySchemes)
+	spec.Components.Links = orderedmap.SortAlpha(spec.Components.Links)
+	spec.Components.Callbacks = orderedmap.SortAlpha(spec.Components.Callbacks)
+	spec.Components.PathItems = orderedmap.SortAlpha(spec.Components.PathItems)
+	spec.Components.Extensions = orderedmap.SortAlpha(spec.Components.Extensions)
 
 	return nil
 }

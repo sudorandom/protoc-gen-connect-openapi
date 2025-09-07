@@ -5,6 +5,52 @@
     "description": "## body_field_with_query_params.BookService"
   },
   "paths": {
+    "/v1/authors": {
+      "post": {
+        "tags": [
+          "body_field_with_query_params.BookService"
+        ],
+        "summary": "CreateAuthor",
+        "description": "Test case for the coveredFields bug - nested message fields \n should not appear as query parameters when the parent message is in body",
+        "operationId": "body_field_with_query_params.BookService.CreateAuthor",
+        "parameters": [
+          {
+            "name": "authorId",
+            "in": "query",
+            "description": "This field should be a query parameter",
+            "schema": {
+              "type": "string",
+              "title": "author_id",
+              "description": "This field should be a query parameter"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "This field should be in the body based on the HTTP annotation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "author_profile",
+                "description": "This field should be in the body based on the HTTP annotation",
+                "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/body_field_with_query_params.Author"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/publishers/{publisher}/books": {
       "post": {
         "tags": [
@@ -58,119 +104,27 @@
           }
         }
       }
-    },
-    "/v1/authors": {
-      "post": {
-        "tags": [
-          "body_field_with_query_params.BookService"
-        ],
-        "summary": "CreateAuthor",
-        "description": "Test case for the coveredFields bug - nested message fields \n should not appear as query parameters when the parent message is in body",
-        "operationId": "body_field_with_query_params.BookService.CreateAuthor",
-        "parameters": [
-          {
-            "name": "authorId",
-            "in": "query",
-            "description": "This field should be a query parameter",
-            "schema": {
-              "type": "string",
-              "title": "author_id",
-              "description": "This field should be a query parameter"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "This field should be in the body based on the HTTP annotation",
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "author_profile",
-                "description": "This field should be in the body based on the HTTP annotation",
-                "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/body_field_with_query_params.Author"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
-      "body_field_with_query_params.CreateBookRequest": {
+      "body_field_with_query_params.Author": {
         "type": "object",
         "properties": {
-          "parent": {
-            "type": "string",
-            "title": "parent",
-            "description": "The publisher who will publish this book.\n When using HTTP/JSON, this field is automatically populated based\n on the URI, because of the `{parent=publishers/*}` syntax."
-          },
-          "book": {
-            "title": "book",
-            "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
-            "$ref": "#/components/schemas/body_field_with_query_params.Book"
-          },
-          "bookId": {
-            "type": "string",
-            "title": "book_id",
-            "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body."
-          }
-        },
-        "title": "CreateBookRequest",
-        "required": [
-          "parent",
-          "book"
-        ],
-        "additionalProperties": false
-      },
-      "body_field_with_query_params.Book": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "title"
-          },
-          "author": {
-            "type": "string",
-            "title": "author"
-          },
-          "isbn": {
-            "type": "string",
-            "title": "isbn"
-          }
-        },
-        "title": "Book",
-        "additionalProperties": false
-      },
-      "body_field_with_query_params.CreateAuthorRequest": {
-        "type": "object",
-        "properties": {
-          "authorProfile": {
-            "title": "author_profile",
-            "description": "This field should be in the body based on the HTTP annotation",
-            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
-          },
           "authorId": {
             "type": "string",
-            "title": "author_id",
-            "description": "This field should be a query parameter"
+            "title": "author_id"
+          },
+          "status": {
+            "type": "string",
+            "title": "status"
+          },
+          "profile": {
+            "title": "profile",
+            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
           }
         },
-        "title": "CreateAuthorRequest",
-        "required": [
-          "authorProfile"
-        ],
+        "title": "Author",
         "additionalProperties": false
       },
       "body_field_with_query_params.AuthorProfile": {
@@ -222,23 +176,69 @@
         "title": "Biography",
         "additionalProperties": false
       },
-      "body_field_with_query_params.Author": {
+      "body_field_with_query_params.Book": {
         "type": "object",
         "properties": {
-          "authorId": {
+          "title": {
             "type": "string",
-            "title": "author_id"
+            "title": "title"
           },
-          "status": {
+          "author": {
             "type": "string",
-            "title": "status"
+            "title": "author"
           },
-          "profile": {
-            "title": "profile",
-            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+          "isbn": {
+            "type": "string",
+            "title": "isbn"
           }
         },
-        "title": "Author",
+        "title": "Book",
+        "additionalProperties": false
+      },
+      "body_field_with_query_params.CreateAuthorRequest": {
+        "type": "object",
+        "properties": {
+          "authorProfile": {
+            "title": "author_profile",
+            "description": "This field should be in the body based on the HTTP annotation",
+            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+          },
+          "authorId": {
+            "type": "string",
+            "title": "author_id",
+            "description": "This field should be a query parameter"
+          }
+        },
+        "title": "CreateAuthorRequest",
+        "required": [
+          "authorProfile"
+        ],
+        "additionalProperties": false
+      },
+      "body_field_with_query_params.CreateBookRequest": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "string",
+            "title": "parent",
+            "description": "The publisher who will publish this book.\n When using HTTP/JSON, this field is automatically populated based\n on the URI, because of the `{parent=publishers/*}` syntax."
+          },
+          "book": {
+            "title": "book",
+            "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
+            "$ref": "#/components/schemas/body_field_with_query_params.Book"
+          },
+          "bookId": {
+            "type": "string",
+            "title": "book_id",
+            "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body."
+          }
+        },
+        "title": "CreateBookRequest",
+        "required": [
+          "parent",
+          "book"
+        ],
         "additionalProperties": false
       }
     }

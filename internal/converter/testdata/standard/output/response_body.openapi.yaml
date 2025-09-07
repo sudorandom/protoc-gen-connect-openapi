@@ -26,20 +26,6 @@ paths:
                 $ref: '#/components/schemas/response_body.User'
 components:
   schemas:
-    response_body.User:
-      type: object
-      properties:
-        id:
-          type: string
-          title: id
-        name:
-          type: string
-          title: name
-        email:
-          type: string
-          title: email
-      title: User
-      additionalProperties: false
     response_body.GetUserRequest:
       type: object
       properties:
@@ -55,6 +41,20 @@ components:
           title: user
           $ref: '#/components/schemas/response_body.User'
       title: GetUserResponse
+      additionalProperties: false
+    response_body.User:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+        name:
+          type: string
+          title: name
+        email:
+          type: string
+          title: email
+      title: User
       additionalProperties: false
 security: []
 tags:

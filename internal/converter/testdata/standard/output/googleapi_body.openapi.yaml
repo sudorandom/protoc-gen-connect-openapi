@@ -62,6 +62,10 @@ components:
           $ref: '#/components/schemas/googleapi_withbody.SomethingData'
       title: GetFooRequest
       additionalProperties: false
+    googleapi_withbody.GetFooResponse:
+      type: object
+      title: GetFooResponse
+      additionalProperties: false
     googleapi_withbody.SomethingData:
       type: object
       properties:
@@ -75,10 +79,6 @@ components:
           type: string
           title: prop3
       title: SomethingData
-      additionalProperties: false
-    googleapi_withbody.GetFooResponse:
-      type: object
-      title: GetFooResponse
       additionalProperties: false
 security: []
 tags:
