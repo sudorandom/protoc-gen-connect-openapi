@@ -1622,6 +1622,16 @@ components:
          the Joda Time's [`ISODateTimeFormat.dateTime()`](
          http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
          ) to obtain a formatter capable of generating timestamps in this format.
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -1691,16 +1701,6 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
-    google.protobuf.Empty:
-      type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
 security: []
 tags:
   - name: protovalidate.MessageFields

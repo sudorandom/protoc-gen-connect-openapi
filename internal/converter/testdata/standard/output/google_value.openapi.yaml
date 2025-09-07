@@ -189,6 +189,26 @@ components:
         `ListValue` is a wrapper around a repeated field of values.
 
          The JSON representation for `ListValue` is JSON array.
+    google.protobuf.StringValue:
+      type: string
+      description: |-
+        Wrapper message for `string`.
+
+         The JSON representation for `StringValue` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
+    google.protobuf.Int64Value:
+      oneOf:
+        - type: string
+        - type: number
+      description: |-
+        Wrapper message for `int64`.
+
+         The JSON representation for `Int64Value` is JSON string.
+
+         Not recommended for use in new APIs, but still useful for legacy APIs and
+         has no plan to be removed.
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -258,26 +278,6 @@ components:
           description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
       additionalProperties: true
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
-    google.protobuf.StringValue:
-      type: string
-      description: |-
-        Wrapper message for `string`.
-
-         The JSON representation for `StringValue` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
-    google.protobuf.Int64Value:
-      oneOf:
-        - type: string
-        - type: number
-      description: |-
-        Wrapper message for `int64`.
-
-         The JSON representation for `Int64Value` is JSON string.
-
-         Not recommended for use in new APIs, but still useful for legacy APIs and
-         has no plan to be removed.
     google.protobuf.Empty:
       type: object
       description: |-

@@ -66,6 +66,39 @@
   },
   "components": {
     "schemas": {
+      "has_unused_types.UsedRequest": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "title": "msg",
+            "$ref": "#/components/schemas/has_unused_types.UsedType"
+          }
+        },
+        "title": "UsedRequest",
+        "additionalProperties": false
+      },
+      "has_unused_types.UsedType": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "description"
+          }
+        },
+        "title": "UsedType",
+        "additionalProperties": false
+      },
+      "has_unused_types.UsedReply": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "title": "msg",
+            "$ref": "#/components/schemas/has_unused_types.UsedType"
+          }
+        },
+        "title": "UsedReply",
+        "additionalProperties": false
+      },
       "connect-protocol-version": {
         "type": "number",
         "title": "Connect-Protocol-Version",
@@ -154,39 +187,6 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
-      },
-      "has_unused_types.UsedRequest": {
-        "type": "object",
-        "properties": {
-          "msg": {
-            "title": "msg",
-            "$ref": "#/components/schemas/has_unused_types.UsedType"
-          }
-        },
-        "title": "UsedRequest",
-        "additionalProperties": false
-      },
-      "has_unused_types.UsedType": {
-        "type": "object",
-        "properties": {
-          "description": {
-            "type": "string",
-            "title": "description"
-          }
-        },
-        "title": "UsedType",
-        "additionalProperties": false
-      },
-      "has_unused_types.UsedReply": {
-        "type": "object",
-        "properties": {
-          "msg": {
-            "title": "msg",
-            "$ref": "#/components/schemas/has_unused_types.UsedType"
-          }
-        },
-        "title": "UsedReply",
-        "additionalProperties": false
       }
     }
   },
