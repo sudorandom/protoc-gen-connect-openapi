@@ -176,9 +176,7 @@ func TestConvert(t *testing.T) {
 			require.NoError(t, err)
 			for _, protofile := range paths {
 				formats := []string{"yaml", "json"}
-
 				for _, format := range formats {
-					format := format
 					t.Run(path.Base(protofile)+"→"+format, func(t *testing.T) {
 						spec := generateAndCheckResult(t, scenario.Options, format, protofile)
 						// Validate

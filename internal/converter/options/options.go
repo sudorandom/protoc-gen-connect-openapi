@@ -164,14 +164,14 @@ func FromString(s string) (Options, error) {
 			opts.WithGoogleErrorDetail = true
 		case strings.HasPrefix(param, "features="):
 			opts.EnabledFeatures = make(map[Feature]bool)
-			for plugin := range strings.SplitSeq(param[9:], ";") {
-				plugin = strings.TrimSpace(plugin)
-				feature := Feature(plugin)
+			for feature := range strings.SplitSeq(param[9:], ";") {
+				feature = strings.TrimSpace(feature)
+				feature := Feature(feature)
 				switch feature {
 				case FeatureGoogleAPIHTTP, FeatureConnectRPC, FeatureTwirp, FeatureGnostic, FeatureProtovalidate:
 					opts.EnabledFeatures[feature] = true
 				default:
-					return opts, fmt.Errorf("invalid plugin: '%s'", plugin)
+					return opts, fmt.Errorf("invalid feature: '%s'", feature)
 				}
 			}
 		case strings.HasPrefix(param, "content-types="):
