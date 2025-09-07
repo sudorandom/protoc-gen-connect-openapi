@@ -20,8 +20,6 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-replace gopkg.in/yaml.v3 => go.yaml.in/yaml/v3 v3.0.4
-
 require (
 	cel.dev/expr v0.23.1 // indirect
 	connectrpc.com/connect v1.18.1 // indirect
@@ -36,7 +34,6 @@ require (
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.1 // indirect
 	github.com/speakeasy-api/jsonpath v0.6.2 // indirect
 	github.com/stoewer/go-strcase v1.3.0 // indirect
-	go.yaml.in/yaml/v3 v3.0.3 // indirect
 	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8 // indirect
 	golang.org/x/text v0.28.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250804133106-a7a43d27e69b // indirect
