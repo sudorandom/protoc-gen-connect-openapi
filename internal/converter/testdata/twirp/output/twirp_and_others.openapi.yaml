@@ -29,31 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    enum:
-                      - canceled
-                      - unknown
-                      - invalid_argument
-                      - malformed
-                      - deadline_exceeded
-                      - not_found
-                      - bad_route
-                      - already_exists
-                      - permission_denied
-                      - unauthenticated
-                      - resource_exhausted
-                      - failed_precondition
-                      - aborted
-                      - out_of_range
-                      - unimplemented
-                      - internal
-                      - unavailable
-                      - dataloss
-                  msg:
-                    type: string
+                $ref: '#/components/schemas/TwirpError'
   /v1/hats:
     post:
       tags:
@@ -77,6 +53,32 @@ paths:
                 $ref: '#/components/schemas/twirp.twirp_and_others.Hat'
 components:
   schemas:
+    TwirpError:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+            - canceled
+            - unknown
+            - invalid_argument
+            - malformed
+            - deadline_exceeded
+            - not_found
+            - bad_route
+            - already_exists
+            - permission_denied
+            - unauthenticated
+            - resource_exhausted
+            - failed_precondition
+            - aborted
+            - out_of_range
+            - unimplemented
+            - internal
+            - unavailable
+            - dataloss
+        msg:
+          type: string
     twirp.twirp_and_others.Hat:
       type: object
       properties:

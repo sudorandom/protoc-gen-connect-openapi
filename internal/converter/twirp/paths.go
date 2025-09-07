@@ -62,38 +62,8 @@ func makeResponses(opts options.Options, message protoreflect.MessageDescriptor)
 	})
 	// Twirp errors are special. They are always JSON.
 	errorContent := orderedmap.New[string, *v3.MediaType]()
-	errorSchemaProperties := orderedmap.New[string, *base.SchemaProxy]()
-	errorSchemaProperties.Set("code", base.CreateSchemaProxy(&base.Schema{
-		Type: []string{"string"},
-		Enum: []*yaml.Node{
-			utils.CreateStringNode("canceled"),
-			utils.CreateStringNode("unknown"),
-			utils.CreateStringNode("invalid_argument"),
-			utils.CreateStringNode("malformed"),
-			utils.CreateStringNode("deadline_exceeded"),
-			utils.CreateStringNode("not_found"),
-			utils.CreateStringNode("bad_route"),
-			utils.CreateStringNode("already_exists"),
-			utils.CreateStringNode("permission_denied"),
-			utils.CreateStringNode("unauthenticated"),
-			utils.CreateStringNode("resource_exhausted"),
-			utils.CreateStringNode("failed_precondition"),
-			utils.CreateStringNode("aborted"),
-			utils.CreateStringNode("out_of_range"),
-			utils.CreateStringNode("unimplemented"),
-			utils.CreateStringNode("internal"),
-			utils.CreateStringNode("unavailable"),
-			utils.CreateStringNode("dataloss"),
-		},
-	}))
-	errorSchemaProperties.Set("msg", base.CreateSchemaProxy(&base.Schema{
-		Type: []string{"string"},
-	}))
 	errorContent.Set("application/json", &v3.MediaType{
-		Schema: base.CreateSchemaProxy(&base.Schema{
-			Type:       []string{"object"},
-			Properties: errorSchemaProperties,
-		}),
+		Schema: base.CreateSchemaProxyRef("#/components/schemas/TwirpError"),
 	})
 	codes.Set("default", &v3.Response{
 		Description: "Error",
@@ -101,5 +71,41 @@ func makeResponses(opts options.Options, message protoreflect.MessageDescriptor)
 	})
 	return &v3.Responses{
 		Codes: codes,
+	}
+}
+
+func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.MethodDescriptor) {
+	components := doc.Components
+	if _, ok := components.Schemas.Get("TwirpError"); !ok {
+		errorSchemaProperties := orderedmap.New[string, *base.SchemaProxy]()
+		errorSchemaProperties.Set("code", base.CreateSchemaProxy(&base.Schema{
+			Type: []string{"string"},
+			Enum: []*yaml.Node{
+				utils.CreateStringNode("canceled"),
+				utils.CreateStringNode("unknown"),
+				utils.CreateStringNode("invalid_argument"),
+				utils.CreateStringNode("malformed"),
+				utils.CreateStringNode("deadline_exceeded"),
+				utils.CreateStringNode("not_found"),
+				utils.CreateStringNode("bad_route"),
+				utils.CreateStringNode("already_exists"),
+				utils.CreateStringNode("permission_denied"),
+				utils.CreateStringNode("unauthenticated"),
+				utils.CreateStringNode("resource_exhausted"),
+				utils.CreateStringNode("failed_precondition"), utils.CreateStringNode("aborted"),
+				utils.CreateStringNode("out_of_range"),
+				utils.CreateStringNode("unimplemented"),
+				utils.CreateStringNode("internal"),
+				utils.CreateStringNode("unavailable"),
+				utils.CreateStringNode("dataloss"),
+			},
+		}))
+		errorSchemaProperties.Set("msg", base.CreateSchemaProxy(&base.Schema{
+			Type: []string{"string"},
+		}))
+		components.Schemas.Set("TwirpError", base.CreateSchemaProxy(&base.Schema{
+			Type:       []string{"object"},
+			Properties: errorSchemaProperties,
+		}))
 	}
 }

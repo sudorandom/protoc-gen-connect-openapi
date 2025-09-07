@@ -66,6 +66,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
 					addPathItem(pair.Key(), pair.Value())
 				}
+				twirp.AddSchemas(opts, doc, method)
 			}
 		}
 	}
