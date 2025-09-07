@@ -161,7 +161,7 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 [See the gnostic documentation page for more information](gnostic.md)
 
 ## Options
-| Feature                    | Values | Description                                                                                                                                                   |
+| Option                    | Values | Description                                                                                                                                                   |
 |----------------------------|---|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | allow-get                  | - | For methods that have `IdempotencyLevel=IDEMPOTENT`, this option will generate HTTP `GET` requests instead of `POST`.                                              |
 | base                       | `{filepath}` | The path to a base OpenAPI file to populate fields that this tool doesn't populate. This option does not work when used with the remote plugin.         |
