@@ -69,6 +69,14 @@ type Options struct {
 	Logger *slog.Logger
 }
 
+func (opts Options) GoogleEnabled() bool {
+	return true
+}
+
+func (opts Options) ConnectEnabled() bool {
+	return !opts.OnlyGoogleapiHTTP
+}
+
 func (opts Options) HasService(serviceName protoreflect.FullName) bool {
 	if len(opts.Services) == 0 {
 		return true

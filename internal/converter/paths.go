@@ -1,15 +1,14 @@
 package converter
 
 import (
-	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/connectrpc"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
-	"google.golang.org/protobuf/types/descriptorpb"
 )
 
 func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, doc *v3.Document) error {
@@ -22,10 +21,14 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 		methods := service.Methods()
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
-			pathItems, isGoogleHTTP := googleapi.MakePathItems(opts, method)
+
+			// No matter what, we add the schemas for the method input/output
+			AddMessageSchemas(opts, method.Input(), doc)
+			AddMessageSchemas(opts, method.Output(), doc)
 
 			// Helper function to update or set path items
 			addPathItem := func(path string, newItem *v3.PathItem) {
+				newItem = gnostic.PathItemWithMethodAnnotations(opts, newItem, method)
 				path = util.MakePath(opts, path)
 				if existing, ok := doc.Paths.PathItems.Get(path); !ok {
 					doc.Paths.PathItems.Set(path, newItem)
@@ -35,25 +38,25 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 				}
 			}
 
-			// Update path items from google.api annotations
-			for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-				item := gnostic.PathItemWithMethodAnnotations(opts, pair.Value(), method)
-				addPathItem(pair.Key(), item)
+			var isGoogleHTTP bool
+			if opts.GoogleEnabled() {
+				var pathItems *orderedmap.Map[string, *v3.PathItem]
+				pathItems, isGoogleHTTP = googleapi.MakePathItems(opts, method)
+
+				// Update path items from google.api annotations
+				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
+					addPathItem(pair.Key(), pair.Value())
+				}
 			}
 
 			// Default to ConnectRPC/gRPC path if no google.api annotations
-			if !opts.OnlyGoogleapiHTTP && (pathItems == nil || pathItems.Len() == 0) {
-				path := "/" + string(service.FullName()) + "/" + string(method.Name())
-				addPathItem(path, methodToPathItem(opts, method, isGoogleHTTP))
-				addConnectSchemas(opts, doc.Components)
+			if !isGoogleHTTP && opts.ConnectEnabled() {
+				pathItems := connectrpc.MakePathItems(opts, service, method)
+				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
+					addPathItem(pair.Key(), pair.Value())
+				}
+				connectrpc.AddSchemas(opts, doc, method)
 			}
-
-			if methodHasGet(opts, method) {
-				addConnectGetSchemas(doc.Components)
-			}
-
-			AddMessageSchemas(opts, method.Input(), doc)
-			AddMessageSchemas(opts, method.Output(), doc)
 		}
 	}
 
@@ -225,152 +228,4 @@ func mergeResponse(existing, new *v3.Response) {
 			existing.Extensions.Set(pair.Key(), pair.Value())
 		}
 	}
-}
-
-func methodToOperation(opts options.Options, method protoreflect.MethodDescriptor, returnGet bool) *v3.Operation {
-	fd := method.ParentFile()
-	service := method.Parent().(protoreflect.ServiceDescriptor)
-	loc := fd.SourceLocations().ByDescriptor(method)
-	tagName := string(service.FullName())
-	if opts.ShortServiceTags {
-		tagName = string(service.Name())
-	}
-
-	operationId := string(method.FullName())
-	if opts.ShortOperationIds {
-		operationId = string(service.Name()) + "_" + string(method.Name())
-	}
-
-	summary, description := util.FormatOperationComments(loc)
-	if summary == "" {
-		summary = string(method.Name())
-	}
-	op := &v3.Operation{
-		Summary:     summary,
-		OperationId: operationId,
-		Deprecated:  util.IsMethodDeprecated(method),
-		Tags:        []string{tagName},
-		Description: description,
-	}
-
-	isStreaming := method.IsStreamingClient() || method.IsStreamingServer()
-	if isStreaming && !opts.WithStreaming {
-		return nil
-	}
-
-	// Responses
-	codeMap := orderedmap.New[string, *v3.Response]()
-	outputId := util.FormatTypeRef(string(method.Output().FullName()))
-	codeMap.Set("200", &v3.Response{
-		Description: "Success",
-		Content: util.MakeMediaTypes(
-			opts,
-			base.CreateSchemaProxyRef("#/components/schemas/"+outputId),
-			false,
-			isStreaming,
-		),
-	})
-	op.Responses = &v3.Responses{
-		Codes: codeMap,
-	}
-
-	op.Responses.Default = &v3.Response{
-		Description: "Error",
-		Content: util.MakeMediaTypes(
-			opts,
-			base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
-			false,
-			isStreaming,
-		),
-	}
-	op.Parameters = append(op.Parameters,
-		&v3.Parameter{
-			Name:     "Connect-Protocol-Version",
-			In:       "header",
-			Required: util.BoolPtr(true),
-			Schema:   base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
-		},
-		&v3.Parameter{
-			Name:   "Connect-Timeout-Ms",
-			In:     "header",
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/connect-timeout-header"),
-		},
-	)
-
-	// Request parameters
-	inputId := util.FormatTypeRef(string(method.Input().FullName()))
-	if returnGet {
-		op.OperationId = op.OperationId + ".get"
-		op.Parameters = append(op.Parameters,
-			&v3.Parameter{
-				Name: "message",
-				In:   "query",
-				Content: util.MakeMediaTypes(
-					opts,
-					base.CreateSchemaProxyRef("#/components/schemas/"+util.FormatTypeRef(inputId)),
-					true,
-					isStreaming),
-			},
-			&v3.Parameter{
-				Name:     "encoding",
-				In:       "query",
-				Required: util.BoolPtr(true),
-				Schema:   base.CreateSchemaProxyRef("#/components/schemas/encoding"),
-			},
-			&v3.Parameter{
-				Name:   "base64",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/base64"),
-			},
-			&v3.Parameter{
-				Name:   "compression",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/compression"),
-			},
-			&v3.Parameter{
-				Name:   "connect",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/connect"),
-			},
-		)
-	} else {
-		op.RequestBody = &v3.RequestBody{
-			Content: util.MakeMediaTypes(
-				opts,
-				base.CreateSchemaProxyRef("#/components/schemas/"+inputId),
-				true,
-				isStreaming,
-			),
-			Required: util.BoolPtr(true),
-		}
-	}
-
-	return op
-}
-
-func methodToPathItem(opts options.Options, method protoreflect.MethodDescriptor, isGoogleHTTP bool) *v3.PathItem {
-	hasGetSupport := methodHasGet(opts, method)
-	item := &v3.PathItem{}
-	if !isGoogleHTTP {
-		if hasGetSupport {
-			item.Get = methodToOperation(opts, method, true)
-		}
-		item.Post = methodToOperation(opts, method, false)
-	}
-	item = gnostic.PathItemWithMethodAnnotations(opts, item, method)
-
-	return item
-}
-
-func methodHasGet(opts options.Options, method protoreflect.MethodDescriptor) bool {
-	if !opts.AllowGET {
-		return false
-	}
-
-	if method.IsStreamingClient() || method.IsStreamingServer() {
-		return false
-	}
-
-	options := method.Options().(*descriptorpb.MethodOptions)
-	return options.GetIdempotencyLevel() == descriptorpb.MethodOptions_NO_SIDE_EFFECTS
 }
