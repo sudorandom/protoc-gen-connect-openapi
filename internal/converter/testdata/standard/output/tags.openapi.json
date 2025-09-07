@@ -182,16 +182,6 @@
   },
   "components": {
     "schemas": {
-      "io.swagger.petstore.v2.FooRequest": {
-        "type": "object",
-        "title": "FooRequest",
-        "additionalProperties": false
-      },
-      "io.swagger.petstore.v2.FooResponse": {
-        "type": "object",
-        "title": "FooResponse",
-        "additionalProperties": false
-      },
       "connect-protocol-version": {
         "type": "number",
         "title": "Connect-Protocol-Version",
@@ -280,6 +270,16 @@
         },
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "io.swagger.petstore.v2.FooRequest": {
+        "type": "object",
+        "title": "FooRequest",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.FooResponse": {
+        "type": "object",
+        "title": "FooResponse",
+        "additionalProperties": false
       }
     }
   },

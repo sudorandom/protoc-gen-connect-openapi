@@ -16,42 +16,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
-  /v1/{property_in_path_ok}/{parentMsg.property_in_path}/foo:
-    get:
-      tags:
-        - io.swagger.petstore.v2.Foo
-      summary: Foo2
-      operationId: io.swagger.petstore.v2.Foo.Foo2
-      parameters:
-        - name: property_in_path_ok
-          in: path
-          required: true
-          schema:
-            type: string
-            title: property_in_path_ok
-        - name: parentMsg.property_in_path
-          in: path
-          required: true
-          schema:
-            type: string
-            title: property_in_path
-        - name: parentMsg.propertyInQuery
-          in: query
-          schema:
-            type: string
-            title: property_in_query
-        - name: propertyInQueryOk
-          in: query
-          schema:
-            type: string
-            title: property_in_query_ok
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/io.swagger.petstore.v2.Foo2Response'
   /io.swagger.petstore.v2.Foo/Masky:
     post:
       tags:
@@ -117,16 +81,123 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
+  /v1/{property_in_path_ok}/{parentMsg.property_in_path}/foo:
+    get:
+      tags:
+        - io.swagger.petstore.v2.Foo
+      summary: Foo2
+      operationId: io.swagger.petstore.v2.Foo.Foo2
+      parameters:
+        - name: property_in_path_ok
+          in: path
+          required: true
+          schema:
+            type: string
+            title: property_in_path_ok
+        - name: parentMsg.property_in_path
+          in: path
+          required: true
+          schema:
+            type: string
+            title: property_in_path
+        - name: parentMsg.propertyInQuery
+          in: query
+          schema:
+            type: string
+            title: property_in_query
+        - name: propertyInQueryOk
+          in: query
+          schema:
+            type: string
+            title: property_in_query_ok
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/io.swagger.petstore.v2.Foo2Response'
 components:
   schemas:
-    io.swagger.petstore.v2.MaskyRequest:
+    connect-protocol-version:
+      type: number
+      title: Connect-Protocol-Version
+      enum:
+        - 1
+      description: Define the version of the Connect protocol
+      const: 1
+    connect-timeout-header:
+      type: number
+      title: Connect-Timeout-Ms
+      description: Define the timeout, in ms
+    connect.error:
       type: object
       properties:
-        fields:
-          title: fields
-          $ref: '#/components/schemas/google.protobuf.FieldMask'
-      title: MaskyRequest
-      additionalProperties: false
+        code:
+          type: string
+          examples:
+            - not_found
+          enum:
+            - canceled
+            - unknown
+            - invalid_argument
+            - deadline_exceeded
+            - not_found
+            - already_exists
+            - permission_denied
+            - resource_exhausted
+            - failed_precondition
+            - aborted
+            - out_of_range
+            - unimplemented
+            - internal
+            - unavailable
+            - data_loss
+            - unauthenticated
+          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
+        message:
+          type: string
+          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/connect.error_details.Any'
+          description: A list of messages that carry the error details. There is no limit on the number of messages.
+      title: Connect Error
+      additionalProperties: true
+      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
+    connect.error_details.Any:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field.'
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          oneOf:
+            - type: object
+              title: Any
+              additionalProperties: true
+              description: Detailed error information.
+          discriminator:
+            propertyName: type
+          title: Debug
+          description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
     google.protobuf.FieldMask:
       type: string
       description: |-
@@ -343,6 +414,18 @@ components:
           title: property_in_query_ok
       title: Foo2Request
       additionalProperties: false
+    io.swagger.petstore.v2.Foo2Response:
+      type: object
+      title: Foo2Response
+      additionalProperties: false
+    io.swagger.petstore.v2.MaskyRequest:
+      type: object
+      properties:
+        fields:
+          title: fields
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+      title: MaskyRequest
+      additionalProperties: false
     io.swagger.petstore.v2.Something:
       type: object
       properties:
@@ -354,111 +437,6 @@ components:
           title: property_in_query
       title: Something
       additionalProperties: false
-    io.swagger.petstore.v2.Foo2Response:
-      type: object
-      title: Foo2Response
-      additionalProperties: false
-    encoding:
-      title: encoding
-      enum:
-        - proto
-        - json
-      description: Define which encoding or 'Message-Codec' to use
-    base64:
-      type: boolean
-      title: base64
-      description: Specifies if the message query param is base64 encoded, which may be required for binary data
-    compression:
-      title: compression
-      enum:
-        - identity
-        - gzip
-        - br
-      description: Which compression algorithm to use for this request
-    connect:
-      title: connect
-      enum:
-        - v1
-      description: Define the version of the Connect protocol
-    google.protobuf.Empty:
-      type: object
-      description: |-
-        A generic empty message that you can re-use to avoid defining duplicated
-         empty messages in your APIs. A typical example is to use it as the request
-         or the response type of an API method. For instance:
-
-             service Foo {
-               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-             }
-    connect-protocol-version:
-      type: number
-      title: Connect-Protocol-Version
-      enum:
-        - 1
-      description: Define the version of the Connect protocol
-      const: 1
-    connect-timeout-header:
-      type: number
-      title: Connect-Timeout-Ms
-      description: Define the timeout, in ms
-    connect.error:
-      type: object
-      properties:
-        code:
-          type: string
-          examples:
-            - not_found
-          enum:
-            - canceled
-            - unknown
-            - invalid_argument
-            - deadline_exceeded
-            - not_found
-            - already_exists
-            - permission_denied
-            - resource_exhausted
-            - failed_precondition
-            - aborted
-            - out_of_range
-            - unimplemented
-            - internal
-            - unavailable
-            - data_loss
-            - unauthenticated
-          description: The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].
-        message:
-          type: string
-          description: A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/connect.error_details.Any'
-          description: A list of messages that carry the error details. There is no limit on the number of messages.
-      title: Connect Error
-      additionalProperties: true
-      description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
-    connect.error_details.Any:
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field.'
-        value:
-          type: string
-          format: binary
-          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
-        debug:
-          oneOf:
-            - type: object
-              title: Any
-              additionalProperties: true
-              description: Detailed error information.
-          discriminator:
-            propertyName: type
-          title: Debug
-          description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
-      additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
 security: []
 tags:
   - name: io.swagger.petstore.v2.Foo

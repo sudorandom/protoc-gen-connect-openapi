@@ -40,42 +40,6 @@ paths:
                 $ref: '#/components/schemas/google.protobuf.Empty'
 components:
   schemas:
-    standard.OneofInteractionMessage:
-      type: object
-      allOf:
-        - properties:
-            c:
-              type: string
-              title: c
-            d:
-              type: boolean
-              title: d
-            e:
-              type: string
-              title: e
-        - oneOf:
-            - properties:
-                a:
-                  type: string
-                  title: a
-              title: a
-              required:
-                - a
-            - properties:
-                b:
-                  type: integer
-                  title: b
-                  format: int32
-              title: b
-              required:
-                - b
-        - oneOf:
-            - required:
-                - c
-            - required:
-                - d
-      title: OneofInteractionMessage
-      additionalProperties: false
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -155,6 +119,42 @@ components:
              service Foo {
                rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
              }
+    standard.OneofInteractionMessage:
+      type: object
+      allOf:
+        - properties:
+            c:
+              type: string
+              title: c
+            d:
+              type: boolean
+              title: d
+            e:
+              type: string
+              title: e
+        - oneOf:
+            - properties:
+                a:
+                  type: string
+                  title: a
+              title: a
+              required:
+                - a
+            - properties:
+                b:
+                  type: integer
+                  title: b
+                  format: int32
+              title: b
+              required:
+                - b
+        - oneOf:
+            - required:
+                - c
+            - required:
+                - d
+      title: OneofInteractionMessage
+      additionalProperties: false
 security: []
 tags:
   - name: standard.OneofInteractionService

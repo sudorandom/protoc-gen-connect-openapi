@@ -4,18 +4,6 @@ info:
 paths: {}
 components:
   schemas:
-    google_fieldmask.GetUserRequest:
-      type: object
-      properties:
-        fields:
-          title: fields
-          $ref: '#/components/schemas/google.protobuf.FieldMask'
-        id:
-          type: string
-          title: id
-      title: GetUserRequest
-      additionalProperties: false
-      description: 'Example of get user request:'
     google.protobuf.FieldMask:
       type: string
       description: |-
@@ -218,4 +206,16 @@ components:
          The implementation of any API method which has a FieldMask type field in the
          request should verify the included field paths, and return an
          `INVALID_ARGUMENT` error if any path is unmappable.
+    google_fieldmask.GetUserRequest:
+      type: object
+      properties:
+        fields:
+          title: fields
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
+        id:
+          type: string
+          title: id
+      title: GetUserRequest
+      additionalProperties: false
+      description: 'Example of get user request:'
 security: []

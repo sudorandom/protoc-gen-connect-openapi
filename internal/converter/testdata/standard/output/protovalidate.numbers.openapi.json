@@ -6,235 +6,6 @@
   "paths": {},
   "components": {
     "schemas": {
-      "buf.validate.conformance.cases.FloatNone": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatNone",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatConst": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float",
-            "const": "1.23"
-          }
-        },
-        "title": "FloatConst",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatNotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "not": {
-              "type": "number",
-              "enum": [
-                "0"
-              ]
-            },
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatNotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatLTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatLTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatGTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatGTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatGTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatGTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatFinite": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float",
-            "description": "float.finite = true\n"
-          }
-        },
-        "title": "FloatFinite",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatNotFinite": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float",
-            "description": "float.finite = false\n"
-          }
-        },
-        "title": "FloatNotFinite",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatIgnore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatIgnore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatIncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 0,
-            "type": "number",
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatIncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.FloatExample": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "examples": [
-              "8"
-            ],
-            "title": "val",
-            "format": "float"
-          }
-        },
-        "title": "FloatExample",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleNone": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "double"
-          }
-        },
-        "title": "DoubleNone",
-        "additionalProperties": false
-      },
       "buf.validate.conformance.cases.DoubleConst": {
         "type": "object",
         "properties": {
@@ -248,64 +19,60 @@
         "title": "DoubleConst",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.DoubleIn": {
+      "buf.validate.conformance.cases.DoubleExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
+            "format": "double"
+          }
+        },
+        "title": "DoubleExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.DoubleExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
+            "type": "number",
+            "title": "val",
+            "format": "double"
+          }
+        },
+        "title": "DoubleExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.DoubleExample": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "examples": [
+              "0"
+            ],
+            "title": "val",
+            "format": "double"
+          }
+        },
+        "title": "DoubleExample",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.DoubleFinite": {
         "type": "object",
         "properties": {
           "val": {
             "type": "number",
             "title": "val",
             "format": "double",
-            "enum": [
-              "4.56",
-              "7.89"
-            ]
+            "description": "double.finite = true\n"
           }
         },
-        "title": "DoubleIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleNotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "not": {
-              "type": "number",
-              "enum": [
-                "0"
-              ]
-            },
-            "title": "val",
-            "format": "double"
-          }
-        },
-        "title": "DoubleNotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "type": "number",
-            "title": "val",
-            "format": "double"
-          }
-        },
-        "title": "DoubleLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleLTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "maximum": 64,
-            "format": "double"
-          }
-        },
-        "title": "DoubleLTE",
+        "title": "DoubleFinite",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.DoubleGT": {
@@ -334,34 +101,6 @@
         "title": "DoubleGTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.DoubleGTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
-            "type": "number",
-            "title": "val",
-            "format": "double"
-          }
-        },
-        "title": "DoubleGTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": "number",
-            "title": "val",
-            "format": "double"
-          }
-        },
-        "title": "DoubleExLTGT",
-        "additionalProperties": false
-      },
       "buf.validate.conformance.cases.DoubleGTELTE": {
         "type": "object",
         "properties": {
@@ -376,44 +115,18 @@
         "title": "DoubleGTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.DoubleExGTELTE": {
+      "buf.validate.conformance.cases.DoubleGTLT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
             "type": "number",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
             "format": "double"
           }
         },
-        "title": "DoubleExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleFinite": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "double",
-            "description": "double.finite = true\n"
-          }
-        },
-        "title": "DoubleFinite",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.DoubleNotFinite": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "number",
-            "title": "val",
-            "format": "double",
-            "description": "double.finite = false\n"
-          }
-        },
-        "title": "DoubleNotFinite",
+        "title": "DoubleGTLT",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.DoubleIgnore": {
@@ -430,6 +143,22 @@
         "title": "DoubleIgnore",
         "additionalProperties": false
       },
+      "buf.validate.conformance.cases.DoubleIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "double",
+            "enum": [
+              "4.56",
+              "7.89"
+            ]
+          }
+        },
+        "title": "DoubleIn",
+        "additionalProperties": false
+      },
       "buf.validate.conformance.cases.DoubleIncorrectType": {
         "type": "object",
         "properties": {
@@ -442,31 +171,739 @@
         "title": "DoubleIncorrectType",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.DoubleExample": {
+      "buf.validate.conformance.cases.DoubleLT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 0,
             "type": "number",
-            "examples": [
-              "0"
-            ],
             "title": "val",
             "format": "double"
           }
         },
-        "title": "DoubleExample",
+        "title": "DoubleLT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32None": {
+      "buf.validate.conformance.cases.DoubleLTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "maximum": 64,
+            "format": "double"
+          }
+        },
+        "title": "DoubleLTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.DoubleNone": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "double"
+          }
+        },
+        "title": "DoubleNone",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.DoubleNotFinite": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "double",
+            "description": "double.finite = false\n"
+          }
+        },
+        "title": "DoubleNotFinite",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.DoubleNotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "not": {
+              "type": "number",
+              "enum": [
+                "0"
+              ]
+            },
+            "title": "val",
+            "format": "double"
+          }
+        },
+        "title": "DoubleNotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32Const": {
         "type": "object",
         "properties": {
           "val": {
             "type": "integer",
             "title": "val",
-            "format": "int32"
+            "const": "1"
           }
         },
-        "title": "Int32None",
+        "title": "Fixed32Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256
+          }
+        },
+        "title": "Fixed32ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "exclusiveMinimum": 10,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "Fixed32ExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32Example": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "examples": [
+              "0"
+            ],
+            "title": "val"
+          }
+        },
+        "title": "Fixed32Example",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32GT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 16,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "Fixed32GT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32GTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "minimum": 8
+          }
+        },
+        "title": "Fixed32GTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32GTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128
+          }
+        },
+        "title": "Fixed32GTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32GTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 5,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "Fixed32GTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32Ignore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128
+          }
+        },
+        "title": "Fixed32Ignore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "enum": [
+              "2",
+              "3"
+            ]
+          }
+        },
+        "title": "Fixed32In",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "Fixed32IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "Fixed32LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 64
+          }
+        },
+        "title": "Fixed32LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "Fixed32None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed32NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "not": {
+              "type": "integer",
+              "enum": [
+                "0"
+              ]
+            },
+            "title": "val"
+          }
+        },
+        "title": "Fixed32NotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64Const": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "const": "1"
+          }
+        },
+        "title": "Fixed64Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "exclusiveMinimum": 10,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64ExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64Example": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "examples": [
+              "0"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64Example",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64GT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 16,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64GT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64GTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "minimum": 8,
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64GTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64GTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64GTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64GTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 5,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64GTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64Ignore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64Ignore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "enum": [
+              "2",
+              "3"
+            ]
+          }
+        },
+        "title": "Fixed64In",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 64,
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Fixed64NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "not": {
+              "type": [
+                "integer",
+                "string"
+              ],
+              "enum": [
+                "0"
+              ]
+            },
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Fixed64NotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatConst": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float",
+            "const": "1.23"
+          }
+        },
+        "title": "FloatConst",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatExample": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "examples": [
+              "8"
+            ],
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatExample",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatFinite": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float",
+            "description": "float.finite = true\n"
+          }
+        },
+        "title": "FloatFinite",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatGTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatGTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatGTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatGTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatIgnore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatIgnore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatIncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatIncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatLTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatLTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatNone": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatNone",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatNotFinite": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "title": "val",
+            "format": "float",
+            "description": "float.finite = false\n"
+          }
+        },
+        "title": "FloatNotFinite",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.FloatNotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "number",
+            "not": {
+              "type": "number",
+              "enum": [
+                "0"
+              ]
+            },
+            "title": "val",
+            "format": "float"
+          }
+        },
+        "title": "FloatNotIn",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.Int32Const": {
@@ -482,64 +919,47 @@
         "title": "Int32Const",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32In": {
+      "buf.validate.conformance.cases.Int32ExGTELTE": {
         "type": "object",
         "properties": {
           "val": {
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "enum": [
-              2,
-              3
-            ]
-          }
-        },
-        "title": "Int32In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int32NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "not": {
-              "type": "integer",
-              "enum": [
-                0
-              ]
-            },
-            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
             "format": "int32"
           }
         },
-        "title": "Int32NotIn",
+        "title": "Int32ExGTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32LT": {
+      "buf.validate.conformance.cases.Int32ExLTGT": {
         "type": "object",
         "properties": {
           "val": {
             "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
             "type": "integer",
             "title": "val",
             "format": "int32"
           }
         },
-        "title": "Int32LT",
+        "title": "Int32ExLTGT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32LTE": {
+      "buf.validate.conformance.cases.Int32Example": {
         "type": "object",
         "properties": {
           "val": {
             "type": "integer",
+            "examples": [
+              10
+            ],
             "title": "val",
-            "maximum": 64,
             "format": "int32"
           }
         },
-        "title": "Int32LTE",
+        "title": "Int32Example",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.Int32GT": {
@@ -568,34 +988,6 @@
         "title": "Int32GTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "Int32GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int32ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "Int32ExLTGT",
-        "additionalProperties": false
-      },
       "buf.validate.conformance.cases.Int32GTELTE": {
         "type": "object",
         "properties": {
@@ -610,18 +1002,18 @@
         "title": "Int32GTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32ExGTELTE": {
+      "buf.validate.conformance.cases.Int32GTLT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
             "format": "int32"
           }
         },
-        "title": "Int32ExGTELTE",
+        "title": "Int32GTLT",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.Int32Ignore": {
@@ -638,6 +1030,22 @@
         "title": "Int32Ignore",
         "additionalProperties": false
       },
+      "buf.validate.conformance.cases.Int32In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32",
+            "enum": [
+              2,
+              3
+            ]
+          }
+        },
+        "title": "Int32In",
+        "additionalProperties": false
+      },
       "buf.validate.conformance.cases.Int32IncorrectType": {
         "type": "object",
         "properties": {
@@ -650,242 +1058,60 @@
         "title": "Int32IncorrectType",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int32Example": {
+      "buf.validate.conformance.cases.Int32LT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 0,
             "type": "integer",
-            "examples": [
-              10
-            ],
             "title": "val",
             "format": "int32"
           }
         },
-        "title": "Int32Example",
+        "title": "Int32LT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int64None": {
+      "buf.validate.conformance.cases.Int32LTE": {
         "type": "object",
         "properties": {
           "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "title": "val",
-            "format": "int64"
+            "maximum": 64,
+            "format": "int32"
           }
         },
-        "title": "Int64None",
+        "title": "Int32LTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int64Const": {
+      "buf.validate.conformance.cases.Int32None": {
         "type": "object",
         "properties": {
           "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "title": "val",
-            "format": "int64",
-            "const": 1
+            "format": "int32"
           }
         },
-        "title": "Int64Const",
+        "title": "Int32None",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int64In": {
+      "buf.validate.conformance.cases.Int32NotIn": {
         "type": "object",
         "properties": {
           "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64",
-            "enum": [
-              2,
-              3
-            ]
-          }
-        },
-        "title": "Int64In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "not": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "integer",
               "enum": [
                 0
               ]
             },
             "title": "val",
-            "format": "int64"
+            "format": "int32"
           }
         },
-        "title": "Int64NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Int64LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 64,
-            "format": "int64"
-          }
-        },
-        "title": "Int64LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64GT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 16,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Int64GT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64GTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "minimum": 8,
-            "format": "int64"
-          }
-        },
-        "title": "Int64GTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Int64GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Int64ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64GTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "Int64GTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
-          }
-        },
-        "title": "Int64ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Int64Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "Int64Ignore",
+        "title": "Int32NotIn",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.Int64BigConstraints": {
@@ -1016,7 +1242,7 @@
         "title": "Int64BigConstraints",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int64IncorrectType": {
+      "buf.validate.conformance.cases.Int64Const": {
         "type": "object",
         "properties": {
           "val": {
@@ -1025,10 +1251,45 @@
               "string"
             ],
             "title": "val",
+            "format": "int64",
+            "const": 1
+          }
+        },
+        "title": "Int64Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
             "format": "int64"
           }
         },
-        "title": "Int64IncorrectType",
+        "title": "Int64ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Int64ExLTGT",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.Int64Example": {
@@ -1049,306 +1310,7 @@
         "title": "Int64Example",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.UInt32None": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "UInt32None",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32Const": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "const": "1"
-          }
-        },
-        "title": "UInt32Const",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32In": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "enum": [
-              "2",
-              "3"
-            ]
-          }
-        },
-        "title": "UInt32In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "not": {
-              "type": "integer",
-              "enum": [
-                "0"
-              ]
-            },
-            "title": "val"
-          }
-        },
-        "title": "UInt32NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "UInt32LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 64
-          }
-        },
-        "title": "UInt32LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32GT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 16,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "UInt32GT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32GTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "minimum": 8
-          }
-        },
-        "title": "UInt32GTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 5,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "UInt32GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "exclusiveMinimum": 10,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "UInt32ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32GTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128
-          }
-        },
-        "title": "UInt32GTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256
-          }
-        },
-        "title": "UInt32ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128
-          }
-        },
-        "title": "UInt32Ignore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32IncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "UInt32IncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt32Example": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "examples": [
-              "0"
-            ],
-            "title": "val"
-          }
-        },
-        "title": "UInt32Example",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64None": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64None",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64Const": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64",
-            "const": "1"
-          }
-        },
-        "title": "UInt64Const",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64In": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64",
-            "enum": [
-              "2",
-              "3"
-            ]
-          }
-        },
-        "title": "UInt64In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "not": {
-              "type": [
-                "integer",
-                "string"
-              ],
-              "enum": [
-                "0"
-              ]
-            },
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 64,
-            "format": "int64"
-          }
-        },
-        "title": "UInt64LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64GT": {
+      "buf.validate.conformance.cases.Int64GT": {
         "type": "object",
         "properties": {
           "val": {
@@ -1361,10 +1323,10 @@
             "format": "int64"
           }
         },
-        "title": "UInt64GT",
+        "title": "Int64GT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.UInt64GTE": {
+      "buf.validate.conformance.cases.Int64GTE": {
         "type": "object",
         "properties": {
           "val": {
@@ -1377,44 +1339,10 @@
             "format": "int64"
           }
         },
-        "title": "UInt64GTE",
+        "title": "Int64GTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.UInt64GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 5,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64GTELTE": {
+      "buf.validate.conformance.cases.Int64GTELTE": {
         "type": "object",
         "properties": {
           "val": {
@@ -1428,288 +1356,15 @@
             "format": "int64"
           }
         },
-        "title": "UInt64GTELTE",
+        "title": "Int64GTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.UInt64ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
-          }
-        },
-        "title": "UInt64ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "UInt64Ignore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64IncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64IncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.UInt64Example": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "examples": [
-              "0"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "UInt64Example",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32None": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32None",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32Const": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "format": "int32",
-            "const": 1
-          }
-        },
-        "title": "SInt32Const",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32In": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "format": "int32",
-            "enum": [
-              2,
-              3
-            ]
-          }
-        },
-        "title": "SInt32In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "not": {
-              "type": "integer",
-              "enum": [
-                0
-              ]
-            },
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 64,
-            "format": "int32"
-          }
-        },
-        "title": "SInt32LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32GT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 16,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32GT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32GTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "minimum": 8,
-            "format": "int32"
-          }
-        },
-        "title": "SInt32GTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32GTLT": {
+      "buf.validate.conformance.cases.Int64GTLT": {
         "type": "object",
         "properties": {
           "val": {
             "exclusiveMaximum": 10,
             "exclusiveMinimum": 0,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32GTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int32"
-          }
-        },
-        "title": "SInt32GTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int32"
-          }
-        },
-        "title": "SInt32ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int32"
-          }
-        },
-        "title": "SInt32Ignore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32IncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32IncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt32Example": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "examples": [
-              0
-            ],
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SInt32Example",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64None": {
-        "type": "object",
-        "properties": {
-          "val": {
             "type": [
               "integer",
               "string"
@@ -1718,10 +1373,10 @@
             "format": "int64"
           }
         },
-        "title": "SInt64None",
+        "title": "Int64GTLT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SInt64Const": {
+      "buf.validate.conformance.cases.Int64Ignore": {
         "type": "object",
         "properties": {
           "val": {
@@ -1730,14 +1385,15 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "const": 1
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
           }
         },
-        "title": "SInt64Const",
+        "title": "Int64Ignore",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SInt64In": {
+      "buf.validate.conformance.cases.Int64In": {
         "type": "object",
         "properties": {
           "val": {
@@ -1753,10 +1409,89 @@
             ]
           }
         },
-        "title": "SInt64In",
+        "title": "Int64In",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SInt64NotIn": {
+      "buf.validate.conformance.cases.Int64IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Int64IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Int64LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 64,
+            "format": "int64"
+          }
+        },
+        "title": "Int64LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64LTEOptional": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 64,
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "title": "Int64LTEOptional",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "Int64None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.Int64NotIn": {
         "type": "object",
         "properties": {
           "val": {
@@ -1777,650 +1512,7 @@
             "format": "int64"
           }
         },
-        "title": "SInt64NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SInt64LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 64,
-            "format": "int64"
-          }
-        },
-        "title": "SInt64LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64GT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 16,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SInt64GT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64GTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "minimum": 8,
-            "format": "int64"
-          }
-        },
-        "title": "SInt64GTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SInt64GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SInt64ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64GTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "SInt64GTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
-          }
-        },
-        "title": "SInt64ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "SInt64Ignore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64IncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SInt64IncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SInt64Example": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "examples": [
-              0
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SInt64Example",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32None": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "Fixed32None",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32Const": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "const": "1"
-          }
-        },
-        "title": "Fixed32Const",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32In": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "enum": [
-              "2",
-              "3"
-            ]
-          }
-        },
-        "title": "Fixed32In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "not": {
-              "type": "integer",
-              "enum": [
-                "0"
-              ]
-            },
-            "title": "val"
-          }
-        },
-        "title": "Fixed32NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "Fixed32LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 64
-          }
-        },
-        "title": "Fixed32LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32GT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 16,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "Fixed32GT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32GTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "minimum": 8
-          }
-        },
-        "title": "Fixed32GTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 5,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "Fixed32GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "exclusiveMinimum": 10,
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "Fixed32ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32GTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128
-          }
-        },
-        "title": "Fixed32GTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256
-          }
-        },
-        "title": "Fixed32ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128
-          }
-        },
-        "title": "Fixed32Ignore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32IncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val"
-          }
-        },
-        "title": "Fixed32IncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed32Example": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "examples": [
-              "0"
-            ],
-            "title": "val"
-          }
-        },
-        "title": "Fixed32Example",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64None": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64None",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64Const": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64",
-            "const": "1"
-          }
-        },
-        "title": "Fixed64Const",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64In": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64",
-            "enum": [
-              "2",
-              "3"
-            ]
-          }
-        },
-        "title": "Fixed64In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "not": {
-              "type": [
-                "integer",
-                "string"
-              ],
-              "enum": [
-                "0"
-              ]
-            },
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64NotIn",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64LT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64LT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64LTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 64,
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64LTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64GT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMinimum": 16,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64GT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64GTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "minimum": 8,
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64GTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 5,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 5,
-            "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64ExLTGT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64GTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64GTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64ExGTELTE": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64ExGTELTE",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64Ignore": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64Ignore",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64IncorrectType": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64IncorrectType",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.Fixed64Example": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "examples": [
-              "0"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "Fixed64Example",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SFixed32None": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SFixed32None",
+        "title": "Int64NotIn",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.SFixed32Const": {
@@ -2436,64 +1528,47 @@
         "title": "SFixed32Const",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed32In": {
+      "buf.validate.conformance.cases.SFixed32ExGTELTE": {
         "type": "object",
         "properties": {
           "val": {
             "type": "integer",
             "title": "val",
-            "format": "int32",
-            "enum": [
-              2,
-              3
-            ]
-          }
-        },
-        "title": "SFixed32In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SFixed32NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": "integer",
-            "not": {
-              "type": "integer",
-              "enum": [
-                0
-              ]
-            },
-            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
             "format": "int32"
           }
         },
-        "title": "SFixed32NotIn",
+        "title": "SFixed32ExGTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed32LT": {
+      "buf.validate.conformance.cases.SFixed32ExLTGT": {
         "type": "object",
         "properties": {
           "val": {
             "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
             "type": "integer",
             "title": "val",
             "format": "int32"
           }
         },
-        "title": "SFixed32LT",
+        "title": "SFixed32ExLTGT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed32LTE": {
+      "buf.validate.conformance.cases.SFixed32Example": {
         "type": "object",
         "properties": {
           "val": {
             "type": "integer",
+            "examples": [
+              0
+            ],
             "title": "val",
-            "maximum": 64,
             "format": "int32"
           }
         },
-        "title": "SFixed32LTE",
+        "title": "SFixed32Example",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.SFixed32GT": {
@@ -2522,34 +1597,6 @@
         "title": "SFixed32GTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed32GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SFixed32GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SFixed32ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": "integer",
-            "title": "val",
-            "format": "int32"
-          }
-        },
-        "title": "SFixed32ExLTGT",
-        "additionalProperties": false
-      },
       "buf.validate.conformance.cases.SFixed32GTELTE": {
         "type": "object",
         "properties": {
@@ -2564,18 +1611,18 @@
         "title": "SFixed32GTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed32ExGTELTE": {
+      "buf.validate.conformance.cases.SFixed32GTLT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
             "format": "int32"
           }
         },
-        "title": "SFixed32ExGTELTE",
+        "title": "SFixed32GTLT",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.SFixed32Ignore": {
@@ -2592,6 +1639,22 @@
         "title": "SFixed32Ignore",
         "additionalProperties": false
       },
+      "buf.validate.conformance.cases.SFixed32In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32",
+            "enum": [
+              2,
+              3
+            ]
+          }
+        },
+        "title": "SFixed32In",
+        "additionalProperties": false
+      },
       "buf.validate.conformance.cases.SFixed32IncorrectType": {
         "type": "object",
         "properties": {
@@ -2604,34 +1667,60 @@
         "title": "SFixed32IncorrectType",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed32Example": {
+      "buf.validate.conformance.cases.SFixed32LT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 0,
             "type": "integer",
-            "examples": [
-              0
-            ],
             "title": "val",
             "format": "int32"
           }
         },
-        "title": "SFixed32Example",
+        "title": "SFixed32LT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64None": {
+      "buf.validate.conformance.cases.SFixed32LTE": {
         "type": "object",
         "properties": {
           "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "title": "val",
-            "format": "int64"
+            "maximum": 64,
+            "format": "int32"
           }
         },
-        "title": "SFixed64None",
+        "title": "SFixed32LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SFixed32None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SFixed32None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SFixed32NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "not": {
+              "type": "integer",
+              "enum": [
+                0
+              ]
+            },
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SFixed32NotIn",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.SFixed64Const": {
@@ -2650,7 +1739,7 @@
         "title": "SFixed64Const",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64In": {
+      "buf.validate.conformance.cases.SFixed64ExGTELTE": {
         "type": "object",
         "properties": {
           "val": {
@@ -2659,45 +1748,20 @@
               "string"
             ],
             "title": "val",
-            "format": "int64",
-            "enum": [
-              2,
-              3
-            ]
-          }
-        },
-        "title": "SFixed64In",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SFixed64NotIn": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "type": [
-              "integer",
-              "string"
-            ],
-            "not": {
-              "type": [
-                "integer",
-                "string"
-              ],
-              "enum": [
-                0
-              ]
-            },
-            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
             "format": "int64"
           }
         },
-        "title": "SFixed64NotIn",
+        "title": "SFixed64ExGTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64LT": {
+      "buf.validate.conformance.cases.SFixed64ExLTGT": {
         "type": "object",
         "properties": {
           "val": {
             "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
             "type": [
               "integer",
               "string"
@@ -2706,10 +1770,10 @@
             "format": "int64"
           }
         },
-        "title": "SFixed64LT",
+        "title": "SFixed64ExLTGT",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64LTE": {
+      "buf.validate.conformance.cases.SFixed64Example": {
         "type": "object",
         "properties": {
           "val": {
@@ -2717,12 +1781,14 @@
               "integer",
               "string"
             ],
+            "examples": [
+              0
+            ],
             "title": "val",
-            "maximum": 64,
             "format": "int64"
           }
         },
-        "title": "SFixed64LTE",
+        "title": "SFixed64Example",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.SFixed64GT": {
@@ -2757,40 +1823,6 @@
         "title": "SFixed64GTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64GTLT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SFixed64GTLT",
-        "additionalProperties": false
-      },
-      "buf.validate.conformance.cases.SFixed64ExLTGT": {
-        "type": "object",
-        "properties": {
-          "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
-            "title": "val",
-            "format": "int64"
-          }
-        },
-        "title": "SFixed64ExLTGT",
-        "additionalProperties": false
-      },
       "buf.validate.conformance.cases.SFixed64GTELTE": {
         "type": "object",
         "properties": {
@@ -2808,21 +1840,21 @@
         "title": "SFixed64GTELTE",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64ExGTELTE": {
+      "buf.validate.conformance.cases.SFixed64GTLT": {
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
             "type": [
               "integer",
               "string"
             ],
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
             "format": "int64"
           }
         },
-        "title": "SFixed64ExGTELTE",
+        "title": "SFixed64GTLT",
         "additionalProperties": false
       },
       "buf.validate.conformance.cases.SFixed64Ignore": {
@@ -2842,6 +1874,25 @@
         "title": "SFixed64Ignore",
         "additionalProperties": false
       },
+      "buf.validate.conformance.cases.SFixed64In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "enum": [
+              2,
+              3
+            ]
+          }
+        },
+        "title": "SFixed64In",
+        "additionalProperties": false
+      },
       "buf.validate.conformance.cases.SFixed64IncorrectType": {
         "type": "object",
         "properties": {
@@ -2857,7 +1908,336 @@
         "title": "SFixed64IncorrectType",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.SFixed64Example": {
+      "buf.validate.conformance.cases.SFixed64LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SFixed64LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SFixed64LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 64,
+            "format": "int64"
+          }
+        },
+        "title": "SFixed64LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SFixed64None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SFixed64None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SFixed64NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "not": {
+              "type": [
+                "integer",
+                "string"
+              ],
+              "enum": [
+                0
+              ]
+            },
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SFixed64NotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32Const": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32",
+            "const": 1
+          }
+        },
+        "title": "SInt32Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
+            "format": "int32"
+          }
+        },
+        "title": "SInt32ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32ExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32Example": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "examples": [
+              0
+            ],
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32Example",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32GT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 16,
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32GT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32GTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "minimum": 8,
+            "format": "int32"
+          }
+        },
+        "title": "SInt32GTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32GTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int32"
+          }
+        },
+        "title": "SInt32GTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32GTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32GTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32Ignore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int32"
+          }
+        },
+        "title": "SInt32Ignore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32",
+            "enum": [
+              2,
+              3
+            ]
+          }
+        },
+        "title": "SInt32In",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 64,
+            "format": "int32"
+          }
+        },
+        "title": "SInt32LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt32NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "not": {
+              "type": "integer",
+              "enum": [
+                0
+              ]
+            },
+            "title": "val",
+            "format": "int32"
+          }
+        },
+        "title": "SInt32NotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64Const": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "const": 1
+          }
+        },
+        "title": "SInt64Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
+            "format": "int64"
+          }
+        },
+        "title": "SInt64ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64ExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64Example": {
         "type": "object",
         "properties": {
           "val": {
@@ -2872,10 +2252,143 @@
             "format": "int64"
           }
         },
-        "title": "SFixed64Example",
+        "title": "SInt64Example",
         "additionalProperties": false
       },
-      "buf.validate.conformance.cases.Int64LTEOptional": {
+      "buf.validate.conformance.cases.SInt64GT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 16,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64GT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64GTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "minimum": 8,
+            "format": "int64"
+          }
+        },
+        "title": "SInt64GTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64GTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
+          }
+        },
+        "title": "SInt64GTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64GTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64GTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64Ignore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
+          }
+        },
+        "title": "SInt64Ignore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "enum": [
+              2,
+              3
+            ]
+          }
+        },
+        "title": "SInt64In",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 0,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64LTE": {
         "type": "object",
         "properties": {
           "val": {
@@ -2885,11 +2398,498 @@
             ],
             "title": "val",
             "maximum": 64,
-            "format": "int64",
-            "nullable": true
+            "format": "int64"
           }
         },
-        "title": "Int64LTEOptional",
+        "title": "SInt64LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.SInt64NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "not": {
+              "type": [
+                "integer",
+                "string"
+              ],
+              "enum": [
+                0
+              ]
+            },
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "SInt64NotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32Const": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "const": "1"
+          }
+        },
+        "title": "UInt32Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256
+          }
+        },
+        "title": "UInt32ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "exclusiveMinimum": 10,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "UInt32ExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32Example": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "examples": [
+              "0"
+            ],
+            "title": "val"
+          }
+        },
+        "title": "UInt32Example",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32GT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 16,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "UInt32GT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32GTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "minimum": 8
+          }
+        },
+        "title": "UInt32GTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32GTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128
+          }
+        },
+        "title": "UInt32GTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32GTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 5,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "UInt32GTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32Ignore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128
+          }
+        },
+        "title": "UInt32Ignore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "enum": [
+              "2",
+              "3"
+            ]
+          }
+        },
+        "title": "UInt32In",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "UInt32IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "UInt32LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val",
+            "maximum": 64
+          }
+        },
+        "title": "UInt32LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "title": "val"
+          }
+        },
+        "title": "UInt32None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt32NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": "integer",
+            "not": {
+              "type": "integer",
+              "enum": [
+                "0"
+              ]
+            },
+            "title": "val"
+          }
+        },
+        "title": "UInt32NotIn",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64Const": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "const": "1"
+          }
+        },
+        "title": "UInt64Const",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64ExGTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 128,
+            "minimum": 256,
+            "format": "int64"
+          }
+        },
+        "title": "UInt64ExGTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64ExLTGT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "exclusiveMinimum": 10,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64ExLTGT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64Example": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "examples": [
+              "0"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64Example",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64GT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMinimum": 16,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64GT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64GTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "minimum": 8,
+            "format": "int64"
+          }
+        },
+        "title": "UInt64GTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64GTELTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
+          }
+        },
+        "title": "UInt64GTELTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64GTLT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 5,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64GTLT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64Ignore": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 256,
+            "minimum": 128,
+            "format": "int64"
+          }
+        },
+        "title": "UInt64Ignore",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64In": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64",
+            "enum": [
+              "2",
+              "3"
+            ]
+          }
+        },
+        "title": "UInt64In",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64IncorrectType": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64IncorrectType",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64LT": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "exclusiveMaximum": 5,
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64LT",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64LTE": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "maximum": 64,
+            "format": "int64"
+          }
+        },
+        "title": "UInt64LTE",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64None": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64None",
+        "additionalProperties": false
+      },
+      "buf.validate.conformance.cases.UInt64NotIn": {
+        "type": "object",
+        "properties": {
+          "val": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "not": {
+              "type": [
+                "integer",
+                "string"
+              ],
+              "enum": [
+                "0"
+              ]
+            },
+            "title": "val",
+            "format": "int64"
+          }
+        },
+        "title": "UInt64NotIn",
         "additionalProperties": false
       }
     }

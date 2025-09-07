@@ -2,35 +2,6 @@ openapi: 3.1.0
 info:
   title: additional_bindings
 paths:
-  /svc/directory/{tenant}/user/{uuid}:
-    get:
-      tags:
-        - additional_bindings.Directory
-      summary: LookupUserInTenant
-      description: |-
-        LookupUserInTenant demonstrates the issue with additional_bindings
-         where the same operation ID is used for different paths.
-      operationId: additional_bindings.Directory.LookupUserInTenant
-      parameters:
-        - name: tenant
-          in: path
-          required: true
-          schema:
-            type: string
-            title: tenant
-        - name: uuid
-          in: path
-          required: true
-          schema:
-            type: string
-            title: uuid
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/additional_bindings.User'
   /svc/directory/{tenant}/user:
     get:
       tags:
@@ -87,19 +58,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/additional_bindings.User'
+  /svc/directory/{tenant}/user/{uuid}:
+    get:
+      tags:
+        - additional_bindings.Directory
+      summary: LookupUserInTenant
+      description: |-
+        LookupUserInTenant demonstrates the issue with additional_bindings
+         where the same operation ID is used for different paths.
+      operationId: additional_bindings.Directory.LookupUserInTenant
+      parameters:
+        - name: tenant
+          in: path
+          required: true
+          schema:
+            type: string
+            title: tenant
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            title: uuid
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/additional_bindings.User'
 components:
   schemas:
-    additional_bindings.UserLookup:
-      type: object
-      properties:
-        tenant:
-          type: string
-          title: tenant
-        uuid:
-          type: string
-          title: uuid
-      title: UserLookup
-      additionalProperties: false
     additional_bindings.User:
       type: object
       properties:
@@ -113,6 +102,17 @@ components:
           type: string
           title: email
       title: User
+      additionalProperties: false
+    additional_bindings.UserLookup:
+      type: object
+      properties:
+        tenant:
+          type: string
+          title: tenant
+        uuid:
+          type: string
+          title: uuid
+      title: UserLookup
       additionalProperties: false
 security: []
 tags:

@@ -183,47 +183,22 @@ paths:
                 $ref: '#/components/schemas/example_with_gnostic.HelloReply'
 components:
   schemas:
-    example_with_gnostic.HelloRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          examples:
-            - Example value
-          title: Custom title for a field
-          maxLength: 1000
-          minLength: 3
-          pattern: /^[a-z ,.'-]+$/i
-          additionalProperties: false
-          description: Custom description for a field
-          nullable: true
-          externalDocs:
-            description: example
-            url: https://example.com
-          deprecated: true
-        number:
-          exclusiveMaximum: 1000
-          exclusiveMinimum: 20
-          type: integer
-          examples:
-            - - 20
-              - 40
-              - 60
-          title: number
-          multipleOf: 20
-          format: int32
-      title: Custom title for a message
-      additionalProperties: false
-      description: Custom description for a message
-    example_with_gnostic.HelloReply:
-      type: object
-      properties:
-        message:
-          type: string
-          title: message
-      title: HelloReply
-      additionalProperties: false
-      description: The response message containing the greetings
+    base64:
+      type: boolean
+      title: base64
+      description: Specifies if the message query param is base64 encoded, which may be required for binary data
+    compression:
+      title: compression
+      enum:
+        - identity
+        - gzip
+        - br
+      description: Which compression algorithm to use for this request
+    connect:
+      title: connect
+      enum:
+        - v1
+      description: Define the version of the Connect protocol
     connect-protocol-version:
       type: number
       title: Connect-Protocol-Version
@@ -299,22 +274,47 @@ components:
         - proto
         - json
       description: Define which encoding or 'Message-Codec' to use
-    base64:
-      type: boolean
-      title: base64
-      description: Specifies if the message query param is base64 encoded, which may be required for binary data
-    compression:
-      title: compression
-      enum:
-        - identity
-        - gzip
-        - br
-      description: Which compression algorithm to use for this request
-    connect:
-      title: connect
-      enum:
-        - v1
-      description: Define the version of the Connect protocol
+    example_with_gnostic.HelloReply:
+      type: object
+      properties:
+        message:
+          type: string
+          title: message
+      title: HelloReply
+      additionalProperties: false
+      description: The response message containing the greetings
+    example_with_gnostic.HelloRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+            - Example value
+          title: Custom title for a field
+          maxLength: 1000
+          minLength: 3
+          pattern: /^[a-z ,.'-]+$/i
+          additionalProperties: false
+          description: Custom description for a field
+          nullable: true
+          externalDocs:
+            description: example
+            url: https://example.com
+          deprecated: true
+        number:
+          exclusiveMaximum: 1000
+          exclusiveMinimum: 20
+          type: integer
+          examples:
+            - - 20
+              - 40
+              - 60
+          title: number
+          multipleOf: 20
+          format: int32
+      title: Custom title for a message
+      additionalProperties: false
+      description: Custom description for a message
   parameters:
     filter_mask:
       name: X-TEST-HEADER

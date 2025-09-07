@@ -5,14 +5,14 @@
     "description": "## flex.FlexService\n\nThis service tries to flex the different options"
   },
   "paths": {
-    "/flex.FlexService/NormalRPC": {
+    "/flex.FlexService/BiDirectorionalStream": {
       "post": {
         "tags": [
           "flex.FlexService"
         ],
-        "summary": "Normal RPC method",
-        "description": "Normal RPC method",
-        "operationId": "flex.FlexService.NormalRPC",
+        "summary": "Stream both ways",
+        "description": "Stream both ways",
+        "operationId": "flex.FlexService.BiDirectorionalStream",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -32,7 +32,42 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/connect+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/connect+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+json": {
               "schema": {
                 "$ref": "#/components/schemas/flex.FlexRequest"
               }
@@ -44,7 +79,42 @@
           "default": {
             "description": "Error",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/connect.error"
                 }
@@ -54,7 +124,42 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+json": {
                 "schema": {
                   "$ref": "#/components/schemas/flex.FlexReply"
                 }
@@ -72,334 +177,6 @@
         "summary": "Stream from client to server",
         "description": "Stream from client to server",
         "operationId": "flex.FlexService.ClientStream",
-        "parameters": [
-          {
-            "name": "Connect-Protocol-Version",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/connect-protocol-version"
-            }
-          },
-          {
-            "name": "Connect-Timeout-Ms",
-            "in": "header",
-            "schema": {
-              "$ref": "#/components/schemas/connect-timeout-header"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/connect+json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/connect+proto": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc+proto": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc+json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc-web": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc-web+proto": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc-web+json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/connect+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/connect+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc-web": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc-web+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc-web+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/connect+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/connect+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc-web": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc-web+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc-web+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/flex.FlexService/ServerStream": {
-      "post": {
-        "tags": [
-          "flex.FlexService"
-        ],
-        "summary": "Stream from server to client",
-        "description": "Stream from server to client",
-        "operationId": "flex.FlexService.ServerStream",
-        "parameters": [
-          {
-            "name": "Connect-Protocol-Version",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/connect-protocol-version"
-            }
-          },
-          {
-            "name": "Connect-Timeout-Ms",
-            "in": "header",
-            "schema": {
-              "$ref": "#/components/schemas/connect-timeout-header"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/connect+json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/connect+proto": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc+proto": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc+json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc-web": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc-web+proto": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            },
-            "application/grpc-web+json": {
-              "schema": {
-                "$ref": "#/components/schemas/flex.FlexRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/connect+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/connect+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc-web": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc-web+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              },
-              "application/grpc-web+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/connect+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/connect+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc-web": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc-web+proto": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              },
-              "application/grpc-web+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/flex.FlexReply"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/flex.FlexService/BiDirectorionalStream": {
-      "post": {
-        "tags": [
-          "flex.FlexService"
-        ],
-        "summary": "Stream both ways",
-        "description": "Stream both ways",
-        "operationId": "flex.FlexService.BiDirectorionalStream",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -614,21 +391,321 @@
           }
         }
       }
+    },
+    "/flex.FlexService/NormalRPC": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "summary": "Normal RPC method",
+        "description": "Normal RPC method",
+        "operationId": "flex.FlexService.NormalRPC",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/flex.FlexService/ServerStream": {
+      "post": {
+        "tags": [
+          "flex.FlexService"
+        ],
+        "summary": "Stream from server to client",
+        "description": "Stream from server to client",
+        "operationId": "flex.FlexService.ServerStream",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            }
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/connect+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/connect+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+proto": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            },
+            "application/grpc-web+json": {
+              "schema": {
+                "$ref": "#/components/schemas/flex.FlexRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              },
+              "application/grpc-web+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/connect+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/connect+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+proto": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              },
+              "application/grpc-web+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flex.FlexReply"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "flex.FlexRequest": {
+      "connect-protocol-version": {
+        "type": "number",
+        "title": "Connect-Protocol-Version",
+        "enum": [
+          1
+        ],
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
+      "connect.error": {
         "type": "object",
         "properties": {
-          "msg": {
-            "title": "msg",
-            "$ref": "#/components/schemas/flex.ComplexType"
+          "code": {
+            "type": "string",
+            "examples": [
+              "not_found"
+            ],
+            "enum": [
+              "canceled",
+              "unknown",
+              "invalid_argument",
+              "deadline_exceeded",
+              "not_found",
+              "already_exists",
+              "permission_denied",
+              "resource_exhausted",
+              "failed_precondition",
+              "aborted",
+              "out_of_range",
+              "unimplemented",
+              "internal",
+              "unavailable",
+              "data_loss",
+              "unauthenticated"
+            ],
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/connect.error_details.Any"
+            },
+            "description": "A list of messages that carry the error details. There is no limit on the number of messages."
           }
         },
-        "title": "FlexRequest",
-        "additionalProperties": false,
-        "description": "The request message containing the user's name."
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "connect.error_details.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field."
+          },
+          "value": {
+            "type": "string",
+            "format": "binary",
+            "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
+          },
+          "debug": {
+            "oneOf": [
+              {
+                "type": "object",
+                "title": "Any",
+                "additionalProperties": true,
+                "description": "Detailed error information."
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type"
+            },
+            "title": "Debug",
+            "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
       },
       "flex.ComplexType": {
         "type": "object",
@@ -735,11 +812,6 @@
         "additionalProperties": false,
         "description": "Type that has a bunch of different types"
       },
-      "flex.Other": {
-        "type": "object",
-        "title": "Other",
-        "additionalProperties": false
-      },
       "flex.FlexReply": {
         "type": "object",
         "properties": {
@@ -752,94 +824,22 @@
         "additionalProperties": false,
         "description": "The response message containing the greetings"
       },
-      "connect-protocol-version": {
-        "type": "number",
-        "title": "Connect-Protocol-Version",
-        "enum": [
-          1
-        ],
-        "description": "Define the version of the Connect protocol",
-        "const": 1
-      },
-      "connect-timeout-header": {
-        "type": "number",
-        "title": "Connect-Timeout-Ms",
-        "description": "Define the timeout, in ms"
-      },
-      "connect.error": {
+      "flex.FlexRequest": {
         "type": "object",
         "properties": {
-          "code": {
-            "type": "string",
-            "examples": [
-              "not_found"
-            ],
-            "enum": [
-              "canceled",
-              "unknown",
-              "invalid_argument",
-              "deadline_exceeded",
-              "not_found",
-              "already_exists",
-              "permission_denied",
-              "resource_exhausted",
-              "failed_precondition",
-              "aborted",
-              "out_of_range",
-              "unimplemented",
-              "internal",
-              "unavailable",
-              "data_loss",
-              "unauthenticated"
-            ],
-            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
-          },
-          "message": {
-            "type": "string",
-            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
-          },
-          "details": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/connect.error_details.Any"
-            },
-            "description": "A list of messages that carry the error details. There is no limit on the number of messages."
+          "msg": {
+            "title": "msg",
+            "$ref": "#/components/schemas/flex.ComplexType"
           }
         },
-        "title": "Connect Error",
-        "additionalProperties": true,
-        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+        "title": "FlexRequest",
+        "additionalProperties": false,
+        "description": "The request message containing the user's name."
       },
-      "connect.error_details.Any": {
+      "flex.Other": {
         "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field."
-          },
-          "value": {
-            "type": "string",
-            "format": "binary",
-            "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
-          },
-          "debug": {
-            "oneOf": [
-              {
-                "type": "object",
-                "title": "Any",
-                "additionalProperties": true,
-                "description": "Detailed error information."
-              }
-            ],
-            "discriminator": {
-              "propertyName": "type"
-            },
-            "title": "Debug",
-            "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
-          }
-        },
-        "additionalProperties": true,
-        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+        "title": "Other",
+        "additionalProperties": false
       },
       "google.protobuf.Empty": {
         "type": "object",

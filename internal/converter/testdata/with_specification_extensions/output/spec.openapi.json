@@ -6,11 +6,6 @@
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      },
       "Oauth2": {
         "type": "oauth2",
         "flows": {
@@ -30,6 +25,11 @@
             "x-usePkce": true
           }
         }
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "schemas": {
@@ -122,6 +122,14 @@
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
       },
+      "with_specification_extensions.foo.Foo": {
+        "type": "string",
+        "title": "Foo",
+        "enum": [
+          "FOO_UNSPECIFIED",
+          "FOO_SOMETHING"
+        ]
+      },
       "with_specification_extensions.foo.FooRequest": {
         "type": "object",
         "properties": {
@@ -139,14 +147,6 @@
           "type": "string",
           "x-additionalPropertiesName": "Additional property name"
         }
-      },
-      "with_specification_extensions.foo.Foo": {
-        "type": "string",
-        "title": "Foo",
-        "enum": [
-          "FOO_UNSPECIFIED",
-          "FOO_SOMETHING"
-        ]
       },
       "with_specification_extensions.foo.FooResponse": {
         "type": "object",
