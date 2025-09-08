@@ -920,7 +920,7 @@ func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *va
 }
 
 func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *validate.EnumRules) {
-	defer clearSelectedFields(opts, constraint, "Const", "In", "NotIn", "Examples")
+	defer clearSelectedFields(opts, constraint, FieldConst, FieldIn, FieldNotIn, FieldExample)
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
@@ -1024,12 +1024,10 @@ func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint 
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
-	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsDuration().String()))
-	}
 }
 
 func updateSchemaTimestamp(opts options.Options, schema *base.Schema, constraint *validate.TimestampRules) {
+	defer clearSelectedFields(opts, constraint, FieldConst, FieldExample)
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(constraint.Const.AsTime().String())
 	}

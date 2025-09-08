@@ -415,7 +415,6 @@ func resolveField(opts options.Options, md protoreflect.MessageDescriptor, param
 }
 
 func fieldByName(opts options.Options, md protoreflect.MessageDescriptor, name string) protoreflect.FieldDescriptor {
-	opts.Logger.Info("fieldByName", "name", md.FullName(), "name", name)
 	fields := md.Fields()
 	if field := fields.ByName(protoreflect.Name(name)); field != nil {
 		return field
