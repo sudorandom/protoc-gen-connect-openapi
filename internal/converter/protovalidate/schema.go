@@ -1024,6 +1024,9 @@ func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint 
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
+	for _, item := range constraint.Example {
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsDuration().String()))
+	}
 }
 
 func updateSchemaTimestamp(opts options.Options, schema *base.Schema, constraint *validate.TimestampRules) {
