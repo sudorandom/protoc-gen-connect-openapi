@@ -20,3 +20,15 @@ universal_binaries:
 
 checksum:
   name_template: 'checksums.txt'
+
+nix:
+  - name: protoc-gen-connect-openapi
+    repository:
+      owner: sudorandom
+      name: nur
+    homepage: "https://github.com/sudorandom/protoc-gen-connect-openapi"
+    description: "A protoc plugin to generate ConnectRPC OpenAPI v3 specifications"
+    license: "mit"
+    install: |-
+      mkdir -p $out/bin
+      cp -vr ./protoc-gen-connect-openapi $out/bin/protoc-gen-connect-openapi
