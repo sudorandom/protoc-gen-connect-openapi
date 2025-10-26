@@ -14,7 +14,7 @@ require (
 	github.com/lmittmann/tint v1.1.2
 	github.com/pb33f/libopenapi v0.25.3
 	github.com/pb33f/libopenapi-validator v0.4.7
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	google.golang.org/genproto/googleapis/api v0.0.0-20250811230008-5f3141c8851a
 	google.golang.org/protobuf v1.36.8
 	gopkg.in/yaml.v3 v3.0.1
