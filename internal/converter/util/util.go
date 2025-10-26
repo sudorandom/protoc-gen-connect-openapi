@@ -8,9 +8,35 @@ import (
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	yamlv3 "go.yaml.in/yaml/v3"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
+
+func ConvertNodeV3toV4(n *yamlv3.Node) *yaml.Node {
+	if n == nil {
+		return nil
+	}
+	newNode := &yaml.Node{
+		Kind:        yaml.Kind(n.Kind),
+		Style:       yaml.Style(n.Style),
+		Tag:         n.Tag,
+		Value:       n.Value,
+		Anchor:      n.Anchor,
+		Alias:       ConvertNodeV3toV4(n.Alias),
+		Content:     make([]*yaml.Node, len(n.Content)),
+		HeadComment: n.HeadComment,
+		LineComment: n.LineComment,
+		FootComment: n.FootComment,
+		Line:        n.Line,
+		Column:      n.Column,
+	}
+	for i, c := range n.Content {
+		newNode.Content[i] = ConvertNodeV3toV4(c)
+	}
+	return newNode
+}
 
 func AppendComponents(spec *v3.Document, components *v3.Components) {
 	for pair := components.Schemas.First(); pair != nil; pair = pair.Next() {

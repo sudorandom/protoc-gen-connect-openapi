@@ -12,7 +12,7 @@ import (
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"gopkg.in/yaml.v3"
+	"go.yaml.in/yaml/v4"
 )
 
 func toServers(servers []*goa3.Server) []*v3.Server {
@@ -311,7 +311,7 @@ func toExtensions(items []*goa3.NamedAny) *orderedmap.Map[string, *yaml.Node] {
 	}
 	extensions := orderedmap.New[string, *yaml.Node]()
 	for _, namedAny := range items {
-		extensions.Set(namedAny.Name, namedAny.Value.ToRawInfo())
+		extensions.Set(namedAny.Name, util.ConvertNodeV3toV4(namedAny.Value.ToRawInfo()))
 	}
 	return extensions
 }
@@ -343,7 +343,7 @@ func toExamples(exes *goa3.ExamplesOrReferences) *orderedmap.Map[string, *base.E
 			examples.Set(item.Name, &base.Example{
 				Summary:       example.Summary,
 				Description:   example.Description,
-				Value:         example.Value.ToRawInfo(),
+				Value:         util.ConvertNodeV3toV4(example.Value.ToRawInfo()),
 				ExternalValue: example.ExternalValue,
 				Extensions:    toExtensions(example.SpecificationExtension),
 			})
@@ -372,7 +372,7 @@ func toMediaTypes(opts options.Options, items *goa3.MediaTypes) *orderedmap.Map[
 			Extensions: toExtensions(item.Value.GetSpecificationExtension()),
 		}
 		if val := item.GetValue().Example; val != nil {
-			mt.Example = val.ToRawInfo()
+			mt.Example = util.ConvertNodeV3toV4(val.ToRawInfo())
 		}
 		content.Set(item.Name, mt)
 	}
@@ -393,7 +393,7 @@ func toHeaders(opts options.Options, v *goa3.HeadersOrReferences) *orderedmap.Ma
 		} else if header := headerVal.Value.GetHeader(); header != nil {
 			var exampleRawInfo *yaml.Node
 			if header.Example != nil {
-				exampleRawInfo = header.Example.ToRawInfo()
+				exampleRawInfo = util.ConvertNodeV3toV4(header.Example.ToRawInfo())
 			}
 			headers.Set(headerVal.Name, &v3.Header{
 				Description:     header.Description,
@@ -575,7 +575,7 @@ func toParameter(opts options.Options, paramOrRef *goa3.ParameterOrReference) *v
 		Explode:         &param.Explode,
 		AllowReserved:   param.AllowReserved,
 		Schema:          toSchemaOrReference(opts, param.GetSchema()),
-		Example:         param.Example.ToRawInfo(),
+		Example:         util.ConvertNodeV3toV4(param.Example.ToRawInfo()),
 		Content:         toMediaTypes(opts, param.GetContent()),
 		Extensions:      toExtensions(param.GetSpecificationExtension()),
 	}

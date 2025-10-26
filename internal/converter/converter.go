@@ -15,13 +15,13 @@ import (
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/index"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/dynamicpb"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
-	"gopkg.in/yaml.v3"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -109,7 +109,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 				for _, err := range errs {
 					merr = errors.Join(merr, err)
 				}
-				return &v3.Document{}, merr
+				return nil, merr
 			}
 			model := &v3Document.Model
 			initializeDoc(opts, model)
