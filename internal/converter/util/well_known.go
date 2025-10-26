@@ -4,8 +4,8 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
-	"gopkg.in/yaml.v3"
 )
 
 var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSchema{

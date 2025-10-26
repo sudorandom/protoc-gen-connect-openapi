@@ -7,8 +7,8 @@ import (
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto" // For proto.Bool
-	"gopkg.in/yaml.v3"
 )
 
 func TestMergeOrAppendParameter(t *testing.T) {

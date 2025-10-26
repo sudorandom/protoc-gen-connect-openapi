@@ -9,9 +9,10 @@ import (
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
-	"gopkg.in/yaml.v3"
 )
 
 func SchemaWithSchemaAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
@@ -144,7 +145,7 @@ func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSch
 	if len(gnosticSchema.Enum) > 0 {
 		enums := make([]*yaml.Node, len(gnosticSchema.Enum))
 		for i, enum := range gnosticSchema.Enum {
-			enums[i] = enum.ToRawInfo()
+			enums[i] = util.ConvertNodeV3toV4(enum.ToRawInfo())
 		}
 		schema.Enum = enums
 	}
@@ -197,7 +198,7 @@ func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSch
 	if gnosticSchema.Xml != nil {
 		extensions := *orderedmap.New[string, *yaml.Node]()
 		for _, namedAny := range gnosticSchema.Xml.GetSpecificationExtension() {
-			extensions.Set(namedAny.Name, namedAny.ToRawInfo())
+			extensions.Set(namedAny.Name, util.ConvertNodeV3toV4(namedAny.ToRawInfo()))
 		}
 		schema.XML = &base.XML{
 			Name:       gnosticSchema.Xml.Name,
