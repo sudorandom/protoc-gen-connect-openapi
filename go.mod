@@ -10,8 +10,8 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/google/gnostic v0.7.1
 	github.com/lmittmann/tint v1.1.2
-	github.com/pb33f/libopenapi v0.27.2
-	github.com/pb33f/libopenapi-validator v0.6.3
+	github.com/pb33f/libopenapi v0.28.0
+	github.com/pb33f/libopenapi-validator v0.8.1
 	github.com/stretchr/testify v1.11.1
 	go.yaml.in/yaml/v3 v3.0.4
 	go.yaml.in/yaml/v4 v4.0.0-rc.2
