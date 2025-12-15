@@ -1,6 +1,6 @@
 module github.com/sudorandom/protoc-gen-connect-openapi
 
-go 1.24.7
+go 1.25
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
@@ -10,11 +10,11 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/google/gnostic v0.7.1
 	github.com/lmittmann/tint v1.1.2
-	github.com/pb33f/libopenapi v0.27.2
+	github.com/pb33f/libopenapi v0.29.1
 	github.com/pb33f/libopenapi-validator v0.6.3
 	github.com/stretchr/testify v1.11.1
 	go.yaml.in/yaml/v3 v3.0.4
-	go.yaml.in/yaml/v4 v4.0.0-rc.2
+	go.yaml.in/yaml/v4 v4.0.0-rc.3
 	google.golang.org/genproto/googleapis/api v0.0.0-20250811230008-5f3141c8851a
 	google.golang.org/protobuf v1.36.10
 )
@@ -28,7 +28,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/cel-go v0.26.1 // indirect
 	github.com/google/gnostic-models v0.7.0 // indirect
-	github.com/pb33f/jsonpath v0.1.2 // indirect
+	github.com/pb33f/jsonpath v0.7.0 // indirect
 	github.com/pb33f/ordered-map/v2 v2.3.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2 // indirect
