@@ -51,8 +51,8 @@ func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md p
 			oper.Callbacks = toCallbacks(opts, gnosticOperation.Callbacks)
 		}
 
-		if security := toSecurityRequirements(gnosticOperation.Security); len(security) > 0 {
-			oper.Security = security
+		if gnosticOperation.Security != nil {
+			oper.Security = toSecurityRequirements(gnosticOperation.Security)
 		}
 		oper.Servers = toServers(gnosticOperation.Servers)
 
