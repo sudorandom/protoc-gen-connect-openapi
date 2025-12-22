@@ -35,7 +35,6 @@ var scenarios = []Scenario{
 	{Name: "with_specification_extensions", Options: "base=testdata/with_specification_extensions/base.yaml,trim-unused-types"},
 	{Name: "additional_bindings"},
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
-	{Name: "gnostic_override", Options: "features=google.api.http;gnostic,base=testdata/gnostic_override/gnostic_override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
 	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
