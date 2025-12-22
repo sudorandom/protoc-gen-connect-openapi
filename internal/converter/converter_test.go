@@ -25,7 +25,7 @@ import (
 )
 
 var scenarios = []Scenario{
-	{Name: "standard", Options: "allow-get,with-streaming,with-service-descriptions"},
+	{Name: "standard", Options: "allow-get,with-streaming,with-service-descriptions,features=google.api.http;connectrpc;protovalidate;gnostic"},
 	{Name: "proto_names", Options: "with-proto-names"},
 	{Name: "path_prefix", Options: "path-prefix=/testing/1234"},
 	{Name: "with_proto_annotations", Options: "with-proto-annotations"},
@@ -35,6 +35,7 @@ var scenarios = []Scenario{
 	{Name: "with_specification_extensions", Options: "base=testdata/with_specification_extensions/base.yaml,trim-unused-types"},
 	{Name: "additional_bindings"},
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
+	{Name: "gnostic_override", Options: "features=google.api.http;gnostic,base=testdata/gnostic_override/gnostic_override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
 	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},

@@ -16,6 +16,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 
+	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
@@ -266,69 +267,81 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 	}
 
-	switch rule.Body {
-	case "":
-		newQueryParams := flattenToParams(opts, md.Input(), "", fieldNamesInPath)
-		for _, newQueryParam := range newQueryParams {
-			op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
+	hasGnosticRequestBody := false
+	if proto.HasExtension(md.Options(), goa3.E_Operation.TypeDescriptor().Type()) {
+		ext := proto.GetExtension(md.Options(), goa3.E_Operation.TypeDescriptor().Type())
+		if gnosticOperation, ok := ext.(*goa3.Operation); ok {
+			if gnosticOperation.RequestBody != nil {
+				hasGnosticRequestBody = true
+			}
 		}
-	case "*":
-		if len(fieldNamesInPath) > 0 {
-			_, s := schema.MessageToSchema(opts, md.Input())
-			if s != nil && s.Properties != nil {
-				for name := range fieldNamesInPath {
-					s.Properties.Delete(name)
-					// Also remove from required list to prevent duplicate required properties
-					if s.Required != nil {
-						s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
-							return s == name
-						})
-						// don't serialize []
-						if len(s.Required) == 0 {
-							s.Required = nil
-						}
-					}
-				}
-				if s.Properties.Len() > 0 {
-					op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
-				}
-			}
-		} else {
-			inputName := string(md.Input().FullName())
-			s := base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(inputName))
-			op.RequestBody = util.MethodToRequestBody(opts, md, s, false)
-		}
+	}
 
-	default:
-		if field, jsonPath := resolveField(opts, md.Input(), rule.Body); field != nil {
-			loc := fd.SourceLocations().ByDescriptor(field)
-			bodySchema := schema.FieldToSchema(opts, nil, field)
-			op.RequestBody = &v3.RequestBody{
-				Description: util.FormatComments(loc),
-				Content:     util.MakeMediaTypes(opts, bodySchema, false, false),
-			}
-
-			// Add any unhandled fields in the request message as query parameters.
-			// This covers the case where body: "specific_field" is used, and any fields
-			// not in the path or body should become query parameters.
-			// This follows Google AIP-127 specification and matches the original gnostic behavior.
-			coveredFields := make(map[string]struct{})
-			for name := range fieldNamesInPath {
-				coveredFields[name] = struct{}{}
-			}
-			coveredFields[rule.Body] = struct{}{}
-			// Also exclude JSON name and descriptor name to prevent snake_case vs camelCase mismatch
-			coveredFields[field.JSONName()] = struct{}{}
-			coveredFields[string(field.FullName())] = struct{}{}
-			// If body is a nested path (a.b.c) also skip its JSON path
-			coveredFields[strings.Join(jsonPath, ".")] = struct{}{}
-
-			newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
+	if !hasGnosticRequestBody {
+		switch rule.Body {
+		case "":
+			newQueryParams := flattenToParams(opts, md.Input(), "", fieldNamesInPath)
 			for _, newQueryParam := range newQueryParams {
 				op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
 			}
-		} else {
-			opts.Logger.Warn("body field not found", slog.String("param", rule.Body))
+		case "*":
+			if len(fieldNamesInPath) > 0 {
+				_, s := schema.MessageToSchema(opts, md.Input())
+				if s != nil && s.Properties != nil {
+					for name := range fieldNamesInPath {
+						s.Properties.Delete(name)
+						// Also remove from required list to prevent duplicate required properties
+						if s.Required != nil {
+							s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
+								return s == name
+							})
+							// don't serialize []
+							if len(s.Required) == 0 {
+								s.Required = nil
+							}
+						}
+					}
+					if s.Properties.Len() > 0 {
+						op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
+					}
+				}
+			} else {
+				inputName := string(md.Input().FullName())
+				s := base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(inputName))
+				op.RequestBody = util.MethodToRequestBody(opts, md, s, false)
+			}
+
+		default:
+			if field, jsonPath := resolveField(opts, md.Input(), rule.Body); field != nil {
+				loc := fd.SourceLocations().ByDescriptor(field)
+				bodySchema := schema.FieldToSchema(opts, nil, field)
+				op.RequestBody = &v3.RequestBody{
+					Description: util.FormatComments(loc),
+					Content:     util.MakeMediaTypes(opts, bodySchema, false, false),
+				}
+
+				// Add any unhandled fields in the request message as query parameters.
+				// This covers the case where body: "specific_field" is used, and any fields
+				// not in the path or body should become query parameters.
+				// This follows Google AIP-127 specification and matches the original gnostic behavior.
+				coveredFields := make(map[string]struct{})
+				for name := range fieldNamesInPath {
+					coveredFields[name] = struct{}{}
+				}
+				coveredFields[rule.Body] = struct{}{}
+				// Also exclude JSON name and descriptor name to prevent snake_case vs camelCase mismatch
+				coveredFields[field.JSONName()] = struct{}{}
+				coveredFields[string(field.FullName())] = struct{}{}
+				// If body is a nested path (a.b.c) also skip its JSON path
+				coveredFields[strings.Join(jsonPath, ".")] = struct{}{}
+
+				newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
+				for _, newQueryParam := range newQueryParams {
+					op.Parameters = mergeOrAppendParameter(op.Parameters, newQueryParam)
+				}
+			} else {
+				opts.Logger.Warn("body field not found", slog.String("param", rule.Body))
+			}
 		}
 	}
 
