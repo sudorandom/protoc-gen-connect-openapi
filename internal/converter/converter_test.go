@@ -25,7 +25,7 @@ import (
 )
 
 var scenarios = []Scenario{
-	{Name: "standard", Options: "allow-get,with-streaming,with-service-descriptions,features=google.api.http;connectrpc;protovalidate;gnostic"},
+	{Name: "standard", Options: "allow-get,with-streaming,with-service-descriptions"},
 	{Name: "proto_names", Options: "with-proto-names"},
 	{Name: "path_prefix", Options: "path-prefix=/testing/1234"},
 	{Name: "with_proto_annotations", Options: "with-proto-annotations"},
