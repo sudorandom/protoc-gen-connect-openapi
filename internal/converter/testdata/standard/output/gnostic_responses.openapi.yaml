@@ -1,0 +1,91 @@
+openapi: 3.1.0
+info:
+  title: gogen.partner.v1
+  description: '## gogen.partner.v1.OAuthService'
+paths:
+  /v1/oauth/token:
+    post:
+      tags:
+        - gogen.partner.v1.OAuthService
+      summary: IssueToken
+      operationId: gogen.partner.v1.OAuthService.IssueToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gogen.partner.v1.IssueTokenRequest'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gogen.partner.v1.IssueTokenResponse'
+        "401":
+          description: Authentication error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gogen.partner.v1.ProblemDetails'
+components:
+  schemas:
+    gogen.partner.v1.IssueTokenRequest:
+      type: object
+      properties:
+        grantType:
+          type: string
+          title: grant_type
+        clientId:
+          type: string
+          title: client_id
+        clientSecret:
+          type: string
+          title: client_secret
+      title: IssueTokenRequest
+      additionalProperties: false
+    gogen.partner.v1.IssueTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          title: access_token
+        tokenType:
+          type: string
+          title: token_type
+        expiresIn:
+          type: integer
+          title: expires_in
+          format: int32
+      title: IssueTokenResponse
+      additionalProperties: false
+    gogen.partner.v1.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          title: type
+          nullable: true
+        title:
+          type: string
+          title: title
+          nullable: true
+        status:
+          type: integer
+          title: status
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          title: detail
+          nullable: true
+        instance:
+          type: string
+          title: instance
+          nullable: true
+      title: ProblemDetails
+      additionalProperties: false
+      description: This message is only referenced in the operation annotation above
+security: []
+tags:
+  - name: gogen.partner.v1.OAuthService

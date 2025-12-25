@@ -6,8 +6,6 @@ import "google/api/annotations.proto";
 import "gnostic/openapi/v3/annotations.proto";
 
 
-
-
 message IssueTokenRequest {
   string grant_type = 1;
   string client_id = 2;
@@ -39,24 +37,6 @@ service OAuthService {
                   value: {
                     schema: {
                       reference: { _ref: "#/components/schemas/gogen.partner.v1.ProblemDetails" }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        response_or_reference: {
-          name: "404"
-          value: {
-            response: {
-              description: "Not Found"
-              content: {
-                additional_properties: {
-                  name: "application/json"
-                  value: {
-                    schema: {
-                      reference: { _ref: "#/components/schemas/NotFound" }
                     }
                   }
                 }
