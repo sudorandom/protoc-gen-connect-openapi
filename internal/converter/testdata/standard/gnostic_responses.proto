@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package gogen.partner.v1;
+
+import "google/api/annotations.proto";
+import "gnostic/openapi/v3/annotations.proto";
+
+
+message IssueTokenRequest {
+  string grant_type = 1;
+  string client_id = 2;
+  string client_secret = 3;
+}
+
+message IssueTokenResponse {
+  string access_token = 1;
+  string token_type = 2;
+  int32 expires_in = 3;
+}
+
+service OAuthService {
+  rpc IssueToken(IssueTokenRequest) returns (IssueTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/oauth/token"
+      body: "*"
+    };
+    option (gnostic.openapi.v3.operation) = {
+      responses: {
+        response_or_reference: {
+          name: "401"
+          value: {
+            response: {
+              description: "Authentication error"
+              content: {
+                additional_properties: {
+                  name: "application/json"
+                  value: {
+                    schema: {
+                      reference: { _ref: "#/components/schemas/gogen.partner.v1.ProblemDetails" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+}
+
+// This message is only referenced in the operation annotation above
+message ProblemDetails {
+  optional string type = 1;
+  optional string title = 2;
+  optional int32 status = 3;
+  optional string detail = 4;
+  optional string instance = 5;
+}

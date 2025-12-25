@@ -181,6 +181,10 @@ func TestConvert(t *testing.T) {
 						spec := generateAndCheckResult(t, scenario.Options, format, protofile)
 						// Validate
 						t.Run("validate", func(tt *testing.T) {
+							if strings.Contains(protofile, "novalidate") {
+								tt.SkipNow()
+								return
+							}
 							validateOpenAPISpec(t, protofile, spec)
 						})
 					})

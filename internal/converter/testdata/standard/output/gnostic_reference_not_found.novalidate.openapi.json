@@ -1,17 +1,17 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "io.swagger.petstore.v2",
-    "description": "## io.swagger.petstore.v2.Foo1\n\n## io.swagger.petstore.v2.Foo2\n\n## io.swagger.petstore.v2.Foo3"
+    "title": "gnostic_reference_not_found",
+    "description": "## gnostic_reference_not_found.OAuthService"
   },
   "paths": {
-    "/io.swagger.petstore.v2.Foo1/Foo": {
+    "/gnostic_reference_not_found.OAuthService/IssueToken": {
       "post": {
         "tags": [
-          "io.swagger.petstore.v2.Foo1"
+          "gnostic_reference_not_found.OAuthService"
         ],
-        "summary": "Foo",
-        "operationId": "io.swagger.petstore.v2.Foo1.Foo",
+        "summary": "IssueToken",
+        "operationId": "gnostic_reference_not_found.OAuthService.IssueToken",
         "parameters": [
           {
             "name": "Connect-Protocol-Version",
@@ -33,7 +33,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/io.swagger.petstore.v2.FooRequest"
+                "$ref": "#/components/schemas/google.protobuf.Empty"
               }
             }
           },
@@ -55,123 +55,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io.swagger.petstore.v2.FooResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/io.swagger.petstore.v2.Foo2/Foo": {
-      "post": {
-        "tags": [
-          "io.swagger.petstore.v2.Foo2"
-        ],
-        "summary": "Foo",
-        "operationId": "io.swagger.petstore.v2.Foo2.Foo",
-        "parameters": [
-          {
-            "name": "Connect-Protocol-Version",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/connect-protocol-version"
-            }
-          },
-          {
-            "name": "Connect-Timeout-Ms",
-            "in": "header",
-            "schema": {
-              "$ref": "#/components/schemas/connect-timeout-header"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/io.swagger.petstore.v2.FooRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
                 }
               }
             }
           },
-          "200": {
-            "description": "Success",
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/io.swagger.petstore.v2.FooResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/io.swagger.petstore.v2.Foo3/Foo": {
-      "post": {
-        "tags": [
-          "io.swagger.petstore.v2.Foo3"
-        ],
-        "summary": "Foo",
-        "operationId": "io.swagger.petstore.v2.Foo3.Foo",
-        "parameters": [
-          {
-            "name": "Connect-Protocol-Version",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/connect-protocol-version"
-            }
-          },
-          {
-            "name": "Connect-Timeout-Ms",
-            "in": "header",
-            "schema": {
-              "$ref": "#/components/schemas/connect-timeout-header"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/io.swagger.petstore.v2.FooRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/connect.error"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/io.swagger.petstore.v2.FooResponse"
+                  "$ref": "#/components/schemas/NotFound"
                 }
               }
             }
@@ -271,33 +165,16 @@
         "additionalProperties": true,
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
       },
-      "io.swagger.petstore.v2.FooRequest": {
+      "google.protobuf.Empty": {
         "type": "object",
-        "title": "FooRequest",
-        "additionalProperties": false
-      },
-      "io.swagger.petstore.v2.FooResponse": {
-        "type": "object",
-        "title": "FooResponse",
-        "additionalProperties": false
+        "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       }
     }
   },
   "security": [],
   "tags": [
     {
-      "name": "io.swagger.petstore.v2.Foo1",
-      "description": "Foo 1"
-    },
-    {
-      "name": "io.swagger.petstore.v2.Foo2",
-      "externalDocs": {
-        "description": "Example",
-        "url": "http://example.com"
-      }
-    },
-    {
-      "name": "io.swagger.petstore.v2.Foo3"
+      "name": "gnostic_reference_not_found.OAuthService"
     }
   ]
 }

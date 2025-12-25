@@ -226,7 +226,7 @@ func toTags(tags []*goa3.Tag) []*base.Tag {
 		var extDoc *base.ExternalDoc
 		if tag.ExternalDocs != nil {
 			extDoc = &base.ExternalDoc{
-				Description: tag.Description,
+				Description: tag.ExternalDocs.Description,
 				URL:         tag.ExternalDocs.Url,
 				Extensions:  toExtensions(tag.ExternalDocs.SpecificationExtension),
 			}

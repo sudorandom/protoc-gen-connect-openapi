@@ -214,7 +214,6 @@ func getOverrideComponents(opts options.Options) (*v3.Components, error) {
 }
 
 func mergeTags(tags []*base.Tag) []*base.Tag {
-
 	if len(tags) == 0 {
 		return tags
 	}
@@ -224,20 +223,24 @@ func mergeTags(tags []*base.Tag) []*base.Tag {
 
 	for _, tag := range tags {
 		if found[tag.Name] == nil {
-			found[tag.Name] = tag
-			res = append(res, tag)
+			newTag := *tag
+			found[tag.Name] = &newTag
+			res = append(res, &newTag)
 			continue
 		}
 
-		if tag.Description != "" {
+		// set description if not already set
+		if found[tag.Name].Description == "" && tag.Description != "" {
 			found[tag.Name].Description = tag.Description
 		}
 
-		if tag.ExternalDocs != nil {
+		// set external docs if not already set
+		if found[tag.Name].ExternalDocs == nil && tag.ExternalDocs != nil {
 			found[tag.Name].ExternalDocs = tag.ExternalDocs
 		}
 
-		if tag.Extensions != nil {
+		// set extensions if not already set
+		if found[tag.Name].Extensions == nil && tag.Extensions != nil {
 			found[tag.Name].Extensions = tag.Extensions
 		}
 	}

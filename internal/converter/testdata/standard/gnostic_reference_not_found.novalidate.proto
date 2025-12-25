@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package gnostic_reference_not_found;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service OAuthService {
+  rpc IssueToken(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (gnostic.openapi.v3.operation) = {
+      responses: {
+        response_or_reference: {
+          name: "404"
+          value: {
+            response: {
+              description: "Not Found"
+              content: {
+                additional_properties: {
+                  name: "application/json"
+                  value: {
+                    schema: {
+                      reference: { _ref: "#/components/schemas/NotFound" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+}
