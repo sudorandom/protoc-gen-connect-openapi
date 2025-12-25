@@ -1,0 +1,82 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Security Test",
+    "description": "## standard.SecurityService",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/protected": {
+      "get": {
+        "tags": [
+          "standard.SecurityService"
+        ],
+        "summary": "Protected",
+        "operationId": "standard.SecurityService.Protected",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/unprotected": {
+      "get": {
+        "tags": [
+          "standard.SecurityService"
+        ],
+        "summary": "Unprotected",
+        "operationId": "standard.SecurityService.Unprotected",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "standard.Request": {
+        "type": "object",
+        "title": "Request",
+        "additionalProperties": false
+      },
+      "standard.Response": {
+        "type": "object",
+        "title": "Response",
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "standard.SecurityService"
+    }
+  ]
+}
