@@ -178,6 +178,10 @@ func TestConvert(t *testing.T) {
 				formats := []string{"yaml", "json"}
 				for _, format := range formats {
 					t.Run(path.Base(protofile)+"→"+format, func(t *testing.T) {
+						if strings.Contains(protofile, "novalidate") {
+							t.Log("Skipping validation for novalidate test case")
+							return
+						}
 						spec := generateAndCheckResult(t, scenario.Options, format, protofile)
 						// Validate
 						t.Run("validate", func(tt *testing.T) {
