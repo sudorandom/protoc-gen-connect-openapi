@@ -2636,34 +2636,49 @@
         "type": "object",
         "properties": {
           "fileIndex": {
-            "type": "integer",
+            "type": [
+              "integer",
+              "null"
+            ],
             "title": "file_index",
             "format": "int32",
             "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)",
             "nullable": true
           },
           "line": {
-            "type": "integer",
+            "type": [
+              "integer",
+              "null"
+            ],
             "title": "line",
             "format": "int32",
             "description": "Line number in the file.",
             "nullable": true
           },
           "col": {
-            "type": "integer",
+            "type": [
+              "integer",
+              "null"
+            ],
             "title": "col",
             "format": "int32",
             "description": "Col number in the file line.",
             "nullable": true
           },
           "func": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "func",
             "description": "Name of function contains the file line.",
             "nullable": true
           },
           "code": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "code",
             "description": "Source code contained in this file line.",
             "nullable": true
@@ -2679,7 +2694,8 @@
           "key": {
             "type": [
               "integer",
-              "string"
+              "string",
+              "null"
             ],
             "title": "key",
             "format": "int64",
@@ -2698,14 +2714,18 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "key",
             "nullable": true
           },
           "value": {
             "type": [
               "integer",
-              "string"
+              "string",
+              "null"
             ],
             "title": "value",
             "format": "int64",
@@ -2748,7 +2768,8 @@
           "key": {
             "type": [
               "integer",
-              "string"
+              "string",
+              "null"
             ],
             "title": "key",
             "format": "int64",
@@ -2767,7 +2788,10 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "key",
             "nullable": true
           },

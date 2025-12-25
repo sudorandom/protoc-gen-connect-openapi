@@ -92,28 +92,43 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "type",
             "nullable": true
           },
           "title": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "title",
             "nullable": true
           },
           "status": {
-            "type": "integer",
+            "type": [
+              "integer",
+              "null"
+            ],
             "title": "status",
             "format": "int32",
             "nullable": true
           },
           "detail": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "detail",
             "nullable": true
           },
           "instance": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "instance",
             "nullable": true
           }
