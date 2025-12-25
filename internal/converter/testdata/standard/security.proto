@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package standard;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
+
+option (gnostic.openapi.v3.document) = {
+  info: {
+    title: "Security Test"
+    version: "1.0.0"
+  },
+  components: {
+    security_schemes: {
+      additional_properties: [
+        {
+          name: "bearerAuth",
+          value: {
+            security_scheme: {
+              type: "http",
+              scheme: "bearer"
+            }
+          }
+        }
+      ]
+    }
+  },
+  security: [
+    {
+      additional_properties: [
+        {
+          name: "bearerAuth",
+          value: {
+            value: []
+          }
+        }
+      ]
+    }
+  ]
+};
+
+service SecurityService {
+  rpc Protected(Request) returns (Response) {
+    option (google.api.http) = {
+      get: "/v1/protected"
+    };
+  }
+  rpc Unprotected(Request) returns (Response) {
+    option (google.api.http) = {
+      get: "/v1/unprotected"
+    };
+    option (gnostic.openapi.v3.operation) = {
+      security: []
+    };
+  }
+}
+
+message Request {}
+message Response {}

@@ -5,7 +5,7 @@ go 1.24.7
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1
 	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.19.1-20230913231627-233fca715f49.2
-	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.10-20230913231627-233fca715f49.1
+	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.11-20230913231627-233fca715f49.1
 	buf.build/go/protovalidate v1.0.0
 	github.com/gobwas/glob v0.2.3
 	github.com/google/gnostic v0.7.1
@@ -16,7 +16,7 @@ require (
 	go.yaml.in/yaml/v3 v3.0.4
 	go.yaml.in/yaml/v4 v4.0.0-rc.2
 	google.golang.org/genproto/googleapis/api v0.0.0-20250811230008-5f3141c8851a
-	google.golang.org/protobuf v1.36.10
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
