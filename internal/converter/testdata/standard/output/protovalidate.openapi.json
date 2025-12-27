@@ -339,7 +339,10 @@
         "type": "object",
         "properties": {
           "celField": {
-            "type": "integer",
+            "type": [
+              "integer",
+              "null"
+            ],
             "title": "cel_field",
             "format": "int32",
             "description": "my_message.value // value must be greater than 42\n",
@@ -356,7 +359,10 @@
             "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
           },
           "uriField": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "uri_field",
             "format": "uri",
             "nullable": true
@@ -1471,7 +1477,10 @@
             "const": "\u0001\u0002\u0003\u0004"
           },
           "byteLen": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "byte_len",
             "maxLength": 4,
             "minLength": 4,
@@ -1480,7 +1489,10 @@
             "nullable": true
           },
           "bytesMinLen": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_min_len",
             "minLength": 2,
             "format": "byte",
@@ -1488,7 +1500,10 @@
             "nullable": true
           },
           "bytesMaxLen": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_max_len",
             "maxLength": 6,
             "format": "byte",
@@ -1496,7 +1511,10 @@
             "nullable": true
           },
           "bytesPattern": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_pattern",
             "pattern": "^[a-zA-Z0-9]+$",
             "format": "byte",
@@ -1504,28 +1522,40 @@
             "nullable": true
           },
           "bytesPrefix": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_prefix",
             "format": "byte",
             "description": "bytes.const = []\nbytes.prefix = [1 2]\n",
             "nullable": true
           },
           "bytesSuffix": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_suffix",
             "format": "byte",
             "description": "bytes.const = []\nbytes.suffix = [3 4]\n",
             "nullable": true
           },
           "bytesContains": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_contains",
             "format": "byte",
             "description": "bytes.const = []\nbytes.contains = [2 3]\n",
             "nullable": true
           },
           "bytesIn": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_in",
             "format": "byte",
             "enum": [
@@ -1537,7 +1567,10 @@
             "nullable": true
           },
           "bytesNotIn": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "not": {
               "type": "string",
               "enum": [
@@ -1552,21 +1585,30 @@
             "nullable": true
           },
           "bytesIp": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_ip",
             "format": "ip",
             "description": "bytes.const = []\n",
             "nullable": true
           },
           "bytesIpv4": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_ipv4",
             "format": "ipv4",
             "description": "bytes.const = []\n",
             "nullable": true
           },
           "bytesIpv6": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "title": "bytes_ipv6",
             "format": "ipv6",
             "description": "bytes.const = []\n",

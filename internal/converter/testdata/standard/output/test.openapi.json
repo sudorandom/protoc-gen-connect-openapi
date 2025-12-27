@@ -644,7 +644,10 @@
                 }
               },
               "optDoubleValue": {
-                "type": "number",
+                "type": [
+                  "number",
+                  "null"
+                ],
                 "title": "opt_double_value",
                 "format": "double",
                 "description": "explicit presence types",
@@ -652,13 +655,19 @@
                 "deprecated": true
               },
               "optFloatValue": {
-                "type": "number",
+                "type": [
+                  "number",
+                  "null"
+                ],
                 "title": "opt_float_value",
                 "format": "float",
                 "nullable": true
               },
               "optInt32Value": {
-                "type": "integer",
+                "type": [
+                  "integer",
+                  "null"
+                ],
                 "title": "opt_int32_value",
                 "format": "int32",
                 "nullable": true
@@ -666,28 +675,36 @@
               "optInt64Value": {
                 "type": [
                   "integer",
-                  "string"
+                  "string",
+                  "null"
                 ],
                 "title": "opt_int64_value",
                 "format": "int64",
                 "nullable": true
               },
               "optUint32Value": {
-                "type": "integer",
+                "type": [
+                  "integer",
+                  "null"
+                ],
                 "title": "opt_uint32_value",
                 "nullable": true
               },
               "optUint64Value": {
                 "type": [
                   "integer",
-                  "string"
+                  "string",
+                  "null"
                 ],
                 "title": "opt_uint64_value",
                 "format": "int64",
                 "nullable": true
               },
               "optSint32Value": {
-                "type": "integer",
+                "type": [
+                  "integer",
+                  "null"
+                ],
                 "title": "opt_sint32_value",
                 "format": "int32",
                 "nullable": true
@@ -695,28 +712,36 @@
               "optSint64Value": {
                 "type": [
                   "integer",
-                  "string"
+                  "string",
+                  "null"
                 ],
                 "title": "opt_sint64_value",
                 "format": "int64",
                 "nullable": true
               },
               "optFixed32Value": {
-                "type": "integer",
+                "type": [
+                  "integer",
+                  "null"
+                ],
                 "title": "opt_fixed32_value",
                 "nullable": true
               },
               "optFixed64Value": {
                 "type": [
                   "integer",
-                  "string"
+                  "string",
+                  "null"
                 ],
                 "title": "opt_fixed64_value",
                 "format": "int64",
                 "nullable": true
               },
               "optSfixed32Value": {
-                "type": "integer",
+                "type": [
+                  "integer",
+                  "null"
+                ],
                 "title": "opt_sfixed32_value",
                 "format": "int32",
                 "nullable": true
@@ -724,24 +749,34 @@
               "optSfixed64Value": {
                 "type": [
                   "integer",
-                  "string"
+                  "string",
+                  "null"
                 ],
                 "title": "opt_sfixed64_value",
                 "format": "int64",
                 "nullable": true
               },
               "optBoolValue": {
-                "type": "boolean",
+                "type": [
+                  "boolean",
+                  "null"
+                ],
                 "title": "opt_bool_value",
                 "nullable": true
               },
               "optStringValue": {
-                "type": "string",
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "title": "opt_string_value",
                 "nullable": true
               },
               "optBytesValue": {
-                "type": "string",
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "title": "opt_bytes_value",
                 "format": "byte",
                 "nullable": true
