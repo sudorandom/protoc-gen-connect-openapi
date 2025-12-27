@@ -1433,7 +1433,7 @@ components:
           nullable: true
         enumConst:
           title: enum_const
-          const: 1
+          const: MY_ENUM_VALUE1
           $ref: '#/components/schemas/protovalidate.MyEnum'
         enumDefinedOnly:
           title: enum_defined_only
@@ -1441,14 +1441,14 @@ components:
         enumIn:
           title: enum_in
           enum:
-            - 1
-            - 2
+            - MY_ENUM_VALUE1
+            - MY_ENUM_VALUE2
           $ref: '#/components/schemas/protovalidate.MyEnum'
         enumNotIn:
           not:
             enum:
-              - 1
-              - 2
+              - MY_ENUM_VALUE1
+              - MY_ENUM_VALUE2
           title: enum_not_in
           $ref: '#/components/schemas/protovalidate.MyEnum'
         repeatedMinItems:

@@ -76,7 +76,7 @@ func SchemaWithFieldAnnotations(opts options.Options, schema *base.Schema, desc 
 	}
 
 	rulesClone := proto.Clone(rules).(*validate.FieldRules)
-	updateSchemaWithFieldRules(opts, schema, rulesClone, onlyScalar)
+	updateSchemaWithFieldRules(opts, schema, rulesClone, onlyScalar, desc)
 	updateWithCEL(schema, rulesClone.GetCel(), nil, nil)
 	return schema
 }
@@ -100,7 +100,7 @@ func PopulateParentProperties(opts options.Options, parent *base.Schema, desc pr
 }
 
 //gocyclo:ignore
-func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules *validate.FieldRules, onlyScalar bool) {
+func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules *validate.FieldRules, onlyScalar bool, desc protoreflect.FieldDescriptor) {
 	if rules == nil {
 		return
 	}
@@ -154,7 +154,7 @@ func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules
 		updateSchemaBytes(opts, schema, t.Bytes)
 	case *validate.FieldRules_Enum:
 		innerRules = t.Enum.ProtoReflect()
-		updateSchemaEnum(opts, schema, t.Enum)
+		updateSchemaEnum(opts, schema, t.Enum, desc)
 	case *validate.FieldRules_Any:
 		innerRules = t.Any.ProtoReflect()
 		updateSchemaAny(opts, schema, t.Any)
@@ -204,9 +204,9 @@ func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules
 	if !onlyScalar {
 		switch t := rules.Type.(type) {
 		case *validate.FieldRules_Repeated:
-			updateSchemaRepeated(opts, schema, t.Repeated)
+			updateSchemaRepeated(opts, schema, t.Repeated, desc)
 		case *validate.FieldRules_Map:
-			updateSchemaMap(opts, schema, t.Map)
+			updateSchemaMap(opts, schema, t.Map, desc)
 		}
 	}
 }
@@ -919,32 +919,86 @@ func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *va
 	}
 }
 
-func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *validate.EnumRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldIn, FieldNotIn, FieldExample)
+func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *validate.EnumRules, desc protoreflect.FieldDescriptor) {
+	defer clearSelectedFields(opts, constraint, FieldConst, "DefinedOnly", FieldIn, FieldNotIn, FieldExample)
+
+	enumDesc := desc.Enum()
+	if enumDesc == nil {
+		// Not an enum, nothing to do.
+		return
+	}
+
+	useStringEnums := !opts.IncludeNumberEnumValues
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
+		val := protoreflect.EnumNumber(*constraint.Const)
+		if useStringEnums {
+			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+				schema.Const = utils.CreateStringNode(string(enumVal.Name()))
+			}
+		} else {
+			schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+		}
+	}
+	if constraint.GetDefinedOnly() {
+		// If string enums are used, the base enum schema already lists all possible values.
+		// If integer enums are used, we list all defined integer values.
+		if !useStringEnums {
+			values := enumDesc.Values()
+			items := make([]*yaml.Node, values.Len())
+			for i := 0; i < values.Len(); i++ {
+				val := values.Get(i)
+				items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val.Number()), 10))
+			}
+			schema.Enum = items
+		}
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
+			val := protoreflect.EnumNumber(item)
+			if useStringEnums {
+				if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+					items[i] = utils.CreateStringNode(string(enumVal.Name()))
+				} else {
+					// This case should ideally not happen with valid protobufs
+					items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+				}
+			} else {
+				items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(int64(item), 10))
+			val := protoreflect.EnumNumber(item)
+			if useStringEnums {
+				if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+					items[i] = utils.CreateStringNode(string(enumVal.Name()))
+				} else {
+					items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+				}
+			} else {
+				items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(item), 10)))
+		val := protoreflect.EnumNumber(item)
+		if useStringEnums {
+			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+				schema.Examples = append(schema.Examples, utils.CreateStringNode(string(enumVal.Name())))
+			}
+		} else {
+			schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(val), 10)))
+		}
 	}
 }
 
-func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint *validate.RepeatedRules) {
+func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint *validate.RepeatedRules, desc protoreflect.FieldDescriptor) {
 	defer clearSelectedFields(opts, constraint, FieldUnique, FieldMinItems, FieldMaxItems)
 
 	if constraint.Unique != nil {
@@ -963,11 +1017,11 @@ func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint 
 		schema.MaxItems = &v
 	}
 	if constraint.Items != nil && schema.Items != nil && schema.Items.A != nil && !schema.Items.A.IsReference() {
-		updateSchemaWithFieldRules(opts, schema.Items.A.Schema(), constraint.Items, false)
+		updateSchemaWithFieldRules(opts, schema.Items.A.Schema(), constraint.Items, false, desc)
 	}
 }
 
-func updateSchemaMap(opts options.Options, schema *base.Schema, constraint *validate.MapRules) {
+func updateSchemaMap(opts options.Options, schema *base.Schema, constraint *validate.MapRules, desc protoreflect.FieldDescriptor) {
 	defer clearSelectedFields(opts, constraint, FieldMinPairs, FieldMaxPairs)
 
 	if constraint.MinPairs != nil {
@@ -981,7 +1035,11 @@ func updateSchemaMap(opts options.Options, schema *base.Schema, constraint *vali
 	// NOTE: Most of these properties don't make sense for object keys
 	// updateSchemaWithFieldRules(schema, constraint.Keys)
 	if schema.AdditionalProperties != nil && constraint.Values != nil {
-		updateSchemaWithFieldRules(opts, schema.AdditionalProperties.A.Schema(), constraint.Values, false)
+		var valueDesc protoreflect.FieldDescriptor
+		if desc != nil {
+			valueDesc = desc.MapValue()
+		}
+		updateSchemaWithFieldRules(opts, schema.AdditionalProperties.A.Schema(), constraint.Values, false, valueDesc)
 	}
 }
 
