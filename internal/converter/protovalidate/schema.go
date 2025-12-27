@@ -928,72 +928,44 @@ func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *val
 		return
 	}
 
-	useStringEnums := !opts.IncludeNumberEnumValues
-
 	if constraint.Const != nil {
 		val := protoreflect.EnumNumber(*constraint.Const)
-		if useStringEnums {
-			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
-				schema.Const = utils.CreateStringNode(string(enumVal.Name()))
-			}
-		} else {
-			schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+		if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+			schema.Const = utils.CreateStringNode(string(enumVal.Name()))
 		}
 	}
-	if constraint.GetDefinedOnly() {
-		// If string enums are used, the base enum schema already lists all possible values.
-		// If integer enums are used, we list all defined integer values.
-		if !useStringEnums {
-			values := enumDesc.Values()
-			items := make([]*yaml.Node, values.Len())
-			for i := 0; i < values.Len(); i++ {
-				val := values.Get(i)
-				items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val.Number()), 10))
-			}
-			schema.Enum = items
-		}
-	}
+
+	// For 'defined_only', when using string enums in constraints, the base enum schema
+	// already enforces the defined values, so no extra annotation is needed.
+
 	if len(constraint.In) > 0 {
-		items := make([]*yaml.Node, len(constraint.In))
-		for i, item := range constraint.In {
+		items := make([]*yaml.Node, 0, len(constraint.In))
+		for _, item := range constraint.In {
 			val := protoreflect.EnumNumber(item)
-			if useStringEnums {
-				if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
-					items[i] = utils.CreateStringNode(string(enumVal.Name()))
-				} else {
-					// This case should ideally not happen with valid protobufs
-					items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
-				}
+			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+				items = append(items, utils.CreateStringNode(string(enumVal.Name())))
 			} else {
-				items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+				opts.Logger.Warn("enum value not found for number in 'in' constraint", "enum", enumDesc.FullName(), "number", val)
 			}
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
-		items := make([]*yaml.Node, len(constraint.NotIn))
-		for i, item := range constraint.NotIn {
+		items := make([]*yaml.Node, 0, len(constraint.NotIn))
+		for _, item := range constraint.NotIn {
 			val := protoreflect.EnumNumber(item)
-			if useStringEnums {
-				if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
-					items[i] = utils.CreateStringNode(string(enumVal.Name()))
-				} else {
-					items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
-				}
+			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+				items = append(items, utils.CreateStringNode(string(enumVal.Name())))
 			} else {
-				items[i] = utils.CreateIntNode(strconv.FormatInt(int64(val), 10))
+				opts.Logger.Warn("enum value not found for number in 'not_in' constraint", "enum", enumDesc.FullName(), "number", val)
 			}
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
 		val := protoreflect.EnumNumber(item)
-		if useStringEnums {
-			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
-				schema.Examples = append(schema.Examples, utils.CreateStringNode(string(enumVal.Name())))
-			}
-		} else {
-			schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(int64(val), 10)))
+		if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
+			schema.Examples = append(schema.Examples, utils.CreateStringNode(string(enumVal.Name())))
 		}
 	}
 }
