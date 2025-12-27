@@ -984,12 +984,8 @@ func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint 
 		v := int64(*constraint.MinItems)
 		schema.MinItems = &v
 	}
-	if constraint.MaxItems != nil {
-		v := int64(*constraint.MaxItems)
-		schema.MaxItems = &v
-	}
 	if constraint.Items != nil && schema.Items != nil && schema.Items.A != nil && !schema.Items.A.IsReference() {
-		updateSchemaWithFieldRules(opts, schema.Items.A.Schema(), constraint.Items, false, desc)
+		updateSchemaWithFieldRules(opts, schema.Items.A.Schema(), constraint.Items, true, desc)
 	}
 }
 

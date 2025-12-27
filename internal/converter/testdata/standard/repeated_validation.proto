@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package standard;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/empty.proto";
+
+message RepeatedValidation {
+  repeated string user_ids = 1 [(buf.validate.field).repeated = {min_items: 1}];
+  repeated string group_ids = 2 [(buf.validate.field).repeated = {max_items: 5}];
+  repeated string role_ids = 3 [(buf.validate.field).repeated = {min_items: 1, max_items: 5}];
+}
+
+service MyService {
+  rpc MyMethod(RepeatedValidation) returns (google.protobuf.Empty);
+}

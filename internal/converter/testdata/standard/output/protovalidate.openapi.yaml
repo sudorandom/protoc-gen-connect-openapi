@@ -1455,21 +1455,18 @@ components:
           type: array
           items:
             type: string
-            minItems: 2
           title: repeated_min_items
           minItems: 2
         repeatedMaxItems:
           type: array
           items:
             type: string
-            maxItems: 3
           title: repeated_max_items
           maxItems: 3
         repeatedUnique:
           type: array
           items:
             type: string
-            uniqueItems: true
           title: repeated_unique
           uniqueItems: true
         repeatedItems:

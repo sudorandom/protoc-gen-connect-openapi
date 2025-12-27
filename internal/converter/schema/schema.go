@@ -191,7 +191,7 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 		s.Format = "byte"
 	}
 	// Apply Updates from Options
-	s = opts.FieldAnnotator.AnnotateField(opts, s, tt, false)
+	s = opts.FieldAnnotator.AnnotateField(opts, s, tt, inContainer)
 	return s
 }
 
