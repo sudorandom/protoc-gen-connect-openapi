@@ -3,6 +3,7 @@ package gnostic
 import (
 	"fmt"
 	"log/slog"
+	"slices"
 
 	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -115,28 +116,28 @@ func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSch
 		schema.Pattern = gnosticSchema.Pattern
 	}
 	if gnosticSchema.MaxItems > 0 {
-		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MaxItems = &gnosticSchema.MaxItems
+		if slices.Contains(schema.Type, "array") {
+			schema.MaxItems = &gnosticSchema.MaxItems
 		}
 	}
 	if gnosticSchema.MinItems > 0 {
-		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MinItems = &gnosticSchema.MinItems
+		if slices.Contains(schema.Type, "array") {
+			schema.MinItems = &gnosticSchema.MinItems
 		}
 	}
 	if gnosticSchema.UniqueItems {
-		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().UniqueItems = &gnosticSchema.UniqueItems
+		if slices.Contains(schema.Type, "array") {
+			schema.UniqueItems = &gnosticSchema.UniqueItems
 		}
 	}
 	if gnosticSchema.MaxProperties > 0 {
-		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MaxProperties = &gnosticSchema.MaxProperties
+		if slices.Contains(schema.Type, "object") {
+			schema.MaxProperties = &gnosticSchema.MaxProperties
 		}
 	}
 	if gnosticSchema.MinProperties > 0 {
-		if schema.ParentProxy != nil {
-			schema.ParentProxy.Schema().MinProperties = &gnosticSchema.MinProperties
+		if slices.Contains(schema.Type, "object") {
+			schema.MinProperties = &gnosticSchema.MinProperties
 		}
 	}
 	if len(gnosticSchema.Required) > 0 {

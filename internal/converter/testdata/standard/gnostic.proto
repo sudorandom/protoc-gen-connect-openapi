@@ -153,6 +153,7 @@ message HelloRequest {
     maximum: 1000
     example: {yaml: "[20, 40, 60]"}
   }];
+  repeated string items = 3 [(gnostic.openapi.v3.property).unique_items = true];
 }
 
 // The response message containing the greetings

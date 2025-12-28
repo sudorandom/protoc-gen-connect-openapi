@@ -168,6 +168,14 @@ paths:
             title: number
             multipleOf: 20
             format: int32
+        - name: items
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+            title: items
+            uniqueItems: true
       responses:
         default:
           description: ""
@@ -312,6 +320,12 @@ components:
           title: number
           multipleOf: 20
           format: int32
+        items:
+          type: array
+          items:
+            type: string
+          title: items
+          uniqueItems: true
       title: Custom title for a message
       additionalProperties: false
       description: Custom description for a message
