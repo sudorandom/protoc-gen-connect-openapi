@@ -18,6 +18,8 @@ jobs:
           fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31.6.1
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:
