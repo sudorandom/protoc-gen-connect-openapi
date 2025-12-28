@@ -391,14 +391,11 @@ components:
           format: int32
           description: |
             my_message.value // value must be greater than 42
-          nullable: true
         skippedField:
           title: skipped_field
-          nullable: true
           $ref: '#/components/schemas/protovalidate.MyOtherMessage'
         requiredField:
           title: required_field
-          nullable: true
           $ref: '#/components/schemas/protovalidate.MyOtherMessage'
         uriField:
           type:
@@ -406,7 +403,6 @@ components:
             - "null"
           title: uri_field
           format: uri
-          nullable: true
         floatConst:
           type: number
           title: float_const
@@ -1315,7 +1311,6 @@ components:
           format: byte
           description: |
             bytes.const = []
-          nullable: true
         bytesMinLen:
           type:
             - string
@@ -1325,7 +1320,6 @@ components:
           format: byte
           description: |
             bytes.const = []
-          nullable: true
         bytesMaxLen:
           type:
             - string
@@ -1335,7 +1329,6 @@ components:
           format: byte
           description: |
             bytes.const = []
-          nullable: true
         bytesPattern:
           type:
             - string
@@ -1345,7 +1338,6 @@ components:
           format: byte
           description: |
             bytes.const = []
-          nullable: true
         bytesPrefix:
           type:
             - string
@@ -1355,7 +1347,6 @@ components:
           description: |
             bytes.const = []
             bytes.prefix = [1 2]
-          nullable: true
         bytesSuffix:
           type:
             - string
@@ -1365,7 +1356,6 @@ components:
           description: |
             bytes.const = []
             bytes.suffix = [3 4]
-          nullable: true
         bytesContains:
           type:
             - string
@@ -1375,7 +1365,6 @@ components:
           description: |
             bytes.const = []
             bytes.contains = [2 3]
-          nullable: true
         bytesIn:
           type:
             - string
@@ -1388,7 +1377,6 @@ components:
             - "\x03\x04"
           description: |
             bytes.const = []
-          nullable: true
         bytesNotIn:
           type:
             - string
@@ -1403,7 +1391,6 @@ components:
           format: byte
           description: |
             bytes.const = []
-          nullable: true
         bytesIp:
           type:
             - string
@@ -1412,7 +1399,6 @@ components:
           format: ip
           description: |
             bytes.const = []
-          nullable: true
         bytesIpv4:
           type:
             - string
@@ -1421,7 +1407,6 @@ components:
           format: ipv4
           description: |
             bytes.const = []
-          nullable: true
         bytesIpv6:
           type:
             - string
@@ -1430,7 +1415,6 @@ components:
           format: ipv6
           description: |
             bytes.const = []
-          nullable: true
         enumConst:
           title: enum_const
           const: MY_ENUM_VALUE1

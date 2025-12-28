@@ -651,7 +651,6 @@
                 "title": "opt_double_value",
                 "format": "double",
                 "description": "explicit presence types",
-                "nullable": true,
                 "deprecated": true
               },
               "optFloatValue": {
@@ -660,8 +659,7 @@
                   "null"
                 ],
                 "title": "opt_float_value",
-                "format": "float",
-                "nullable": true
+                "format": "float"
               },
               "optInt32Value": {
                 "type": [
@@ -669,8 +667,7 @@
                   "null"
                 ],
                 "title": "opt_int32_value",
-                "format": "int32",
-                "nullable": true
+                "format": "int32"
               },
               "optInt64Value": {
                 "type": [
@@ -679,16 +676,14 @@
                   "null"
                 ],
                 "title": "opt_int64_value",
-                "format": "int64",
-                "nullable": true
+                "format": "int64"
               },
               "optUint32Value": {
                 "type": [
                   "integer",
                   "null"
                 ],
-                "title": "opt_uint32_value",
-                "nullable": true
+                "title": "opt_uint32_value"
               },
               "optUint64Value": {
                 "type": [
@@ -697,8 +692,7 @@
                   "null"
                 ],
                 "title": "opt_uint64_value",
-                "format": "int64",
-                "nullable": true
+                "format": "int64"
               },
               "optSint32Value": {
                 "type": [
@@ -706,8 +700,7 @@
                   "null"
                 ],
                 "title": "opt_sint32_value",
-                "format": "int32",
-                "nullable": true
+                "format": "int32"
               },
               "optSint64Value": {
                 "type": [
@@ -716,16 +709,14 @@
                   "null"
                 ],
                 "title": "opt_sint64_value",
-                "format": "int64",
-                "nullable": true
+                "format": "int64"
               },
               "optFixed32Value": {
                 "type": [
                   "integer",
                   "null"
                 ],
-                "title": "opt_fixed32_value",
-                "nullable": true
+                "title": "opt_fixed32_value"
               },
               "optFixed64Value": {
                 "type": [
@@ -734,8 +725,7 @@
                   "null"
                 ],
                 "title": "opt_fixed64_value",
-                "format": "int64",
-                "nullable": true
+                "format": "int64"
               },
               "optSfixed32Value": {
                 "type": [
@@ -743,8 +733,7 @@
                   "null"
                 ],
                 "title": "opt_sfixed32_value",
-                "format": "int32",
-                "nullable": true
+                "format": "int32"
               },
               "optSfixed64Value": {
                 "type": [
@@ -753,24 +742,21 @@
                   "null"
                 ],
                 "title": "opt_sfixed64_value",
-                "format": "int64",
-                "nullable": true
+                "format": "int64"
               },
               "optBoolValue": {
                 "type": [
                   "boolean",
                   "null"
                 ],
-                "title": "opt_bool_value",
-                "nullable": true
+                "title": "opt_bool_value"
               },
               "optStringValue": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "title": "opt_string_value",
-                "nullable": true
+                "title": "opt_string_value"
               },
               "optBytesValue": {
                 "type": [
@@ -778,8 +764,7 @@
                   "null"
                 ],
                 "title": "opt_bytes_value",
-                "format": "byte",
-                "nullable": true
+                "format": "byte"
               },
               "msgValue": {
                 "title": "msg_value",
@@ -792,12 +777,10 @@
               },
               "optMsgValue": {
                 "title": "opt_msg_value",
-                "nullable": true,
                 "$ref": "#/components/schemas/test.v1.AllTypes"
               },
               "optEnumValue": {
                 "title": "opt_enum_value",
-                "nullable": true,
                 "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
               },
               "msgList": {

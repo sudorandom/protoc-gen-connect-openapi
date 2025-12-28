@@ -12,7 +12,6 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"go.yaml.in/yaml/v4"
-	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -53,10 +52,9 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			if schema == nil {
 				continue
 			}
-			schema.Nullable = proto.Bool(true)
 
 			switch field.Kind() {
-			case protoreflect.MessageKind, protoreflect.EnumKind: // don't add a type to reference types
+			case protoreflect.MessageKind, protoreflect.EnumKind: // don't add a type when using a reference
 			default:
 				appendType(schema, "null")
 			}

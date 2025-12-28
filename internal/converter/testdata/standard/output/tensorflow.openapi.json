@@ -2642,8 +2642,7 @@
             ],
             "title": "file_index",
             "format": "int32",
-            "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)",
-            "nullable": true
+            "description": "File name index, which can be used to retrieve the file name string from\n `files`. The value should be between 0 and (len(files)-1)"
           },
           "line": {
             "type": [
@@ -2652,8 +2651,7 @@
             ],
             "title": "line",
             "format": "int32",
-            "description": "Line number in the file.",
-            "nullable": true
+            "description": "Line number in the file."
           },
           "col": {
             "type": [
@@ -2662,8 +2660,7 @@
             ],
             "title": "col",
             "format": "int32",
-            "description": "Col number in the file line.",
-            "nullable": true
+            "description": "Col number in the file line."
           },
           "func": {
             "type": [
@@ -2671,8 +2668,7 @@
               "null"
             ],
             "title": "func",
-            "description": "Name of function contains the file line.",
-            "nullable": true
+            "description": "Name of function contains the file line."
           },
           "code": {
             "type": [
@@ -2680,8 +2676,7 @@
               "null"
             ],
             "title": "code",
-            "description": "Source code contained in this file line.",
-            "nullable": true
+            "description": "Source code contained in this file line."
           }
         },
         "title": "FileLineCol",
@@ -2698,12 +2693,10 @@
               "null"
             ],
             "title": "key",
-            "format": "int64",
-            "nullable": true
+            "format": "int64"
           },
           "value": {
             "title": "value",
-            "nullable": true,
             "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
           }
         },
@@ -2718,8 +2711,7 @@
               "string",
               "null"
             ],
-            "title": "key",
-            "nullable": true
+            "title": "key"
           },
           "value": {
             "type": [
@@ -2728,8 +2720,7 @@
               "null"
             ],
             "title": "value",
-            "format": "int64",
-            "nullable": true
+            "format": "int64"
           }
         },
         "title": "NameToTraceIdEntry",
@@ -2772,12 +2763,10 @@
               "null"
             ],
             "title": "key",
-            "format": "int64",
-            "nullable": true
+            "format": "int64"
           },
           "value": {
             "title": "value",
-            "nullable": true,
             "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
           }
         },
@@ -2792,12 +2781,10 @@
               "string",
               "null"
             ],
-            "title": "key",
-            "nullable": true
+            "title": "key"
           },
           "value": {
             "title": "value",
-            "nullable": true,
             "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
           }
         },
