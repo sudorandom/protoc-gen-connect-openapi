@@ -20,6 +20,10 @@ service Foo {
   rpc NamedPathPatterns(Something) returns (google.protobuf.Empty) {
     option (google.api.http).get = "/v1/{property_in_path=messages/*}";
   }
+
+  rpc NamedPathPatternsWithLiteralSegment(Something) returns (google.protobuf.Empty) {
+    option (google.api.http).get = "/v1/{name=organizations/*/teams/*/all/members/*}";
+  }
 }
 
 message MaskyRequest {

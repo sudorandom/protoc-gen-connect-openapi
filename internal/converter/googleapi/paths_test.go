@@ -182,4 +182,11 @@ func TestPartsToOpenAPIPath(t *testing.T) {
 		path := partsToOpenAPIPath(v)
 		assert.Equal(t, "/users/v1/organizations/{organization}/teams/{team}/members/{member}:activate", path)
 	})
+
+	t.Run("with glob pattern containing literal segment", func(t *testing.T) {
+		v, err := RunPathPatternLexer("/users/v1/{name=organizations/*/teams/*/all/members/*}:activate")
+		require.NoError(t, err)
+		path := partsToOpenAPIPath(v)
+		assert.Equal(t, "/users/v1/organizations/{organization}/teams/{team}/all/members/{member}:activate", path)
+	})
 }
