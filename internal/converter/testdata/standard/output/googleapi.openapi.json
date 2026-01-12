@@ -132,6 +132,72 @@
         }
       }
     },
+    "/v1/organizations/{organization}/teams/{team}/all/members/{member}": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.Foo"
+        ],
+        "summary": "NamedPathPatternsWithLiteralSegment",
+        "operationId": "io.swagger.petstore.v2.Foo.NamedPathPatternsWithLiteralSegment",
+        "parameters": [
+          {
+            "name": "organization",
+            "in": "path",
+            "description": "The organization id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "team",
+            "in": "path",
+            "description": "The team id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "member",
+            "in": "path",
+            "description": "The member id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "propertyInPath",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "property_in_path"
+            }
+          },
+          {
+            "name": "propertyInQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "property_in_query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/{property_in_path_ok}/{parentMsg.property_in_path}/foo": {
       "get": {
         "tags": [

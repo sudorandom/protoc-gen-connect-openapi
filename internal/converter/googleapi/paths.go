@@ -246,12 +246,15 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				originalName := matches[1]
 				fieldNamesInPath[originalName] = struct{}{}
 				// Convert the path from the starred form to use named path parameters.
+				// The starred path may be in the form "things/*/otherthings/*" or contain
+				// literal segments like "things/*/static/otherthings/*".
 				starredPath := matches[2]
 				parts := strings.Split(starredPath, "/")
-				// The starred path is assumed to be in the form "things/*/otherthings/*".
-				// We want to convert it to "things/{thingsId}/otherthings/{otherthingsId}".
-				for i := 0; i < len(parts)-1; i += 2 {
-					section := parts[i]
+				for i, part := range parts {
+					if part != "*" || i == 0 {
+						continue
+					}
+					section := parts[i-1]
 					namedPathParameter := util.Singular(section)
 					// Add the parameter to the operation
 					newParameter := &v3.Parameter{
@@ -480,16 +483,18 @@ func partsToOpenAPIPath(tokens []Token) string {
 						b.WriteString("}")
 						continue
 					}
-					// Add the "name=" "name" value to the list of covered parameters.
 					// Convert the path from the starred form to use named path parameters.
+					// The starred path may be in the form "things/*/otherthings/*" or contain
+					// literal segments like "things/*/static/otherthings/*".
 					starredPath := matches[2]
 					parts := strings.Split(starredPath, "/")
-					// The starred path is assumed to be in the form "things/*/otherthings/*".
-					// We want to convert it to "things/{thingsId}/otherthings/{otherthingsId}".
-					for i := 0; i < len(parts)-1; i += 2 {
-						section := parts[i]
+					for i, part := range parts {
+						if part != "*" || i == 0 {
+							continue
+						}
+						section := parts[i-1]
 						namedPathParameter := util.Singular(section)
-						parts[i+1] = "{" + namedPathParameter + "}"
+						parts[i] = "{" + namedPathParameter + "}"
 					}
 					// Rewrite the path to use the path parameters.
 					newPath := strings.Join(parts, "/")
