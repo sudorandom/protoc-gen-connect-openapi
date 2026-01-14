@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package standard.internal_comments;
+
+import "google/api/annotations.proto";
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/standard/internal_comments";
+
+// ServiceWithInternalComments is a service with internal comments.
+// (-- api-linter: core::0123::resource-annotation=disabled
+//     aip.dev/not-precedent: We need to do this because reasons. --)
+service ServiceWithInternalComments {
+  // MethodWithInternalComments is a method with internal comments.
+  // (-- api-linter: core::0136::http-annotation=disabled
+  //     aip.dev/not-precedent: We need to do this because reasons. --)
+  rpc MethodWithInternalComments(Request) returns (Response) {
+    option (google.api.http) = {
+      get: "/v1/messages/{id}"
+    };
+  }
+}
+
+// Request is the request message.
+// (-- api-linter: core::0127::message-annotation=disabled
+//     aip.dev/not-precedent: We need to do this because reasons. --)
+message Request {
+  // id is the message identifier.
+  // (-- api-linter: core::0127::field-annotation=disabled
+  //     aip.dev/not-precedent: We need to do this because reasons. --)
+  string id = 1;
+}
+
+// Response is the response message.
+message Response {
+  // message is the message.
+  string message = 1;
+}

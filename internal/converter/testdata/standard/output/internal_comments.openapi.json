@@ -1,0 +1,81 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "standard.internal_comments",
+    "description": "## standard.internal_comments.ServiceWithInternalComments\n\nServiceWithInternalComments is a service with internal comments."
+  },
+  "paths": {
+    "/v1/messages/{id}": {
+      "get": {
+        "tags": [
+          "standard.internal_comments.ServiceWithInternalComments"
+        ],
+        "summary": "MethodWithInternalComments",
+        "description": "MethodWithInternalComments is a method with internal comments.",
+        "operationId": "standard.internal_comments.ServiceWithInternalComments.MethodWithInternalComments",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id is the message identifier.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "id",
+              "description": "id is the message identifier."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.internal_comments.Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "standard.internal_comments.Request": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "id is the message identifier."
+          }
+        },
+        "title": "Request",
+        "additionalProperties": false,
+        "description": "Request is the request message."
+      },
+      "standard.internal_comments.Response": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message",
+            "description": "message is the message."
+          }
+        },
+        "title": "Response",
+        "additionalProperties": false,
+        "description": "Response is the response message."
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "standard.internal_comments.ServiceWithInternalComments",
+      "description": "ServiceWithInternalComments is a service with internal comments."
+    }
+  ]
+}
