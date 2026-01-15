@@ -1,0 +1,73 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "standard",
+    "description": "## standard.GnosticRefService"
+  },
+  "paths": {
+    "/gnostic-ref/{message}": {
+      "get": {
+        "tags": [
+          "standard.GnosticRefService"
+        ],
+        "summary": "GetGnosticRef",
+        "operationId": "standard.GnosticRefService.GetGnosticRef",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "message"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.GnosticMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "standard.GnosticMessage": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "content"
+          }
+        },
+        "title": "GnosticMessage",
+        "additionalProperties": false
+      },
+      "standard.GnosticRefMessage": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "GnosticRefMessage",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "standard.GnosticRefService"
+    }
+  ]
+}
