@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package visibility;
+
+import "google/api/annotations.proto";
+import "google/api/visibility.proto";
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/visibility";
+
+service VisibilityService {
+  rpc GetMessage(GetMessageRequest) returns (Message) {
+    option (google.api.http) = {
+      get: "/v1/messages/{message_id}"
+    };
+  }
+}
+
+message GetMessageRequest {
+  string message_id = 1;
+}
+
+message Message {
+  string public_field = 1;
+  string internal_field = 2 [(google.api.field_visibility).restriction = "INTERNAL"];
+  string preview_field = 3 [(google.api.field_visibility).restriction = "PREVIEW"];
+  string another_public_field = 4;
+}

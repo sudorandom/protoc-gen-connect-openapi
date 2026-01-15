@@ -1,6 +1,8 @@
 package converter
 
 import (
+	"log/slog"
+
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/connectrpc"
@@ -9,6 +11,7 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/twirp"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -22,6 +25,11 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 		methods := service.Methods()
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)
+
+			if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(method), opts.AllowedVisibilities) {
+				opts.Logger.Debug("Filtering method due to visibility", slog.String("method", string(method.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
+				continue
+			}
 
 			// No matter what, we add the schemas for the method input/output
 			AddMessageSchemas(opts, method.Input(), doc)
@@ -73,7 +81,6 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 	return nil
 }
-
 func mergePathItems(existing, new *v3.PathItem) {
 	// Merge operations
 	operations := []struct {

@@ -13,10 +13,15 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 )
 
 func AddMessageSchemas(opts options.Options, md protoreflect.MessageDescriptor, doc *v3.Document) {
 	if md == nil {
+		return
+	}
+	if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(md), opts.AllowedVisibilities) {
+		opts.Logger.Debug("Filtering message due to visibility", slog.String("message", string(md.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
 		return
 	}
 	if _, ok := doc.Components.Schemas.Get(string(md.FullName())); ok {
@@ -60,6 +65,10 @@ func AddEnumToSchema(opts options.Options, ed protoreflect.EnumDescriptor, doc *
 	if ed == nil {
 		return
 	}
+	if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(ed), opts.AllowedVisibilities) {
+		opts.Logger.Debug("Filtering enum due to visibility", slog.String("enum", string(ed.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
+		return
+	}
 	if _, ok := doc.Components.Schemas.Get(string(ed.FullName())); ok {
 		return
 	}
@@ -75,6 +84,10 @@ func enumToSchema(opts options.Options, tt protoreflect.EnumDescriptor) (string,
 	values := tt.Values()
 	for i := 0; i < values.Len(); i++ {
 		value := values.Get(i)
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(value), opts.AllowedVisibilities) {
+			opts.Logger.Debug("Filtering enum value due to visibility", slog.String("enum_value", string(value.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
+			continue // Skip this enum value
+		}
 		children = append(children, utils.CreateStringNode(string(value.Name())))
 		if opts.IncludeNumberEnumValues {
 			children = append(children, utils.CreateIntNode(strconv.FormatInt(int64(value.Number()), 10)))

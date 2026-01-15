@@ -71,6 +71,8 @@ type Options struct {
 	WithGoogleErrorDetail bool
 	// EnabledFeatures is a map of enabled features.
 	EnabledFeatures map[Feature]bool
+	// AllowedVisibilities is a map of visibility strings to include. If an element has a `google.api.visibility` rule with a `restriction` that is not in this map, it will be excluded.
+	AllowedVisibilities map[string]bool
 
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
@@ -249,6 +251,12 @@ func FromString(s string) (Options, error) {
 				return opts, err
 			}
 			opts.Services = append(opts.Services, patterns...)
+		case strings.HasPrefix(param, "allowed-visibilities="):
+			selectors := strings.Split(param[len("allowed-visibilities="):], ";")
+			opts.AllowedVisibilities = make(map[string]bool)
+			for _, selector := range selectors {
+				opts.AllowedVisibilities[selector] = true
+			}
 		default:
 			return opts, fmt.Errorf("invalid parameter: %s", param)
 		}
