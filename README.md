@@ -166,7 +166,7 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | allow-get                  | - | For methods that have `IdempotencyLevel=IDEMPOTENT`, this option will generate HTTP `GET` requests instead of `POST`.                                              |
 | base                       | `{filepath}` | The path to a base OpenAPI file to populate fields that this tool doesn't populate. This option does not work when used with the remote plugin.         |
 | content-types              | `json;proto` | Semicolon-separated content types to generate requests/responses                                                                                        |
-| debug                      | - | Emit debug logs                                                                                                                                                    |
+| disable-default-response    | - | Disables the generation of the default `200 OK` response for all operations. Only explicit responses (e.g., from `google.api.http` annotations) will be included. |
 | format                     | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`.                                                                                       |
 | fully-qualified-message-names | - | Use fully qualified message names as the "title" for OpenAPI schemas. So it will be displayed as `company.users.administration.v1.User` instead of `User`.      |
 | ignore-googleapi-http      | - | [DEPRECATED] Use plugins=connectrpc;gnostic;protovalidate;twirp instead. Ignore google.api.http options on methods when generating openapi specs                                                                                          |
