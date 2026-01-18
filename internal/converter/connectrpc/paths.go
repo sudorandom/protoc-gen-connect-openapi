@@ -68,19 +68,20 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 	}
 
 	// Responses
-	codeMap := orderedmap.New[string, *v3.Response]()
-	outputId := util.FormatTypeRef(string(method.Output().FullName()))
-	codeMap.Set("200", &v3.Response{
-		Description: "Success",
-		Content: util.MakeMediaTypes(
-			opts,
-			base.CreateSchemaProxyRef("#/components/schemas/"+outputId),
-			false,
-			isStreaming,
-		),
-	})
 	op.Responses = &v3.Responses{
-		Codes: codeMap,
+		Codes: orderedmap.New[string, *v3.Response](),
+	}
+	if !opts.DisableDefaultResponse {
+		outputId := util.FormatTypeRef(string(method.Output().FullName()))
+		op.Responses.Codes.Set("200", &v3.Response{
+			Description: "Success",
+			Content: util.MakeMediaTypes(
+				opts,
+				base.CreateSchemaProxyRef("#/components/schemas/"+outputId),
+				false,
+				isStreaming,
+			),
+		})
 	}
 
 	op.Responses.Default = &v3.Response{
