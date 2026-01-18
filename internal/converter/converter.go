@@ -26,6 +26,7 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 )
 
 func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
@@ -286,13 +287,21 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 		// Files can have enums
 		enums := fd.Enums()
 		for i := 0; i < enums.Len(); i++ {
-			AddEnumToSchema(opts, enums.Get(i), spec)
+			enum := enums.Get(i)
+			if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(enum), opts.AllowedVisibilities) {
+				continue
+			}
+			AddEnumToSchema(opts, enum, spec)
 		}
 
 		// Files can have messages
 		messages := fd.Messages()
 		for i := 0; i < messages.Len(); i++ {
-			AddMessageSchemas(opts, messages.Get(i), spec)
+			message := messages.Get(i)
+			if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(message), opts.AllowedVisibilities) {
+				continue
+			}
+			AddMessageSchemas(opts, message, spec)
 		}
 	}
 
@@ -336,6 +345,11 @@ func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
 		if !opts.HasService(service.FullName()) {
+			continue
+		}
+		// Add visibility filtering for services
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(service), opts.AllowedVisibilities) {
+			opts.Logger.Debug("Filtering service due to visibility", slog.String("service", string(service.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
 			continue
 		}
 

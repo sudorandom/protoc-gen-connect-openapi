@@ -11,6 +11,7 @@ import (
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -42,6 +43,10 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 	fields := tt.Fields()
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(field), opts.AllowedVisibilities) {
+			opts.Logger.Debug("Filtering field due to visibility", slog.String("field", string(field.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
+			continue
+		}
 		if oneOf := field.ContainingOneof(); oneOf != nil && !oneOf.IsSynthetic() {
 			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], field)
 			continue

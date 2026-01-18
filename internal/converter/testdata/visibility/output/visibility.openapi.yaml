@@ -1,0 +1,54 @@
+openapi: 3.1.0
+info:
+  title: visibility
+paths:
+  /v1/messages/{message_id}:
+    get:
+      tags:
+        - visibility.VisibilityService
+      summary: GetMessage
+      operationId: visibility.VisibilityService.GetMessage
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: message_id
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/visibility.Message'
+components:
+  schemas:
+    visibility.GetMessageRequest:
+      type: object
+      properties:
+        messageId:
+          type: string
+          title: message_id
+      title: GetMessageRequest
+      additionalProperties: false
+    visibility.Message:
+      type: object
+      properties:
+        publicField:
+          type: string
+          title: public_field
+        internalField:
+          type: string
+          title: internal_field
+        previewField:
+          type: string
+          title: preview_field
+        anotherPublicField:
+          type: string
+          title: another_public_field
+      title: Message
+      additionalProperties: false
+security: []
+tags:
+  - name: visibility.VisibilityService
