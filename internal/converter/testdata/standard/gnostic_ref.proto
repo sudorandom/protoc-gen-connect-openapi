@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package standard;
+
+import "google/api/annotations.proto";
+import "gnostic/openapi/v3/annotations.proto";
+import "standard/gnostic.proto";
+
+message GnosticMessage {
+    string content = 1;
+}
+
+message GnosticRefMessage {
+    string message = 1;
+}
+
+service GnosticRefService {
+  rpc GetGnosticRef(GnosticRefMessage) returns (GnosticRefMessage) {
+    option (google.api.http) = {
+      get: "/gnostic-ref/{message}"
+    };
+    option (gnostic.openapi.v3.operation) = {
+      responses: {
+        response_or_reference: [
+          {
+            name: "200",
+            value: {
+              response: {
+                description: "A successful response.",
+                content: {
+                  additional_properties: [
+                    {
+                      name: "application/json",
+                      value: {
+                        schema: {
+                          reference: {
+                            _ref: ".standard.GnosticMessage"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    };
+  }
+}

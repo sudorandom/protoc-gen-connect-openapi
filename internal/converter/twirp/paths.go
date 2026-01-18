@@ -56,10 +56,12 @@ func makeResponses(opts options.Options, message protoreflect.MessageDescriptor)
 		})
 	}
 	codes := orderedmap.New[string, *v3.Response]()
-	codes.Set("200", &v3.Response{
-		Description: "OK",
-		Content:     content,
-	})
+	if !opts.DisableDefaultResponse {
+		codes.Set("200", &v3.Response{
+			Description: "OK",
+			Content:     content,
+		})
+	}
 	// Twirp errors are special. They are always JSON.
 	errorContent := orderedmap.New[string, *v3.MediaType]()
 	errorContent.Set("application/json", &v3.MediaType{

@@ -69,6 +69,8 @@ type Options struct {
 	ShortOperationIds bool
 	// WithGoogleErrorDetail will add google error detail to the connect error response.
 	WithGoogleErrorDetail bool
+	// DisableDefaultResponse disables the default 200 response.
+	DisableDefaultResponse bool
 	// EnabledFeatures is a map of enabled features.
 	EnabledFeatures map[Feature]bool
 	// AllowedVisibilities is a map of visibility strings to include. If an element has a `google.api.visibility` rule with a `restriction` that is not in this map, it will be excluded.
@@ -178,6 +180,8 @@ func FromString(s string) (Options, error) {
 			opts.ShortOperationIds = true
 		case param == "with-google-error-detail":
 			opts.WithGoogleErrorDetail = true
+		case param == "disable-default-response":
+			opts.DisableDefaultResponse = true
 		case strings.HasPrefix(param, "features="):
 			allFeatures := []Feature{}
 			for feature := range strings.SplitSeq(param[9:], ";") {

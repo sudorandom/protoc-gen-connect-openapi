@@ -1,7 +1,9 @@
 package util
 
 import (
+	"log"
 	"path"
+	"regexp"
 	"strings"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -89,22 +91,34 @@ func TypeFieldDescription(opts options.Options, tt protoreflect.FieldDescriptor)
 	return b.String()
 }
 
+func filterInternalComments(comments string) string {
+	if comments == "" {
+		return ""
+	}
+	re := regexp.MustCompile(`(?s)\(--.*--\)`)
+	filtered := strings.TrimSpace(re.ReplaceAllString(comments, ""))
+	log.Printf("filterInternalComments:\n  in: %q\n  out: %q", comments, filtered)
+	return filtered
+}
+
 func FormatComments(loc protoreflect.SourceLocation) string {
 	var builder strings.Builder
-	if loc.LeadingComments != "" {
-		builder.WriteString(strings.TrimSpace(loc.LeadingComments))
+	leadingComments := filterInternalComments(loc.LeadingComments)
+	if leadingComments != "" {
+		builder.WriteString(strings.TrimSpace(leadingComments))
 		builder.WriteString(" ")
 	}
-	if loc.TrailingComments != "" {
-		builder.WriteString(strings.TrimSpace(loc.TrailingComments))
+	trailingComments := filterInternalComments(loc.TrailingComments)
+	if trailingComments != "" {
+		builder.WriteString(strings.TrimSpace(trailingComments))
 		builder.WriteString(" ")
 	}
 	return strings.TrimSpace(builder.String())
 }
 
 func FormatOperationComments(loc protoreflect.SourceLocation) (summary string, description string) {
-	var leadingComments = strings.TrimSpace(loc.LeadingComments)
-	var trailingComments = strings.TrimSpace(loc.TrailingComments)
+	var leadingComments = strings.TrimSpace(filterInternalComments(loc.LeadingComments))
+	var trailingComments = strings.TrimSpace(filterInternalComments(loc.TrailingComments))
 
 	if leadingComments == "" && trailingComments == "" {
 		return "", ""
@@ -225,4 +239,17 @@ func Singular(plural string) string {
 		return strings.TrimSuffix(plural, "s")
 	}
 	return plural
+}
+
+// ResolveSchemaRef takes a reference string and determines if it is a fully
+// qualified protobuf message name. If so, it converts it to a valid OpenAPI
+// schema reference. Otherwise, it returns the original string.
+func ResolveSchemaRef(ref string) string {
+	if strings.HasPrefix(ref, ".") {
+		// This is a fully qualified proto name. We need to look up the
+		// message and convert it to a schema reference.
+		messageName := strings.TrimPrefix(ref, ".")
+		return "#/components/schemas/" + FormatTypeRef(messageName)
+	}
+	return ref
 }
