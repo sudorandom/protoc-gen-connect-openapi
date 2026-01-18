@@ -776,12 +776,26 @@
                 "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
               },
               "optMsgValue": {
-                "title": "opt_msg_value",
-                "$ref": "#/components/schemas/test.v1.AllTypes"
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.AllTypes"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "opt_msg_value"
               },
               "optEnumValue": {
-                "title": "opt_enum_value",
-                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "opt_enum_value"
               },
               "msgList": {
                 "type": "array",

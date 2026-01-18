@@ -47,18 +47,6 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			continue
 		}
 		prop := FieldToSchema(opts, base.CreateSchemaProxy(s), field)
-		if field.HasOptionalKeyword() {
-			schema := prop.Schema()
-			if schema == nil {
-				continue
-			}
-
-			switch field.Kind() {
-			case protoreflect.MessageKind, protoreflect.EnumKind: // don't add a type when using a reference
-			default:
-				appendType(schema, "null")
-			}
-		}
 		regularProps.Set(util.MakeFieldName(opts, field), prop)
 	}
 
@@ -135,18 +123,29 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		s = opts.FieldAnnotator.AnnotateField(opts, s, tt, false)
 		return base.CreateSchemaProxy(s)
 	} else {
+		var s *base.Schema
 		switch tt.Kind() {
 		case protoreflect.MessageKind, protoreflect.EnumKind:
-			msg := ScalarFieldToSchema(opts, parent, tt, false)
+			s = ScalarFieldToSchema(opts, parent, tt, false) // gets title, description
 			ref := ReferenceFieldToSchema(opts, parent, tt)
-			extensions := orderedmap.New[string, *yaml.Node]()
-			extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
-			msg.Extensions = extensions
-			return base.CreateSchemaProxy(msg)
+			if tt.HasOptionalKeyword() {
+				s.OneOf = []*base.SchemaProxy{
+					ref,
+					base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
+				}
+			} else {
+				extensions := orderedmap.New[string, *yaml.Node]()
+				extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
+				s.Extensions = extensions
+			}
+			return base.CreateSchemaProxy(s)
+		default: // non-message/enum scalars
+			s = ScalarFieldToSchema(opts, parent, tt, false)
+			if tt.HasOptionalKeyword() {
+				appendType(s, "null")
+			}
+			return base.CreateSchemaProxy(s)
 		}
-
-		s := ScalarFieldToSchema(opts, parent, tt, false)
-		return base.CreateSchemaProxy(s)
 	}
 }
 

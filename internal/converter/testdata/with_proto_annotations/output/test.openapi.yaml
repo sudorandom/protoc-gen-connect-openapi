@@ -1084,13 +1084,17 @@ components:
               description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
               $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
             optMsgValue:
+              oneOf:
+                - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
+                - type: "null"
               title: opt_msg_value
               description: (proto with_proto_annotations.test.v1.AllTypes)
-              $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes'
             optEnumValue:
+              oneOf:
+                - $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
+                - type: "null"
               title: opt_enum_value
               description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
-              $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
             msgList:
               type: array
               items:

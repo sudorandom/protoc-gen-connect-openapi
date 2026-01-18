@@ -520,8 +520,10 @@ components:
             $ref: '#/components/schemas/flex.Other'
           title: repeatedMsgField
         optionalMsgField:
+          oneOf:
+            - $ref: '#/components/schemas/flex.Other'
+            - type: "null"
           title: optionalMsgField
-          $ref: '#/components/schemas/flex.Other'
       title: ComplexType
       additionalProperties: false
       description: Type that has a bunch of different types
