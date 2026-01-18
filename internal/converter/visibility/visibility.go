@@ -57,10 +57,11 @@ func GetVisibilityRule(desc protoreflect.Descriptor) *api_visibility.VisibilityR
 // list of enabled restriction selectors. If the rule's restriction is NOT in the list
 // of selectors, the element should be filtered.
 func ShouldBeFiltered(rule *api_visibility.VisibilityRule, restrictionSelectors map[string]bool) bool {
-	if rule == nil || len(restrictionSelectors) == 0 {
-		return false // No rule or no selectors, so not filtered
-	}
-	if _, ok := restrictionSelectors[rule.Restriction]; ok {
+	if rule == nil {
+		return false // No rule, so not filtered (always include elements without visibility rules)
+	} else if len(restrictionSelectors) == 0 {
+		return true // Has a rule but no selectors specified, so filter it out
+	} else if _, ok := restrictionSelectors[rule.Restriction]; ok {
 		return false // Found a match, so it should NOT be filtered
 	}
 	return true // No match found, so it should be filtered
