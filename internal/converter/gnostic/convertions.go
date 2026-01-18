@@ -254,7 +254,7 @@ func toSchemaOrReference(opts options.Options, s *goa3.SchemaOrReference) *base.
 		return nil
 	}
 	if ref := s.GetReference(); ref != nil {
-		return base.CreateSchemaProxyRef(ref.XRef)
+		return base.CreateSchemaProxyRef(util.ResolveSchemaRef(ref.XRef))
 	} else if schema := s.GetSchema(); schema != nil {
 		return base.CreateSchemaProxy(toSchema(opts, schema))
 	}

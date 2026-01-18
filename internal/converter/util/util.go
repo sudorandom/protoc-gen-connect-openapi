@@ -240,3 +240,16 @@ func Singular(plural string) string {
 	}
 	return plural
 }
+
+// ResolveSchemaRef takes a reference string and determines if it is a fully
+// qualified protobuf message name. If so, it converts it to a valid OpenAPI
+// schema reference. Otherwise, it returns the original string.
+func ResolveSchemaRef(ref string) string {
+	if strings.HasPrefix(ref, ".") {
+		// This is a fully qualified proto name. We need to look up the
+		// message and convert it to a schema reference.
+		messageName := strings.TrimPrefix(ref, ".")
+		return "#/components/schemas/" + FormatTypeRef(messageName)
+	}
+	return ref
+}
