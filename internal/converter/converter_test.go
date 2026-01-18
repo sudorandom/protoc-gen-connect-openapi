@@ -39,6 +39,7 @@ var scenarios = []Scenario{
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
 	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
 	{Name: "twirp_only", Options: "features=twirp"},
+	{Name: "disable_default_response", Options: "disable-default-response"},
 }
 
 type Scenario struct {

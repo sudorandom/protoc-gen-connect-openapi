@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package test;
+
+import "google/protobuf/empty.proto";
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (google.protobuf.Empty) returns (google.protobuf.Empty);
+}
