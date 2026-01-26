@@ -8,6 +8,9 @@ import (
 )
 
 func fileToTags(opts options.Options, fd protoreflect.FileDescriptor) []*base.Tag {
+	if opts.WithoutDefaultTags {
+		return nil
+	}
 	tags := []*base.Tag{}
 	services := fd.Services()
 	for i := 0; i < services.Len(); i++ {
