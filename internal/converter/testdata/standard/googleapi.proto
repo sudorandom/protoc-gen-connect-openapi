@@ -5,6 +5,8 @@ package io.swagger.petstore.v2;
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 service Foo {
   rpc Foo(google.protobuf.Empty) returns (google.protobuf.Empty) {
@@ -24,10 +26,19 @@ service Foo {
   rpc NamedPathPatternsWithLiteralSegment(Something) returns (google.protobuf.Empty) {
     option (google.api.http).get = "/v1/{name=organizations/*/teams/*/all/members/*}";
   }
+
+  rpc Timestampy(TimestampyRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {get: "/timestampy"};
+  }
 }
 
 message MaskyRequest {
   google.protobuf.FieldMask fields = 1;
+}
+
+message TimestampyRequest {
+  google.protobuf.Timestamp ts = 1;
+  google.protobuf.StringValue s = 2;
 }
 
 message Foo2Request {

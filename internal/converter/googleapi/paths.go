@@ -530,6 +530,29 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 		seen[string(field.FullName())] = struct{}{}
 		switch field.Kind() {
 		case protoreflect.MessageKind:
+			if util.IsWellKnown(field.Message()) {
+				if wk := util.WellKnownToSchema(field.Message()); wk != nil && wk.Schema != nil {
+					// These types are represented as complex objects in OpenAPI so they should be flattened
+					// and not treated as a single query parameter.
+					isComplex := slices.Contains([]string{
+						"google.protobuf.Struct",
+						"google.protobuf.Value",
+						"google.protobuf.Any",
+						"google.protobuf.Empty",
+					}, wk.ID)
+
+					if !isComplex {
+						loc := field.ParentFile().SourceLocations().ByDescriptor(field)
+						params = append(params, &v3.Parameter{
+							Name:        paramName,
+							In:          "query",
+							Description: util.FormatComments(loc),
+							Schema:      base.CreateSchemaProxy(wk.Schema),
+						})
+						continue
+					}
+				}
+			}
 			params = append(params, flattenToParams(opts, field.Message(), paramName+".", seen)...)
 		default:
 			parent := &base.Schema{}

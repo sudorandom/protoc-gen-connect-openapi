@@ -84,6 +84,50 @@
         }
       }
     },
+    "/timestampy": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.Foo"
+        ],
+        "summary": "Timestampy",
+        "operationId": "io.swagger.petstore.v2.Foo.Timestampy",
+        "parameters": [
+          {
+            "name": "ts",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "2023-01-15T01:30:15.01Z",
+                "2024-12-25T12:00:00Z"
+              ],
+              "format": "date-time",
+              "description": "A Timestamp represents a point in time independent of any time zone or local\n calendar, encoded as a count of seconds and fractions of seconds at\n nanosecond resolution. The count is relative to an epoch at UTC midnight on\n January 1, 1970, in the proleptic Gregorian calendar which extends the\n Gregorian calendar backwards to year one.\n\n All minutes are 60 seconds long. Leap seconds are \"smeared\" so that no leap\n second table is needed for interpretation, using a [24-hour linear\n smear](https://developers.google.com/time/smear).\n\n The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By\n restricting to that range, we ensure that we can convert to and from [RFC\n 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.\n\n # Examples\n\n Example 1: Compute Timestamp from POSIX `time()`.\n\n     Timestamp timestamp;\n     timestamp.set_seconds(time(NULL));\n     timestamp.set_nanos(0);\n\n Example 2: Compute Timestamp from POSIX `gettimeofday()`.\n\n     struct timeval tv;\n     gettimeofday(\u0026tv, NULL);\n\n     Timestamp timestamp;\n     timestamp.set_seconds(tv.tv_sec);\n     timestamp.set_nanos(tv.tv_usec * 1000);\n\n Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.\n\n     FILETIME ft;\n     GetSystemTimeAsFileTime(\u0026ft);\n     UINT64 ticks = (((UINT64)ft.dwHighDateTime) \u003c\u003c 32) | ft.dwLowDateTime;\n\n     // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z\n     // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.\n     Timestamp timestamp;\n     timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));\n     timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));\n\n Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.\n\n     long millis = System.currentTimeMillis();\n\n     Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)\n         .setNanos((int) ((millis % 1000) * 1000000)).build();\n\n Example 5: Compute Timestamp from Java `Instant.now()`.\n\n     Instant now = Instant.now();\n\n     Timestamp timestamp =\n         Timestamp.newBuilder().setSeconds(now.getEpochSecond())\n             .setNanos(now.getNano()).build();\n\n Example 6: Compute Timestamp from current time in Python.\n\n     timestamp = Timestamp()\n     timestamp.GetCurrentTime()\n\n # JSON Mapping\n\n In JSON format, the Timestamp type is encoded as a string in the\n [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the\n format is \"{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z\"\n where {year} is always expressed using four digits while {month}, {day},\n {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional\n seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),\n are optional. The \"Z\" suffix indicates the timezone (\"UTC\"); the timezone\n is required. A proto3 JSON serializer should always use UTC (as indicated by\n \"Z\") when printing the Timestamp type and a proto3 JSON parser should be\n able to accept both UTC and other timezones (as indicated by an offset).\n\n For example, \"2017-01-15T01:30:15.01Z\" encodes 15.01 seconds past\n 01:30 UTC on January 15, 2017.\n\n In JavaScript, one can convert a Date object to this format using the\n standard\n [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)\n method. In Python, a standard `datetime.datetime` object can be converted\n to this format using\n [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with\n the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use\n the Joda Time's [`ISODateTimeFormat.dateTime()`](\n http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()\n ) to obtain a formatter capable of generating timestamps in this format."
+            }
+          },
+          {
+            "name": "s",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/messages/{message}": {
       "get": {
         "tags": [
@@ -355,6 +399,19 @@
         "type": "string",
         "description": "`FieldMask` represents a set of symbolic field paths, for example:\n\n     paths: \"f.a\"\n     paths: \"f.b.d\"\n\n Here `f` represents a field in some root message, `a` and `b`\n fields in the message found in `f`, and `d` a field found in the\n message in `f.b`.\n\n Field masks are used to specify a subset of fields that should be\n returned by a get operation or modified by an update operation.\n Field masks also have a custom JSON encoding (see below).\n\n # Field Masks in Projections\n\n When used in the context of a projection, a response message or\n sub-message is filtered by the API to only contain those fields as\n specified in the mask. For example, if the mask in the previous\n example is applied to a response message as follows:\n\n     f {\n       a : 22\n       b {\n         d : 1\n         x : 2\n       }\n       y : 13\n     }\n     z: 8\n\n The result will not contain specific values for fields x,y and z\n (their value will be set to the default, and omitted in proto text\n output):\n\n\n     f {\n       a : 22\n       b {\n         d : 1\n       }\n     }\n\n A repeated field is not allowed except at the last position of a\n paths string.\n\n If a FieldMask object is not present in a get operation, the\n operation applies to all fields (as if a FieldMask of all fields\n had been specified).\n\n Note that a field mask does not necessarily apply to the\n top-level response message. In case of a REST get operation, the\n field mask applies directly to the response, but in case of a REST\n list operation, the mask instead applies to each individual message\n in the returned resource list. In case of a REST custom method,\n other definitions may be used. Where the mask applies will be\n clearly documented together with its declaration in the API.  In\n any case, the effect on the returned resource/resources is required\n behavior for APIs.\n\n # Field Masks in Update Operations\n\n A field mask in update operations specifies which fields of the\n targeted resource are going to be updated. The API is required\n to only change the values of the fields as specified in the mask\n and leave the others untouched. If a resource is passed in to\n describe the updated values, the API ignores the values of all\n fields not covered by the mask.\n\n If a repeated field is specified for an update operation, new values will\n be appended to the existing repeated field in the target resource. Note that\n a repeated field is only allowed in the last position of a `paths` string.\n\n If a sub-message is specified in the last position of the field mask for an\n update operation, then new value will be merged into the existing sub-message\n in the target resource.\n\n For example, given the target message:\n\n     f {\n       b {\n         d: 1\n         x: 2\n       }\n       c: [1]\n     }\n\n And an update message:\n\n     f {\n       b {\n         d: 10\n       }\n       c: [2]\n     }\n\n then if the field mask is:\n\n  paths: [\"f.b\", \"f.c\"]\n\n then the result will be:\n\n     f {\n       b {\n         d: 10\n         x: 2\n       }\n       c: [1, 2]\n     }\n\n An implementation may provide options to override this default behavior for\n repeated and message fields.\n\n In order to reset a field's value to the default, the field must\n be in the mask and set to the default value in the provided resource.\n Hence, in order to reset all fields of a resource, provide a default\n instance of the resource and set all fields in the mask, or do\n not provide a mask as described below.\n\n If a field mask is not present on update, the operation applies to\n all fields (as if a field mask of all fields has been specified).\n Note that in the presence of schema evolution, this may mean that\n fields the client does not know and has therefore not filled into\n the request will be reset to their default. If this is unwanted\n behavior, a specific service may require a client to always specify\n a field mask, producing an error if not.\n\n As with get operations, the location of the resource which\n describes the updated values in the request message depends on the\n operation kind. In any case, the effect of the field mask is\n required to be honored by the API.\n\n ## Considerations for HTTP REST\n\n The HTTP kind of an update operation which uses a field mask must\n be set to PATCH instead of PUT in order to satisfy HTTP semantics\n (PUT must only be used for full updates).\n\n # JSON Encoding of Field Masks\n\n In JSON, a field mask is encoded as a single string where paths are\n separated by a comma. Fields name in each path are converted\n to/from lower-camel naming conventions.\n\n As an example, consider the following message declarations:\n\n     message Profile {\n       User user = 1;\n       Photo photo = 2;\n     }\n     message User {\n       string display_name = 1;\n       string address = 2;\n     }\n\n In proto a field mask for `Profile` may look as such:\n\n     mask {\n       paths: \"user.display_name\"\n       paths: \"photo\"\n     }\n\n In JSON, the same mask is represented as below:\n\n     {\n       mask: \"user.displayName,photo\"\n     }\n\n # Field Masks and Oneof Fields\n\n Field masks treat fields in oneofs just as regular fields. Consider the\n following message:\n\n     message SampleMessage {\n       oneof test_oneof {\n         string name = 4;\n         SubMessage sub_message = 9;\n       }\n     }\n\n The field mask can be:\n\n     mask {\n       paths: \"name\"\n     }\n\n Or:\n\n     mask {\n       paths: \"sub_message\"\n     }\n\n Note that oneof type names (\"test_oneof\" in this case) cannot be used in\n paths.\n\n ## Field Mask Verification\n\n The implementation of any API method which has a FieldMask type field in the\n request should verify the included field paths, and return an\n `INVALID_ARGUMENT` error if any path is unmappable."
       },
+      "google.protobuf.StringValue": {
+        "type": "string",
+        "description": "Wrapper message for `string`.\n\n The JSON representation for `StringValue` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
+      },
+      "google.protobuf.Timestamp": {
+        "type": "string",
+        "examples": [
+          "2023-01-15T01:30:15.01Z",
+          "2024-12-25T12:00:00Z"
+        ],
+        "format": "date-time",
+        "description": "A Timestamp represents a point in time independent of any time zone or local\n calendar, encoded as a count of seconds and fractions of seconds at\n nanosecond resolution. The count is relative to an epoch at UTC midnight on\n January 1, 1970, in the proleptic Gregorian calendar which extends the\n Gregorian calendar backwards to year one.\n\n All minutes are 60 seconds long. Leap seconds are \"smeared\" so that no leap\n second table is needed for interpretation, using a [24-hour linear\n smear](https://developers.google.com/time/smear).\n\n The range is from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59.999999999Z. By\n restricting to that range, we ensure that we can convert to and from [RFC\n 3339](https://www.ietf.org/rfc/rfc3339.txt) date strings.\n\n # Examples\n\n Example 1: Compute Timestamp from POSIX `time()`.\n\n     Timestamp timestamp;\n     timestamp.set_seconds(time(NULL));\n     timestamp.set_nanos(0);\n\n Example 2: Compute Timestamp from POSIX `gettimeofday()`.\n\n     struct timeval tv;\n     gettimeofday(\u0026tv, NULL);\n\n     Timestamp timestamp;\n     timestamp.set_seconds(tv.tv_sec);\n     timestamp.set_nanos(tv.tv_usec * 1000);\n\n Example 3: Compute Timestamp from Win32 `GetSystemTimeAsFileTime()`.\n\n     FILETIME ft;\n     GetSystemTimeAsFileTime(\u0026ft);\n     UINT64 ticks = (((UINT64)ft.dwHighDateTime) \u003c\u003c 32) | ft.dwLowDateTime;\n\n     // A Windows tick is 100 nanoseconds. Windows epoch 1601-01-01T00:00:00Z\n     // is 11644473600 seconds before Unix epoch 1970-01-01T00:00:00Z.\n     Timestamp timestamp;\n     timestamp.set_seconds((INT64) ((ticks / 10000000) - 11644473600LL));\n     timestamp.set_nanos((INT32) ((ticks % 10000000) * 100));\n\n Example 4: Compute Timestamp from Java `System.currentTimeMillis()`.\n\n     long millis = System.currentTimeMillis();\n\n     Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)\n         .setNanos((int) ((millis % 1000) * 1000000)).build();\n\n Example 5: Compute Timestamp from Java `Instant.now()`.\n\n     Instant now = Instant.now();\n\n     Timestamp timestamp =\n         Timestamp.newBuilder().setSeconds(now.getEpochSecond())\n             .setNanos(now.getNano()).build();\n\n Example 6: Compute Timestamp from current time in Python.\n\n     timestamp = Timestamp()\n     timestamp.GetCurrentTime()\n\n # JSON Mapping\n\n In JSON format, the Timestamp type is encoded as a string in the\n [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format. That is, the\n format is \"{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z\"\n where {year} is always expressed using four digits while {month}, {day},\n {hour}, {min}, and {sec} are zero-padded to two digits each. The fractional\n seconds, which can go up to 9 digits (i.e. up to 1 nanosecond resolution),\n are optional. The \"Z\" suffix indicates the timezone (\"UTC\"); the timezone\n is required. A proto3 JSON serializer should always use UTC (as indicated by\n \"Z\") when printing the Timestamp type and a proto3 JSON parser should be\n able to accept both UTC and other timezones (as indicated by an offset).\n\n For example, \"2017-01-15T01:30:15.01Z\" encodes 15.01 seconds past\n 01:30 UTC on January 15, 2017.\n\n In JavaScript, one can convert a Date object to this format using the\n standard\n [toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString)\n method. In Python, a standard `datetime.datetime` object can be converted\n to this format using\n [`strftime`](https://docs.python.org/2/library/time.html#time.strftime) with\n the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use\n the Joda Time's [`ISODateTimeFormat.dateTime()`](\n http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()\n ) to obtain a formatter capable of generating timestamps in this format."
+      },
       "io.swagger.petstore.v2.Foo2Request": {
         "type": "object",
         "properties": {
@@ -403,6 +460,21 @@
           }
         },
         "title": "Something",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.TimestampyRequest": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "title": "ts",
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "s": {
+            "title": "s",
+            "$ref": "#/components/schemas/google.protobuf.StringValue"
+          }
+        },
+        "title": "TimestampyRequest",
         "additionalProperties": false
       }
     }
