@@ -803,8 +803,15 @@
             "title": "repeatedMsgField"
           },
           "optionalMsgField": {
-            "title": "optionalMsgField",
-            "$ref": "#/components/schemas/flex.Other"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/flex.Other"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "optionalMsgField"
           }
         },
         "title": "ComplexType",

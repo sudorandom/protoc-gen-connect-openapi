@@ -989,11 +989,15 @@ components:
               title: enum_value
               $ref: '#/components/schemas/test.v1.AllTypes.Enum'
             optMsgValue:
+              oneOf:
+                - $ref: '#/components/schemas/test.v1.AllTypes'
+                - type: "null"
               title: opt_msg_value
-              $ref: '#/components/schemas/test.v1.AllTypes'
             optEnumValue:
+              oneOf:
+                - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+                - type: "null"
               title: opt_enum_value
-              $ref: '#/components/schemas/test.v1.AllTypes.Enum'
             msgList:
               type: array
               items:

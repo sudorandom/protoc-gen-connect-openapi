@@ -2505,8 +2505,10 @@ components:
           type: object
           title: frames_by_id
           additionalProperties:
+            oneOf:
+              - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
+              - type: "null"
             title: value
-            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
           description: |-
             Stack traces and frames are uniqueified during construction. These maps
              index from the unique id for a frame/trace to the value.
@@ -2514,14 +2516,18 @@ components:
           type: object
           title: traces_by_id
           additionalProperties:
+            oneOf:
+              - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
+              - type: "null"
             title: value
-            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
         traces:
           type: object
           title: traces
           additionalProperties:
+            oneOf:
+              - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
+              - type: "null"
             title: value
-            $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
           description: Deprecated.
         nameToTraceId:
           type: object
@@ -2599,8 +2605,10 @@ components:
           title: key
           format: int64
         value:
+          oneOf:
+            - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
+            - type: "null"
           title: value
-          $ref: '#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol'
       title: FramesByIdEntry
       additionalProperties: false
     tensorflow.GraphDebugInfo.NameToTraceIdEntry:
@@ -2651,8 +2659,10 @@ components:
           title: key
           format: int64
         value:
+          oneOf:
+            - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
+            - type: "null"
           title: value
-          $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
       title: TracesByIdEntry
       additionalProperties: false
     tensorflow.GraphDebugInfo.TracesEntry:
@@ -2664,8 +2674,10 @@ components:
             - "null"
           title: key
         value:
+          oneOf:
+            - $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
+            - type: "null"
           title: value
-          $ref: '#/components/schemas/tensorflow.GraphDebugInfo.StackTrace'
       title: TracesEntry
       additionalProperties: false
     tensorflow.GraphDef:

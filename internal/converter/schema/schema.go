@@ -59,7 +59,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			}
 
 			switch field.Kind() {
-			case protoreflect.MessageKind, protoreflect.EnumKind: // don't add a type when using a reference
+			case protoreflect.MessageKind, protoreflect.EnumKind: // now handled in FieldToSchema
 			default:
 				appendType(schema, "null")
 			}
@@ -144,9 +144,16 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		case protoreflect.MessageKind, protoreflect.EnumKind:
 			msg := ScalarFieldToSchema(opts, parent, tt, false)
 			ref := ReferenceFieldToSchema(opts, parent, tt)
-			extensions := orderedmap.New[string, *yaml.Node]()
-			extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
-			msg.Extensions = extensions
+			if tt.HasOptionalKeyword() {
+				msg.OneOf = []*base.SchemaProxy{
+					ref,
+					base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
+				}
+			} else {
+				extensions := orderedmap.New[string, *yaml.Node]()
+				extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
+				msg.Extensions = extensions
+			}
 			return base.CreateSchemaProxy(msg)
 		}
 

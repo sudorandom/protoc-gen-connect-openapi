@@ -2593,8 +2593,15 @@
             "type": "object",
             "title": "frames_by_id",
             "additionalProperties": {
-              "title": "value",
-              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "value"
             },
             "description": "Stack traces and frames are uniqueified during construction. These maps\n index from the unique id for a frame/trace to the value."
           },
@@ -2602,16 +2609,30 @@
             "type": "object",
             "title": "traces_by_id",
             "additionalProperties": {
-              "title": "value",
-              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "value"
             }
           },
           "traces": {
             "type": "object",
             "title": "traces",
             "additionalProperties": {
-              "title": "value",
-              "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "value"
             },
             "description": "Deprecated."
           },
@@ -2696,8 +2717,15 @@
             "format": "int64"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "FramesByIdEntry",
@@ -2766,8 +2794,15 @@
             "format": "int64"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "TracesByIdEntry",
@@ -2784,8 +2819,15 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "TracesEntry",

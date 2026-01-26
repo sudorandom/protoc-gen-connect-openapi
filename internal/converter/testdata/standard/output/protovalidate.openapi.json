@@ -348,12 +348,26 @@
             "description": "my_message.value // value must be greater than 42\n"
           },
           "skippedField": {
-            "title": "skipped_field",
-            "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "skipped_field"
           },
           "requiredField": {
-            "title": "required_field",
-            "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/protovalidate.MyOtherMessage"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "required_field"
           },
           "uriField": {
             "type": [

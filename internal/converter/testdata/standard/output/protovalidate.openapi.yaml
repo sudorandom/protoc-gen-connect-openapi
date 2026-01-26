@@ -392,11 +392,15 @@ components:
           description: |
             my_message.value // value must be greater than 42
         skippedField:
+          oneOf:
+            - $ref: '#/components/schemas/protovalidate.MyOtherMessage'
+            - type: "null"
           title: skipped_field
-          $ref: '#/components/schemas/protovalidate.MyOtherMessage'
         requiredField:
+          oneOf:
+            - $ref: '#/components/schemas/protovalidate.MyOtherMessage'
+            - type: "null"
           title: required_field
-          $ref: '#/components/schemas/protovalidate.MyOtherMessage'
         uriField:
           type:
             - string
