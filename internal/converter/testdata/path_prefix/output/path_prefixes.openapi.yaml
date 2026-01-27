@@ -19,7 +19,7 @@ paths:
     post:
       tags:
         - path_prefixes.Greeter
-      summary: Sends a greeting
+      summary: SayHello
       description: Sends a greeting
       operationId: path_prefixes.Greeter.SayHello
       parameters:
@@ -55,7 +55,7 @@ paths:
     post:
       tags:
         - path_prefixes.Greeter
-      summary: Writes a greeting (has side effects)
+      summary: WriteHello
       description: Writes a greeting (has side effects)
       operationId: path_prefixes.Greeter.WriteHello
       parameters:

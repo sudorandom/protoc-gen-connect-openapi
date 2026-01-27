@@ -7,7 +7,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Closes a session.
+      summary: CloseSession
       description: Closes a session.
       operationId: tensorflowtest.MasterService.CloseSession
       parameters:
@@ -43,7 +43,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Creates a session.
+      summary: CreateSession
       description: Creates a session.
       operationId: tensorflowtest.MasterService.CreateSession
       parameters:
@@ -79,7 +79,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Extends a session.
+      summary: ExtendSession
       description: Extends a session.
       operationId: tensorflowtest.MasterService.ExtendSession
       parameters:
@@ -115,7 +115,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: List the devices usable by the master.
+      summary: ListDevices
       description: List the devices usable by the master.
       operationId: tensorflowtest.MasterService.ListDevices
       parameters:
@@ -151,7 +151,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Registers a callable for execution with RunCallable.
+      summary: MakeCallable
       description: Registers a callable for execution with RunCallable.
       operationId: tensorflowtest.MasterService.MakeCallable
       parameters:
@@ -187,7 +187,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Prepares future partial run calls.
+      summary: PartialRunSetup
       description: Prepares future partial run calls.
       operationId: tensorflowtest.MasterService.PartialRunSetup
       parameters:
@@ -223,7 +223,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Frees resources associated with a callable registered with MakeCallable.
+      summary: ReleaseCallable
       description: Frees resources associated with a callable registered with MakeCallable.
       operationId: tensorflowtest.MasterService.ReleaseCallable
       parameters:
@@ -259,7 +259,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Close and abandon all existing sessions.  Ongoing computations  will no longer affect fresh ones via the resources in containers listed in  the ResetRequest.  See ResetRequest for more details.
+      summary: Reset
       description: |-
         Close and abandon all existing sessions.  Ongoing computations
          will no longer affect fresh ones via the resources in containers listed in
@@ -298,7 +298,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Executes a callable registered with MakeCallable.
+      summary: RunCallable
       description: Executes a callable registered with MakeCallable.
       operationId: tensorflowtest.MasterService.RunCallable
       parameters:
@@ -334,7 +334,7 @@ paths:
     post:
       tags:
         - tensorflowtest.MasterService
-      summary: Drives the graph computation.
+      summary: RunStep
       description: Drives the graph computation.
       operationId: tensorflowtest.MasterService.RunStep
       parameters:

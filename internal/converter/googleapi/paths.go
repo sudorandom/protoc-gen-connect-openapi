@@ -151,10 +151,14 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	if opts.ShortOperationIds {
 		operationId = string(service.Name()) + "_" + string(md.Name())
 	}
+	summary, description := util.FormatOperationComments(fd.SourceLocations().ByDescriptor(md))
+	if summary == "" {
+		summary = string(md.Name())
+	}
 	op := &v3.Operation{
-		Summary:     string(md.Name()),
+		Summary:     summary,
 		OperationId: operationId,
-		Description: util.FormatComments(fd.SourceLocations().ByDescriptor(md)),
+		Description: description,
 	}
 
 	if !opts.WithoutDefaultTags {

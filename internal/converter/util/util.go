@@ -125,15 +125,14 @@ func FormatOperationComments(loc protoreflect.SourceLocation) (summary string, d
 	// Split leading comments by double newline to separate blocks
 	blocks := strings.Split(leadingComments, "\n\n")
 
-	// The first block is the summary
-	summary = strings.ReplaceAll(strings.TrimSpace(blocks[0]), "\n", " ")
-
-	// The rest of the blocks form the description
 	if len(blocks) > 1 {
+		// If there are multiple blocks, the first block is the summary, and the rest is the description
+		summary = strings.TrimSpace(blocks[0])
 		description = strings.Join(blocks[1:], "\n\n")
 		description = strings.TrimSpace(description)
 	} else {
-		// If there's only one block, it serves as both summary and description
+		// If there's only one block, it serves as the description, and the summary is empty
+		summary = ""
 		description = strings.TrimSpace(blocks[0])
 	}
 
