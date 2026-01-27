@@ -1,7 +1,6 @@
 package util
 
 import (
-	"log"
 	"path"
 	"regexp"
 	"strings"
@@ -97,7 +96,6 @@ func filterInternalComments(comments string) string {
 	}
 	re := regexp.MustCompile(`(?s)\(--.*--\)`)
 	filtered := strings.TrimSpace(re.ReplaceAllString(comments, ""))
-	log.Printf("filterInternalComments:\n  in: %q\n  out: %q", comments, filtered)
 	return filtered
 }
 
