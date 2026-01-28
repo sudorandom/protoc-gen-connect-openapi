@@ -30,6 +30,11 @@ service Foo {
   rpc Timestampy(TimestampyRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {get: "/timestampy"};
   }
+  
+  rpc FooDeprecated(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option deprecated = true;
+    option (google.api.http).get = "/v1/deprecated";
+  }
 }
 
 message MaskyRequest {

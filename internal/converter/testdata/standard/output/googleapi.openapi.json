@@ -128,6 +128,28 @@
         }
       }
     },
+    "/v1/deprecated": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.Foo"
+        ],
+        "summary": "FooDeprecated",
+        "operationId": "io.swagger.petstore.v2.Foo.FooDeprecated",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
     "/v1/messages/{message}": {
       "get": {
         "tags": [
