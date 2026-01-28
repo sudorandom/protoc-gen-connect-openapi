@@ -159,6 +159,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		Summary:     summary,
 		OperationId: operationId,
 		Description: description,
+		Deprecated:  util.IsMethodDeprecated(md),
 	}
 
 	if !opts.WithoutDefaultTags {
