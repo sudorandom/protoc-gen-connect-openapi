@@ -10,7 +10,7 @@
           "test.Greeter"
         ],
         "summary": "SayHello",
-        "description": "Sends a greeting",
+        "description": "Sends a greeting (Connect RPC endpoint)",
         "operationId": "test.Greeter.SayHello",
         "parameters": [
           {
@@ -51,6 +51,60 @@
             }
           }
         }
+      }
+    },
+    "/v1/greetings": {
+      "post": {
+        "tags": [
+          "test.Greeter"
+        ],
+        "summary": "CreateGreeting",
+        "description": "Creates a greeting (Google API HTTP endpoint with body)",
+        "operationId": "test.Greeter.CreateGreeting",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/test.CreateGreetingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/test.GreetingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/greetings/{id}": {
+      "get": {
+        "tags": [
+          "test.Greeter"
+        ],
+        "summary": "GetGreeting",
+        "description": "Gets a greeting (Google API HTTP endpoint)",
+        "operationId": "test.Greeter.GetGreeting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "id"
+            }
+          }
+        ],
+        "responses": {}
       }
     }
   },
@@ -148,6 +202,43 @@
       "google.protobuf.Empty": {
         "type": "object",
         "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
+      },
+      "test.CreateGreetingRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "CreateGreetingRequest",
+        "additionalProperties": false
+      },
+      "test.GetGreetingRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          }
+        },
+        "title": "GetGreetingRequest",
+        "additionalProperties": false
+      },
+      "test.GreetingResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "GreetingResponse",
+        "additionalProperties": false
       }
     }
   },

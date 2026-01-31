@@ -355,21 +355,24 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	// Responses
 	codeMap := orderedmap.New[string, *v3.Response]()
-	mediaType := orderedmap.New[string, *v3.MediaType]()
-	var outputSchema *base.SchemaProxy
-	if rule.ResponseBody == "" {
-		outputSchema = base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(string(md.Output().FullName())))
-	} else {
-		if fd, _ := resolveField(opts, md.Output(), rule.ResponseBody); fd != nil {
-			outputSchema = schema.FieldToSchema(opts, nil, fd)
-		}
-	}
 
-	mediaType.Set("application/json", &v3.MediaType{Schema: outputSchema})
-	codeMap.Set("200", &v3.Response{
-		Description: "Success",
-		Content:     mediaType,
-	})
+	if !opts.DisableDefaultResponse {
+		var outputSchema *base.SchemaProxy
+		if rule.ResponseBody == "" {
+			outputSchema = base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(string(md.Output().FullName())))
+		} else {
+			if fd, _ := resolveField(opts, md.Output(), rule.ResponseBody); fd != nil {
+				outputSchema = schema.FieldToSchema(opts, nil, fd)
+			}
+		}
+
+		mediaType := orderedmap.New[string, *v3.MediaType]()
+		mediaType.Set("application/json", &v3.MediaType{Schema: outputSchema})
+		codeMap.Set("200", &v3.Response{
+			Description: "Success",
+			Content:     mediaType,
+		})
+	}
 
 	op.Responses = &v3.Responses{
 		Codes: codeMap,

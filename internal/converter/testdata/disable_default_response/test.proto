@@ -2,10 +2,60 @@ syntax = "proto3";
 
 package test;
 
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
 // The greeting service definition.
 service Greeter {
-  // Sends a greeting
-  rpc SayHello (google.protobuf.Empty) returns (google.protobuf.Empty);
+  // Sends a greeting (Connect RPC endpoint)
+  rpc SayHello(google.protobuf.Empty) returns (google.protobuf.Empty);
+
+  // Gets a greeting (Google API HTTP endpoint)
+  rpc GetGreeting(GetGreetingRequest) returns (GreetingResponse) {
+    option (google.api.http) = {get: "/v1/greetings/{id}"};
+  }
+
+  // Creates a greeting (Google API HTTP endpoint with body)
+  rpc CreateGreeting(CreateGreetingRequest) returns (GreetingResponse) {
+    option (google.api.http) = {
+      post: "/v1/greetings"
+      body: "*"
+    };
+    option (gnostic.openapi.v3.operation) = {
+      responses: {
+        response_or_reference: {
+          name: "200"
+          value: {
+            response: {
+              description: "Success"
+              content: {
+                additional_properties: {
+                  name: "application/json"
+                  value: {
+                    schema: {
+                      reference: {_ref: "#/components/schemas/test.GreetingResponse"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+}
+
+message GetGreetingRequest {
+  string id = 1;
+}
+
+message GreetingResponse {
+  string id = 1;
+  string message = 2;
+}
+
+message CreateGreetingRequest {
+  string message = 1;
 }
