@@ -481,11 +481,14 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 
 					if !isComplex {
 						loc := field.ParentFile().SourceLocations().ByDescriptor(field)
+						// Check field behavior for required status
+						required := IsFieldRequired(field)
 						params = append(params, &v3.Parameter{
 							Name:        paramName,
 							In:          "query",
 							Description: util.FormatComments(loc),
 							Schema:      base.CreateSchemaProxy(wk.Schema),
+							Required:    required,
 						})
 						continue
 					}
@@ -496,7 +499,10 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 			parent := &base.Schema{}
 			schema := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)
 			var required *bool
-			if len(parent.Required) > 0 {
+			// First check field behavior annotations
+			required = IsFieldRequired(field)
+			// If no field behavior, check if field is in parent's required list
+			if required == nil && len(parent.Required) > 0 {
 				required = util.BoolPtr(true)
 			}
 			loc := field.ParentFile().SourceLocations().ByDescriptor(field)
