@@ -564,6 +564,12 @@ func toParameter(opts options.Options, paramOrRef *goa3.ParameterOrReference) *v
 		return nil
 	}
 	param := paramOrRef.GetParameter()
+
+	var example *yaml.Node
+	if param.Example != nil {
+		example = util.ConvertNodeV3toV4(param.Example.ToRawInfo())
+	}
+
 	return &v3.Parameter{
 		Name:            param.GetName(),
 		In:              param.In,
@@ -575,7 +581,7 @@ func toParameter(opts options.Options, paramOrRef *goa3.ParameterOrReference) *v
 		Explode:         &param.Explode,
 		AllowReserved:   param.AllowReserved,
 		Schema:          toSchemaOrReference(opts, param.GetSchema()),
-		Example:         util.ConvertNodeV3toV4(param.Example.ToRawInfo()),
+		Example:         example,
 		Content:         toMediaTypes(opts, param.GetContent()),
 		Extensions:      toExtensions(param.GetSpecificationExtension()),
 	}
