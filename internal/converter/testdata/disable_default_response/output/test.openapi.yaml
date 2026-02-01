@@ -7,7 +7,7 @@ paths:
       tags:
         - test.Greeter
       summary: SayHello
-      description: Sends a greeting
+      description: Sends a greeting (Connect RPC endpoint)
       operationId: test.Greeter.SayHello
       parameters:
         - name: Connect-Protocol-Version
@@ -32,6 +32,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/connect.error'
+  /v1/greetings:
+    post:
+      tags:
+        - test.Greeter
+      summary: CreateGreeting
+      description: Creates a greeting (Google API HTTP endpoint with body)
+      operationId: test.Greeter.CreateGreeting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/test.CreateGreetingRequest'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/test.GreetingResponse'
+  /v1/greetings/{id}:
+    get:
+      tags:
+        - test.Greeter
+      summary: GetGreeting
+      description: Gets a greeting (Google API HTTP endpoint)
+      operationId: test.Greeter.GetGreeting
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: id
+      responses: {}
 components:
   schemas:
     connect-protocol-version:
@@ -113,6 +148,33 @@ components:
              service Foo {
                rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
              }
+    test.CreateGreetingRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          title: message
+      title: CreateGreetingRequest
+      additionalProperties: false
+    test.GetGreetingRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+      title: GetGreetingRequest
+      additionalProperties: false
+    test.GreetingResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+        message:
+          type: string
+          title: message
+      title: GreetingResponse
+      additionalProperties: false
 security: []
 tags:
   - name: test.Greeter
