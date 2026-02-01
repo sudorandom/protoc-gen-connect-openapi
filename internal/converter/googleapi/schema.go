@@ -9,6 +9,47 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
+// IsFieldRequired determines if a parameter should be required based on field behavior annotations.
+// Returns:
+//   - *bool(true) if field has REQUIRED behavior
+//   - *bool(false) if field has OPTIONAL behavior (and not REQUIRED)
+//   - nil if field has neither, allowing other factors to determine required status
+func IsFieldRequired(desc protoreflect.FieldDescriptor) *bool {
+	dopts := desc.Options()
+	if !proto.HasExtension(dopts, annotations.E_FieldBehavior) {
+		return nil
+	}
+	fieldBehaviors, ok := proto.GetExtension(dopts, annotations.E_FieldBehavior).([]annotations.FieldBehavior)
+	if !ok {
+		return nil
+	}
+
+	hasRequired := false
+	hasOptional := false
+
+	for _, fieldBehavior := range fieldBehaviors {
+		fb := fieldBehavior.Enum()
+		if fb == nil {
+			continue
+		}
+		switch *fb {
+		case annotations.FieldBehavior_REQUIRED:
+			hasRequired = true
+		case annotations.FieldBehavior_OPTIONAL:
+			hasOptional = true
+		}
+	}
+
+	// REQUIRED takes precedence over OPTIONAL
+	if hasRequired {
+		return util.BoolPtr(true)
+	}
+	if hasOptional {
+		return util.BoolPtr(false)
+	}
+	return nil
+}
+
 func SchemaWithPropertyAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
 	dopts := desc.Options()
 	if !proto.HasExtension(dopts, annotations.E_FieldBehavior) {
