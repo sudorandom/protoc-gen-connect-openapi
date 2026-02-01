@@ -4,6 +4,7 @@ import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -27,7 +28,7 @@ func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md p
 		}
 
 		for _, param := range gnosticOperation.Parameters {
-			item.Parameters = append(item.Parameters, toParameter(opts, param))
+			oper.Parameters = util.MergeOrAppendParameter(oper.Parameters, toParameter(opts, param))
 		}
 
 		if gnosticOperation.RequestBody != nil {
