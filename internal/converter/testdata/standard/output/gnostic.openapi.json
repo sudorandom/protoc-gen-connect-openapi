@@ -105,9 +105,7 @@
             "description": "user is not found",
             "headers": {
               "filter_mask": {
-                "schema": {
-                  "$ref": "#/components/parameters/filter_mask"
-                }
+                "$ref": "#/components/parameters/filter_mask"
               }
             },
             "content": {
@@ -185,9 +183,7 @@
             "description": "user is not found",
             "headers": {
               "filter_mask": {
-                "schema": {
-                  "$ref": "#/components/parameters/filter_mask"
-                }
+                "$ref": "#/components/parameters/filter_mask"
               }
             },
             "content": {
@@ -272,7 +268,10 @@
         ],
         "responses": {
           "default": {
-            "description": "",
+            "$ref": "#/components/responses/example_with_gnostic.DefaultResponse"
+          },
+          "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -281,8 +280,8 @@
               }
             }
           },
-          "200": {
-            "description": "Success",
+          "400": {
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
@@ -475,6 +474,11 @@
         "title": "Custom title for a message",
         "additionalProperties": false,
         "description": "Custom description for a message"
+      }
+    },
+    "responses": {
+      "example_with_gnostic.DefaultResponse": {
+        "description": "Default response"
       }
     },
     "parameters": {

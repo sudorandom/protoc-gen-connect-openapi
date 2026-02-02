@@ -73,8 +73,7 @@ paths:
           description: user is not found
           headers:
             filter_mask:
-              schema:
-                $ref: '#/components/parameters/filter_mask'
+              $ref: '#/components/parameters/filter_mask'
           content:
             application/json:
               schema:
@@ -121,8 +120,7 @@ paths:
           description: user is not found
           headers:
             filter_mask:
-              schema:
-                $ref: '#/components/parameters/filter_mask'
+              $ref: '#/components/parameters/filter_mask'
           content:
             application/json:
               schema:
@@ -178,13 +176,15 @@ paths:
             uniqueItems: true
       responses:
         default:
-          description: ""
+          $ref: '#/components/responses/example_with_gnostic.DefaultResponse'
+        "200":
+          description: Success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/example_with_gnostic.HelloReply'
-        "200":
-          description: Success
+        "400":
+          description: ""
           content:
             application/json:
               schema:
@@ -329,6 +329,9 @@ components:
       title: Custom title for a message
       additionalProperties: false
       description: Custom description for a message
+  responses:
+    example_with_gnostic.DefaultResponse:
+      description: Default response
   parameters:
     filter_mask:
       name: X-TEST-HEADER

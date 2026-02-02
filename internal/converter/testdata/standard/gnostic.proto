@@ -39,6 +39,16 @@ option (gnostic.openapi.v3.document) = {
         }
       ]
     }
+    responses: {
+      additional_properties: [
+        {
+          name: "example_with_gnostic.DefaultResponse"
+          value: {
+            response: {description: "Default response"}
+          }
+        }
+      ]
+    }
     security_schemes: {
       additional_properties: [
         {
@@ -113,8 +123,27 @@ service Greeter {
     option (gnostic.openapi.v3.operation) = {
       tags: ["extra-tag"]
       responses: {
+        response_or_reference: {
+          name: "400"
+          value: {
+            response: {
+              content: {
+                additional_properties: [
+                  {
+                    name: "application/json"
+                    value: {
+                      schema: {
+                        reference: {_ref: "#/components/schemas/example_with_gnostic.HelloReply"}
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
         default: {
-          reference: {_ref: "#/components/schemas/example_with_gnostic.HelloReply"}
+          reference: {_ref: "#/components/responses/example_with_gnostic.DefaultResponse"}
         }
       }
     };

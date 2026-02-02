@@ -1,7 +1,6 @@
 package converter
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -104,13 +103,9 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			if err != nil {
 				return &v3.Document{}, fmt.Errorf("unmarshalling base: %w", err)
 			}
-			v3Document, errs := document.BuildV3Model()
-			if len(errs) > 0 {
-				var merr error
-				for _, err := range errs {
-					merr = errors.Join(merr, err)
-				}
-				return nil, merr
+			v3Document, err := document.BuildV3Model()
+			if err != nil {
+				return nil, fmt.Errorf("building v3 model: %w", err)
 			}
 			model := &v3Document.Model
 			initializeDoc(opts, model)
@@ -203,13 +198,9 @@ func getOverrideComponents(opts options.Options) (*v3.Components, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unmarshaling base: %w", err)
 	}
-	v3Document, errs := document.BuildV3Model()
-	if len(errs) > 0 {
-		var merr error
-		for _, err := range errs {
-			merr = errors.Join(merr, err)
-		}
-		return nil, merr
+	v3Document, err := document.BuildV3Model()
+	if err != nil {
+		return nil, fmt.Errorf("building v3 model: %w", err)
 	}
 	return v3Document.Model.Components, nil
 }
