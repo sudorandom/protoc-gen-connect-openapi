@@ -6,8 +6,6 @@ import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
-	low "github.com/pb33f/libopenapi/datamodel/low"
-	lowBase "github.com/pb33f/libopenapi/datamodel/low/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -349,11 +347,10 @@ func toExamples(exes *goa3.ExamplesOrReferences) *orderedmap.Map[string, *base.E
 			})
 		}
 		if ref := item.GetValue().GetReference(); ref != nil {
-			example := &lowBase.Example{
-				Reference: &low.Reference{},
-			}
-			example.SetReference(ref.XRef, utils.CreateRefNode(ref.XRef))
-			examples.Set(item.Name, base.NewExample(example))
+			example := base.CreateExampleRef(ref.XRef)
+			example.Summary = ref.Summary
+			example.Description = ref.Description
+			examples.Set(item.Name, example)
 		}
 	}
 	return examples
@@ -386,10 +383,9 @@ func toHeaders(opts options.Options, v *goa3.HeadersOrReferences) *orderedmap.Ma
 	headers := orderedmap.New[string, *v3.Header]()
 	for _, headerVal := range v.GetAdditionalProperties() {
 		if ref := headerVal.Value.GetReference(); ref != nil {
-			headers.Set(headerVal.Name, &v3.Header{
-				Description: ref.Description,
-				Schema:      base.CreateSchemaProxyRef(ref.XRef),
-			})
+			header := v3.CreateHeaderRef(ref.XRef)
+			header.Description = ref.Description
+			headers.Set(headerVal.Name, header)
 		} else if header := headerVal.Value.GetHeader(); header != nil {
 			var exampleRawInfo *yaml.Node
 			if header.Example != nil {
@@ -438,22 +434,9 @@ func toResponse(opts options.Options, r *goa3.ResponseOrReference) *v3.Response 
 		return nil
 	}
 	if v := r.GetReference(); v != nil {
-		return &v3.Response{
-			Description: v.Description,
-			Headers:     nil,
-			Content: util.MakeMediaTypes(
-				options.Options{
-					ContentTypes: map[string]struct{}{
-						"json": struct{}{},
-					},
-				},
-				base.CreateSchemaProxyRef(v.XRef),
-				false,
-				false,
-			),
-			Links:      nil,
-			Extensions: nil,
-		}
+		response := v3.CreateResponseRef(v.XRef)
+		response.Description = v.Description
+		return response
 	}
 	if v := r.GetResponse(); v != nil {
 		return &v3.Response{
