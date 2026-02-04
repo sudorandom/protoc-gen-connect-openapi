@@ -22,6 +22,10 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 		if !opts.HasService(service.FullName()) {
 			continue
 		}
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(service), opts.AllowedVisibilities) {
+			opts.Logger.Debug("Filtering service due to visibility", slog.String("service", string(service.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
+			continue
+		}
 		methods := service.Methods()
 		for j := 0; j < methods.Len(); j++ {
 			method := methods.Get(j)

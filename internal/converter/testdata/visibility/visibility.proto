@@ -9,9 +9,15 @@ option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/c
 
 service VisibilityService {
   rpc GetMessage(GetMessageRequest) returns (Message) {
-    option (google.api.http) = {
-      get: "/v1/messages/{message_id}"
-    };
+    option (google.api.http) = {get: "/v1/messages/{message_id}"};
+  }
+}
+
+service ExternalService {
+  option (google.api.api_visibility).restriction = "EXTERNAL";
+
+  rpc GetMessage(Message) returns (Message) {
+    option (google.api.http) = {get: "/v1/external"};
   }
 }
 
