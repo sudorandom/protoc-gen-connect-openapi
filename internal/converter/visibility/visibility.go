@@ -22,6 +22,9 @@ func GetVisibilityRule(desc protoreflect.Descriptor) *api_visibility.VisibilityR
 	case protoreflect.MethodDescriptor:
 		options = d.Options().(*descriptorpb.MethodOptions)
 		extension = api_visibility.E_MethodVisibility
+	case protoreflect.ServiceDescriptor:
+		options = d.Options().(*descriptorpb.ServiceOptions)
+		extension = api_visibility.E_ApiVisibility
 	case protoreflect.EnumDescriptor:
 		options = d.Options().(*descriptorpb.EnumOptions)
 		extension = api_visibility.E_EnumVisibility

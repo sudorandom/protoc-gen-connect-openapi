@@ -4,6 +4,7 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -16,6 +17,9 @@ func fileToTags(opts options.Options, fd protoreflect.FileDescriptor) []*base.Ta
 	for i := 0; i < services.Len(); i++ {
 		service := services.Get(i)
 		if !opts.HasService(service.FullName()) {
+			continue
+		}
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(service), opts.AllowedVisibilities) {
 			continue
 		}
 		loc := fd.SourceLocations().ByDescriptor(service)
