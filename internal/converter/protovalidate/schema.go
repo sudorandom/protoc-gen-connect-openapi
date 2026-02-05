@@ -2,7 +2,6 @@ package protovalidate
 
 import (
 	"log/slog"
-	"reflect"
 	"slices"
 	"strconv"
 	"strings"
@@ -250,7 +249,14 @@ func updateWithCEL(schema *base.Schema, rules []*validate.Rule, val *protoreflec
 }
 
 func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *validate.FloatRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32))
@@ -291,7 +297,14 @@ func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *va
 }
 
 func updateSchemaDouble(opts options.Options, schema *base.Schema, constraint *validate.DoubleRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64))
@@ -332,7 +345,14 @@ func updateSchemaDouble(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaInt32(opts options.Options, schema *base.Schema, constraint *validate.Int32Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
@@ -373,7 +393,14 @@ func updateSchemaInt32(opts options.Options, schema *base.Schema, constraint *va
 }
 
 func updateSchemaInt64(opts options.Options, schema *base.Schema, constraint *validate.Int64Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
@@ -414,7 +441,14 @@ func updateSchemaInt64(opts options.Options, schema *base.Schema, constraint *va
 }
 
 func updateSchemaUint32(opts options.Options, schema *base.Schema, constraint *validate.UInt32Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
@@ -455,7 +489,14 @@ func updateSchemaUint32(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaUint64(opts options.Options, schema *base.Schema, constraint *validate.UInt64Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
@@ -496,7 +537,14 @@ func updateSchemaUint64(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaSint32(opts options.Options, schema *base.Schema, constraint *validate.SInt32Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
@@ -537,7 +585,14 @@ func updateSchemaSint32(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaSint64(opts options.Options, schema *base.Schema, constraint *validate.SInt64Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(*constraint.Const, 10))
@@ -578,7 +633,14 @@ func updateSchemaSint64(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaFixed32(opts options.Options, schema *base.Schema, constraint *validate.Fixed32Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
@@ -619,7 +681,14 @@ func updateSchemaFixed32(opts options.Options, schema *base.Schema, constraint *
 }
 
 func updateSchemaFixed64(opts options.Options, schema *base.Schema, constraint *validate.Fixed64Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(*constraint.Const, 10))
@@ -660,7 +729,14 @@ func updateSchemaFixed64(opts options.Options, schema *base.Schema, constraint *
 }
 
 func updateSchemaSfixed32(opts options.Options, schema *base.Schema, constraint *validate.SFixed32Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
@@ -701,7 +777,14 @@ func updateSchemaSfixed32(opts options.Options, schema *base.Schema, constraint 
 }
 
 func updateSchemaSfixed64(opts options.Options, schema *base.Schema, constraint *validate.SFixed64Rules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLessThan, FieldGreaterThan, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateIntNode(strconv.FormatInt(*constraint.Const, 10))
@@ -742,7 +825,10 @@ func updateSchemaSfixed64(opts options.Options, schema *base.Schema, constraint 
 }
 
 func updateSchemaBool(opts options.Options, schema *base.Schema, constraint *validate.BoolRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		if *constraint.Const {
@@ -762,7 +848,16 @@ func updateSchemaBool(opts options.Options, schema *base.Schema, constraint *val
 
 //gocyclo:ignore
 func updateSchemaString(opts options.Options, schema *base.Schema, constraint *validate.StringRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLen, FieldMinLen, FieldMaxLen, FieldPattern, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.Len = nil
+		constraint.MinLen = nil
+		constraint.MaxLen = nil
+		constraint.Pattern = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(*constraint.Const)
@@ -862,7 +957,16 @@ func updateSchemaString(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *validate.BytesRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldLen, FieldMinLen, FieldMaxLen, FieldPattern, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.Len = nil
+		constraint.MinLen = nil
+		constraint.MaxLen = nil
+		constraint.Pattern = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(string(constraint.Const))
@@ -920,7 +1024,13 @@ func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *va
 }
 
 func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *validate.EnumRules, desc protoreflect.FieldDescriptor) {
-	defer clearSelectedFields(opts, constraint, FieldConst, "DefinedOnly", FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.DefinedOnly = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	enumDesc := desc.Enum()
 	if enumDesc == nil {
@@ -971,7 +1081,11 @@ func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *val
 }
 
 func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint *validate.RepeatedRules, desc protoreflect.FieldDescriptor) {
-	defer clearSelectedFields(opts, constraint, FieldUnique, FieldMinItems, FieldMaxItems)
+	defer func() {
+		constraint.Unique = nil
+		constraint.MinItems = nil
+		constraint.MaxItems = nil
+	}()
 
 	if constraint.Unique != nil {
 		schema.UniqueItems = constraint.Unique
@@ -990,7 +1104,10 @@ func updateSchemaRepeated(opts options.Options, schema *base.Schema, constraint 
 }
 
 func updateSchemaMap(opts options.Options, schema *base.Schema, constraint *validate.MapRules, desc protoreflect.FieldDescriptor) {
-	defer clearSelectedFields(opts, constraint, FieldMinPairs, FieldMaxPairs)
+	defer func() {
+		constraint.MinPairs = nil
+		constraint.MaxPairs = nil
+	}()
 
 	if constraint.MinPairs != nil {
 		v := int64(*constraint.MinPairs)
@@ -1012,7 +1129,10 @@ func updateSchemaMap(opts options.Options, schema *base.Schema, constraint *vali
 }
 
 func updateSchemaAny(opts options.Options, schema *base.Schema, constraint *validate.AnyRules) {
-	defer clearSelectedFields(opts, constraint, FieldIn, FieldNotIn)
+	defer func() {
+		constraint.In = nil
+		constraint.NotIn = nil
+	}()
 
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -1031,7 +1151,12 @@ func updateSchemaAny(opts options.Options, schema *base.Schema, constraint *vali
 }
 
 func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint *validate.DurationRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldIn, FieldNotIn, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.In = nil
+		constraint.NotIn = nil
+		constraint.Example = nil
+	}()
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(constraint.Const.AsDuration().String())
@@ -1056,7 +1181,10 @@ func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint 
 }
 
 func updateSchemaTimestamp(opts options.Options, schema *base.Schema, constraint *validate.TimestampRules) {
-	defer clearSelectedFields(opts, constraint, FieldConst, FieldExample)
+	defer func() {
+		constraint.Const = nil
+		constraint.Example = nil
+	}()
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(constraint.Const.AsTime().String())
 	}
@@ -1129,37 +1257,4 @@ func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.Fiel
 		return string(data)
 	}
 	return val.String()
-}
-
-func clearSelectedFields(opts options.Options, obj any, fieldsToClear ...string) {
-	v := reflect.ValueOf(obj)
-	if v.Kind() != reflect.Ptr || v.IsNil() {
-		opts.Logger.Error("expected pointer to struct")
-		return
-	}
-
-	v = v.Elem()
-	if v.Kind() != reflect.Struct {
-		opts.Logger.Error("expected struct")
-		return
-	}
-
-	for _, name := range fieldsToClear {
-		f := v.FieldByName(name)
-		if !f.IsValid() {
-			opts.Logger.Warn("field not found", "field", name)
-			continue
-		}
-		if !f.CanSet() {
-			opts.Logger.Warn("cannot set field", "field", name)
-			continue
-		}
-
-		switch f.Kind() {
-		case reflect.Slice:
-			f.Set(reflect.MakeSlice(f.Type(), 0, 0))
-		default:
-			f.Set(reflect.Zero(f.Type()))
-		}
-	}
 }

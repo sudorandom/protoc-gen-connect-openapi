@@ -1302,8 +1302,6 @@ components:
           type: string
           title: byte_const
           format: byte
-          description: |
-            bytes.const = []
           const: "\x01\x02\x03\x04"
         byteLen:
           type:
@@ -1313,8 +1311,6 @@ components:
           maxLength: 4
           minLength: 4
           format: byte
-          description: |
-            bytes.const = []
         bytesMinLen:
           type:
             - string
@@ -1322,8 +1318,6 @@ components:
           title: bytes_min_len
           minLength: 2
           format: byte
-          description: |
-            bytes.const = []
         bytesMaxLen:
           type:
             - string
@@ -1331,8 +1325,6 @@ components:
           title: bytes_max_len
           maxLength: 6
           format: byte
-          description: |
-            bytes.const = []
         bytesPattern:
           type:
             - string
@@ -1340,8 +1332,6 @@ components:
           title: bytes_pattern
           pattern: ^[a-zA-Z0-9]+$
           format: byte
-          description: |
-            bytes.const = []
         bytesPrefix:
           type:
             - string
@@ -1349,7 +1339,6 @@ components:
           title: bytes_prefix
           format: byte
           description: |
-            bytes.const = []
             bytes.prefix = [1 2]
         bytesSuffix:
           type:
@@ -1358,7 +1347,6 @@ components:
           title: bytes_suffix
           format: byte
           description: |
-            bytes.const = []
             bytes.suffix = [3 4]
         bytesContains:
           type:
@@ -1367,7 +1355,6 @@ components:
           title: bytes_contains
           format: byte
           description: |
-            bytes.const = []
             bytes.contains = [2 3]
         bytesIn:
           type:
@@ -1379,8 +1366,6 @@ components:
             - "\x01\x02"
             - "\x02\x03"
             - "\x03\x04"
-          description: |
-            bytes.const = []
         bytesNotIn:
           type:
             - string
@@ -1393,32 +1378,24 @@ components:
               - "\x03\x04"
           title: bytes_not_in
           format: byte
-          description: |
-            bytes.const = []
         bytesIp:
           type:
             - string
             - "null"
           title: bytes_ip
           format: ip
-          description: |
-            bytes.const = []
         bytesIpv4:
           type:
             - string
             - "null"
           title: bytes_ipv4
           format: ipv4
-          description: |
-            bytes.const = []
         bytesIpv6:
           type:
             - string
             - "null"
           title: bytes_ipv6
           format: ipv6
-          description: |
-            bytes.const = []
         enumConst:
           title: enum_const
           const: MY_ENUM_VALUE1
