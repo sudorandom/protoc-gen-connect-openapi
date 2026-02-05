@@ -168,6 +168,61 @@ func TestMergeOrAppendParameter(t *testing.T) {
 	})
 }
 
+func TestFilterInternalComments(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected string
+	}{
+		{
+			name:     "empty",
+			input:    "",
+			expected: "",
+		},
+		{
+			name:     "no internal comments",
+			input:    "regular comment",
+			expected: "regular comment",
+		},
+		{
+			name:     "with internal comment",
+			input:    "regular comment (-- internal --)",
+			expected: "regular comment",
+		},
+		{
+			name:     "only internal comment",
+			input:    "(-- internal --)",
+			expected: "",
+		},
+		{
+			name:     "multiline internal comment",
+			input:    "start (-- \n internal \n --) end",
+			expected: "start  end",
+		},
+		{
+			name:     "multiple internal comments",
+			input:    "one (-- two --) three (-- four --)",
+			expected: "one  three",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := filterInternalComments(tt.input); got != tt.expected {
+				t.Errorf("filterInternalComments() = %q, want %q", got, tt.expected)
+			}
+		})
+	}
+}
+
+func BenchmarkFilterInternalComments(b *testing.B) {
+	input := "Some public comment (-- internal comment --) more public comment"
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		filterInternalComments(input)
+	}
+}
+
 func TestAppendStringDedupe(t *testing.T) {
 	tests := []struct {
 		name     string

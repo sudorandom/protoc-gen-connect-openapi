@@ -91,12 +91,13 @@ func TypeFieldDescription(opts options.Options, tt protoreflect.FieldDescriptor)
 	return b.String()
 }
 
+var internalCommentsRegex = regexp.MustCompile(`(?s)\(--.*?--\)`)
+
 func filterInternalComments(comments string) string {
 	if comments == "" {
 		return ""
 	}
-	re := regexp.MustCompile(`(?s)\(--.*--\)`)
-	filtered := strings.TrimSpace(re.ReplaceAllString(comments, ""))
+	filtered := strings.TrimSpace(internalCommentsRegex.ReplaceAllString(comments, ""))
 	return filtered
 }
 
