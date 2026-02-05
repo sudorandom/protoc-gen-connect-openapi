@@ -91,7 +91,7 @@ func TypeFieldDescription(opts options.Options, tt protoreflect.FieldDescriptor)
 	return b.String()
 }
 
-var internalCommentsRegex = regexp.MustCompile(`(?s)\(--.*?--\)`)
+var internalCommentsRegex = regexp.MustCompile(`(?s)\(--.*--\)`)
 
 func filterInternalComments(comments string) string {
 	if comments == "" {

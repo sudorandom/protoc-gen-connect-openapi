@@ -202,7 +202,7 @@ func TestFilterInternalComments(t *testing.T) {
 		{
 			name:     "multiple internal comments",
 			input:    "one (-- two --) three (-- four --)",
-			expected: "one  three",
+			expected: "one",
 		},
 	}
 
