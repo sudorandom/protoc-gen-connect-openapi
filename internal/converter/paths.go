@@ -183,16 +183,7 @@ func mergeOperation(existing **v3.Operation, new *v3.Operation) {
 }
 
 func mergeParameters(existing, new []*v3.Parameter) []*v3.Parameter {
-	if len(existing) == 0 {
-		return new
-	}
-	if len(new) == 0 {
-		return existing
-	}
-	for _, param := range new {
-		existing = util.MergeOrAppendParameter(existing, param)
-	}
-	return existing
+	return util.MergeParameters(existing, new)
 }
 
 func mergeResponses(existing, new *v3.Responses) {

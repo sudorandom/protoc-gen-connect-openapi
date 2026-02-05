@@ -251,6 +251,35 @@ func ResolveSchemaRef(ref string) string {
 	return ref
 }
 
+// MergeParameters merges new parameters into existing parameters.
+// It uses a map to efficiently check for duplicates and merge properties.
+func MergeParameters(existingParams []*v3.Parameter, newParams []*v3.Parameter) []*v3.Parameter {
+	if len(newParams) == 0 {
+		return existingParams
+	}
+	if len(existingParams) == 0 {
+		return newParams
+	}
+
+	// Map to track existing parameters by Name + In
+	paramMap := make(map[string]*v3.Parameter, len(existingParams))
+	for _, p := range existingParams {
+		key := p.Name + "|" + p.In
+		paramMap[key] = p
+	}
+
+	for _, newParam := range newParams {
+		key := newParam.Name + "|" + newParam.In
+		if p, exists := paramMap[key]; exists {
+			mergeParameter(p, newParam)
+		} else {
+			existingParams = append(existingParams, newParam)
+			paramMap[key] = newParam
+		}
+	}
+	return existingParams
+}
+
 // MergeOrAppendParameter merges or appends a parameter to a list of parameters.
 func MergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Parameter) []*v3.Parameter {
 	found := false
@@ -259,62 +288,66 @@ func MergeOrAppendParameter(existingParams []*v3.Parameter, newParam *v3.Paramet
 			continue
 		}
 		found = true
-		if p.Description == "" && newParam.Description != "" {
-			p.Description = newParam.Description
-		}
-		// If p.Required is nil (not set) and newParam.Required is set, then use newParam.Required.
-		// This preserves an explicitly set false in p.Required.
-		if p.Required == nil && newParam.Required != nil {
-			p.Required = newParam.Required
-		}
-		if p.Schema == nil && newParam.Schema != nil {
-			p.Schema = newParam.Schema
-		} else if p.Schema != nil && newParam.Schema != nil {
-			// Merge schema properties
-			if p.Schema.Schema().Title == "" {
-				p.Schema.Schema().Title = newParam.Schema.Schema().Title
-			}
-			if p.Schema.Schema().Description == "" {
-				p.Schema.Schema().Description = newParam.Schema.Schema().Description
-			}
-			if len(p.Schema.Schema().Type) == 0 {
-				p.Schema.Schema().Type = newParam.Schema.Schema().Type
-			}
-			if p.Schema.Schema().Format == "" {
-				p.Schema.Schema().Format = newParam.Schema.Schema().Format
-			}
-			if len(p.Schema.Schema().Enum) == 0 {
-				p.Schema.Schema().Enum = newParam.Schema.Schema().Enum
-			}
-			if p.Schema.Schema().Default == nil {
-				p.Schema.Schema().Default = newParam.Schema.Schema().Default
-			}
-			if p.Schema.Schema().Items == nil {
-				p.Schema.Schema().Items = newParam.Schema.Schema().Items
-			}
-		}
-		// If p.Explode is nil (not set) and newParam.Explode is set, then use newParam.Explode.
-		// This preserves an explicitly set false in p.Explode.
-		if p.Explode == nil {
-			p.Explode = newParam.Explode
-		}
-		// Assuming Deprecated, AllowEmptyValue, AllowReserved are bool (non-pointer) based on compiler errors
-		// This means "empty/nil" is false. We update if current is false.
-		if !p.Deprecated { // If p.Deprecated is false
-			p.Deprecated = newParam.Deprecated // Set it from newParam
-		}
-		if !p.AllowEmptyValue { // If p.AllowEmptyValue is false
-			p.AllowEmptyValue = newParam.AllowEmptyValue // Set it from newParam
-		}
-		if p.Style == "" {
-			p.Style = newParam.Style
-		}
-		if !p.AllowReserved { // If p.AllowReserved is false
-			p.AllowReserved = newParam.AllowReserved // Set it from newParam
-		}
+		mergeParameter(p, newParam)
 	}
 	if !found {
 		existingParams = append(existingParams, newParam)
 	}
 	return existingParams
+}
+
+func mergeParameter(p, newParam *v3.Parameter) {
+	if p.Description == "" && newParam.Description != "" {
+		p.Description = newParam.Description
+	}
+	// If p.Required is nil (not set) and newParam.Required is set, then use newParam.Required.
+	// This preserves an explicitly set false in p.Required.
+	if p.Required == nil && newParam.Required != nil {
+		p.Required = newParam.Required
+	}
+	if p.Schema == nil && newParam.Schema != nil {
+		p.Schema = newParam.Schema
+	} else if p.Schema != nil && newParam.Schema != nil {
+		// Merge schema properties
+		if p.Schema.Schema().Title == "" {
+			p.Schema.Schema().Title = newParam.Schema.Schema().Title
+		}
+		if p.Schema.Schema().Description == "" {
+			p.Schema.Schema().Description = newParam.Schema.Schema().Description
+		}
+		if len(p.Schema.Schema().Type) == 0 {
+			p.Schema.Schema().Type = newParam.Schema.Schema().Type
+		}
+		if p.Schema.Schema().Format == "" {
+			p.Schema.Schema().Format = newParam.Schema.Schema().Format
+		}
+		if len(p.Schema.Schema().Enum) == 0 {
+			p.Schema.Schema().Enum = newParam.Schema.Schema().Enum
+		}
+		if p.Schema.Schema().Default == nil {
+			p.Schema.Schema().Default = newParam.Schema.Schema().Default
+		}
+		if p.Schema.Schema().Items == nil {
+			p.Schema.Schema().Items = newParam.Schema.Schema().Items
+		}
+	}
+	// If p.Explode is nil (not set) and newParam.Explode is set, then use newParam.Explode.
+	// This preserves an explicitly set false in p.Explode.
+	if p.Explode == nil {
+		p.Explode = newParam.Explode
+	}
+	// Assuming Deprecated, AllowEmptyValue, AllowReserved are bool (non-pointer) based on compiler errors
+	// This means "empty/nil" is false. We update if current is false.
+	if !p.Deprecated { // If p.Deprecated is false
+		p.Deprecated = newParam.Deprecated // Set it from newParam
+	}
+	if !p.AllowEmptyValue { // If p.AllowEmptyValue is false
+		p.AllowEmptyValue = newParam.AllowEmptyValue // Set it from newParam
+	}
+	if p.Style == "" {
+		p.Style = newParam.Style
+	}
+	if !p.AllowReserved { // If p.AllowReserved is false
+		p.AllowReserved = newParam.AllowReserved // Set it from newParam
+	}
 }

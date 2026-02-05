@@ -27,9 +27,11 @@ func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md p
 			oper.Deprecated = &t
 		}
 
+		newParams := make([]*v3.Parameter, 0, len(gnosticOperation.Parameters))
 		for _, param := range gnosticOperation.Parameters {
-			oper.Parameters = util.MergeOrAppendParameter(oper.Parameters, toParameter(opts, param))
+			newParams = append(newParams, toParameter(opts, param))
 		}
+		oper.Parameters = util.MergeParameters(oper.Parameters, newParams)
 
 		if gnosticOperation.RequestBody != nil {
 			oper.RequestBody = toRequestBody(opts, gnosticOperation.RequestBody.GetRequestBody())

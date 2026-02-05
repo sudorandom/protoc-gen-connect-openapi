@@ -167,3 +167,33 @@ func TestMergeOrAppendParameter(t *testing.T) {
 		assert.Equal(t, "limit", updatedParams[1].Name)
 	})
 }
+
+func TestMergeParameters(t *testing.T) {
+	t.Run("merges multiple parameters efficiently", func(t *testing.T) {
+		existingParams := []*v3.Parameter{
+			{Name: "p1", In: "query", Description: "old desc"},
+			{Name: "p2", In: "query"},
+		}
+		newParams := []*v3.Parameter{
+			{Name: "p1", In: "query", Description: "new desc"}, // Should not overwrite
+			{Name: "p3", In: "query", Description: "added"},
+			{Name: "p2", In: "query", Required: BoolPtr(true)},
+		}
+
+		updatedParams := MergeParameters(existingParams, newParams)
+
+		assert.Len(t, updatedParams, 3)
+		// Check order and content
+		// p1
+		assert.Equal(t, "p1", updatedParams[0].Name)
+		assert.Equal(t, "old desc", updatedParams[0].Description)
+
+		// p2
+		assert.Equal(t, "p2", updatedParams[1].Name)
+		assert.True(t, *updatedParams[1].Required)
+
+		// p3
+		assert.Equal(t, "p3", updatedParams[2].Name)
+		assert.Equal(t, "added", updatedParams[2].Description)
+	})
+}
