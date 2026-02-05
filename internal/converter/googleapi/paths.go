@@ -104,6 +104,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	}
 
 	fieldNamesInPath := map[string]struct{}{}
+	var pathParams []*v3.Parameter
 	for _, param := range partsToParameter(tokens) {
 		// Skip the name parameter if it's part of a glob pattern
 		if strings.Contains(param, "=") {
@@ -123,7 +124,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				Description: util.FormatComments(loc),
 				Schema:      schema.FieldToSchema(opts, nil, field),
 			}
-			op.Parameters = util.MergeOrAppendParameter(op.Parameters, newParameter)
+			pathParams = append(pathParams, newParameter)
 		} else {
 			opts.Logger.Warn("path field not found", slog.String("param", param))
 		}
@@ -140,7 +141,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				AllowReserved: true,
 				Schema:        base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 			}
-			op.Parameters = util.MergeOrAppendParameter(op.Parameters, newParameter)
+			pathParams = append(pathParams, newParameter)
 		}
 		if token.Type == TokenVariable && strings.Contains(token.Value, "=") {
 			matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
@@ -176,7 +177,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 							Schema:        base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 						}
 					}
-					op.Parameters = util.MergeOrAppendParameter(op.Parameters, newParameter)
+					pathParams = append(pathParams, newParameter)
 					continue
 				}
 				// Store the original field name from the glob pattern to prevent it from appearing
@@ -202,11 +203,12 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 						Description: "The " + namedPathParameter + " id.",
 						Schema:      base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 					}
-					op.Parameters = util.MergeOrAppendParameter(op.Parameters, newParameter)
+					pathParams = append(pathParams, newParameter)
 				}
 			}
 		}
 	}
+	op.Parameters = util.MergeParameters(op.Parameters, pathParams)
 
 	hasGnosticRequestBody := false
 	if proto.HasExtension(md.Options(), goa3.E_Operation.TypeDescriptor().Type()) {
@@ -222,9 +224,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		switch rule.Body {
 		case "":
 			newQueryParams := flattenToParams(opts, md.Input(), "", fieldNamesInPath)
-			for _, newQueryParam := range newQueryParams {
-				op.Parameters = util.MergeOrAppendParameter(op.Parameters, newQueryParam)
-			}
+			op.Parameters = util.MergeParameters(op.Parameters, newQueryParams)
 		case "*":
 			if len(fieldNamesInPath) > 0 {
 				_, s := schema.MessageToSchema(opts, md.Input())
@@ -277,9 +277,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				coveredFields[strings.Join(jsonPath, ".")] = struct{}{}
 
 				newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
-				for _, newQueryParam := range newQueryParams {
-					op.Parameters = util.MergeOrAppendParameter(op.Parameters, newQueryParam)
-				}
+				op.Parameters = util.MergeParameters(op.Parameters, newQueryParams)
 			} else {
 				opts.Logger.Warn("body field not found", slog.String("param", rule.Body))
 			}

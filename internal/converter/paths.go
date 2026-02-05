@@ -116,7 +116,7 @@ func mergePathItems(existing, new *v3.PathItem) {
 		existing.Description = new.Description
 	}
 	existing.Servers = append(existing.Servers, new.Servers...)
-	existing.Parameters = mergeParameters(existing.Parameters, new.Parameters)
+	existing.Parameters = util.MergeParameters(existing.Parameters, new.Parameters)
 
 	// Merge extensions
 	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
@@ -139,7 +139,7 @@ func mergeOperation(existing **v3.Operation, new *v3.Operation) {
 		(*existing).Description = new.Description
 	}
 	(*existing).Tags = append((*existing).Tags, new.Tags...)
-	(*existing).Parameters = mergeParameters((*existing).Parameters, new.Parameters)
+	(*existing).Parameters = util.MergeParameters((*existing).Parameters, new.Parameters)
 	if new.RequestBody != nil {
 		(*existing).RequestBody = new.RequestBody
 	}
@@ -180,19 +180,6 @@ func mergeOperation(existing **v3.Operation, new *v3.Operation) {
 			(*existing).Extensions.Set(pair.Key(), pair.Value())
 		}
 	}
-}
-
-func mergeParameters(existing, new []*v3.Parameter) []*v3.Parameter {
-	if len(existing) == 0 {
-		return new
-	}
-	if len(new) == 0 {
-		return existing
-	}
-	for _, param := range new {
-		existing = util.MergeOrAppendParameter(existing, param)
-	}
-	return existing
 }
 
 func mergeResponses(existing, new *v3.Responses) {

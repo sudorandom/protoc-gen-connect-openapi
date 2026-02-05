@@ -6,6 +6,7 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/stretchr/testify/assert"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -148,7 +149,7 @@ func TestMergeParameters(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := mergeParameters(tt.existing, tt.new)
+			result := util.MergeParameters(tt.existing, tt.new)
 			tt.verify(t, result)
 		})
 	}
