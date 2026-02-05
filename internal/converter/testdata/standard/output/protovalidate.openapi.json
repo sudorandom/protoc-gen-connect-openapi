@@ -1483,7 +1483,6 @@
             "type": "string",
             "title": "byte_const",
             "format": "byte",
-            "description": "bytes.const = []\n",
             "const": "\u0001\u0002\u0003\u0004"
           },
           "byteLen": {
@@ -1494,8 +1493,7 @@
             "title": "byte_len",
             "maxLength": 4,
             "minLength": 4,
-            "format": "byte",
-            "description": "bytes.const = []\n"
+            "format": "byte"
           },
           "bytesMinLen": {
             "type": [
@@ -1504,8 +1502,7 @@
             ],
             "title": "bytes_min_len",
             "minLength": 2,
-            "format": "byte",
-            "description": "bytes.const = []\n"
+            "format": "byte"
           },
           "bytesMaxLen": {
             "type": [
@@ -1514,8 +1511,7 @@
             ],
             "title": "bytes_max_len",
             "maxLength": 6,
-            "format": "byte",
-            "description": "bytes.const = []\n"
+            "format": "byte"
           },
           "bytesPattern": {
             "type": [
@@ -1524,8 +1520,7 @@
             ],
             "title": "bytes_pattern",
             "pattern": "^[a-zA-Z0-9]+$",
-            "format": "byte",
-            "description": "bytes.const = []\n"
+            "format": "byte"
           },
           "bytesPrefix": {
             "type": [
@@ -1534,7 +1529,7 @@
             ],
             "title": "bytes_prefix",
             "format": "byte",
-            "description": "bytes.const = []\nbytes.prefix = [1 2]\n"
+            "description": "bytes.prefix = [1 2]\n"
           },
           "bytesSuffix": {
             "type": [
@@ -1543,7 +1538,7 @@
             ],
             "title": "bytes_suffix",
             "format": "byte",
-            "description": "bytes.const = []\nbytes.suffix = [3 4]\n"
+            "description": "bytes.suffix = [3 4]\n"
           },
           "bytesContains": {
             "type": [
@@ -1552,7 +1547,7 @@
             ],
             "title": "bytes_contains",
             "format": "byte",
-            "description": "bytes.const = []\nbytes.contains = [2 3]\n"
+            "description": "bytes.contains = [2 3]\n"
           },
           "bytesIn": {
             "type": [
@@ -1565,8 +1560,7 @@
               "\u0001\u0002",
               "\u0002\u0003",
               "\u0003\u0004"
-            ],
-            "description": "bytes.const = []\n"
+            ]
           },
           "bytesNotIn": {
             "type": [
@@ -1582,8 +1576,7 @@
               ]
             },
             "title": "bytes_not_in",
-            "format": "byte",
-            "description": "bytes.const = []\n"
+            "format": "byte"
           },
           "bytesIp": {
             "type": [
@@ -1591,8 +1584,7 @@
               "null"
             ],
             "title": "bytes_ip",
-            "format": "ip",
-            "description": "bytes.const = []\n"
+            "format": "ip"
           },
           "bytesIpv4": {
             "type": [
@@ -1600,8 +1592,7 @@
               "null"
             ],
             "title": "bytes_ipv4",
-            "format": "ipv4",
-            "description": "bytes.const = []\n"
+            "format": "ipv4"
           },
           "bytesIpv6": {
             "type": [
@@ -1609,8 +1600,7 @@
               "null"
             ],
             "title": "bytes_ipv6",
-            "format": "ipv6",
-            "description": "bytes.const = []\n"
+            "format": "ipv6"
           },
           "enumConst": {
             "title": "enum_const",
