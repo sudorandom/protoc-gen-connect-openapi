@@ -257,9 +257,6 @@ func MergeParameters(existingParams []*v3.Parameter, newParams []*v3.Parameter) 
 	if len(newParams) == 0 {
 		return existingParams
 	}
-	if len(existingParams) == 0 {
-		return newParams
-	}
 
 	// Map to track existing parameters by Name + In
 	paramMap := make(map[string]*v3.Parameter, len(existingParams))

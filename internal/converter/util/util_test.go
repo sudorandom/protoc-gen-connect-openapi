@@ -196,4 +196,20 @@ func TestMergeParameters(t *testing.T) {
 		assert.Equal(t, "p3", updatedParams[2].Name)
 		assert.Equal(t, "added", updatedParams[2].Description)
 	})
+
+	t.Run("deduplicates new parameters when existing is empty", func(t *testing.T) {
+		var existingParams []*v3.Parameter
+		newParams := []*v3.Parameter{
+			{Name: "p1", In: "query", Description: "first"},
+			{Name: "p1", In: "query", Description: "second"}, // Should be merged into first
+		}
+
+		updatedParams := MergeParameters(existingParams, newParams)
+
+		assert.Len(t, updatedParams, 1)
+		assert.Equal(t, "p1", updatedParams[0].Name)
+		// logic says: if p.Description == "" && newParam.Description != "" { ... }
+		// so if first one has description, it keeps it.
+		assert.Equal(t, "first", updatedParams[0].Description)
+	})
 }
