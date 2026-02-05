@@ -3,6 +3,7 @@ package util
 import (
 	"path"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -215,10 +216,8 @@ func MakePath(opts options.Options, main string) string {
 }
 
 func AppendStringDedupe(strs []string, str string) []string {
-	for _, s := range strs {
-		if str == s {
-			return strs
-		}
+	if slices.Contains(strs, str) {
+		return strs
 	}
 	return append(strs, str)
 }

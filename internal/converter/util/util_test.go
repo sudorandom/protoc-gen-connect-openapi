@@ -167,3 +167,51 @@ func TestMergeOrAppendParameter(t *testing.T) {
 		assert.Equal(t, "limit", updatedParams[1].Name)
 	})
 }
+
+func TestAppendStringDedupe(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    []string
+		toAppend string
+		expected []string
+	}{
+		{
+			name:     "empty list",
+			input:    []string{},
+			toAppend: "a",
+			expected: []string{"a"},
+		},
+		{
+			name:     "append new",
+			input:    []string{"a", "b"},
+			toAppend: "c",
+			expected: []string{"a", "b", "c"},
+		},
+		{
+			name:     "append existing",
+			input:    []string{"a", "b"},
+			toAppend: "a",
+			expected: []string{"a", "b"},
+		},
+		{
+			name:     "append existing last",
+			input:    []string{"a", "b"},
+			toAppend: "b",
+			expected: []string{"a", "b"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			res := AppendStringDedupe(tt.input, tt.toAppend)
+			if len(res) != len(tt.expected) {
+				t.Errorf("expected length %d, got %d", len(tt.expected), len(res))
+			}
+			for i := range res {
+				if res[i] != tt.expected[i] {
+					t.Errorf("expected %v, got %v", tt.expected, res)
+				}
+			}
+		})
+	}
+}
