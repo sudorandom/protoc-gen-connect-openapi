@@ -21,6 +21,15 @@ service ExternalService {
   }
 }
 
+// Service with a comma-separated multi-restriction: visible to INTERNAL or PREVIEW.
+service MultiRestrictionService {
+  option (google.api.api_visibility).restriction = "INTERNAL,PREVIEW";
+
+  rpc GetStatus(GetMessageRequest) returns (Message) {
+    option (google.api.http) = {get: "/v1/multi"};
+  }
+}
+
 message GetMessageRequest {
   string message_id = 1;
 }
@@ -30,4 +39,6 @@ message Message {
   string internal_field = 2 [(google.api.field_visibility).restriction = "INTERNAL"];
   string preview_field = 3 [(google.api.field_visibility).restriction = "PREVIEW"];
   string another_public_field = 4;
+  // Field with comma-separated multi-restriction: visible to INTERNAL or EXTERNAL.
+  string multi_restricted_field = 5 [(google.api.field_visibility).restriction = "INTERNAL,EXTERNAL"];
 }

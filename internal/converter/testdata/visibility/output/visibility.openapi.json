@@ -35,6 +35,37 @@
           }
         }
       }
+    },
+    "/v1/multi": {
+      "get": {
+        "tags": [
+          "visibility.MultiRestrictionService"
+        ],
+        "summary": "GetStatus",
+        "operationId": "visibility.MultiRestrictionService.GetStatus",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "message_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/visibility.Message"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -68,6 +99,11 @@
           "anotherPublicField": {
             "type": "string",
             "title": "another_public_field"
+          },
+          "multiRestrictedField": {
+            "type": "string",
+            "title": "multi_restricted_field",
+            "description": "Field with comma-separated multi-restriction: visible to INTERNAL or EXTERNAL."
           }
         },
         "title": "Message",
@@ -79,6 +115,10 @@
   "tags": [
     {
       "name": "visibility.VisibilityService"
+    },
+    {
+      "name": "visibility.MultiRestrictionService",
+      "description": "Service with a comma-separated multi-restriction: visible to INTERNAL or PREVIEW."
     }
   ]
 }

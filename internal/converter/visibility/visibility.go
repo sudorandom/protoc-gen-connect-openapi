@@ -1,6 +1,8 @@
 package visibility
 
 import (
+	"strings"
+
 	api_visibility "google.golang.org/genproto/googleapis/api/visibility"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -59,13 +61,21 @@ func GetVisibilityRule(desc protoreflect.Descriptor) *api_visibility.VisibilityR
 // ShouldBeFiltered checks if a given visibility rule's restriction is present in the
 // list of enabled restriction selectors. If the rule's restriction is NOT in the list
 // of selectors, the element should be filtered.
+//
+// The restriction field may contain a comma-separated list of labels (e.g.
+// "INTERNAL,EXTERNAL"), meaning the element is visible to any of those audiences.
+// The element is included if at least one of its labels appears in the selectors.
 func ShouldBeFiltered(rule *api_visibility.VisibilityRule, restrictionSelectors map[string]bool) bool {
 	if rule == nil {
 		return false // No rule, so not filtered (always include elements without visibility rules)
-	} else if len(restrictionSelectors) == 0 {
+	}
+	if len(restrictionSelectors) == 0 {
 		return true // Has a rule but no selectors specified, so filter it out
-	} else if _, ok := restrictionSelectors[rule.Restriction]; ok {
-		return false // Found a match, so it should NOT be filtered
+	}
+	for _, label := range strings.Split(rule.Restriction, ",") {
+		if _, ok := restrictionSelectors[strings.TrimSpace(label)]; ok {
+			return false // At least one label matches, so it should NOT be filtered
+		}
 	}
 	return true // No match found, so it should be filtered
 }
