@@ -16,7 +16,7 @@ test: generate
     # go tool cover -html=coverage.out
 
 lint:
-    golangci-lint run
+    golangci-lint run ./...
 
 # Install the application binary.
 install:
