@@ -138,7 +138,9 @@ func mergeOperation(existing **v3.Operation, new *v3.Operation) {
 	if new.Description != "" {
 		(*existing).Description = new.Description
 	}
-	(*existing).Tags = append((*existing).Tags, new.Tags...)
+	for _, tag := range new.Tags {
+		(*existing).Tags = util.AppendStringDedupe((*existing).Tags, tag)
+	}
 	(*existing).Parameters = util.MergeParameters((*existing).Parameters, new.Parameters)
 	if new.RequestBody != nil {
 		(*existing).RequestBody = new.RequestBody
