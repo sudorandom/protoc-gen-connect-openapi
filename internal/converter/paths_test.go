@@ -207,4 +207,20 @@ func TestMergeOperation(t *testing.T) {
 		// Check that limit parameter was appended
 		assert.Equal(t, "limit", existing.Parameters[2].Name)
 	})
+
+	t.Run("merges tags with deduplication", func(t *testing.T) {
+		existing := &v3.Operation{
+			Tags: []string{"tag1", "tag2"},
+		}
+		newOp := &v3.Operation{
+			Tags: []string{"tag2", "tag3"},
+		}
+
+		mergeOperation(&existing, newOp)
+
+		assert.Len(t, existing.Tags, 3)
+		assert.Contains(t, existing.Tags, "tag1")
+		assert.Contains(t, existing.Tags, "tag2")
+		assert.Contains(t, existing.Tags, "tag3")
+	})
 }
