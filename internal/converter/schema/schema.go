@@ -17,8 +17,10 @@ import (
 )
 
 func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (string, *base.Schema) {
-	opts.Logger.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
-	defer opts.Logger.Debug("/messageToSchema", slog.Any("descriptor", tt.FullName()))
+	if opts.Debug {
+		opts.Logger.Debug("messageToSchema", slog.Any("descriptor", tt.FullName()))
+		defer opts.Logger.Debug("/messageToSchema", slog.Any("descriptor", tt.FullName()))
+	}
 	if util.IsWellKnown(tt) {
 		wk := util.WellKnownToSchema(tt)
 		if wk == nil {
@@ -107,8 +109,10 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 }
 
 func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
-	opts.Logger.Debug("FieldToSchema", slog.Any("descriptor", tt.FullName()))
-	defer opts.Logger.Debug("/FieldToSchema", slog.Any("descriptor", tt.FullName()))
+	if opts.Debug {
+		opts.Logger.Debug("FieldToSchema", slog.Any("descriptor", tt.FullName()))
+		defer opts.Logger.Debug("/FieldToSchema", slog.Any("descriptor", tt.FullName()))
+	}
 
 	if tt.IsMap() {
 		// Handle maps
