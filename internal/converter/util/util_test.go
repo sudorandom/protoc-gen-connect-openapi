@@ -210,7 +210,7 @@ func TestMergeParameters(t *testing.T) {
 		assert.Equal(t, "p1", updatedParams[0].Name)
 		// logic says: if p.Description == "" && newParam.Description != "" { ... }
 		// so if first one has description, it keeps it. The only caveat to this is
-		// for path parameters, since they have an auto-generated description.
+		// for inferred * path parameters, since they have an auto-generated description.
 		assert.Equal(t, "first", updatedParams[0].Description)
 	})
 }
