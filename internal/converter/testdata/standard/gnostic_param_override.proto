@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package standard;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service GnosticParamOverrideService {
+  rpc GetMessage(GetMessageRequest) returns (Message) {
+    option (google.api.http).get = "/v1/{name=messages/*}";
+    option (gnostic.openapi.v3.operation) = {
+      parameters: [{
+        parameter: {
+          name: "message"
+          in: "path"
+          description: "The message resource name."
+          required: true
+          schema: {schema: {type: "string"}}
+        }
+      }]
+    };
+  }
+}
+
+message GetMessageRequest {
+  string name = 1;
+}
+
+message Message {
+  string name = 1;
+  string content = 2;
+}

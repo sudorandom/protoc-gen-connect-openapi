@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: standard
+  description: '## standard.GnosticParamOverrideService'
+paths:
+  /v1/messages/{message}:
+    get:
+      tags:
+        - standard.GnosticParamOverrideService
+      summary: GetMessage
+      operationId: standard.GnosticParamOverrideService.GetMessage
+      parameters:
+        - name: message
+          in: path
+          description: The message resource name.
+          required: true
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/standard.Message'
+components:
+  schemas:
+    standard.GetMessageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+      title: GetMessageRequest
+      additionalProperties: false
+    standard.Message:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+        content:
+          type: string
+          title: content
+      title: Message
+      additionalProperties: false
+security: []
+tags:
+  - name: standard.GnosticParamOverrideService
