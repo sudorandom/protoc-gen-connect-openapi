@@ -4,14 +4,13 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/connectrpc"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 )
 
-// AddSchemas adds google.rpc.Status, google.protobuf.Any, and the standard
-// google.rpc error detail schemas to the OpenAPI document components when
-// WithGoogleErrorDetail is enabled. This gives REST client generators typed
-// error handling for google.api.http-annotated methods.
+// AddSchemas adds google.rpc.Status and google.protobuf.Any schemas to the
+// OpenAPI document components when WithGoogleErrorDetail is enabled. This gives
+// REST client generators typed error handling for google.api.http-annotated
+// methods.
 func AddSchemas(opts options.Options, doc *v3.Document) {
 	if !opts.WithGoogleErrorDetail {
 		return
@@ -56,12 +55,5 @@ func AddSchemas(opts options.Options, doc *v3.Document) {
 			Description: "The Status type defines a logical error model suitable for gRPC and REST APIs.",
 			Properties:  statusProps,
 		}))
-	}
-
-	googleRPCSchemas := connectrpc.NewGoogleRPCErrorDetailSchemas()
-	for pair := googleRPCSchemas.First(); pair != nil; pair = pair.Next() {
-		if _, ok := components.Schemas.Get(pair.Key()); !ok {
-			components.Schemas.Set(pair.Key(), pair.Value())
-		}
 	}
 }
