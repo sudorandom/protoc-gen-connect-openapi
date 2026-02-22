@@ -102,7 +102,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 		}
 		mapping := orderedmap.New[string, string]()
 		if opts.WithGoogleErrorDetail {
-			googleRPCSchemas := newGoogleRPCErrorDetailSchemas()
+			googleRPCSchemas := NewGoogleRPCErrorDetailSchemas()
 			for pair := googleRPCSchemas.First(); pair != nil; pair = pair.Next() {
 				components.Schemas.Set(pair.Key(), pair.Value())
 				errorDetailOptions = append(errorDetailOptions, base.CreateSchemaProxyRef("#/components/schemas/"+pair.Key()))
@@ -134,7 +134,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 	}
 }
 
-func newGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
+func NewGoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
 	schemas := orderedmap.New[string, *base.SchemaProxy]()
 
 	// ErrorInfo

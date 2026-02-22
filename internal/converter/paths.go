@@ -73,6 +73,9 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 						addPathItem(pair.Key(), pair.Value(), deferred)
 					}
 				}
+				if isGoogleHTTP {
+					googleapi.AddSchemas(opts, doc)
+				}
 			}
 
 			// Default to ConnectRPC/gRPC path if no google.api annotations
