@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package test.with_google_error_detail_googleapi;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/with_google_error_detail_googleapi";
+
+message TestRequest {
+  string name = 1;
+}
+
+message TestResponse {
+  string message = 1;
+}
+
+service TestService {
+  rpc Test(TestRequest) returns (TestResponse) {
+    option (google.api.http) = {
+      get: "/v1/test/{name}"
+    };
+  }
+
+  rpc CreateTest(TestRequest) returns (TestResponse) {
+    option (google.api.http) = {
+      post: "/v1/test"
+      body: "*"
+    };
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "test.with_google_error_detail_googleapi"
+  },
+  "paths": {
+    "/v1/test": {
+      "post": {
+        "tags": [
+          "test.with_google_error_detail_googleapi.TestService"
+        ],
+        "summary": "CreateTest",
+        "operationId": "test.with_google_error_detail_googleapi.TestService.CreateTest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/test.with_google_error_detail_googleapi.TestRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/test.with_google_error_detail_googleapi.TestResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/test/{name}": {
+      "get": {
+        "tags": [
+          "test.with_google_error_detail_googleapi.TestService"
+        ],
+        "summary": "Test",
+        "operationId": "test.with_google_error_detail_googleapi.TestService.Test",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/test.with_google_error_detail_googleapi.TestResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "description": "A URL/resource name that uniquely identifies the type of the serialized message."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      },
+      "google.rpc.Status": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The status code, which should be an enum value of google.rpc.Code."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Any"
+            },
+            "description": "A list of messages that carry the error details."
+          }
+        },
+        "description": "The Status type defines a logical error model suitable for gRPC and REST APIs."
+      },
+      "test.with_google_error_detail_googleapi.TestRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "TestRequest",
+        "additionalProperties": false
+      },
+      "test.with_google_error_detail_googleapi.TestResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "TestResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "test.with_google_error_detail_googleapi.TestService"
+    }
+  ]
+}
