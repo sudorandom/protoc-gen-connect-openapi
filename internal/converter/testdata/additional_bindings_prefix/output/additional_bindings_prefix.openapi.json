@@ -1,0 +1,108 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "additional_bindings_prefix"
+  },
+  "paths": {
+    "/api/v1/items/latest": {
+      "get": {
+        "tags": [
+          "additional_bindings_prefix.PrefixService"
+        ],
+        "summary": "GetItem",
+        "operationId": "additional_bindings_prefix.PrefixService.GetItem2",
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "item_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/additional_bindings_prefix.GetItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/items/{itemId}": {
+      "get": {
+        "tags": [
+          "additional_bindings_prefix.PrefixService"
+        ],
+        "summary": "GetItem",
+        "operationId": "additional_bindings_prefix.PrefixService.GetItem",
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "item_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/additional_bindings_prefix.GetItemResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "additional_bindings_prefix.GetItemRequest": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "title": "item_id"
+          }
+        },
+        "title": "GetItemRequest",
+        "additionalProperties": false
+      },
+      "additional_bindings_prefix.GetItemResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "GetItemResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "additional_bindings_prefix.PrefixService",
+      "description": "Tests that additional_bindings with path-prefix don't double-apply the prefix."
+    }
+  ]
+}

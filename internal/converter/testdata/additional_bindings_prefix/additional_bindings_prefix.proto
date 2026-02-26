@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package additional_bindings_prefix;
+
+import "google/api/annotations.proto";
+
+// Tests that additional_bindings with path-prefix don't double-apply the prefix.
+service PrefixService {
+  rpc GetItem(GetItemRequest) returns (GetItemResponse) {
+    option (google.api.http) = {
+      get: "/items/{item_id}"
+
+      additional_bindings: {
+        get: "/items/latest"
+      }
+    };
+  }
+}
+
+message GetItemRequest {
+  string item_id = 1;
+}
+
+message GetItemResponse {
+  string id = 1;
+  string name = 2;
+}

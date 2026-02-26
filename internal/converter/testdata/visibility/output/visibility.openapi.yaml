@@ -2,14 +2,14 @@ openapi: 3.1.0
 info:
   title: visibility
 paths:
-  /v1/messages/{message_id}:
+  /v1/messages/{messageId}:
     get:
       tags:
         - visibility.VisibilityService
       summary: GetMessage
       operationId: visibility.VisibilityService.GetMessage
       parameters:
-        - name: message_id
+        - name: messageId
           in: path
           required: true
           schema:

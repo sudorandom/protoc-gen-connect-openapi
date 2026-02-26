@@ -3,14 +3,14 @@ info:
   title: field_behavior
   description: '## field_behavior.Service'
 paths:
-  /v1/{user_id}:
+  /v1/{userId}:
     get:
       tags:
         - field_behavior.Service
       summary: Method
       operationId: field_behavior.Service.Method
       parameters:
-        - name: user_id
+        - name: userId
           in: path
           required: true
           schema:
