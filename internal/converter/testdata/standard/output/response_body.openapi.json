@@ -5,7 +5,7 @@
     "description": "## response_body.UserService"
   },
   "paths": {
-    "/v1/users/{user_id}": {
+    "/v1/users/{userId}": {
       "get": {
         "tags": [
           "response_body.UserService"
@@ -14,7 +14,7 @@
         "operationId": "response_body.UserService.GetUser",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "userId",
             "in": "path",
             "required": true,
             "schema": {

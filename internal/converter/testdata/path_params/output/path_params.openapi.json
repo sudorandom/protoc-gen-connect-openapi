@@ -4,7 +4,7 @@
     "title": "path_params"
   },
   "paths": {
-    "/go/{snake_case}": {
+    "/go/{snakeCase}": {
       "post": {
         "tags": [
           "path_params.PathParams"
@@ -13,7 +13,7 @@
         "operationId": "path_params.PathParams.Go",
         "parameters": [
           {
-            "name": "snake_case",
+            "name": "snakeCase",
             "in": "path",
             "required": true,
             "schema": {

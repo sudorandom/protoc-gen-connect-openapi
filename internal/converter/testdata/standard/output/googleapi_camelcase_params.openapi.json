@@ -1,0 +1,158 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "googleapi_camelcase",
+    "description": "## googleapi_camelcase.CamelCaseService\n\nTests that path parameters use camelCase (JSON names) by default."
+  },
+  "paths": {
+    "/v1/resources/{parentRef.resourceId}/items": {
+      "get": {
+        "tags": [
+          "googleapi_camelcase.CamelCaseService"
+        ],
+        "summary": "GetNestedResource",
+        "description": "Nested path param should use dotted camelCase.",
+        "operationId": "googleapi_camelcase.CamelCaseService.GetNestedResource",
+        "parameters": [
+          {
+            "name": "parentRef.resourceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "resource_id"
+            }
+          },
+          {
+            "name": "someFilter",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "some_filter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_camelcase.GetResourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/resources/{resourceId}": {
+      "get": {
+        "tags": [
+          "googleapi_camelcase.CamelCaseService"
+        ],
+        "summary": "GetResource",
+        "description": "Simple path param should be camelCase.",
+        "operationId": "googleapi_camelcase.CamelCaseService.GetResource",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "resource_id"
+            }
+          },
+          {
+            "name": "filterQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "filter_query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_camelcase.GetResourceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "googleapi_camelcase.GetNestedResourceRequest": {
+        "type": "object",
+        "properties": {
+          "parentRef": {
+            "title": "parent_ref",
+            "$ref": "#/components/schemas/googleapi_camelcase.ParentRef"
+          },
+          "someFilter": {
+            "type": "string",
+            "title": "some_filter"
+          }
+        },
+        "title": "GetNestedResourceRequest",
+        "additionalProperties": false
+      },
+      "googleapi_camelcase.GetResourceRequest": {
+        "type": "object",
+        "properties": {
+          "resourceId": {
+            "type": "string",
+            "title": "resource_id"
+          },
+          "filterQuery": {
+            "type": "string",
+            "title": "filter_query"
+          }
+        },
+        "title": "GetResourceRequest",
+        "additionalProperties": false
+      },
+      "googleapi_camelcase.GetResourceResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "display_name"
+          }
+        },
+        "title": "GetResourceResponse",
+        "additionalProperties": false
+      },
+      "googleapi_camelcase.ParentRef": {
+        "type": "object",
+        "properties": {
+          "resourceId": {
+            "type": "string",
+            "title": "resource_id"
+          }
+        },
+        "title": "ParentRef",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "googleapi_camelcase.CamelCaseService",
+      "description": "Tests that path parameters use camelCase (JSON names) by default."
+    }
+  ]
+}

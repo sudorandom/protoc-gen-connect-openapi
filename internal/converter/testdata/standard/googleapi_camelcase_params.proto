@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package googleapi_camelcase;
+
+import "google/api/annotations.proto";
+
+// Tests that path parameters use camelCase (JSON names) by default.
+service CamelCaseService {
+  // Simple path param should be camelCase.
+  rpc GetResource(GetResourceRequest) returns (GetResourceResponse) {
+    option (google.api.http).get = "/v1/resources/{resource_id}";
+  }
+
+  // Nested path param should use dotted camelCase.
+  rpc GetNestedResource(GetNestedResourceRequest) returns (GetResourceResponse) {
+    option (google.api.http).get = "/v1/resources/{parent_ref.resource_id}/items";
+  }
+}
+
+message GetResourceRequest {
+  string resource_id = 1;
+  string filter_query = 2;
+}
+
+message GetNestedResourceRequest {
+  ParentRef parent_ref = 1;
+  string some_filter = 2;
+}
+
+message ParentRef {
+  string resource_id = 1;
+}
+
+message GetResourceResponse {
+  string id = 1;
+  string display_name = 2;
+}

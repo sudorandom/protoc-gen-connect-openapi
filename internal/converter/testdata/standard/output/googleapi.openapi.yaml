@@ -260,30 +260,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
-  /v1/{property_in_path_ok}/{parentMsg.property_in_path}/foo:
+  /v1/{propertyInPathOk}/{parentMsg.propertyInPath}/foo:
     get:
       tags:
         - io.swagger.petstore.v2.Foo
       summary: Foo2
       operationId: io.swagger.petstore.v2.Foo.Foo2
       parameters:
-        - name: property_in_path_ok
+        - name: propertyInPathOk
           in: path
           required: true
           schema:
             type: string
             title: property_in_path_ok
-        - name: parentMsg.property_in_path
+        - name: parentMsg.propertyInPath
           in: path
           required: true
           schema:
             type: string
             title: property_in_path
-        - name: parentMsg.propertyInQuery
-          in: query
-          schema:
-            type: string
-            title: property_in_query
         - name: propertyInQueryOk
           in: query
           schema:

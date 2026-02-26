@@ -4,7 +4,7 @@
     "title": "visibility"
   },
   "paths": {
-    "/v1/messages/{message_id}": {
+    "/v1/messages/{messageId}": {
       "get": {
         "tags": [
           "visibility.VisibilityService"
@@ -13,7 +13,7 @@
         "operationId": "visibility.VisibilityService.GetMessage",
         "parameters": [
           {
-            "name": "message_id",
+            "name": "messageId",
             "in": "path",
             "required": true,
             "schema": {

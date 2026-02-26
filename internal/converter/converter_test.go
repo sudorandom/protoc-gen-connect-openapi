@@ -35,6 +35,7 @@ var scenarios = []Scenario{
 	{Name: "with_specification_extensions", Options: "base=testdata/with_specification_extensions/base.yaml,trim-unused-types"},
 	{Name: "additional_bindings"},
 	{Name: "path_params"},
+	{Name: "additional_bindings_prefix", Options: "path-prefix=/api/v1"},
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
