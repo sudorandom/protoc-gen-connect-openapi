@@ -232,6 +232,7 @@ func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor)
 				properly interpret it.
 			*/
 			Title:      string(field.Name()),
+			Type:       []string{"object"},
 			Properties: orderedmap.New[string, *base.SchemaProxy](),
 		}
 

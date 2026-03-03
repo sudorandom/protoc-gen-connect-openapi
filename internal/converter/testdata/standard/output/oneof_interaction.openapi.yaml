@@ -133,14 +133,16 @@ components:
               type: string
               title: e
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 a:
                   type: string
                   title: a
               title: a
               required:
                 - a
-            - properties:
+            - type: object
+              properties:
                 b:
                   type: integer
                   title: b

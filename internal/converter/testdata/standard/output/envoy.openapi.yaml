@@ -308,7 +308,8 @@ components:
     envoy.config.core.v3.Address:
       type: object
       oneOf:
-        - properties:
+        - type: object
+          properties:
             envoyInternalAddress:
               title: envoy_internal_address
               description: |-
@@ -318,14 +319,16 @@ components:
           title: envoy_internal_address
           required:
             - envoyInternalAddress
-        - properties:
+        - type: object
+          properties:
             pipe:
               title: pipe
               $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
           title: pipe
           required:
             - pipe
-        - properties:
+        - type: object
+          properties:
             socketAddress:
               title: socket_address
               $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
@@ -381,7 +384,8 @@ components:
                  single upstream pool. Only used in the upstream addresses for tracking changes to individual endpoints. This, for
                  example, may be set to the final destination IP for the target internal listener.
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 serverListenerName:
                   type: string
                   title: server_listener_name
@@ -636,7 +640,8 @@ components:
                  SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.
               deprecated: true
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 userAgentBuildVersion:
                   title: user_agent_build_version
                   description: Structured version of the entity requesting config.
@@ -644,7 +649,8 @@ components:
               title: user_agent_build_version
               required:
                 - userAgentBuildVersion
-            - properties:
+            - type: object
+              properties:
                 userAgentVersion:
                   type: string
                   title: user_agent_version
@@ -745,7 +751,8 @@ components:
                  .. attention::
                      Network namespaces are only configurable on Linux. Otherwise, this field has no effect.
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 namedPort:
                   type: string
                   title: named_port
@@ -756,7 +763,8 @@ components:
               title: named_port
               required:
                 - namedPort
-            - properties:
+            - type: object
+              properties:
                 portValue:
                   type: integer
                   title: port_value
@@ -1146,7 +1154,8 @@ components:
     envoy.service.discovery.v3.DynamicParameterConstraints:
       type: object
       oneOf:
-        - properties:
+        - type: object
+          properties:
             andConstraints:
               title: and_constraints
               description: A list of constraints that must all match.
@@ -1154,7 +1163,8 @@ components:
           title: and_constraints
           required:
             - andConstraints
-        - properties:
+        - type: object
+          properties:
             constraint:
               title: constraint
               description: A single constraint to evaluate.
@@ -1162,7 +1172,8 @@ components:
           title: constraint
           required:
             - constraint
-        - properties:
+        - type: object
+          properties:
             notConstraints:
               title: not_constraints
               description: The inverse (NOT) of a set of constraints.
@@ -1170,7 +1181,8 @@ components:
           title: not_constraints
           required:
             - notConstraints
-        - properties:
+        - type: object
+          properties:
             orConstraints:
               title: or_constraints
               description: |-
@@ -1208,7 +1220,8 @@ components:
               title: key
               description: The key to match against.
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 exists:
                   title: exists
                   description: |-
@@ -1220,7 +1233,8 @@ components:
               title: exists
               required:
                 - exists
-            - properties:
+            - type: object
+              properties:
                 value:
                   type: string
                   title: value

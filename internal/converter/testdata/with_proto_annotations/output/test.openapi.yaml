@@ -1124,7 +1124,8 @@ components:
                 $ref: '#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum'
               description: (proto with_proto_annotations.test.v1.AllTypes.EnumMapEntry)
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 boolOption:
                   type: boolean
                   title: bool_option
@@ -1132,7 +1133,8 @@ components:
               title: bool_option
               required:
                 - boolOption
-            - properties:
+            - type: object
+              properties:
                 bytesOption:
                   type: string
                   title: bytes_option
@@ -1141,7 +1143,8 @@ components:
               title: bytes_option
               required:
                 - bytesOption
-            - properties:
+            - type: object
+              properties:
                 doubleOption:
                   type: number
                   title: double_option
@@ -1150,7 +1153,8 @@ components:
               title: double_option
               required:
                 - doubleOption
-            - properties:
+            - type: object
+              properties:
                 enumOption:
                   title: enum_option
                   description: (proto with_proto_annotations.test.v1.AllTypes.Enum)
@@ -1158,7 +1162,8 @@ components:
               title: enum_option
               required:
                 - enumOption
-            - properties:
+            - type: object
+              properties:
                 fixed32Option:
                   type: integer
                   title: fixed32_option
@@ -1166,7 +1171,8 @@ components:
               title: fixed32_option
               required:
                 - fixed32Option
-            - properties:
+            - type: object
+              properties:
                 fixed64Option:
                   type:
                     - integer
@@ -1177,7 +1183,8 @@ components:
               title: fixed64_option
               required:
                 - fixed64Option
-            - properties:
+            - type: object
+              properties:
                 floatOption:
                   type: number
                   title: float_option
@@ -1186,7 +1193,8 @@ components:
               title: float_option
               required:
                 - floatOption
-            - properties:
+            - type: object
+              properties:
                 int32Option:
                   type: integer
                   title: int32_option
@@ -1195,7 +1203,8 @@ components:
               title: int32_option
               required:
                 - int32Option
-            - properties:
+            - type: object
+              properties:
                 int64Option:
                   type:
                     - integer
@@ -1206,7 +1215,8 @@ components:
               title: int64_option
               required:
                 - int64Option
-            - properties:
+            - type: object
+              properties:
                 msgOption:
                   title: msg_option
                   description: (proto with_proto_annotations.test.v1.AllTypes)
@@ -1214,7 +1224,8 @@ components:
               title: msg_option
               required:
                 - msgOption
-            - properties:
+            - type: object
+              properties:
                 sfixed32Option:
                   type: integer
                   title: sfixed32_option
@@ -1223,7 +1234,8 @@ components:
               title: sfixed32_option
               required:
                 - sfixed32Option
-            - properties:
+            - type: object
+              properties:
                 sfixed64Option:
                   type:
                     - integer
@@ -1234,7 +1246,8 @@ components:
               title: sfixed64_option
               required:
                 - sfixed64Option
-            - properties:
+            - type: object
+              properties:
                 sint32Option:
                   type: integer
                   title: sint32_option
@@ -1243,7 +1256,8 @@ components:
               title: sint32_option
               required:
                 - sint32Option
-            - properties:
+            - type: object
+              properties:
                 sint64Option:
                   type:
                     - integer
@@ -1254,7 +1268,8 @@ components:
               title: sint64_option
               required:
                 - sint64Option
-            - properties:
+            - type: object
+              properties:
                 stringOption:
                   type: string
                   title: string_option
@@ -1262,7 +1277,8 @@ components:
               title: string_option
               required:
                 - stringOption
-            - properties:
+            - type: object
+              properties:
                 uint32Option:
                   type: integer
                   title: uint32_option
@@ -1270,7 +1286,8 @@ components:
               title: uint32_option
               required:
                 - uint32Option
-            - properties:
+            - type: object
+              properties:
                 uint64Option:
                   type:
                     - integer
@@ -1918,7 +1935,8 @@ components:
               title: recursive_list
               description: (proto with_proto_annotations.test.v1.ParameterValues)
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 oneofDoubleValue:
                   type: number
                   title: oneof_double_value
@@ -1927,7 +1945,8 @@ components:
               title: oneof_double_value
               required:
                 - oneofDoubleValue
-            - properties:
+            - type: object
+              properties:
                 oneofDoubleValueWrapper:
                   title: oneof_double_value_wrapper
                   description: (proto google.protobuf.DoubleValue)
@@ -1935,7 +1954,8 @@ components:
               title: oneof_double_value_wrapper
               required:
                 - oneofDoubleValueWrapper
-            - properties:
+            - type: object
+              properties:
                 oneofEnumValue:
                   title: oneof_enum_value
                   description: (proto with_proto_annotations.test.v1.ParameterValues.Enum)
