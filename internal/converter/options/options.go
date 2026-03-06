@@ -71,6 +71,9 @@ type Options struct {
 	WithGoogleErrorDetail bool
 	// DisableDefaultResponse disables the default 200 response.
 	DisableDefaultResponse bool
+	// StripPathParamsFromSchemas removes path-bound fields from component schemas
+	// when google.api.http annotations bind those fields to URL path segments.
+	StripPathParamsFromSchemas bool
 	// EnabledFeatures is a map of enabled features.
 	EnabledFeatures map[Feature]bool
 	// AllowedVisibilities is a map of visibility strings to include. If an element has a `google.api.visibility` rule with a `restriction` that is not in this map, it will be excluded.
@@ -182,6 +185,8 @@ func FromString(s string) (Options, error) {
 			opts.WithGoogleErrorDetail = true
 		case param == "disable-default-response":
 			opts.DisableDefaultResponse = true
+		case param == "strip-path-params-from-schemas":
+			opts.StripPathParamsFromSchemas = true
 		case strings.HasPrefix(param, "features="):
 			allFeatures := []Feature{}
 			for feature := range strings.SplitSeq(param[9:], ";") {

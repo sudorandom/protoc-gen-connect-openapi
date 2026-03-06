@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  title: component_schema_path_params
+paths:
+  /v1/accounts/{account}/things:
+    get:
+      tags:
+        - component_schema_path_params.ThingService
+      summary: ListThings
+      operationId: component_schema_path_params.ThingService.ListThings
+      parameters:
+        - name: account
+          in: path
+          description: The account id.
+          required: true
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            type: integer
+            title: page_size
+            format: int32
+        - name: pageToken
+          in: query
+          schema:
+            type: string
+            title: page_token
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/component_schema_path_params.ListThingsResponse'
+  /v1/things/{thing}:
+    get:
+      tags:
+        - component_schema_path_params.ThingService
+      summary: GetThing
+      operationId: component_schema_path_params.ThingService.GetThing
+      parameters:
+        - name: thing
+          in: path
+          description: The thing id.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/component_schema_path_params.Thing'
+  /v1/things/{thing}:suspend:
+    post:
+      tags:
+        - component_schema_path_params.ThingService
+      summary: SuspendThing
+      operationId: component_schema_path_params.ThingService.SuspendThing
+      parameters:
+        - name: thing
+          in: path
+          description: The thing id.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/component_schema_path_params.Thing'
+components:
+  schemas:
+    component_schema_path_params.GetThingRequest:
+      type: object
+      title: GetThingRequest
+      additionalProperties: false
+    component_schema_path_params.ListThingsRequest:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          title: page_size
+          format: int32
+        pageToken:
+          type: string
+          title: page_token
+      title: ListThingsRequest
+      additionalProperties: false
+    component_schema_path_params.ListThingsResponse:
+      type: object
+      properties:
+        things:
+          type: array
+          items:
+            $ref: '#/components/schemas/component_schema_path_params.Thing'
+          title: things
+        nextPageToken:
+          type: string
+          title: next_page_token
+      title: ListThingsResponse
+      additionalProperties: false
+    component_schema_path_params.SuspendThingRequest:
+      type: object
+      title: SuspendThingRequest
+      additionalProperties: false
+    component_schema_path_params.Thing:
+      type: object
+      properties:
+        name:
+          type: string
+          title: name
+        description:
+          type: string
+          title: description
+      title: Thing
+      additionalProperties: false
+security: []
+tags:
+  - name: component_schema_path_params.ThingService
