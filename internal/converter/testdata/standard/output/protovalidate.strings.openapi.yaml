@@ -257,7 +257,8 @@ components:
     buf.validate.conformance.cases.StringInOneof:
       type: object
       oneOf:
-        - properties:
+        - type: object
+          properties:
             bar:
               type: string
               title: bar

@@ -544,7 +544,8 @@ components:
     tensorflow.AttrValue:
       type: object
       oneOf:
-        - properties:
+        - type: object
+          properties:
             b:
               type: boolean
               title: b
@@ -552,7 +553,8 @@ components:
           title: b
           required:
             - b
-        - properties:
+        - type: object
+          properties:
             f:
               type: number
               title: f
@@ -561,7 +563,8 @@ components:
           title: f
           required:
             - f
-        - properties:
+        - type: object
+          properties:
             func:
               title: func
               description: |-
@@ -573,7 +576,8 @@ components:
           title: func
           required:
             - func
-        - properties:
+        - type: object
+          properties:
             i:
               type:
                 - integer
@@ -584,7 +588,8 @@ components:
           title: i
           required:
             - i
-        - properties:
+        - type: object
+          properties:
             list:
               title: list
               description: any "list(...)"
@@ -592,7 +597,8 @@ components:
           title: list
           required:
             - list
-        - properties:
+        - type: object
+          properties:
             placeholder:
               type: string
               title: placeholder
@@ -607,7 +613,8 @@ components:
           title: placeholder
           required:
             - placeholder
-        - properties:
+        - type: object
+          properties:
             s:
               type: string
               title: s
@@ -616,7 +623,8 @@ components:
           title: s
           required:
             - s
-        - properties:
+        - type: object
+          properties:
             shape:
               title: shape
               description: '"shape"'
@@ -624,7 +632,8 @@ components:
           title: shape
           required:
             - shape
-        - properties:
+        - type: object
+          properties:
             tensor:
               title: tensor
               description: '"tensor"'
@@ -632,7 +641,8 @@ components:
           title: tensor
           required:
             - tensor
-        - properties:
+        - type: object
+          properties:
             type:
               title: type
               description: '"type"'
@@ -1893,7 +1903,8 @@ components:
                 $ref: '#/components/schemas/tensorflow.FullTypeDef'
               title: args
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 i:
                   type:
                     - integer
@@ -1904,7 +1915,8 @@ components:
               title: i
               required:
                 - i
-            - properties:
+            - type: object
+              properties:
                 s:
                   type: string
                   title: s
