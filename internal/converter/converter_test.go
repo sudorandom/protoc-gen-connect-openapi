@@ -43,6 +43,7 @@ var scenarios = []Scenario{
 	{Name: "twirp_only", Options: "features=twirp"},
 	{Name: "visibility", Options: "features=google.api.http;gnostic;protovalidate,allowed-visibilities=INTERNAL;PREVIEW"},
 	{Name: "disable_default_response", Options: "disable-default-response"},
+	{Name: "component_schema_path_params"},
 }
 
 type Scenario struct {
