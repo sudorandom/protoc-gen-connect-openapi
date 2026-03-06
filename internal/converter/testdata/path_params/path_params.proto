@@ -10,10 +10,38 @@ message Request {
   string something_else = 2;
 }
 
+message Profile {
+  string display_name = 1;
+}
+
+message Settings {
+  string theme = 1;
+}
+
+// UpdateRequest has a path param, regular fields, and a oneOf.
+// This tests that the requestBody is generated correctly when
+// MessageToSchema wraps properties+oneOf under AllOf.
+message UpdateRequest {
+  string id = 1 [(google.api.field_behavior) = REQUIRED];
+  string name = 2;
+  oneof details {
+    Profile profile = 3;
+    Settings settings = 4;
+  }
+}
+
 service PathParams {
   rpc Go(Request) returns (google.protobuf.Empty){
     option (google.api.http) = {
       post: "/go/{snake_case}"
+      body: "*"
+    };
+  }
+
+  // Update has a path param and a oneOf in the request body.
+  rpc Update(UpdateRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      patch: "/resources/{id}"
       body: "*"
     };
   }

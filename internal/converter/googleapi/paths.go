@@ -240,21 +240,35 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		case "*":
 			if len(fieldNamesInPath) > 0 {
 				_, s := schema.MessageToSchema(opts, md.Input())
-				if s != nil && s.Properties != nil {
-					for name := range fieldNamesInPath {
-						s.Properties.Delete(name)
-						// Also remove from required list to prevent duplicate required properties
-						if s.Required != nil {
-							s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
-								return s == name
-							})
-							// don't serialize []
-							if len(s.Required) == 0 {
-								s.Required = nil
+				if s != nil {
+					// Remove path parameters from properties.
+					// When the message has oneOf fields, MessageToSchema wraps
+					// properties and oneOf under AllOf, setting s.Properties to nil.
+					// In that case, find the properties inside AllOf.
+					props := s.Properties
+					if props == nil && len(s.AllOf) > 0 {
+						for _, entry := range s.AllOf {
+							if es := entry.Schema(); es != nil && es.Properties != nil && es.Properties.Len() > 0 {
+								props = es.Properties
+								break
 							}
 						}
 					}
-					if s.Properties.Len() > 0 {
+					if props != nil {
+						for name := range fieldNamesInPath {
+							props.Delete(name)
+							if s.Required != nil {
+								s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
+									return s == name
+								})
+								if len(s.Required) == 0 {
+									s.Required = nil
+								}
+							}
+						}
+					}
+					hasContent := (props != nil && props.Len() > 0) || len(s.AllOf) > 0 || len(s.OneOf) > 0
+					if hasContent {
 						op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
 					}
 				}

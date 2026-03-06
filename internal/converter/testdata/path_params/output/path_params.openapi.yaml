@@ -1,0 +1,166 @@
+openapi: 3.1.0
+info:
+  title: path_params
+paths:
+  /go/{snake_case}:
+    post:
+      tags:
+        - path_params.PathParams
+      summary: Go
+      operationId: path_params.PathParams.Go
+      parameters:
+        - name: snake_case
+          in: path
+          required: true
+          schema:
+            type: string
+            title: snake_case
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                somethingElse:
+                  type: string
+                  title: something_else
+              title: Request
+              additionalProperties: false
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+  /resources/{id}:
+    patch:
+      tags:
+        - path_params.PathParams
+      summary: Update
+      description: Update has a path param and a oneOf in the request body.
+      operationId: path_params.PathParams.Update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              allOf:
+                - properties:
+                    name:
+                      type: string
+                      title: name
+                - oneOf:
+                    - properties:
+                        profile:
+                          title: profile
+                          $ref: '#/components/schemas/path_params.Profile'
+                      title: profile
+                      required:
+                        - profile
+                    - properties:
+                        settings:
+                          title: settings
+                          $ref: '#/components/schemas/path_params.Settings'
+                      title: settings
+                      required:
+                        - settings
+              title: UpdateRequest
+              additionalProperties: false
+              description: |-
+                UpdateRequest has a path param, regular fields, and a oneOf.
+                 This tests that the requestBody is generated correctly when
+                 MessageToSchema wraps properties+oneOf under AllOf.
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
+components:
+  schemas:
+    google.protobuf.Empty:
+      type: object
+      description: |-
+        A generic empty message that you can re-use to avoid defining duplicated
+         empty messages in your APIs. A typical example is to use it as the request
+         or the response type of an API method. For instance:
+
+             service Foo {
+               rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+             }
+    path_params.Profile:
+      type: object
+      properties:
+        displayName:
+          type: string
+          title: display_name
+      title: Profile
+      additionalProperties: false
+    path_params.Request:
+      type: object
+      properties:
+        snakeCase:
+          type: string
+          title: snake_case
+        somethingElse:
+          type: string
+          title: something_else
+      title: Request
+      required:
+        - snakeCase
+      additionalProperties: false
+    path_params.Settings:
+      type: object
+      properties:
+        theme:
+          type: string
+          title: theme
+      title: Settings
+      additionalProperties: false
+    path_params.UpdateRequest:
+      type: object
+      allOf:
+        - properties:
+            id:
+              type: string
+              title: id
+            name:
+              type: string
+              title: name
+        - oneOf:
+            - properties:
+                profile:
+                  title: profile
+                  $ref: '#/components/schemas/path_params.Profile'
+              title: profile
+              required:
+                - profile
+            - properties:
+                settings:
+                  title: settings
+                  $ref: '#/components/schemas/path_params.Settings'
+              title: settings
+              required:
+                - settings
+      title: UpdateRequest
+      required:
+        - id
+      additionalProperties: false
+      description: |-
+        UpdateRequest has a path param, regular fields, and a oneOf.
+         This tests that the requestBody is generated correctly when
+         MessageToSchema wraps properties+oneOf under AllOf.
+security: []
+tags:
+  - name: path_params.PathParams
