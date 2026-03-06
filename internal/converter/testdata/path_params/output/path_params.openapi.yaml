@@ -59,14 +59,16 @@ paths:
                       type: string
                       title: name
                 - oneOf:
-                    - properties:
+                    - type: object
+                      properties:
                         profile:
                           title: profile
                           $ref: '#/components/schemas/path_params.Profile'
                       title: profile
                       required:
                         - profile
-                    - properties:
+                    - type: object
+                      properties:
                         settings:
                           title: settings
                           $ref: '#/components/schemas/path_params.Settings'
@@ -139,14 +141,16 @@ components:
               type: string
               title: name
         - oneOf:
-            - properties:
+            - type: object
+              properties:
                 profile:
                   title: profile
                   $ref: '#/components/schemas/path_params.Profile'
               title: profile
               required:
                 - profile
-            - properties:
+            - type: object
+              properties:
                 settings:
                   title: settings
                   $ref: '#/components/schemas/path_params.Settings'
