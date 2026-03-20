@@ -118,7 +118,7 @@ func WithFormat(format string) Option {
 	}
 }
 
-// WithBaseOpenAPI sets a file to use as a base for all OpenAPI files.
+// WithBaseOpenAPI sets a base OpenAPI document to merge into the generated output.
 func WithBaseOpenAPI(baseOpenAPI []byte) Option {
 	return func(g *generator) error {
 		g.options.BaseOpenAPI = baseOpenAPI
@@ -126,7 +126,15 @@ func WithBaseOpenAPI(baseOpenAPI []byte) Option {
 	}
 }
 
-// WithAllowGET sets a file to use as a base for all OpenAPI files.
+// WithOverrideOpenAPI sets an override OpenAPI document to merge on top of the generated output.
+func WithOverrideOpenAPI(overrideOpenAPI []byte) Option {
+	return func(g *generator) error {
+		g.options.OverrideOpenAPI = overrideOpenAPI
+		return nil
+	}
+}
+
+// WithAllowGET allows methods with idempotency_level = NO_SIDE_EFFECTS to be documented with GET requests.
 func WithAllowGET(allowGet bool) Option {
 	return func(g *generator) error {
 		g.options.AllowGET = allowGet
@@ -134,7 +142,7 @@ func WithAllowGET(allowGet bool) Option {
 	}
 }
 
-// WithContentTypes sets a file to use as a base for all OpenAPI files.
+// WithContentTypes sets the content types to include in the generated OpenAPI output.
 func WithContentTypes(contentTypes ...string) Option {
 	return func(g *generator) error {
 		g.options.ContentTypes = map[string]struct{}{}
@@ -148,7 +156,7 @@ func WithContentTypes(contentTypes ...string) Option {
 	}
 }
 
-// WithIncludeNumberEnumValues sets a file to use as a base for all OpenAPI files.
+// WithIncludeNumberEnumValues includes numeric values for enums in addition to string representations.
 func WithIncludeNumberEnumValues(includeNumberEnumValues bool) Option {
 	return func(g *generator) error {
 		g.options.IncludeNumberEnumValues = includeNumberEnumValues
@@ -172,7 +180,7 @@ func WithOnlyGoogleapiHTTP(onlyGoogleapiHTTP bool) Option {
 	}
 }
 
-// WithStreaming sets a file to use as a base for all OpenAPI files.
+// WithStreaming includes content types related to streaming.
 func WithStreaming(streaming bool) Option {
 	return func(g *generator) error {
 		g.options.WithStreaming = streaming
@@ -184,6 +192,22 @@ func WithStreaming(streaming bool) Option {
 func WithDebug(enabled bool) Option {
 	return func(g *generator) error {
 		g.options.Debug = enabled
+		return nil
+	}
+}
+
+// WithProtoNames uses protobuf field names instead of JSON names.
+func WithProtoNames(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.WithProtoNames = enabled
+		return nil
+	}
+}
+
+// WithTrimUnusedTypes removes types that aren't referenced by a service.
+func WithTrimUnusedTypes(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.TrimUnusedTypes = enabled
 		return nil
 	}
 }
@@ -237,6 +261,33 @@ func WithShortServiceTags(enabled bool) Option {
 func WithShortOperationIds(enabled bool) Option {
 	return func(g *generator) error {
 		g.options.ShortOperationIds = enabled
+		return nil
+	}
+}
+
+// WithoutDefaultTags prevents adding default tags to converted fields.
+func WithoutDefaultTags(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.WithoutDefaultTags = enabled
+		return nil
+	}
+}
+
+// WithDisableDefaultResponse disables the default 200 response.
+func WithDisableDefaultResponse(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.DisableDefaultResponse = enabled
+		return nil
+	}
+}
+
+// WithAllowedVisibilities sets the visibility restriction labels to include.
+func WithAllowedVisibilities(visibilities ...string) Option {
+	return func(g *generator) error {
+		g.options.AllowedVisibilities = make(map[string]bool)
+		for _, v := range visibilities {
+			g.options.AllowedVisibilities[v] = true
+		}
 		return nil
 	}
 }
