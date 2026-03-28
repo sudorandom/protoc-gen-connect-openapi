@@ -212,7 +212,7 @@ func WithTrimUnusedTypes(enabled bool) Option {
 	}
 }
 
-// WithProtoAnnotations adds some details about protobuf to descrioptions.
+// WithProtoAnnotations adds some details about protobuf to descriptions.
 func WithProtoAnnotations(enabled bool) Option {
 	return func(g *generator) error {
 		g.options.WithProtoAnnotations = enabled
