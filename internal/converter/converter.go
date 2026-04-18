@@ -137,6 +137,12 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			return nil, err
 		}
 
+		// Skip files that have no matching services if we're not merging
+		if opts.Path == "" && !hasMatchingService(opts, fd) {
+			opts.Logger.Debug("skipping file with no matching services", slog.String("name", fileDesc.GetName()))
+			continue
+		}
+
 		// Create a per-file openapi spec if we're not merging all into one
 		if opts.Path == "" {
 			spec, err = newSpec()
@@ -428,4 +434,15 @@ func initializeComponents(opts options.Options, components *v3.Components) {
 	if components.Extensions == nil {
 		components.Extensions = orderedmap.New[string, *yaml.Node]()
 	}
+}
+
+func hasMatchingService(opts options.Options, fd protoreflect.FileDescriptor) bool {
+	services := fd.Services()
+	for i := 0; i < services.Len(); i++ {
+		service := services.Get(i)
+		if opts.HasService(service.FullName()) {
+			return true
+		}
+	}
+	return false
 }
