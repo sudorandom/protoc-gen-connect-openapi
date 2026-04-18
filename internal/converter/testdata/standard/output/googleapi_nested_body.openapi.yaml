@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  title: googleapi_nested_body
+  description: |-
+    ## googleapi_nested_body.NestedBodyService
+
+    Tests that nested path params properly exclude the top-level field from the request body.
+paths:
+  /v1/resources/{parentRef.resourceId}:
+    put:
+      tags:
+        - googleapi_nested_body.NestedBodyService
+      summary: UpdateResource
+      description: 'Nested path param with body: "*" should exclude parent_ref from the body.'
+      operationId: googleapi_nested_body.NestedBodyService.UpdateResource
+      parameters:
+        - name: parentRef.resourceId
+          in: path
+          required: true
+          schema:
+            type: string
+            title: resource_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                displayName:
+                  type: string
+                  title: display_name
+                description:
+                  type: string
+                  title: description
+              title: UpdateResourceRequest
+              additionalProperties: false
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/googleapi_nested_body.UpdateResourceResponse'
+components:
+  schemas:
+    googleapi_nested_body.ParentRef:
+      type: object
+      properties:
+        resourceId:
+          type: string
+          title: resource_id
+      title: ParentRef
+      additionalProperties: false
+    googleapi_nested_body.UpdateResourceRequest:
+      type: object
+      properties:
+        parentRef:
+          title: parent_ref
+          $ref: '#/components/schemas/googleapi_nested_body.ParentRef'
+        displayName:
+          type: string
+          title: display_name
+        description:
+          type: string
+          title: description
+      title: UpdateResourceRequest
+      additionalProperties: false
+    googleapi_nested_body.UpdateResourceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+      title: UpdateResourceResponse
+      additionalProperties: false
+security: []
+tags:
+  - name: googleapi_nested_body.NestedBodyService
+    description: Tests that nested path params properly exclude the top-level field from the request body.

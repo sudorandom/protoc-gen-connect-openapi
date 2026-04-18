@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package googleapi_nested_body;
+
+import "google/api/annotations.proto";
+
+// Tests that nested path params properly exclude the top-level field from the request body.
+service NestedBodyService {
+  // Nested path param with body: "*" should exclude parent_ref from the body.
+  rpc UpdateResource(UpdateResourceRequest) returns (UpdateResourceResponse) {
+    option (google.api.http) = {
+      put: "/v1/resources/{parent_ref.resource_id}"
+      body: "*"
+    };
+  }
+}
+
+message UpdateResourceRequest {
+  ParentRef parent_ref = 1;
+  string display_name = 2;
+  string description = 3;
+}
+
+message ParentRef {
+  string resource_id = 1;
+}
+
+message UpdateResourceResponse {
+  string id = 1;
+}
