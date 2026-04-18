@@ -137,8 +137,8 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			return nil, err
 		}
 
-		// Skip files that have no matching services if we're not merging
-		if opts.Path == "" && !hasMatchingService(opts, fd) {
+		// Skip files that have no matching services if we're not merging and the filter is configured
+		if opts.Path == "" && len(opts.Services) > 0 && !hasMatchingService(opts, fd) {
 			opts.Logger.Debug("skipping file with no matching services", slog.String("name", fileDesc.GetName()))
 			continue
 		}
