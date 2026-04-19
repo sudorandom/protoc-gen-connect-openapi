@@ -1,0 +1,50 @@
+syntax = "proto3";
+package component_schema_path_params;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+
+message Thing {
+  string name = 1;
+  string description = 2;
+}
+
+message GetThingRequest {
+  string path = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message SuspendThingRequest {
+  string path = 1 [(google.api.field_behavior) = REQUIRED];
+}
+
+message ListThingsRequest {
+  string parent = 1 [(google.api.field_behavior) = REQUIRED];
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListThingsResponse {
+  repeated Thing things = 1;
+  string next_page_token = 2;
+}
+
+service ThingService {
+  rpc GetThing(GetThingRequest) returns (Thing) {
+    option (google.api.http) = {
+      get: "/v1/{path=things/*}"
+    };
+  }
+
+  rpc SuspendThing(SuspendThingRequest) returns (Thing) {
+    option (google.api.http) = {
+      post: "/v1/{path=things/*}:suspend"
+      body: "*"
+    };
+  }
+
+  rpc ListThings(ListThingsRequest) returns (ListThingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=accounts/*}/things"
+    };
+  }
+}

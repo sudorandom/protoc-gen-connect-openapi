@@ -72,6 +72,14 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 						deferred, _ := result.DeferredParams.Get(pair.Key())
 						addPathItem(pair.Key(), pair.Value(), deferred)
 					}
+					if opts.StripPathParamsFromSchemas && len(result.FieldNamesInPath) > 0 {
+						inputName := string(method.Input().FullName())
+						if schemaProxy, ok := doc.Components.Schemas.Get(inputName); ok {
+							if s := schemaProxy.Schema(); s != nil {
+								googleapi.StripPathFieldsFromSchema(s, result.FieldNamesInPath)
+							}
+						}
+					}
 				}
 				if isGoogleHTTP {
 					googleapi.AddSchemas(opts, doc)

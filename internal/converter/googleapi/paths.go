@@ -29,8 +29,9 @@ var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 // descriptions should only be applied after all annotation processing
 // (e.g. gnostic) has had a chance to set descriptions first.
 type PathItemsResult struct {
-	PathItems      *orderedmap.Map[string, *v3.PathItem]
-	DeferredParams *orderedmap.Map[string, []*v3.Parameter]
+	PathItems        *orderedmap.Map[string, *v3.PathItem]
+	DeferredParams   *orderedmap.Map[string, []*v3.Parameter]
+	FieldNamesInPath map[string]struct{}
 }
 
 func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*PathItemsResult, bool) {
@@ -241,29 +242,13 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			if len(fieldNamesInPath) > 0 {
 				_, s := schema.MessageToSchema(opts, md.Input())
 				if s != nil {
-					// Remove path parameters from properties.
-					// When the message has oneOf fields, MessageToSchema wraps
-					// properties and oneOf under AllOf, setting s.Properties to nil.
-					// In that case, find the properties inside AllOf.
+					StripPathFieldsFromSchema(s, fieldNamesInPath)
 					props := s.Properties
 					if props == nil && len(s.AllOf) > 0 {
 						for _, entry := range s.AllOf {
 							if es := entry.Schema(); es != nil && es.Properties != nil && es.Properties.Len() > 0 {
 								props = es.Properties
 								break
-							}
-						}
-					}
-					if props != nil {
-						for name := range fieldNamesInPath {
-							props.Delete(name)
-							if s.Required != nil {
-								s.Required = slices.DeleteFunc(s.Required, func(s string) bool {
-									return s == name
-								})
-								if len(s.Required) == 0 {
-									s.Required = nil
-								}
 							}
 						}
 					}
@@ -380,8 +365,9 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	}
 	dedupeOperations(op.OperationId, paths.ValuesFromOldest())
 	return &PathItemsResult{
-		PathItems:      paths,
-		DeferredParams: allDeferred,
+		PathItems:        paths,
+		DeferredParams:   allDeferred,
+		FieldNamesInPath: fieldNamesInPath,
 	}
 }
 
@@ -399,6 +385,38 @@ func dedupeOperations(id string, value iter.Seq[*v3.PathItem]) {
 					op.OperationId = fmt.Sprintf("%s%d", id, num)
 				}
 			}
+		}
+	}
+}
+
+// StripPathFieldsFromSchema removes path-bound fields from a schema's
+// properties and required list. This handles both flat Properties maps
+// and AllOf-wrapped properties (used when the message has oneOf fields).
+func StripPathFieldsFromSchema(s *base.Schema, fieldNamesInPath map[string]struct{}) {
+	if s == nil {
+		return
+	}
+	props := s.Properties
+	if props == nil && len(s.AllOf) > 0 {
+		for _, entry := range s.AllOf {
+			if es := entry.Schema(); es != nil && es.Properties != nil && es.Properties.Len() > 0 {
+				props = es.Properties
+				break
+			}
+		}
+	}
+	if props != nil {
+		for name := range fieldNamesInPath {
+			props.Delete(name)
+		}
+	}
+	if s.Required != nil {
+		s.Required = slices.DeleteFunc(s.Required, func(r string) bool {
+			_, ok := fieldNamesInPath[r]
+			return ok
+		})
+		if len(s.Required) == 0 {
+			s.Required = nil
 		}
 	}
 }
