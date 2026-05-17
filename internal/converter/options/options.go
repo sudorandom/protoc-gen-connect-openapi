@@ -76,6 +76,9 @@ type Options struct {
 	// AllowedVisibilities is a map of visibility strings to include. If an element has a `google.api.visibility` rule with a `restriction` that is not in this map, it will be excluded.
 	AllowedVisibilities map[string]bool
 
+	// ResourceMap is a map of plural resource names to their singular forms.
+	ResourceMap map[string]string
+
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
 	FieldReferenceAnnotator FieldReferenceAnnotator

@@ -28,4 +28,21 @@ func TestPartsToOpenAPIPath(t *testing.T) {
 		path := partsToOpenAPIPath(v, nil)
 		assert.Equal(t, "/users/v1/organizations/{organization}/teams/{team}/all/members/{member}:activate", path)
 	})
+
+	t.Run("with resource map", func(t *testing.T) {
+		resMap := map[string]string{
+			"timeseries": "timeseries",
+		}
+		v, err := RunPathPatternLexer("/v1/{name=organizations/*/timeseries/*}")
+		require.NoError(t, err)
+		path := partsToOpenAPIPath(v, resMap)
+		assert.Equal(t, "/v1/organizations/{organization}/timeseries/{timeseries}", path)
+	})
+
+	t.Run("without resource map", func(t *testing.T) {
+		v, err := RunPathPatternLexer("/v1/{name=organizations/*/timeseries/*}")
+		require.NoError(t, err)
+		path := partsToOpenAPIPath(v, nil)
+		assert.Equal(t, "/v1/organizations/{organization}/timeseries/{timesery}", path)
+	})
 }

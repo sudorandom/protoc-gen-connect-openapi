@@ -15,7 +15,6 @@ import (
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
-	"google.golang.org/protobuf/types/descriptorpb"
 
 	goa3 "github.com/google/gnostic/openapiv3"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -51,8 +50,12 @@ func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*Pat
 
 func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule, resMap map[string]string) *PathItemsResult {
 	if resMap == nil {
-		resMap = make(map[string]string)
-		collectResources(md.ParentFile(), resMap)
+		if opts.ResourceMap != nil {
+			resMap = opts.ResourceMap
+		} else {
+			resMap = make(map[string]string)
+			CollectResources(md.ParentFile(), resMap)
+		}
 	}
 	var method, template string
 	switch pattern := rule.GetPattern().(type) {
@@ -574,11 +577,10 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 	return params
 }
 
-func collectResources(fd protoreflect.FileDescriptor, resMap map[string]string) {
+func CollectResources(fd protoreflect.FileDescriptor, resMap map[string]string) {
 	// File-level resource definitions
-	fopts := fd.Options().(*descriptorpb.FileOptions)
-	if proto.HasExtension(fopts, annotations.E_ResourceDefinition) {
-		resDefs := proto.GetExtension(fopts, annotations.E_ResourceDefinition).([]*annotations.ResourceDescriptor)
+	if proto.HasExtension(fd.Options(), annotations.E_ResourceDefinition) {
+		resDefs := proto.GetExtension(fd.Options(), annotations.E_ResourceDefinition).([]*annotations.ResourceDescriptor)
 		for _, res := range resDefs {
 			if res.Plural != "" && res.Singular != "" {
 				resMap[res.Plural] = res.Singular
@@ -591,9 +593,8 @@ func collectResources(fd protoreflect.FileDescriptor, resMap map[string]string) 
 	collectFromMessages = func(msgs protoreflect.MessageDescriptors) {
 		for i := 0; i < msgs.Len(); i++ {
 			m := msgs.Get(i)
-			mopts := m.Options().(*descriptorpb.MessageOptions)
-			if proto.HasExtension(mopts, annotations.E_Resource) {
-				res := proto.GetExtension(mopts, annotations.E_Resource).(*annotations.ResourceDescriptor)
+			if proto.HasExtension(m.Options(), annotations.E_Resource) {
+				res := proto.GetExtension(m.Options(), annotations.E_Resource).(*annotations.ResourceDescriptor)
 				if res.Plural != "" && res.Singular != "" {
 					resMap[res.Plural] = res.Singular
 				}

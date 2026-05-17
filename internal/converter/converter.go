@@ -23,6 +23,7 @@ import (
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
@@ -91,6 +92,12 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 	}
 
 	opts.ExtensionTypeResolver = dynamicpb.NewTypes(resolver)
+
+	opts.ResourceMap = make(map[string]string)
+	resolver.RangeFiles(func(fd protoreflect.FileDescriptor) bool {
+		googleapi.CollectResources(fd, opts.ResourceMap)
+		return true
+	})
 
 	newSpec := func() (*v3.Document, error) {
 		model := &v3.Document{}
