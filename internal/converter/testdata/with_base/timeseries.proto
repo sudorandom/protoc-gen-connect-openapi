@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package timeseries;
+
+import "google/api/annotations.proto";
+import "google/api/resource.proto";
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/standard;timeseries";
+
+message Timeseries {
+  option (google.api.resource) = {
+    type: "timeseries.api.plantiga.io/Timeseries"
+    pattern: "organizations/{organization}/members/{member}/activities/{activity}/timeseries/{timeseries}"
+    singular: "timeseries"
+    plural: "timeseries"
+  };
+  string name = 1;
+}
+
+message GetTimeseriesRequest {
+  string name = 1;
+}
+
+service TimeseriesService {
+  rpc GetTimeseries(GetTimeseriesRequest) returns (Timeseries) {
+    option (google.api.http) = {
+      get: "/v1/{name=organizations/*/members/*/activities/*/timeseries/*}"
+    };
+  }
+}

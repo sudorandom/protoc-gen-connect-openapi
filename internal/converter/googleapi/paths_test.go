@@ -11,21 +11,21 @@ func TestPartsToOpenAPIPath(t *testing.T) {
 	t.Run("with annotation", func(t *testing.T) {
 		v, err := RunPathPatternLexer("/pet/{pet_id}:addPet")
 		require.NoError(t, err)
-		path := partsToOpenAPIPath(v)
+		path := partsToOpenAPIPath(v, nil)
 		assert.Equal(t, "/pet/{pet_id}:addPet", path)
 	})
 
 	t.Run("with glob pattern", func(t *testing.T) {
 		v, err := RunPathPatternLexer("/users/v1/{name=organizations/*/teams/*/members/*}:activate")
 		require.NoError(t, err)
-		path := partsToOpenAPIPath(v)
+		path := partsToOpenAPIPath(v, nil)
 		assert.Equal(t, "/users/v1/organizations/{organization}/teams/{team}/members/{member}:activate", path)
 	})
 
 	t.Run("with glob pattern containing literal segment", func(t *testing.T) {
 		v, err := RunPathPatternLexer("/users/v1/{name=organizations/*/teams/*/all/members/*}:activate")
 		require.NoError(t, err)
-		path := partsToOpenAPIPath(v)
+		path := partsToOpenAPIPath(v, nil)
 		assert.Equal(t, "/users/v1/organizations/{organization}/teams/{team}/all/members/{member}:activate", path)
 	})
 }
