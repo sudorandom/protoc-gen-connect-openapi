@@ -1,0 +1,112 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "timeseries",
+    "description": "",
+    "version": "v1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "timeseries.GetTimeseriesRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "GetTimeseriesRequest",
+        "additionalProperties": false
+      },
+      "timeseries.Timeseries": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "Timeseries",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/v1/organizations/{organization}/members/{member}/activities/{activity}/timeseries/{timeseries}": {
+      "get": {
+        "tags": [
+          "timeseries.TimeseriesService"
+        ],
+        "summary": "GetTimeseries",
+        "operationId": "timeseries.TimeseriesService.GetTimeseries",
+        "parameters": [
+          {
+            "name": "organization",
+            "in": "path",
+            "description": "The organization id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "member",
+            "in": "path",
+            "description": "The member id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity",
+            "in": "path",
+            "description": "The activity id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timeseries",
+            "in": "path",
+            "description": "The timeseries id.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/timeseries.Timeseries"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "timeseries.TimeseriesService"
+    }
+  ]
+}

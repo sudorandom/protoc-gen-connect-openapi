@@ -45,10 +45,18 @@ func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*Pat
 	if !ok {
 		return nil, false
 	}
-	return httpRuleToPathMap(opts, md, rule), true
+	return httpRuleToPathMap(opts, md, rule, nil), true
 }
 
-func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule) *PathItemsResult {
+func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule, resMap map[string]string) *PathItemsResult {
+	if resMap == nil {
+		if opts.ResourceMap != nil {
+			resMap = opts.ResourceMap
+		} else {
+			resMap = make(map[string]string)
+			CollectResources(md.ParentFile(), resMap)
+		}
+	}
 	var method, template string
 	switch pattern := rule.GetPattern().(type) {
 	case *annotations.HttpRule_Get:
@@ -203,7 +211,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 						continue
 					}
 					section := parts[i-1]
-					namedPathParameter := util.Singular(section)
+					namedPathParameter := singularize(resMap, section)
 					newParameter := &v3.Parameter{
 						Name:     namedPathParameter,
 						In:       "path",
@@ -359,7 +367,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		pathItem.Patch = op
 	default:
 	}
-	openAPIPath := partsToOpenAPIPath(tokens)
+	openAPIPath := partsToOpenAPIPath(tokens, resMap)
 	paths.Set(openAPIPath, pathItem)
 
 	allDeferred := orderedmap.New[string, []*v3.Parameter]()
@@ -368,7 +376,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	}
 
 	for _, binding := range rule.AdditionalBindings {
-		sub := httpRuleToPathMap(opts, md, binding)
+		sub := httpRuleToPathMap(opts, md, binding, resMap)
 		for pair := sub.PathItems.First(); pair != nil; pair = pair.Next() {
 			path := util.MakePath(opts, pair.Key())
 			paths.Set(path, pair.Value())
@@ -444,7 +452,7 @@ func partsToParameter(tokens []Token) []string {
 	return params
 }
 
-func partsToOpenAPIPath(tokens []Token) string {
+func partsToOpenAPIPath(tokens []Token, resMap map[string]string) string {
 	var b strings.Builder
 	for _, token := range tokens {
 		switch token.Type {
@@ -482,7 +490,7 @@ func partsToOpenAPIPath(tokens []Token) string {
 							continue
 						}
 						section := parts[i-1]
-						namedPathParameter := util.Singular(section)
+						namedPathParameter := singularize(resMap, section)
 						parts[i] = "{" + namedPathParameter + "}"
 					}
 					// Rewrite the path to use the path parameters.
@@ -567,4 +575,39 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 		}
 	}
 	return params
+}
+
+func CollectResources(fd protoreflect.FileDescriptor, resMap map[string]string) {
+	// File-level resource definitions
+	if proto.HasExtension(fd.Options(), annotations.E_ResourceDefinition) {
+		resDefs := proto.GetExtension(fd.Options(), annotations.E_ResourceDefinition).([]*annotations.ResourceDescriptor)
+		for _, res := range resDefs {
+			if res.Plural != "" && res.Singular != "" {
+				resMap[res.Plural] = res.Singular
+			}
+		}
+	}
+
+	// Message-level resource definitions
+	var collectFromMessages func(msgs protoreflect.MessageDescriptors)
+	collectFromMessages = func(msgs protoreflect.MessageDescriptors) {
+		for i := 0; i < msgs.Len(); i++ {
+			m := msgs.Get(i)
+			if proto.HasExtension(m.Options(), annotations.E_Resource) {
+				res := proto.GetExtension(m.Options(), annotations.E_Resource).(*annotations.ResourceDescriptor)
+				if res.Plural != "" && res.Singular != "" {
+					resMap[res.Plural] = res.Singular
+				}
+			}
+			collectFromMessages(m.Messages())
+		}
+	}
+	collectFromMessages(fd.Messages())
+}
+
+func singularize(resMap map[string]string, plural string) string {
+	if s, ok := resMap[plural]; ok {
+		return s
+	}
+	return util.Singular(plural)
 }
