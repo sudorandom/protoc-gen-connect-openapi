@@ -4,6 +4,7 @@ package path_params;
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
+import "path_params/book.proto";
 
 message Request {
   string snake_case = 1 [(google.api.field_behavior) = REQUIRED];
@@ -43,6 +44,14 @@ service PathParams {
     option (google.api.http) = {
       patch: "/resources/{id}"
       body: "*"
+    };
+  }
+}
+
+service BookService {
+  rpc ListBooks(book.ListBooksRequest) returns (book.ListBooksResponse) {
+    option (google.api.http) = {
+      get: "/v1/shelves/{shelf}/books"
     };
   }
 }

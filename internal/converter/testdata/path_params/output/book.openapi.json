@@ -1,0 +1,34 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "book"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "book.ListBooksRequest": {
+        "type": "object",
+        "properties": {
+          "shelf": {
+            "type": "string",
+            "title": "shelf",
+            "description": "the shelf description"
+          },
+          "author": {
+            "type": "string",
+            "title": "author",
+            "description": "the author description"
+          }
+        },
+        "title": "ListBooksRequest",
+        "additionalProperties": false
+      },
+      "book.ListBooksResponse": {
+        "type": "object",
+        "title": "ListBooksResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": []
+}

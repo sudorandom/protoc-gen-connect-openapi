@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package book;
+
+option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/path_params/book";
+
+message ListBooksRequest {
+  // the shelf description
+  string shelf = 1;
+
+  // the author description
+  string author = 2;
+}
+
+message ListBooksResponse {
+}

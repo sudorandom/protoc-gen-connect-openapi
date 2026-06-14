@@ -89,8 +89,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
+  /v1/shelves/{shelf}/books:
+    get:
+      tags:
+        - path_params.BookService
+      summary: ListBooks
+      operationId: path_params.BookService.ListBooks
+      parameters:
+        - name: shelf
+          in: path
+          description: the shelf description
+          required: true
+          schema:
+            type: string
+            title: shelf
+        - name: author
+          in: query
+          description: the author description
+          schema:
+            type: string
+            title: author
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/book.ListBooksResponse'
 components:
   schemas:
+    book.ListBooksRequest:
+      type: object
+      properties:
+        shelf:
+          type: string
+          title: shelf
+          description: the shelf description
+        author:
+          type: string
+          title: author
+          description: the author description
+      title: ListBooksRequest
+      additionalProperties: false
+    book.ListBooksResponse:
+      type: object
+      title: ListBooksResponse
+      additionalProperties: false
     google.protobuf.Empty:
       type: object
       description: |-
@@ -168,3 +212,4 @@ components:
 security: []
 tags:
   - name: path_params.PathParams
+  - name: path_params.BookService
