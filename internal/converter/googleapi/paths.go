@@ -133,14 +133,8 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			// query/param or request body
 			fieldNamesInPath[string(field.FullName())] = struct{}{}
 			fieldNamesInPath[strings.Join(jsonPath, ".")] = struct{}{} // sometimes JSON field names are used
-			loc := fd.SourceLocations().ByDescriptor(field)
-			newParameter := &v3.Parameter{
-				Name:        param,
-				Required:    proto.Bool(true),
-				In:          "path",
-				Description: util.FormatComments(loc),
-				Schema:      schema.FieldToSchema(opts, nil, field),
-			}
+			schemaProxy := schema.FieldToSchema(opts, nil, field)
+			newParameter := buildParameter(opts, param, "path", field, schemaProxy, proto.Bool(true), false)
 			pathParams = append(pathParams, newParameter)
 		} else {
 			opts.Logger.Warn("path field not found", slog.String("param", param))
@@ -170,20 +164,19 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 					if field != nil {
 						fieldNamesInPath[string(field.FullName())] = struct{}{}
 						fieldNamesInPath[field.JSONName()] = struct{}{}
-						loc := fd.SourceLocations().ByDescriptor(field)
 						parameterSchema := schema.FieldToSchema(opts, nil, field)
 						// Path parameters must be primitives.
 						if slices.Contains(parameterSchema.Schema().Type, "object") || slices.Contains(parameterSchema.Schema().Type, "array") {
-							parameterSchema = base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}})
+							desc := ""
+							if parameterSchema.Schema() != nil {
+								desc = parameterSchema.Schema().Description
+							}
+							parameterSchema = base.CreateSchemaProxy(&base.Schema{
+								Type:        []string{"string"},
+								Description: desc,
+							})
 						}
-						newParameter = &v3.Parameter{
-							Name:          paramName,
-							Required:      proto.Bool(true),
-							In:            "path",
-							Description:   util.FormatComments(loc),
-							AllowReserved: true,
-							Schema:        parameterSchema,
-						}
+						newParameter = buildParameter(opts, paramName, "path", field, parameterSchema, proto.Bool(true), true)
 					} else {
 						newParameter = &v3.Parameter{
 							Name:          paramName,
@@ -539,16 +532,8 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 					}, wk.ID)
 
 					if !isComplex {
-						loc := field.ParentFile().SourceLocations().ByDescriptor(field)
-						// Check field behavior for required status
 						required := IsFieldRequired(field)
-						params = append(params, &v3.Parameter{
-							Name:        paramName,
-							In:          "query",
-							Description: util.FormatComments(loc),
-							Schema:      base.CreateSchemaProxy(wk.Schema),
-							Required:    required,
-						})
+						params = append(params, buildParameter(opts, paramName, "query", field, base.CreateSchemaProxy(wk.Schema), required, false))
 						continue
 					}
 				}
@@ -556,7 +541,7 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 			params = append(params, flattenToParams(opts, field.Message(), paramName+".", seen)...)
 		default:
 			parent := &base.Schema{}
-			schema := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)
+			schemaProxy := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)
 			var required *bool
 			// First check field behavior annotations
 			required = IsFieldRequired(field)
@@ -564,14 +549,7 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 			if required == nil && len(parent.Required) > 0 {
 				required = util.BoolPtr(true)
 			}
-			loc := field.ParentFile().SourceLocations().ByDescriptor(field)
-			params = append(params, &v3.Parameter{
-				Name:        paramName,
-				In:          "query",
-				Description: util.FormatComments(loc),
-				Schema:      schema,
-				Required:    required,
-			})
+			params = append(params, buildParameter(opts, paramName, "query", field, schemaProxy, required, false))
 		}
 	}
 	return params
@@ -610,4 +588,26 @@ func singularize(resMap map[string]string, plural string) string {
 		return s
 	}
 	return util.Singular(plural)
+}
+
+func buildParameter(opts options.Options, name string, in string, field protoreflect.FieldDescriptor, schemaProxy *base.SchemaProxy, required *bool, allowReserved bool) *v3.Parameter {
+	loc := field.ParentFile().SourceLocations().ByDescriptor(field)
+	var description string
+	if schemaProxy != nil && schemaProxy.Schema() != nil {
+		description = schemaProxy.Schema().Description
+		schemaProxy.Schema().Description = ""
+	}
+	if description == "" {
+		description = util.FormatComments(loc)
+	}
+	deprecated := util.IsFieldDeprecated(field)
+	return &v3.Parameter{
+		Name:          name,
+		In:            in,
+		Required:      required,
+		Description:   description,
+		Schema:        schemaProxy,
+		AllowReserved: allowReserved,
+		Deprecated:    deprecated != nil && *deprecated,
+	}
 }

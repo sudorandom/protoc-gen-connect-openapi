@@ -20,8 +20,7 @@
             "description": "This field should be a query parameter",
             "schema": {
               "type": "string",
-              "title": "author_id",
-              "description": "This field should be a query parameter"
+              "title": "author_id"
             }
           }
         ],
@@ -74,8 +73,7 @@
             "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body.",
             "schema": {
               "type": "string",
-              "title": "book_id",
-              "description": "The user-specified ID for the book.\n When using HTTP/JSON, this field is populated based on a query string\n argument, such as `?bookId=foo`. This is the fallback for fields that\n are not included in either the URI or the body."
+              "title": "book_id"
             }
           }
         ],

@@ -12,12 +12,12 @@ paths:
       parameters:
         - name: user_id
           in: path
+          description: '(IDENTIFIER) '
           required: true
           schema:
             type: integer
             title: user_id
             format: int32
-            description: '(IDENTIFIER) '
             readOnly: true
         - name: name
           in: query
@@ -33,33 +33,33 @@ paths:
             writeOnly: true
         - name: nickName
           in: query
+          description: '(OPTIONAL) '
           required: false
           schema:
             type: string
             title: nick_name
-            description: '(OPTIONAL) '
         - name: internalId
           in: query
+          description: '(IMMUTABLE) '
           schema:
             type: string
             title: internal_id
-            description: '(IMMUTABLE) '
         - name: otherAttr
           in: query
+          description: '(UNORDERED_LIST) '
           schema:
             type: array
             items:
               type: string
               description: '(UNORDERED_LIST) '
             title: other_attr
-            description: '(UNORDERED_LIST) '
         - name: allBehaviors
           in: query
+          description: '(IDENTIFIER) (OPTIONAL) (NON_EMPTY_DEFAULT) (UNORDERED_LIST) (IMMUTABLE) (OPTIONAL) '
           required: true
           schema:
             type: string
             title: all_behaviors
-            description: '(IDENTIFIER) (OPTIONAL) (NON_EMPTY_DEFAULT) (UNORDERED_LIST) (IMMUTABLE) (OPTIONAL) '
             readOnly: true
             writeOnly: true
       responses:
