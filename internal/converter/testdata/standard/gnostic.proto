@@ -65,6 +65,32 @@ option (gnostic.openapi.v3.document) = {
       ]
     }
   }
+  paths: {
+    path: [
+      {
+        name: "/custom-path"
+        value: {
+          summary: "Custom path summary"
+          description: "Custom path description"
+          get: {
+            description: "Custom get operation"
+            responses: {
+              response_or_reference: [
+                {
+                  name: "200"
+                  value: {
+                    response: {
+                      description: "Custom success response"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
 };
 
 // The greeting service definition.

@@ -16,6 +16,15 @@ info:
     url: https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE
   version: Version from annotation
 paths:
+  /custom-path:
+    description: Custom path description
+    summary: Custom path summary
+    get:
+      description: Custom get operation
+      responses:
+        "200":
+          description: Custom success response
+      security: []
   /example_with_gnostic.Greeter/SayHello:
     get:
       tags:

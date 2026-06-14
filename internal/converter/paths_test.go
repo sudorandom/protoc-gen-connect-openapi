@@ -191,7 +191,7 @@ func TestMergeOperation(t *testing.T) {
 			},
 		}
 
-		mergeOperation(&existing, newOp)
+		util.MergeOperation(&existing, newOp)
 		assert.Len(t, existing.Parameters, 3)
 
 		// Check that id parameter was merged
@@ -216,7 +216,7 @@ func TestMergeOperation(t *testing.T) {
 			Tags: []string{"tag2", "tag3"},
 		}
 
-		mergeOperation(&existing, newOp)
+		util.MergeOperation(&existing, newOp)
 
 		assert.Len(t, existing.Tags, 3)
 		assert.Contains(t, existing.Tags, "tag1")
