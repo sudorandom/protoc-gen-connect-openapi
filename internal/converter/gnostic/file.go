@@ -4,7 +4,10 @@ import (
 	goa3 "github.com/google/gnostic/openapiv3"
 	highbase "github.com/pb33f/libopenapi/datamodel/high/base"
 	highv3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -53,6 +56,30 @@ func SpecWithFileAnnotations(opts options.Options, spec *highv3.Document, fd pro
 		ext := toExtensions(gnosticDocument.SpecificationExtension)
 		for pair := ext.Oldest(); pair != nil; pair = pair.Next() {
 			spec.Extensions.AddPairs(*pair)
+		}
+	}
+	if gnosticDocument.Paths != nil {
+		if spec.Paths == nil {
+			spec.Paths = &highv3.Paths{}
+		}
+		if spec.Paths.PathItems == nil {
+			spec.Paths.PathItems = orderedmap.New[string, *highv3.PathItem]()
+		}
+		if spec.Paths.Extensions == nil {
+			spec.Paths.Extensions = orderedmap.New[string, *yaml.Node]()
+		}
+		for _, item := range gnosticDocument.Paths.GetPath() {
+			if existing, ok := spec.Paths.PathItems.Get(item.Name); ok {
+				util.MergePathItems(existing, toPathItem(opts, item.Value))
+			} else {
+				spec.Paths.PathItems.Set(item.Name, toPathItem(opts, item.Value))
+			}
+		}
+		if gnosticDocument.Paths.SpecificationExtension != nil {
+			ext := toExtensions(gnosticDocument.Paths.SpecificationExtension)
+			for pair := ext.Oldest(); pair != nil; pair = pair.Next() {
+				spec.Paths.Extensions.AddPairs(*pair)
+			}
 		}
 	}
 	appendComponents(opts, spec, gnosticDocument.Components)

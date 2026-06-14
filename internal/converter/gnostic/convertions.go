@@ -476,6 +476,24 @@ func toLinks(ls *goa3.LinksOrReferences) *orderedmap.Map[string, *v3.Link] {
 	return links
 }
 
+func toPathItem(opts options.Options, expr *goa3.PathItem) *v3.PathItem {
+	return &v3.PathItem{
+		Description: expr.Description,
+		Summary:     expr.Summary,
+		Get:         toOperation(opts, expr.Get),
+		Put:         toOperation(opts, expr.Put),
+		Post:        toOperation(opts, expr.Post),
+		Delete:      toOperation(opts, expr.Delete),
+		Options:     toOperation(opts, expr.Options),
+		Head:        toOperation(opts, expr.Head),
+		Patch:       toOperation(opts, expr.Patch),
+		Trace:       toOperation(opts, expr.Trace),
+		Servers:     toServers(expr.Servers),
+		Parameters:  toParameters(opts, expr.Parameters),
+		Extensions:  toExtensions(expr.SpecificationExtension),
+	}
+}
+
 func toCallbacks(opts options.Options, cbs *goa3.CallbacksOrReferences) *orderedmap.Map[string, *v3.Callback] {
 	if cbs == nil {
 		return nil
@@ -485,22 +503,7 @@ func toCallbacks(opts options.Options, cbs *goa3.CallbacksOrReferences) *ordered
 		callback := item.Value.GetCallback()
 		expressions := orderedmap.New[string, *v3.PathItem]()
 		for _, item := range callback.GetPath() {
-			expr := item.Value
-			expressions.Set(item.Name, &v3.PathItem{
-				Description: expr.Description,
-				Summary:     expr.Summary,
-				Get:         toOperation(opts, expr.Get),
-				Put:         toOperation(opts, expr.Put),
-				Post:        toOperation(opts, expr.Post),
-				Delete:      toOperation(opts, expr.Delete),
-				Options:     toOperation(opts, expr.Options),
-				Head:        toOperation(opts, expr.Head),
-				Patch:       toOperation(opts, expr.Patch),
-				Trace:       toOperation(opts, expr.Trace),
-				Servers:     toServers(expr.Servers),
-				Parameters:  toParameters(opts, expr.Parameters),
-				Extensions:  toExtensions(expr.SpecificationExtension),
-			})
+			expressions.Set(item.Name, toPathItem(opts, item.Value))
 		}
 		callbacks.Set(item.Name, &v3.Callback{
 			Expression: expressions,
