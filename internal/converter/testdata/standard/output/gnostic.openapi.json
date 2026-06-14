@@ -215,6 +215,7 @@
           {
             "name": "name",
             "in": "query",
+            "description": "Custom description for a field",
             "schema": {
               "type": "string",
               "examples": [
@@ -225,7 +226,6 @@
               "minLength": 3,
               "pattern": "/^[a-z ,.'-]+$/i",
               "additionalProperties": false,
-              "description": "Custom description for a field",
               "nullable": true,
               "externalDocs": {
                 "description": "example",

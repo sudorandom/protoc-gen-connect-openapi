@@ -17,7 +17,6 @@ paths:
           schema:
             type: string
             title: author_id
-            description: This field should be a query parameter
       requestBody:
         description: This field should be in the body based on the HTTP annotation
         content:
@@ -56,11 +55,6 @@ paths:
           schema:
             type: string
             title: book_id
-            description: |-
-              The user-specified ID for the book.
-               When using HTTP/JSON, this field is populated based on a query string
-               argument, such as `?bookId=foo`. This is the fallback for fields that
-               are not included in either the URI or the body.
       requestBody:
         description: |-
           The book to create.
