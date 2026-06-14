@@ -348,3 +348,176 @@ func mergeParameter(p, newParam *v3.Parameter) {
 		p.AllowReserved = newParam.AllowReserved // Set it from newParam
 	}
 }
+
+// MergePathItems merges new path item properties into an existing path item.
+func MergePathItems(existing, new *v3.PathItem) {
+	// Merge operations
+	operations := []struct {
+		existingOp **v3.Operation
+		newOp      *v3.Operation
+	}{
+		{&existing.Get, new.Get},
+		{&existing.Post, new.Post},
+		{&existing.Put, new.Put},
+		{&existing.Delete, new.Delete},
+		{&existing.Options, new.Options},
+		{&existing.Head, new.Head},
+		{&existing.Patch, new.Patch},
+		{&existing.Trace, new.Trace},
+	}
+
+	for _, op := range operations {
+		if op.newOp != nil {
+			MergeOperation(op.existingOp, op.newOp)
+		}
+	}
+
+	// Merge other fields
+	if new.Summary != "" {
+		existing.Summary = new.Summary
+	}
+	if new.Description != "" {
+		existing.Description = new.Description
+	}
+	existing.Servers = append(existing.Servers, new.Servers...)
+	existing.Parameters = MergeParameters(existing.Parameters, new.Parameters)
+
+	// Merge extensions
+	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+		if _, ok := existing.Extensions.Get(pair.Key()); !ok {
+			existing.Extensions.Set(pair.Key(), pair.Value())
+		}
+	}
+}
+
+// MergeOperation merges new operation properties into an existing operation.
+func MergeOperation(existing **v3.Operation, new *v3.Operation) {
+	if *existing == nil {
+		*existing = new
+		return
+	}
+	// Merge operation fields
+	if new.Summary != "" {
+		(*existing).Summary = new.Summary
+	}
+	if new.Description != "" {
+		(*existing).Description = new.Description
+	}
+	for _, tag := range new.Tags {
+		(*existing).Tags = AppendStringDedupe((*existing).Tags, tag)
+	}
+	(*existing).Parameters = MergeParameters((*existing).Parameters, new.Parameters)
+	if new.RequestBody != nil {
+		(*existing).RequestBody = new.RequestBody
+	}
+	if new.Responses != nil {
+		MergeResponses((*existing).Responses, new.Responses)
+	}
+	if new.Deprecated != nil {
+		(*existing).Deprecated = new.Deprecated
+	}
+
+	// Add support for additional Operation fields
+	if new.Callbacks != nil {
+		if (*existing).Callbacks == nil {
+			(*existing).Callbacks = orderedmap.New[string, *v3.Callback]()
+		}
+		for pair := new.Callbacks.First(); pair != nil; pair = pair.Next() {
+			if _, ok := (*existing).Callbacks.Get(pair.Key()); !ok {
+				(*existing).Callbacks.Set(pair.Key(), pair.Value())
+			}
+		}
+	}
+
+	if new.Security != nil {
+		(*existing).Security = append((*existing).Security, new.Security...)
+	}
+
+	if new.Servers != nil {
+		(*existing).Servers = append((*existing).Servers, new.Servers...)
+	}
+
+	if new.ExternalDocs != nil {
+		(*existing).ExternalDocs = new.ExternalDocs
+	}
+
+	// Merge extensions
+	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+		if _, ok := (*existing).Extensions.Get(pair.Key()); !ok {
+			(*existing).Extensions.Set(pair.Key(), pair.Value())
+		}
+	}
+}
+
+// MergeResponses merges new responses into existing responses.
+func MergeResponses(existing, new *v3.Responses) {
+	if existing == nil || new == nil {
+		return
+	}
+
+	// Merge response codes
+	for pair := new.Codes.First(); pair != nil; pair = pair.Next() {
+		code := pair.Key()
+		if existingResponse, ok := existing.Codes.Get(code); !ok {
+			existing.Codes.Set(code, pair.Value())
+		} else {
+			MergeResponse(existingResponse, pair.Value())
+		}
+	}
+
+	// Merge default response
+	if new.Default != nil {
+		if existing.Default == nil {
+			existing.Default = new.Default
+		} else {
+			MergeResponse(existing.Default, new.Default)
+		}
+	}
+}
+
+// MergeResponse merges new response properties into an existing response.
+func MergeResponse(existing, new *v3.Response) {
+	if new.Description != "" {
+		existing.Description = new.Description
+	}
+
+	// Merge Content
+	for pair := new.Content.First(); pair != nil; pair = pair.Next() {
+		contentType := pair.Key()
+		mediaType := pair.Value()
+		if _, ok := existing.Content.Get(contentType); !ok {
+			existing.Content.Set(contentType, mediaType)
+		}
+	}
+
+	// Merge Headers
+	if new.Headers != nil {
+		if existing.Headers == nil {
+			existing.Headers = orderedmap.New[string, *v3.Header]()
+		}
+		for pair := new.Headers.First(); pair != nil; pair = pair.Next() {
+			if _, ok := existing.Headers.Get(pair.Key()); !ok {
+				existing.Headers.Set(pair.Key(), pair.Value())
+			}
+		}
+	}
+
+	// Merge Links
+	if new.Links != nil {
+		if existing.Links == nil {
+			existing.Links = orderedmap.New[string, *v3.Link]()
+		}
+		for pair := new.Links.First(); pair != nil; pair = pair.Next() {
+			if _, ok := existing.Links.Get(pair.Key()); !ok {
+				existing.Links.Set(pair.Key(), pair.Value())
+			}
+		}
+	}
+
+	// Merge Extensions
+	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+		if _, ok := existing.Extensions.Get(pair.Key()); !ok {
+			existing.Extensions.Set(pair.Key(), pair.Value())
+		}
+	}
+}
