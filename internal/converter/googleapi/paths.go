@@ -281,7 +281,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 		default:
 			if field, jsonPath := resolveField(opts, md.Input(), rule.Body); field != nil {
-				loc := fd.SourceLocations().ByDescriptor(field)
+				loc := field.ParentFile().SourceLocations().ByDescriptor(field)
 				bodySchema := schema.FieldToSchema(opts, nil, field)
 				op.RequestBody = &v3.RequestBody{
 					Description: util.FormatComments(loc),
