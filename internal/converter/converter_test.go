@@ -283,3 +283,193 @@ paths:
 		assert.Contains(t, content, "TestMessage")
 	})
 }
+
+func TestConvertWithAsyncAPI(t *testing.T) {
+	t.Run("generate asyncapi spec", func(t *testing.T) {
+		opts := options.Options{
+			Path:                    "openapi.yaml",
+			AsyncAPIPath:            "asyncapi.yaml",
+			AsyncAPIChannelTemplate: "/stream/{service}/{method}",
+			Format:                  "yaml",
+			ContentTypes: map[string]struct{}{
+				"json": {},
+			},
+			EnabledFeatures: map[options.Feature]bool{
+				options.FeatureConnectRPC:    true,
+				options.FeatureGoogleAPIHTTP: true,
+			},
+		}
+
+		req := &pluginpb.CodeGeneratorRequest{
+			ProtoFile: []*descriptorpb.FileDescriptorProto{
+				{
+					Name:    proto.String("test.proto"),
+					Package: proto.String("test"),
+					MessageType: []*descriptorpb.DescriptorProto{
+						{
+							Name: proto.String("TestRequest"),
+							Field: []*descriptorpb.FieldDescriptorProto{
+								{
+									Name:     proto.String("query"),
+									Number:   proto.Int32(1),
+									Type:     descriptorpb.FieldDescriptorProto_TYPE_STRING.Enum(),
+									Label:    descriptorpb.FieldDescriptorProto_LABEL_OPTIONAL.Enum(),
+									JsonName: proto.String("query"),
+								},
+							},
+						},
+						{
+							Name: proto.String("TestResponse"),
+							Field: []*descriptorpb.FieldDescriptorProto{
+								{
+									Name:     proto.String("result"),
+									Number:   proto.Int32(1),
+									Type:     descriptorpb.FieldDescriptorProto_TYPE_STRING.Enum(),
+									Label:    descriptorpb.FieldDescriptorProto_LABEL_OPTIONAL.Enum(),
+									JsonName: proto.String("result"),
+								},
+							},
+						},
+					},
+					Service: []*descriptorpb.ServiceDescriptorProto{
+						{
+							Name: proto.String("ChatService"),
+							Method: []*descriptorpb.MethodDescriptorProto{
+								{
+									Name:            proto.String("Chat"),
+									InputType:       proto.String(".test.TestRequest"),
+									OutputType:      proto.String(".test.TestResponse"),
+									ClientStreaming: proto.Bool(true),
+									ServerStreaming: proto.Bool(true),
+								},
+							},
+						},
+					},
+				},
+			},
+			FileToGenerate: []string{"test.proto"},
+		}
+
+		resp, err := converter.ConvertWithOptions(req, opts)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+		require.Len(t, resp.File, 2)
+
+		var openapiFile, asyncapiFile *pluginpb.CodeGeneratorResponse_File
+		for _, f := range resp.File {
+			if f.GetName() == "openapi.yaml" {
+				openapiFile = f
+			} else if f.GetName() == "asyncapi.yaml" {
+				asyncapiFile = f
+			}
+		}
+
+		require.NotNil(t, openapiFile)
+		require.NotNil(t, asyncapiFile)
+
+		openapiContent := openapiFile.GetContent()
+		assert.Contains(t, openapiContent, "openapi: 3.1.0")
+
+		asyncapiContent := asyncapiFile.GetContent()
+		assert.Contains(t, asyncapiContent, "asyncapi: 3.1.0")
+		assert.Contains(t, asyncapiContent, "ChatServiceChatChannel")
+		assert.Contains(t, asyncapiContent, "address: /stream/ChatService/Chat")
+		assert.Contains(t, asyncapiContent, "action: send")
+		assert.Contains(t, asyncapiContent, "action: receive")
+		assert.Contains(t, asyncapiContent, "test.TestRequest")
+		assert.Contains(t, asyncapiContent, "test.TestResponse")
+	})
+}
+
+func TestConvertAsyncAPIGolden(t *testing.T) {
+	for _, scenario := range scenarios {
+		t.Run(scenario.Name, func(t *testing.T) {
+			paths, err := filepath.Glob("testdata/" + scenario.Name + "/**.proto")
+			require.NoError(t, err)
+			for _, protofile := range paths {
+				formats := []string{"yaml", "json"}
+				for _, format := range formats {
+					t.Run(path.Base(protofile)+"→"+format, func(t *testing.T) {
+						generateAndCheckAsyncAPIGolden(t, scenario.Options, format, protofile)
+					})
+				}
+			}
+		})
+	}
+}
+
+func generateAndCheckAsyncAPIGolden(t *testing.T, options, format, protofile string) {
+	relPath := strings.TrimPrefix(protofile, "testdata/")
+
+	// Load descriptor set
+	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
+	require.NoError(t, err)
+
+	pf := new(descriptorpb.FileDescriptorSet)
+	require.NoError(t, proto.Unmarshal(f, pf))
+
+	// Make Generation Request
+	req := new(pluginpb.CodeGeneratorRequest)
+	req.ProtoFile = pf.GetFile()
+
+	for _, f := range req.GetProtoFile() {
+		if relPath == f.GetName() {
+			req.FileToGenerate = append(req.FileToGenerate, f.GetName())
+		}
+	}
+
+	asyncapiFilename := strings.TrimSuffix(path.Base(protofile), filepath.Ext(protofile)) + ".asyncapi." + format
+
+	var sb strings.Builder
+	sb.WriteString("debug,format=")
+	sb.WriteString(format)
+	sb.WriteString(",asyncapi-path=")
+	sb.WriteString(asyncapiFilename)
+	if len(options) > 0 {
+		sb.WriteString(",")
+		sb.WriteString(options)
+	}
+	req.Parameter = proto.String(sb.String())
+
+	b, err := proto.Marshal(req)
+	require.NoError(t, err)
+
+	// Call the conversion code!
+	resp, err := converter.ConvertFrom(bytes.NewBuffer(b))
+	require.NoError(t, err)
+	require.Nil(t, resp.Error)
+
+	var asyncapiFile *pluginpb.CodeGeneratorResponse_File
+	for _, file := range resp.File {
+		if file.GetName() == asyncapiFilename {
+			asyncapiFile = file
+			break
+		}
+	}
+
+	// If no streaming endpoints exist, no AsyncAPI file should be generated
+	outputPath := makeAsyncAPIOutputPath(protofile, format)
+	if asyncapiFile == nil {
+		_, err := os.Stat(outputPath)
+		assert.True(t, errors.Is(err, os.ErrNotExist), "expected no AsyncAPI output file for %s", protofile)
+		return
+	}
+
+	_, statErr := os.Stat(outputPath)
+	switch {
+	case errors.Is(statErr, os.ErrNotExist):
+		assert.NoError(t, os.MkdirAll(filepath.Dir(outputPath), 0755))
+		assert.NoError(t, os.WriteFile(outputPath, []byte(asyncapiFile.GetContent()), 0644))
+	case statErr != nil:
+		require.NoError(t, statErr)
+	default:
+		expectedFile, err := os.ReadFile(outputPath)
+		require.NoError(t, err)
+		assert.Equal(t, string(expectedFile), asyncapiFile.GetContent())
+	}
+}
+
+func makeAsyncAPIOutputPath(protofile, format string) string {
+	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".asyncapi." + format)
+	return filepath.Join(dir, "output", file)
+}

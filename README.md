@@ -11,6 +11,7 @@ Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://conn
 
 Features:
 - Support for OpenAPIv3.1 (which has support for jsonschema)
+- Support for generating [AsyncAPI v3.1](https://www.asyncapi.com/) specifications alongside OpenAPI for streaming/WebSocket endpoints (e.g., for [grpc-websocket-proxy](https://github.com/tmc/grpc-websocket-proxy))
 - Support for [Twirp](https://twitchtv.github.io/twirp/docs/intro.html) ([more info](twirp.md))
 - Support for many [Protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
 - Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
@@ -164,6 +165,8 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | Option                    | Values | Description                                                                                                                                                   |
 |----------------------------|---|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | allow-get                  | - | For methods that have `IdempotencyLevel=IDEMPOTENT`, this option will generate HTTP `GET` requests instead of `POST`.                                              |
+| asyncapi-path              | `{filepath}` | Output filepath for the generated AsyncAPI v3.1 specification. If provided, the generator will write an AsyncAPI document documenting any client, server, or bidirectional streaming endpoints as WebSocket channels (conforming to the routing of [grpc-websocket-proxy](https://github.com/tmc/grpc-websocket-proxy)). |
+| asyncapi-channel-template  | `{template}` | Template pattern to customize the channel path mapping for WebSocket endpoints in the AsyncAPI spec. Available placeholders: `{package}`, `{service}`, `{method}`. Defaults to `/ws/{package}.{service}/{method}`. |
 | base                       | `{filepath}` | The path to a base OpenAPI file to populate fields that this tool doesn't populate. This option does not work when used with the remote plugin.         |
 | content-types              | `json;proto` | Semicolon-separated content types to generate requests/responses                                                                                        |
 | disable-default-response    | - | Disables the generation of the default `200 OK` response for all operations. Only explicit responses (e.g., from `google.api.http` annotations) will be included. |

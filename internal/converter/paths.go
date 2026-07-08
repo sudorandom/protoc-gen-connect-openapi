@@ -98,5 +98,3 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 	return nil
 }
-
-

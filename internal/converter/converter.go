@@ -130,6 +130,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 		return nil, err
 	}
 	outFiles := map[string]*v3.Document{}
+	var allFDs []protoreflect.FileDescriptor
 
 	for _, fileDesc := range req.GetProtoFile() {
 		if _, ok := genFiles[fileDesc.GetName()]; !ok {
@@ -143,6 +144,7 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			opts.Logger.Error("error loading file", slog.Any("error", err))
 			return nil, err
 		}
+		allFDs = append(allFDs, fd)
 
 		// Skip files that have no matching services if we're not merging and the filter is configured
 		if opts.Path == "" && len(opts.Services) > 0 && !hasMatchingService(opts, fd) {
@@ -192,6 +194,20 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			Content:           &content,
 			GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
 		})
+	}
+
+	if opts.AsyncAPIPath != "" {
+		asyncAPIContent, err := GenerateAsyncAPI(opts, allFDs)
+		if err != nil {
+			return nil, err
+		}
+		if asyncAPIContent != "" {
+			files = append(files, &pluginpb.CodeGeneratorResponse_File{
+				Name:              &opts.AsyncAPIPath,
+				Content:           &asyncAPIContent,
+				GeneratedCodeInfo: &descriptorpb.GeneratedCodeInfo{},
+			})
+		}
 	}
 
 	features := uint64(pluginpb.CodeGeneratorResponse_FEATURE_PROTO3_OPTIONAL | pluginpb.CodeGeneratorResponse_FEATURE_SUPPORTS_EDITIONS)

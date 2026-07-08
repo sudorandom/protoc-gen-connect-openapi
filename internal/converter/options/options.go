@@ -79,6 +79,11 @@ type Options struct {
 	// ResourceMap is a map of plural resource names to their singular forms.
 	ResourceMap map[string]string
 
+	// AsyncAPIPath is the file path where the generated AsyncAPI file will be written.
+	AsyncAPIPath string
+	// AsyncAPIChannelTemplate is the template used to construct the channel path for WebSocket endpoints.
+	AsyncAPIChannelTemplate string
+
 	MessageAnnotator        MessageAnnotator
 	FieldAnnotator          FieldAnnotator
 	FieldReferenceAnnotator FieldReferenceAnnotator
@@ -130,6 +135,7 @@ func NewOptions() Options {
 			FeatureGnostic:       true,
 			FeatureProtovalidate: true,
 		},
+		AsyncAPIChannelTemplate: "/ws/{package}.{service}/{method}",
 		Logger: slog.New(slog.DiscardHandler), // discard logs by default,
 	}
 }
@@ -209,6 +215,10 @@ func FromString(s string) (Options, error) {
 			opts.Path = param[5:]
 		case strings.HasPrefix(param, "path-prefix="):
 			opts.PathPrefix = param[12:]
+		case strings.HasPrefix(param, "asyncapi-path="):
+			opts.AsyncAPIPath = param[14:]
+		case strings.HasPrefix(param, "asyncapi-channel-template="):
+			opts.AsyncAPIChannelTemplate = param[26:]
 		case strings.HasPrefix(param, "format="):
 			format := param[7:]
 			switch format {
