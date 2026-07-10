@@ -316,6 +316,22 @@ func WithPathPrefix(prefix string) Option {
 	}
 }
 
+// WithAsyncAPIPath sets the file path where the generated AsyncAPI file will be written.
+func WithAsyncAPIPath(path string) Option {
+	return func(g *generator) error {
+		g.options.AsyncAPIPath = path
+		return nil
+	}
+}
+
+// WithAsyncAPIChannelTemplate sets the template used to construct the channel path for WebSocket endpoints.
+func WithAsyncAPIChannelTemplate(template string) Option {
+	return func(g *generator) error {
+		g.options.AsyncAPIChannelTemplate = template
+		return nil
+	}
+}
+
 // WithGoogleErrorDetail enables the generation of error details using error_details.proto from google.rpc.
 func WithGoogleErrorDetail(enabled bool) Option {
 	return func(g *generator) error {

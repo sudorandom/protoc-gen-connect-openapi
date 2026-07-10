@@ -1,0 +1,300 @@
+{
+  "asyncapi": "3.1.0",
+  "info": {
+    "title": "FlexService WebSockets",
+    "version": "1.0.0",
+    "description": "This service tries to flex the different options"
+  },
+  "channels": {
+    "FlexServiceBiDirectorionalStreamChannel": {
+      "address": "/ws/flex.FlexService/BiDirectorionalStream",
+      "messages": {
+        "FlexReply": {
+          "name": "FlexReply",
+          "payload": {
+            "$ref": "#/components/schemas/flex.FlexReply"
+          },
+          "title": "FlexReply",
+          "description": "The response message containing the greetings"
+        },
+        "FlexRequest": {
+          "name": "FlexRequest",
+          "payload": {
+            "$ref": "#/components/schemas/flex.FlexRequest"
+          },
+          "title": "FlexRequest",
+          "description": "The request message containing the user's name."
+        }
+      },
+      "description": "Stream both ways"
+    },
+    "FlexServiceClientStreamChannel": {
+      "address": "/ws/flex.FlexService/ClientStream",
+      "messages": {
+        "FlexReply": {
+          "name": "FlexReply",
+          "payload": {
+            "$ref": "#/components/schemas/flex.FlexReply"
+          },
+          "title": "FlexReply",
+          "description": "The response message containing the greetings"
+        },
+        "FlexRequest": {
+          "name": "FlexRequest",
+          "payload": {
+            "$ref": "#/components/schemas/flex.FlexRequest"
+          },
+          "title": "FlexRequest",
+          "description": "The request message containing the user's name."
+        }
+      },
+      "description": "Stream from client to server"
+    },
+    "FlexServiceServerStreamChannel": {
+      "address": "/ws/flex.FlexService/ServerStream",
+      "messages": {
+        "FlexReply": {
+          "name": "FlexReply",
+          "payload": {
+            "$ref": "#/components/schemas/flex.FlexReply"
+          },
+          "title": "FlexReply",
+          "description": "The response message containing the greetings"
+        },
+        "FlexRequest": {
+          "name": "FlexRequest",
+          "payload": {
+            "$ref": "#/components/schemas/flex.FlexRequest"
+          },
+          "title": "FlexRequest",
+          "description": "The request message containing the user's name."
+        }
+      },
+      "description": "Stream from server to client"
+    }
+  },
+  "operations": {
+    "FlexServiceBiDirectorionalStreamReceive": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/FlexServiceBiDirectorionalStreamChannel"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/FlexServiceBiDirectorionalStreamChannel/messages/FlexReply"
+        }
+      ],
+      "summary": "Receive: BiDirectorionalStream",
+      "description": "Stream both ways"
+    },
+    "FlexServiceBiDirectorionalStreamSend": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/FlexServiceBiDirectorionalStreamChannel"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/FlexServiceBiDirectorionalStreamChannel/messages/FlexRequest"
+        }
+      ],
+      "summary": "Send: BiDirectorionalStream",
+      "description": "Stream both ways"
+    },
+    "FlexServiceClientStreamReceive": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/FlexServiceClientStreamChannel"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/FlexServiceClientStreamChannel/messages/FlexReply"
+        }
+      ],
+      "summary": "Receive: ClientStream",
+      "description": "Stream from client to server"
+    },
+    "FlexServiceClientStreamSend": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/FlexServiceClientStreamChannel"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/FlexServiceClientStreamChannel/messages/FlexRequest"
+        }
+      ],
+      "summary": "Send: ClientStream",
+      "description": "Stream from client to server"
+    },
+    "FlexServiceServerStreamReceive": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/FlexServiceServerStreamChannel"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/FlexServiceServerStreamChannel/messages/FlexReply"
+        }
+      ],
+      "summary": "Receive: ServerStream",
+      "description": "Stream from server to client"
+    },
+    "FlexServiceServerStreamSend": {
+      "action": "send",
+      "channel": {
+        "$ref": "#/channels/FlexServiceServerStreamChannel"
+      },
+      "messages": [
+        {
+          "$ref": "#/channels/FlexServiceServerStreamChannel/messages/FlexRequest"
+        }
+      ],
+      "summary": "Send: ServerStream",
+      "description": "Stream from server to client"
+    }
+  },
+  "components": {
+    "schemas": {
+      "flex.ComplexType": {
+        "additionalProperties": false,
+        "description": "Type that has a bunch of different types",
+        "properties": {
+          "boolField": {
+            "title": "boolField",
+            "type": "boolean"
+          },
+          "doubleField": {
+            "format": "double",
+            "title": "doubleField",
+            "type": "number"
+          },
+          "fixed32Field": {
+            "title": "fixed32Field",
+            "type": "integer"
+          },
+          "fixed64Field": {
+            "format": "int64",
+            "title": "fixed64Field",
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "floatField": {
+            "format": "float",
+            "title": "floatField",
+            "type": "number"
+          },
+          "int32Field": {
+            "format": "int32",
+            "title": "int32Field",
+            "type": "integer"
+          },
+          "int64Field": {
+            "format": "int64",
+            "title": "int64Field",
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "msgField": {
+            "$ref": "#/components/schemas/flex.Other",
+            "title": "msgField"
+          },
+          "optionalMsgField": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/flex.Other"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "optionalMsgField"
+          },
+          "repeatedMsgField": {
+            "items": {
+              "$ref": "#/components/schemas/flex.Other"
+            },
+            "title": "repeatedMsgField",
+            "type": "array"
+          },
+          "sfixed32Field": {
+            "format": "int32",
+            "title": "sfixed32Field",
+            "type": "integer"
+          },
+          "sfixed64Field": {
+            "format": "int64",
+            "title": "sfixed64Field",
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "sint32Field": {
+            "format": "int32",
+            "title": "sint32Field",
+            "type": "integer"
+          },
+          "sint64Field": {
+            "format": "int64",
+            "title": "sint64Field",
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "stringField": {
+            "title": "stringField",
+            "type": "string"
+          },
+          "uint32Field": {
+            "title": "uint32Field",
+            "type": "integer"
+          },
+          "uint64Field": {
+            "format": "int64",
+            "title": "uint64Field",
+            "type": [
+              "integer",
+              "string"
+            ]
+          }
+        },
+        "title": "ComplexType",
+        "type": "object"
+      },
+      "flex.FlexReply": {
+        "additionalProperties": false,
+        "description": "The response message containing the greetings",
+        "properties": {
+          "msg": {
+            "$ref": "#/components/schemas/flex.ComplexType",
+            "title": "msg"
+          }
+        },
+        "title": "FlexReply",
+        "type": "object"
+      },
+      "flex.FlexRequest": {
+        "additionalProperties": false,
+        "description": "The request message containing the user's name.",
+        "properties": {
+          "msg": {
+            "$ref": "#/components/schemas/flex.ComplexType",
+            "title": "msg"
+          }
+        },
+        "title": "FlexRequest",
+        "type": "object"
+      },
+      "flex.Other": {
+        "additionalProperties": false,
+        "title": "Other",
+        "type": "object"
+      }
+    }
+  }
+}
