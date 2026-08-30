@@ -1394,7 +1394,7 @@
           "stringStrict": {
             "type": "string",
             "title": "string_strict",
-            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value\n"
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value\n"
           },
           "stringEmail": {
             "type": "string",
@@ -1444,42 +1444,42 @@
           "stringIpWithPrefixlen": {
             "type": "string",
             "title": "string_ip_with_prefixlen",
-            "description": "string.ip_with_prefixlen = true // value must be a valid IP prefix\nstring.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix\n"
+            "description": "string.ip_with_prefixlen = true // must be a valid IP prefix\nstring.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix\n"
           },
           "stringIpv4WithPrefixlen": {
             "type": "string",
             "title": "string_ipv4_with_prefixlen",
-            "description": "string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length\nstring.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length\n"
+            "description": "string.ipv4_with_prefixlen = true // must be a valid IPv4 address with prefix length\nstring.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length\n"
           },
           "stringIpv6WithPrefixlen": {
             "type": "string",
             "title": "string_ipv6_with_prefixlen",
-            "description": "string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length\nstring.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length\n"
+            "description": "string.ipv6_with_prefixlen = true // must be a valid IPv6 address with prefix length\nstring.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length\n"
           },
           "stringIpPrefix": {
             "type": "string",
             "title": "string_ip_prefix",
-            "description": "string.ip_prefix = true // value must be a valid IP prefix\nstring.ip_prefix_empty = true // value is empty, which is not a valid IP prefix\n"
+            "description": "string.ip_prefix = true // must be a valid IP prefix\nstring.ip_prefix_empty = true // value is empty, which is not a valid IP prefix\n"
           },
           "stringIpv4Prefix": {
             "type": "string",
             "title": "string_ipv4_prefix",
-            "description": "string.ipv4_prefix = true // value must be a valid IPv4 prefix\nstring.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix\n"
+            "description": "string.ipv4_prefix = true // must be a valid IPv4 prefix\nstring.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix\n"
           },
           "stringIpv6Prefix": {
             "type": "string",
             "title": "string_ipv6_prefix",
-            "description": "string.ipv6_prefix = true // value must be a valid IPv6 prefix\nstring.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix\n"
+            "description": "string.ipv6_prefix = true // must be a valid IPv6 prefix\nstring.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix\n"
           },
           "stringHostAndPort": {
             "type": "string",
             "title": "string_host_and_port",
-            "description": "string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair\nstring.host_and_port_empty = true // value is empty, which is not a valid host and port pair\n"
+            "description": "string.host_and_port = true // must be a valid host (hostname or IP address) and port pair\nstring.host_and_port_empty = true // value is empty, which is not a valid host and port pair\n"
           },
           "stringWellKnownRegex": {
             "type": "string",
             "title": "string_well_known_regex",
-            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value\n"
+            "description": "string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name\nstring.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name\nstring.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value\n"
           },
           "byteConst": {
             "type": "string",

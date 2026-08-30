@@ -213,6 +213,46 @@ func TestFromString(t *testing.T) {
 		_, err := options.FromString("invalid-param")
 		require.Error(t, err)
 	})
+
+	t.Run("base and override options", func(t *testing.T) {
+		t.Run("invalid base file extension", func(t *testing.T) {
+			_, err := options.FromString("base=foo.txt")
+			require.Error(t, err)
+			assert.Contains(t, err.Error(), "the file extension for 'base'")
+		})
+
+		t.Run("invalid override file extension", func(t *testing.T) {
+			_, err := options.FromString("override=foo.txt")
+			require.Error(t, err)
+			assert.Contains(t, err.Error(), "the file extension for 'override'")
+		})
+
+		t.Run("missing base file", func(t *testing.T) {
+			_, err := options.FromString("base=nonexistent_file.yaml")
+			require.Error(t, err)
+		})
+
+		t.Run("missing override file", func(t *testing.T) {
+			_, err := options.FromString("override=nonexistent_file.yaml")
+			require.Error(t, err)
+		})
+	})
+
+	t.Run("asyncapi and allowed visibilities", func(t *testing.T) {
+		opts, err := options.FromString("asyncapi-path=stream.yaml,asyncapi-channel-template=/ws/{service}/{method},allowed-visibilities=INTERNAL;PREVIEW")
+		require.NoError(t, err)
+		assert.Equal(t, "stream.yaml", opts.AsyncAPIPath)
+		assert.Equal(t, "/ws/{service}/{method}", opts.AsyncAPIChannelTemplate)
+		assert.True(t, opts.AllowedVisibilities["INTERNAL"])
+		assert.True(t, opts.AllowedVisibilities["PREVIEW"])
+		assert.False(t, opts.AllowedVisibilities["EXTERNAL"])
+	})
+
+	t.Run("no protocol feature enabled returns error", func(t *testing.T) {
+		_, err := options.FromString("features=protovalidate;gnostic")
+		require.Error(t, err)
+		assert.Contains(t, err.Error(), "at least one protocol feature")
+	})
 }
 
 func TestHasService(t *testing.T) {
@@ -231,3 +271,30 @@ func TestHasService(t *testing.T) {
 		assert.False(t, opts.HasService("baz.v1.BazService"))
 	})
 }
+
+func TestIsValidContentType(t *testing.T) {
+	assert.True(t, options.IsValidContentType("json"))
+	assert.True(t, options.IsValidContentType("proto"))
+	assert.True(t, options.IsValidContentType("connect+json"))
+	assert.True(t, options.IsValidContentType("connect+proto"))
+	assert.False(t, options.IsValidContentType("invalid_type"))
+}
+
+func TestCompileServicePatterns(t *testing.T) {
+	t.Run("valid patterns", func(t *testing.T) {
+		patterns, err := options.CompileServicePatterns([]string{"foo.*", "bar.**"})
+		require.NoError(t, err)
+		assert.Len(t, patterns, 2)
+	})
+
+	t.Run("invalid pattern", func(t *testing.T) {
+		_, err := options.CompileServicePatterns([]string{"["})
+		require.Error(t, err)
+	})
+}
+
+func TestGetExtensionTypeResolver(t *testing.T) {
+	opts := options.NewOptions()
+	assert.NotNil(t, opts.GetExtensionTypeResolver())
+}
+

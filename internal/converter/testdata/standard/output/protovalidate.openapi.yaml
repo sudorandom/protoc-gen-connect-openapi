@@ -1212,9 +1212,9 @@ components:
           type: string
           title: string_strict
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name
             string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value
         stringEmail:
           type: string
           title: string_email
@@ -1255,51 +1255,51 @@ components:
           type: string
           title: string_ip_with_prefixlen
           description: |
-            string.ip_with_prefixlen = true // value must be a valid IP prefix
+            string.ip_with_prefixlen = true // must be a valid IP prefix
             string.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix
         stringIpv4WithPrefixlen:
           type: string
           title: string_ipv4_with_prefixlen
           description: |
-            string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen = true // must be a valid IPv4 address with prefix length
             string.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length
         stringIpv6WithPrefixlen:
           type: string
           title: string_ipv6_with_prefixlen
           description: |
-            string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen = true // must be a valid IPv6 address with prefix length
             string.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length
         stringIpPrefix:
           type: string
           title: string_ip_prefix
           description: |
-            string.ip_prefix = true // value must be a valid IP prefix
+            string.ip_prefix = true // must be a valid IP prefix
             string.ip_prefix_empty = true // value is empty, which is not a valid IP prefix
         stringIpv4Prefix:
           type: string
           title: string_ipv4_prefix
           description: |
-            string.ipv4_prefix = true // value must be a valid IPv4 prefix
+            string.ipv4_prefix = true // must be a valid IPv4 prefix
             string.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix
         stringIpv6Prefix:
           type: string
           title: string_ipv6_prefix
           description: |
-            string.ipv6_prefix = true // value must be a valid IPv6 prefix
+            string.ipv6_prefix = true // must be a valid IPv6 prefix
             string.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix
         stringHostAndPort:
           type: string
           title: string_host_and_port
           description: |
-            string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair
+            string.host_and_port = true // must be a valid host (hostname or IP address) and port pair
             string.host_and_port_empty = true // value is empty, which is not a valid host and port pair
         stringWellKnownRegex:
           type: string
           title: string_well_known_regex
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name
             string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value
         byteConst:
           type: string
           title: byte_const

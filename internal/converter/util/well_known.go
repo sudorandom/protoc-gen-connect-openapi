@@ -24,9 +24,11 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSc
 	"google.protobuf.BoolValue":   googleBoolValue,
 	"google.protobuf.DoubleValue": google64BitNumberValue,
 	"google.protobuf.Int64Value":  google64BitNumberValue,
+	"google.protobuf.UInt64Value": google64BitNumberValue,
 	"google.protobuf.Uint64Value": google64BitNumberValue,
 	"google.protobuf.FloatValue":  google64BitNumberValue,
 	"google.protobuf.Int32Value":  google32BitNumberValue,
+	"google.protobuf.UInt32Value": google32BitNumberValue,
 	"google.protobuf.Uint32Value": google32BitNumberValue,
 }
 

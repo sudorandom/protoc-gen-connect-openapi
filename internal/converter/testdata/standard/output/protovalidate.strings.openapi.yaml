@@ -89,7 +89,7 @@ components:
           type: string
           title: val
           description: |
-            string.host_and_port = true // value must be a valid host (hostname or IP address) and port pair
+            string.host_and_port = true // must be a valid host (hostname or IP address) and port pair
             string.host_and_port_empty = true // value is empty, which is not a valid host and port pair
       title: StringHostAndPort
       additionalProperties: false
@@ -109,9 +109,9 @@ components:
           type: string
           title: val
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // must be a valid HTTP header name
             string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // must be a valid HTTP header value
       title: StringHttpHeaderName
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderNameLoose:
@@ -121,9 +121,9 @@ components:
           type: string
           title: val
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header name
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_NAME // must be a valid HTTP header name
             string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_NAME // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // value must be a valid HTTP header value
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_NAME // must be a valid HTTP header value
       title: StringHttpHeaderNameLoose
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderValue:
@@ -133,9 +133,9 @@ components:
           type: string
           title: val
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name
             string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value
       title: StringHttpHeaderValue
       additionalProperties: false
     buf.validate.conformance.cases.StringHttpHeaderValueLoose:
@@ -145,9 +145,9 @@ components:
           type: string
           title: val
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header name
+            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name
             string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // value must be a valid HTTP header value
+            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value
       title: StringHttpHeaderValueLoose
       additionalProperties: false
     buf.validate.conformance.cases.StringIP:
@@ -166,7 +166,7 @@ components:
           type: string
           title: val
           description: |
-            string.ip_prefix = true // value must be a valid IP prefix
+            string.ip_prefix = true // must be a valid IP prefix
             string.ip_prefix_empty = true // value is empty, which is not a valid IP prefix
       title: StringIPPrefix
       additionalProperties: false
@@ -177,7 +177,7 @@ components:
           type: string
           title: val
           description: |
-            string.ip_with_prefixlen = true // value must be a valid IP prefix
+            string.ip_with_prefixlen = true // must be a valid IP prefix
             string.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix
       title: StringIPWithPrefixLen
       additionalProperties: false
@@ -197,7 +197,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv4_prefix = true // value must be a valid IPv4 prefix
+            string.ipv4_prefix = true // must be a valid IPv4 prefix
             string.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix
       title: StringIPv4Prefix
       additionalProperties: false
@@ -208,7 +208,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv4_with_prefixlen = true // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen = true // must be a valid IPv4 address with prefix length
             string.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length
       title: StringIPv4WithPrefixLen
       additionalProperties: false
@@ -228,7 +228,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv6_prefix = true // value must be a valid IPv6 prefix
+            string.ipv6_prefix = true // must be a valid IPv6 prefix
             string.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix
       title: StringIPv6Prefix
       additionalProperties: false
@@ -239,7 +239,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv6_with_prefixlen = true // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen = true // must be a valid IPv6 address with prefix length
             string.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length
       title: StringIPv6WithPrefixLen
       additionalProperties: false
@@ -364,7 +364,7 @@ components:
           type: string
           title: val
           description: |
-            string.address = false // value must be a valid hostname, or ip address
+            string.address = false // must be a valid hostname, or ip address
             string.address_empty = false // value is empty, which is not a valid hostname, or ip address
       title: StringNotAddress
       additionalProperties: false
@@ -385,7 +385,7 @@ components:
           type: string
           title: val
           description: |
-            string.email = false // value must be a valid email address
+            string.email = false // must be a valid email address
             string.email_empty = false // value is empty, which is not a valid email address
       title: StringNotEmail
       additionalProperties: false
@@ -396,7 +396,7 @@ components:
           type: string
           title: val
           description: |
-            string.hostname = false // value must be a valid hostname
+            string.hostname = false // must be a valid hostname
             string.hostname_empty = false // value is empty, which is not a valid hostname
       title: StringNotHostname
       additionalProperties: false
@@ -407,7 +407,7 @@ components:
           type: string
           title: val
           description: |
-            string.ip = false // value must be a valid IP address
+            string.ip = false // must be a valid IP address
             string.ip_empty = false // value is empty, which is not a valid IP address
       title: StringNotIP
       additionalProperties: false
@@ -418,7 +418,7 @@ components:
           type: string
           title: val
           description: |
-            string.ip_prefix = false // value must be a valid IP prefix
+            string.ip_prefix = false // must be a valid IP prefix
             string.ip_prefix_empty = false // value is empty, which is not a valid IP prefix
       title: StringNotIPPrefix
       additionalProperties: false
@@ -429,7 +429,7 @@ components:
           type: string
           title: val
           description: |
-            string.ip_with_prefixlen = false // value must be a valid IP prefix
+            string.ip_with_prefixlen = false // must be a valid IP prefix
             string.ip_with_prefixlen_empty = false // value is empty, which is not a valid IP prefix
       title: StringNotIPWithPrefixLen
       additionalProperties: false
@@ -440,7 +440,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv4 = false // value must be a valid IPv4 address
+            string.ipv4 = false // must be a valid IPv4 address
             string.ipv4_empty = false // value is empty, which is not a valid IPv4 address
       title: StringNotIPv4
       additionalProperties: false
@@ -451,7 +451,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv4_prefix = false // value must be a valid IPv4 prefix
+            string.ipv4_prefix = false // must be a valid IPv4 prefix
             string.ipv4_prefix_empty = false // value is empty, which is not a valid IPv4 prefix
       title: StringNotIPv4Prefix
       additionalProperties: false
@@ -462,7 +462,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv4_with_prefixlen = false // value must be a valid IPv4 address with prefix length
+            string.ipv4_with_prefixlen = false // must be a valid IPv4 address with prefix length
             string.ipv4_with_prefixlen_empty = false // value is empty, which is not a valid IPv4 address with prefix length
       title: StringNotIPv4WithPrefixLen
       additionalProperties: false
@@ -473,7 +473,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv6 = false // value must be a valid IPv6 address
+            string.ipv6 = false // must be a valid IPv6 address
             string.ipv6_empty = false // value is empty, which is not a valid IPv6 address
       title: StringNotIPv6
       additionalProperties: false
@@ -484,7 +484,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv6_prefix = false // value must be a valid IPv6 prefix
+            string.ipv6_prefix = false // must be a valid IPv6 prefix
             string.ipv6_prefix_empty = false // value is empty, which is not a valid IPv6 prefix
       title: StringNotIPv6Prefix
       additionalProperties: false
@@ -495,7 +495,7 @@ components:
           type: string
           title: val
           description: |
-            string.ipv6_with_prefixlen = false // value must be a valid IPv6 address with prefix length
+            string.ipv6_with_prefixlen = false // must be a valid IPv6 address with prefix length
             string.ipv6_with_prefixlen_empty = false // value is empty, which is not a valid IPv6 address with prefix length
       title: StringNotIPv6WithPrefixLen
       additionalProperties: false
@@ -519,7 +519,7 @@ components:
           type: string
           title: val
           description: |
-            string.tuuid = false // value must be a valid trimmed UUID
+            string.tuuid = false // must be a valid trimmed UUID
             string.tuuid_empty = false // value is empty, which is not a valid trimmed UUID
       title: StringNotTUUID
       additionalProperties: false
@@ -530,7 +530,7 @@ components:
           type: string
           title: val
           description: |
-            string.uri = false // value must be a valid URI
+            string.uri = false // must be a valid URI
             string.uri_empty = false // value is empty, which is not a valid URI
       title: StringNotURI
       additionalProperties: false
@@ -541,7 +541,7 @@ components:
           type: string
           title: val
           description: |
-            string.uri_ref = false // value must be a valid URI Reference
+            string.uri_ref = false // must be a valid URI Reference
       title: StringNotURIRef
       additionalProperties: false
     buf.validate.conformance.cases.StringNotUUID:
@@ -551,7 +551,7 @@ components:
           type: string
           title: val
           description: |
-            string.uuid = false // value must be a valid UUID
+            string.uuid = false // must be a valid UUID
             string.uuid_empty = false // value is empty, which is not a valid UUID
       title: StringNotUUID
       additionalProperties: false
@@ -616,7 +616,7 @@ components:
           type: string
           title: val
           description: |
-            string.tuuid = true // value must be a valid trimmed UUID
+            string.tuuid = true // must be a valid trimmed UUID
             string.tuuid_empty = true // value is empty, which is not a valid trimmed UUID
       title: StringTUUID
       additionalProperties: false

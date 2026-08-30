@@ -62,7 +62,7 @@ type Options struct {
 	// OnlyGoogleapiHTTP set to true will only generate OpenAPI specs for methods with explicit google.api.http annotations. Methods without google.api.http will be skipped.
 	OnlyGoogleapiHTTP bool
 	// Services filters which services will be used for generating OpenAPI spec.
-	Services []glob.Glob
+	Services []*glob.Pattern
 	// ShortServiceTags uses the short service name (Name()) instead of the full name (FullName()) for OpenAPI tags.
 	ShortServiceTags bool
 	// ShortOperationIds sets the operationId to shortServiceName + "_" + method short name instead of the full method name.
@@ -308,8 +308,8 @@ func IsValidContentType(contentType string) bool {
 	return false
 }
 
-func CompileServicePatterns(services []string) ([]glob.Glob, error) {
-	var patterns []glob.Glob
+func CompileServicePatterns(services []string) ([]*glob.Pattern, error) {
+	var patterns []*glob.Pattern
 	for _, service := range services {
 		pattern, err := glob.Compile(service, '.')
 		if err != nil {

@@ -475,18 +475,25 @@ func MergeResponses(existing, new *v3.Responses) {
 	}
 }
 
-// MergeResponse merges new response properties into an existing response.
 func MergeResponse(existing, new *v3.Response) {
+	if existing == nil || new == nil {
+		return
+	}
 	if new.Description != "" {
 		existing.Description = new.Description
 	}
 
 	// Merge Content
-	for pair := new.Content.First(); pair != nil; pair = pair.Next() {
-		contentType := pair.Key()
-		mediaType := pair.Value()
-		if _, ok := existing.Content.Get(contentType); !ok {
-			existing.Content.Set(contentType, mediaType)
+	if new.Content != nil {
+		if existing.Content == nil {
+			existing.Content = orderedmap.New[string, *v3.MediaType]()
+		}
+		for pair := new.Content.First(); pair != nil; pair = pair.Next() {
+			contentType := pair.Key()
+			mediaType := pair.Value()
+			if _, ok := existing.Content.Get(contentType); !ok {
+				existing.Content.Set(contentType, mediaType)
+			}
 		}
 	}
 
@@ -515,9 +522,14 @@ func MergeResponse(existing, new *v3.Response) {
 	}
 
 	// Merge Extensions
-	for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
-		if _, ok := existing.Extensions.Get(pair.Key()); !ok {
-			existing.Extensions.Set(pair.Key(), pair.Value())
+	if new.Extensions != nil {
+		if existing.Extensions == nil {
+			existing.Extensions = orderedmap.New[string, *yaml.Node]()
+		}
+		for pair := new.Extensions.First(); pair != nil; pair = pair.Next() {
+			if _, ok := existing.Extensions.Get(pair.Key()); !ok {
+				existing.Extensions.Set(pair.Key(), pair.Value())
+			}
 		}
 	}
 }

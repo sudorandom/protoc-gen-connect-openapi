@@ -5,8 +5,11 @@ import (
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	yamlv3 "go.yaml.in/yaml/v3"
 	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 )
@@ -316,3 +319,262 @@ func TestAppendStringDedupe(t *testing.T) {
 		})
 	}
 }
+
+func TestConvertNodeV3toV4(t *testing.T) {
+	t.Run("nil node", func(t *testing.T) {
+		assert.Nil(t, ConvertNodeV3toV4(nil))
+	})
+
+	t.Run("scalar node", func(t *testing.T) {
+		v3Node := &yamlv3.Node{
+			Kind:        yamlv3.ScalarNode,
+			Style:       yamlv3.DoubleQuotedStyle,
+			Tag:         "!!str",
+			Value:       "test-val",
+			Anchor:      "anchor1",
+			HeadComment: "head",
+			LineComment: "line",
+			FootComment: "foot",
+			Line:        10,
+			Column:      5,
+		}
+		v4Node := ConvertNodeV3toV4(v3Node)
+		require.NotNil(t, v4Node)
+		assert.Equal(t, yaml.ScalarNode, v4Node.Kind)
+		assert.Equal(t, yaml.DoubleQuotedStyle, v4Node.Style)
+		assert.Equal(t, "!!str", v4Node.Tag)
+		assert.Equal(t, "test-val", v4Node.Value)
+		assert.Equal(t, "anchor1", v4Node.Anchor)
+		assert.Equal(t, "head", v4Node.HeadComment)
+		assert.Equal(t, "line", v4Node.LineComment)
+		assert.Equal(t, "foot", v4Node.FootComment)
+		assert.Equal(t, 10, v4Node.Line)
+		assert.Equal(t, 5, v4Node.Column)
+	})
+
+	t.Run("sequence node with alias and content", func(t *testing.T) {
+		v3Node := &yamlv3.Node{
+			Kind: yamlv3.SequenceNode,
+			Alias: &yamlv3.Node{
+				Kind:  yamlv3.ScalarNode,
+				Value: "alias-val",
+			},
+			Content: []*yamlv3.Node{
+				{Kind: yamlv3.ScalarNode, Value: "elem1"},
+				{Kind: yamlv3.ScalarNode, Value: "elem2"},
+			},
+		}
+		v4Node := ConvertNodeV3toV4(v3Node)
+		require.NotNil(t, v4Node)
+		assert.Equal(t, yaml.SequenceNode, v4Node.Kind)
+		require.NotNil(t, v4Node.Alias)
+		assert.Equal(t, "alias-val", v4Node.Alias.Value)
+		require.Len(t, v4Node.Content, 2)
+		assert.Equal(t, "elem1", v4Node.Content[0].Value)
+		assert.Equal(t, "elem2", v4Node.Content[1].Value)
+	})
+}
+
+func TestAppendComponents(t *testing.T) {
+	spec := &v3.Document{
+		Components: &v3.Components{
+			Schemas:         orderedmap.New[string, *base.SchemaProxy](),
+			Responses:       orderedmap.New[string, *v3.Response](),
+			Parameters:      orderedmap.New[string, *v3.Parameter](),
+			Examples:        orderedmap.New[string, *base.Example](),
+			RequestBodies:   orderedmap.New[string, *v3.RequestBody](),
+			Headers:         orderedmap.New[string, *v3.Header](),
+			SecuritySchemes: orderedmap.New[string, *v3.SecurityScheme](),
+			Links:           orderedmap.New[string, *v3.Link](),
+			Callbacks:       orderedmap.New[string, *v3.Callback](),
+		},
+	}
+
+	comp := &v3.Components{
+		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
+		Responses:       orderedmap.New[string, *v3.Response](),
+		Parameters:      orderedmap.New[string, *v3.Parameter](),
+		Examples:        orderedmap.New[string, *base.Example](),
+		RequestBodies:   orderedmap.New[string, *v3.RequestBody](),
+		Headers:         orderedmap.New[string, *v3.Header](),
+		SecuritySchemes: orderedmap.New[string, *v3.SecurityScheme](),
+		Links:           orderedmap.New[string, *v3.Link](),
+		Callbacks:       orderedmap.New[string, *v3.Callback](),
+	}
+
+	comp.Schemas.Set("MySchema", base.CreateSchemaProxy(&base.Schema{Title: "MySchema"}))
+	comp.Responses.Set("200OK", &v3.Response{Description: "OK"})
+	comp.Parameters.Set("limit", &v3.Parameter{Name: "limit"})
+	comp.Examples.Set("Example1", &base.Example{Summary: "Example 1"})
+	comp.RequestBodies.Set("MyBody", &v3.RequestBody{Description: "Body"})
+	comp.Headers.Set("X-Trace", &v3.Header{Description: "Trace"})
+	comp.SecuritySchemes.Set("OAuth2", &v3.SecurityScheme{Type: "oauth2"})
+	comp.Links.Set("MyLink", &v3.Link{OperationId: "op1"})
+	comp.Callbacks.Set("MyCallback", &v3.Callback{})
+
+	AppendComponents(spec, comp)
+
+	assert.Equal(t, 1, spec.Components.Schemas.Len())
+	assert.Equal(t, 1, spec.Components.Responses.Len())
+	assert.Equal(t, 1, spec.Components.Parameters.Len())
+	assert.Equal(t, 1, spec.Components.Examples.Len())
+	assert.Equal(t, 1, spec.Components.RequestBodies.Len())
+	assert.Equal(t, 1, spec.Components.Headers.Len())
+	assert.Equal(t, 1, spec.Components.SecuritySchemes.Len())
+	assert.Equal(t, 1, spec.Components.Links.Len())
+	assert.Equal(t, 1, spec.Components.Callbacks.Len())
+}
+
+func TestMergePathItems(t *testing.T) {
+	existing := &v3.PathItem{
+		Summary:     "Old summary",
+		Description: "Old desc",
+		Get: &v3.Operation{
+			Summary: "Existing GET",
+		},
+		Extensions: orderedmap.New[string, *yaml.Node](),
+	}
+	newPI := &v3.PathItem{
+		Summary:     "New summary",
+		Description: "New desc",
+		Get: &v3.Operation{
+			Description: "New GET desc",
+		},
+		Post: &v3.Operation{
+			Summary: "New POST",
+		},
+		Put: &v3.Operation{
+			Summary: "New PUT",
+		},
+		Delete: &v3.Operation{
+			Summary: "New DELETE",
+		},
+		Options: &v3.Operation{
+			Summary: "New OPTIONS",
+		},
+		Head: &v3.Operation{
+			Summary: "New HEAD",
+		},
+		Patch: &v3.Operation{
+			Summary: "New PATCH",
+		},
+		Trace: &v3.Operation{
+			Summary: "New TRACE",
+		},
+		Servers: []*v3.Server{
+			{URL: "https://api.example.com"},
+		},
+		Extensions: orderedmap.New[string, *yaml.Node](),
+	}
+	newPI.Extensions.Set("x-custom", &yaml.Node{Value: "custom-val"})
+
+	MergePathItems(existing, newPI)
+
+	assert.Equal(t, "New summary", existing.Summary)
+	assert.Equal(t, "New desc", existing.Description)
+	assert.Equal(t, "Existing GET", existing.Get.Summary)
+	assert.Equal(t, "New GET desc", existing.Get.Description)
+	assert.NotNil(t, existing.Post)
+	assert.NotNil(t, existing.Put)
+	assert.NotNil(t, existing.Delete)
+	assert.NotNil(t, existing.Options)
+	assert.NotNil(t, existing.Head)
+	assert.NotNil(t, existing.Patch)
+	assert.NotNil(t, existing.Trace)
+	assert.Len(t, existing.Servers, 1)
+	assert.Equal(t, 1, existing.Extensions.Len())
+}
+
+func TestMergeResponses(t *testing.T) {
+	t.Run("nil safety", func(t *testing.T) {
+		MergeResponses(nil, nil)
+		MergeResponses(&v3.Responses{}, nil)
+		MergeResponses(nil, &v3.Responses{})
+	})
+
+	t.Run("merges codes and default response", func(t *testing.T) {
+		existing := &v3.Responses{
+			Codes: orderedmap.New[string, *v3.Response](),
+		}
+		existing.Codes.Set("200", &v3.Response{
+			Description: "Old 200",
+			Content:     orderedmap.New[string, *v3.MediaType](),
+		})
+
+		newResponses := &v3.Responses{
+			Codes:   orderedmap.New[string, *v3.Response](),
+			Default: &v3.Response{Description: "Default response"},
+		}
+		new200 := &v3.Response{
+			Description: "New 200",
+			Content:     orderedmap.New[string, *v3.MediaType](),
+			Headers:     orderedmap.New[string, *v3.Header](),
+			Links:       orderedmap.New[string, *v3.Link](),
+			Extensions:  orderedmap.New[string, *yaml.Node](),
+		}
+		new200.Content.Set("application/json", &v3.MediaType{})
+		new200.Headers.Set("X-RateLimit", &v3.Header{Description: "rate limit"})
+		new200.Links.Set("UserLink", &v3.Link{OperationId: "getUser"})
+		new200.Extensions.Set("x-code", &yaml.Node{Value: "123"})
+		newResponses.Codes.Set("200", new200)
+		newResponses.Codes.Set("404", &v3.Response{Description: "Not Found"})
+
+		MergeResponses(existing, newResponses)
+
+		assert.Equal(t, 2, existing.Codes.Len())
+		resp200, ok := existing.Codes.Get("200")
+		require.True(t, ok)
+		assert.Equal(t, "New 200", resp200.Description)
+		assert.Equal(t, 1, resp200.Content.Len())
+		assert.Equal(t, 1, resp200.Headers.Len())
+		assert.Equal(t, 1, resp200.Links.Len())
+		assert.Equal(t, 1, resp200.Extensions.Len())
+		assert.NotNil(t, existing.Default)
+		assert.Equal(t, "Default response", existing.Default.Description)
+	})
+}
+
+func TestSingular(t *testing.T) {
+	tests := []struct {
+		plural   string
+		expected string
+	}{
+		{"calves", "calf"},
+		{"knives", "knif"},
+		{"categories", "category"},
+		{"companies", "company"},
+		{"users", "user"},
+		{"orders", "order"},
+		{"data", "data"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.plural, func(t *testing.T) {
+			assert.Equal(t, tt.expected, Singular(tt.plural))
+		})
+	}
+}
+
+func TestResolveSchemaRef(t *testing.T) {
+	assert.Equal(t, "#/components/schemas/foo.v1.User", ResolveSchemaRef(".foo.v1.User"))
+	assert.Equal(t, "#/components/schemas/User", ResolveSchemaRef("#/components/schemas/User"))
+	assert.Equal(t, "string", ResolveSchemaRef("string"))
+}
+
+func TestFormatTypeRef(t *testing.T) {
+	assert.Equal(t, "foo.v1.User", FormatTypeRef(".foo.v1.User"))
+	assert.Equal(t, "User", FormatTypeRef("User"))
+}
+
+func TestBoolPtr(t *testing.T) {
+	b := BoolPtr(true)
+	require.NotNil(t, b)
+	assert.True(t, *b)
+}
+
+func TestMakePath(t *testing.T) {
+	opts := options.Options{PathPrefix: "/api/v1"}
+	assert.Equal(t, "/api/v1/users", MakePath(opts, "/users"))
+	assert.Equal(t, "/api/v1/users", MakePath(opts, "users"))
+}
+

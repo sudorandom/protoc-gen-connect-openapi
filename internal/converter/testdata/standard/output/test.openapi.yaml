@@ -484,14 +484,7 @@ components:
          http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime()
          ) to obtain a formatter capable of generating timestamps in this format.
     google.protobuf.UInt32Value:
-      type: object
-      properties:
-        value:
-          type: integer
-          title: value
-          description: The uint32 value.
-      title: UInt32Value
-      additionalProperties: false
+      type: number
       description: |-
         Wrapper message for `uint32`.
 
@@ -500,17 +493,9 @@ components:
          Not recommended for use in new APIs, but still useful for legacy APIs and
          has no plan to be removed.
     google.protobuf.UInt64Value:
-      type: object
-      properties:
-        value:
-          type:
-            - integer
-            - string
-          title: value
-          format: int64
-          description: The uint64 value.
-      title: UInt64Value
-      additionalProperties: false
+      oneOf:
+        - type: string
+        - type: number
       description: |-
         Wrapper message for `uint64`.
 

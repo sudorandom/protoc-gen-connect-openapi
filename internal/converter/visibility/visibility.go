@@ -16,22 +16,34 @@ func GetVisibilityRule(desc protoreflect.Descriptor) *api_visibility.VisibilityR
 	var extension interface{}
 	switch d := desc.(type) {
 	case protoreflect.FieldDescriptor:
-		options = d.Options().(*descriptorpb.FieldOptions)
+		if opts, ok := d.Options().(*descriptorpb.FieldOptions); ok {
+			options = opts
+		}
 		extension = api_visibility.E_FieldVisibility
 	case protoreflect.MessageDescriptor:
-		options = d.Options().(*descriptorpb.MessageOptions)
+		if opts, ok := d.Options().(*descriptorpb.MessageOptions); ok {
+			options = opts
+		}
 		extension = api_visibility.E_MessageVisibility
 	case protoreflect.MethodDescriptor:
-		options = d.Options().(*descriptorpb.MethodOptions)
+		if opts, ok := d.Options().(*descriptorpb.MethodOptions); ok {
+			options = opts
+		}
 		extension = api_visibility.E_MethodVisibility
 	case protoreflect.ServiceDescriptor:
-		options = d.Options().(*descriptorpb.ServiceOptions)
+		if opts, ok := d.Options().(*descriptorpb.ServiceOptions); ok {
+			options = opts
+		}
 		extension = api_visibility.E_ApiVisibility
 	case protoreflect.EnumDescriptor:
-		options = d.Options().(*descriptorpb.EnumOptions)
+		if opts, ok := d.Options().(*descriptorpb.EnumOptions); ok {
+			options = opts
+		}
 		extension = api_visibility.E_EnumVisibility
 	case protoreflect.EnumValueDescriptor:
-		options = d.Options().(*descriptorpb.EnumValueOptions)
+		if opts, ok := d.Options().(*descriptorpb.EnumValueOptions); ok {
+			options = opts
+		}
 		extension = api_visibility.E_ValueVisibility
 	default:
 		return nil

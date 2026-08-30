@@ -58,7 +58,7 @@ func Convert(req *pluginpb.CodeGeneratorRequest) (*pluginpb.CodeGeneratorRespons
 func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options) (*pluginpb.CodeGeneratorResponse, error) {
 	if opts.Debug {
 		opts.Logger = slog.New(
-			tint.NewHandler(os.Stderr, &tint.Options{
+			tint.NewTextHandler(os.Stderr, &tint.Options{
 				Level: slog.LevelDebug,
 			}),
 		)
