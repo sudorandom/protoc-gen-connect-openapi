@@ -473,5 +473,3 @@ func makeAsyncAPIOutputPath(protofile, format string) string {
 	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".asyncapi." + format)
 	return filepath.Join(dir, "output", file)
 }
-
-
