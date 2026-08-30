@@ -2,14 +2,14 @@ openapi: 3.1.0
 info:
   title: path_params
 paths:
-  /go/{snake_case}:
+  /go/{snakeCase}:
     post:
       tags:
         - path_params.PathParams
       summary: Go
       operationId: path_params.PathParams.Go
       parameters:
-        - name: snake_case
+        - name: snakeCase
           in: path
           required: true
           schema:

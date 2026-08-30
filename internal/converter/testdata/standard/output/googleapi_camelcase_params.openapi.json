@@ -1,0 +1,147 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "googleapi_camelcase",
+    "description": "## googleapi_camelcase.CamelCaseService\n\nTests that path parameters use camelCase (JSON names) by default."
+  },
+  "paths": {
+    "/v1/accounts/{parentAccountId}/items/{itemId}": {
+      "get": {
+        "tags": [
+          "googleapi_camelcase.CamelCaseService"
+        ],
+        "summary": "GetAccount",
+        "description": "Multi-part snake_case path parameter: {parent_account_id} -\u003e {parentAccountId}",
+        "operationId": "googleapi_camelcase.CamelCaseService.GetAccount",
+        "parameters": [
+          {
+            "name": "parentAccountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "parent_account_id"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "item_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_camelcase.GetAccountResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{userId}": {
+      "get": {
+        "tags": [
+          "googleapi_camelcase.CamelCaseService"
+        ],
+        "summary": "GetUser",
+        "description": "Simple snake_case path parameter: {user_id} -\u003e {userId}",
+        "operationId": "googleapi_camelcase.CamelCaseService.GetUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "user_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_camelcase.GetUserResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "googleapi_camelcase.GetAccountRequest": {
+        "type": "object",
+        "properties": {
+          "parentAccountId": {
+            "type": "string",
+            "title": "parent_account_id"
+          },
+          "itemId": {
+            "type": "string",
+            "title": "item_id"
+          }
+        },
+        "title": "GetAccountRequest",
+        "additionalProperties": false
+      },
+      "googleapi_camelcase.GetAccountResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          }
+        },
+        "title": "GetAccountResponse",
+        "additionalProperties": false
+      },
+      "googleapi_camelcase.GetUserRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "title": "user_id"
+          }
+        },
+        "title": "GetUserRequest",
+        "additionalProperties": false
+      },
+      "googleapi_camelcase.GetUserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "title": "user_id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "GetUserResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "googleapi_camelcase.CamelCaseService",
+      "description": "Tests that path parameters use camelCase (JSON names) by default."
+    }
+  ]
+}
