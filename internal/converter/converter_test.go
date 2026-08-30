@@ -484,13 +484,7 @@ func TestAdditionalBindingsWithPathPrefix(t *testing.T) {
 
 	req := new(pluginpb.CodeGeneratorRequest)
 	req.ProtoFile = pf.GetFile()
-
-	for _, file := range req.GetProtoFile() {
-		if file.GetName() == "additional_bindings/additional_bindings.proto" {
-			req.FileToGenerate = append(req.FileToGenerate, file.GetName())
-		}
-	}
-	require.NotEmpty(t, req.FileToGenerate)
+	req.FileToGenerate = []string{"additional_bindings/additional_bindings.proto"}
 
 	req.Parameter = proto.String("debug,format=yaml,path-prefix=/api/v1")
 	b, err := proto.Marshal(req)
