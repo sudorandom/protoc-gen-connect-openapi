@@ -18,7 +18,12 @@ service Greeter {
 
   rpc Foo(google.protobuf.Empty) returns (google.protobuf.Empty) {
     option idempotency_level = NO_SIDE_EFFECTS;
-    option (google.api.http) = {get: "/.well-known/jwks.json"};
+    option (google.api.http) = {
+      get: "/.well-known/jwks.json"
+      additional_bindings: {
+        get: "/alt/.well-known/jwks.json"
+      }
+    };
   }
 }
 

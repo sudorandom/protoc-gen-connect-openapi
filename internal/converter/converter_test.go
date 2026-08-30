@@ -474,33 +474,4 @@ func makeAsyncAPIOutputPath(protofile, format string) string {
 	return filepath.Join(dir, "output", file)
 }
 
-func TestAdditionalBindingsWithPathPrefix(t *testing.T) {
-	// Load descriptor set
-	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
-	require.NoError(t, err)
-
-	pf := new(descriptorpb.FileDescriptorSet)
-	require.NoError(t, proto.Unmarshal(f, pf))
-
-	req := new(pluginpb.CodeGeneratorRequest)
-	req.ProtoFile = pf.GetFile()
-	req.FileToGenerate = []string{"additional_bindings/additional_bindings.proto"}
-
-	req.Parameter = proto.String("debug,format=yaml,path-prefix=/api/v1")
-	b, err := proto.Marshal(req)
-	require.NoError(t, err)
-
-	resp, err := converter.ConvertFrom(bytes.NewBuffer(b))
-	require.NoError(t, err)
-	require.Nil(t, resp.Error)
-	require.Len(t, resp.File, 1)
-
-	content := resp.File[0].GetContent()
-	// Check that both primary binding and additional bindings have single prefix /api/v1
-	assert.Contains(t, content, "/api/v1/svc/directory/{tenant}/user/{uuid}")
-	assert.Contains(t, content, "/api/v1/svc/directory/{tenant}/user:")
-	assert.Contains(t, content, "/api/v1/svc/directory/{tenant}/user/foo")
-	// Ensure double prefix does not exist
-	assert.NotContains(t, content, "/api/v1/api/v1")
-}
 

@@ -15,6 +15,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/google.protobuf.Empty'
+  /testing/1234/alt/.well-known/jwks.json:
+    get:
+      tags:
+        - path_prefixes.Greeter
+      summary: Foo
+      operationId: path_prefixes.Greeter.Foo2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
   /testing/1234/path_prefixes.Greeter/SayHello:
     post:
       tags:
