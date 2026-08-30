@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package googleapi_camelcase;
+
+import "google/api/annotations.proto";
+
+// Tests that path parameters use camelCase (JSON names) by default.
+service CamelCaseService {
+  // Simple snake_case path parameter: {user_id} -> {userId}
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/{user_id}"
+    };
+  }
+
+  // Multi-part snake_case path parameter: {parent_account_id} -> {parentAccountId}
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {
+    option (google.api.http) = {
+      get: "/v1/accounts/{parent_account_id}/items/{item_id}"
+    };
+  }
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  string user_id = 1;
+  string name = 2;
+}
+
+message GetAccountRequest {
+  string parent_account_id = 1;
+  string item_id = 2;
+}
+
+message GetAccountResponse {
+  string id = 1;
+}

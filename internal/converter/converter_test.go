@@ -473,3 +473,40 @@ func makeAsyncAPIOutputPath(protofile, format string) string {
 	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".asyncapi." + format)
 	return filepath.Join(dir, "output", file)
 }
+
+func TestAdditionalBindingsWithPathPrefix(t *testing.T) {
+	// Load descriptor set
+	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
+	require.NoError(t, err)
+
+	pf := new(descriptorpb.FileDescriptorSet)
+	require.NoError(t, proto.Unmarshal(f, pf))
+
+	req := new(pluginpb.CodeGeneratorRequest)
+	req.ProtoFile = pf.GetFile()
+
+	for _, file := range req.GetProtoFile() {
+		if file.GetName() == "additional_bindings/additional_bindings.proto" {
+			req.FileToGenerate = append(req.FileToGenerate, file.GetName())
+		}
+	}
+	require.NotEmpty(t, req.FileToGenerate)
+
+	req.Parameter = proto.String("debug,format=yaml,path-prefix=/api/v1")
+	b, err := proto.Marshal(req)
+	require.NoError(t, err)
+
+	resp, err := converter.ConvertFrom(bytes.NewBuffer(b))
+	require.NoError(t, err)
+	require.Nil(t, resp.Error)
+	require.Len(t, resp.File, 1)
+
+	content := resp.File[0].GetContent()
+	// Check that both primary binding and additional bindings have single prefix /api/v1
+	assert.Contains(t, content, "/api/v1/svc/directory/{tenant}/user/{uuid}")
+	assert.Contains(t, content, "/api/v1/svc/directory/{tenant}/user:")
+	assert.Contains(t, content, "/api/v1/svc/directory/{tenant}/user/foo")
+	// Ensure double prefix does not exist
+	assert.NotContains(t, content, "/api/v1/api/v1")
+}
+

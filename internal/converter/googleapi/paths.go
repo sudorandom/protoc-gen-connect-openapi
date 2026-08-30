@@ -120,6 +120,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	}
 
 	fieldNamesInPath := map[string]struct{}{}
+	paramRenames := map[string]string{} // maps proto path param name to display name (camelCase by default)
 	var pathParams []*v3.Parameter
 	var deferredParams []*v3.Parameter
 	for _, param := range partsToParameter(tokens) {
@@ -133,8 +134,26 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			// query/param or request body
 			fieldNamesInPath[string(field.FullName())] = struct{}{}
 			fieldNamesInPath[strings.Join(jsonPath, ".")] = struct{}{} // sometimes JSON field names are used
+
+			// For nested params (e.g., "parent_ref.resource_id"), also track the
+			// top-level field so it can be excluded from the request body schema
+			paramParts := strings.SplitN(param, ".", 2)
+			if len(paramParts) > 1 {
+				if topField := fieldByName(opts, md.Input(), paramParts[0]); topField != nil {
+					fieldNamesInPath[string(topField.FullName())] = struct{}{}
+					fieldNamesInPath[util.MakeFieldName(opts, topField)] = struct{}{}
+				}
+			}
+
+			// Compute display name for the parameter (camelCase by default)
+			displayName := param
+			if !opts.WithProtoNames {
+				displayName = strings.Join(jsonPath, ".")
+			}
+			paramRenames[param] = displayName
+
 			schemaProxy := schema.FieldToSchema(opts, nil, field)
-			newParameter := buildParameter(opts, param, "path", field, schemaProxy, proto.Bool(true), false)
+			newParameter := buildParameter(opts, displayName, "path", field, schemaProxy, proto.Bool(true), false)
 			pathParams = append(pathParams, newParameter)
 		} else {
 			opts.Logger.Warn("path field not found", slog.String("param", param))
@@ -159,7 +178,13 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			if len(matches) == 3 {
 				if matches[2] == "**" {
 					paramName := matches[1]
-					field, _ := resolveField(opts, md.Input(), paramName)
+					field, jsonPath := resolveField(opts, md.Input(), paramName)
+					// Compute display name (camelCase by default)
+					displayName := paramName
+					if field != nil && !opts.WithProtoNames {
+						displayName = strings.Join(jsonPath, ".")
+					}
+					paramRenames[paramName] = displayName
 					var newParameter *v3.Parameter
 					if field != nil {
 						fieldNamesInPath[string(field.FullName())] = struct{}{}
@@ -176,10 +201,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 								Description: desc,
 							})
 						}
-						newParameter = buildParameter(opts, paramName, "path", field, parameterSchema, proto.Bool(true), true)
+						newParameter = buildParameter(opts, displayName, "path", field, parameterSchema, proto.Bool(true), true)
 					} else {
 						newParameter = &v3.Parameter{
-							Name:          paramName,
+							Name:          displayName,
 							Required:      proto.Bool(true),
 							In:            "path",
 							Description:   "The trailing part of the path.",
@@ -360,7 +385,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		pathItem.Patch = op
 	default:
 	}
-	openAPIPath := partsToOpenAPIPath(tokens, resMap)
+	openAPIPath := partsToOpenAPIPath(tokens, resMap, paramRenames)
 	paths.Set(openAPIPath, pathItem)
 
 	allDeferred := orderedmap.New[string, []*v3.Parameter]()
@@ -371,12 +396,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	for _, binding := range rule.AdditionalBindings {
 		sub := httpRuleToPathMap(opts, md, binding, resMap)
 		for pair := sub.PathItems.First(); pair != nil; pair = pair.Next() {
-			path := util.MakePath(opts, pair.Key())
-			paths.Set(path, pair.Value())
+			paths.Set(pair.Key(), pair.Value())
 		}
 		for pair := sub.DeferredParams.First(); pair != nil; pair = pair.Next() {
-			path := util.MakePath(opts, pair.Key())
-			allDeferred.Set(path, pair.Value())
+			allDeferred.Set(pair.Key(), pair.Value())
 		}
 	}
 	dedupeOperations(op.OperationId, paths.ValuesFromOldest())
@@ -445,7 +468,7 @@ func partsToParameter(tokens []Token) []string {
 	return params
 }
 
-func partsToOpenAPIPath(tokens []Token, resMap map[string]string) string {
+func partsToOpenAPIPath(tokens []Token, resMap map[string]string, renames map[string]string) string {
 	var b strings.Builder
 	for _, token := range tokens {
 		switch token.Type {
@@ -468,8 +491,12 @@ func partsToOpenAPIPath(tokens []Token, resMap map[string]string) string {
 				matches := namedPathPattern.FindStringSubmatch("{" + token.Value + "}")
 				if len(matches) == 3 {
 					if matches[2] == "**" {
+						name := matches[1]
+						if renamed, ok := renames[name]; ok {
+							name = renamed
+						}
 						b.WriteString("{")
-						b.WriteString(matches[1])
+						b.WriteString(name)
 						b.WriteString("}")
 						continue
 					}
@@ -490,13 +517,21 @@ func partsToOpenAPIPath(tokens []Token, resMap map[string]string) string {
 					newPath := strings.Join(parts, "/")
 					b.WriteString(newPath)
 				} else {
+					name := token.Value
+					if renamed, ok := renames[name]; ok {
+						name = renamed
+					}
 					b.WriteByte('{')
-					b.WriteString(token.Value)
+					b.WriteString(name)
 					b.WriteByte('}')
 				}
 			} else {
+				name := token.Value
+				if renamed, ok := renames[name]; ok {
+					name = renamed
+				}
 				b.WriteByte('{')
-				b.WriteString(token.Value)
+				b.WriteString(name)
 				b.WriteByte('}')
 			}
 		}
