@@ -4,7 +4,7 @@ go 1.26.0
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.12-20260825204119-511051f7f437.1
-	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.19.1-20230913231627-233fca715f49.2
+	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.20.0-20230913231627-233fca715f49.1
 	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.11-20230913231627-233fca715f49.1
 	buf.build/go/protovalidate v1.3.0
 	github.com/gobwas/glob v1.0.0
@@ -21,7 +21,7 @@ require (
 
 require (
 	cel.dev/expr v0.25.3 // indirect
-	connectrpc.com/connect v1.19.1 // indirect
+	connectrpc.com/connect v1.20.0 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/basgys/goxml2json v1.1.1-0.20231018121955-e66ee54ceaad // indirect
