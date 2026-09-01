@@ -305,6 +305,22 @@
       },
       "protovalidate.CELMessage": {
         "type": "object",
+        "allOf": [
+          {
+            "oneOf": [
+              {
+                "required": [
+                  "a"
+                ]
+              },
+              {
+                "required": [
+                  "b"
+                ]
+              }
+            ]
+          }
+        ],
         "oneOf": [
           {
             "type": "object",
@@ -332,10 +348,26 @@
             "required": [
               "b"
             ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "a"
+                  ]
+                },
+                {
+                  "required": [
+                    "b"
+                  ]
+                }
+              ]
+            }
           }
         ],
-        "title": "CELMessage",
-        "additionalProperties": false
+        "unevaluatedProperties": false,
+        "title": "CELMessage"
       },
       "protovalidate.LotsOfValidationRules": {
         "type": "object",
@@ -1912,6 +1944,22 @@
       },
       "protovalidate.OneOfMessage": {
         "type": "object",
+        "allOf": [
+          {
+            "oneOf": [
+              {
+                "required": [
+                  "a"
+                ]
+              },
+              {
+                "required": [
+                  "b"
+                ]
+              }
+            ]
+          }
+        ],
         "oneOf": [
           {
             "type": "object",
@@ -1939,10 +1987,26 @@
             "required": [
               "b"
             ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "a"
+                  ]
+                },
+                {
+                  "required": [
+                    "b"
+                  ]
+                }
+              ]
+            }
           }
         ],
-        "title": "OneOfMessage",
-        "additionalProperties": false
+        "unevaluatedProperties": false,
+        "title": "OneOfMessage"
       }
     }
   },

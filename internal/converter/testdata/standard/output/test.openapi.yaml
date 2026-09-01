@@ -1164,8 +1164,44 @@ components:
               title: uint64_option
               required:
                 - uint64Option
+            - not:
+                anyOf:
+                  - required:
+                      - boolOption
+                  - required:
+                      - bytesOption
+                  - required:
+                      - doubleOption
+                  - required:
+                      - enumOption
+                  - required:
+                      - fixed32Option
+                  - required:
+                      - fixed64Option
+                  - required:
+                      - floatOption
+                  - required:
+                      - int32Option
+                  - required:
+                      - int64Option
+                  - required:
+                      - msgOption
+                  - required:
+                      - sfixed32Option
+                  - required:
+                      - sfixed64Option
+                  - required:
+                      - sint32Option
+                  - required:
+                      - sint64Option
+                  - required:
+                      - stringOption
+                  - required:
+                      - uint32Option
+                  - required:
+                      - uint64Option
+      unevaluatedProperties: false
       title: AllTypes
-      additionalProperties: false
     test.v1.AllTypes.BoolMapEntry:
       type: object
       properties:
@@ -1729,8 +1765,16 @@ components:
               title: oneof_enum_value
               required:
                 - oneofEnumValue
+            - not:
+                anyOf:
+                  - required:
+                      - oneofDoubleValue
+                  - required:
+                      - oneofDoubleValueWrapper
+                  - required:
+                      - oneofEnumValue
+      unevaluatedProperties: false
       title: ParameterValues
-      additionalProperties: false
     test.v1.ParameterValues.Enum:
       type: string
       title: Enum

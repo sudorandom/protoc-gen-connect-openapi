@@ -23,6 +23,36 @@ import (
 )
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
+	// A declared oneof marked required must have exactly one member set. The
+	// generated oneOf group admits the empty state on its own, matching plain
+	// protobuf semantics, so the constraint is layered on here.
+	oneofs := desc.Oneofs()
+	for i := 0; i < oneofs.Len(); i++ {
+		oneof := oneofs.Get(i)
+		if oneof.IsSynthetic() {
+			continue
+		}
+		oneofRules, err := protovalidate.ResolveOneofRules(oneof)
+		if err != nil {
+			opts.Logger.Warn("unable to resolve oneof rules", slog.Any("error", err), slog.Any("oneof", oneof.FullName()))
+			continue
+		}
+		if !oneofRules.GetRequired() {
+			continue
+		}
+		fields := oneof.Fields()
+		oneOfs := make([]*base.SchemaProxy, 0, fields.Len())
+		for j := 0; j < fields.Len(); j++ {
+			oneOfs = append(oneOfs, base.CreateSchemaProxy(&base.Schema{
+				Required: []string{util.MakeFieldName(opts, fields.Get(j))},
+			}))
+		}
+		if len(oneOfs) > 0 {
+			schema.AllOf = append(schema.AllOf, base.CreateSchemaProxy(&base.Schema{
+				OneOf: oneOfs,
+			}))
+		}
+	}
 	rules, err := protovalidate.ResolveMessageRules(desc)
 	if err != nil {
 		opts.Logger.Warn("unable to resolve message rules", slog.Any("error", err))

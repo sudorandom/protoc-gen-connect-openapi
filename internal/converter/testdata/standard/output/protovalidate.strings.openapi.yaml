@@ -268,8 +268,12 @@ components:
           title: bar
           required:
             - bar
+        - not:
+            anyOf:
+              - required:
+                  - bar
+      unevaluatedProperties: false
       title: StringInOneof
-      additionalProperties: false
     buf.validate.conformance.cases.StringLen:
       type: object
       properties:

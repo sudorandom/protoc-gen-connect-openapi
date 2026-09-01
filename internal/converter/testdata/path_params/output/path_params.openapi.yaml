@@ -99,8 +99,14 @@ paths:
                       title: settings
                       required:
                         - settings
+                    - not:
+                        anyOf:
+                          - required:
+                              - profile
+                          - required:
+                              - settings
+              unevaluatedProperties: false
               title: UpdateRequest
-              additionalProperties: false
               description: |-
                 UpdateRequest has a path param, regular fields, and a oneOf.
                  This tests that the requestBody is generated correctly when
@@ -296,10 +302,16 @@ components:
               title: settings
               required:
                 - settings
+            - not:
+                anyOf:
+                  - required:
+                      - profile
+                  - required:
+                      - settings
+      unevaluatedProperties: false
       title: UpdateRequest
       required:
         - id
-      additionalProperties: false
       description: |-
         UpdateRequest has a path param, regular fields, and a oneOf.
          This tests that the requestBody is generated correctly when

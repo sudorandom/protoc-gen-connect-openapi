@@ -1,0 +1,24 @@
+cases:
+  # A protobuf oneof is at most one: a message with no member set is valid.
+  - name: "oneof-no-member-set"
+    method: PATCH
+    path: "/resources/abc"
+    body: '{"name": "test"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "oneof-one-member-set"
+    method: PATCH
+    path: "/resources/abc"
+    body: '{"name": "test", "profile": {"displayName": "test"}}'
+    headers:
+      Content-Type: application/json
+
+  - name: "oneof-two-members-set"
+    method: PATCH
+    path: "/resources/abc"
+    body: '{"profile": {"displayName": "a"}, "settings": {"theme": "dark"}}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"

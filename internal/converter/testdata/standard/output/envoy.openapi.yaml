@@ -335,8 +335,16 @@ components:
           title: socket_address
           required:
             - socketAddress
+        - not:
+            anyOf:
+              - required:
+                  - envoyInternalAddress
+              - required:
+                  - pipe
+              - required:
+                  - socketAddress
+      unevaluatedProperties: false
       title: Address
-      additionalProperties: false
       description: |-
         Addresses specify either a logical or physical address and port, which are
          used to tell Envoy where to bind/listen, connect to upstream and find
@@ -395,8 +403,12 @@ components:
               title: server_listener_name
               required:
                 - serverListenerName
+            - not:
+                anyOf:
+                  - required:
+                      - serverListenerName
+      unevaluatedProperties: false
       title: EnvoyInternalAddress
-      additionalProperties: false
       description: |-
         The address represents an envoy internal listener.
          [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]
@@ -660,8 +672,14 @@ components:
               title: user_agent_version
               required:
                 - userAgentVersion
+            - not:
+                anyOf:
+                  - required:
+                      - userAgentBuildVersion
+                  - required:
+                      - userAgentVersion
+      unevaluatedProperties: false
       title: Node
-      additionalProperties: false
       description: |-
         Identifies a specific Envoy instance. The node identifier is presented to the
          management server, which may use this identifier to distinguish per Envoy
@@ -771,8 +789,14 @@ components:
               title: port_value
               required:
                 - portValue
+            - not:
+                anyOf:
+                  - required:
+                      - namedPort
+                  - required:
+                      - portValue
+      unevaluatedProperties: false
       title: SocketAddress
-      additionalProperties: false
       description: '[#next-free-field: 8]'
     envoy.config.core.v3.SocketAddress.Protocol:
       type: string
@@ -1192,8 +1216,18 @@ components:
           title: or_constraints
           required:
             - orConstraints
+        - not:
+            anyOf:
+              - required:
+                  - andConstraints
+              - required:
+                  - constraint
+              - required:
+                  - notConstraints
+              - required:
+                  - orConstraints
+      unevaluatedProperties: false
       title: DynamicParameterConstraints
-      additionalProperties: false
       description: |-
         A set of dynamic parameter constraints associated with a variant of an individual xDS resource.
          These constraints determine whether the resource matches a subscription based on the set of
@@ -1242,8 +1276,14 @@ components:
               title: value
               required:
                 - value
+            - not:
+                anyOf:
+                  - required:
+                      - exists
+                  - required:
+                      - value
+      unevaluatedProperties: false
       title: SingleConstraint
-      additionalProperties: false
       description: A single constraint for a given key.
     envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists:
       type: object

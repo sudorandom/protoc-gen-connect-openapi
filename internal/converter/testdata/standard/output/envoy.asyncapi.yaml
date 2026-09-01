@@ -61,7 +61,6 @@ operations:
 components:
     schemas:
         envoy.config.core.v3.Address:
-            additionalProperties: false
             description: |-
                 Addresses specify either a logical or physical address and port, which are
                  used to tell Envoy where to bind/listen, connect to upstream and find
@@ -94,8 +93,17 @@ components:
                     - socketAddress
                   title: socket_address
                   type: object
+                - not:
+                    anyOf:
+                        - required:
+                            - envoyInternalAddress
+                        - required:
+                            - pipe
+                        - required:
+                            - socketAddress
             title: Address
             type: object
+            unevaluatedProperties: false
         envoy.config.core.v3.BuildVersion:
             additionalProperties: false
             description: |-
@@ -128,7 +136,6 @@ components:
             title: ControlPlane
             type: object
         envoy.config.core.v3.EnvoyInternalAddress:
-            additionalProperties: false
             allOf:
                 - properties:
                     endpointId:
@@ -150,11 +157,16 @@ components:
                         - serverListenerName
                       title: server_listener_name
                       type: object
+                    - not:
+                        anyOf:
+                            - required:
+                                - serverListenerName
             description: |-
                 The address represents an envoy internal listener.
                  [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]
             title: EnvoyInternalAddress
             type: object
+            unevaluatedProperties: false
         envoy.config.core.v3.Extension:
             additionalProperties: false
             description: |-
@@ -309,7 +321,6 @@ components:
             title: TypedFilterMetadataEntry
             type: object
         envoy.config.core.v3.Node:
-            additionalProperties: false
             allOf:
                 - properties:
                     clientFeatures:
@@ -415,6 +426,12 @@ components:
                         - userAgentVersion
                       title: user_agent_version
                       type: object
+                    - not:
+                        anyOf:
+                            - required:
+                                - userAgentBuildVersion
+                            - required:
+                                - userAgentVersion
             description: |-
                 Identifies a specific Envoy instance. The node identifier is presented to the
                  management server, which may use this identifier to distinguish per Envoy
@@ -422,6 +439,7 @@ components:
                  [#next-free-field: 13]
             title: Node
             type: object
+            unevaluatedProperties: false
         envoy.config.core.v3.Node.DynamicParametersEntry:
             additionalProperties: false
             properties:
@@ -451,7 +469,6 @@ components:
             title: Pipe
             type: object
         envoy.config.core.v3.SocketAddress:
-            additionalProperties: false
             allOf:
                 - properties:
                     address:
@@ -526,9 +543,16 @@ components:
                         - portValue
                       title: port_value
                       type: object
+                    - not:
+                        anyOf:
+                            - required:
+                                - namedPort
+                            - required:
+                                - portValue
             description: '[#next-free-field: 8]'
             title: SocketAddress
             type: object
+            unevaluatedProperties: false
         envoy.config.core.v3.SocketAddress.Protocol:
             enum:
                 - TCP
@@ -907,7 +931,6 @@ components:
             title: DiscoveryResponse
             type: object
         envoy.service.discovery.v3.DynamicParameterConstraints:
-            additionalProperties: false
             description: |-
                 A set of dynamic parameter constraints associated with a variant of an individual xDS resource.
                  These constraints determine whether the resource matches a subscription based on the set of
@@ -954,8 +977,19 @@ components:
                     - orConstraints
                   title: or_constraints
                   type: object
+                - not:
+                    anyOf:
+                        - required:
+                            - andConstraints
+                        - required:
+                            - constraint
+                        - required:
+                            - notConstraints
+                        - required:
+                            - orConstraints
             title: DynamicParameterConstraints
             type: object
+            unevaluatedProperties: false
         envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList:
             additionalProperties: false
             properties:
@@ -967,7 +1001,6 @@ components:
             title: ConstraintList
             type: object
         envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint:
-            additionalProperties: false
             allOf:
                 - properties:
                     key:
@@ -997,9 +1030,16 @@ components:
                         - value
                       title: value
                       type: object
+                    - not:
+                        anyOf:
+                            - required:
+                                - exists
+                            - required:
+                                - value
             description: A single constraint for a given key.
             title: SingleConstraint
             type: object
+            unevaluatedProperties: false
         envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists:
             additionalProperties: false
             title: Exists
