@@ -19,6 +19,23 @@ service Directory {
       }
     };
   }
+
+  // Search binds two methods to a single path. Each is a separate operation on
+  // the same path item, so neither may replace the other.
+  rpc Search(UserQuery) returns (User) {
+    option (google.api.http) = {
+      post: "/svc/directory/search"
+      body: "*"
+
+      additional_bindings: {
+        get: "/svc/directory/search"
+      }
+    };
+  }
+}
+
+message UserQuery {
+  string query = 1;
 }
 
 message UserLookup {

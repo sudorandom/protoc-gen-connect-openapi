@@ -2,6 +2,49 @@ openapi: 3.1.0
 info:
   title: additional_bindings
 paths:
+  /svc/directory/search:
+    get:
+      tags:
+        - additional_bindings.Directory
+      summary: Search
+      description: |-
+        Search binds two methods to a single path. Each is a separate operation on
+         the same path item, so neither may replace the other.
+      operationId: additional_bindings.Directory.Search2
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+            title: query
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/additional_bindings.User'
+    post:
+      tags:
+        - additional_bindings.Directory
+      summary: Search
+      description: |-
+        Search binds two methods to a single path. Each is a separate operation on
+         the same path item, so neither may replace the other.
+      operationId: additional_bindings.Directory.Search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/additional_bindings.UserQuery'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/additional_bindings.User'
   /svc/directory/{tenant}/user:
     get:
       tags:
@@ -113,6 +156,14 @@ components:
           type: string
           title: uuid
       title: UserLookup
+      additionalProperties: false
+    additional_bindings.UserQuery:
+      type: object
+      properties:
+        query:
+          type: string
+          title: query
+      title: UserQuery
       additionalProperties: false
 security: []
 tags:
