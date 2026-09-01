@@ -150,13 +150,19 @@ components:
               title: b
               required:
                 - b
+            - not:
+                anyOf:
+                  - required:
+                      - a
+                  - required:
+                      - b
         - oneOf:
             - required:
                 - c
             - required:
                 - d
+      unevaluatedProperties: false
       title: OneofInteractionMessage
-      additionalProperties: false
 security: []
 tags:
   - name: standard.OneofInteractionService

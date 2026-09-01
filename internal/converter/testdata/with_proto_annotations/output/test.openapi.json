@@ -1182,12 +1182,103 @@
                 "required": [
                   "uint64Option"
                 ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "boolOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "bytesOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "doubleOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "enumOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "fixed32Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "fixed64Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "floatOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "int32Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "int64Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "msgOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "sfixed32Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "sfixed64Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "sint32Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "sint64Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "stringOption"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "uint32Option"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "uint64Option"
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           }
         ],
-        "title": "AllTypes",
-        "additionalProperties": false
+        "unevaluatedProperties": false,
+        "title": "AllTypes"
       },
       "with_proto_annotations.test.v1.AllTypes.BoolMapEntry": {
         "type": "object",
@@ -2051,12 +2142,33 @@
                 "required": [
                   "oneofEnumValue"
                 ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "oneofDoubleValue"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "oneofDoubleValueWrapper"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "oneofEnumValue"
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           }
         ],
-        "title": "ParameterValues",
-        "additionalProperties": false
+        "unevaluatedProperties": false,
+        "title": "ParameterValues"
       },
       "with_proto_annotations.test.v1.ParameterValues.Enum": {
         "type": "string",

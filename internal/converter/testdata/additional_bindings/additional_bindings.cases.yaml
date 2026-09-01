@@ -1,0 +1,13 @@
+cases:
+  # Both bindings share a path, so both methods must be routable.
+  - name: "same-path-post-binding"
+    method: POST
+    path: "/svc/directory/search"
+    body: '{"query": "someone"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "same-path-get-binding"
+    method: GET
+    path: "/svc/directory/search"
+    query: "query=someone"

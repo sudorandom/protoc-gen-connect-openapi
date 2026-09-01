@@ -395,14 +395,21 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	for _, binding := range rule.AdditionalBindings {
 		sub := httpRuleToPathMap(opts, md, binding, resMap)
+		if sub == nil {
+			continue
+		}
 		for pair := sub.PathItems.First(); pair != nil; pair = pair.Next() {
+			if existing, ok := paths.Get(pair.Key()); ok {
+				mergePathItem(opts, existing, pair.Value(), pair.Key())
+				continue
+			}
 			paths.Set(pair.Key(), pair.Value())
 		}
 		for pair := sub.DeferredParams.First(); pair != nil; pair = pair.Next() {
 			allDeferred.Set(pair.Key(), pair.Value())
 		}
 	}
-	dedupeOperations(op.OperationId, paths.ValuesFromOldest())
+	dedupeOperations(op, op.OperationId, paths.ValuesFromOldest())
 	return &PathItemsResult{
 		PathItems:      paths,
 		DeferredParams: allDeferred,
@@ -413,17 +420,47 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 // From the OpenAPI v3 spec: "The id MUST be unique among all operations described in the API."
 // Since the same gRPC method name is used for operationId, the additional bindings will not be unique,
 // so we append a number, starting at 2, when more than one path binds to the same method.
-func dedupeOperations(id string, value iter.Seq[*v3.PathItem]) {
-	num := 0
+// The primary binding keeps the unsuffixed id; operations are ordered by HTTP
+// method rather than by binding order, so identifying it by value keeps the
+// numbering independent of which method each binding uses.
+func dedupeOperations(primary *v3.Operation, id string, value iter.Seq[*v3.PathItem]) {
+	num := 1
 	for path := range value {
 		for op := range path.GetOperations().ValuesFromOldest() {
-			if op.OperationId == id {
-				num++
-				if num > 1 {
-					op.OperationId = fmt.Sprintf("%s%d", id, num)
-				}
+			if op == primary || op.OperationId != id {
+				continue
 			}
+			num++
+			op.OperationId = fmt.Sprintf("%s%d", id, num)
 		}
+	}
+}
+
+// mergePathItem folds an additional binding into the path item already built for
+// the same path. Bindings that share a path but use different methods are
+// distinct operations on one path item, so replacing it would drop the
+// operation already there.
+func mergePathItem(opts options.Options, dst, src *v3.PathItem, path string) {
+	for _, slot := range []struct {
+		method string
+		dst    **v3.Operation
+		src    *v3.Operation
+	}{
+		{http.MethodGet, &dst.Get, src.Get},
+		{http.MethodPut, &dst.Put, src.Put},
+		{http.MethodPost, &dst.Post, src.Post},
+		{http.MethodDelete, &dst.Delete, src.Delete},
+		{http.MethodPatch, &dst.Patch, src.Patch},
+	} {
+		if slot.src == nil {
+			continue
+		}
+		if *slot.dst != nil {
+			opts.Logger.Warn("duplicate binding for path and method, keeping the first",
+				slog.String("path", path), slog.String("method", slot.method))
+			continue
+		}
+		*slot.dst = slot.src
 	}
 }
 
@@ -540,6 +577,14 @@ func partsToOpenAPIPath(tokens []Token, resMap map[string]string, renames map[st
 }
 
 func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, prefix string, seen map[string]struct{}) []*v3.Parameter {
+	return flattenToParamsRec(opts, md, prefix, seen, map[protoreflect.FullName]struct{}{})
+}
+
+// expanding holds the message types on the current branch, so a self- or
+// mutually-referential type terminates. It is scoped to the branch rather than
+// shared across the whole message: two fields of the same type are two distinct
+// query parameters, and skipping the second would silently drop it.
+func flattenToParamsRec(opts options.Options, md protoreflect.MessageDescriptor, prefix string, seen map[string]struct{}, expanding map[protoreflect.FullName]struct{}) []*v3.Parameter {
 	params := []*v3.Parameter{}
 	fields := md.Fields()
 	for i := 0; i < fields.Len(); i++ {
@@ -552,7 +597,6 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 		if _, ok := seen[paramName]; ok {
 			continue
 		}
-		seen[string(field.FullName())] = struct{}{}
 		switch field.Kind() {
 		case protoreflect.MessageKind:
 			if util.IsWellKnown(field.Message()) {
@@ -573,7 +617,13 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 					}
 				}
 			}
-			params = append(params, flattenToParams(opts, field.Message(), paramName+".", seen)...)
+			name := field.Message().FullName()
+			if _, ok := expanding[name]; ok {
+				continue
+			}
+			expanding[name] = struct{}{}
+			params = append(params, flattenToParamsRec(opts, field.Message(), paramName+".", seen, expanding)...)
+			delete(expanding, name)
 		default:
 			parent := &base.Schema{}
 			schemaProxy := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)

@@ -650,8 +650,30 @@ components:
           title: type
           required:
             - type
+        - not:
+            anyOf:
+              - required:
+                  - b
+              - required:
+                  - f
+              - required:
+                  - func
+              - required:
+                  - i
+              - required:
+                  - list
+              - required:
+                  - placeholder
+              - required:
+                  - s
+              - required:
+                  - shape
+              - required:
+                  - tensor
+              - required:
+                  - type
+      unevaluatedProperties: false
       title: AttrValue
-      additionalProperties: false
       description: |-
         Protocol buffer representing the value for an attr used to configure an Op.
          Comment indicates the corresponding attr type.  Only the field matching the
@@ -1923,8 +1945,14 @@ components:
               title: s
               required:
                 - s
+            - not:
+                anyOf:
+                  - required:
+                      - i
+                  - required:
+                      - s
+      unevaluatedProperties: false
       title: FullTypeDef
-      additionalProperties: false
       description: |-
         Highly experimental and very likely to change.
          This encoding uses tags instead of dedicated messages for regularity. In

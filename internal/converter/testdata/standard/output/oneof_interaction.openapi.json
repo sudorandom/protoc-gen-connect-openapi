@@ -206,6 +206,22 @@
                 "required": [
                   "b"
                 ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "a"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "b"
+                      ]
+                    }
+                  ]
+                }
               }
             ]
           },
@@ -224,8 +240,8 @@
             ]
           }
         ],
-        "title": "OneofInteractionMessage",
-        "additionalProperties": false
+        "unevaluatedProperties": false,
+        "title": "OneofInteractionMessage"
       }
     }
   },

@@ -105,7 +105,37 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 
 	// Apply Updates from Options
 	s = opts.MessageAnnotator.AnnotateMessage(opts, s, tt)
+
+	// additionalProperties only closes over the properties declared beside it,
+	// so once a branch contributes properties of its own every instance looks
+	// like it carries additional ones and validation rejects all of them.
+	// unevaluatedProperties closes the object over what the branches evaluated.
+	if ap := s.AdditionalProperties; ap != nil && ap.N == 1 && !ap.B && composesProperties(s) {
+		s.AdditionalProperties = nil
+		s.UnevaluatedProperties = &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: false}
+	}
 	return string(tt.FullName()), s
+}
+
+// composesProperties reports whether any composed branch declares properties.
+// Branches that only assert presence (a required list) leave the schema's own
+// properties covering every instance, so those keep additionalProperties.
+func composesProperties(s *base.Schema) bool {
+	for _, branches := range [][]*base.SchemaProxy{s.AllOf, s.OneOf, s.AnyOf} {
+		for _, branch := range branches {
+			sub := branch.Schema()
+			if sub == nil {
+				continue
+			}
+			if sub.Properties != nil && sub.Properties.Len() > 0 {
+				return true
+			}
+			if composesProperties(sub) {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {
@@ -223,7 +253,8 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 }
 
 func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor) *base.SchemaProxy {
-	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
+	rootSchemas := make([]*base.SchemaProxy, 0, len(fields)+1)
+	presence := make([]*base.SchemaProxy, 0, len(fields))
 	for _, field := range fields {
 		schema := &base.Schema{
 			/*
@@ -242,7 +273,16 @@ func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor)
 		schema.Required = []string{fieldName}
 
 		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(schema))
+		presence = append(presence, base.CreateSchemaProxy(&base.Schema{Required: []string{fieldName}}))
 	}
+
+	// A protobuf oneof is at most one, not exactly one: a message with no member
+	// set serializes with all of them absent, so without a branch admitting that
+	// state every such message fails validation. (buf.validate.oneof).required
+	// tightens it back to exactly one and is applied by the protovalidate feature.
+	rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{
+		Not: base.CreateSchemaProxy(&base.Schema{AnyOf: presence}),
+	}))
 
 	return base.CreateSchemaProxy(&base.Schema{OneOf: rootSchemas})
 }

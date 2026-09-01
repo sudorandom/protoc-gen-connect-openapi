@@ -319,10 +319,21 @@
             "required": [
               "bar"
             ]
+          },
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "bar"
+                  ]
+                }
+              ]
+            }
           }
         ],
-        "title": "StringInOneof",
-        "additionalProperties": false
+        "unevaluatedProperties": false,
+        "title": "StringInOneof"
       },
       "buf.validate.conformance.cases.StringLen": {
         "type": "object",
