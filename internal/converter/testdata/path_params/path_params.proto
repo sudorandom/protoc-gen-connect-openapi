@@ -31,11 +31,46 @@ message UpdateRequest {
   }
 }
 
+message Money {
+  string value = 1;
+}
+
+// QuoteRequest holds two fields of the same message type. Each one is its own
+// query parameter; sharing a type must not collapse them into one.
+message QuoteRequest {
+  Money revenue = 1;
+  Money cost = 2;
+}
+
+// Node refers to itself. Flattening stops when a type reappears on the branch
+// being expanded, so a self-referential type terminates.
+message Node {
+  string name = 1;
+  Node child = 2;
+}
+
+message TreeRequest {
+  Node left = 1;
+  Node right = 2;
+}
+
 service PathParams {
   rpc Go(Request) returns (google.protobuf.Empty){
     option (google.api.http) = {
       post: "/go/{snake_case}"
       body: "*"
+    };
+  }
+
+  rpc Tree(TreeRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      get: "/tree"
+    };
+  }
+
+  rpc Quote(QuoteRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      get: "/quote"
     };
   }
 

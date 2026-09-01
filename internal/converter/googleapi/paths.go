@@ -577,6 +577,14 @@ func partsToOpenAPIPath(tokens []Token, resMap map[string]string, renames map[st
 }
 
 func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, prefix string, seen map[string]struct{}) []*v3.Parameter {
+	return flattenToParamsRec(opts, md, prefix, seen, map[protoreflect.FullName]struct{}{})
+}
+
+// expanding holds the message types on the current branch, so a self- or
+// mutually-referential type terminates. It is scoped to the branch rather than
+// shared across the whole message: two fields of the same type are two distinct
+// query parameters, and skipping the second would silently drop it.
+func flattenToParamsRec(opts options.Options, md protoreflect.MessageDescriptor, prefix string, seen map[string]struct{}, expanding map[protoreflect.FullName]struct{}) []*v3.Parameter {
 	params := []*v3.Parameter{}
 	fields := md.Fields()
 	for i := 0; i < fields.Len(); i++ {
@@ -589,7 +597,6 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 		if _, ok := seen[paramName]; ok {
 			continue
 		}
-		seen[string(field.FullName())] = struct{}{}
 		switch field.Kind() {
 		case protoreflect.MessageKind:
 			if util.IsWellKnown(field.Message()) {
@@ -610,7 +617,13 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 					}
 				}
 			}
-			params = append(params, flattenToParams(opts, field.Message(), paramName+".", seen)...)
+			name := field.Message().FullName()
+			if _, ok := expanding[name]; ok {
+				continue
+			}
+			expanding[name] = struct{}{}
+			params = append(params, flattenToParamsRec(opts, field.Message(), paramName+".", seen, expanding)...)
+			delete(expanding, name)
 		default:
 			parent := &base.Schema{}
 			schemaProxy := schema.FieldToSchema(opts, base.CreateSchemaProxy(parent), field)

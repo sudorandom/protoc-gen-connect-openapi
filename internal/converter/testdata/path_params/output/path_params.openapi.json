@@ -54,6 +54,45 @@
         }
       }
     },
+    "/quote": {
+      "get": {
+        "tags": [
+          "path_params.PathParams"
+        ],
+        "summary": "Quote",
+        "operationId": "path_params.PathParams.Quote",
+        "parameters": [
+          {
+            "name": "revenue.value",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "value"
+            }
+          },
+          {
+            "name": "cost.value",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "value"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/resources/{id}": {
       "patch": {
         "tags": [
@@ -140,6 +179,45 @@
         }
       }
     },
+    "/tree": {
+      "get": {
+        "tags": [
+          "path_params.PathParams"
+        ],
+        "summary": "Tree",
+        "operationId": "path_params.PathParams.Tree",
+        "parameters": [
+          {
+            "name": "left.name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          },
+          {
+            "name": "right.name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/shelves/{shelf}/books": {
       "get": {
         "tags": [
@@ -211,6 +289,33 @@
         "type": "object",
         "description": "A generic empty message that you can re-use to avoid defining duplicated\n empty messages in your APIs. A typical example is to use it as the request\n or the response type of an API method. For instance:\n\n     service Foo {\n       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n     }"
       },
+      "path_params.Money": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "value"
+          }
+        },
+        "title": "Money",
+        "additionalProperties": false
+      },
+      "path_params.Node": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "child": {
+            "title": "child",
+            "$ref": "#/components/schemas/path_params.Node"
+          }
+        },
+        "title": "Node",
+        "additionalProperties": false,
+        "description": "Node refers to itself. Flattening stops when a type reappears on the branch\n being expanded, so a self-referential type terminates."
+      },
       "path_params.Profile": {
         "type": "object",
         "properties": {
@@ -221,6 +326,22 @@
         },
         "title": "Profile",
         "additionalProperties": false
+      },
+      "path_params.QuoteRequest": {
+        "type": "object",
+        "properties": {
+          "revenue": {
+            "title": "revenue",
+            "$ref": "#/components/schemas/path_params.Money"
+          },
+          "cost": {
+            "title": "cost",
+            "$ref": "#/components/schemas/path_params.Money"
+          }
+        },
+        "title": "QuoteRequest",
+        "additionalProperties": false,
+        "description": "QuoteRequest holds two fields of the same message type. Each one is its own\n query parameter; sharing a type must not collapse them into one."
       },
       "path_params.Request": {
         "type": "object",
@@ -249,6 +370,21 @@
           }
         },
         "title": "Settings",
+        "additionalProperties": false
+      },
+      "path_params.TreeRequest": {
+        "type": "object",
+        "properties": {
+          "left": {
+            "title": "left",
+            "$ref": "#/components/schemas/path_params.Node"
+          },
+          "right": {
+            "title": "right",
+            "$ref": "#/components/schemas/path_params.Node"
+          }
+        },
+        "title": "TreeRequest",
         "additionalProperties": false
       },
       "path_params.UpdateRequest": {
