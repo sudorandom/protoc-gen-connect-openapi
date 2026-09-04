@@ -55,6 +55,8 @@ type Options struct {
 	FullyQualifiedMessageNames bool
 	// Prevents adding default tags to converted fields
 	WithoutDefaultTags bool
+	// WithoutFieldBehaviorPrefixes omits description prefixes from google.api.field_behavior annotations.
+	WithoutFieldBehaviorPrefixes bool
 	// WithServiceDescriptions set to true will cause service names and their comments to be added to the end of info.description.
 	WithServiceDescriptions bool
 	// IgnoreGoogleapiHTTP set to true will cause service to always generate OpenAPI specs for connect endpoints, and ignore any google.api.http options.
@@ -136,7 +138,7 @@ func NewOptions() Options {
 			FeatureProtovalidate: true,
 		},
 		AsyncAPIChannelTemplate: "/ws/{package}.{service}/{method}",
-		Logger: slog.New(slog.DiscardHandler), // discard logs by default,
+		Logger:                  slog.New(slog.DiscardHandler), // discard logs by default,
 	}
 }
 
@@ -177,6 +179,8 @@ func FromString(s string) (Options, error) {
 			opts.FullyQualifiedMessageNames = true
 		case param == "without-default-tags":
 			opts.WithoutDefaultTags = true
+		case param == "without-field-behavior-prefixes":
+			opts.WithoutFieldBehaviorPrefixes = true
 		case param == "with-service-descriptions":
 			opts.WithServiceDescriptions = true
 		case param == "ignore-googleapi-http":

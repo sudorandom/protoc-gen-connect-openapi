@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package without_field_behavior_prefixes;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+
+service Service {
+  rpc Method(User) returns (User) {
+    option (google.api.http) = {get: "/v1/users/{name}"};
+  }
+}
+
+message User {
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  // A display name.
+  string nick_name = 2 [(google.api.field_behavior) = OPTIONAL];
+  string internal_id = 3 [(google.api.field_behavior) = IMMUTABLE];
+  repeated string other_attr = 4 [(google.api.field_behavior) = UNORDERED_LIST];
+  string default_value = 5 [(google.api.field_behavior) = NON_EMPTY_DEFAULT];
+  string all_behaviors = 6 [
+    (google.api.field_behavior) = OPTIONAL,
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.field_behavior) = IMMUTABLE,
+    (google.api.field_behavior) = UNORDERED_LIST,
+    (google.api.field_behavior) = NON_EMPTY_DEFAULT,
+    (google.api.field_behavior) = IDENTIFIER
+  ];
+}

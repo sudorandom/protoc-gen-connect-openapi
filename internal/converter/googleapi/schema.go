@@ -67,7 +67,7 @@ func SchemaWithPropertyAnnotations(opts options.Options, schema *base.Schema, de
 		switch *fb {
 		case annotations.FieldBehavior_FIELD_BEHAVIOR_UNSPECIFIED:
 		case annotations.FieldBehavior_OPTIONAL:
-			schema.Description = "(OPTIONAL) " + schema.Description
+			prependFieldBehaviorPrefix(opts, schema, "(OPTIONAL) ")
 		case annotations.FieldBehavior_REQUIRED:
 			if schema.ParentProxy != nil {
 				schema.ParentProxy.Schema().Required = util.AppendStringDedupe(schema.ParentProxy.Schema().Required, util.MakeFieldName(opts, desc))
@@ -77,15 +77,22 @@ func SchemaWithPropertyAnnotations(opts options.Options, schema *base.Schema, de
 		case annotations.FieldBehavior_INPUT_ONLY:
 			schema.WriteOnly = util.BoolPtr(true)
 		case annotations.FieldBehavior_IMMUTABLE:
-			schema.Description = "(IMMUTABLE) " + schema.Description
+			prependFieldBehaviorPrefix(opts, schema, "(IMMUTABLE) ")
 		case annotations.FieldBehavior_UNORDERED_LIST:
-			schema.Description = "(UNORDERED_LIST) " + schema.Description
+			prependFieldBehaviorPrefix(opts, schema, "(UNORDERED_LIST) ")
 		case annotations.FieldBehavior_NON_EMPTY_DEFAULT:
-			schema.Description = "(NON_EMPTY_DEFAULT) " + schema.Description
+			prependFieldBehaviorPrefix(opts, schema, "(NON_EMPTY_DEFAULT) ")
 		case annotations.FieldBehavior_IDENTIFIER:
-			schema.Description = "(IDENTIFIER) " + schema.Description
+			prependFieldBehaviorPrefix(opts, schema, "(IDENTIFIER) ")
 		default:
 		}
 	}
 	return schema
+}
+
+func prependFieldBehaviorPrefix(opts options.Options, schema *base.Schema, prefix string) {
+	if opts.WithoutFieldBehaviorPrefixes {
+		return
+	}
+	schema.Description = prefix + schema.Description
 }
