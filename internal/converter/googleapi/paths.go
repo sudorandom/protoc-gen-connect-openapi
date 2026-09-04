@@ -20,6 +20,7 @@ import (
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 )
 
 // namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
@@ -545,6 +546,10 @@ func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, pr
 	for i := 0; i < fields.Len(); i++ {
 		field := fields.Get(i)
 		paramName := prefix + util.MakeFieldName(opts, field)
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(field), opts.AllowedVisibilities) {
+			opts.Logger.Debug("Filtering query parameter due to visibility", slog.String("field", string(field.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
+			continue
+		}
 		// exclude fields already found in the path
 		if _, ok := seen[string(field.FullName())]; ok {
 			continue
