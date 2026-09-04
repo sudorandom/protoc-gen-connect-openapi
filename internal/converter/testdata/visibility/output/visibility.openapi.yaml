@@ -2,6 +2,40 @@ openapi: 3.1.0
 info:
   title: visibility
 paths:
+  /v1/messages:
+    get:
+      tags:
+        - visibility.VisibilityService
+      summary: ListMessages
+      operationId: visibility.VisibilityService.ListMessages
+      parameters:
+        - name: publicFilter
+          in: query
+          schema:
+            type: string
+            title: public_filter
+        - name: internalFilter
+          in: query
+          schema:
+            type: string
+            title: internal_filter
+        - name: previewFilter
+          in: query
+          schema:
+            type: string
+            title: preview_filter
+        - name: nested.publicNested
+          in: query
+          schema:
+            type: string
+            title: public_nested
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/visibility.Message'
   /v1/messages/{messageId}:
     get:
       tags:
@@ -51,6 +85,24 @@ components:
           title: message_id
       title: GetMessageRequest
       additionalProperties: false
+    visibility.ListMessagesRequest:
+      type: object
+      properties:
+        publicFilter:
+          type: string
+          title: public_filter
+        internalFilter:
+          type: string
+          title: internal_filter
+        previewFilter:
+          type: string
+          title: preview_filter
+        nested:
+          title: nested
+          $ref: '#/components/schemas/visibility.NestedFilter'
+      title: ListMessagesRequest
+      additionalProperties: false
+      description: Request whose fields are flattened into query parameters.
     visibility.Message:
       type: object
       properties:
@@ -71,6 +123,14 @@ components:
           title: multi_restricted_field
           description: 'Field with comma-separated multi-restriction: visible to INTERNAL or EXTERNAL.'
       title: Message
+      additionalProperties: false
+    visibility.NestedFilter:
+      type: object
+      properties:
+        publicNested:
+          type: string
+          title: public_nested
+      title: NestedFilter
       additionalProperties: false
 security: []
 tags:

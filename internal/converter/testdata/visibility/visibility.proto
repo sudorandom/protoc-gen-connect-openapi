@@ -11,6 +11,10 @@ service VisibilityService {
   rpc GetMessage(GetMessageRequest) returns (Message) {
     option (google.api.http) = {get: "/v1/messages/{message_id}"};
   }
+
+  rpc ListMessages(ListMessagesRequest) returns (Message) {
+    option (google.api.http) = {get: "/v1/messages"};
+  }
 }
 
 service ExternalService {
@@ -32,6 +36,20 @@ service MultiRestrictionService {
 
 message GetMessageRequest {
   string message_id = 1;
+}
+
+// Request whose fields are flattened into query parameters.
+message ListMessagesRequest {
+  string public_filter = 1;
+  string internal_filter = 2 [(google.api.field_visibility).restriction = "INTERNAL"];
+  string preview_filter = 3 [(google.api.field_visibility).restriction = "PREVIEW"];
+  string external_filter = 4 [(google.api.field_visibility).restriction = "EXTERNAL"];
+  NestedFilter nested = 5;
+}
+
+message NestedFilter {
+  string public_nested = 1;
+  string external_nested = 2 [(google.api.field_visibility).restriction = "EXTERNAL"];
 }
 
 message Message {
