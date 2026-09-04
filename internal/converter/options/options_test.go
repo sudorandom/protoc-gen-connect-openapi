@@ -22,6 +22,7 @@ func TestFromString(t *testing.T) {
 			"trim-unused-types",
 			"fully-qualified-message-names",
 			"without-default-tags",
+			"without-field-behavior-prefixes",
 			"with-service-descriptions",
 			"ignore-googleapi-http",
 			"short-service-tags",
@@ -39,6 +40,7 @@ func TestFromString(t *testing.T) {
 		assert.True(t, opts.TrimUnusedTypes)
 		assert.True(t, opts.FullyQualifiedMessageNames)
 		assert.True(t, opts.WithoutDefaultTags)
+		assert.True(t, opts.WithoutFieldBehaviorPrefixes)
 		assert.True(t, opts.WithServiceDescriptions)
 		assert.True(t, opts.IgnoreGoogleapiHTTP)
 		assert.False(t, opts.OnlyGoogleapiHTTP) // Assert false as it's removed
@@ -93,6 +95,7 @@ func TestFromString(t *testing.T) {
 		assert.True(t, opts.TrimUnusedTypes)
 		assert.True(t, opts.FullyQualifiedMessageNames)
 		assert.True(t, opts.WithoutDefaultTags)
+		assert.True(t, opts.WithoutFieldBehaviorPrefixes)
 	})
 
 	t.Run("features", func(t *testing.T) {
@@ -297,4 +300,3 @@ func TestGetExtensionTypeResolver(t *testing.T) {
 	opts := options.NewOptions()
 	assert.NotNil(t, opts.GetExtensionTypeResolver())
 }
-

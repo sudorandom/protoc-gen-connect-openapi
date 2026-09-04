@@ -66,6 +66,7 @@ func TestGeneratorWithOptions(t *testing.T) {
 			WithShortServiceTags(true),
 			WithShortOperationIds(true),
 			WithoutDefaultTags(true),
+			WithoutFieldBehaviorPrefixes(true),
 			WithDisableDefaultResponse(true),
 			WithAllowedVisibilities("INTERNAL", "PREVIEW"),
 			WithFullyQualifiedMessageNames(true),
@@ -87,6 +88,7 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.True(t, generator.options.ShortServiceTags)
 		assert.True(t, generator.options.ShortOperationIds)
 		assert.True(t, generator.options.WithoutDefaultTags)
+		assert.True(t, generator.options.WithoutFieldBehaviorPrefixes)
 		assert.True(t, generator.options.DisableDefaultResponse)
 		assert.True(t, generator.options.AllowedVisibilities["INTERNAL"])
 		assert.True(t, generator.options.AllowedVisibilities["PREVIEW"])
@@ -154,4 +156,3 @@ func TestGenerate(t *testing.T) {
 		require.Error(t, err)
 	})
 }
-

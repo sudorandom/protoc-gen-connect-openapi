@@ -273,6 +273,14 @@ func WithoutDefaultTags(enabled bool) Option {
 	}
 }
 
+// WithoutFieldBehaviorPrefixes omits description prefixes from google.api.field_behavior annotations.
+func WithoutFieldBehaviorPrefixes(enabled bool) Option {
+	return func(g *generator) error {
+		g.options.WithoutFieldBehaviorPrefixes = enabled
+		return nil
+	}
+}
+
 // WithDisableDefaultResponse disables the default 200 response.
 func WithDisableDefaultResponse(enabled bool) Option {
 	return func(g *generator) error {

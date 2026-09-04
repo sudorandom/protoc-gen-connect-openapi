@@ -1,0 +1,135 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "without_field_behavior_prefixes"
+  },
+  "paths": {
+    "/v1/users/{name}": {
+      "get": {
+        "tags": [
+          "without_field_behavior_prefixes.Service"
+        ],
+        "summary": "Method",
+        "operationId": "without_field_behavior_prefixes.Service.Method",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          },
+          {
+            "name": "nickName",
+            "in": "query",
+            "description": "A display name.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "nick_name"
+            }
+          },
+          {
+            "name": "internalId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "internal_id"
+            }
+          },
+          {
+            "name": "otherAttr",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "other_attr"
+            }
+          },
+          {
+            "name": "defaultValue",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "default_value"
+            }
+          },
+          {
+            "name": "allBehaviors",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "all_behaviors"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/without_field_behavior_prefixes.User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "without_field_behavior_prefixes.User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "nickName": {
+            "type": "string",
+            "title": "nick_name",
+            "description": "A display name."
+          },
+          "internalId": {
+            "type": "string",
+            "title": "internal_id"
+          },
+          "otherAttr": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "other_attr"
+          },
+          "defaultValue": {
+            "type": "string",
+            "title": "default_value"
+          },
+          "allBehaviors": {
+            "type": "string",
+            "title": "all_behaviors"
+          }
+        },
+        "title": "User",
+        "required": [
+          "name",
+          "allBehaviors"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "without_field_behavior_prefixes.Service"
+    }
+  ]
+}
