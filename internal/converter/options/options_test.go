@@ -256,6 +256,32 @@ func TestFromString(t *testing.T) {
 		require.Error(t, err)
 		assert.Contains(t, err.Error(), "at least one protocol feature")
 	})
+
+	t.Run("well-known-type-descriptions", func(t *testing.T) {
+		t.Run("defaults to full", func(t *testing.T) {
+			opts, err := options.FromString("")
+			require.NoError(t, err)
+			assert.Equal(t, options.WellKnownTypeDescriptionsFull, opts.WellKnownTypeDescriptions)
+		})
+
+		for _, mode := range []options.WellKnownTypeDescriptionMode{
+			options.WellKnownTypeDescriptionsFull,
+			options.WellKnownTypeDescriptionsConcise,
+			options.WellKnownTypeDescriptionsOmit,
+		} {
+			t.Run(string(mode), func(t *testing.T) {
+				opts, err := options.FromString("well-known-type-descriptions=" + string(mode))
+				require.NoError(t, err)
+				assert.Equal(t, mode, opts.WellKnownTypeDescriptions)
+			})
+		}
+
+		t.Run("invalid value", func(t *testing.T) {
+			_, err := options.FromString("well-known-type-descriptions=brief")
+			require.Error(t, err)
+			assert.Contains(t, err.Error(), "well-known-type-descriptions")
+		})
+	})
 }
 
 func TestHasService(t *testing.T) {

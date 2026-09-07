@@ -4,6 +4,7 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -43,12 +44,54 @@ func IsWellKnown(msg protoreflect.MessageDescriptor) bool {
 	return ok
 }
 
-func WellKnownToSchema(msg protoreflect.MessageDescriptor) *IDSchema {
+func WellKnownToSchema(opts options.Options, msg protoreflect.MessageDescriptor) *IDSchema {
 	fn, ok := wellKnownToSchemaFns[string(msg.FullName())]
 	if !ok {
 		return nil
 	}
-	return fn(msg)
+	idSchema := fn(msg)
+	if idSchema != nil && idSchema.Schema != nil {
+		idSchema.Schema.Description = wellKnownDescription(opts, msg, idSchema.Schema.Description)
+	}
+	return idSchema
+}
+
+func wellKnownDescription(opts options.Options, msg protoreflect.MessageDescriptor, full string) string {
+	switch opts.WellKnownTypeDescriptions {
+	case options.WellKnownTypeDescriptionsOmit:
+		return ""
+	case options.WellKnownTypeDescriptionsConcise:
+		if concise, ok := conciseWellKnownDescriptions[string(msg.FullName())]; ok {
+			return concise
+		}
+		return full
+	default:
+		return full
+	}
+}
+
+// conciseWellKnownDescriptions document the JSON representation of well-known types.
+var conciseWellKnownDescriptions = map[string]string{
+	"google.protobuf.Timestamp":   "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.",
+	"google.protobuf.Duration":    "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).",
+	"google.protobuf.Empty":       "An empty JSON object.",
+	"google.protobuf.Any":         "An arbitrary message with a type URL identifying the encoded message type.",
+	"google.protobuf.FieldMask":   "Comma-separated field paths in lowerCamelCase (for example, `user.displayName,photo`).",
+	"google.protobuf.Struct":      "A JSON object whose property values may be any JSON value.",
+	"google.protobuf.Value":       "Any JSON value: `null`, number, string, boolean, array, or object.",
+	"google.protobuf.ListValue":   "A JSON array whose elements may be any JSON value.",
+	"google.protobuf.NullValue":   "The JSON `null` value.",
+	"google.protobuf.StringValue": "A string value; `null` is also accepted.",
+	"google.protobuf.BytesValue":  "A base64-encoded byte string; `null` is also accepted.",
+	"google.protobuf.BoolValue":   "A boolean value; `null` is also accepted.",
+	"google.protobuf.DoubleValue": "A double-precision number. The non-finite values `NaN`, `Infinity`, and `-Infinity` are encoded as strings; `null` is also accepted.",
+	"google.protobuf.FloatValue":  "A single-precision number. The non-finite values `NaN`, `Infinity`, and `-Infinity` are encoded as strings; `null` is also accepted.",
+	"google.protobuf.Int64Value":  "A signed 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`.",
+	"google.protobuf.UInt64Value": "An unsigned 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`.",
+	"google.protobuf.Uint64Value": "An unsigned 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`.",
+	"google.protobuf.Int32Value":  "A signed 32-bit integer; `null` is also accepted.",
+	"google.protobuf.UInt32Value": "An unsigned 32-bit integer; `null` is also accepted.",
+	"google.protobuf.Uint32Value": "An unsigned 32-bit integer; `null` is also accepted.",
 }
 
 func googleDuration(msg protoreflect.MessageDescriptor) *IDSchema {

@@ -22,7 +22,7 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		defer opts.Logger.Debug("/messageToSchema", slog.Any("descriptor", tt.FullName()))
 	}
 	if util.IsWellKnown(tt) {
-		wk := util.WellKnownToSchema(tt)
+		wk := util.WellKnownToSchema(opts, tt)
 		if wk == nil {
 			return "", nil
 		}

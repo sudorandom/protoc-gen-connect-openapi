@@ -29,6 +29,8 @@ var scenarios = []Scenario{
 	{Name: "proto_names", Options: "with-proto-names"},
 	{Name: "path_prefix", Options: "path-prefix=/testing/1234"},
 	{Name: "with_proto_annotations", Options: "with-proto-annotations"},
+	{Name: "well_known_type_descriptions_omit", Options: "well-known-type-descriptions=omit"},
+	{Name: "well_known_type_descriptions_concise", Options: "well-known-type-descriptions=concise"},
 	{Name: "without_default_tags", Options: "without-default-tags"},
 	{Name: "without_field_behavior_prefixes", Options: "without-field-behavior-prefixes"},
 	{Name: "trim_unused_type", Options: "trim-unused-types"},

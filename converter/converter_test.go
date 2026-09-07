@@ -67,6 +67,7 @@ func TestGeneratorWithOptions(t *testing.T) {
 			WithShortOperationIds(true),
 			WithoutDefaultTags(true),
 			WithoutFieldBehaviorPrefixes(true),
+			WithWellKnownTypeDescriptions(options.WellKnownTypeDescriptionsOmit),
 			WithDisableDefaultResponse(true),
 			WithAllowedVisibilities("INTERNAL", "PREVIEW"),
 			WithFullyQualifiedMessageNames(true),
@@ -89,6 +90,7 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.True(t, generator.options.ShortOperationIds)
 		assert.True(t, generator.options.WithoutDefaultTags)
 		assert.True(t, generator.options.WithoutFieldBehaviorPrefixes)
+		assert.Equal(t, options.WellKnownTypeDescriptionsOmit, generator.options.WellKnownTypeDescriptions)
 		assert.True(t, generator.options.DisableDefaultResponse)
 		assert.True(t, generator.options.AllowedVisibilities["INTERNAL"])
 		assert.True(t, generator.options.AllowedVisibilities["PREVIEW"])
@@ -120,6 +122,11 @@ func TestGeneratorWithOptions(t *testing.T) {
 
 		t.Run("invalid feature in WithFeatures", func(t *testing.T) {
 			_, err := generatorWithOptions(WithFeatures("nonexistent_feature"))
+			require.Error(t, err)
+		})
+
+		t.Run("invalid well-known-type-descriptions", func(t *testing.T) {
+			_, err := generatorWithOptions(WithWellKnownTypeDescriptions("brief"))
 			require.Error(t, err)
 		})
 	})

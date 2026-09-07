@@ -23,6 +23,27 @@ const (
 	FeatureProtovalidate Feature = "protovalidate"
 )
 
+// WellKnownTypeDescriptionMode controls how well-known type comments are rendered.
+type WellKnownTypeDescriptionMode string
+
+const (
+	// WellKnownTypeDescriptionsFull copies comments from the well-known type's .proto file.
+	WellKnownTypeDescriptionsFull WellKnownTypeDescriptionMode = "full"
+	// WellKnownTypeDescriptionsConcise uses a short JSON-oriented description.
+	WellKnownTypeDescriptionsConcise WellKnownTypeDescriptionMode = "concise"
+	// WellKnownTypeDescriptionsOmit omits the description entirely.
+	WellKnownTypeDescriptionsOmit WellKnownTypeDescriptionMode = "omit"
+)
+
+func ParseWellKnownTypeDescriptionMode(s string) (WellKnownTypeDescriptionMode, error) {
+	switch WellKnownTypeDescriptionMode(s) {
+	case WellKnownTypeDescriptionsFull, WellKnownTypeDescriptionsConcise, WellKnownTypeDescriptionsOmit:
+		return WellKnownTypeDescriptionMode(s), nil
+	default:
+		return "", fmt.Errorf("well-known-type-descriptions must be full, concise, or omit, not '%s'", s)
+	}
+}
+
 type Options struct {
 	// Format is either 'yaml' or 'json' and is the format of the output OpenAPI file(s).
 	Format string
@@ -50,6 +71,10 @@ type Options struct {
 	TrimUnusedTypes bool
 	// WithProtoAnnotations will add some protobuf annotations for descriptions
 	WithProtoAnnotations bool
+	// WellKnownTypeDescriptions controls how comments for well-known types are rendered.
+	// The comments on these types document the protobuf representation, which often does not
+	// match the JSON representation that the generated schema describes.
+	WellKnownTypeDescriptions WellKnownTypeDescriptionMode
 	// FullyQualifiedMessageNames uses the full path for message types: {pkg}.{name} instead of just the name. This
 	// is helpful if you are mixing types from multiple services.
 	FullyQualifiedMessageNames bool
@@ -137,8 +162,9 @@ func NewOptions() Options {
 			FeatureGnostic:       true,
 			FeatureProtovalidate: true,
 		},
-		AsyncAPIChannelTemplate: "/ws/{package}.{service}/{method}",
-		Logger:                  slog.New(slog.DiscardHandler), // discard logs by default,
+		AsyncAPIChannelTemplate:   "/ws/{package}.{service}/{method}",
+		WellKnownTypeDescriptions: WellKnownTypeDescriptionsFull,
+		Logger:                    slog.New(slog.DiscardHandler), // discard logs by default,
 	}
 }
 
@@ -173,6 +199,12 @@ func FromString(s string) (Options, error) {
 			opts.WithProtoNames = true
 		case param == "with-proto-annotations":
 			opts.WithProtoAnnotations = true
+		case strings.HasPrefix(param, "well-known-type-descriptions="):
+			mode, err := ParseWellKnownTypeDescriptionMode(param[len("well-known-type-descriptions="):])
+			if err != nil {
+				return opts, err
+			}
+			opts.WellKnownTypeDescriptions = mode
 		case param == "trim-unused-types":
 			opts.TrimUnusedTypes = true
 		case param == "fully-qualified-message-names":

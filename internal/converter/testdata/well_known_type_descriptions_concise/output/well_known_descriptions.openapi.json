@@ -1,0 +1,154 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "well_known_type_descriptions_concise"
+  },
+  "paths": {
+    "/v1/events": {
+      "get": {
+        "tags": [
+          "well_known_type_descriptions_concise.WellKnownDescriptionService"
+        ],
+        "summary": "ListEvents",
+        "operationId": "well_known_type_descriptions_concise.WellKnownDescriptionService.ListEvents",
+        "parameters": [
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "Only return events that happened at or after this time.",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "2023-01-15T01:30:15.01Z",
+                "2024-12-25T12:00:00Z"
+              ],
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "2023-01-15T01:30:15.01Z",
+                "2024-12-25T12:00:00Z"
+              ],
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "description": "How long to wait for events before giving up.",
+            "schema": {
+              "type": "string",
+              "format": "duration"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "description": "Only return events with this label.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/well_known_type_descriptions_concise.ListEventsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.protobuf.Duration": {
+        "type": "string",
+        "format": "duration",
+        "description": "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`)."
+      },
+      "google.protobuf.StringValue": {
+        "type": "string",
+        "description": "A string value; `null` is also accepted."
+      },
+      "google.protobuf.Timestamp": {
+        "type": "string",
+        "examples": [
+          "2023-01-15T01:30:15.01Z",
+          "2024-12-25T12:00:00Z"
+        ],
+        "format": "date-time",
+        "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC."
+      },
+      "well_known_type_descriptions_concise.Event": {
+        "type": "object",
+        "properties": {
+          "createTime": {
+            "title": "create_time",
+            "description": "When the event happened.",
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          }
+        },
+        "title": "Event",
+        "additionalProperties": false
+      },
+      "well_known_type_descriptions_concise.ListEventsRequest": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "title": "start_time",
+            "description": "Only return events that happened at or after this time.",
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "endTime": {
+            "title": "end_time",
+            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+          },
+          "timeout": {
+            "title": "timeout",
+            "description": "How long to wait for events before giving up.",
+            "$ref": "#/components/schemas/google.protobuf.Duration"
+          },
+          "label": {
+            "title": "label",
+            "description": "Only return events with this label.",
+            "$ref": "#/components/schemas/google.protobuf.StringValue"
+          }
+        },
+        "title": "ListEventsRequest",
+        "additionalProperties": false
+      },
+      "well_known_type_descriptions_concise.ListEventsResponse": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/well_known_type_descriptions_concise.Event"
+            },
+            "title": "events"
+          }
+        },
+        "title": "ListEventsResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "well_known_type_descriptions_concise.WellKnownDescriptionService"
+    }
+  ]
+}

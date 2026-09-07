@@ -607,7 +607,7 @@ func flattenToParamsRec(opts options.Options, md protoreflect.MessageDescriptor,
 		switch field.Kind() {
 		case protoreflect.MessageKind:
 			if util.IsWellKnown(field.Message()) {
-				if wk := util.WellKnownToSchema(field.Message()); wk != nil && wk.Schema != nil {
+				if wk := util.WellKnownToSchema(opts, field.Message()); wk != nil && wk.Schema != nil {
 					// These types are represented as complex objects in OpenAPI so they should be flattened
 					// and not treated as a single query parameter.
 					isComplex := slices.Contains([]string{
