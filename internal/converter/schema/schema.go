@@ -215,12 +215,10 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 	case protoreflect.Fixed32Kind, protoreflect.Uint32Kind: // uint32 types
 		s.Type = []string{"integer"}
 	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Sfixed64Kind: // int64 types
-		// NOTE: 64-bit integer types can be strings or numbers because they sometimes
-		//       cannot fit into a JSON number type
-		s.Type = []string{"integer", "string"}
+		s.Type = int64Types(opts)
 		s.Format = "int64"
 	case protoreflect.Uint64Kind, protoreflect.Fixed64Kind: // uint64 types
-		s.Type = []string{"integer", "string"}
+		s.Type = int64Types(opts)
 		s.Format = "int64"
 	case protoreflect.DoubleKind:
 		s.Type = []string{"number"}
@@ -237,6 +235,18 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 	// Apply Updates from Options
 	s = opts.FieldAnnotator.AnnotateField(opts, s, tt, inContainer)
 	return s
+}
+
+// int64Types returns the JSON types a 64-bit integer field is documented with.
+// Protobuf JSON serialises 64-bit integers as strings, but parsers accept numbers
+// too, so both are documented by default. The `[integer, string]` union is an
+// OpenAPI 3.1 construct that generators written against 3.0 reject or widen to
+// `any`; int64-as-string documents only what the wire format actually produces.
+func int64Types(opts options.Options) []string {
+	if opts.Int64AsString {
+		return []string{"string"}
+	}
+	return []string{"integer", "string"}
 }
 
 func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor) *base.SchemaProxy {

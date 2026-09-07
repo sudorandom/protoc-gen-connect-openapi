@@ -42,6 +42,9 @@ type Options struct {
 	IncludeNumberEnumValues bool
 	// WithProtoNames indicates if protobuf field names should be used instead of JSON names.
 	WithProtoNames bool
+	// Int64AsString renders 64-bit integer fields as `string` instead of the
+	// `[integer, string]` union, matching how protobuf JSON serialises them.
+	Int64AsString bool
 	// Path is the output OpenAPI path.
 	Path string
 	// PathPrefix is a prefix that is prepended to every HTTP path.
@@ -165,6 +168,8 @@ func FromString(s string) (Options, error) {
 			opts.Debug = true
 		case param == "include-number-enum-values":
 			opts.IncludeNumberEnumValues = true
+		case param == "int64-as-string":
+			opts.Int64AsString = true
 		case param == "allow-get":
 			opts.AllowGET = true
 		case param == "with-streaming":

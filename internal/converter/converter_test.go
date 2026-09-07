@@ -474,3 +474,84 @@ func makeAsyncAPIOutputPath(protofile, format string) string {
 	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".asyncapi." + format)
 	return filepath.Join(dir, "output", file)
 }
+
+func TestInt64AsString(t *testing.T) {
+	req := &pluginpb.CodeGeneratorRequest{
+		ProtoFile: []*descriptorpb.FileDescriptorProto{
+			{
+				Name:    proto.String("test.proto"),
+				Package: proto.String("test"),
+				Syntax:  proto.String("proto3"),
+				MessageType: []*descriptorpb.DescriptorProto{
+					{
+						Name: proto.String("TestMessage"),
+						Field: []*descriptorpb.FieldDescriptorProto{
+							{
+								Name:     proto.String("row_count"),
+								JsonName: proto.String("rowCount"),
+								Number:   proto.Int32(1),
+								Label:    descriptorpb.FieldDescriptorProto_LABEL_OPTIONAL.Enum(),
+								Type:     descriptorpb.FieldDescriptorProto_TYPE_INT64.Enum(),
+							},
+							{
+								Name:     proto.String("byte_count"),
+								JsonName: proto.String("byteCount"),
+								Number:   proto.Int32(2),
+								Label:    descriptorpb.FieldDescriptorProto_LABEL_OPTIONAL.Enum(),
+								Type:     descriptorpb.FieldDescriptorProto_TYPE_UINT64.Enum(),
+							},
+						},
+					},
+				},
+				Service: []*descriptorpb.ServiceDescriptorProto{
+					{
+						Name: proto.String("ExampleService"),
+						Method: []*descriptorpb.MethodDescriptorProto{
+							{
+								Name:       proto.String("Example"),
+								InputType:  proto.String(".test.TestMessage"),
+								OutputType: proto.String(".test.TestMessage"),
+							},
+						},
+					},
+				},
+			},
+		},
+		FileToGenerate: []string{"test.proto"},
+	}
+
+	fieldTypes := func(t *testing.T, params string) map[string]any {
+		t.Helper()
+		opts, err := options.FromString(params)
+		require.NoError(t, err)
+		opts.Path = "test.openapi.yaml"
+
+		resp, err := converter.ConvertWithOptions(req, opts)
+		require.NoError(t, err)
+		require.Len(t, resp.File, 1)
+
+		spec := map[string]any{}
+		require.NoError(t, yaml.Unmarshal([]byte(resp.File[0].GetContent()), &spec))
+
+		schemas := spec["components"].(map[string]any)["schemas"].(map[string]any)
+		properties := schemas["test.TestMessage"].(map[string]any)["properties"].(map[string]any)
+
+		types := map[string]any{}
+		for name, property := range properties {
+			types[name] = property.(map[string]any)["type"]
+		}
+		return types
+	}
+
+	t.Run("documents both JSON types by default", func(t *testing.T) {
+		types := fieldTypes(t, "format=yaml")
+		assert.Equal(t, []any{"integer", "string"}, types["rowCount"])
+		assert.Equal(t, []any{"integer", "string"}, types["byteCount"])
+	})
+
+	t.Run("documents only string with int64-as-string", func(t *testing.T) {
+		types := fieldTypes(t, "format=yaml,int64-as-string")
+		assert.Equal(t, "string", types["rowCount"])
+		assert.Equal(t, "string", types["byteCount"])
+	})
+}
