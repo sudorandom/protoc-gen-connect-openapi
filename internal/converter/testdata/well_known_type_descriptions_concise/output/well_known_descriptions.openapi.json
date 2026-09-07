@@ -1,18 +1,18 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "standard",
-    "description": "## standard.WellKnownDescriptionService",
+    "title": "well_known_type_descriptions_concise",
+    "description": "API documentation for well_known_type_descriptions_concise",
     "version": "1.0.0"
   },
   "paths": {
     "/v1/events": {
       "get": {
         "tags": [
-          "standard.WellKnownDescriptionService"
+          "well_known_type_descriptions_concise.WellKnownDescriptionService"
         ],
         "summary": "ListEvents",
-        "operationId": "standard.WellKnownDescriptionService.ListEvents",
+        "operationId": "well_known_type_descriptions_concise.WellKnownDescriptionService.ListEvents",
         "parameters": [
           {
             "name": "startTime",
@@ -64,7 +64,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/standard.ListEventsResponse"
+                  "$ref": "#/components/schemas/well_known_type_descriptions_concise.ListEventsResponse"
                 }
               }
             }
@@ -93,7 +93,7 @@
         "format": "date-time",
         "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC."
       },
-      "standard.Event": {
+      "well_known_type_descriptions_concise.Event": {
         "type": "object",
         "properties": {
           "createTime": {
@@ -109,7 +109,7 @@
         "title": "Event",
         "additionalProperties": false
       },
-      "standard.ListEventsRequest": {
+      "well_known_type_descriptions_concise.ListEventsRequest": {
         "type": "object",
         "properties": {
           "startTime": {
@@ -151,13 +151,13 @@
         "title": "ListEventsRequest",
         "additionalProperties": false
       },
-      "standard.ListEventsResponse": {
+      "well_known_type_descriptions_concise.ListEventsResponse": {
         "type": "object",
         "properties": {
           "events": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/standard.Event"
+              "$ref": "#/components/schemas/well_known_type_descriptions_concise.Event"
             },
             "title": "events"
           }
@@ -170,7 +170,7 @@
   "security": [],
   "tags": [
     {
-      "name": "standard.WellKnownDescriptionService"
+      "name": "well_known_type_descriptions_concise.WellKnownDescriptionService"
     }
   ]
 }

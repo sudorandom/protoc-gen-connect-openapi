@@ -1,18 +1,18 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "standard",
-    "description": "## standard.WellKnownDescriptionService",
+    "title": "well_known_type_descriptions_omit",
+    "description": "API documentation for well_known_type_descriptions_omit",
     "version": "1.0.0"
   },
   "paths": {
     "/v1/events": {
       "get": {
         "tags": [
-          "standard.WellKnownDescriptionService"
+          "well_known_type_descriptions_omit.WellKnownDescriptionService"
         ],
         "summary": "ListEvents",
-        "operationId": "standard.WellKnownDescriptionService.ListEvents",
+        "operationId": "well_known_type_descriptions_omit.WellKnownDescriptionService.ListEvents",
         "parameters": [
           {
             "name": "startTime",
@@ -30,7 +30,7 @@
           {
             "name": "endTime",
             "in": "query",
-            "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.",
+            "description": "The endTime query parameter.",
             "schema": {
               "type": "string",
               "examples": [
@@ -64,7 +64,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/standard.ListEventsResponse"
+                  "$ref": "#/components/schemas/well_known_type_descriptions_omit.ListEventsResponse"
                 }
               }
             }
@@ -77,12 +77,10 @@
     "schemas": {
       "google.protobuf.Duration": {
         "type": "string",
-        "format": "duration",
-        "description": "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`)."
+        "format": "duration"
       },
       "google.protobuf.StringValue": {
-        "type": "string",
-        "description": "A string value; `null` is also accepted."
+        "type": "string"
       },
       "google.protobuf.Timestamp": {
         "type": "string",
@@ -90,10 +88,9 @@
           "2023-01-15T01:30:15.01Z",
           "2024-12-25T12:00:00Z"
         ],
-        "format": "date-time",
-        "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC."
+        "format": "date-time"
       },
-      "standard.Event": {
+      "well_known_type_descriptions_omit.Event": {
         "type": "object",
         "properties": {
           "createTime": {
@@ -109,7 +106,7 @@
         "title": "Event",
         "additionalProperties": false
       },
-      "standard.ListEventsRequest": {
+      "well_known_type_descriptions_omit.ListEventsRequest": {
         "type": "object",
         "properties": {
           "startTime": {
@@ -151,13 +148,13 @@
         "title": "ListEventsRequest",
         "additionalProperties": false
       },
-      "standard.ListEventsResponse": {
+      "well_known_type_descriptions_omit.ListEventsResponse": {
         "type": "object",
         "properties": {
           "events": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/standard.Event"
+              "$ref": "#/components/schemas/well_known_type_descriptions_omit.Event"
             },
             "title": "events"
           }
@@ -170,7 +167,7 @@
   "security": [],
   "tags": [
     {
-      "name": "standard.WellKnownDescriptionService"
+      "name": "well_known_type_descriptions_omit.WellKnownDescriptionService"
     }
   ]
 }
