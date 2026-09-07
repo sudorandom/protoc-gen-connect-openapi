@@ -569,3 +569,80 @@ func TestInt64AsString(t *testing.T) {
 	assert.Equal(t, "string", properties["byteCount"].(map[string]any)["type"])
 	assert.Equal(t, "int64", properties["byteCount"].(map[string]any)["format"])
 }
+
+func TestWrapRefsInAllOf(t *testing.T) {
+	req := &pluginpb.CodeGeneratorRequest{
+		ProtoFile: []*descriptorpb.FileDescriptorProto{
+			{
+				Name:    proto.String("test.proto"),
+				Package: proto.String("test"),
+				Syntax:  proto.String("proto3"),
+				MessageType: []*descriptorpb.DescriptorProto{
+					{
+						Name: proto.String("TestMessage"),
+						Field: []*descriptorpb.FieldDescriptorProto{
+							{
+								Name:     proto.String("child"),
+								JsonName: proto.String("child"),
+								Number:   proto.Int32(1),
+								Label:    descriptorpb.FieldDescriptorProto_LABEL_OPTIONAL.Enum(),
+								Type:     descriptorpb.FieldDescriptorProto_TYPE_MESSAGE.Enum(),
+								TypeName: proto.String(".test.Child"),
+							},
+						},
+					},
+					{Name: proto.String("Child")},
+				},
+				Service: []*descriptorpb.ServiceDescriptorProto{
+					{
+						Name: proto.String("ExampleService"),
+						Method: []*descriptorpb.MethodDescriptorProto{
+							{
+								Name:       proto.String("Example"),
+								InputType:  proto.String(".test.TestMessage"),
+								OutputType: proto.String(".test.TestMessage"),
+							},
+						},
+					},
+				},
+			},
+		},
+		FileToGenerate: []string{"test.proto"},
+	}
+
+	childProperty := func(t *testing.T, params string) map[string]any {
+		t.Helper()
+		opts, err := options.FromString(params)
+		require.NoError(t, err)
+		opts.Path = "test.openapi.yaml"
+
+		resp, err := converter.ConvertWithOptions(req, opts)
+		require.NoError(t, err)
+		require.Len(t, resp.File, 1)
+
+		spec := map[string]any{}
+		require.NoError(t, yaml.Unmarshal([]byte(resp.File[0].GetContent()), &spec))
+
+		schemas := spec["components"].(map[string]any)["schemas"].(map[string]any)
+		properties := schemas["test.TestMessage"].(map[string]any)["properties"].(map[string]any)
+		return properties["child"].(map[string]any)
+	}
+
+	t.Run("places the $ref beside its siblings by default", func(t *testing.T) {
+		child := childProperty(t, "format=yaml")
+		assert.Equal(t, "#/components/schemas/test.Child", child["$ref"])
+		assert.NotContains(t, child, "allOf")
+		assert.Contains(t, child, "title")
+	})
+
+	t.Run("wraps the $ref in allOf when asked", func(t *testing.T) {
+		child := childProperty(t, "format=yaml,wrap-refs-in-allof")
+		assert.NotContains(t, child, "$ref")
+		assert.Contains(t, child, "title")
+
+		allOf, ok := child["allOf"].([]any)
+		require.True(t, ok, "expected an allOf list, got %#v", child["allOf"])
+		require.Len(t, allOf, 1)
+		assert.Equal(t, "#/components/schemas/test.Child", allOf[0].(map[string]any)["$ref"])
+	})
+}
