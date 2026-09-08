@@ -426,7 +426,7 @@ components:
           title: float_const
           format: float
           description: Floats
-          const: "42"
+          const: 42
         floatIn:
           type: array
           items:
@@ -478,7 +478,7 @@ components:
           title: double_const
           format: double
           description: Double
-          const: "42"
+          const: 42
         doubleIn:
           type: array
           items:
@@ -665,7 +665,7 @@ components:
           type: integer
           title: uint32_const
           description: uint32
-          const: "42"
+          const: 42
         uint32In:
           type: array
           items:
@@ -714,7 +714,7 @@ components:
           title: uint64_const
           format: int64
           description: uint64
-          const: "42"
+          const: 42
         uint64In:
           type: array
           items:
@@ -909,7 +909,7 @@ components:
           type: integer
           title: fixed32_const
           description: fixed32
-          const: "42"
+          const: 42
         fixed32In:
           type: array
           items:
@@ -958,7 +958,7 @@ components:
           title: fixed64_const
           format: int64
           description: fixed64
-          const: "42"
+          const: 42
         fixed64In:
           type: array
           items:
@@ -1619,11 +1619,11 @@ components:
         boolConstTrue:
           type: boolean
           title: bool_const_true
-          const: "true"
+          const: true
         boolConstFalse:
           type: boolean
           title: bool_const_false
-          const: "false"
+          const: false
       title: LotsOfValidationRules
       required:
         - requiredField

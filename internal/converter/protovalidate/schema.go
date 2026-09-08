@@ -289,7 +289,7 @@ func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *va
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32))
+		schema.Const = utils.CreateFloatNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32))
 		switch tt := constraint.LessThan.(type) {
 		case *validate.FloatRules_Lt:
 			v := float64(tt.Lt)
@@ -337,7 +337,7 @@ func updateSchemaDouble(opts options.Options, schema *base.Schema, constraint *v
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64))
+		schema.Const = utils.CreateFloatNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DoubleRules_Lt:
@@ -481,7 +481,7 @@ func updateSchemaUint32(opts options.Options, schema *base.Schema, constraint *v
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
+		schema.Const = utils.CreateIntNode(strconv.FormatUint(uint64(*constraint.Const), 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt32Rules_Lt:
@@ -529,7 +529,7 @@ func updateSchemaUint64(opts options.Options, schema *base.Schema, constraint *v
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
+		schema.Const = utils.CreateIntNode(strconv.FormatUint(uint64(*constraint.Const), 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
@@ -673,7 +673,7 @@ func updateSchemaFixed32(opts options.Options, schema *base.Schema, constraint *
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
+		schema.Const = utils.CreateIntNode(strconv.FormatUint(uint64(*constraint.Const), 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed32Rules_Lt:
@@ -721,7 +721,7 @@ func updateSchemaFixed64(opts options.Options, schema *base.Schema, constraint *
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(strconv.FormatUint(*constraint.Const, 10))
+		schema.Const = utils.CreateIntNode(strconv.FormatUint(*constraint.Const, 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
@@ -862,9 +862,9 @@ func updateSchemaBool(opts options.Options, schema *base.Schema, constraint *val
 
 	if constraint.Const != nil {
 		if *constraint.Const {
-			schema.Const = utils.CreateStringNode("true")
+			schema.Const = utils.CreateBoolNode("true")
 		} else {
-			schema.Const = utils.CreateStringNode("false")
+			schema.Const = utils.CreateBoolNode("false")
 		}
 	}
 	for _, item := range constraint.Example {

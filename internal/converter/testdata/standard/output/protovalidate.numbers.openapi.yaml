@@ -11,7 +11,7 @@ components:
           type: number
           title: val
           format: double
-          const: "1.23"
+          const: 1.23
       title: DoubleConst
       additionalProperties: false
     buf.validate.conformance.cases.DoubleExGTELTE:
@@ -191,7 +191,7 @@ components:
         val:
           type: integer
           title: val
-          const: "1"
+          const: 1
       title: Fixed32Const
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32ExGTELTE:
@@ -338,7 +338,7 @@ components:
             - string
           title: val
           format: int64
-          const: "1"
+          const: 1
       title: Fixed64Const
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64ExGTELTE:
@@ -527,7 +527,7 @@ components:
           type: number
           title: val
           format: float
-          const: "1.23"
+          const: 1.23
       title: FloatConst
       additionalProperties: false
     buf.validate.conformance.cases.FloatExGTELTE:
@@ -1852,7 +1852,7 @@ components:
         val:
           type: integer
           title: val
-          const: "1"
+          const: 1
       title: UInt32Const
       additionalProperties: false
     buf.validate.conformance.cases.UInt32ExGTELTE:
@@ -1999,7 +1999,7 @@ components:
             - string
           title: val
           format: int64
-          const: "1"
+          const: 1
       title: UInt64Const
       additionalProperties: false
     buf.validate.conformance.cases.UInt64ExGTELTE:
