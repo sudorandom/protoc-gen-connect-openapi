@@ -619,6 +619,11 @@ func flattenToParamsRec(opts options.Options, md protoreflect.MessageDescriptor,
 
 					if !isComplex {
 						required := IsFieldRequired(field)
+						// The well-known type's description documents the type, not this field, so the
+						// field's own comment wins when it has one.
+						if util.FormatComments(field.ParentFile().SourceLocations().ByDescriptor(field)) != "" {
+							wk.Schema.Description = util.TypeFieldDescription(opts, field)
+						}
 						params = append(params, buildParameter(opts, paramName, "query", field, base.CreateSchemaProxy(wk.Schema), required, false))
 						continue
 					}

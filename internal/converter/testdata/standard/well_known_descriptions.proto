@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package standard;
+
+import "google/api/annotations.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+service WellKnownDescriptionService {
+  rpc ListEvents(ListEventsRequest) returns (ListEventsResponse) {
+    option (google.api.http).get = "/v1/events";
+  }
+}
+
+message ListEventsRequest {
+  // Only return events that happened at or after this time.
+  google.protobuf.Timestamp start_time = 1;
+
+  google.protobuf.Timestamp end_time = 2;
+
+  // How long to wait for events before giving up.
+  google.protobuf.Duration timeout = 3;
+
+  // Only return events with this label.
+  google.protobuf.StringValue label = 4;
+}
+
+message ListEventsResponse {
+  repeated Event events = 1;
+}
+
+message Event {
+  // When the event happened.
+  google.protobuf.Timestamp create_time = 1;
+}
