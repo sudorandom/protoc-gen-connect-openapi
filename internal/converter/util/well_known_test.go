@@ -5,6 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -194,10 +195,34 @@ func TestWellKnownToSchema(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.True(t, IsWellKnown(tt.md))
-			res := WellKnownToSchema(tt.md)
+			want, ok := expectedConciseWellKnownDescriptions[string(tt.md.FullName())]
+			require.True(t, ok, "missing expected concise description for %s", tt.md.FullName())
+
+			res := WellKnownToSchema(options.NewOptions(), tt.md)
 			require.NotNil(t, res)
+			assert.Equal(t, want, res.Schema.Description)
 			tt.check(t, res)
+
+			omitOpts := options.NewOptions()
+			omitOpts.WellKnownTypeDescriptions = options.WellKnownTypeDescriptionsOmit
+			withoutDescription := WellKnownToSchema(omitOpts, tt.md)
+			require.NotNil(t, withoutDescription)
+			assert.Empty(t, withoutDescription.Schema.Description)
+			tt.check(t, withoutDescription)
+
+			conciseOpts := options.NewOptions()
+			conciseOpts.WellKnownTypeDescriptions = options.WellKnownTypeDescriptionsConcise
+			concise := WellKnownToSchema(conciseOpts, tt.md)
+			require.NotNil(t, concise)
+			assert.Equal(t, want, concise.Schema.Description)
+			assert.NotContains(t, concise.Schema.Description, "\n")
+			tt.check(t, concise)
+
+			fullOpts := options.NewOptions()
+			fullOpts.WellKnownTypeDescriptions = options.WellKnownTypeDescriptionsFull
+			full := WellKnownToSchema(fullOpts, tt.md)
+			require.NotNil(t, full)
+			tt.check(t, full)
 		})
 	}
 
@@ -214,11 +239,33 @@ func TestWellKnownToSchema(t *testing.T) {
 		md := fd.Messages().Get(0)
 
 		assert.False(t, IsWellKnown(md))
-		assert.Nil(t, WellKnownToSchema(md))
+		assert.Nil(t, WellKnownToSchema(options.NewOptions(), md))
 	})
 }
 
 func TestIsEmpty(t *testing.T) {
 	assert.True(t, IsEmpty((&emptypb.Empty{}).ProtoReflect().Descriptor()))
 	assert.False(t, IsEmpty((&durationpb.Duration{}).ProtoReflect().Descriptor()))
+}
+
+// expectedConciseWellKnownDescriptions are JSON-oriented one-liners for well-known types.
+var expectedConciseWellKnownDescriptions = map[string]string{
+	"google.protobuf.Timestamp":   "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.",
+	"google.protobuf.Duration":    "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).",
+	"google.protobuf.Empty":       "An empty JSON object.",
+	"google.protobuf.Any":         "An arbitrary message with a type URL identifying the encoded message type.",
+	"google.protobuf.FieldMask":   "Comma-separated field paths in lowerCamelCase (for example, `user.displayName,photo`).",
+	"google.protobuf.Struct":      "A JSON object whose property values may be any JSON value.",
+	"google.protobuf.Value":       "Any JSON value: `null`, number, string, boolean, array, or object.",
+	"google.protobuf.ListValue":   "A JSON array whose elements may be any JSON value.",
+	"google.protobuf.NullValue":   "The JSON `null` value.",
+	"google.protobuf.StringValue": "A string value; `null` is also accepted.",
+	"google.protobuf.BytesValue":  "A base64-encoded byte string; `null` is also accepted.",
+	"google.protobuf.BoolValue":   "A boolean value; `null` is also accepted.",
+	"google.protobuf.DoubleValue": "A double-precision number. The non-finite values `NaN`, `Infinity`, and `-Infinity` are encoded as strings; `null` is also accepted.",
+	"google.protobuf.FloatValue":  "A single-precision number. The non-finite values `NaN`, `Infinity`, and `-Infinity` are encoded as strings; `null` is also accepted.",
+	"google.protobuf.Int64Value":  "A signed 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`.",
+	"google.protobuf.UInt64Value": "An unsigned 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`.",
+	"google.protobuf.Int32Value":  "A signed 32-bit integer; `null` is also accepted.",
+	"google.protobuf.UInt32Value": "An unsigned 32-bit integer; `null` is also accepted.",
 }

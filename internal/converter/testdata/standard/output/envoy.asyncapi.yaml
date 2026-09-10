@@ -1245,7 +1245,7 @@ components:
             type: object
         google.protobuf.Any:
             additionalProperties: true
-            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+            description: An arbitrary message with a type URL identifying the encoded message type.
             properties:
                 type:
                     type: string
@@ -1254,72 +1254,11 @@ components:
                     type: string
             type: object
         google.protobuf.Duration:
-            description: |-
-                A Duration represents a signed, fixed-length span of time represented
-                 as a count of seconds and fractions of seconds at nanosecond
-                 resolution. It is independent of any calendar and concepts like "day"
-                 or "month". It is related to Timestamp in that the difference between
-                 two Timestamp values is a Duration and it can be added or subtracted
-                 from a Timestamp. Range is approximately +-10,000 years.
-
-                 # Examples
-
-                 Example 1: Compute Duration from two Timestamps in pseudo code.
-
-                     Timestamp start = ...;
-                     Timestamp end = ...;
-                     Duration duration = ...;
-
-                     duration.seconds = end.seconds - start.seconds;
-                     duration.nanos = end.nanos - start.nanos;
-
-                     if (duration.seconds < 0 && duration.nanos > 0) {
-                       duration.seconds += 1;
-                       duration.nanos -= 1000000000;
-                     } else if (duration.seconds > 0 && duration.nanos < 0) {
-                       duration.seconds -= 1;
-                       duration.nanos += 1000000000;
-                     }
-
-                 Example 2: Compute Timestamp from Timestamp + Duration in pseudo code.
-
-                     Timestamp start = ...;
-                     Duration duration = ...;
-                     Timestamp end = ...;
-
-                     end.seconds = start.seconds + duration.seconds;
-                     end.nanos = start.nanos + duration.nanos;
-
-                     if (end.nanos < 0) {
-                       end.seconds -= 1;
-                       end.nanos += 1000000000;
-                     } else if (end.nanos >= 1000000000) {
-                       end.seconds += 1;
-                       end.nanos -= 1000000000;
-                     }
-
-                 Example 3: Compute Duration from datetime.timedelta in Python.
-
-                     td = datetime.timedelta(days=3, minutes=10)
-                     duration = Duration()
-                     duration.FromTimedelta(td)
-
-                 # JSON Mapping
-
-                 In JSON format, the Duration type is encoded as a string rather than an
-                 object, where the string ends in the suffix "s" (indicating seconds) and
-                 is preceded by the number of seconds, with nanoseconds expressed as
-                 fractional seconds. For example, 3 seconds with 0 nanoseconds should be
-                 encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
-                 be expressed in JSON format as "3.000000001s", and 3 seconds and 1
-                 microsecond should be expressed in JSON format as "3.000001s".
+            description: A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
             format: duration
             type: string
         google.protobuf.ListValue:
-            description: |-
-                `ListValue` is a wrapper around a repeated field of values.
-
-                 The JSON representation for `ListValue` is JSON array.
+            description: A JSON array whose elements may be any JSON value.
             items:
                 $ref: '#/components/schemas/google.protobuf.Value'
             type: array
@@ -1336,15 +1275,7 @@ components:
         google.protobuf.Struct:
             additionalProperties:
                 $ref: '#/components/schemas/google.protobuf.Value'
-            description: |-
-                `Struct` represents a structured data value, consisting of fields
-                 which map to dynamically typed values. In some languages, `Struct`
-                 might be supported by a native representation. For example, in
-                 scripting languages like JS a struct is represented as an
-                 object. The details of that representation are described together
-                 with the proto support for the language.
-
-                 The JSON representation for `Struct` is JSON object.
+            description: A JSON object whose property values may be any JSON value.
             type: object
         google.protobuf.Struct.FieldsEntry:
             additionalProperties: false
@@ -1359,13 +1290,7 @@ components:
             title: FieldsEntry
             type: object
         google.protobuf.Value:
-            description: |-
-                `Value` represents a dynamically typed value which can be either
-                 null, a number, a string, a boolean, a recursive struct value, or a
-                 list of values. A producer of value is expected to set one of these
-                 variants. Absence of any variant indicates an error.
-
-                 The JSON representation for `Value` is JSON value.
+            description: 'Any JSON value: `null`, number, string, boolean, array, or object.'
             oneOf:
                 - type: "null"
                 - type: number

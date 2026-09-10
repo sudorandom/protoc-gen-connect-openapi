@@ -220,6 +220,31 @@ func WithProtoAnnotations(enabled bool) Option {
 	}
 }
 
+// WellKnownTypeDescriptionMode controls how comments for well-known types are rendered.
+type WellKnownTypeDescriptionMode = options.WellKnownTypeDescriptionMode
+
+const (
+	// WellKnownTypeDescriptionsFull copies comments from the well-known type's .proto file.
+	WellKnownTypeDescriptionsFull = options.WellKnownTypeDescriptionsFull
+	// WellKnownTypeDescriptionsConcise uses a short JSON-oriented description.
+	WellKnownTypeDescriptionsConcise = options.WellKnownTypeDescriptionsConcise
+	// WellKnownTypeDescriptionsOmit omits the description entirely.
+	WellKnownTypeDescriptionsOmit = options.WellKnownTypeDescriptionsOmit
+)
+
+// WithWellKnownTypeDescriptions controls how comments for well-known types are rendered.
+// Valid values are WellKnownTypeDescriptionsFull, Concise, and Omit.
+func WithWellKnownTypeDescriptions(mode WellKnownTypeDescriptionMode) Option {
+	return func(g *generator) error {
+		parsed, err := options.ParseWellKnownTypeDescriptionMode(string(mode))
+		if err != nil {
+			return err
+		}
+		g.options.WellKnownTypeDescriptions = parsed
+		return nil
+	}
+}
+
 // WithServices will limit the services generated.
 func WithServices(serviceNames []protoreflect.FullName) Option {
 	return func(g *generator) error {
