@@ -462,18 +462,14 @@ components:
           title: int32Field
           format: int32
         int64Field:
-          type:
-            - integer
-            - string
+          type: string
           title: int64Field
           format: int64
         uint32Field:
           type: integer
           title: uint32Field
         uint64Field:
-          type:
-            - integer
-            - string
+          type: string
           title: uint64Field
           format: int64
         sint32Field:
@@ -481,18 +477,14 @@ components:
           title: sint32Field
           format: int32
         sint64Field:
-          type:
-            - integer
-            - string
+          type: string
           title: sint64Field
           format: int64
         fixed32Field:
           type: integer
           title: fixed32Field
         fixed64Field:
-          type:
-            - integer
-            - string
+          type: string
           title: fixed64Field
           format: int64
         sfixed32Field:
@@ -500,9 +492,7 @@ components:
           title: sfixed32Field
           format: int32
         sfixed64Field:
-          type:
-            - integer
-            - string
+          type: string
           title: sfixed64Field
           format: int64
         boolField:

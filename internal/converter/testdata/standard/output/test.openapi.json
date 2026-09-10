@@ -172,10 +172,7 @@
                 "format": "int32"
               },
               "int64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "int64_value",
                 "format": "int64"
               },
@@ -184,10 +181,7 @@
                 "title": "uint32_value"
               },
               "uint64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "uint64_value",
                 "format": "int64"
               },
@@ -197,10 +191,7 @@
                 "format": "int32"
               },
               "sint64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "sint64_value",
                 "format": "int64"
               },
@@ -209,10 +200,7 @@
                 "title": "fixed32_value"
               },
               "fixed64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "fixed64_value",
                 "format": "int64"
               },
@@ -222,10 +210,7 @@
                 "format": "int32"
               },
               "sfixed64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "sfixed64_value",
                 "format": "int64"
               },
@@ -270,10 +255,7 @@
               "int64List": {
                 "type": "array",
                 "items": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "format": "int64"
                 },
                 "title": "int64_list"
@@ -288,10 +270,7 @@
               "uint64List": {
                 "type": "array",
                 "items": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "format": "int64"
                 },
                 "title": "uint64_list"
@@ -307,10 +286,7 @@
               "sint64List": {
                 "type": "array",
                 "items": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "format": "int64"
                 },
                 "title": "sint64_list"
@@ -325,10 +301,7 @@
               "fixed64List": {
                 "type": "array",
                 "items": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "format": "int64"
                 },
                 "title": "fixed64_list"
@@ -344,10 +317,7 @@
               "sfixed64List": {
                 "type": "array",
                 "items": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "format": "int64"
                 },
                 "title": "sfixed64_list"
@@ -504,10 +474,7 @@
                 "type": "object",
                 "title": "int64_map",
                 "additionalProperties": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "title": "value",
                   "format": "int64"
                 }
@@ -524,10 +491,7 @@
                 "type": "object",
                 "title": "uint64_map",
                 "additionalProperties": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "title": "value",
                   "format": "int64"
                 }
@@ -545,10 +509,7 @@
                 "type": "object",
                 "title": "sint64_map",
                 "additionalProperties": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "title": "value",
                   "format": "int64"
                 }
@@ -565,10 +526,7 @@
                 "type": "object",
                 "title": "fixed64_map",
                 "additionalProperties": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "title": "value",
                   "format": "int64"
                 }
@@ -586,10 +544,7 @@
                 "type": "object",
                 "title": "sfixed64_map",
                 "additionalProperties": {
-                  "type": [
-                    "integer",
-                    "string"
-                  ],
+                  "type": "string",
                   "title": "value",
                   "format": "int64"
                 }
@@ -647,7 +602,6 @@
               },
               "optInt64Value": {
                 "type": [
-                  "integer",
                   "string",
                   "null"
                 ],
@@ -663,7 +617,6 @@
               },
               "optUint64Value": {
                 "type": [
-                  "integer",
                   "string",
                   "null"
                 ],
@@ -680,7 +633,6 @@
               },
               "optSint64Value": {
                 "type": [
-                  "integer",
                   "string",
                   "null"
                 ],
@@ -696,7 +648,6 @@
               },
               "optFixed64Value": {
                 "type": [
-                  "integer",
                   "string",
                   "null"
                 ],
@@ -713,7 +664,6 @@
               },
               "optSfixed64Value": {
                 "type": [
-                  "integer",
                   "string",
                   "null"
                 ],
@@ -879,10 +829,7 @@
                 "type": "object",
                 "properties": {
                   "fixed64Option": {
-                    "type": [
-                      "integer",
-                      "string"
-                    ],
+                    "type": "string",
                     "title": "fixed64_option",
                     "format": "int64"
                   }
@@ -924,10 +871,7 @@
                 "type": "object",
                 "properties": {
                   "int64Option": {
-                    "type": [
-                      "integer",
-                      "string"
-                    ],
+                    "type": "string",
                     "title": "int64_option",
                     "format": "int64"
                   }
@@ -968,10 +912,7 @@
                 "type": "object",
                 "properties": {
                   "sfixed64Option": {
-                    "type": [
-                      "integer",
-                      "string"
-                    ],
+                    "type": "string",
                     "title": "sfixed64_option",
                     "format": "int64"
                   }
@@ -999,10 +940,7 @@
                 "type": "object",
                 "properties": {
                   "sint64Option": {
-                    "type": [
-                      "integer",
-                      "string"
-                    ],
+                    "type": "string",
                     "title": "sint64_option",
                     "format": "int64"
                   }
@@ -1042,10 +980,7 @@
                 "type": "object",
                 "properties": {
                   "uint64Option": {
-                    "type": [
-                      "integer",
-                      "string"
-                    ],
+                    "type": "string",
                     "title": "uint64_option",
                     "format": "int64"
                   }
@@ -1277,10 +1212,7 @@
             "title": "key"
           },
           "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "value",
             "format": "int64"
           }
@@ -1292,10 +1224,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "key",
             "format": "int64"
           },
@@ -1363,10 +1292,7 @@
             "title": "key"
           },
           "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "value",
             "format": "int64"
           }
@@ -1378,10 +1304,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "key",
             "format": "int64"
           },
@@ -1448,10 +1371,7 @@
             "title": "key"
           },
           "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "value",
             "format": "int64"
           }
@@ -1463,10 +1383,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "key",
             "format": "int64"
           },
@@ -1518,10 +1435,7 @@
             "title": "key"
           },
           "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "value",
             "format": "int64"
           }
@@ -1533,10 +1447,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "key",
             "format": "int64"
           },
@@ -1616,10 +1527,7 @@
             "title": "key"
           },
           "value": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "value",
             "format": "int64"
           }
@@ -1631,10 +1539,7 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "key",
             "format": "int64"
           },
@@ -1668,10 +1573,7 @@
                 "format": "int32"
               },
               "int64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "int64_value",
                 "format": "int64"
               },
@@ -1680,10 +1582,7 @@
                 "title": "uint32_value"
               },
               "uint64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "uint64_value",
                 "format": "int64"
               },
@@ -1693,10 +1592,7 @@
                 "format": "int32"
               },
               "sint64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "sint64_value",
                 "format": "int64"
               },
@@ -1705,10 +1601,7 @@
                 "title": "fixed32_value"
               },
               "fixed64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "fixed64_value",
                 "format": "int64"
               },
@@ -1718,10 +1611,7 @@
                 "format": "int32"
               },
               "sfixed64Value": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "sfixed64_value",
                 "format": "int64"
               },
