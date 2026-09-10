@@ -5,6 +5,7 @@ info:
     ## googleapi_camelcase.CamelCaseService
 
     Tests that path parameters use camelCase (JSON names) by default.
+  version: 1.0.0
 paths:
   /v1/accounts/{parentAccountId}/items/{itemId}:
     get:
@@ -16,12 +17,14 @@ paths:
       parameters:
         - name: parentAccountId
           in: path
+          description: The parentAccountId path parameter.
           required: true
           schema:
             type: string
             title: parent_account_id
         - name: itemId
           in: path
+          description: The itemId path parameter.
           required: true
           schema:
             type: string
@@ -43,6 +46,7 @@ paths:
       parameters:
         - name: userId
           in: path
+          description: The userId path parameter.
           required: true
           schema:
             type: string

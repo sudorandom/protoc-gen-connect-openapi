@@ -166,12 +166,11 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	for _, token := range tokens {
 		if token.Type == TokenLiteral && token.Value == "**" {
 			newParameter := &v3.Parameter{
-				Name:          "http_path",
-				In:            "path",
-				Required:      proto.Bool(true),
-				Description:   "The trailing part of the path.",
-				AllowReserved: true,
-				Schema:        base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+				Name:        "http_path",
+				In:          "path",
+				Required:    proto.Bool(true),
+				Description: "The trailing part of the path.",
+				Schema:      base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 			}
 			pathParams = append(pathParams, newParameter)
 		}
@@ -207,12 +206,11 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 						newParameter = buildParameter(opts, displayName, "path", field, parameterSchema, proto.Bool(true), true)
 					} else {
 						newParameter = &v3.Parameter{
-							Name:          displayName,
-							Required:      proto.Bool(true),
-							In:            "path",
-							Description:   "The trailing part of the path.",
-							AllowReserved: true,
-							Schema:        base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
+							Name:        displayName,
+							Required:    proto.Bool(true),
+							In:          "path",
+							Description: "The trailing part of the path.",
+							Schema:      base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 						}
 					}
 					pathParams = append(pathParams, newParameter)
@@ -697,6 +695,9 @@ func buildParameter(opts options.Options, name string, in string, field protoref
 	if description == "" {
 		description = util.FormatComments(loc)
 	}
+	if description == "" {
+		description = fmt.Sprintf("The %s %s parameter.", name, in)
+	}
 	deprecated := util.IsFieldDeprecated(field)
 	return &v3.Parameter{
 		Name:          name,
@@ -704,7 +705,7 @@ func buildParameter(opts options.Options, name string, in string, field protoref
 		Required:      required,
 		Description:   description,
 		Schema:        schemaProxy,
-		AllowReserved: allowReserved,
+		AllowReserved: allowReserved && in == "query",
 		Deprecated:    deprecated != nil && *deprecated,
 	}
 }

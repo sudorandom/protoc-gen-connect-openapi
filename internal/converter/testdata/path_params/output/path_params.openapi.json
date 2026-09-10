@@ -1,7 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "path_params"
+    "title": "path_params",
+    "description": "API documentation for path_params",
+    "version": "1.0.0"
   },
   "paths": {
     "/accounts/{accountId}": {
@@ -16,6 +18,7 @@
           {
             "name": "accountId",
             "in": "path",
+            "description": "The accountId path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -109,6 +112,7 @@
           {
             "name": "snakeCase",
             "in": "path",
+            "description": "The snakeCase path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -159,6 +163,7 @@
           {
             "name": "revenue.value",
             "in": "query",
+            "description": "The revenue.value query parameter.",
             "schema": {
               "type": "string",
               "title": "value"
@@ -167,6 +172,7 @@
           {
             "name": "cost.value",
             "in": "query",
+            "description": "The cost.value query parameter.",
             "schema": {
               "type": "string",
               "title": "value"
@@ -199,6 +205,7 @@
           {
             "name": "id",
             "in": "path",
+            "description": "The id path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -300,6 +307,7 @@
           {
             "name": "left.name",
             "in": "query",
+            "description": "The left.name query parameter.",
             "schema": {
               "type": "string",
               "title": "name"
@@ -308,6 +316,7 @@
           {
             "name": "right.name",
             "in": "query",
+            "description": "The right.name query parameter.",
             "schema": {
               "type": "string",
               "title": "name"

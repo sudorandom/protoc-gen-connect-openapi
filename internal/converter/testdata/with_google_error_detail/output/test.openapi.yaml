@@ -1,6 +1,8 @@
 openapi: 3.1.0
 info:
   title: test.with_google_error_detail
+  description: API documentation for test.with_google_error_detail
+  version: 1.0.0
 paths:
   /test.with_google_error_detail.TestService/Test:
     post:
@@ -11,13 +13,17 @@ paths:
       parameters:
         - name: Connect-Protocol-Version
           in: header
+          description: Define the version of the Connect protocol
           required: true
           schema:
             $ref: '#/components/schemas/connect-protocol-version'
+          example: 1
         - name: Connect-Timeout-Ms
           in: header
+          description: Define the timeout, in ms
           schema:
             $ref: '#/components/schemas/connect-timeout-header'
+          example: 1000
       requestBody:
         content:
           application/json:
@@ -41,13 +47,15 @@ components:
   schemas:
     connect-protocol-version:
       type: number
-      title: Connect-Protocol-Version
-      enum:
+      examples:
         - 1
+      title: Connect-Protocol-Version
       description: Define the version of the Connect protocol
       const: 1
     connect-timeout-header:
       type: number
+      examples:
+        - 1000
       title: Connect-Timeout-Ms
       description: Define the timeout, in ms
     connect.error:
@@ -88,47 +96,233 @@ components:
       description: 'Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation'
     connect.error_details.Any:
       type: object
+      oneOf:
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.ErrorInfo'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.RetryInfo'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.DebugInfo'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.QuotaFailure'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.PreconditionFailure'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.BadRequest'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.RequestInfo'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.ResourceInfo'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.Help'
+        - $ref: '#/components/schemas/connect.error_details.google.rpc.LocalizedMessage'
+        - $ref: '#/components/schemas/connect.error_details.Unknown'
+      discriminator:
+        propertyName: type
+        mapping:
+          google.rpc.ErrorInfo: '#/components/schemas/connect.error_details.google.rpc.ErrorInfo'
+          type.googleapis.com/google.rpc.ErrorInfo: '#/components/schemas/connect.error_details.google.rpc.ErrorInfo'
+          google.rpc.RetryInfo: '#/components/schemas/connect.error_details.google.rpc.RetryInfo'
+          type.googleapis.com/google.rpc.RetryInfo: '#/components/schemas/connect.error_details.google.rpc.RetryInfo'
+          google.rpc.DebugInfo: '#/components/schemas/connect.error_details.google.rpc.DebugInfo'
+          type.googleapis.com/google.rpc.DebugInfo: '#/components/schemas/connect.error_details.google.rpc.DebugInfo'
+          google.rpc.QuotaFailure: '#/components/schemas/connect.error_details.google.rpc.QuotaFailure'
+          type.googleapis.com/google.rpc.QuotaFailure: '#/components/schemas/connect.error_details.google.rpc.QuotaFailure'
+          google.rpc.PreconditionFailure: '#/components/schemas/connect.error_details.google.rpc.PreconditionFailure'
+          type.googleapis.com/google.rpc.PreconditionFailure: '#/components/schemas/connect.error_details.google.rpc.PreconditionFailure'
+          google.rpc.BadRequest: '#/components/schemas/connect.error_details.google.rpc.BadRequest'
+          type.googleapis.com/google.rpc.BadRequest: '#/components/schemas/connect.error_details.google.rpc.BadRequest'
+          google.rpc.RequestInfo: '#/components/schemas/connect.error_details.google.rpc.RequestInfo'
+          type.googleapis.com/google.rpc.RequestInfo: '#/components/schemas/connect.error_details.google.rpc.RequestInfo'
+          google.rpc.ResourceInfo: '#/components/schemas/connect.error_details.google.rpc.ResourceInfo'
+          type.googleapis.com/google.rpc.ResourceInfo: '#/components/schemas/connect.error_details.google.rpc.ResourceInfo'
+          google.rpc.Help: '#/components/schemas/connect.error_details.google.rpc.Help'
+          type.googleapis.com/google.rpc.Help: '#/components/schemas/connect.error_details.google.rpc.Help'
+          google.rpc.LocalizedMessage: '#/components/schemas/connect.error_details.google.rpc.LocalizedMessage'
+          type.googleapis.com/google.rpc.LocalizedMessage: '#/components/schemas/connect.error_details.google.rpc.LocalizedMessage'
+      title: ConnectErrorDetails
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+    connect.error_details.Unknown:
+      type: object
       properties:
         type:
           type: string
-          description: 'A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field.'
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
           format: binary
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
-          oneOf:
-            - type: object
-              title: Any
-              additionalProperties: true
-              description: Detailed error information.
-            - $ref: '#/components/schemas/google.rpc.ErrorInfo'
-            - $ref: '#/components/schemas/google.rpc.RetryInfo'
-            - $ref: '#/components/schemas/google.rpc.DebugInfo'
-            - $ref: '#/components/schemas/google.rpc.QuotaFailure'
-            - $ref: '#/components/schemas/google.rpc.PreconditionFailure'
-            - $ref: '#/components/schemas/google.rpc.BadRequest'
-            - $ref: '#/components/schemas/google.rpc.RequestInfo'
-            - $ref: '#/components/schemas/google.rpc.ResourceInfo'
-            - $ref: '#/components/schemas/google.rpc.Help'
-            - $ref: '#/components/schemas/google.rpc.LocalizedMessage'
-          discriminator:
-            propertyName: type
-            mapping:
-              type.googleapis.com/google.rpc.ErrorInfo: '#/components/schemas/google.rpc.ErrorInfo'
-              type.googleapis.com/google.rpc.RetryInfo: '#/components/schemas/google.rpc.RetryInfo'
-              type.googleapis.com/google.rpc.DebugInfo: '#/components/schemas/google.rpc.DebugInfo'
-              type.googleapis.com/google.rpc.QuotaFailure: '#/components/schemas/google.rpc.QuotaFailure'
-              type.googleapis.com/google.rpc.PreconditionFailure: '#/components/schemas/google.rpc.PreconditionFailure'
-              type.googleapis.com/google.rpc.BadRequest: '#/components/schemas/google.rpc.BadRequest'
-              type.googleapis.com/google.rpc.RequestInfo: '#/components/schemas/google.rpc.RequestInfo'
-              type.googleapis.com/google.rpc.ResourceInfo: '#/components/schemas/google.rpc.ResourceInfo'
-              type.googleapis.com/google.rpc.Help: '#/components/schemas/google.rpc.Help'
-              type.googleapis.com/google.rpc.LocalizedMessage: '#/components/schemas/google.rpc.LocalizedMessage'
-          title: Debug
-          description: Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic.
+          type: object
+          title: Any
+          additionalProperties: true
+          description: Detailed error information.
+      title: UnknownDetail
+      required:
+        - type
       additionalProperties: true
-      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
+      description: Generic Connect error detail for unknown or custom message types.
+    connect.error_details.google.rpc.BadRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.BadRequest'
+      title: google.rpc.BadRequestDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.BadRequest
+    connect.error_details.google.rpc.DebugInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.DebugInfo'
+      title: google.rpc.DebugInfoDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.DebugInfo
+    connect.error_details.google.rpc.ErrorInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.ErrorInfo'
+      title: google.rpc.ErrorInfoDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.ErrorInfo
+    connect.error_details.google.rpc.Help:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.Help'
+      title: google.rpc.HelpDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.Help
+    connect.error_details.google.rpc.LocalizedMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.LocalizedMessage'
+      title: google.rpc.LocalizedMessageDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.LocalizedMessage
+    connect.error_details.google.rpc.PreconditionFailure:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.PreconditionFailure'
+      title: google.rpc.PreconditionFailureDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.PreconditionFailure
+    connect.error_details.google.rpc.QuotaFailure:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.QuotaFailure'
+      title: google.rpc.QuotaFailureDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.QuotaFailure
+    connect.error_details.google.rpc.RequestInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.RequestInfo'
+      title: google.rpc.RequestInfoDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.RequestInfo
+    connect.error_details.google.rpc.ResourceInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.ResourceInfo'
+      title: google.rpc.ResourceInfoDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.ResourceInfo
+    connect.error_details.google.rpc.RetryInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URL that acts as a globally unique identifier for the type of the serialized message.
+        value:
+          type: string
+          format: binary
+          description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
+        debug:
+          $ref: '#/components/schemas/google.rpc.RetryInfo'
+      title: google.rpc.RetryInfoDetail
+      required:
+        - type
+      additionalProperties: true
+      description: Connect error detail for google.rpc.RetryInfo
     google.rpc.BadRequest:
       type: object
       properties:

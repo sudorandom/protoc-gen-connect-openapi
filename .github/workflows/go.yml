@@ -19,35 +19,65 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v6
-        with:
-          go-version: ${{ matrix.go-version }}
+      - name: Configure Go version for matrix
+        run: printf "[tools]\ngo = \"%s\"\n" "${{ matrix.go-version }}" > mise.local.toml
 
-      - name: Setup Buf
-        uses: bufbuild/buf-action@v1
+      - name: Setup Tools
+        uses: jdx/mise-action@v4
+
+      - name: Setup Go cache
+        uses: actions/cache@v4
         with:
-          setup_only: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ matrix.go-version }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-${{ matrix.go-version }}-
+            ${{ runner.os }}-go-
 
       - name: Build
-        run: go build -v ./...
-
-      - name: Generate test descriptors
-        run: go generate ./internal/converter/testdata
+        run: just build
 
       - name: Test
-        run: go test -v ./...
+        run: just test
 
   golangci:
     name: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - name: Setup Tools
+        uses: jdx/mise-action@v4
+      - name: Setup Go cache
+        uses: actions/cache@v4
         with:
-          go-version: '1.27'
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v9
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-lint-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-lint-
+            ${{ runner.os }}-go-
+      - name: Run linter
+        run: just lint
+
+  vacuum:
+    name: vacuum
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup Tools
+        uses: jdx/mise-action@v4
+      - name: Setup Go cache
+        uses: actions/cache@v4
         with:
-          version: v2.13
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-vacuum-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-vacuum-
+            ${{ runner.os }}-go-
+      - name: Run vacuum on golden specs
+        run: just vacuum

@@ -2,6 +2,7 @@ openapi: 3.1.0
 info:
   title: standard
   description: '## standard.GnosticRefService'
+  version: 1.0.0
 paths:
   /gnostic-ref/{message}:
     get:
@@ -12,6 +13,7 @@ paths:
       parameters:
         - name: message
           in: path
+          description: The message path parameter.
           required: true
           schema:
             type: string

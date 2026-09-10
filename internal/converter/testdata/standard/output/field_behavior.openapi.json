@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "field_behavior",
-    "description": "## field_behavior.Service"
+    "description": "## field_behavior.Service",
+    "version": "1.0.0"
   },
   "paths": {
     "/v1/{userId}": {
@@ -28,6 +29,7 @@
           {
             "name": "name",
             "in": "query",
+            "description": "The name query parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -37,6 +39,7 @@
           {
             "name": "password",
             "in": "query",
+            "description": "The password query parameter.",
             "schema": {
               "type": "string",
               "title": "password",

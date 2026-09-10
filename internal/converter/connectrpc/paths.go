@@ -4,6 +4,7 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -95,15 +96,19 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 	}
 	op.Parameters = append(op.Parameters,
 		&v3.Parameter{
-			Name:     "Connect-Protocol-Version",
-			In:       "header",
-			Required: util.BoolPtr(true),
-			Schema:   base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
+			Name:        "Connect-Protocol-Version",
+			In:          "header",
+			Description: "Define the version of the Connect protocol",
+			Required:    util.BoolPtr(true),
+			Schema:      base.CreateSchemaProxyRef("#/components/schemas/connect-protocol-version"),
+			Example:     utils.CreateIntNode("1"),
 		},
 		&v3.Parameter{
-			Name:   "Connect-Timeout-Ms",
-			In:     "header",
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/connect-timeout-header"),
+			Name:        "Connect-Timeout-Ms",
+			In:          "header",
+			Description: "Define the timeout, in ms",
+			Schema:      base.CreateSchemaProxyRef("#/components/schemas/connect-timeout-header"),
+			Example:     utils.CreateIntNode("1000"),
 		},
 	)
 
@@ -113,8 +118,9 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 		op.OperationId = op.OperationId + ".get"
 		op.Parameters = append(op.Parameters,
 			&v3.Parameter{
-				Name: "message",
-				In:   "query",
+				Name:        "message",
+				In:          "query",
+				Description: "The URL-encoded message query parameter contains the JSON or binary serialized request message",
 				Content: util.MakeMediaTypes(
 					opts,
 					base.CreateSchemaProxyRef("#/components/schemas/"+util.FormatTypeRef(inputId)),
@@ -122,25 +128,33 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 					isStreaming),
 			},
 			&v3.Parameter{
-				Name:     "encoding",
-				In:       "query",
-				Required: util.BoolPtr(true),
-				Schema:   base.CreateSchemaProxyRef("#/components/schemas/encoding"),
+				Name:        "encoding",
+				In:          "query",
+				Description: "Define which encoding or 'Message-Codec' to use",
+				Required:    util.BoolPtr(true),
+				Schema:      base.CreateSchemaProxyRef("#/components/schemas/encoding"),
+				Example:     utils.CreateStringNode("json"),
 			},
 			&v3.Parameter{
-				Name:   "base64",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/base64"),
+				Name:        "base64",
+				In:          "query",
+				Description: "Specifies if the message query param is base64 encoded, which may be required for binary data",
+				Schema:      base.CreateSchemaProxyRef("#/components/schemas/base64"),
+				Example:     utils.CreateBoolNode("false"),
 			},
 			&v3.Parameter{
-				Name:   "compression",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/compression"),
+				Name:        "compression",
+				In:          "query",
+				Description: "Which compression algorithm to use for this request",
+				Schema:      base.CreateSchemaProxyRef("#/components/schemas/compression"),
+				Example:     utils.CreateStringNode("gzip"),
 			},
 			&v3.Parameter{
-				Name:   "connect",
-				In:     "query",
-				Schema: base.CreateSchemaProxyRef("#/components/schemas/connect"),
+				Name:        "connect",
+				In:          "query",
+				Description: "Define the version of the Connect protocol",
+				Schema:      base.CreateSchemaProxyRef("#/components/schemas/connect"),
+				Example:     utils.CreateStringNode("v1"),
 			},
 		)
 	} else {
