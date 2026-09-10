@@ -183,6 +183,11 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 					ref,
 					base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
 				}
+			} else if opts.WrapRefsInAllOf {
+				// A $ref placed next to other keywords is valid in OpenAPI 3.1, but
+				// tooling written against 3.0 ignores the whole schema; allOf carries
+				// the same meaning and is understood by both.
+				msg.AllOf = []*base.SchemaProxy{ref}
 			} else {
 				extensions := orderedmap.New[string, *yaml.Node]()
 				extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
