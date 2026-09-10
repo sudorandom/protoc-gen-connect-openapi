@@ -827,7 +827,7 @@
       },
       "tensorflow.AttrValue": {
         "type": "object",
-        "oneOf": [
+        "anyOf": [
           {
             "type": "object",
             "properties": {
@@ -837,10 +837,7 @@
                 "description": "\"bool\""
               }
             },
-            "title": "b",
-            "required": [
-              "b"
-            ]
+            "title": "b"
           },
           {
             "type": "object",
@@ -852,10 +849,7 @@
                 "description": "\"float\""
               }
             },
-            "title": "f",
-            "required": [
-              "f"
-            ]
+            "title": "f"
           },
           {
             "type": "object",
@@ -870,10 +864,7 @@
                 "description": "\"func\" represents a function. func.name is a function's name or\n a primitive op's name. func.attr.first is the name of an attr\n defined for that function. func.attr.second is the value for\n that attr in the instantiation."
               }
             },
-            "title": "func",
-            "required": [
-              "func"
-            ]
+            "title": "func"
           },
           {
             "type": "object",
@@ -885,10 +876,7 @@
                 "description": "\"int\""
               }
             },
-            "title": "i",
-            "required": [
-              "i"
-            ]
+            "title": "i"
           },
           {
             "type": "object",
@@ -903,10 +891,7 @@
                 "description": "any \"list(...)\""
               }
             },
-            "title": "list",
-            "required": [
-              "list"
-            ]
+            "title": "list"
           },
           {
             "type": "object",
@@ -917,10 +902,7 @@
                 "description": "This is a placeholder only used in nodes defined inside a\n function.  It indicates the attr value will be supplied when\n the function is instantiated.  For example, let us suppose a\n node \"N\" in function \"FN\". \"N\" has an attr \"A\" with value\n placeholder = \"foo\". When FN is instantiated with attr \"foo\"\n set to \"bar\", the instantiated node N's attr A will have been\n given the value \"bar\"."
               }
             },
-            "title": "placeholder",
-            "required": [
-              "placeholder"
-            ]
+            "title": "placeholder"
           },
           {
             "type": "object",
@@ -932,10 +914,7 @@
                 "description": "\"string\""
               }
             },
-            "title": "s",
-            "required": [
-              "s"
-            ]
+            "title": "s"
           },
           {
             "type": "object",
@@ -950,10 +929,7 @@
                 "description": "\"shape\""
               }
             },
-            "title": "shape",
-            "required": [
-              "shape"
-            ]
+            "title": "shape"
           },
           {
             "type": "object",
@@ -968,10 +944,7 @@
                 "description": "\"tensor\""
               }
             },
-            "title": "tensor",
-            "required": [
-              "tensor"
-            ]
+            "title": "tensor"
           },
           {
             "type": "object",
@@ -986,13 +959,13 @@
                 "description": "\"type\""
               }
             },
-            "title": "type",
-            "required": [
-              "type"
-            ]
-          },
-          {
-            "not": {
+            "title": "type"
+          }
+        ],
+        "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
               "anyOf": [
                 {
                   "required": [
@@ -1045,10 +1018,65 @@
                   ]
                 }
               ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "b"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "f"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "func"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "i"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "list"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "placeholder"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "s"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "shape"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "tensor"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "type"
+                    ]
+                  }
+                ]
+              }
             }
-          }
-        ],
-        "unevaluatedProperties": false,
+          ]
+        },
         "title": "AttrValue",
         "description": "Protocol buffer representing the value for an attr used to configure an Op.\n Comment indicates the corresponding attr type.  Only the field matching the\n attr type may be filled."
       },
@@ -2111,77 +2139,83 @@
       },
       "tensorflow.FullTypeDef": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
+            "type": "object",
             "properties": {
-              "typeId": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/tensorflow.FullTypeId"
-                  }
-                ],
-                "title": "type_id",
-                "description": "The principal type represented by this object. This may be a concrete type\n (Tensor, Dataset) a type variable (used for dependent types) a type\n symbol (Any, Union). See FullTypeId for details."
-              },
-              "args": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/tensorflow.FullTypeDef"
-                },
-                "title": "args"
+              "i": {
+                "type": "string",
+                "title": "i",
+                "format": "int64",
+                "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
               }
-            }
+            },
+            "title": "i"
           },
           {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "i": {
-                    "type": "string",
-                    "title": "i",
-                    "format": "int64",
-                    "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
-                  }
-                },
-                "title": "i",
-                "required": [
-                  "i"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "s": {
-                    "type": "string",
-                    "title": "s"
-                  }
-                },
-                "title": "s",
-                "required": [
-                  "s"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "i"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "s"
-                      ]
-                    }
-                  ]
-                }
+            "type": "object",
+            "properties": {
+              "s": {
+                "type": "string",
+                "title": "s"
               }
-            ]
+            },
+            "title": "s"
           }
         ],
         "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "i"
+                  ]
+                },
+                {
+                  "required": [
+                    "s"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "i"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "s"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "typeId": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/tensorflow.FullTypeId"
+              }
+            ],
+            "title": "type_id",
+            "description": "The principal type represented by this object. This may be a concrete type\n (Tensor, Dataset) a type variable (used for dependent types) a type\n symbol (Any, Union). See FullTypeId for details."
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tensorflow.FullTypeDef"
+            },
+            "title": "args"
+          }
+        },
         "title": "FullTypeDef",
         "description": "Highly experimental and very likely to change.\n This encoding uses tags instead of dedicated messages for regularity. In\n particular the encoding imposes no restrictions on what the parameters of any\n type should be, which in particular needs to be true for type symbols."
       },

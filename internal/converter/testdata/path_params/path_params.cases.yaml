@@ -22,3 +22,12 @@ cases:
       Content-Type: application/json
     errors:
       - ".*"
+
+  - name: "oneof-only-body-after-path-param-removal"
+    method: PATCH
+    path: "/accounts/abc"
+    schemaPath: "/accounts/{accountId}"
+    body: '{"profile": {"displayName": "test"}}'
+    variantTitles: ["profile", "settings"]
+    headers:
+      Content-Type: application/json

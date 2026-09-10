@@ -26,34 +26,35 @@ paths:
           application/json:
             schema:
               type: object
-              allOf:
-                - {}
-                - oneOf:
-                    - type: object
-                      properties:
-                        profile:
-                          allOf:
-                            - $ref: '#/components/schemas/path_params.Profile'
-                          title: profile
+              anyOf:
+                - type: object
+                  properties:
+                    profile:
+                      allOf:
+                        - $ref: '#/components/schemas/path_params.Profile'
                       title: profile
-                      required:
-                        - profile
-                    - type: object
-                      properties:
-                        settings:
-                          allOf:
-                            - $ref: '#/components/schemas/path_params.Settings'
-                          title: settings
+                  title: profile
+                - type: object
+                  properties:
+                    settings:
+                      allOf:
+                        - $ref: '#/components/schemas/path_params.Settings'
                       title: settings
-                      required:
-                        - settings
-                    - not:
-                        anyOf:
-                          - required:
-                              - profile
-                          - required:
-                              - settings
+                  title: settings
               unevaluatedProperties: false
+              not:
+                allOf:
+                  - anyOf:
+                      - required:
+                          - profile
+                      - required:
+                          - settings
+                  - not:
+                      oneOf:
+                        - required:
+                            - profile
+                        - required:
+                            - settings
               title: UpdateWithOneofRequest
         required: true
       responses:
@@ -142,37 +143,39 @@ paths:
           application/json:
             schema:
               type: object
-              allOf:
-                - properties:
-                    name:
-                      type: string
-                      title: name
-                - oneOf:
-                    - type: object
-                      properties:
-                        profile:
-                          allOf:
-                            - $ref: '#/components/schemas/path_params.Profile'
-                          title: profile
+              anyOf:
+                - type: object
+                  properties:
+                    profile:
+                      allOf:
+                        - $ref: '#/components/schemas/path_params.Profile'
                       title: profile
-                      required:
-                        - profile
-                    - type: object
-                      properties:
-                        settings:
-                          allOf:
-                            - $ref: '#/components/schemas/path_params.Settings'
-                          title: settings
+                  title: profile
+                - type: object
+                  properties:
+                    settings:
+                      allOf:
+                        - $ref: '#/components/schemas/path_params.Settings'
                       title: settings
-                      required:
-                        - settings
-                    - not:
-                        anyOf:
-                          - required:
-                              - profile
-                          - required:
-                              - settings
+                  title: settings
               unevaluatedProperties: false
+              not:
+                allOf:
+                  - anyOf:
+                      - required:
+                          - profile
+                      - required:
+                          - settings
+                  - not:
+                      oneOf:
+                        - required:
+                            - profile
+                        - required:
+                            - settings
+              properties:
+                name:
+                  type: string
+                  title: name
               title: UpdateRequest
               description: |-
                 UpdateRequest has a path param, regular fields, and a oneOf.
@@ -344,40 +347,42 @@ components:
       additionalProperties: false
     path_params.UpdateRequest:
       type: object
-      allOf:
-        - properties:
-            id:
-              type: string
-              title: id
-            name:
-              type: string
-              title: name
-        - oneOf:
-            - type: object
-              properties:
-                profile:
-                  allOf:
-                    - $ref: '#/components/schemas/path_params.Profile'
-                  title: profile
+      anyOf:
+        - type: object
+          properties:
+            profile:
+              allOf:
+                - $ref: '#/components/schemas/path_params.Profile'
               title: profile
-              required:
-                - profile
-            - type: object
-              properties:
-                settings:
-                  allOf:
-                    - $ref: '#/components/schemas/path_params.Settings'
-                  title: settings
+          title: profile
+        - type: object
+          properties:
+            settings:
+              allOf:
+                - $ref: '#/components/schemas/path_params.Settings'
               title: settings
-              required:
-                - settings
-            - not:
-                anyOf:
-                  - required:
-                      - profile
-                  - required:
-                      - settings
+          title: settings
       unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
+              - required:
+                  - profile
+              - required:
+                  - settings
+          - not:
+              oneOf:
+                - required:
+                    - profile
+                - required:
+                    - settings
+      properties:
+        id:
+          type: string
+          title: id
+        name:
+          type: string
+          title: name
       title: UpdateRequest
       required:
         - id
@@ -387,37 +392,39 @@ components:
          MessageToSchema wraps properties+oneOf under AllOf.
     path_params.UpdateWithOneofRequest:
       type: object
-      allOf:
-        - properties:
-            accountId:
-              type: string
-              title: account_id
-        - oneOf:
-            - type: object
-              properties:
-                profile:
-                  allOf:
-                    - $ref: '#/components/schemas/path_params.Profile'
-                  title: profile
+      anyOf:
+        - type: object
+          properties:
+            profile:
+              allOf:
+                - $ref: '#/components/schemas/path_params.Profile'
               title: profile
-              required:
-                - profile
-            - type: object
-              properties:
-                settings:
-                  allOf:
-                    - $ref: '#/components/schemas/path_params.Settings'
-                  title: settings
+          title: profile
+        - type: object
+          properties:
+            settings:
+              allOf:
+                - $ref: '#/components/schemas/path_params.Settings'
               title: settings
-              required:
-                - settings
-            - not:
-                anyOf:
-                  - required:
-                      - profile
-                  - required:
-                      - settings
+          title: settings
       unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
+              - required:
+                  - profile
+              - required:
+                  - settings
+          - not:
+              oneOf:
+                - required:
+                    - profile
+                - required:
+                    - settings
+      properties:
+        accountId:
+          type: string
+          title: account_id
       title: UpdateWithOneofRequest
 security: []
 tags:

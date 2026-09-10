@@ -84,21 +84,12 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			allOfs = append(allOfs, makeOneOfGroup(opts, items))
 		}
 		if len(allOfs) == 1 {
-			s.OneOf = allOfs[0].Schema().OneOf
+			group := allOfs[0].Schema()
+			s.AnyOf = group.AnyOf
+			s.Not = group.Not
 		} else {
 			s.AllOf = append(s.AllOf, allOfs...)
 		}
-	}
-
-	// if there are oneOfs and properties, we should merge them under a allOf.
-	// having properties and oneOfs at the same level creates conflicts.
-	if len(s.OneOf) > 0 && s.Properties.Len() > 0 {
-		s.AllOf = append(s.AllOf,
-			base.CreateSchemaProxy(&base.Schema{Properties: s.Properties}),
-			base.CreateSchemaProxy(&base.Schema{OneOf: s.OneOf}),
-		)
-		s.Properties = nil
-		s.OneOf = nil
 	}
 
 	// Apply Updates from Options
@@ -247,8 +238,8 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 }
 
 func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor) *base.SchemaProxy {
-	rootSchemas := make([]*base.SchemaProxy, 0, len(fields)+1)
-	presence := make([]*base.SchemaProxy, 0, len(fields))
+	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
+	fieldNames := make([]string, 0, len(fields))
 	for _, field := range fields {
 		schema := &base.Schema{
 			/*
@@ -264,21 +255,43 @@ func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor)
 		fieldName := util.MakeFieldName(opts, field)
 		propSchema := FieldToSchema(opts, base.CreateSchemaProxy(schema), field)
 		schema.Properties.Set(fieldName, propSchema)
-		schema.Required = []string{fieldName}
 
 		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(schema))
-		presence = append(presence, base.CreateSchemaProxy(&base.Schema{Required: []string{fieldName}}))
+		fieldNames = append(fieldNames, fieldName)
 	}
+	group := &base.Schema{AnyOf: rootSchemas}
 
-	// A protobuf oneof is at most one, not exactly one: a message with no member
-	// set serializes with all of them absent, so without a branch admitting that
-	// state every such message fails validation. (buf.validate.oneof).required
-	// tightens it back to exactly one and is applied by the protovalidate feature.
-	rootSchemas = append(rootSchemas, base.CreateSchemaProxy(&base.Schema{
-		Not: base.CreateSchemaProxy(&base.Schema{AnyOf: presence}),
-	}))
+	// Keep the rendered variants limited to real fields. The variants are
+	// optional because a plain protobuf oneof permits no member to be set, so
+	// at-most-one is carried by a sibling constraint instead. Enumerating the
+	// forbidden pairs would grow with the square of the member count; forbid
+	// "some member set, but not exactly one" instead, which says the same thing
+	// with two presence lists. It sits under not, which no documentation
+	// renderer reads as a list of variants. (buf.validate.oneof).required
+	// layers exactly-one on top in the protovalidate feature.
+	if len(fieldNames) > 1 {
+		group.Not = base.CreateSchemaProxy(&base.Schema{
+			AllOf: []*base.SchemaProxy{
+				base.CreateSchemaProxy(&base.Schema{AnyOf: presenceOf(fieldNames)}),
+				base.CreateSchemaProxy(&base.Schema{
+					Not: base.CreateSchemaProxy(&base.Schema{OneOf: presenceOf(fieldNames)}),
+				}),
+			},
+		})
+	}
+	return base.CreateSchemaProxy(group)
+}
 
-	return base.CreateSchemaProxy(&base.Schema{OneOf: rootSchemas})
+// presenceOf builds one "this field is set" branch per name. oneOf over them
+// matches when exactly one is set, anyOf when at least one is.
+func presenceOf(fieldNames []string) []*base.SchemaProxy {
+	branches := make([]*base.SchemaProxy, 0, len(fieldNames))
+	for _, fieldName := range fieldNames {
+		branches = append(branches, base.CreateSchemaProxy(&base.Schema{
+			Required: []string{fieldName},
+		}))
+	}
+	return branches
 }
 
 func appendType(s *base.Schema, newType string) {

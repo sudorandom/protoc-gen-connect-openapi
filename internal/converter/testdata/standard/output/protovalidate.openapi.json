@@ -328,7 +328,7 @@
             ]
           }
         ],
-        "oneOf": [
+        "anyOf": [
           {
             "type": "object",
             "properties": {
@@ -338,10 +338,7 @@
                 "minLength": 1
               }
             },
-            "title": "a",
-            "required": [
-              "a"
-            ]
+            "title": "a"
           },
           {
             "type": "object",
@@ -351,13 +348,13 @@
                 "title": "b"
               }
             },
-            "title": "b",
-            "required": [
-              "b"
-            ]
-          },
-          {
-            "not": {
+            "title": "b"
+          }
+        ],
+        "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
               "anyOf": [
                 {
                   "required": [
@@ -370,10 +367,25 @@
                   ]
                 }
               ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "a"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "b"
+                    ]
+                  }
+                ]
+              }
             }
-          }
-        ],
-        "unevaluatedProperties": false,
+          ]
+        },
         "title": "CELMessage"
       },
       "protovalidate.LotsOfValidationRules": {
@@ -1868,7 +1880,7 @@
             ]
           }
         ],
-        "oneOf": [
+        "anyOf": [
           {
             "type": "object",
             "properties": {
@@ -1878,10 +1890,7 @@
                 "minLength": 1
               }
             },
-            "title": "a",
-            "required": [
-              "a"
-            ]
+            "title": "a"
           },
           {
             "type": "object",
@@ -1891,13 +1900,13 @@
                 "title": "b"
               }
             },
-            "title": "b",
-            "required": [
-              "b"
-            ]
-          },
-          {
-            "not": {
+            "title": "b"
+          }
+        ],
+        "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
               "anyOf": [
                 {
                   "required": [
@@ -1910,10 +1919,25 @@
                   ]
                 }
               ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "a"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "b"
+                    ]
+                  }
+                ]
+              }
             }
-          }
-        ],
-        "unevaluatedProperties": false,
+          ]
+        },
         "title": "OneOfMessage"
       }
     }

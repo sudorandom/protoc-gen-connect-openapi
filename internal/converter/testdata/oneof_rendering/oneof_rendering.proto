@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package oneof_rendering;
+
+import "buf/validate/validate.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+service ComplianceService {
+  rpc CreateCompliance(ComplianceRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/compliance"
+      body: "*"
+    };
+  }
+
+  rpc CreateRequiredCompliance(RequiredComplianceRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/required-compliance"
+      body: "*"
+    };
+  }
+}
+
+message ComplianceRequest {
+  string reference = 1;
+  oneof subject {
+    string kyc = 2;
+    string kyb = 3;
+  }
+}
+
+message RequiredComplianceRequest {
+  string reference = 1;
+  oneof subject {
+    option (buf.validate.oneof).required = true;
+    string kyc = 2;
+    string kyb = 3;
+  }
+}

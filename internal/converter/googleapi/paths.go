@@ -269,18 +269,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				_, s := schema.MessageToSchema(opts, md.Input())
 				if s != nil {
 					// Remove path parameters from properties.
-					// When the message has oneOf fields, MessageToSchema wraps
-					// properties and oneOf under AllOf, setting s.Properties to nil.
-					// In that case, find the properties inside AllOf.
 					props := s.Properties
-					if props == nil && len(s.AllOf) > 0 {
-						for _, entry := range s.AllOf {
-							if es := entry.Schema(); es != nil && es.Properties != nil && es.Properties.Len() > 0 {
-								props = es.Properties
-								break
-							}
-						}
-					}
 					if props != nil {
 						for name := range fieldNamesInPath {
 							props.Delete(name)
@@ -294,7 +283,10 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 							}
 						}
 					}
-					hasContent := (props != nil && props.Len() > 0) || len(s.AllOf) > 0 || len(s.OneOf) > 0
+					hasContent := (props != nil && props.Len() > 0) ||
+						len(s.AllOf) > 0 ||
+						len(s.OneOf) > 0 ||
+						len(s.AnyOf) > 0
 					if hasContent {
 						op.RequestBody = util.MethodToRequestBody(opts, md, base.CreateSchemaProxy(s), false)
 					}

@@ -561,7 +561,7 @@ components:
       additionalProperties: false
     tensorflow.AttrValue:
       type: object
-      oneOf:
+      anyOf:
         - type: object
           properties:
             b:
@@ -569,8 +569,6 @@ components:
               title: b
               description: '"bool"'
           title: b
-          required:
-            - b
         - type: object
           properties:
             f:
@@ -579,8 +577,6 @@ components:
               format: float
               description: '"float"'
           title: f
-          required:
-            - f
         - type: object
           properties:
             func:
@@ -593,8 +589,6 @@ components:
                  defined for that function. func.attr.second is the value for
                  that attr in the instantiation.
           title: func
-          required:
-            - func
         - type: object
           properties:
             i:
@@ -603,8 +597,6 @@ components:
               format: int64
               description: '"int"'
           title: i
-          required:
-            - i
         - type: object
           properties:
             list:
@@ -613,8 +605,6 @@ components:
               title: list
               description: any "list(...)"
           title: list
-          required:
-            - list
         - type: object
           properties:
             placeholder:
@@ -629,8 +619,6 @@ components:
                  set to "bar", the instantiated node N's attr A will have been
                  given the value "bar".
           title: placeholder
-          required:
-            - placeholder
         - type: object
           properties:
             s:
@@ -639,8 +627,6 @@ components:
               format: byte
               description: '"string"'
           title: s
-          required:
-            - s
         - type: object
           properties:
             shape:
@@ -649,8 +635,6 @@ components:
               title: shape
               description: '"shape"'
           title: shape
-          required:
-            - shape
         - type: object
           properties:
             tensor:
@@ -659,8 +643,6 @@ components:
               title: tensor
               description: '"tensor"'
           title: tensor
-          required:
-            - tensor
         - type: object
           properties:
             type:
@@ -669,10 +651,10 @@ components:
               title: type
               description: '"type"'
           title: type
-          required:
-            - type
-        - not:
-            anyOf:
+      unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
               - required:
                   - b
               - required:
@@ -693,7 +675,28 @@ components:
                   - tensor
               - required:
                   - type
-      unevaluatedProperties: false
+          - not:
+              oneOf:
+                - required:
+                    - b
+                - required:
+                    - f
+                - required:
+                    - func
+                - required:
+                    - i
+                - required:
+                    - list
+                - required:
+                    - placeholder
+                - required:
+                    - s
+                - required:
+                    - shape
+                - required:
+                    - tensor
+                - required:
+                    - type
       title: AttrValue
       description: |-
         Protocol buffer representing the value for an attr used to configure an Op.
@@ -1856,47 +1859,49 @@ components:
       description: 'TODO(mrry): Return something about the operation?'
     tensorflow.FullTypeDef:
       type: object
-      allOf:
-        - properties:
-            typeId:
-              allOf:
-                - $ref: '#/components/schemas/tensorflow.FullTypeId'
-              title: type_id
-              description: |-
-                The principal type represented by this object. This may be a concrete type
-                 (Tensor, Dataset) a type variable (used for dependent types) a type
-                 symbol (Any, Union). See FullTypeId for details.
-            args:
-              type: array
-              items:
-                $ref: '#/components/schemas/tensorflow.FullTypeDef'
-              title: args
-        - oneOf:
-            - type: object
-              properties:
-                i:
-                  type: string
-                  title: i
-                  format: int64
-                  description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
+      anyOf:
+        - type: object
+          properties:
+            i:
+              type: string
               title: i
-              required:
-                - i
-            - type: object
-              properties:
-                s:
-                  type: string
-                  title: s
+              format: int64
+              description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
+          title: i
+        - type: object
+          properties:
+            s:
+              type: string
               title: s
-              required:
-                - s
-            - not:
-                anyOf:
-                  - required:
-                      - i
-                  - required:
-                      - s
+          title: s
       unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
+              - required:
+                  - i
+              - required:
+                  - s
+          - not:
+              oneOf:
+                - required:
+                    - i
+                - required:
+                    - s
+      properties:
+        typeId:
+          allOf:
+            - $ref: '#/components/schemas/tensorflow.FullTypeId'
+          title: type_id
+          description: |-
+            The principal type represented by this object. This may be a concrete type
+             (Tensor, Dataset) a type variable (used for dependent types) a type
+             symbol (Any, Union). See FullTypeId for details.
+        args:
+          type: array
+          items:
+            $ref: '#/components/schemas/tensorflow.FullTypeDef'
+          title: args
       title: FullTypeDef
       description: |-
         Highly experimental and very likely to change.
