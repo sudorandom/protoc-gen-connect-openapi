@@ -3,12 +3,15 @@ package converter_test
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/pb33f/libopenapi"
@@ -23,6 +26,41 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
+
+var (
+	loadDescriptorOnce    sync.Once
+	cachedDescriptorBytes []byte
+	cachedDescriptorErr   error
+)
+
+func loadTestFileDescriptorSet(t *testing.T) *descriptorpb.FileDescriptorSet {
+	t.Helper()
+
+	loadDescriptorOnce.Do(func() {
+		binpbPath := filepath.Join("testdata", "fileset.binpb")
+		if _, err := os.Stat(binpbPath); errors.Is(err, os.ErrNotExist) {
+			bufPath, lookErr := exec.LookPath("buf")
+			if lookErr != nil {
+				cachedDescriptorErr = errors.New("testdata/fileset.binpb not found. Please install buf and run 'go generate ./internal/converter/testdata'")
+				return
+			}
+			cmd := exec.Command(bufPath, "build", "-o", "fileset.binpb")
+			cmd.Dir = "testdata"
+			if out, runErr := cmd.CombinedOutput(); runErr != nil {
+				cachedDescriptorErr = fmt.Errorf("failed to build testdata/fileset.binpb with buf: %w\n%s", runErr, string(out))
+				return
+			}
+		}
+
+		cachedDescriptorBytes, cachedDescriptorErr = os.ReadFile(binpbPath)
+	})
+
+	require.NoError(t, cachedDescriptorErr)
+
+	pf := new(descriptorpb.FileDescriptorSet)
+	require.NoError(t, proto.Unmarshal(cachedDescriptorBytes, pf))
+	return pf
+}
 
 var scenarios = []Scenario{
 	{Name: "standard", Options: "allow-get,with-streaming,with-service-descriptions"},
@@ -55,11 +93,7 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	relPath := strings.TrimPrefix(protofile, "testdata/")
 
 	// Load descriptor set
-	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
-	require.NoError(t, err)
-
-	pf := new(descriptorpb.FileDescriptorSet)
-	require.NoError(t, proto.Unmarshal(f, pf))
+	pf := loadTestFileDescriptorSet(t)
 
 	// Make Generation Request
 	req := new(pluginpb.CodeGeneratorRequest)
@@ -403,11 +437,7 @@ func generateAndCheckAsyncAPIGolden(t *testing.T, options, format, protofile str
 	relPath := strings.TrimPrefix(protofile, "testdata/")
 
 	// Load descriptor set
-	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
-	require.NoError(t, err)
-
-	pf := new(descriptorpb.FileDescriptorSet)
-	require.NoError(t, proto.Unmarshal(f, pf))
+	pf := loadTestFileDescriptorSet(t)
 
 	// Make Generation Request
 	req := new(pluginpb.CodeGeneratorRequest)

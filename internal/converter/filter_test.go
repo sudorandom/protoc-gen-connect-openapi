@@ -1,26 +1,18 @@
 package converter_test
 
 import (
-	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
 func TestServiceFilterFileGeneration(t *testing.T) {
 	// Load descriptor set
-	f, err := os.ReadFile(filepath.Join("testdata", "fileset.binpb"))
-	require.NoError(t, err)
-
-	pf := new(descriptorpb.FileDescriptorSet)
-	require.NoError(t, proto.Unmarshal(f, pf))
+	pf := loadTestFileDescriptorSet(t)
 
 	// Make Generation Request
 	req := new(pluginpb.CodeGeneratorRequest)

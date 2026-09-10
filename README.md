@@ -226,11 +226,10 @@ Examples:
   ```
 
 ### Contributing
-Contributions are accepted and welcome! Please make sure that all tests pass locally for you. You normally can use normal Go tooling to run tests but if you change any protobuf files in `internal/converter/testdata/`, you need to run this command to ensure the related DescriptorSet gets updated:
+Contributions are accepted and welcome! Please make sure that all tests pass locally for you. Tests will automatically build the fixture descriptor set (`fileset.binpb`) on demand if `buf` is installed, or you can generate it manually:
 ```shell
 go generate ./internal/converter/testdata
 ```
-This exists because it's the easiest way to pull in buf dependencies in a reliable way.
 
 Otherwise, tests are run with:
 ```shell
