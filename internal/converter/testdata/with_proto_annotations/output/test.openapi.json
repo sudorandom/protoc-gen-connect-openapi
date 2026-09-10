@@ -62,19 +62,10 @@
         "description": "Wrapper message for `int64`.\n\n The JSON representation for `Int64Value` is JSON string.\n\n Not recommended for use in new APIs, but still useful for legacy APIs and\n has no plan to be removed."
       },
       "google.protobuf.ListValue": {
-        "type": "object",
-        "properties": {
-          "values": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/google.protobuf.Value"
-            },
-            "title": "values",
-            "description": "Repeated field of dynamically typed values. (proto google.protobuf.Value)"
-          }
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/google.protobuf.Value"
         },
-        "title": "ListValue",
-        "additionalProperties": false,
         "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array."
       },
       "google.protobuf.NullValue": {

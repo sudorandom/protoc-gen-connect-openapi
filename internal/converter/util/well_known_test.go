@@ -95,6 +95,20 @@ func TestWellKnownToSchema(t *testing.T) {
 			},
 		},
 		{
+			name:    "google.protobuf.ListValue",
+			md:      (&structpb.ListValue{}).ProtoReflect().Descriptor(),
+			isKnown: true,
+			check: func(t *testing.T, s *IDSchema) {
+				assert.Equal(t, "google.protobuf.ListValue", s.ID)
+				// ProtoJSON encodes ListValue as a bare array, not an object with a `values` field.
+				assert.Equal(t, []string{"array"}, s.Schema.Type)
+				assert.Nil(t, s.Schema.Properties)
+				require.NotNil(t, s.Schema.Items)
+				require.NotNil(t, s.Schema.Items.A)
+				assert.Equal(t, "#/components/schemas/google.protobuf.Value", s.Schema.Items.A.GetReference())
+			},
+		},
+		{
 			name:    "google.protobuf.StringValue",
 			md:      (&wrapperspb.StringValue{}).ProtoReflect().Descriptor(),
 			isKnown: true,

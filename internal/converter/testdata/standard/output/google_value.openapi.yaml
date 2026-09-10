@@ -3,6 +3,30 @@ info:
   title: samples
   description: '## samples.Test'
 paths:
+  /list-value:
+    get:
+      tags:
+        - samples.Test
+      summary: ListValueQuery
+      operationId: samples.Test.ListValueQuery
+      parameters:
+        - name: items
+          in: query
+          description: |-
+            `ListValue` is a wrapper around a repeated field of values.
+
+             The JSON representation for `ListValue` is JSON array.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/google.protobuf.Value'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.protobuf.Empty'
   /samples.Test/Empty:
     post:
       tags:
@@ -201,16 +225,9 @@ components:
          Not recommended for use in new APIs, but still useful for legacy APIs and
          has no plan to be removed.
     google.protobuf.ListValue:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Value'
-          title: values
-          description: Repeated field of dynamically typed values.
-      title: ListValue
-      additionalProperties: false
+      type: array
+      items:
+        $ref: '#/components/schemas/google.protobuf.Value'
       description: |-
         `ListValue` is a wrapper around a repeated field of values.
 
@@ -287,6 +304,14 @@ components:
           title: some_struct
           $ref: '#/components/schemas/google.protobuf.Struct'
       title: GoogleValue
+      additionalProperties: false
+    samples.ListValueQueryRequest:
+      type: object
+      properties:
+        items:
+          title: items
+          $ref: '#/components/schemas/google.protobuf.ListValue'
+      title: ListValueQueryRequest
       additionalProperties: false
 security: []
 tags:

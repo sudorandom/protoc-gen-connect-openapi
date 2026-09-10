@@ -28,3 +28,26 @@ cases:
     headers:
       Content-Type: application/json
       Connect-Protocol-Version: 1
+
+  # ProtoJSON encodes google.protobuf.ListValue as a bare JSON array.
+  - name: "with list value"
+    path: "samples.Test/WithGoogleValueMessage"
+    body: '{"someList": ["kevin", 36, false, null, ["nested"], {"key": "value"}]}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "with list value wrapped in values object"
+    path: "samples.Test/WithGoogleValueMessage"
+    body: '{"someList": {"values": ["kevin"]}}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*Reason: got object, want array, Location: /properties/someList/type.*"
+
+  # ListValue in a GET request is a single array-typed query parameter, not a flattened `values` wrapper.
+  - name: "list-value query param"
+    method: GET
+    path: "/list-value"
+    query: "items=kevin&items=36"

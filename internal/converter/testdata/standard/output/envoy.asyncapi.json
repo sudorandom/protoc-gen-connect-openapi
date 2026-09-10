@@ -1198,20 +1198,11 @@
         "type": "string"
       },
       "google.protobuf.ListValue": {
-        "additionalProperties": false,
         "description": "`ListValue` is a wrapper around a repeated field of values.\n\n The JSON representation for `ListValue` is JSON array.",
-        "properties": {
-          "values": {
-            "description": "Repeated field of dynamically typed values.",
-            "items": {
-              "$ref": "#/components/schemas/google.protobuf.Value"
-            },
-            "title": "values",
-            "type": "array"
-          }
+        "items": {
+          "$ref": "#/components/schemas/google.protobuf.Value"
         },
-        "title": "ListValue",
-        "type": "object"
+        "type": "array"
       },
       "google.protobuf.NullValue": {
         "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.",

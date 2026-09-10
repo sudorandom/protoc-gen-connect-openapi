@@ -1526,16 +1526,9 @@ components:
          be expressed in JSON format as "3.000000001s", and 3 seconds and 1
          microsecond should be expressed in JSON format as "3.000001s".
     google.protobuf.ListValue:
-      type: object
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/google.protobuf.Value'
-          title: values
-          description: Repeated field of dynamically typed values.
-      title: ListValue
-      additionalProperties: false
+      type: array
+      items:
+        $ref: '#/components/schemas/google.protobuf.Value'
       description: |-
         `ListValue` is a wrapper around a repeated field of values.
 

@@ -1,6 +1,7 @@
 syntax = "proto3";
 package samples;
 
+import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
@@ -13,8 +14,15 @@ message GoogleValue {
   google.protobuf.Struct some_struct = 3;
 }
 
+message ListValueQueryRequest {
+  google.protobuf.ListValue items = 1;
+}
+
 service Test {
   rpc HealthCheck(google.protobuf.StringValue) returns (google.protobuf.Int64Value);
   rpc Empty(google.protobuf.Empty) returns (google.protobuf.Empty);
   rpc WithGoogleValueMessage(GoogleValue) returns (google.protobuf.Empty);
+  rpc ListValueQuery(ListValueQueryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {get: "/list-value"};
+  }
 }

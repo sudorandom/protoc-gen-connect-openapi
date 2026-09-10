@@ -1281,20 +1281,13 @@ components:
             format: duration
             type: string
         google.protobuf.ListValue:
-            additionalProperties: false
             description: |-
                 `ListValue` is a wrapper around a repeated field of values.
 
                  The JSON representation for `ListValue` is JSON array.
-            properties:
-                values:
-                    description: Repeated field of dynamically typed values.
-                    items:
-                        $ref: '#/components/schemas/google.protobuf.Value'
-                    title: values
-                    type: array
-            title: ListValue
-            type: object
+            items:
+                $ref: '#/components/schemas/google.protobuf.Value'
+            type: array
         google.protobuf.NullValue:
             description: |-
                 `NullValue` is a singleton enumeration to represent the null value for the
