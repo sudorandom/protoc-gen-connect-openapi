@@ -1331,25 +1331,29 @@ components:
           title: bytes_ipv6
           format: ipv6
         enumConst:
+          allOf:
+            - $ref: '#/components/schemas/protovalidate.MyEnum'
           title: enum_const
           const: MY_ENUM_VALUE1
-          $ref: '#/components/schemas/protovalidate.MyEnum'
         enumDefinedOnly:
+          allOf:
+            - $ref: '#/components/schemas/protovalidate.MyEnum'
           title: enum_defined_only
-          $ref: '#/components/schemas/protovalidate.MyEnum'
         enumIn:
+          allOf:
+            - $ref: '#/components/schemas/protovalidate.MyEnum'
           title: enum_in
           enum:
             - MY_ENUM_VALUE1
             - MY_ENUM_VALUE2
-          $ref: '#/components/schemas/protovalidate.MyEnum'
         enumNotIn:
+          allOf:
+            - $ref: '#/components/schemas/protovalidate.MyEnum'
           not:
             enum:
               - MY_ENUM_VALUE1
               - MY_ENUM_VALUE2
           title: enum_not_in
-          $ref: '#/components/schemas/protovalidate.MyEnum'
         repeatedMinItems:
           type: array
           items:
@@ -1404,53 +1408,63 @@ components:
             maxLength: 20
             minLength: 5
         anyIn:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Any'
           title: any_in
           enum:
             - type.googleapis.com/MyType1
             - type.googleapis.com/MyType2
-          $ref: '#/components/schemas/google.protobuf.Any'
         anyNotIn:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Any'
           not:
             enum:
               - type.googleapis.com/ForbiddenType1
               - type.googleapis.com/ForbiddenType2
           title: any_not_in
-          $ref: '#/components/schemas/google.protobuf.Any'
         durationConst:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_const
           const: 33m20s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationIn:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_in
           enum:
             - 1s
             - 2s
             - 3s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationNotIn:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           not:
             enum:
               - 1s
               - 2s
               - 3s
           title: duration_not_in
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationLt:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_lt
           description: |
             duration.lt = 5s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationLte:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_lte
           description: |
             duration.lte = 10s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationLtSeconds:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_lt_seconds
           description: |
             duration.lt = 72h0m0s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationGt:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_gt
           description: |
             duration.gt = 5s
@@ -1458,8 +1472,9 @@ components:
             duration.gt_lt_exclusive = 5s
             duration.gt_lte = 5s
             duration.gt_lte_exclusive = 5s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationRange:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_range
           description: |
             duration.gt = 5s
@@ -1468,8 +1483,9 @@ components:
             duration.gt_lte = 5s
             duration.gt_lte_exclusive = 5s
             duration.lt = 10s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         durationGte:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_gte
           description: |
             duration.gte = 5s
@@ -1477,28 +1493,33 @@ components:
             duration.gte_lt_exclusive = 5s
             duration.gte_lte = 5s
             duration.gte_lte_exclusive = 5s
-          $ref: '#/components/schemas/google.protobuf.Duration'
         timestampConst:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_const
           description: This is a constant timestamp!
           const: 2024-10-03 23:40:00 +0000 UTC
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampWithin:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_within
           description: |
             timestamp.within = 1h0m0s
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLt:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_lt
           description: |
             timestamp.lte = 2023-03-15T08:00:00Z
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLte:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_lte
           description: |
             timestamp.lte = 2023-03-15T08:00:00Z
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampGt:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_gt
           description: |
             timestamp.gt = 2022-12-31T00:00:00Z
@@ -1506,8 +1527,9 @@ components:
             timestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z
             timestamp.gt_lte = 2022-12-31T00:00:00Z
             timestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampGte:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_gte
           description: |
             timestamp.gte = 2022-12-31T00:00:00Z
@@ -1515,8 +1537,9 @@ components:
             timestamp.gte_lt_exclusive = 2022-12-31T00:00:00Z
             timestamp.gte_lte = 2022-12-31T00:00:00Z
             timestamp.gte_lte_exclusive = 2022-12-31T00:00:00Z
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampRange:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_range
           description: |
             timestamp.gt = 2022-12-31T00:00:00Z
@@ -1525,17 +1548,18 @@ components:
             timestamp.gt_lte = 2022-12-31T00:00:00Z
             timestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z
             timestamp.lt = 2023-01-01T00:00:00Z
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLtNow:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_lt_now
           description: |
             timestamp.lt_now = true
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampGtNow:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp_gt_now
           description: |
             timestamp.gt_now = true
-          $ref: '#/components/schemas/google.protobuf.Timestamp'
         boolConstTrue:
           type: boolean
           title: bool_const_true

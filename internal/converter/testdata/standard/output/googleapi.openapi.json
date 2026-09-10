@@ -440,8 +440,12 @@
             "title": "property_in_path_ok"
           },
           "parentMsg": {
-            "title": "parentMsg",
-            "$ref": "#/components/schemas/io.swagger.petstore.v2.Something"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/io.swagger.petstore.v2.Something"
+              }
+            ],
+            "title": "parentMsg"
           },
           "propertyInQueryOk": {
             "type": "string",
@@ -460,8 +464,12 @@
         "type": "object",
         "properties": {
           "fields": {
-            "title": "fields",
-            "$ref": "#/components/schemas/google.protobuf.FieldMask"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.FieldMask"
+              }
+            ],
+            "title": "fields"
           }
         },
         "title": "MaskyRequest",
@@ -486,12 +494,20 @@
         "type": "object",
         "properties": {
           "ts": {
-            "title": "ts",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
+            "title": "ts"
           },
           "s": {
-            "title": "s",
-            "$ref": "#/components/schemas/google.protobuf.StringValue"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.StringValue"
+              }
+            ],
+            "title": "s"
           }
         },
         "title": "TimestampyRequest",

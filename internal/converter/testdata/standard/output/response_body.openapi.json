@@ -31,8 +31,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "user",
-                  "$ref": "#/components/schemas/response_body.User"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/response_body.User"
+                    }
+                  ],
+                  "title": "user"
                 }
               }
             }
@@ -58,8 +62,12 @@
         "type": "object",
         "properties": {
           "user": {
-            "title": "user",
-            "$ref": "#/components/schemas/response_body.User"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/response_body.User"
+              }
+            ],
+            "title": "user"
           }
         },
         "title": "GetUserResponse",

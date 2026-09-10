@@ -84,16 +84,18 @@ paths:
                     - type: object
                       properties:
                         profile:
+                          allOf:
+                            - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
                           title: profile
-                          $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
                       title: profile
                       required:
                         - profile
                     - type: object
                       properties:
                         settings:
+                          allOf:
+                            - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
                           title: settings
-                          $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
                       title: settings
                       required:
                         - settings
@@ -460,8 +462,9 @@ components:
           type: string
           title: property_in_path_ok
         parentMsg:
+          allOf:
+            - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Something'
           title: parentMsg
-          $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Something'
         property_in_query_ok:
           type: string
           title: property_in_query_ok
@@ -475,8 +478,9 @@ components:
       type: object
       properties:
         fields:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.FieldMask'
           title: fields
-          $ref: '#/components/schemas/google.protobuf.FieldMask'
       title: MaskyRequest
       additionalProperties: false
     proto_names.io.swagger.petstore.v2.Profile:
@@ -517,16 +521,18 @@ components:
             - type: object
               properties:
                 profile:
+                  allOf:
+                    - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
                   title: profile
-                  $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
               title: profile
               required:
                 - profile
             - type: object
               properties:
                 settings:
+                  allOf:
+                    - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
                   title: settings
-                  $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
               title: settings
               required:
                 - settings

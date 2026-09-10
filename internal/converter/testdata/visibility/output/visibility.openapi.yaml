@@ -106,8 +106,9 @@ components:
           type: string
           title: preview_filter
         nested:
+          allOf:
+            - $ref: '#/components/schemas/visibility.NestedFilter'
           title: nested
-          $ref: '#/components/schemas/visibility.NestedFilter'
       title: ListMessagesRequest
       additionalProperties: false
       description: Request whose fields are flattened into query parameters.

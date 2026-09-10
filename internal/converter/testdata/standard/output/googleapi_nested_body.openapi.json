@@ -80,8 +80,12 @@
         "type": "object",
         "properties": {
           "parentRef": {
-            "title": "parent_ref",
-            "$ref": "#/components/schemas/googleapi_nested_body.ParentRef"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/googleapi_nested_body.ParentRef"
+              }
+            ],
+            "title": "parent_ref"
           },
           "displayName": {
             "type": "string",

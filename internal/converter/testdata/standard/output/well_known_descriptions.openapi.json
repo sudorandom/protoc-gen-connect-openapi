@@ -97,9 +97,13 @@
         "type": "object",
         "properties": {
           "createTime": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "create_time",
-            "description": "When the event happened.",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "When the event happened."
           }
         },
         "title": "Event",
@@ -109,23 +113,39 @@
         "type": "object",
         "properties": {
           "startTime": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "start_time",
-            "description": "Only return events that happened at or after this time.",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "Only return events that happened at or after this time."
           },
           "endTime": {
-            "title": "end_time",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
+            "title": "end_time"
           },
           "timeout": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "timeout",
-            "description": "How long to wait for events before giving up.",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "How long to wait for events before giving up."
           },
           "label": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.StringValue"
+              }
+            ],
             "title": "label",
-            "description": "Only return events with this label.",
-            "$ref": "#/components/schemas/google.protobuf.StringValue"
+            "description": "Only return events with this label."
           }
         },
         "title": "ListEventsRequest",

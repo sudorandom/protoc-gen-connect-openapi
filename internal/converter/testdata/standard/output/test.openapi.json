@@ -97,8 +97,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/google.protobuf.Value"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Value"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "FieldsEntry",
@@ -695,13 +699,21 @@
                 "format": "byte"
               },
               "msgValue": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.AllTypes"
+                  }
+                ],
                 "title": "msg_value",
-                "deprecated": true,
-                "$ref": "#/components/schemas/test.v1.AllTypes"
+                "deprecated": true
               },
               "enumValue": {
-                "title": "enum_value",
-                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                  }
+                ],
+                "title": "enum_value"
               },
               "optMsgValue": {
                 "oneOf": [
@@ -743,16 +755,24 @@
                 "type": "object",
                 "title": "msg_map",
                 "additionalProperties": {
-                  "title": "value",
-                  "$ref": "#/components/schemas/test.v1.AllTypes"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/test.v1.AllTypes"
+                    }
+                  ],
+                  "title": "value"
                 }
               },
               "enumMap": {
                 "type": "object",
                 "title": "enum_map",
                 "additionalProperties": {
-                  "title": "value",
-                  "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                    }
+                  ],
+                  "title": "value"
                 }
               }
             }
@@ -805,8 +825,12 @@
                 "type": "object",
                 "properties": {
                   "enumOption": {
-                    "title": "enum_option",
-                    "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+                      }
+                    ],
+                    "title": "enum_option"
                   }
                 },
                 "title": "enum_option",
@@ -887,8 +911,12 @@
                 "type": "object",
                 "properties": {
                   "msgOption": {
-                    "title": "msg_option",
-                    "$ref": "#/components/schemas/test.v1.AllTypes"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/test.v1.AllTypes"
+                      }
+                    ],
+                    "title": "msg_option"
                   }
                 },
                 "title": "msg_option",
@@ -1169,8 +1197,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/test.v1.AllTypes.Enum"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "EnumMapEntry",
@@ -1326,8 +1358,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/test.v1.AllTypes"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/test.v1.AllTypes"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "MsgMapEntry",
@@ -1631,57 +1667,109 @@
                 "format": "byte"
               },
               "timestamp": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.Timestamp"
+                  }
+                ],
                 "title": "timestamp",
-                "description": "scalar wrappers",
-                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+                "description": "scalar wrappers"
               },
               "duration": {
-                "title": "duration",
-                "$ref": "#/components/schemas/google.protobuf.Duration"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.Duration"
+                  }
+                ],
+                "title": "duration"
               },
               "boolValueWrapper": {
-                "title": "bool_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.BoolValue"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.BoolValue"
+                  }
+                ],
+                "title": "bool_value_wrapper"
               },
               "int32ValueWrapper": {
-                "title": "int32_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.Int32Value"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.Int32Value"
+                  }
+                ],
+                "title": "int32_value_wrapper"
               },
               "int64ValueWrapper": {
-                "title": "int64_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.Int64Value"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.Int64Value"
+                  }
+                ],
+                "title": "int64_value_wrapper"
               },
               "uint32ValueWrapper": {
-                "title": "uint32_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.UInt32Value"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.UInt32Value"
+                  }
+                ],
+                "title": "uint32_value_wrapper"
               },
               "uint64ValueWrapper": {
-                "title": "uint64_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.UInt64Value"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.UInt64Value"
+                  }
+                ],
+                "title": "uint64_value_wrapper"
               },
               "floatValueWrapper": {
-                "title": "float_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.FloatValue"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.FloatValue"
+                  }
+                ],
+                "title": "float_value_wrapper"
               },
               "doubleValueWrapper": {
-                "title": "double_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+                  }
+                ],
+                "title": "double_value_wrapper"
               },
               "bytesValueWrapper": {
-                "title": "bytes_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.BytesValue"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.BytesValue"
+                  }
+                ],
+                "title": "bytes_value_wrapper"
               },
               "stringValueWrapper": {
-                "title": "string_value_wrapper",
-                "$ref": "#/components/schemas/google.protobuf.StringValue"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.StringValue"
+                  }
+                ],
+                "title": "string_value_wrapper"
               },
               "fieldMask": {
-                "title": "field_mask",
-                "$ref": "#/components/schemas/google.protobuf.FieldMask"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.FieldMask"
+                  }
+                ],
+                "title": "field_mask"
               },
               "enumValue": {
-                "title": "enum_value",
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                  }
+                ],
+                "title": "enum_value"
               },
               "enumList": {
                 "type": "array",
@@ -1708,12 +1796,20 @@
                 "title": "double_value_list"
               },
               "nested": {
-                "title": "nested",
-                "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                  }
+                ],
+                "title": "nested"
               },
               "recursive": {
-                "title": "recursive",
-                "$ref": "#/components/schemas/test.v1.ParameterValues"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/test.v1.ParameterValues"
+                  }
+                ],
+                "title": "recursive"
               },
               "stringMap": {
                 "type": "object",
@@ -1728,33 +1824,53 @@
                 "type": "object",
                 "title": "string_value_map",
                 "additionalProperties": {
-                  "title": "value",
-                  "$ref": "#/components/schemas/google.protobuf.StringValue"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/google.protobuf.StringValue"
+                    }
+                  ],
+                  "title": "value"
                 }
               },
               "enumMap": {
                 "type": "object",
                 "title": "enum_map",
                 "additionalProperties": {
-                  "title": "value",
-                  "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                    }
+                  ],
+                  "title": "value"
                 }
               },
               "nestedMap": {
                 "type": "object",
                 "title": "nested_map",
                 "additionalProperties": {
-                  "title": "value",
-                  "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+                    }
+                  ],
+                  "title": "value"
                 }
               },
               "structValue": {
-                "title": "struct_value",
-                "$ref": "#/components/schemas/google.protobuf.Struct"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.Struct"
+                  }
+                ],
+                "title": "struct_value"
               },
               "value": {
-                "title": "value",
-                "$ref": "#/components/schemas/google.protobuf.Value"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/google.protobuf.Value"
+                  }
+                ],
+                "title": "value"
               },
               "recursiveList": {
                 "type": "array",
@@ -1785,8 +1901,12 @@
                 "type": "object",
                 "properties": {
                   "oneofDoubleValueWrapper": {
-                    "title": "oneof_double_value_wrapper",
-                    "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+                      }
+                    ],
+                    "title": "oneof_double_value_wrapper"
                   }
                 },
                 "title": "oneof_double_value_wrapper",
@@ -1798,8 +1918,12 @@
                 "type": "object",
                 "properties": {
                   "oneofEnumValue": {
-                    "title": "oneof_enum_value",
-                    "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+                      }
+                    ],
+                    "title": "oneof_enum_value"
                   }
                 },
                 "title": "oneof_enum_value",
@@ -1851,8 +1975,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/test.v1.ParameterValues.Enum"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "EnumMapEntry",
@@ -1867,12 +1995,20 @@
             "format": "double"
           },
           "doubleValueWrapper": {
-            "title": "double_value_wrapper",
-            "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+              }
+            ],
+            "title": "double_value_wrapper"
           },
           "enumValue": {
-            "title": "enum_value",
-            "$ref": "#/components/schemas/test.v1.ParameterValues.Nested.Enum"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/test.v1.ParameterValues.Nested.Enum"
+              }
+            ],
+            "title": "enum_value"
           }
         },
         "title": "Nested",
@@ -1894,8 +2030,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/test.v1.ParameterValues.Nested"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "NestedMapEntry",
@@ -1924,8 +2064,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/google.protobuf.StringValue"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.StringValue"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "StringValueMapEntry",

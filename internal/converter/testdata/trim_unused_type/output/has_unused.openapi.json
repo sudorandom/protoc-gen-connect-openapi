@@ -159,8 +159,12 @@
         "type": "object",
         "properties": {
           "msg": {
-            "title": "msg",
-            "$ref": "#/components/schemas/has_unused_types.UsedType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/has_unused_types.UsedType"
+              }
+            ],
+            "title": "msg"
           }
         },
         "title": "UsedReply",
@@ -170,8 +174,12 @@
         "type": "object",
         "properties": {
           "msg": {
-            "title": "msg",
-            "$ref": "#/components/schemas/has_unused_types.UsedType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/has_unused_types.UsedType"
+              }
+            ],
+            "title": "msg"
           }
         },
         "title": "UsedRequest",

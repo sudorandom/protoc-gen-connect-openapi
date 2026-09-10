@@ -16,8 +16,12 @@
         "type": "object",
         "properties": {
           "fields": {
-            "title": "fields",
-            "$ref": "#/components/schemas/google.protobuf.FieldMask"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.FieldMask"
+              }
+            ],
+            "title": "fields"
           },
           "id": {
             "type": "string",

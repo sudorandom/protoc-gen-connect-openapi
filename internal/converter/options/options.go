@@ -42,9 +42,6 @@ type Options struct {
 	IncludeNumberEnumValues bool
 	// WithProtoNames indicates if protobuf field names should be used instead of JSON names.
 	WithProtoNames bool
-	// WrapRefsInAllOf wraps a $ref in an `allOf` whenever the field also carries
-	// sibling keywords, instead of placing the $ref next to them.
-	WrapRefsInAllOf bool
 	// Path is the output OpenAPI path.
 	Path string
 	// PathPrefix is a prefix that is prepended to every HTTP path.
@@ -174,8 +171,6 @@ func FromString(s string) (Options, error) {
 			opts.WithStreaming = true
 		case param == "with-proto-names":
 			opts.WithProtoNames = true
-		case param == "wrap-refs-in-allof":
-			opts.WrapRefsInAllOf = true
 		case param == "with-proto-annotations":
 			opts.WithProtoAnnotations = true
 		case param == "trim-unused-types":

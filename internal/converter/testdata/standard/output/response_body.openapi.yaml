@@ -24,8 +24,9 @@ paths:
           content:
             application/json:
               schema:
+                allOf:
+                  - $ref: '#/components/schemas/response_body.User'
                 title: user
-                $ref: '#/components/schemas/response_body.User'
 components:
   schemas:
     response_body.GetUserRequest:
@@ -40,8 +41,9 @@ components:
       type: object
       properties:
         user:
+          allOf:
+            - $ref: '#/components/schemas/response_body.User'
           title: user
-          $ref: '#/components/schemas/response_body.User'
       title: GetUserResponse
       additionalProperties: false
     response_body.User:
