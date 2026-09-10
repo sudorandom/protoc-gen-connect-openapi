@@ -353,25 +353,6 @@
         },
         "description": "A JSON object whose property values may be any JSON value."
       },
-      "google.protobuf.Struct.FieldsEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Value"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "FieldsEntry",
-        "additionalProperties": false
-      },
       "google.protobuf.Value": {
         "oneOf": [
           {

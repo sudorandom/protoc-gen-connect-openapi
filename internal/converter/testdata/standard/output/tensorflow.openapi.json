@@ -1214,36 +1214,6 @@
         "additionalProperties": false,
         "description": "Defines a subgraph in another `GraphDef` as a set of feed points and nodes\n to be fetched or executed.\n\n Compare with the arguments to `Session::Run()`."
       },
-      "tensorflow.CallableOptions.FeedDevicesEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "FeedDevicesEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.CallableOptions.FetchDevicesEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "FetchDevicesEntry",
-        "additionalProperties": false
-      },
       "tensorflow.CloseSessionRequest": {
         "type": "object",
         "properties": {
@@ -1403,22 +1373,6 @@
         "title": "ConfigProto",
         "additionalProperties": false,
         "description": "Session configuration parameters.\n The system picks appropriate values for fields that are not set."
-      },
-      "tensorflow.ConfigProto.DeviceCountEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "integer",
-            "title": "value",
-            "format": "int32"
-          }
-        },
-        "title": "DeviceCountEntry",
-        "additionalProperties": false
       },
       "tensorflow.ConfigProto.Experimental": {
         "type": "object",
@@ -2114,21 +2068,6 @@
         "title": "DeviceStepStats",
         "additionalProperties": false
       },
-      "tensorflow.DeviceStepStats.ThreadNamesEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "ThreadNamesEntry",
-        "additionalProperties": false
-      },
       "tensorflow.ExtendSessionRequest": {
         "type": "object",
         "properties": {
@@ -2364,25 +2303,6 @@
         "additionalProperties": false,
         "description": "A function can be instantiated when the runtime can bind every attr\n with a value. When a GraphDef has a call to a function, it must\n have binding for every attr defined in the signature.\n\n TODO(zhifengc):\n   * device spec, etc."
       },
-      "tensorflow.FunctionDef.ArgAttrEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.FunctionDef.ArgAttrs"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "ArgAttrEntry",
-        "additionalProperties": false
-      },
       "tensorflow.FunctionDef.ArgAttrs": {
         "type": "object",
         "properties": {
@@ -2402,89 +2322,6 @@
         "title": "ArgAttrs",
         "additionalProperties": false,
         "description": "Attributes for function arguments. These attributes are the same set of\n valid attributes as to _Arg nodes."
-      },
-      "tensorflow.FunctionDef.ArgAttrs.AttrEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.AttrValue"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "AttrEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.FunctionDef.AttrEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.AttrValue"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "AttrEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.FunctionDef.ControlRetEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "ControlRetEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.FunctionDef.ResourceArgUniqueIdEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key"
-          },
-          "value": {
-            "type": "integer",
-            "title": "value"
-          }
-        },
-        "title": "ResourceArgUniqueIdEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.FunctionDef.RetEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "RetEntry",
-        "additionalProperties": false
       },
       "tensorflow.FunctionDefLibrary": {
         "type": "object",
@@ -2832,54 +2669,6 @@
         "additionalProperties": false,
         "description": "This represents a file/line location in the source code."
       },
-      "tensorflow.GraphDebugInfo.FramesByIdEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "title": "key",
-            "format": "int64"
-          },
-          "value": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.FileLineCol"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "FramesByIdEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.GraphDebugInfo.NameToTraceIdEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "title": "key"
-          },
-          "value": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "title": "value",
-            "format": "int64"
-          }
-        },
-        "title": "NameToTraceIdEntry",
-        "additionalProperties": false
-      },
       "tensorflow.GraphDebugInfo.StackTrace": {
         "type": "object",
         "properties": {
@@ -2903,57 +2692,6 @@
         "title": "StackTrace",
         "additionalProperties": false,
         "description": "This represents a stack trace which is a ordered list of `FileLineCol`."
-      },
-      "tensorflow.GraphDebugInfo.TracesByIdEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "title": "key",
-            "format": "int64"
-          },
-          "value": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "TracesByIdEntry",
-        "additionalProperties": false
-      },
-      "tensorflow.GraphDebugInfo.TracesEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "title": "key"
-          },
-          "value": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.GraphDebugInfo.StackTrace"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "TracesEntry",
-        "additionalProperties": false
       },
       "tensorflow.GraphDef": {
         "type": "object",
@@ -3109,22 +2847,6 @@
         "title": "JobDef",
         "additionalProperties": false,
         "description": "Defines a single job in a TensorFlow cluster."
-      },
-      "tensorflow.JobDef.TasksEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "integer",
-            "title": "key",
-            "format": "int32"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "TasksEntry",
-        "additionalProperties": false
       },
       "tensorflow.ListDevicesRequest": {
         "type": "object",
@@ -3285,25 +3007,6 @@
         "additionalProperties": false,
         "description": "A list of attr names and their values. The whole list is attached\n with a string name.  E.g., MatMul[T=float]."
       },
-      "tensorflow.NameAttrList.AttrEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.AttrValue"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "AttrEntry",
-        "additionalProperties": false
-      },
       "tensorflow.NamedTensorProto": {
         "type": "object",
         "properties": {
@@ -3385,25 +3088,6 @@
           }
         },
         "title": "NodeDef",
-        "additionalProperties": false
-      },
-      "tensorflow.NodeDef.AttrEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.AttrValue"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "AttrEntry",
         "additionalProperties": false
       },
       "tensorflow.NodeDef.ExperimentalDebugInfo": {
@@ -4410,25 +4094,6 @@
         "title": "CustomGraphOptimizer",
         "additionalProperties": false,
         "description": "Message to describe custom graph optimizer and its parameters"
-      },
-      "tensorflow.RewriterConfig.CustomGraphOptimizer.ParameterMapEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/tensorflow.AttrValue"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "ParameterMapEntry",
-        "additionalProperties": false
       },
       "tensorflow.RewriterConfig.MemOptType": {
         "type": "string",

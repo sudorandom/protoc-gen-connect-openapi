@@ -1,0 +1,23 @@
+// A file for testing the jsonschema output format with a message whose only
+// fields are the members of a single oneof.
+syntax = "proto3";
+
+package jsonschema;
+
+// Notification is a message delivered to a user. Its oneof mixes a scalar
+// member with a message-type member.
+message Notification {
+  // delivery is how the notification is sent.
+  oneof delivery {
+    // webhook_url is an HTTP endpoint to call.
+    string webhook_url = 1;
+    // push is a mobile push delivery target.
+    PushChannel push = 2;
+  }
+}
+
+// PushChannel describes a mobile push delivery target.
+message PushChannel {
+  // device_token identifies the target device.
+  string device_token = 1;
+}

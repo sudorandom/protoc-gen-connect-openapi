@@ -17,6 +17,7 @@ import (
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
 	"github.com/pb33f/libopenapi/datamodel"
+	jsonschemavalidator "github.com/santhosh-tekuri/jsonschema/v6"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
@@ -126,7 +127,7 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	require.Len(t, resp.File, 1)
 	file := resp.File[0]
 	assert.NotNil(t, file.Name)
-	assert.Equal(t, strings.TrimSuffix(relPath, filepath.Ext(relPath))+".openapi."+format, file.GetName())
+	assert.Equal(t, strings.TrimSuffix(relPath, filepath.Ext(relPath))+outputSuffix(format), file.GetName())
 
 	// Load in our expected output and compare it against what we actually got
 	outputPath := makeOutputPath(protofile, format)
@@ -236,6 +237,137 @@ func TestConvert(t *testing.T) {
 	}
 }
 
+// TestConvertJSONSchema generates standalone JSON Schema documents with
+// format=jsonschema, compares them against golden files, and compiles them
+// with a real JSON Schema validator to make sure every schema and $ref is
+// valid draft 2020-12.
+func TestConvertJSONSchema(t *testing.T) {
+	jsonSchemaScenarios := []Scenario{
+		{Name: "jsonschema"},
+		{Name: "jsonschema_trim", Options: "trim-unused-types"},
+	}
+	for _, scenario := range jsonSchemaScenarios {
+		t.Run(scenario.Name, func(t *testing.T) {
+			paths, err := filepath.Glob("testdata/" + scenario.Name + "/**.proto")
+			require.NoError(t, err)
+			require.NotEmpty(t, paths)
+			for _, protofile := range paths {
+				t.Run(path.Base(protofile), func(t *testing.T) {
+					content := generateAndCheckResult(t, scenario.Options, "jsonschema", protofile)
+					compileJSONSchema(t, content)
+
+					// No OpenAPI or protocol-specific content should leak in.
+					assert.NotContains(t, content, "connect-protocol-version")
+					assert.NotContains(t, content, "connect.error")
+					assert.NotContains(t, content, "\"paths\"")
+					assert.NotContains(t, content, "\"openapi\"")
+				})
+			}
+		})
+	}
+}
+
+// TestJSONSchemaInstances validates sample JSON documents against the schemas
+// produced by format=jsonschema.
+func TestJSONSchemaInstances(t *testing.T) {
+	content := generateAndCheckResult(t, "", "jsonschema", "testdata/jsonschema/jsonschema.proto")
+	assert.Contains(t, content, "jsonschema.AuditRecord") // unused types are kept without trim-unused-types
+	compiler := compileJSONSchema(t, content)
+
+	userSchema, err := compiler.Compile("schema.json#/$defs/jsonschema.User")
+	require.NoError(t, err)
+
+	validUser, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{
+		"id": "user-1",
+		"name": "Ada",
+		"role": "ROLE_ADMIN",
+		"createdAt": "2023-01-01T00:00:00Z",
+		"sessionTtl": "3600s",
+		"metadata": {"plan": "pro"},
+		"labels": {"team": "core"},
+		"aliases": ["ada"],
+		"loginCount": "42",
+		"avatar": "aGVsbG8=",
+		"email": "ada@example.com",
+		"address": {"street": "1 Main St", "city": "Springfield"}
+	}`))
+	require.NoError(t, err)
+	assert.NoError(t, userSchema.Validate(validUser))
+
+	unknownField, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{"id": "user-1", "bogus": true}`))
+	require.NoError(t, err)
+	assert.Error(t, userSchema.Validate(unknownField), "unknown properties should be rejected")
+
+	bothOneofMembers, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{"id": "user-1", "email": "a@example.com", "phone": "555"}`))
+	require.NoError(t, err)
+	assert.Error(t, userSchema.Validate(bothOneofMembers), "setting two members of a oneof should be rejected")
+
+	// Notification's fields are all members of a single oneof, mixing a scalar
+	// member with a message-type member.
+	notificationContent := generateAndCheckResult(t, "", "jsonschema", "testdata/jsonschema/notification.proto")
+	notificationCompiler := compileJSONSchema(t, notificationContent)
+	notificationSchema, err := notificationCompiler.Compile("schema.json#/$defs/jsonschema.Notification")
+	require.NoError(t, err)
+
+	messageMember, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{"push": {"deviceToken": "abc123"}}`))
+	require.NoError(t, err)
+	assert.NoError(t, notificationSchema.Validate(messageMember))
+
+	noMemberSet, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{}`))
+	require.NoError(t, err)
+	assert.NoError(t, notificationSchema.Validate(noMemberSet), "a oneof with no member set is valid")
+
+	badMessageMember, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{"push": {"deviceToken": 5}}`))
+	require.NoError(t, err)
+	assert.Error(t, notificationSchema.Validate(badMessageMember), "the message member's schema should be enforced through its $ref")
+}
+
+func TestJSONSchemaTrimsUnusedTypes(t *testing.T) {
+	content := generateAndCheckResult(t, "trim-unused-types", "jsonschema", "testdata/jsonschema_trim/jsonschema_trim.proto")
+	assert.NotContains(t, content, "Orphan")
+	assert.Contains(t, content, "jsonschema.trim.Thing")
+	assert.Contains(t, content, "jsonschema.trim.Kind")
+}
+
+func TestJSONSchemaRejectsOpenAPIOnlyOptions(t *testing.T) {
+	pf := loadTestFileDescriptorSet(t)
+	req := new(pluginpb.CodeGeneratorRequest)
+	req.ProtoFile = pf.GetFile()
+	req.FileToGenerate = []string{"jsonschema/jsonschema.proto"}
+
+	for _, params := range []string{
+		"format=jsonschema,base=testdata/with_base/base.yaml",
+		"format=jsonschema,override=testdata/with_override/override.yaml",
+	} {
+		req.Parameter = proto.String(params)
+		_, err := converter.Convert(req)
+		require.Error(t, err, params)
+		assert.Contains(t, err.Error(), "format=jsonschema")
+	}
+}
+
+// compileJSONSchema compiles the rendered document and every schema under
+// $defs, ensuring all references resolve.
+func compileJSONSchema(t *testing.T, content string) *jsonschemavalidator.Compiler {
+	t.Helper()
+	doc, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(content))
+	require.NoError(t, err)
+	compiler := jsonschemavalidator.NewCompiler()
+	require.NoError(t, compiler.AddResource("schema.json", doc))
+	_, err = compiler.Compile("schema.json")
+	require.NoError(t, err)
+
+	root, ok := doc.(map[string]any)
+	require.True(t, ok)
+	defs, ok := root["$defs"].(map[string]any)
+	require.True(t, ok)
+	for name := range defs {
+		_, err := compiler.Compile("schema.json#/$defs/" + name)
+		require.NoError(t, err, "compiling $defs/%s", name)
+	}
+	return compiler
+}
+
 type TestCaseFile struct {
 	Cases []TestCase `yaml:"cases"`
 }
@@ -251,8 +383,15 @@ type TestCase struct {
 }
 
 func makeOutputPath(protofile, format string) string {
-	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + ".openapi." + format)
+	dir, file := filepath.Split(strings.TrimSuffix(protofile, filepath.Ext(protofile)) + outputSuffix(format))
 	return filepath.Join(dir, "output", file)
+}
+
+func outputSuffix(format string) string {
+	if format == "jsonschema" {
+		return ".jsonschema.json"
+	}
+	return ".openapi." + format
 }
 
 func TestConvertWithOptions(t *testing.T) {

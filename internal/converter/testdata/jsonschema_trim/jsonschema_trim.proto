@@ -1,0 +1,38 @@
+// A file for testing the jsonschema output format with trim-unused-types.
+syntax = "proto3";
+
+package jsonschema.trim;
+
+// ThingService manages things.
+service ThingService {
+  // GetThing returns a single thing.
+  rpc GetThing(GetThingRequest) returns (Thing) {}
+}
+
+// GetThingRequest asks for a thing by id.
+message GetThingRequest {
+  // id is the unique identifier of the thing.
+  string id = 1;
+}
+
+// Thing is a thing.
+message Thing {
+  // id is the unique identifier of the thing.
+  string id = 1;
+  // kind describes the thing.
+  Kind kind = 2;
+}
+
+// Kind describes a thing.
+enum Kind {
+  // KIND_UNSPECIFIED is the default value.
+  KIND_UNSPECIFIED = 0;
+  // KIND_WIDGET is a widget.
+  KIND_WIDGET = 1;
+}
+
+// Orphan is not referenced by any service method and should be trimmed.
+message Orphan {
+  // note is a free-form note.
+  string note = 1;
+}

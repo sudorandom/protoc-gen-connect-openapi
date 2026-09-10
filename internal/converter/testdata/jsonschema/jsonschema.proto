@@ -1,0 +1,80 @@
+// A file for testing the jsonschema output format.
+syntax = "proto3";
+
+package jsonschema;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+// UserService manages users.
+service UserService {
+  // GetUser returns a single user.
+  rpc GetUser(GetUserRequest) returns (User) {}
+}
+
+// GetUserRequest asks for a user by id.
+message GetUserRequest {
+  // id is the unique identifier of the user.
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+}
+
+// User is a person with an account.
+message User {
+  // id is the unique identifier of the user.
+  string id = 1;
+  // name is the display name of the user.
+  optional string name = 2;
+  // role determines what the user can do.
+  Role role = 3;
+  // created_at is when the user signed up.
+  google.protobuf.Timestamp created_at = 4;
+  // session_ttl is how long the user's sessions last.
+  google.protobuf.Duration session_ttl = 5;
+  // metadata is a set of arbitrary details about the user.
+  google.protobuf.Struct metadata = 6;
+  // labels are free-form key/value annotations.
+  map<string, string> labels = 7;
+  // aliases are alternative names for the user.
+  repeated string aliases = 8;
+  // login_count is the number of times the user logged in.
+  int64 login_count = 9;
+  // avatar is the user's profile image.
+  bytes avatar = 10;
+  // contact is the preferred way to reach the user.
+  oneof contact {
+    // email is an email address.
+    string email = 11;
+    // phone is a phone number.
+    string phone = 12;
+  }
+  // address is where the user lives.
+  Address address = 13;
+
+  // Address is a physical mailing address.
+  message Address {
+    // street is the street name and number.
+    string street = 1;
+    // city is the name of the city.
+    string city = 2;
+  }
+}
+
+// Role determines what a user can do.
+enum Role {
+  // ROLE_UNSPECIFIED is the default value.
+  ROLE_UNSPECIFIED = 0;
+  // ROLE_MEMBER is a regular user.
+  ROLE_MEMBER = 1;
+  // ROLE_ADMIN can administer the system.
+  ROLE_ADMIN = 2;
+}
+
+// AuditRecord is not referenced by any service method.
+message AuditRecord {
+  // action is what happened.
+  string action = 1;
+  // actor is the user that performed the action.
+  User actor = 2;
+}

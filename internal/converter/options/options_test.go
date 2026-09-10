@@ -166,6 +166,11 @@ func TestFromString(t *testing.T) {
 			require.NoError(t, err)
 			assert.Equal(t, "json", opts.Format)
 		})
+		t.Run("jsonschema", func(t *testing.T) {
+			opts, err := options.FromString("format=jsonschema")
+			require.NoError(t, err)
+			assert.Equal(t, options.FormatJSONSchema, opts.Format)
+		})
 		t.Run("invalid", func(t *testing.T) {
 			_, err := options.FromString("format=invalid")
 			require.Error(t, err)

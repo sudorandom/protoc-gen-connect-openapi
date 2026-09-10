@@ -757,44 +757,6 @@
         "additionalProperties": false,
         "description": "Metadata provides additional inputs to filters based on matched listeners,\n filter chains, routes and endpoints. It is structured as a map, usually from\n filter name (in reverse DNS format) to metadata specific to the filter. Metadata\n key-values for a filter are merged as connection and request handling occurs,\n with later values for the same key overriding earlier values.\n\n An example use of metadata is providing additional values to\n http_connection_manager in the envoy.http_connection_manager.access_log\n namespace.\n\n Another example use of metadata is to per service config info in cluster metadata, which may get\n consumed by multiple filters.\n\n For load balancing, Metadata provides a means to subset cluster endpoints.\n Endpoints have a Metadata object associated and routes contain a Metadata\n object to match against. There are some well defined metadata used today for\n this purpose:\n\n * ``{\"envoy.lb\": {\"canary\": \u003cbool\u003e }}`` This indicates the canary status of an\n   endpoint and is also used during header processing\n   (x-envoy-upstream-canary) and for stats purposes.\n [#next-major-version: move to type/metadata/v2]"
       },
-      "envoy.config.core.v3.Metadata.FilterMetadataEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Struct"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "FilterMetadataEntry",
-        "additionalProperties": false
-      },
-      "envoy.config.core.v3.Metadata.TypedFilterMetadataEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Any"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "TypedFilterMetadataEntry",
-        "additionalProperties": false
-      },
       "envoy.config.core.v3.Node": {
         "type": "object",
         "allOf": [
@@ -929,25 +891,6 @@
         "unevaluatedProperties": false,
         "title": "Node",
         "description": "Identifies a specific Envoy instance. The node identifier is presented to the\n management server, which may use this identifier to distinguish per Envoy\n configuration for serving.\n [#next-free-field: 13]"
-      },
-      "envoy.config.core.v3.Node.DynamicParametersEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/xds.core.v3.ContextParams"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "DynamicParametersEntry",
-        "additionalProperties": false
       },
       "envoy.config.core.v3.Pipe": {
         "type": "object",
@@ -1137,21 +1080,6 @@
         "title": "DeltaDiscoveryRequest",
         "additionalProperties": false,
         "description": "DeltaDiscoveryRequest and DeltaDiscoveryResponse are used in a new gRPC\n endpoint for Delta xDS.\n\n With Delta xDS, the DeltaDiscoveryResponses do not need to include a full\n snapshot of the tracked resources. Instead, DeltaDiscoveryResponses are a\n diff to the state of a xDS client.\n In Delta XDS there are per-resource versions, which allow tracking state at\n the resource granularity.\n An xDS Delta session is always in the context of a gRPC bidirectional\n stream. This allows the xDS server to keep track of the state of xDS clients\n connected to it.\n\n In Delta xDS the nonce field is required and used to pair\n ``DeltaDiscoveryResponse`` to a ``DeltaDiscoveryRequest`` ACK or NACK.\n Optionally, a response message level ``system_version_info`` is present for\n debugging purposes only.\n\n ``DeltaDiscoveryRequest`` plays two independent roles. Any ``DeltaDiscoveryRequest``\n can be either or both of:\n\n * Informing the server of what resources the client has gained/lost interest in\n   (using ``resource_names_subscribe`` and ``resource_names_unsubscribe``), or\n * (N)ACKing an earlier resource update from the server (using ``response_nonce``,\n   with presence of ``error_detail`` making it a NACK).\n\n Additionally, the first message (for a given ``type_url``) of a reconnected gRPC stream\n has a third role: informing the server of the resources (and their versions)\n that the client already possesses, using the ``initial_resource_versions`` field.\n\n As with state-of-the-world, when multiple resource types are multiplexed (ADS),\n all requests/acknowledgments/updates are logically walled off by ``type_url``:\n a Cluster ACK exists in a completely separate world from a prior Route NACK.\n In particular, ``initial_resource_versions`` being sent at the \"start\" of every\n gRPC stream actually entails a message for each ``type_url``, each with its own\n ``initial_resource_versions``.\n [#next-free-field: 10]"
-      },
-      "envoy.service.discovery.v3.DeltaDiscoveryRequest.InitialResourceVersionsEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "InitialResourceVersionsEntry",
-        "additionalProperties": false
       },
       "envoy.service.discovery.v3.DeltaDiscoveryResponse": {
         "type": "object",
@@ -1653,21 +1581,6 @@
         "additionalProperties": false,
         "description": "Specifies a resource to be subscribed to."
       },
-      "envoy.service.discovery.v3.ResourceLocator.DynamicParametersEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "DynamicParametersEntry",
-        "additionalProperties": false
-      },
       "envoy.service.discovery.v3.ResourceName": {
         "type": "object",
         "properties": {
@@ -1751,25 +1664,6 @@
         },
         "description": "A JSON object whose property values may be any JSON value."
       },
-      "google.protobuf.Struct.FieldsEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Value"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "FieldsEntry",
-        "additionalProperties": false
-      },
       "google.protobuf.Value": {
         "oneOf": [
           {
@@ -1836,21 +1730,6 @@
         "title": "ContextParams",
         "additionalProperties": false,
         "description": "Additional parameters that can be used to select resource variants. These include any\n global context parameters, per-resource type client feature capabilities and per-resource\n type functional attributes. All per-resource type attributes will be `xds.resource.`\n prefixed and some of these are documented below:\n\n `xds.resource.listening_address`: The value is \"IP:port\" (e.g. \"10.1.1.3:8080\") which is\n   the listening address of a Listener. Used in a Listener resource query."
-      },
-      "xds.core.v3.ContextParams.ParamsEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "key"
-          },
-          "value": {
-            "type": "string",
-            "title": "value"
-          }
-        },
-        "title": "ParamsEntry",
-        "additionalProperties": false
       }
     }
   },

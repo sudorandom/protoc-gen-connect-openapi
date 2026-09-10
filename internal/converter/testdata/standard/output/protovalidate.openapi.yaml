@@ -1418,50 +1418,6 @@ components:
       required:
         - requiredField
       additionalProperties: false
-    protovalidate.LotsOfValidationRules.MapKeysEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-      title: MapKeysEntry
-      additionalProperties: false
-    protovalidate.LotsOfValidationRules.MapMaxPairsEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-      title: MapMaxPairsEntry
-      additionalProperties: false
-    protovalidate.LotsOfValidationRules.MapMinPairsEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-      title: MapMinPairsEntry
-      additionalProperties: false
-    protovalidate.LotsOfValidationRules.MapValuesEntry:
-      type: object
-      properties:
-        key:
-          type: string
-          title: key
-        value:
-          type: string
-          title: value
-      title: MapValuesEntry
-      additionalProperties: false
     protovalidate.MyEnum:
       type: string
       title: MyEnum

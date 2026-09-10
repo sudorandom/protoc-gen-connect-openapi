@@ -23,6 +23,17 @@ const (
 	FeatureProtovalidate Feature = "protovalidate"
 )
 
+const (
+	// FormatYAML renders the OpenAPI document as YAML.
+	FormatYAML = "yaml"
+	// FormatJSON renders the OpenAPI document as JSON.
+	FormatJSON = "json"
+	// FormatJSONSchema renders a standalone JSON Schema (draft 2020-12) document
+	// containing only the message and enum schemas, without any OpenAPI paths or
+	// protocol-specific schemas.
+	FormatJSONSchema = "jsonschema"
+)
+
 // WellKnownTypeDescriptionMode controls how well-known type comments are rendered.
 type WellKnownTypeDescriptionMode string
 
@@ -45,7 +56,9 @@ func ParseWellKnownTypeDescriptionMode(s string) (WellKnownTypeDescriptionMode, 
 }
 
 type Options struct {
-	// Format is either 'yaml' or 'json' and is the format of the output OpenAPI file(s).
+	// Format is 'yaml', 'json' or 'jsonschema' and is the format of the output file(s).
+	// 'yaml' and 'json' render an OpenAPI document; 'jsonschema' renders a standalone
+	// JSON Schema document containing only the message and enum schemas.
 	Format string
 	// BaseOpenAPI is the file contents of a base OpenAPI file.
 	BaseOpenAPI []byte
@@ -152,7 +165,7 @@ func (opts *Options) EnableFeatures(features ...Feature) error {
 
 func NewOptions() Options {
 	return Options{
-		Format: "yaml",
+		Format: FormatYAML,
 		ContentTypes: map[string]struct{}{
 			"json": {},
 		},
@@ -258,12 +271,10 @@ func FromString(s string) (Options, error) {
 		case strings.HasPrefix(param, "format="):
 			format := param[7:]
 			switch format {
-			case "yaml":
-				opts.Format = "yaml"
-			case "json":
-				opts.Format = "json"
+			case FormatYAML, FormatJSON, FormatJSONSchema:
+				opts.Format = format
 			default:
-				return opts, fmt.Errorf("format be yaml or json, not '%s'", format)
+				return opts, fmt.Errorf("format must be yaml, json, or jsonschema, not '%s'", format)
 			}
 		case strings.HasPrefix(param, "base="):
 			if msg, ok := disabledOptions["base"]; ok {

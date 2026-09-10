@@ -20,6 +20,12 @@ func AddMessageSchemas(opts options.Options, md protoreflect.MessageDescriptor, 
 	if md == nil {
 		return
 	}
+	// Synthetic map-entry messages never appear in JSON: map fields are
+	// rendered inline as objects with additionalProperties, so nothing can
+	// reference an entry schema.
+	if md.IsMapEntry() {
+		return
+	}
 	if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(md), opts.AllowedVisibilities) {
 		opts.Logger.Debug("Filtering message due to visibility", slog.String("message", string(md.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
 		return

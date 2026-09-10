@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "jsonschema.trim.GetThingRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id",
+          "description": "id is the unique identifier of the thing."
+        }
+      },
+      "title": "GetThingRequest",
+      "additionalProperties": false,
+      "description": "GetThingRequest asks for a thing by id."
+    },
+    "jsonschema.trim.Kind": {
+      "type": "string",
+      "title": "Kind",
+      "enum": [
+        "KIND_UNSPECIFIED",
+        "KIND_WIDGET"
+      ],
+      "description": "Kind describes a thing."
+    },
+    "jsonschema.trim.Thing": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id",
+          "description": "id is the unique identifier of the thing."
+        },
+        "kind": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/jsonschema.trim.Kind"
+            }
+          ],
+          "title": "kind",
+          "description": "kind describes the thing."
+        }
+      },
+      "title": "Thing",
+      "additionalProperties": false,
+      "description": "Thing is a thing."
+    }
+  }
+}
