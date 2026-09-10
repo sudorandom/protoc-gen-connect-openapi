@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "response_body",
-    "description": "## response_body.UserService"
+    "description": "## response_body.UserService",
+    "version": "1.0.0"
   },
   "paths": {
     "/v1/users/{userId}": {
@@ -16,6 +17,7 @@
           {
             "name": "userId",
             "in": "path",
+            "description": "The userId path parameter.",
             "required": true,
             "schema": {
               "type": "string",

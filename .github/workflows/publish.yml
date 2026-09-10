@@ -13,16 +13,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Set up Go
-        uses: actions/setup-go@v4
-      - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v5
+
+      - name: Setup Tools
+        uses: jdx/mise-action@v4
+
+      - name: Setup Go cache
+        uses: actions/cache@v4
         with:
-          distribution: goreleaser
-          version: latest
-          args: release --clean
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-publish-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-publish-
+            ${{ runner.os }}-go-
+
+      - name: Run GoReleaser
+        run: just release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

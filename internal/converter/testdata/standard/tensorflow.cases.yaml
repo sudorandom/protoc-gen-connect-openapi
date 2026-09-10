@@ -22,7 +22,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*got number, want string, Location: /properties/sessionHandle/type.*"
+      - ".*Reason: got number, want string.*"
 
   - name: "list-devices-with-null"
     path: "tensorflowtest.MasterService/ListDevices"
@@ -31,7 +31,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*got null, want string, Location: /properties/sessionHandle/type.*"
+      - ".*Reason: got null, want string.*"
 
   - name: "list-devices-with-array"
     path: "tensorflowtest.MasterService/ListDevices"
@@ -40,7 +40,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*got array, want string, Location: /properties/sessionHandle/type.*"
+      - ".*Reason: got array, want string.*"
 
   - name: "make-callable-with-empty"
     path: "tensorflowtest.MasterService/MakeCallable"

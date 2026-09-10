@@ -158,7 +158,11 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			if err != nil {
 				return nil, err
 			}
-			spec.Info.Title = string(fd.FullName())
+			if fd.FullName() != "" {
+				spec.Info.Title = string(fd.FullName())
+			} else {
+				spec.Info.Title = strings.TrimSuffix(filepath.Base(string(fd.Name())), filepath.Ext(string(fd.Name())))
+			}
 			spec.Info.Description = util.FormatComments(fd.SourceLocations().ByDescriptor(fd))
 		}
 
@@ -185,6 +189,13 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 	for path, spec := range outFiles {
 		path := path
 		spec := spec
+		if spec.Info.Description == "" {
+			if spec.Info.Title != "" {
+				spec.Info.Description = "API documentation for " + spec.Info.Title
+			} else {
+				spec.Info.Description = "API documentation"
+			}
+		}
 		content, err := specToFile(opts, spec)
 		if err != nil {
 			return nil, err
@@ -337,6 +348,7 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 
 	// Sort
 	spec.Paths.PathItems = orderedmap.SortAlpha(spec.Paths.PathItems)
+	dedupeOperationIDs(spec.Paths)
 	spec.Components.Schemas = orderedmap.SortAlpha(spec.Components.Schemas)
 	spec.Components.Responses = orderedmap.SortAlpha(spec.Components.Responses)
 	spec.Components.Parameters = orderedmap.SortAlpha(spec.Components.Parameters)
@@ -350,6 +362,24 @@ func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileD
 	spec.Components.Extensions = orderedmap.SortAlpha(spec.Components.Extensions)
 
 	return nil
+}
+
+func dedupeOperationIDs(paths *v3.Paths) {
+	if paths == nil || paths.PathItems == nil {
+		return
+	}
+	seen := make(map[string]int)
+	for pair := paths.PathItems.First(); pair != nil; pair = pair.Next() {
+		for op := range pair.Value().GetOperations().ValuesFromOldest() {
+			if op.OperationId == "" {
+				continue
+			}
+			seen[op.OperationId]++
+			if count := seen[op.OperationId]; count > 1 {
+				op.OperationId = fmt.Sprintf("%s%d", op.OperationId, count)
+			}
+		}
+	}
 }
 
 func appendServiceDocs(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) {
@@ -395,6 +425,12 @@ func initializeDoc(opts options.Options, doc *v3.Document) {
 	}
 	if doc.Info == nil {
 		doc.Info = &base.Info{}
+	}
+	if doc.Info.Title == "" {
+		doc.Info.Title = "API"
+	}
+	if doc.Info.Version == "" {
+		doc.Info.Version = "1.0.0"
 	}
 	if doc.Paths == nil {
 		doc.Paths = &v3.Paths{}

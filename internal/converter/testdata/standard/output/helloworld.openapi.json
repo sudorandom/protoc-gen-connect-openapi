@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "helloworld",
-    "description": "## helloworld.Greeter\n\nThe greeting service definition."
+    "description": "## helloworld.Greeter\n\nThe greeting service definition.",
+    "version": "1.0.0"
   },
   "paths": {
     "/helloworld.Greeter/SayHello": {
@@ -17,21 +18,26 @@
           {
             "name": "Connect-Protocol-Version",
             "in": "header",
+            "description": "Define the version of the Connect protocol",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/connect-protocol-version"
-            }
+            },
+            "example": 1
           },
           {
             "name": "Connect-Timeout-Ms",
             "in": "header",
+            "description": "Define the timeout, in ms",
             "schema": {
               "$ref": "#/components/schemas/connect-timeout-header"
-            }
+            },
+            "example": 1000
           },
           {
             "name": "message",
             "in": "query",
+            "description": "The URL-encoded message query parameter contains the JSON or binary serialized request message",
             "content": {
               "application/json": {
                 "schema": {
@@ -43,31 +49,39 @@
           {
             "name": "encoding",
             "in": "query",
+            "description": "Define which encoding or 'Message-Codec' to use",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/encoding"
-            }
+            },
+            "example": "json"
           },
           {
             "name": "base64",
             "in": "query",
+            "description": "Specifies if the message query param is base64 encoded, which may be required for binary data",
             "schema": {
               "$ref": "#/components/schemas/base64"
-            }
+            },
+            "example": false
           },
           {
             "name": "compression",
             "in": "query",
+            "description": "Which compression algorithm to use for this request",
             "schema": {
               "$ref": "#/components/schemas/compression"
-            }
+            },
+            "example": "gzip"
           },
           {
             "name": "connect",
             "in": "query",
+            "description": "Define the version of the Connect protocol",
             "schema": {
               "$ref": "#/components/schemas/connect"
-            }
+            },
+            "example": "v1"
           }
         ],
         "responses": {
@@ -104,17 +118,21 @@
           {
             "name": "Connect-Protocol-Version",
             "in": "header",
+            "description": "Define the version of the Connect protocol",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/connect-protocol-version"
-            }
+            },
+            "example": 1
           },
           {
             "name": "Connect-Timeout-Ms",
             "in": "header",
+            "description": "Define the timeout, in ms",
             "schema": {
               "$ref": "#/components/schemas/connect-timeout-header"
-            }
+            },
+            "example": 1000
           }
         ],
         "requestBody": {
@@ -163,17 +181,21 @@
           {
             "name": "Connect-Protocol-Version",
             "in": "header",
+            "description": "Define the version of the Connect protocol",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/connect-protocol-version"
-            }
+            },
+            "example": 1
           },
           {
             "name": "Connect-Timeout-Ms",
             "in": "header",
+            "description": "Define the timeout, in ms",
             "schema": {
               "$ref": "#/components/schemas/connect-timeout-header"
-            }
+            },
+            "example": 1000
           }
         ],
         "requestBody": {
@@ -215,10 +237,16 @@
     "schemas": {
       "base64": {
         "type": "boolean",
+        "examples": [
+          false
+        ],
         "title": "base64",
         "description": "Specifies if the message query param is base64 encoded, which may be required for binary data"
       },
       "compression": {
+        "examples": [
+          "gzip"
+        ],
         "title": "compression",
         "enum": [
           "identity",
@@ -228,6 +256,9 @@
         "description": "Which compression algorithm to use for this request"
       },
       "connect": {
+        "examples": [
+          "v1"
+        ],
         "title": "connect",
         "enum": [
           "v1"
@@ -236,15 +267,18 @@
       },
       "connect-protocol-version": {
         "type": "number",
-        "title": "Connect-Protocol-Version",
-        "enum": [
+        "examples": [
           1
         ],
+        "title": "Connect-Protocol-Version",
         "description": "Define the version of the Connect protocol",
         "const": 1
       },
       "connect-timeout-header": {
         "type": "number",
+        "examples": [
+          1000
+        ],
         "title": "Connect-Timeout-Ms",
         "description": "Define the timeout, in ms"
       },
@@ -297,7 +331,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field."
+            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`."
           },
           "value": {
             "type": "string",
@@ -305,18 +339,9 @@
             "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
           },
           "debug": {
-            "oneOf": [
-              {
-                "type": "object",
-                "title": "Any",
-                "additionalProperties": true,
-                "description": "Detailed error information."
-              }
-            ],
-            "discriminator": {
-              "propertyName": "type"
-            },
+            "type": "object",
             "title": "Debug",
+            "additionalProperties": true,
             "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
           }
         },
@@ -324,6 +349,9 @@
         "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
       },
       "encoding": {
+        "examples": [
+          "json"
+        ],
         "title": "encoding",
         "enum": [
           "proto",

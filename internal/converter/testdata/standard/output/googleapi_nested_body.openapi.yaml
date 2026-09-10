@@ -5,6 +5,7 @@ info:
     ## googleapi_nested_body.NestedBodyService
 
     Tests that nested path params properly exclude the top-level field from the request body.
+  version: 1.0.0
 paths:
   /v1/resources/{parentRef.resourceId}:
     put:
@@ -16,6 +17,7 @@ paths:
       parameters:
         - name: parentRef.resourceId
           in: path
+          description: The parentRef.resourceId path parameter.
           required: true
           schema:
             type: string

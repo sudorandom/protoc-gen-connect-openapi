@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "io.swagger.petstore.v2",
-    "description": "## io.swagger.petstore.v2.Foo"
+    "description": "## io.swagger.petstore.v2.Foo",
+    "version": "1.0.0"
   },
   "paths": {
     "/.well-known/jwks.json": {
@@ -37,17 +38,21 @@
           {
             "name": "Connect-Protocol-Version",
             "in": "header",
+            "description": "Define the version of the Connect protocol",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/connect-protocol-version"
-            }
+            },
+            "example": 1
           },
           {
             "name": "Connect-Timeout-Ms",
             "in": "header",
+            "description": "Define the timeout, in ms",
             "schema": {
               "$ref": "#/components/schemas/connect-timeout-header"
-            }
+            },
+            "example": 1000
           }
         ],
         "requestBody": {
@@ -170,6 +175,7 @@
           {
             "name": "propertyInPath",
             "in": "query",
+            "description": "The propertyInPath query parameter.",
             "schema": {
               "type": "string",
               "title": "property_in_path"
@@ -178,6 +184,7 @@
           {
             "name": "propertyInQuery",
             "in": "query",
+            "description": "The propertyInQuery query parameter.",
             "schema": {
               "type": "string",
               "title": "property_in_query"
@@ -236,6 +243,7 @@
           {
             "name": "propertyInPath",
             "in": "query",
+            "description": "The propertyInPath query parameter.",
             "schema": {
               "type": "string",
               "title": "property_in_path"
@@ -244,6 +252,7 @@
           {
             "name": "propertyInQuery",
             "in": "query",
+            "description": "The propertyInQuery query parameter.",
             "schema": {
               "type": "string",
               "title": "property_in_query"
@@ -275,6 +284,7 @@
           {
             "name": "propertyInPathOk",
             "in": "path",
+            "description": "The propertyInPathOk path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -284,6 +294,7 @@
           {
             "name": "parentMsg.propertyInPath",
             "in": "path",
+            "description": "The parentMsg.propertyInPath path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -293,6 +304,7 @@
           {
             "name": "propertyInQueryOk",
             "in": "query",
+            "description": "The propertyInQueryOk query parameter.",
             "schema": {
               "type": "string",
               "title": "property_in_query_ok"
@@ -318,15 +330,18 @@
     "schemas": {
       "connect-protocol-version": {
         "type": "number",
-        "title": "Connect-Protocol-Version",
-        "enum": [
+        "examples": [
           1
         ],
+        "title": "Connect-Protocol-Version",
         "description": "Define the version of the Connect protocol",
         "const": 1
       },
       "connect-timeout-header": {
         "type": "number",
+        "examples": [
+          1000
+        ],
         "title": "Connect-Timeout-Ms",
         "description": "Define the timeout, in ms"
       },
@@ -379,7 +394,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`. This is used to determine the schema of the data in the `value` field and is the discriminator for the `debug` field."
+            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`."
           },
           "value": {
             "type": "string",
@@ -387,18 +402,9 @@
             "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
           },
           "debug": {
-            "oneOf": [
-              {
-                "type": "object",
-                "title": "Any",
-                "additionalProperties": true,
-                "description": "Detailed error information."
-              }
-            ],
-            "discriminator": {
-              "propertyName": "type"
-            },
+            "type": "object",
             "title": "Debug",
+            "additionalProperties": true,
             "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
           }
         },

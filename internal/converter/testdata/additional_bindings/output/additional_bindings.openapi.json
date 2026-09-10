@@ -1,7 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "additional_bindings"
+    "title": "additional_bindings",
+    "description": "API documentation for additional_bindings",
+    "version": "1.0.0"
   },
   "paths": {
     "/svc/directory/search": {
@@ -16,6 +18,7 @@
           {
             "name": "query",
             "in": "query",
+            "description": "The query query parameter.",
             "schema": {
               "type": "string",
               "title": "query"
@@ -78,6 +81,7 @@
           {
             "name": "tenant",
             "in": "path",
+            "description": "The tenant path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -87,6 +91,7 @@
           {
             "name": "uuid",
             "in": "query",
+            "description": "The uuid query parameter.",
             "schema": {
               "type": "string",
               "title": "uuid"
@@ -119,6 +124,7 @@
           {
             "name": "tenant",
             "in": "path",
+            "description": "The tenant path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -128,6 +134,7 @@
           {
             "name": "uuid",
             "in": "query",
+            "description": "The uuid query parameter.",
             "schema": {
               "type": "string",
               "title": "uuid"
@@ -160,6 +167,7 @@
           {
             "name": "tenant",
             "in": "path",
+            "description": "The tenant path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -169,6 +177,7 @@
           {
             "name": "uuid",
             "in": "path",
+            "description": "The uuid path parameter.",
             "required": true,
             "schema": {
               "type": "string",

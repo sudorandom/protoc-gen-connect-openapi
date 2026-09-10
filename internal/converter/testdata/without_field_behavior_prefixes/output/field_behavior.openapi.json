@@ -1,7 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "without_field_behavior_prefixes"
+    "title": "without_field_behavior_prefixes",
+    "description": "API documentation for without_field_behavior_prefixes",
+    "version": "1.0.0"
   },
   "paths": {
     "/v1/users/{name}": {
@@ -15,6 +17,7 @@
           {
             "name": "name",
             "in": "path",
+            "description": "The name path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -34,6 +37,7 @@
           {
             "name": "internalId",
             "in": "query",
+            "description": "The internalId query parameter.",
             "schema": {
               "type": "string",
               "title": "internal_id"
@@ -42,6 +46,7 @@
           {
             "name": "otherAttr",
             "in": "query",
+            "description": "The otherAttr query parameter.",
             "schema": {
               "type": "array",
               "items": {
@@ -53,6 +58,7 @@
           {
             "name": "defaultValue",
             "in": "query",
+            "description": "The defaultValue query parameter.",
             "schema": {
               "type": "string",
               "title": "default_value"
@@ -61,6 +67,7 @@
           {
             "name": "allBehaviors",
             "in": "query",
+            "description": "The allBehaviors query parameter.",
             "required": true,
             "schema": {
               "type": "string",

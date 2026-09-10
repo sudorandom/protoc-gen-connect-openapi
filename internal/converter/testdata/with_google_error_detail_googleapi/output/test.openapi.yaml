@@ -1,6 +1,8 @@
 openapi: 3.1.0
 info:
   title: test.with_google_error_detail_googleapi
+  description: API documentation for test.with_google_error_detail_googleapi
+  version: 1.0.0
 paths:
   /v1/test:
     post:
@@ -36,6 +38,7 @@ paths:
       parameters:
         - name: name
           in: path
+          description: The name path parameter.
           required: true
           schema:
             type: string

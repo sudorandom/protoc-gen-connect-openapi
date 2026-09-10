@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "googleapi_camelcase",
-    "description": "## googleapi_camelcase.CamelCaseService\n\nTests that path parameters use camelCase (JSON names) by default."
+    "description": "## googleapi_camelcase.CamelCaseService\n\nTests that path parameters use camelCase (JSON names) by default.",
+    "version": "1.0.0"
   },
   "paths": {
     "/v1/accounts/{parentAccountId}/items/{itemId}": {
@@ -17,6 +18,7 @@
           {
             "name": "parentAccountId",
             "in": "path",
+            "description": "The parentAccountId path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -26,6 +28,7 @@
           {
             "name": "itemId",
             "in": "path",
+            "description": "The itemId path parameter.",
             "required": true,
             "schema": {
               "type": "string",
@@ -59,6 +62,7 @@
           {
             "name": "userId",
             "in": "path",
+            "description": "The userId path parameter.",
             "required": true,
             "schema": {
               "type": "string",

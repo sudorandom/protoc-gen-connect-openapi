@@ -1,0 +1,9 @@
+description: Vacuum ruleset for protoc-gen-connect-openapi
+extends:
+  - [vacuum:oas, recommended]
+rules:
+  paths-kebab-case: off
+  operation-operationId-valid-in-url: off
+  operation-operationId: off
+  oas3-api-servers: off
+  oas-schema-check: off

@@ -54,7 +54,9 @@ func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSch
 		schema.Format = gnosticSchema.Format
 	}
 	if gnosticSchema.Nullable {
-		schema.Nullable = &gnosticSchema.Nullable
+		if !slices.Contains(schema.Type, "null") {
+			schema.Type = append(schema.Type, "null")
+		}
 	}
 	if gnosticSchema.ReadOnly {
 		schema.ReadOnly = &gnosticSchema.ReadOnly

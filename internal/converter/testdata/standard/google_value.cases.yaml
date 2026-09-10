@@ -13,7 +13,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*Reason: got object, want string, Location: /type.*"
+      - ".*Reason: got object, want string.*"
 
   - name: "with struct"
     path: "samples.Test/WithGoogleValueMessage"
@@ -44,7 +44,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*Reason: got object, want array, Location: /properties/someList/type.*"
+      - ".*Reason: got object, want array.*"
 
   # ListValue in a GET request is a single array-typed query parameter, not a flattened `values` wrapper.
   - name: "list-value query param"

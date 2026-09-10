@@ -2,6 +2,7 @@ openapi: 3.1.0
 info:
   title: googleapi_withbody
   description: '## googleapi_withbody.FooService'
+  version: 1.0.0
 paths:
   /v1/sendData:
     post:
@@ -31,11 +32,13 @@ paths:
       parameters:
         - name: data.prop2
           in: query
+          description: The data.prop2 query parameter.
           schema:
             type: string
             title: prop2
         - name: data.prop3
           in: query
+          description: The data.prop3 query parameter.
           schema:
             type: string
             title: prop3
