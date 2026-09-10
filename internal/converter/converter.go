@@ -1,6 +1,7 @@
 package converter
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -65,6 +66,14 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 	}
 	if opts.Logger == nil {
 		opts.Logger = slog.New(slog.DiscardHandler)
+	}
+	if opts.Format == options.FormatJSONSchema {
+		if len(opts.BaseOpenAPI) > 0 {
+			return nil, errors.New("the 'base' option cannot be used with format=jsonschema because the base file is an OpenAPI document")
+		}
+		if len(opts.OverrideOpenAPI) > 0 {
+			return nil, errors.New("the 'override' option cannot be used with format=jsonschema because the override file is an OpenAPI document")
+		}
 	}
 	annotator := &annotator{}
 	if opts.MessageAnnotator == nil {
@@ -166,13 +175,15 @@ func ConvertWithOptions(req *pluginpb.CodeGeneratorRequest, opts options.Options
 			spec.Info.Description = util.FormatComments(fd.SourceLocations().ByDescriptor(fd))
 		}
 
-		if err := appendToSpec(opts, spec, fd); err != nil {
+		if opts.Format == options.FormatJSONSchema {
+			appendJSONSchemasToSpec(opts, spec, fd)
+		} else if err := appendToSpec(opts, spec, fd); err != nil {
 			return nil, err
 		}
 
 		if opts.Path == "" {
 			name := fileDesc.GetName()
-			filename := strings.TrimSuffix(name, filepath.Ext(name)) + ".openapi." + opts.Format
+			filename := strings.TrimSuffix(name, filepath.Ext(name)) + outputFileSuffix(opts.Format)
 			outFiles[filename] = spec
 		}
 
@@ -282,17 +293,28 @@ func mergeTags(tags []*base.Tag) []*base.Tag {
 
 func specToFile(opts options.Options, spec *v3.Document) (string, error) {
 	switch opts.Format {
-	case "yaml":
+	case options.FormatYAML:
 		return string(spec.RenderWithIndention(2)), nil
-	case "json":
+	case options.FormatJSON:
 		b, err := spec.RenderJSON("  ")
 		if err != nil {
 			return "", err
 		}
 		return string(b), nil
+	case options.FormatJSONSchema:
+		return renderJSONSchema(spec)
 	default:
 		return "", fmt.Errorf("unknown format: %s", opts.Format)
 	}
+}
+
+// outputFileSuffix returns the suffix appended to the proto file's base name
+// for per-file outputs.
+func outputFileSuffix(format string) string {
+	if format == options.FormatJSONSchema {
+		return ".jsonschema.json"
+	}
+	return ".openapi." + format
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {

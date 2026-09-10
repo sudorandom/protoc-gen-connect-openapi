@@ -11,6 +11,7 @@ Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://conn
 
 Features:
 - Support for OpenAPIv3.1 (which has support for jsonschema)
+- Support for emitting standalone [JSON Schema](https://json-schema.org/) documents with `format=jsonschema`
 - Support for generating [AsyncAPI v3.1](https://www.asyncapi.com/) specifications alongside OpenAPI for streaming/WebSocket endpoints (e.g., for [grpc-websocket-proxy](https://github.com/tmc/grpc-websocket-proxy))
 - Support for [Twirp](https://twitchtv.github.io/twirp/docs/intro.html) ([more info](twirp.md))
 - Support for many [Protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
@@ -146,6 +147,20 @@ protoc internal/converter/fixtures/helloworld.proto \
 
 See `protoc --help` for more protoc options.
 
+### JSON Schema output
+With `format=jsonschema`, the plugin renders standalone [JSON Schema](https://json-schema.org/) (draft 2020-12) documents instead of OpenAPI. Each proto file produces a `{file}.jsonschema.json` bundle (or one merged document when `path=` is set) with every message and enum under `$defs`:
+
+```yaml
+version: v2
+plugins:
+  - local: protoc-gen-connect-openapi
+    out: gen
+    opt:
+    - format=jsonschema
+```
+
+This mode renders just the schemas: no HTTP paths and no Connect-specific schemas (`connect.error`, protocol headers, etc.) are included, and internal references use `#/$defs/` instead of `#/components/schemas/`. Options that shape schemas still apply, including `trim-unused-types`, `services`, `allowed-visibilities`, `with-proto-names`, `fully-qualified-message-names`, and all Protovalidate and Gnostic message/field annotations. The `base` and `override` options are not supported in this mode because those files are OpenAPI documents.
+
 ### Protovalidate Support
 protoc-gen-connect-openapi also has support for many [Protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every Protovalidate constraint translates clearly to OpenAPI.
 
@@ -170,7 +185,7 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | base                       | `{filepath}` | The path to a base OpenAPI file to populate fields that this tool doesn't populate. This option does not work when used with the remote plugin.         |
 | content-types              | `json;proto` | Semicolon-separated content types to generate requests/responses                                                                                        |
 | disable-default-response    | - | Disables the generation of the default `200 OK` response for all operations. Only explicit responses (e.g., from `google.api.http` annotations) will be included. |
-| format                     | `yaml` or `json` | Which format to use for the OpenAPI file, defaults to `yaml`.                                                                                       |
+| format                     | `yaml`, `json`, or `jsonschema` | Which format to use for the output file, defaults to `yaml`. `yaml` and `json` render an OpenAPI document. `jsonschema` renders a standalone JSON Schema (draft 2020-12) document containing only the message and enum schemas, with every type under `$defs`; see [JSON Schema output](#json-schema-output). |
 | fully-qualified-message-names | - | Use fully qualified message names as the "title" for OpenAPI schemas. So it will be displayed as `company.users.administration.v1.User` instead of `User`.      |
 | ignore-googleapi-http      | - | [DEPRECATED] Use plugins=connectrpc;gnostic;protovalidate;twirp instead. Ignore google.api.http options on methods when generating openapi specs                                                                                          |
 | only-googleapi-http        | - | [DEPRECATED] Use plugins=google.api.http;gnostic;protovalidate instead. Only generate routes for methods that have explicit `google.api.http` annotations. Methods without annotations will be skipped.                                   |

@@ -216,10 +216,10 @@ func GenerateAsyncAPI(opts options.Options, fds []protoreflect.FileDescriptor) (
 	spec.Components.Schemas = parsedDoc.Components.Schemas
 
 	var outContent []byte
-	if opts.Format == "json" {
-		outContent, err = json.MarshalIndent(spec, "", "  ")
-	} else {
+	if opts.Format == options.FormatYAML {
 		outContent, err = yaml.Marshal(spec)
+	} else {
+		outContent, err = json.MarshalIndent(spec, "", "  ")
 	}
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal AsyncAPI spec: %w", err)

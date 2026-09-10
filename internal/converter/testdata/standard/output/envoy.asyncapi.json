@@ -365,44 +365,6 @@
         "title": "Metadata",
         "type": "object"
       },
-      "envoy.config.core.v3.Metadata.FilterMetadataEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Struct"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "FilterMetadataEntry",
-        "type": "object"
-      },
-      "envoy.config.core.v3.Metadata.TypedFilterMetadataEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Any"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "TypedFilterMetadataEntry",
-        "type": "object"
-      },
       "envoy.config.core.v3.Node": {
         "allOf": [
           {
@@ -537,25 +499,6 @@
         "title": "Node",
         "type": "object",
         "unevaluatedProperties": false
-      },
-      "envoy.config.core.v3.Node.DynamicParametersEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/xds.core.v3.ContextParams"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "DynamicParametersEntry",
-        "type": "object"
       },
       "envoy.config.core.v3.Pipe": {
         "additionalProperties": false,
@@ -744,21 +687,6 @@
           }
         },
         "title": "DeltaDiscoveryRequest",
-        "type": "object"
-      },
-      "envoy.service.discovery.v3.DeltaDiscoveryRequest.InitialResourceVersionsEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "title": "value",
-            "type": "string"
-          }
-        },
-        "title": "InitialResourceVersionsEntry",
         "type": "object"
       },
       "envoy.service.discovery.v3.DeltaDiscoveryResponse": {
@@ -1261,21 +1189,6 @@
         "title": "ResourceLocator",
         "type": "object"
       },
-      "envoy.service.discovery.v3.ResourceLocator.DynamicParametersEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "title": "value",
-            "type": "string"
-          }
-        },
-        "title": "DynamicParametersEntry",
-        "type": "object"
-      },
       "envoy.service.discovery.v3.ResourceName": {
         "additionalProperties": false,
         "description": "Specifies a concrete resource name.",
@@ -1359,25 +1272,6 @@
         "description": "A JSON object whose property values may be any JSON value.",
         "type": "object"
       },
-      "google.protobuf.Struct.FieldsEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.Value"
-              }
-            ],
-            "title": "value"
-          }
-        },
-        "title": "FieldsEntry",
-        "type": "object"
-      },
       "google.protobuf.Value": {
         "description": "Any JSON value: `null`, number, string, boolean, array, or object.",
         "oneOf": [
@@ -1443,21 +1337,6 @@
           }
         },
         "title": "ContextParams",
-        "type": "object"
-      },
-      "xds.core.v3.ContextParams.ParamsEntry": {
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "title": "key",
-            "type": "string"
-          },
-          "value": {
-            "title": "value",
-            "type": "string"
-          }
-        },
-        "title": "ParamsEntry",
         "type": "object"
       }
     }

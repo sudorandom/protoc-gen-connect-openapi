@@ -110,7 +110,9 @@ func WithGlobal() Option {
 	return WithFiles(protoregistry.GlobalFiles)
 }
 
-// WithFormat sets the format for the OpenAPI file.
+// WithFormat sets the output format: options.FormatYAML and options.FormatJSON
+// render an OpenAPI document, options.FormatJSONSchema renders a standalone
+// JSON Schema document containing only the message and enum schemas.
 func WithFormat(format string) Option {
 	return func(g *generator) error {
 		g.options.Format = format

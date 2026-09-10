@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "jsonschema.Notification": {
+      "type": "object",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "push": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/jsonschema.PushChannel"
+                }
+              ],
+              "title": "push",
+              "description": "push is a mobile push delivery target."
+            }
+          },
+          "title": "push",
+          "required": [
+            "push"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "webhookUrl": {
+              "type": "string",
+              "title": "webhook_url",
+              "description": "webhook_url is an HTTP endpoint to call."
+            }
+          },
+          "title": "webhook_url",
+          "required": [
+            "webhookUrl"
+          ]
+        },
+        {
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "push"
+                ]
+              },
+              {
+                "required": [
+                  "webhookUrl"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "unevaluatedProperties": false,
+      "title": "Notification",
+      "description": "Notification is a message delivered to a user. Its oneof mixes a scalar\n member with a message-type member."
+    },
+    "jsonschema.PushChannel": {
+      "type": "object",
+      "properties": {
+        "deviceToken": {
+          "type": "string",
+          "title": "device_token",
+          "description": "device_token identifies the target device."
+        }
+      },
+      "title": "PushChannel",
+      "additionalProperties": false,
+      "description": "PushChannel describes a mobile push delivery target."
+    }
+  }
+}

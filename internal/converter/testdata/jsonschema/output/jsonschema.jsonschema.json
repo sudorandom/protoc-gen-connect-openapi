@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "google.protobuf.Duration": {
+      "type": "string",
+      "format": "duration",
+      "description": "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`)."
+    },
+    "google.protobuf.ListValue": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/google.protobuf.Value"
+      },
+      "description": "A JSON array whose elements may be any JSON value."
+    },
+    "google.protobuf.NullValue": {
+      "type": "string",
+      "title": "NullValue",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
+    },
+    "google.protobuf.Struct": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/google.protobuf.Value"
+      },
+      "description": "A JSON object whose property values may be any JSON value."
+    },
+    "google.protobuf.Timestamp": {
+      "type": "string",
+      "examples": [
+        "2023-01-15T01:30:15.01Z",
+        "2024-12-25T12:00:00Z"
+      ],
+      "format": "date-time",
+      "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC."
+    },
+    "google.protobuf.Value": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "array"
+        },
+        {
+          "type": "object",
+          "additionalProperties": true
+        }
+      ],
+      "description": "Any JSON value: `null`, number, string, boolean, array, or object."
+    },
+    "jsonschema.AuditRecord": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "title": "action",
+          "description": "action is what happened."
+        },
+        "actor": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/jsonschema.User"
+            }
+          ],
+          "title": "actor",
+          "description": "actor is the user that performed the action."
+        }
+      },
+      "title": "AuditRecord",
+      "additionalProperties": false,
+      "description": "AuditRecord is not referenced by any service method."
+    },
+    "jsonschema.GetUserRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id",
+          "minLength": 1,
+          "description": "id is the unique identifier of the user."
+        }
+      },
+      "title": "GetUserRequest",
+      "additionalProperties": false,
+      "description": "GetUserRequest asks for a user by id."
+    },
+    "jsonschema.Role": {
+      "type": "string",
+      "title": "Role",
+      "enum": [
+        "ROLE_UNSPECIFIED",
+        "ROLE_MEMBER",
+        "ROLE_ADMIN"
+      ],
+      "description": "Role determines what a user can do."
+    },
+    "jsonschema.User": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "title": "id",
+              "description": "id is the unique identifier of the user."
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "title": "name",
+              "description": "name is the display name of the user."
+            },
+            "role": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/jsonschema.Role"
+                }
+              ],
+              "title": "role",
+              "description": "role determines what the user can do."
+            },
+            "createdAt": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/google.protobuf.Timestamp"
+                }
+              ],
+              "title": "created_at",
+              "description": "created_at is when the user signed up."
+            },
+            "sessionTtl": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/google.protobuf.Duration"
+                }
+              ],
+              "title": "session_ttl",
+              "description": "session_ttl is how long the user's sessions last."
+            },
+            "metadata": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/google.protobuf.Struct"
+                }
+              ],
+              "title": "metadata",
+              "description": "metadata is a set of arbitrary details about the user."
+            },
+            "labels": {
+              "type": "object",
+              "title": "labels",
+              "additionalProperties": {
+                "type": "string",
+                "title": "value"
+              },
+              "description": "labels are free-form key/value annotations."
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "aliases",
+              "description": "aliases are alternative names for the user."
+            },
+            "loginCount": {
+              "type": "string",
+              "title": "login_count",
+              "format": "int64",
+              "description": "login_count is the number of times the user logged in."
+            },
+            "avatar": {
+              "type": "string",
+              "title": "avatar",
+              "format": "byte",
+              "description": "avatar is the user's profile image."
+            },
+            "address": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/jsonschema.User.Address"
+                }
+              ],
+              "title": "address",
+              "description": "address is where the user lives."
+            }
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "title": "email",
+                  "description": "email is an email address."
+                }
+              },
+              "title": "email",
+              "required": [
+                "email"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "title": "phone",
+                  "description": "phone is a phone number."
+                }
+              },
+              "title": "phone",
+              "required": [
+                "phone"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "email"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "phone"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "unevaluatedProperties": false,
+      "title": "User",
+      "description": "User is a person with an account."
+    },
+    "jsonschema.User.Address": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string",
+          "title": "street",
+          "description": "street is the street name and number."
+        },
+        "city": {
+          "type": "string",
+          "title": "city",
+          "description": "city is the name of the city."
+        }
+      },
+      "title": "Address",
+      "additionalProperties": false,
+      "description": "Address is a physical mailing address."
+    }
+  }
+}
