@@ -193,7 +193,11 @@
             "type": "string"
           },
           "msgField": {
-            "$ref": "#/components/schemas/flex.Other",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/flex.Other"
+              }
+            ],
             "title": "msgField"
           },
           "optionalMsgField": {
@@ -256,7 +260,11 @@
         "description": "The response message containing the greetings",
         "properties": {
           "msg": {
-            "$ref": "#/components/schemas/flex.ComplexType",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/flex.ComplexType"
+              }
+            ],
             "title": "msg"
           }
         },
@@ -268,7 +276,11 @@
         "description": "The request message containing the user's name.",
         "properties": {
           "msg": {
-            "$ref": "#/components/schemas/flex.ComplexType",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/flex.ComplexType"
+              }
+            ],
             "title": "msg"
           }
         },

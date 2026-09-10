@@ -361,8 +361,12 @@
             "title": "key"
           },
           "value": {
-            "title": "value",
-            "$ref": "#/components/schemas/google.protobuf.Value"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Value"
+              }
+            ],
+            "title": "value"
           }
         },
         "title": "FieldsEntry",
@@ -396,16 +400,28 @@
         "type": "object",
         "properties": {
           "arg": {
-            "title": "arg",
-            "$ref": "#/components/schemas/google.protobuf.Value"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Value"
+              }
+            ],
+            "title": "arg"
           },
           "someList": {
-            "title": "some_list",
-            "$ref": "#/components/schemas/google.protobuf.ListValue"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.ListValue"
+              }
+            ],
+            "title": "some_list"
           },
           "someStruct": {
-            "title": "some_struct",
-            "$ref": "#/components/schemas/google.protobuf.Struct"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Struct"
+              }
+            ],
+            "title": "some_struct"
           }
         },
         "title": "GoogleValue",
@@ -415,8 +431,12 @@
         "type": "object",
         "properties": {
           "items": {
-            "title": "items",
-            "$ref": "#/components/schemas/google.protobuf.ListValue"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.ListValue"
+              }
+            ],
+            "title": "items"
           }
         },
         "title": "ListValueQueryRequest",

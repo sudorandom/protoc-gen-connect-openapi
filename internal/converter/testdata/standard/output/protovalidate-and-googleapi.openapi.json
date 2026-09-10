@@ -46,8 +46,12 @@
         "type": "object",
         "properties": {
           "b": {
-            "title": "b",
-            "$ref": "#/components/schemas/foo.A.B"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/foo.A.B"
+              }
+            ],
+            "title": "b"
           }
         },
         "title": "A",
@@ -60,9 +64,13 @@
         "type": "object",
         "properties": {
           "c": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/foo.A.B.C"
+              }
+            ],
             "title": "c",
-            "description": "the learner whose scores are being reported",
-            "$ref": "#/components/schemas/foo.A.B.C"
+            "description": "the learner whose scores are being reported"
           }
         },
         "title": "B",

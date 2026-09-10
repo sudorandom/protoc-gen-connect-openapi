@@ -39,8 +39,12 @@
                         "type": "object",
                         "properties": {
                           "profile": {
-                            "title": "profile",
-                            "$ref": "#/components/schemas/path_params.Profile"
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/path_params.Profile"
+                              }
+                            ],
+                            "title": "profile"
                           }
                         },
                         "title": "profile",
@@ -52,8 +56,12 @@
                         "type": "object",
                         "properties": {
                           "settings": {
-                            "title": "settings",
-                            "$ref": "#/components/schemas/path_params.Settings"
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/path_params.Settings"
+                              }
+                            ],
+                            "title": "settings"
                           }
                         },
                         "title": "settings",
@@ -233,8 +241,12 @@
                         "type": "object",
                         "properties": {
                           "profile": {
-                            "title": "profile",
-                            "$ref": "#/components/schemas/path_params.Profile"
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/path_params.Profile"
+                              }
+                            ],
+                            "title": "profile"
                           }
                         },
                         "title": "profile",
@@ -246,8 +258,12 @@
                         "type": "object",
                         "properties": {
                           "settings": {
-                            "title": "settings",
-                            "$ref": "#/components/schemas/path_params.Settings"
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/path_params.Settings"
+                              }
+                            ],
+                            "title": "settings"
                           }
                         },
                         "title": "settings",
@@ -427,8 +443,12 @@
             "title": "name"
           },
           "child": {
-            "title": "child",
-            "$ref": "#/components/schemas/path_params.Node"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/path_params.Node"
+              }
+            ],
+            "title": "child"
           }
         },
         "title": "Node",
@@ -450,12 +470,20 @@
         "type": "object",
         "properties": {
           "revenue": {
-            "title": "revenue",
-            "$ref": "#/components/schemas/path_params.Money"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/path_params.Money"
+              }
+            ],
+            "title": "revenue"
           },
           "cost": {
-            "title": "cost",
-            "$ref": "#/components/schemas/path_params.Money"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/path_params.Money"
+              }
+            ],
+            "title": "cost"
           }
         },
         "title": "QuoteRequest",
@@ -495,12 +523,20 @@
         "type": "object",
         "properties": {
           "left": {
-            "title": "left",
-            "$ref": "#/components/schemas/path_params.Node"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/path_params.Node"
+              }
+            ],
+            "title": "left"
           },
           "right": {
-            "title": "right",
-            "$ref": "#/components/schemas/path_params.Node"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/path_params.Node"
+              }
+            ],
+            "title": "right"
           }
         },
         "title": "TreeRequest",
@@ -527,8 +563,12 @@
                 "type": "object",
                 "properties": {
                   "profile": {
-                    "title": "profile",
-                    "$ref": "#/components/schemas/path_params.Profile"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/path_params.Profile"
+                      }
+                    ],
+                    "title": "profile"
                   }
                 },
                 "title": "profile",
@@ -540,8 +580,12 @@
                 "type": "object",
                 "properties": {
                   "settings": {
-                    "title": "settings",
-                    "$ref": "#/components/schemas/path_params.Settings"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/path_params.Settings"
+                      }
+                    ],
+                    "title": "settings"
                   }
                 },
                 "title": "settings",
@@ -592,8 +636,12 @@
                 "type": "object",
                 "properties": {
                   "profile": {
-                    "title": "profile",
-                    "$ref": "#/components/schemas/path_params.Profile"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/path_params.Profile"
+                      }
+                    ],
+                    "title": "profile"
                   }
                 },
                 "title": "profile",
@@ -605,8 +653,12 @@
                 "type": "object",
                 "properties": {
                   "settings": {
-                    "title": "settings",
-                    "$ref": "#/components/schemas/path_params.Settings"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/path_params.Settings"
+                      }
+                    ],
+                    "title": "settings"
                   }
                 },
                 "title": "settings",

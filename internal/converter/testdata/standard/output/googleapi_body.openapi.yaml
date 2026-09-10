@@ -14,8 +14,9 @@ paths:
         content:
           application/json:
             schema:
+              allOf:
+                - $ref: '#/components/schemas/googleapi_withbody.SomethingData'
               title: data
-              $ref: '#/components/schemas/googleapi_withbody.SomethingData'
       responses:
         "200":
           description: Success
@@ -61,8 +62,9 @@ components:
       type: object
       properties:
         data:
+          allOf:
+            - $ref: '#/components/schemas/googleapi_withbody.SomethingData'
           title: data
-          $ref: '#/components/schemas/googleapi_withbody.SomethingData'
       title: GetFooRequest
       additionalProperties: false
     googleapi_withbody.GetFooResponse:

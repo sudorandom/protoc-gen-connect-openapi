@@ -122,8 +122,12 @@
                         "type": "object",
                         "properties": {
                           "profile": {
-                            "title": "profile",
-                            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
+                              }
+                            ],
+                            "title": "profile"
                           }
                         },
                         "title": "profile",
@@ -135,8 +139,12 @@
                         "type": "object",
                         "properties": {
                           "settings": {
-                            "title": "settings",
-                            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
+                              }
+                            ],
+                            "title": "settings"
                           }
                         },
                         "title": "settings",
@@ -379,8 +387,12 @@
             "title": "property_in_path_ok"
           },
           "parentMsg": {
-            "title": "parentMsg",
-            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Something"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Something"
+              }
+            ],
+            "title": "parentMsg"
           },
           "property_in_query_ok": {
             "type": "string",
@@ -399,8 +411,12 @@
         "type": "object",
         "properties": {
           "fields": {
-            "title": "fields",
-            "$ref": "#/components/schemas/google.protobuf.FieldMask"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.FieldMask"
+              }
+            ],
+            "title": "fields"
           }
         },
         "title": "MaskyRequest",
@@ -460,8 +476,12 @@
                 "type": "object",
                 "properties": {
                   "profile": {
-                    "title": "profile",
-                    "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
+                      }
+                    ],
+                    "title": "profile"
                   }
                 },
                 "title": "profile",
@@ -473,8 +493,12 @@
                 "type": "object",
                 "properties": {
                   "settings": {
-                    "title": "settings",
-                    "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
+                      }
+                    ],
+                    "title": "settings"
                   }
                 },
                 "title": "settings",

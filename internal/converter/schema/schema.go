@@ -8,11 +8,9 @@ import (
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -183,15 +181,8 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 					ref,
 					base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
 				}
-			} else if opts.WrapRefsInAllOf {
-				// A $ref placed next to other keywords is valid in OpenAPI 3.1, but
-				// tooling written against 3.0 ignores the whole schema; allOf carries
-				// the same meaning and is understood by both.
-				msg.AllOf = []*base.SchemaProxy{ref}
 			} else {
-				extensions := orderedmap.New[string, *yaml.Node]()
-				extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
-				msg.Extensions = extensions
+				msg.AllOf = []*base.SchemaProxy{ref}
 			}
 			return base.CreateSchemaProxy(msg)
 		}

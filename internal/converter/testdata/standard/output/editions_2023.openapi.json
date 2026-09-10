@@ -21,8 +21,12 @@
             "format": "int32"
           },
           "employment": {
-            "title": "employment",
-            "$ref": "#/components/schemas/editions.Person.Employment"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/editions.Person.Employment"
+              }
+            ],
+            "title": "employment"
           }
         },
         "title": "Person",

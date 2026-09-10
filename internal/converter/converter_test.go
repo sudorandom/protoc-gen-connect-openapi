@@ -628,21 +628,12 @@ func TestWrapRefsInAllOf(t *testing.T) {
 		return properties["child"].(map[string]any)
 	}
 
-	t.Run("places the $ref beside its siblings by default", func(t *testing.T) {
-		child := childProperty(t, "format=yaml")
-		assert.Equal(t, "#/components/schemas/test.Child", child["$ref"])
-		assert.NotContains(t, child, "allOf")
-		assert.Contains(t, child, "title")
-	})
+	child := childProperty(t, "format=yaml")
+	assert.NotContains(t, child, "$ref")
+	assert.Contains(t, child, "title")
 
-	t.Run("wraps the $ref in allOf when asked", func(t *testing.T) {
-		child := childProperty(t, "format=yaml,wrap-refs-in-allof")
-		assert.NotContains(t, child, "$ref")
-		assert.Contains(t, child, "title")
-
-		allOf, ok := child["allOf"].([]any)
-		require.True(t, ok, "expected an allOf list, got %#v", child["allOf"])
-		require.Len(t, allOf, 1)
-		assert.Equal(t, "#/components/schemas/test.Child", allOf[0].(map[string]any)["$ref"])
-	})
+	allOf, ok := child["allOf"].([]any)
+	require.True(t, ok, "expected an allOf list, got %#v", child["allOf"])
+	require.Len(t, allOf, 1)
+	assert.Equal(t, "#/components/schemas/test.Child", allOf[0].(map[string]any)["$ref"])
 }

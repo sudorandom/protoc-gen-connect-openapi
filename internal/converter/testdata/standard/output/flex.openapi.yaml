@@ -520,8 +520,9 @@ components:
           type: string
           title: stringField
         msgField:
+          allOf:
+            - $ref: '#/components/schemas/flex.Other'
           title: msgField
-          $ref: '#/components/schemas/flex.Other'
         repeatedMsgField:
           type: array
           items:
@@ -539,8 +540,9 @@ components:
       type: object
       properties:
         msg:
+          allOf:
+            - $ref: '#/components/schemas/flex.ComplexType'
           title: msg
-          $ref: '#/components/schemas/flex.ComplexType'
       title: FlexReply
       additionalProperties: false
       description: The response message containing the greetings
@@ -548,8 +550,9 @@ components:
       type: object
       properties:
         msg:
+          allOf:
+            - $ref: '#/components/schemas/flex.ComplexType'
           title: msg
-          $ref: '#/components/schemas/flex.ComplexType'
       title: FlexRequest
       additionalProperties: false
       description: The request message containing the user's name.

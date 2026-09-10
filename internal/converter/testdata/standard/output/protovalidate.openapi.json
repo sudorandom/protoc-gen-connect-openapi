@@ -1509,31 +1509,47 @@
             "format": "ipv6"
           },
           "enumConst": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ],
             "title": "enum_const",
-            "const": "MY_ENUM_VALUE1",
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            "const": "MY_ENUM_VALUE1"
           },
           "enumDefinedOnly": {
-            "title": "enum_defined_only",
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ],
+            "title": "enum_defined_only"
           },
           "enumIn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ],
             "title": "enum_in",
             "enum": [
               "MY_ENUM_VALUE1",
               "MY_ENUM_VALUE2"
-            ],
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            ]
           },
           "enumNotIn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/protovalidate.MyEnum"
+              }
+            ],
             "not": {
               "enum": [
                 "MY_ENUM_VALUE1",
                 "MY_ENUM_VALUE2"
               ]
             },
-            "title": "enum_not_in",
-            "$ref": "#/components/schemas/protovalidate.MyEnum"
+            "title": "enum_not_in"
           },
           "repeatedMinItems": {
             "type": "array",
@@ -1605,38 +1621,59 @@
             }
           },
           "anyIn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Any"
+              }
+            ],
             "title": "any_in",
             "enum": [
               "type.googleapis.com/MyType1",
               "type.googleapis.com/MyType2"
-            ],
-            "$ref": "#/components/schemas/google.protobuf.Any"
+            ]
           },
           "anyNotIn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Any"
+              }
+            ],
             "not": {
               "enum": [
                 "type.googleapis.com/ForbiddenType1",
                 "type.googleapis.com/ForbiddenType2"
               ]
             },
-            "title": "any_not_in",
-            "$ref": "#/components/schemas/google.protobuf.Any"
+            "title": "any_not_in"
           },
           "durationConst": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_const",
-            "const": "33m20s",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "const": "33m20s"
           },
           "durationIn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_in",
             "enum": [
               "1s",
               "2s",
               "3s"
-            ],
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            ]
           },
           "durationNotIn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "not": {
               "enum": [
                 "1s",
@@ -1644,84 +1681,143 @@
                 "3s"
               ]
             },
-            "title": "duration_not_in",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "title": "duration_not_in"
           },
           "durationLt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_lt",
-            "description": "duration.lt = 5s\n",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "duration.lt = 5s\n"
           },
           "durationLte": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_lte",
-            "description": "duration.lte = 10s\n",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "duration.lte = 10s\n"
           },
           "durationLtSeconds": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_lt_seconds",
-            "description": "duration.lt = 72h0m0s\n",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "duration.lt = 72h0m0s\n"
           },
           "durationGt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_gt",
-            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n"
           },
           "durationRange": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_range",
-            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\nduration.lt = 10s\n",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\nduration.lt = 10s\n"
           },
           "durationGte": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Duration"
+              }
+            ],
             "title": "duration_gte",
-            "description": "duration.gte = 5s\nduration.gte_lt = 5s\nduration.gte_lt_exclusive = 5s\nduration.gte_lte = 5s\nduration.gte_lte_exclusive = 5s\n",
-            "$ref": "#/components/schemas/google.protobuf.Duration"
+            "description": "duration.gte = 5s\nduration.gte_lt = 5s\nduration.gte_lt_exclusive = 5s\nduration.gte_lte = 5s\nduration.gte_lte_exclusive = 5s\n"
           },
           "timestampConst": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_const",
             "description": "This is a constant timestamp!",
-            "const": "2024-10-03 23:40:00 +0000 UTC",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "const": "2024-10-03 23:40:00 +0000 UTC"
           },
           "timestampWithin": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_within",
-            "description": "timestamp.within = 1h0m0s\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.within = 1h0m0s\n"
           },
           "timestampLt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_lt",
-            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n"
           },
           "timestampLte": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_lte",
-            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.lte = 2023-03-15T08:00:00Z\n"
           },
           "timestampGt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_gt",
-            "description": "timestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\n"
           },
           "timestampGte": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_gte",
-            "description": "timestamp.gte = 2022-12-31T00:00:00Z\ntimestamp.gte_lt = 2022-12-31T00:00:00Z\ntimestamp.gte_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gte_lte = 2022-12-31T00:00:00Z\ntimestamp.gte_lte_exclusive = 2022-12-31T00:00:00Z\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.gte = 2022-12-31T00:00:00Z\ntimestamp.gte_lt = 2022-12-31T00:00:00Z\ntimestamp.gte_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gte_lte = 2022-12-31T00:00:00Z\ntimestamp.gte_lte_exclusive = 2022-12-31T00:00:00Z\n"
           },
           "timestampRange": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_range",
-            "description": "timestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\ntimestamp.lt = 2023-01-01T00:00:00Z\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.gt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt = 2022-12-31T00:00:00Z\ntimestamp.gt_lt_exclusive = 2022-12-31T00:00:00Z\ntimestamp.gt_lte = 2022-12-31T00:00:00Z\ntimestamp.gt_lte_exclusive = 2022-12-31T00:00:00Z\ntimestamp.lt = 2023-01-01T00:00:00Z\n"
           },
           "timestampLtNow": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_lt_now",
-            "description": "timestamp.lt_now = true\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.lt_now = true\n"
           },
           "timestampGtNow": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.protobuf.Timestamp"
+              }
+            ],
             "title": "timestamp_gt_now",
-            "description": "timestamp.gt_now = true\n",
-            "$ref": "#/components/schemas/google.protobuf.Timestamp"
+            "description": "timestamp.gt_now = true\n"
           },
           "boolConstTrue": {
             "type": "boolean",

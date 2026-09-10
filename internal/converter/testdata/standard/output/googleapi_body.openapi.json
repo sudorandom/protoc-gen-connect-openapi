@@ -17,8 +17,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "data",
-                "$ref": "#/components/schemas/googleapi_withbody.SomethingData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/googleapi_withbody.SomethingData"
+                  }
+                ],
+                "title": "data"
               }
             }
           }
@@ -95,8 +99,12 @@
         "type": "object",
         "properties": {
           "data": {
-            "title": "data",
-            "$ref": "#/components/schemas/googleapi_withbody.SomethingData"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/googleapi_withbody.SomethingData"
+              }
+            ],
+            "title": "data"
           }
         },
         "title": "GetFooRequest",

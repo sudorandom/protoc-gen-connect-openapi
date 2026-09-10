@@ -30,9 +30,13 @@
           "content": {
             "application/json": {
               "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+                  }
+                ],
                 "title": "author_profile",
-                "description": "This field should be in the body based on the HTTP annotation",
-                "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+                "description": "This field should be in the body based on the HTTP annotation"
               }
             }
           }
@@ -83,9 +87,13 @@
           "content": {
             "application/json": {
               "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/body_field_with_query_params.Book"
+                  }
+                ],
                 "title": "book",
-                "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
-                "$ref": "#/components/schemas/body_field_with_query_params.Book"
+                "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax."
               }
             }
           }
@@ -119,8 +127,12 @@
             "title": "status"
           },
           "profile": {
-            "title": "profile",
-            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+              }
+            ],
+            "title": "profile"
           }
         },
         "title": "Author",
@@ -139,8 +151,12 @@
             "title": "email"
           },
           "biography": {
-            "title": "biography",
-            "$ref": "#/components/schemas/body_field_with_query_params.Biography"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/body_field_with_query_params.Biography"
+              }
+            ],
+            "title": "biography"
           },
           "genres": {
             "type": "array",
@@ -198,9 +214,13 @@
         "type": "object",
         "properties": {
           "authorProfile": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+              }
+            ],
             "title": "author_profile",
-            "description": "This field should be in the body based on the HTTP annotation",
-            "$ref": "#/components/schemas/body_field_with_query_params.AuthorProfile"
+            "description": "This field should be in the body based on the HTTP annotation"
           },
           "authorId": {
             "type": "string",
@@ -223,9 +243,13 @@
             "description": "The publisher who will publish this book.\n When using HTTP/JSON, this field is automatically populated based\n on the URI, because of the `{parent=publishers/*}` syntax."
           },
           "book": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/body_field_with_query_params.Book"
+              }
+            ],
             "title": "book",
-            "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax.",
-            "$ref": "#/components/schemas/body_field_with_query_params.Book"
+            "description": "The book to create.\n When using HTTP/JSON, this field is populated based on the HTTP body,\n because of the `body: \"book\"` syntax."
           },
           "bookId": {
             "type": "string",
