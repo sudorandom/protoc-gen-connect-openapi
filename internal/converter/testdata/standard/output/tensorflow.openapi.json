@@ -691,19 +691,13 @@
         "type": "object",
         "properties": {
           "requestedBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "requested_bytes",
             "format": "int64",
             "description": "Total number of bytes requested"
           },
           "allocatedBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "allocated_bytes",
             "format": "int64",
             "description": "Total number of bytes allocated if known"
@@ -714,10 +708,7 @@
             "description": "Name of the allocator used"
           },
           "allocationId": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "allocation_id",
             "format": "int64",
             "description": "Identifier of the allocated buffer if known"
@@ -728,10 +719,7 @@
             "description": "Set if this tensor only has one remaining reference"
           },
           "ptr": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "ptr",
             "format": "int64",
             "description": "Address of the allocation."
@@ -744,19 +732,13 @@
         "type": "object",
         "properties": {
           "allocMicros": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "alloc_micros",
             "format": "int64",
             "description": "The timestamp of the operation."
           },
           "allocBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "alloc_bytes",
             "format": "int64",
             "description": "Number of bytes allocated, or de-allocated if negative."
@@ -774,27 +756,18 @@
             "title": "allocator_name"
           },
           "totalBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "total_bytes",
             "format": "int64",
             "description": "These are per-node allocator memory stats."
           },
           "peakBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "peak_bytes",
             "format": "int64"
           },
           "liveBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "live_bytes",
             "format": "int64",
             "description": "The bytes that are not deallocated."
@@ -808,10 +781,7 @@
             "description": "The allocation and deallocation timeline."
           },
           "allocatorBytesInUse": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "allocator_bytes_in_use",
             "format": "int64",
             "description": "These are snapshots of the overall allocator memory stats.\n The number of live bytes currently allocated by the allocator."
@@ -870,10 +840,7 @@
             "type": "object",
             "properties": {
               "i": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "title": "i",
                 "format": "int64",
                 "description": "\"int\""
@@ -1045,10 +1012,7 @@
           "i": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64"
             },
             "title": "i",
@@ -1327,10 +1291,7 @@
             "$ref": "#/components/schemas/tensorflow.GraphOptions"
           },
           "operationTimeoutInMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "operation_timeout_in_ms",
             "format": "int64",
             "description": "Global timeout for all blocking operations in this session.  If non-zero,\n and not overridden on a per-operation basis, this value will be used as the\n deadline for all blocking operations."
@@ -1460,10 +1421,7 @@
             "description": "If true, the session will not store an additional copy of the graph for\n each subgraph.\n\n If this option is set to true when a session is created, the\n `RunOptions.output_partition_graphs` options must not be set."
           },
           "xlaFusionAutotunerThresh": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "xla_fusion_autotuner_thresh",
             "format": "int64",
             "description": "Minimum number of batches run through the XLA graph before XLA fusion\n autotuner is enabled. Default value of zero disables the autotuner.\n\n The XLA fusion autotuner can improve performance by executing a heuristic\n search on the compiler parameters."
@@ -1544,19 +1502,13 @@
             "description": "Whether to enable the health check mechanism."
           },
           "clusterRegisterTimeoutInMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "cluster_register_timeout_in_ms",
             "format": "int64",
             "description": "Maximum wait time for all members in the cluster to be registered."
           },
           "heartbeatTimeoutInMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "heartbeat_timeout_in_ms",
             "format": "int64",
             "description": "Heartbeat timeout, if a task does not record heartbeat in this time\n window, it will be considered disconnected.\n Note: This is also used as a grace period to accept any heartbeats after\n the agent has disconnected, to account for the lag time between the service\n recording the state change and the agent stopping heartbeats."
@@ -1569,10 +1521,7 @@
             "title": "coordinated_job_list"
           },
           "shutdownBarrierTimeoutInMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "shutdown_barrier_timeout_in_ms",
             "format": "int64",
             "description": "Denotes how long to wait for all coordination agents to reach the barriers\n (after the first shutdown request) before disconnecting together. If\n set to 0, no barrier is imposed upon shutdown and each worker can\n disconnect individually."
@@ -1674,73 +1623,49 @@
             "title": "output_info"
           },
           "temporaryMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "temporary_memory_size",
             "format": "int64",
             "description": "Temporary memory used by this node."
           },
           "persistentMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "persistent_memory_size",
             "format": "int64",
             "description": "Persistent memory used by this node."
           },
           "hostTempMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "host_temp_memory_size",
             "format": "int64",
             "deprecated": true
           },
           "deviceTempMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "device_temp_memory_size",
             "format": "int64",
             "deprecated": true
           },
           "devicePersistentMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "device_persistent_memory_size",
             "format": "int64",
             "deprecated": true
           },
           "computeCost": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "compute_cost",
             "format": "int64",
             "description": "Estimate of the computational cost of this node, in microseconds."
           },
           "computeTime": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "compute_time",
             "format": "int64",
             "description": "Analytical estimate of the computational cost of this node, in\n microseconds."
           },
           "memoryTime": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "memory_time",
             "format": "int64",
             "description": "Analytical estimate of the memory access cost of this node, in\n microseconds."
@@ -1790,18 +1715,12 @@
         "type": "object",
         "properties": {
           "size": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "size",
             "format": "int64"
           },
           "aliasInputPort": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "alias_input_port",
             "format": "int64",
             "description": "If \u003e= 0, the output is an alias of an input. Note that an alias input\n may itself be an alias. The algorithm will therefore need to follow\n those pointers."
@@ -1850,10 +1769,7 @@
             "description": "The session handle to be used in subsequent calls for the created session.\n\n The client must arrange to call CloseSession with this returned\n session handle to close the session."
           },
           "graphVersion": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "graph_version",
             "format": "int64",
             "description": "The initial version number for the graph, to be used in the next call\n to ExtendSession."
@@ -1932,10 +1848,7 @@
             "description": "Debugging options"
           },
           "globalStep": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "global_step",
             "format": "int64",
             "description": "Caller-specified global step count.\n Note that this is distinct from the session run count and the executor\n step count."
@@ -2004,10 +1917,7 @@
             "description": "String representation of device_type."
           },
           "memoryLimit": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "memory_limit",
             "format": "int64",
             "description": "Memory capacity of device in bytes."
@@ -2018,10 +1928,7 @@
             "$ref": "#/components/schemas/tensorflow.DeviceLocality"
           },
           "incarnation": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "incarnation",
             "format": "int64",
             "description": "A device is assigned a global unique number each time it is\n initialized. \"incarnation\" should never be 0."
@@ -2032,10 +1939,7 @@
             "description": "String representation of the physical device that this device maps to."
           },
           "xlaGlobalId": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "xla_global_id",
             "format": "int64",
             "description": "A physical device ID for use in XLA DeviceAssignments, unique across\n clients in a multi-client setup. Set to -1 if unavailable, non-negative\n otherwise."
@@ -2124,10 +2028,7 @@
             "$ref": "#/components/schemas/tensorflow.GraphDef"
           },
           "currentGraphVersion": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "current_graph_version",
             "format": "int64",
             "description": "REQUIRED: The version number of the graph to be extended. This will be\n tested against the current server-side version number, and the operation\n will fail with FAILED_PRECONDITION if they do not match."
@@ -2140,10 +2041,7 @@
         "type": "object",
         "properties": {
           "newGraphVersion": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "new_graph_version",
             "format": "int64",
             "description": "The new version number for the extended graph, to be used in the next call\n to ExtendSession."
@@ -2178,10 +2076,7 @@
                 "type": "object",
                 "properties": {
                   "i": {
-                    "type": [
-                      "integer",
-                      "string"
-                    ],
+                    "type": "string",
                     "title": "i",
                     "format": "int64",
                     "description": "TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc."
@@ -2489,10 +2384,7 @@
             "description": "The type of GPU allocation strategy to use.\n\n Allowed values:\n \"\": The empty string (default) uses a system-chosen default\n     which may change over time.\n\n \"BFC\": A \"Best-fit with coalescing\" algorithm, simplified from a\n        version of dlmalloc."
           },
           "deferredDeletionBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "deferred_deletion_bytes",
             "format": "int64",
             "description": "Delay deletion of up to this many bytes to reduce the number of\n interactions with gpu driver code.  If 0, the system chooses\n a reasonable default (several MBs)."
@@ -2724,10 +2616,7 @@
             "type": "object",
             "title": "name_to_trace_id",
             "additionalProperties": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "title": "value",
               "format": "int64"
             },
@@ -2793,7 +2682,6 @@
         "properties": {
           "key": {
             "type": [
-              "integer",
               "string",
               "null"
             ],
@@ -2827,7 +2715,6 @@
           },
           "value": {
             "type": [
-              "integer",
               "string",
               "null"
             ],
@@ -2852,10 +2739,7 @@
           "frameId": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64"
             },
             "title": "frame_id"
@@ -2870,7 +2754,6 @@
         "properties": {
           "key": {
             "type": [
-              "integer",
               "string",
               "null"
             ],
@@ -2968,19 +2851,13 @@
             "$ref": "#/components/schemas/tensorflow.OptimizerOptions"
           },
           "buildCostModel": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "build_cost_model",
             "format": "int64",
             "description": "The number of steps to run before returning a cost model detailing\n the memory usage and performance of each node of the graph. 0 means\n no cost model."
           },
           "buildCostModelAfter": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "build_cost_model_after",
             "format": "int64",
             "description": "The number of steps to skip before collecting statistics for the\n cost model."
@@ -3135,10 +3012,7 @@
             "$ref": "#/components/schemas/tensorflow.CallableOptions"
           },
           "requestId": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "request_id",
             "format": "int64",
             "description": "Unique identifier for this request. Every MakeCallableRequest must\n have a unique request_id, and retried MakeCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
@@ -3151,10 +3025,7 @@
         "type": "object",
         "properties": {
           "handle": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "handle",
             "format": "int64",
             "description": "A handle to the created callable."
@@ -3167,46 +3038,31 @@
         "type": "object",
         "properties": {
           "tempMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "temp_memory_size",
             "format": "int64"
           },
           "persistentMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "persistent_memory_size",
             "format": "int64"
           },
           "persistentTensorAllocIds": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64"
             },
             "title": "persistent_tensor_alloc_ids"
           },
           "deviceTempMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "device_temp_memory_size",
             "format": "int64",
             "deprecated": true
           },
           "devicePersistentMemorySize": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "device_persistent_memory_size",
             "format": "int64",
             "deprecated": true
@@ -3214,10 +3070,7 @@
           "devicePersistentTensorAllocIds": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64",
               "deprecated": true
             },
@@ -3378,34 +3231,22 @@
             "description": "TODO(tucker): Use some more compact form of node identity than\n the full string name.  Either all processes should agree on a\n global id (cost_id?) for each node, or we should use a hash of\n the name."
           },
           "allStartMicros": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "all_start_micros",
             "format": "int64"
           },
           "opStartRelMicros": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "op_start_rel_micros",
             "format": "int64"
           },
           "opEndRelMicros": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "op_end_rel_micros",
             "format": "int64"
           },
           "allEndRelMicros": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "all_end_rel_micros",
             "format": "int64"
           },
@@ -3428,10 +3269,7 @@
             "title": "timeline_label"
           },
           "scheduledMicros": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "scheduled_micros",
             "format": "int64"
           },
@@ -3451,42 +3289,27 @@
             "$ref": "#/components/schemas/tensorflow.MemoryStats"
           },
           "allStartNanos": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "all_start_nanos",
             "format": "int64"
           },
           "opStartRelNanos": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "op_start_rel_nanos",
             "format": "int64"
           },
           "opEndRelNanos": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "op_end_rel_nanos",
             "format": "int64"
           },
           "allEndRelNanos": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "all_end_rel_nanos",
             "format": "int64"
           },
           "scheduledNanos": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "scheduled_nanos",
             "format": "int64"
           }
@@ -3681,10 +3504,7 @@
             "description": "For type == \"int\", this is a minimum value.  For \"list(___)\"\n types, this is the minimum length."
           },
           "minimum": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "minimum",
             "format": "int64"
           },
@@ -3731,10 +3551,7 @@
             "description": "If true, perform constant folding optimization on the graph.\n Note: the optimization Level L1 will override this setting to true. So in\n order to disable constant folding the opt_level has to be set to L0."
           },
           "maxFoldedConstantInBytes": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "max_folded_constant_in_bytes",
             "format": "int64",
             "description": "Constant folding optimization replaces tensors whose values can be\n predetermined, with constant nodes. To avoid inserting too large constants,\n the size of each constant created can be limited. If this value is zero, a\n default limit of 10 MiB will be applied. If constant folding optimization\n is disabled, this value is ignored."
@@ -3816,10 +3633,7 @@
             "description": "Target Nodes. A list of node names. The named nodes will be run in future\n steps, but their outputs will not be fetched."
           },
           "requestId": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "request_id",
             "format": "int64",
             "description": "Unique identifier for this request. Every PartialRunSetupRequest must\n have a unique request_id, and retried PartialRunSetupRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
@@ -3907,10 +3721,7 @@
             "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
           },
           "handle": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "handle",
             "format": "int64",
             "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
@@ -3972,10 +3783,7 @@
             "description": "Unique name of this resource."
           },
           "hashCode": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "hash_code",
             "format": "int64",
             "description": "Hash code for the type of the resource. Is only valid in the same device\n and in the same execution."
@@ -4164,10 +3972,7 @@
             "description": "A node name scope for node names which are valid outputs of recomputations.\n Inputs to nodes that match this scope may be recomputed (subject either to\n manual annotation of those input nodes or to manual annotation and\n heuristics depending on memory_optimization), but the nodes themselves will\n not be recomputed. This matches any sub-scopes as well, meaning the scope\n can appear not just as a top-level scope. For example, if the value is\n \"gradients/\", the default, it will match node name \"gradients/foo\",\n \"foo/gradients/bar\", but not \"foo_gradients/\""
           },
           "metaOptimizerTimeoutMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "meta_optimizer_timeout_ms",
             "format": "int64",
             "description": "Maximum number of milliseconds to spend optimizing a single graph before\n timing out. If less than or equal to 0 (default value) the optimizer will\n never time out."
@@ -4306,10 +4111,7 @@
             "description": "REQUIRED: session_handle must be returned by a CreateSession call\n to the same master service."
           },
           "handle": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "handle",
             "format": "int64",
             "description": "REQUIRED: handle must be returned by a MakeCallable call to the same\n master service."
@@ -4323,10 +4125,7 @@
             "description": "Values of the tensors passed as arguments to the callable, in the order\n defined in the CallableOptions.feed field passed to MakeCallable."
           },
           "requestId": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "request_id",
             "format": "int64",
             "description": "Unique identifier for this request. Every RunCallableRequest must\n have a unique request_id, and retried RunCallableRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
@@ -4425,10 +4224,7 @@
             "$ref": "#/components/schemas/tensorflow.RunOptions.TraceLevel"
           },
           "timeoutInMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "timeout_in_ms",
             "format": "int64",
             "description": "Time to wait for operation to complete in milliseconds."
@@ -4467,10 +4263,7 @@
         "type": "object",
         "properties": {
           "collectiveGraphKey": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "collective_graph_key",
             "format": "int64",
             "description": "If non-zero, declares that this graph is going to use collective\n ops and must synchronize step_ids with any other graph with this\n same group_key value (in a distributed computation where tasks\n run disjoint graphs)."
@@ -4493,10 +4286,7 @@
         "type": "object",
         "properties": {
           "priority": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "priority",
             "format": "int64",
             "description": "Priority of the request. The run handler thread pool will schedule ops\n based on the priority number. The larger number means higher priority."
@@ -4565,10 +4355,7 @@
             "description": "If true then some errors, e.g., execution errors that have long\n error messages, may return an OK RunStepResponse with the actual\n error saved in the status_code/status_error_message fields of the\n response body. This is a workaround since the RPC subsystem may\n truncate long metadata messages."
           },
           "requestId": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "request_id",
             "format": "int64",
             "description": "Unique identifier for this request. Every RunStepRequest must\n have a unique request_id, and retried RunStepRequest must have\n the same request_id. If request_id is zero, retry detection is disabled."
@@ -4629,10 +4416,7 @@
             "title": "name"
           },
           "version": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "version",
             "format": "int64",
             "description": "The version is optional. If set, needs to be \u003e= 0."
@@ -4777,10 +4561,7 @@
           "int64Val": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64"
             },
             "title": "int64_val",
@@ -4830,10 +4611,7 @@
           "uint64Val": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64"
             },
             "title": "uint64_val",
@@ -4875,10 +4653,7 @@
         "type": "object",
         "properties": {
           "size": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "size",
             "format": "int64",
             "description": "Size of the tensor in that dimension.\n This value must be \u003e= -1, but values of -1 are reserved for \"unknown\"\n shapes (values of -1 mean \"unknown\" dimension).  Certain wrappers\n that work with TensorShapeProto may fail at runtime when deserializing\n a TensorShapeProto containing a dim value of -1."
@@ -4942,10 +4717,7 @@
         "type": "object",
         "properties": {
           "verificationTimeoutInMs": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "verification_timeout_in_ms",
             "format": "int64",
             "description": "Deadline for completion of all verification i.e. all the Toggle ON\n verifiers must complete execution within this time."

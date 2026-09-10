@@ -215,12 +215,10 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 	case protoreflect.Fixed32Kind, protoreflect.Uint32Kind: // uint32 types
 		s.Type = []string{"integer"}
 	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Sfixed64Kind: // int64 types
-		// NOTE: 64-bit integer types can be strings or numbers because they sometimes
-		//       cannot fit into a JSON number type
-		s.Type = []string{"integer", "string"}
+		s.Type = []string{"string"}
 		s.Format = "int64"
 	case protoreflect.Uint64Kind, protoreflect.Fixed64Kind: // uint64 types
-		s.Type = []string{"integer", "string"}
+		s.Type = []string{"string"}
 		s.Format = "int64"
 	case protoreflect.DoubleKind:
 		s.Type = []string{"number"}

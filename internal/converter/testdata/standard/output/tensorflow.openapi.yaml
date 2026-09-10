@@ -441,16 +441,12 @@ components:
       type: object
       properties:
         requestedBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: requested_bytes
           format: int64
           description: Total number of bytes requested
         allocatedBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: allocated_bytes
           format: int64
           description: Total number of bytes allocated if known
@@ -459,9 +455,7 @@ components:
           title: allocator_name
           description: Name of the allocator used
         allocationId:
-          type:
-            - integer
-            - string
+          type: string
           title: allocation_id
           format: int64
           description: Identifier of the allocated buffer if known
@@ -470,9 +464,7 @@ components:
           title: has_single_reference
           description: Set if this tensor only has one remaining reference
         ptr:
-          type:
-            - integer
-            - string
+          type: string
           title: ptr
           format: int64
           description: Address of the allocation.
@@ -482,16 +474,12 @@ components:
       type: object
       properties:
         allocMicros:
-          type:
-            - integer
-            - string
+          type: string
           title: alloc_micros
           format: int64
           description: The timestamp of the operation.
         allocBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: alloc_bytes
           format: int64
           description: Number of bytes allocated, or de-allocated if negative.
@@ -505,22 +493,16 @@ components:
           type: string
           title: allocator_name
         totalBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: total_bytes
           format: int64
           description: These are per-node allocator memory stats.
         peakBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: peak_bytes
           format: int64
         liveBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: live_bytes
           format: int64
           description: The bytes that are not deallocated.
@@ -531,9 +513,7 @@ components:
           title: allocation_records
           description: The allocation and deallocation timeline.
         allocatorBytesInUse:
-          type:
-            - integer
-            - string
+          type: string
           title: allocator_bytes_in_use
           format: int64
           description: |-
@@ -579,9 +559,7 @@ components:
         - type: object
           properties:
             i:
-              type:
-                - integer
-                - string
+              type: string
               title: i
               format: int64
               description: '"int"'
@@ -691,9 +669,7 @@ components:
         i:
           type: array
           items:
-            type:
-              - integer
-              - string
+            type: string
             format: int64
           title: i
           description: '"list(int)"'
@@ -1045,9 +1021,7 @@ components:
           description: Options that apply to all graphs.
           $ref: '#/components/schemas/tensorflow.GraphOptions'
         operationTimeoutInMs:
-          type:
-            - integer
-            - string
+          type: string
           title: operation_timeout_in_ms
           format: int64
           description: |-
@@ -1234,9 +1208,7 @@ components:
              If this option is set to true when a session is created, the
              `RunOptions.output_partition_graphs` options must not be set.
         xlaFusionAutotunerThresh:
-          type:
-            - integer
-            - string
+          type: string
           title: xla_fusion_autotuner_thresh
           format: int64
           description: |-
@@ -1328,16 +1300,12 @@ components:
           title: enable_health_check
           description: Whether to enable the health check mechanism.
         clusterRegisterTimeoutInMs:
-          type:
-            - integer
-            - string
+          type: string
           title: cluster_register_timeout_in_ms
           format: int64
           description: Maximum wait time for all members in the cluster to be registered.
         heartbeatTimeoutInMs:
-          type:
-            - integer
-            - string
+          type: string
           title: heartbeat_timeout_in_ms
           format: int64
           description: |-
@@ -1352,9 +1320,7 @@ components:
             $ref: '#/components/schemas/tensorflow.CoordinatedJob'
           title: coordinated_job_list
         shutdownBarrierTimeoutInMs:
-          type:
-            - integer
-            - string
+          type: string
           title: shutdown_barrier_timeout_in_ms
           format: int64
           description: |-
@@ -1450,60 +1416,44 @@ components:
             $ref: '#/components/schemas/tensorflow.CostGraphDef.Node.OutputInfo'
           title: output_info
         temporaryMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: temporary_memory_size
           format: int64
           description: Temporary memory used by this node.
         persistentMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: persistent_memory_size
           format: int64
           description: Persistent memory used by this node.
         hostTempMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: host_temp_memory_size
           format: int64
           deprecated: true
         deviceTempMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: device_temp_memory_size
           format: int64
           deprecated: true
         devicePersistentMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: device_persistent_memory_size
           format: int64
           deprecated: true
         computeCost:
-          type:
-            - integer
-            - string
+          type: string
           title: compute_cost
           format: int64
           description: Estimate of the computational cost of this node, in microseconds.
         computeTime:
-          type:
-            - integer
-            - string
+          type: string
           title: compute_time
           format: int64
           description: |-
             Analytical estimate of the computational cost of this node, in
              microseconds.
         memoryTime:
-          type:
-            - integer
-            - string
+          type: string
           title: memory_time
           format: int64
           description: |-
@@ -1549,15 +1499,11 @@ components:
       type: object
       properties:
         size:
-          type:
-            - integer
-            - string
+          type: string
           title: size
           format: int64
         aliasInputPort:
-          type:
-            - integer
-            - string
+          type: string
           title: alias_input_port
           format: int64
           description: |-
@@ -1602,9 +1548,7 @@ components:
              The client must arrange to call CloseSession with this returned
              session handle to close the session.
         graphVersion:
-          type:
-            - integer
-            - string
+          type: string
           title: graph_version
           format: int64
           description: |-
@@ -1680,9 +1624,7 @@ components:
           title: debug_tensor_watch_opts
           description: Debugging options
         globalStep:
-          type:
-            - integer
-            - string
+          type: string
           title: global_step
           format: int64
           description: |-
@@ -1776,9 +1718,7 @@ components:
           title: device_type
           description: String representation of device_type.
         memoryLimit:
-          type:
-            - integer
-            - string
+          type: string
           title: memory_limit
           format: int64
           description: Memory capacity of device in bytes.
@@ -1789,9 +1729,7 @@ components:
              for supporting efficient data transfers.
           $ref: '#/components/schemas/tensorflow.DeviceLocality'
         incarnation:
-          type:
-            - integer
-            - string
+          type: string
           title: incarnation
           format: int64
           description: |-
@@ -1802,9 +1740,7 @@ components:
           title: physical_device_desc
           description: String representation of the physical device that this device maps to.
         xlaGlobalId:
-          type:
-            - integer
-            - string
+          type: string
           title: xla_global_id
           format: int64
           description: |-
@@ -1882,9 +1818,7 @@ components:
              ILLEGAL_ARGUMENT.
           $ref: '#/components/schemas/tensorflow.GraphDef'
         currentGraphVersion:
-          type:
-            - integer
-            - string
+          type: string
           title: current_graph_version
           format: int64
           description: |-
@@ -1897,9 +1831,7 @@ components:
       type: object
       properties:
         newGraphVersion:
-          type:
-            - integer
-            - string
+          type: string
           title: new_graph_version
           format: int64
           description: |-
@@ -1928,9 +1860,7 @@ components:
             - type: object
               properties:
                 i:
-                  type:
-                    - integer
-                    - string
+                  type: string
                   title: i
                   format: int64
                   description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
@@ -2218,9 +2148,7 @@ components:
              "BFC": A "Best-fit with coalescing" algorithm, simplified from a
                     version of dlmalloc.
         deferredDeletionBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: deferred_deletion_bytes
           format: int64
           description: |-
@@ -2573,9 +2501,7 @@ components:
           type: object
           title: name_to_trace_id
           additionalProperties:
-            type:
-              - integer
-              - string
+            type: string
             title: value
             format: int64
           description: |-
@@ -2639,7 +2565,6 @@ components:
       properties:
         key:
           type:
-            - integer
             - string
             - "null"
           title: key
@@ -2661,7 +2586,6 @@ components:
           title: key
         value:
           type:
-            - integer
             - string
             - "null"
           title: value
@@ -2680,9 +2604,7 @@ components:
         frameId:
           type: array
           items:
-            type:
-              - integer
-              - string
+            type: string
             format: int64
           title: frame_id
       title: StackTrace
@@ -2693,7 +2615,6 @@ components:
       properties:
         key:
           type:
-            - integer
             - string
             - "null"
           title: key
@@ -2795,9 +2716,7 @@ components:
           description: Options controlling how graph is optimized.
           $ref: '#/components/schemas/tensorflow.OptimizerOptions'
         buildCostModel:
-          type:
-            - integer
-            - string
+          type: string
           title: build_cost_model
           format: int64
           description: |-
@@ -2805,9 +2724,7 @@ components:
              the memory usage and performance of each node of the graph. 0 means
              no cost model.
         buildCostModelAfter:
-          type:
-            - integer
-            - string
+          type: string
           title: build_cost_model_after
           format: int64
           description: |-
@@ -2959,9 +2876,7 @@ components:
           description: Options that define the behavior of the created callable.
           $ref: '#/components/schemas/tensorflow.CallableOptions'
         requestId:
-          type:
-            - integer
-            - string
+          type: string
           title: request_id
           format: int64
           description: |-
@@ -2974,9 +2889,7 @@ components:
       type: object
       properties:
         handle:
-          type:
-            - integer
-            - string
+          type: string
           title: handle
           format: int64
           description: A handle to the created callable.
@@ -2986,45 +2899,33 @@ components:
       type: object
       properties:
         tempMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: temp_memory_size
           format: int64
         persistentMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: persistent_memory_size
           format: int64
         persistentTensorAllocIds:
           type: array
           items:
-            type:
-              - integer
-              - string
+            type: string
             format: int64
           title: persistent_tensor_alloc_ids
         deviceTempMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: device_temp_memory_size
           format: int64
           deprecated: true
         devicePersistentMemorySize:
-          type:
-            - integer
-            - string
+          type: string
           title: device_persistent_memory_size
           format: int64
           deprecated: true
         devicePersistentTensorAllocIds:
           type: array
           items:
-            type:
-              - integer
-              - string
+            type: string
             format: int64
             deprecated: true
           title: device_persistent_tensor_alloc_ids
@@ -3218,27 +3119,19 @@ components:
              global id (cost_id?) for each node, or we should use a hash of
              the name.
         allStartMicros:
-          type:
-            - integer
-            - string
+          type: string
           title: all_start_micros
           format: int64
         opStartRelMicros:
-          type:
-            - integer
-            - string
+          type: string
           title: op_start_rel_micros
           format: int64
         opEndRelMicros:
-          type:
-            - integer
-            - string
+          type: string
           title: op_end_rel_micros
           format: int64
         allEndRelMicros:
-          type:
-            - integer
-            - string
+          type: string
           title: all_end_rel_micros
           format: int64
         memory:
@@ -3255,9 +3148,7 @@ components:
           type: string
           title: timeline_label
         scheduledMicros:
-          type:
-            - integer
-            - string
+          type: string
           title: scheduled_micros
           format: int64
         threadId:
@@ -3272,33 +3163,23 @@ components:
           title: memory_stats
           $ref: '#/components/schemas/tensorflow.MemoryStats'
         allStartNanos:
-          type:
-            - integer
-            - string
+          type: string
           title: all_start_nanos
           format: int64
         opStartRelNanos:
-          type:
-            - integer
-            - string
+          type: string
           title: op_start_rel_nanos
           format: int64
         opEndRelNanos:
-          type:
-            - integer
-            - string
+          type: string
           title: op_end_rel_nanos
           format: int64
         allEndRelNanos:
-          type:
-            - integer
-            - string
+          type: string
           title: all_end_rel_nanos
           format: int64
         scheduledNanos:
-          type:
-            - integer
-            - string
+          type: string
           title: scheduled_nanos
           format: int64
       title: NodeExecStats
@@ -3516,9 +3397,7 @@ components:
             For type == "int", this is a minimum value.  For "list(___)"
              types, this is the minimum length.
         minimum:
-          type:
-            - integer
-            - string
+          type: string
           title: minimum
           format: int64
         allowedValues:
@@ -3571,9 +3450,7 @@ components:
              Note: the optimization Level L1 will override this setting to true. So in
              order to disable constant folding the opt_level has to be set to L0.
         maxFoldedConstantInBytes:
-          type:
-            - integer
-            - string
+          type: string
           title: max_folded_constant_in_bytes
           format: int64
           description: |-
@@ -3655,9 +3532,7 @@ components:
             Target Nodes. A list of node names. The named nodes will be run in future
              steps, but their outputs will not be fetched.
         requestId:
-          type:
-            - integer
-            - string
+          type: string
           title: request_id
           format: int64
           description: |-
@@ -3757,9 +3632,7 @@ components:
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
         handle:
-          type:
-            - integer
-            - string
+          type: string
           title: handle
           format: int64
           description: |-
@@ -3833,9 +3706,7 @@ components:
           title: name
           description: Unique name of this resource.
         hashCode:
-          type:
-            - integer
-            - string
+          type: string
           title: hash_code
           format: int64
           description: |-
@@ -4054,9 +3925,7 @@ components:
              "gradients/", the default, it will match node name "gradients/foo",
              "foo/gradients/bar", but not "foo_gradients/"
         metaOptimizerTimeoutMs:
-          type:
-            - integer
-            - string
+          type: string
           title: meta_optimizer_timeout_ms
           format: int64
           description: |-
@@ -4193,9 +4062,7 @@ components:
             REQUIRED: session_handle must be returned by a CreateSession call
              to the same master service.
         handle:
-          type:
-            - integer
-            - string
+          type: string
           title: handle
           format: int64
           description: |-
@@ -4210,9 +4077,7 @@ components:
             Values of the tensors passed as arguments to the callable, in the order
              defined in the CallableOptions.feed field passed to MakeCallable.
         requestId:
-          type:
-            - integer
-            - string
+          type: string
           title: request_id
           format: int64
           description: |-
@@ -4305,9 +4170,7 @@ components:
           title: trace_level
           $ref: '#/components/schemas/tensorflow.RunOptions.TraceLevel'
         timeoutInMs:
-          type:
-            - integer
-            - string
+          type: string
           title: timeout_in_ms
           format: int64
           description: Time to wait for operation to complete in milliseconds.
@@ -4351,9 +4214,7 @@ components:
       type: object
       properties:
         collectiveGraphKey:
-          type:
-            - integer
-            - string
+          type: string
           title: collective_graph_key
           format: int64
           description: |-
@@ -4382,9 +4243,7 @@ components:
       type: object
       properties:
         priority:
-          type:
-            - integer
-            - string
+          type: string
           title: priority
           format: int64
           description: |-
@@ -4456,9 +4315,7 @@ components:
              response body. This is a workaround since the RPC subsystem may
              truncate long metadata messages.
         requestId:
-          type:
-            - integer
-            - string
+          type: string
           title: request_id
           format: int64
           description: |-
@@ -4513,9 +4370,7 @@ components:
           type: string
           title: name
         version:
-          type:
-            - integer
-            - string
+          type: string
           title: version
           format: int64
           description: The version is optional. If set, needs to be >= 0.
@@ -4654,9 +4509,7 @@ components:
         int64Val:
           type: array
           items:
-            type:
-              - integer
-              - string
+            type: string
             format: int64
           title: int64_val
           description: DT_INT64
@@ -4696,9 +4549,7 @@ components:
         uint64Val:
           type: array
           items:
-            type:
-              - integer
-              - string
+            type: string
             format: int64
           title: uint64_val
           description: DT_UINT64
@@ -4748,9 +4599,7 @@ components:
       type: object
       properties:
         size:
-          type:
-            - integer
-            - string
+          type: string
           title: size
           format: int64
           description: |-
@@ -4824,9 +4673,7 @@ components:
       type: object
       properties:
         verificationTimeoutInMs:
-          type:
-            - integer
-            - string
+          type: string
           title: verification_timeout_in_ms
           format: int64
           description: |-

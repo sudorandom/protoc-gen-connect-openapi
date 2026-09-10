@@ -534,9 +534,7 @@ components:
               format: int32
               description: (proto int32)
             int64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: int64_value
               format: int64
               description: (proto int64)
@@ -545,9 +543,7 @@ components:
               title: uint32_value
               description: (proto uint32)
             uint64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: uint64_value
               format: int64
               description: (proto uint64)
@@ -557,9 +553,7 @@ components:
               format: int32
               description: (proto sint32)
             sint64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: sint64_value
               format: int64
               description: (proto sint64)
@@ -568,9 +562,7 @@ components:
               title: fixed32_value
               description: (proto fixed32)
             fixed64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: fixed64_value
               format: int64
               description: (proto fixed64)
@@ -580,9 +572,7 @@ components:
               format: int32
               description: (proto sfixed32)
             sfixed64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: sfixed64_value
               format: int64
               description: (proto sfixed64)
@@ -623,9 +613,7 @@ components:
             int64List:
               type: array
               items:
-                type:
-                  - integer
-                  - string
+                type: string
                 format: int64
               title: int64_list
               description: (proto int64)
@@ -638,9 +626,7 @@ components:
             uint64List:
               type: array
               items:
-                type:
-                  - integer
-                  - string
+                type: string
                 format: int64
               title: uint64_list
               description: (proto uint64)
@@ -654,9 +640,7 @@ components:
             sint64List:
               type: array
               items:
-                type:
-                  - integer
-                  - string
+                type: string
                 format: int64
               title: sint64_list
               description: (proto sint64)
@@ -669,9 +653,7 @@ components:
             fixed64List:
               type: array
               items:
-                type:
-                  - integer
-                  - string
+                type: string
                 format: int64
               title: fixed64_list
               description: (proto fixed64)
@@ -685,9 +667,7 @@ components:
             sfixed64List:
               type: array
               items:
-                type:
-                  - integer
-                  - string
+                type: string
                 format: int64
               title: sfixed64_list
               description: (proto sfixed64)
@@ -837,9 +817,7 @@ components:
               type: object
               title: int64_map
               additionalProperties:
-                type:
-                  - integer
-                  - string
+                type: string
                 title: value
                 format: int64
                 description: (proto int64)
@@ -856,9 +834,7 @@ components:
               type: object
               title: uint64_map
               additionalProperties:
-                type:
-                  - integer
-                  - string
+                type: string
                 title: value
                 format: int64
                 description: (proto uint64)
@@ -876,9 +852,7 @@ components:
               type: object
               title: sint64_map
               additionalProperties:
-                type:
-                  - integer
-                  - string
+                type: string
                 title: value
                 format: int64
                 description: (proto sint64)
@@ -895,9 +869,7 @@ components:
               type: object
               title: fixed64_map
               additionalProperties:
-                type:
-                  - integer
-                  - string
+                type: string
                 title: value
                 format: int64
                 description: (proto fixed64)
@@ -915,9 +887,7 @@ components:
               type: object
               title: sfixed64_map
               additionalProperties:
-                type:
-                  - integer
-                  - string
+                type: string
                 title: value
                 format: int64
                 description: (proto sfixed64)
@@ -970,7 +940,6 @@ components:
               description: (proto int32)
             optInt64Value:
               type:
-                - integer
                 - string
                 - "null"
               title: opt_int64_value
@@ -984,7 +953,6 @@ components:
               description: (proto uint32)
             optUint64Value:
               type:
-                - integer
                 - string
                 - "null"
               title: opt_uint64_value
@@ -999,7 +967,6 @@ components:
               description: (proto sint32)
             optSint64Value:
               type:
-                - integer
                 - string
                 - "null"
               title: opt_sint64_value
@@ -1013,7 +980,6 @@ components:
               description: (proto fixed32)
             optFixed64Value:
               type:
-                - integer
                 - string
                 - "null"
               title: opt_fixed64_value
@@ -1028,7 +994,6 @@ components:
               description: (proto sfixed32)
             optSfixed64Value:
               type:
-                - integer
                 - string
                 - "null"
               title: opt_sfixed64_value
@@ -1152,9 +1117,7 @@ components:
             - type: object
               properties:
                 fixed64Option:
-                  type:
-                    - integer
-                    - string
+                  type: string
                   title: fixed64_option
                   format: int64
                   description: (proto fixed64)
@@ -1184,9 +1147,7 @@ components:
             - type: object
               properties:
                 int64Option:
-                  type:
-                    - integer
-                    - string
+                  type: string
                   title: int64_option
                   format: int64
                   description: (proto int64)
@@ -1215,9 +1176,7 @@ components:
             - type: object
               properties:
                 sfixed64Option:
-                  type:
-                    - integer
-                    - string
+                  type: string
                   title: sfixed64_option
                   format: int64
                   description: (proto sfixed64)
@@ -1237,9 +1196,7 @@ components:
             - type: object
               properties:
                 sint64Option:
-                  type:
-                    - integer
-                    - string
+                  type: string
                   title: sint64_option
                   format: int64
                   description: (proto sint64)
@@ -1267,9 +1224,7 @@ components:
             - type: object
               properties:
                 uint64Option:
-                  type:
-                    - integer
-                    - string
+                  type: string
                   title: uint64_option
                   format: int64
                   description: (proto uint64)
@@ -1423,9 +1378,7 @@ components:
           title: key
           description: (proto string)
         value:
-          type:
-            - integer
-            - string
+          type: string
           title: value
           format: int64
           description: (proto fixed64)
@@ -1435,9 +1388,7 @@ components:
       type: object
       properties:
         key:
-          type:
-            - integer
-            - string
+          type: string
           title: key
           format: int64
           description: (proto fixed64)
@@ -1497,9 +1448,7 @@ components:
           title: key
           description: (proto string)
         value:
-          type:
-            - integer
-            - string
+          type: string
           title: value
           format: int64
           description: (proto int64)
@@ -1509,9 +1458,7 @@ components:
       type: object
       properties:
         key:
-          type:
-            - integer
-            - string
+          type: string
           title: key
           format: int64
           description: (proto int64)
@@ -1570,9 +1517,7 @@ components:
           title: key
           description: (proto string)
         value:
-          type:
-            - integer
-            - string
+          type: string
           title: value
           format: int64
           description: (proto sfixed64)
@@ -1582,9 +1527,7 @@ components:
       type: object
       properties:
         key:
-          type:
-            - integer
-            - string
+          type: string
           title: key
           format: int64
           description: (proto sfixed64)
@@ -1630,9 +1573,7 @@ components:
           title: key
           description: (proto string)
         value:
-          type:
-            - integer
-            - string
+          type: string
           title: value
           format: int64
           description: (proto sint64)
@@ -1642,9 +1583,7 @@ components:
       type: object
       properties:
         key:
-          type:
-            - integer
-            - string
+          type: string
           title: key
           format: int64
           description: (proto sint64)
@@ -1714,9 +1653,7 @@ components:
           title: key
           description: (proto string)
         value:
-          type:
-            - integer
-            - string
+          type: string
           title: value
           format: int64
           description: (proto uint64)
@@ -1726,9 +1663,7 @@ components:
       type: object
       properties:
         key:
-          type:
-            - integer
-            - string
+          type: string
           title: key
           format: int64
           description: (proto uint64)
@@ -1758,9 +1693,7 @@ components:
               format: int32
               description: (proto int32)
             int64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: int64_value
               format: int64
               description: (proto int64)
@@ -1769,9 +1702,7 @@ components:
               title: uint32_value
               description: (proto uint32)
             uint64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: uint64_value
               format: int64
               description: (proto uint64)
@@ -1781,9 +1712,7 @@ components:
               format: int32
               description: (proto sint32)
             sint64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: sint64_value
               format: int64
               description: (proto sint64)
@@ -1792,9 +1721,7 @@ components:
               title: fixed32_value
               description: (proto fixed32)
             fixed64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: fixed64_value
               format: int64
               description: (proto fixed64)
@@ -1804,9 +1731,7 @@ components:
               format: int32
               description: (proto sfixed32)
             sfixed64Value:
-              type:
-                - integer
-                - string
+              type: string
               title: sfixed64_value
               format: int64
               description: (proto sfixed64)

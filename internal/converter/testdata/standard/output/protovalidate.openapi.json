@@ -620,10 +620,7 @@
             "format": "int32"
           },
           "int64Const": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "int64_const",
             "format": "int64",
             "description": "int64",
@@ -632,10 +629,7 @@
           "int64In": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64",
               "enum": [
                 1,
@@ -648,15 +642,9 @@
           "int64NotIn": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "not": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "enum": [
                   1,
                   2,
@@ -669,46 +657,31 @@
           },
           "int64Lt": {
             "exclusiveMaximum": 42,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "int64_lt",
             "format": "int64"
           },
           "int64Lte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "int64_lte",
             "maximum": 420,
             "format": "int64"
           },
           "int64Gt": {
             "exclusiveMinimum": 6,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "int64_gt",
             "format": "int64"
           },
           "int64Gte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "int64_gte",
             "minimum": 69,
             "format": "int64"
           },
           "int64Bounds": {
             "exclusiveMaximum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "int64_bounds",
             "minimum": 5,
             "format": "int64"
@@ -773,10 +746,7 @@
             "minimum": 5
           },
           "uint64Const": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "uint64_const",
             "format": "int64",
             "description": "uint64",
@@ -785,10 +755,7 @@
           "uint64In": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64",
               "enum": [
                 "1",
@@ -801,15 +768,9 @@
           "uint64NotIn": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "not": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "enum": [
                   "1",
                   "2",
@@ -822,46 +783,31 @@
           },
           "uint64Lt": {
             "exclusiveMaximum": 42,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "uint64_lt",
             "format": "int64"
           },
           "uint64Lte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "uint64_lte",
             "maximum": 420,
             "format": "int64"
           },
           "uint64Gt": {
             "exclusiveMinimum": 6,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "uint64_gt",
             "format": "int64"
           },
           "uint64Gte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "uint64_gte",
             "minimum": 69,
             "format": "int64"
           },
           "uint64Bounds": {
             "exclusiveMaximum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "uint64_bounds",
             "minimum": 5,
             "format": "int64"
@@ -934,10 +880,7 @@
             "format": "int32"
           },
           "sint64Const": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sint64_const",
             "format": "int64",
             "description": "sint64",
@@ -946,10 +889,7 @@
           "sint64In": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64",
               "enum": [
                 1,
@@ -962,15 +902,9 @@
           "sint64NotIn": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "not": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "enum": [
                   1,
                   2,
@@ -983,46 +917,31 @@
           },
           "sint64Lt": {
             "exclusiveMaximum": 42,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sint64_lt",
             "format": "int64"
           },
           "sint64Lte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sint64_lte",
             "maximum": 420,
             "format": "int64"
           },
           "sint64Gt": {
             "exclusiveMinimum": 8,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sint64_gt",
             "format": "int64"
           },
           "sint64Gte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sint64_gte",
             "minimum": 89,
             "format": "int64"
           },
           "sint64Bounds": {
             "exclusiveMaximum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sint64_bounds",
             "minimum": 5,
             "format": "int64"
@@ -1087,10 +1006,7 @@
             "minimum": 5
           },
           "fixed64Const": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "fixed64_const",
             "format": "int64",
             "description": "fixed64",
@@ -1099,10 +1015,7 @@
           "fixed64In": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64",
               "enum": [
                 "1",
@@ -1115,15 +1028,9 @@
           "fixed64NotIn": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "not": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "enum": [
                   "1",
                   "2",
@@ -1136,46 +1043,31 @@
           },
           "fixed64Lt": {
             "exclusiveMaximum": 42,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "fixed64_lt",
             "format": "int64"
           },
           "fixed64Lte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "fixed64_lte",
             "maximum": 420,
             "format": "int64"
           },
           "fixed64Gt": {
             "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "fixed64_gt",
             "format": "int64"
           },
           "fixed64Gte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "fixed64_gte",
             "minimum": 109,
             "format": "int64"
           },
           "fixed64Bounds": {
             "exclusiveMaximum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "fixed64_bounds",
             "minimum": 5,
             "format": "int64"
@@ -1248,10 +1140,7 @@
             "format": "int32"
           },
           "sfixed64Const": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sfixed64_const",
             "format": "int64",
             "description": "sfixed64",
@@ -1260,10 +1149,7 @@
           "sfixed64In": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "format": "int64",
               "enum": [
                 1,
@@ -1276,15 +1162,9 @@
           "sfixed64NotIn": {
             "type": "array",
             "items": {
-              "type": [
-                "integer",
-                "string"
-              ],
+              "type": "string",
               "not": {
-                "type": [
-                  "integer",
-                  "string"
-                ],
+                "type": "string",
                 "enum": [
                   1,
                   2,
@@ -1297,46 +1177,31 @@
           },
           "sfixed64Lt": {
             "exclusiveMaximum": 42,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sfixed64_lt",
             "format": "int64"
           },
           "sfixed64Lte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sfixed64_lte",
             "maximum": 420,
             "format": "int64"
           },
           "sfixed64Gt": {
             "exclusiveMinimum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sfixed64_gt",
             "format": "int64"
           },
           "sfixed64Gte": {
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sfixed64_gte",
             "minimum": 109,
             "format": "int64"
           },
           "sfixed64Bounds": {
             "exclusiveMaximum": 10,
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "string",
             "title": "sfixed64_bounds",
             "minimum": 5,
             "format": "int64"
