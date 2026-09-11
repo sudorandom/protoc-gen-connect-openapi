@@ -1,0 +1,25 @@
+# Demo harness: run generated specs through downstream OpenAPI / JSON Schema
+# tooling. Invoked from the repository root as `just demo <path-to-spec>`.
+
+# Build a demo for one proto file (or already-generated spec), then serve
+# everything built so far.
+demo input port="4173": (build input) (serve port)
+
+# Install the isolated toolchain (node, uv) and npm dependencies.
+setup:
+    mise install
+    mise exec -- npm install --no-audit --no-fund
+
+# Generate specs (for a .proto input) and build documentation sites and
+# generated types into out/<name>/.
+build input: setup
+    mise exec -- bash scripts/build_demo.sh "{{ input }}"
+
+# Serve every built demo. Ctrl-C to stop.
+serve port="4173":
+    @echo "Demos: http://localhost:{{ port }}"
+    mise exec -- npx serve --no-clipboard -l {{ port }} out
+
+# Remove all built demos.
+clean:
+    rm -rf out

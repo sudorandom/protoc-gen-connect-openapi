@@ -33,6 +33,13 @@ build:
 buf-generate: install
     buf generate --path internal/proto
 
+# Generate specs for a proto file with this plugin, run them through
+# downstream tooling (documentation sites, type generators), and serve the
+# results locally. Also accepts an already-generated OpenAPI/JSON Schema file.
+# Example: just demo internal/converter/testdata/standard/helloworld.proto
+demo input port="4173":
+    just --justfile demo/Justfile demo "{{ absolute_path(input) }}" {{ port }}
+
 # Run goreleaser to create a release or check configuration.
 release *args="release --clean":
     goreleaser {{ args }}
