@@ -224,7 +224,7 @@ components:
                 - a
             - required:
                 - b
-      oneOf:
+      anyOf:
         - type: object
           properties:
             a:
@@ -232,23 +232,26 @@ components:
               title: a
               minLength: 1
           title: a
-          required:
-            - a
         - type: object
           properties:
             b:
               type: string
               title: b
           title: b
-          required:
-            - b
-        - not:
-            anyOf:
+      unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
               - required:
                   - a
               - required:
                   - b
-      unevaluatedProperties: false
+          - not:
+              oneOf:
+                - required:
+                    - a
+                - required:
+                    - b
       title: CELMessage
     protovalidate.LotsOfValidationRules:
       type: object
@@ -1437,7 +1440,7 @@ components:
                 - a
             - required:
                 - b
-      oneOf:
+      anyOf:
         - type: object
           properties:
             a:
@@ -1445,23 +1448,26 @@ components:
               title: a
               minLength: 1
           title: a
-          required:
-            - a
         - type: object
           properties:
             b:
               type: string
               title: b
           title: b
-          required:
-            - b
-        - not:
-            anyOf:
+      unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
               - required:
                   - a
               - required:
                   - b
-      unevaluatedProperties: false
+          - not:
+              oneOf:
+                - required:
+                    - a
+                - required:
+                    - b
       title: OneOfMessage
 security: []
 tags:

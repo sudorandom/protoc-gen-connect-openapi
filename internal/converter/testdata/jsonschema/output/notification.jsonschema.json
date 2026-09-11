@@ -3,7 +3,7 @@
   "$defs": {
     "jsonschema.Notification": {
       "type": "object",
-      "oneOf": [
+      "anyOf": [
         {
           "type": "object",
           "properties": {
@@ -17,10 +17,7 @@
               "description": "push is a mobile push delivery target."
             }
           },
-          "title": "push",
-          "required": [
-            "push"
-          ]
+          "title": "push"
         },
         {
           "type": "object",
@@ -31,13 +28,13 @@
               "description": "webhook_url is an HTTP endpoint to call."
             }
           },
-          "title": "webhook_url",
-          "required": [
-            "webhookUrl"
-          ]
-        },
-        {
-          "not": {
+          "title": "webhook_url"
+        }
+      ],
+      "unevaluatedProperties": false,
+      "not": {
+        "allOf": [
+          {
             "anyOf": [
               {
                 "required": [
@@ -50,10 +47,25 @@
                 ]
               }
             ]
+          },
+          {
+            "not": {
+              "oneOf": [
+                {
+                  "required": [
+                    "push"
+                  ]
+                },
+                {
+                  "required": [
+                    "webhookUrl"
+                  ]
+                }
+              ]
+            }
           }
-        }
-      ],
-      "unevaluatedProperties": false,
+        ]
+      },
       "title": "Notification",
       "description": "Notification is a message delivered to a user. Its oneof mixes a scalar\n member with a message-type member."
     },

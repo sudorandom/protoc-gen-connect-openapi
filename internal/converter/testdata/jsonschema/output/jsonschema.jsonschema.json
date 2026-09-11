@@ -109,148 +109,154 @@
     },
     "jsonschema.User": {
       "type": "object",
-      "allOf": [
+      "anyOf": [
         {
+          "type": "object",
           "properties": {
-            "id": {
+            "email": {
               "type": "string",
-              "title": "id",
-              "description": "id is the unique identifier of the user."
-            },
-            "name": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "title": "name",
-              "description": "name is the display name of the user."
-            },
-            "role": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/jsonschema.Role"
-                }
-              ],
-              "title": "role",
-              "description": "role determines what the user can do."
-            },
-            "createdAt": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/google.protobuf.Timestamp"
-                }
-              ],
-              "title": "created_at",
-              "description": "created_at is when the user signed up."
-            },
-            "sessionTtl": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/google.protobuf.Duration"
-                }
-              ],
-              "title": "session_ttl",
-              "description": "session_ttl is how long the user's sessions last."
-            },
-            "metadata": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/google.protobuf.Struct"
-                }
-              ],
-              "title": "metadata",
-              "description": "metadata is a set of arbitrary details about the user."
-            },
-            "labels": {
-              "type": "object",
-              "title": "labels",
-              "additionalProperties": {
-                "type": "string",
-                "title": "value"
-              },
-              "description": "labels are free-form key/value annotations."
-            },
-            "aliases": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "title": "aliases",
-              "description": "aliases are alternative names for the user."
-            },
-            "loginCount": {
-              "type": "string",
-              "title": "login_count",
-              "format": "int64",
-              "description": "login_count is the number of times the user logged in."
-            },
-            "avatar": {
-              "type": "string",
-              "title": "avatar",
-              "format": "byte",
-              "description": "avatar is the user's profile image."
-            },
-            "address": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/jsonschema.User.Address"
-                }
-              ],
-              "title": "address",
-              "description": "address is where the user lives."
+              "title": "email",
+              "description": "email is an email address."
             }
-          }
+          },
+          "title": "email"
         },
         {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "title": "email",
-                  "description": "email is an email address."
-                }
-              },
-              "title": "email",
-              "required": [
-                "email"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "phone": {
-                  "type": "string",
-                  "title": "phone",
-                  "description": "phone is a phone number."
-                }
-              },
+          "type": "object",
+          "properties": {
+            "phone": {
+              "type": "string",
               "title": "phone",
-              "required": [
-                "phone"
-              ]
-            },
-            {
-              "not": {
-                "anyOf": [
-                  {
-                    "required": [
-                      "email"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "phone"
-                    ]
-                  }
-                ]
-              }
+              "description": "phone is a phone number."
             }
-          ]
+          },
+          "title": "phone"
         }
       ],
       "unevaluatedProperties": false,
+      "not": {
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "email"
+                ]
+              },
+              {
+                "required": [
+                  "phone"
+                ]
+              }
+            ]
+          },
+          {
+            "not": {
+              "oneOf": [
+                {
+                  "required": [
+                    "email"
+                  ]
+                },
+                {
+                  "required": [
+                    "phone"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id",
+          "description": "id is the unique identifier of the user."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "name",
+          "description": "name is the display name of the user."
+        },
+        "role": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/jsonschema.Role"
+            }
+          ],
+          "title": "role",
+          "description": "role determines what the user can do."
+        },
+        "createdAt": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/google.protobuf.Timestamp"
+            }
+          ],
+          "title": "created_at",
+          "description": "created_at is when the user signed up."
+        },
+        "sessionTtl": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/google.protobuf.Duration"
+            }
+          ],
+          "title": "session_ttl",
+          "description": "session_ttl is how long the user's sessions last."
+        },
+        "metadata": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/google.protobuf.Struct"
+            }
+          ],
+          "title": "metadata",
+          "description": "metadata is a set of arbitrary details about the user."
+        },
+        "labels": {
+          "type": "object",
+          "title": "labels",
+          "additionalProperties": {
+            "type": "string",
+            "title": "value"
+          },
+          "description": "labels are free-form key/value annotations."
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "aliases",
+          "description": "aliases are alternative names for the user."
+        },
+        "loginCount": {
+          "type": "string",
+          "title": "login_count",
+          "format": "int64",
+          "description": "login_count is the number of times the user logged in."
+        },
+        "avatar": {
+          "type": "string",
+          "title": "avatar",
+          "format": "byte",
+          "description": "avatar is the user's profile image."
+        },
+        "address": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/jsonschema.User.Address"
+            }
+          ],
+          "title": "address",
+          "description": "address is where the user lives."
+        }
+      },
       "title": "User",
       "description": "User is a person with an account."
     },

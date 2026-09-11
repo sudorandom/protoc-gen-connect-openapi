@@ -258,7 +258,7 @@ components:
       additionalProperties: false
     buf.validate.conformance.cases.StringInOneof:
       type: object
-      oneOf:
+      anyOf:
         - type: object
           properties:
             bar:
@@ -268,12 +268,6 @@ components:
                 - a
                 - b
           title: bar
-          required:
-            - bar
-        - not:
-            anyOf:
-              - required:
-                  - bar
       unevaluatedProperties: false
       title: StringInOneof
     buf.validate.conformance.cases.StringLen:

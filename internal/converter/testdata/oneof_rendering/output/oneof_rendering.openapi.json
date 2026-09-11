@@ -1,0 +1,236 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "oneof_rendering",
+    "description": "API documentation for oneof_rendering",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/compliance": {
+      "post": {
+        "tags": [
+          "oneof_rendering.ComplianceService"
+        ],
+        "summary": "CreateCompliance",
+        "operationId": "oneof_rendering.ComplianceService.CreateCompliance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/oneof_rendering.ComplianceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/required-compliance": {
+      "post": {
+        "tags": [
+          "oneof_rendering.ComplianceService"
+        ],
+        "summary": "CreateRequiredCompliance",
+        "operationId": "oneof_rendering.ComplianceService.CreateRequiredCompliance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/oneof_rendering.RequiredComplianceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "An empty JSON object."
+      },
+      "oneof_rendering.ComplianceRequest": {
+        "type": "object",
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "kyb": {
+                "type": "string",
+                "title": "kyb"
+              }
+            },
+            "title": "kyb"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kyc": {
+                "type": "string",
+                "title": "kyc"
+              }
+            },
+            "title": "kyc"
+          }
+        ],
+        "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "kyb"
+                  ]
+                },
+                {
+                  "required": [
+                    "kyc"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "kyb"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "kyc"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "reference": {
+            "type": "string",
+            "title": "reference"
+          }
+        },
+        "title": "ComplianceRequest"
+      },
+      "oneof_rendering.RequiredComplianceRequest": {
+        "type": "object",
+        "allOf": [
+          {
+            "oneOf": [
+              {
+                "required": [
+                  "kyc"
+                ]
+              },
+              {
+                "required": [
+                  "kyb"
+                ]
+              }
+            ]
+          }
+        ],
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "kyb": {
+                "type": "string",
+                "title": "kyb"
+              }
+            },
+            "title": "kyb"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kyc": {
+                "type": "string",
+                "title": "kyc"
+              }
+            },
+            "title": "kyc"
+          }
+        ],
+        "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "kyb"
+                  ]
+                },
+                {
+                  "required": [
+                    "kyc"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "kyb"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "kyc"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "reference": {
+            "type": "string",
+            "title": "reference"
+          }
+        },
+        "title": "RequiredComplianceRequest"
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "oneof_rendering.ComplianceService"
+    }
+  ]
+}

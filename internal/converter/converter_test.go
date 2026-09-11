@@ -78,6 +78,7 @@ var scenarios = []Scenario{
 	{Name: "with_specification_extensions", Options: "base=testdata/with_specification_extensions/base.yaml,trim-unused-types"},
 	{Name: "additional_bindings"},
 	{Name: "path_params"},
+	{Name: "oneof_rendering", Options: "features=google.api.http;gnostic;protovalidate,with-proto-names"},
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
@@ -184,6 +185,10 @@ func validateOpenAPISpec(t *testing.T, protofile string, spec string) {
 			testCase.Errors = []string{}
 		}
 		t.Run(testCase.Name, func(tt *testing.T) {
+			if len(testCase.VariantTitles) > 0 {
+				assertRequestVariantTitles(tt, spec, testCase)
+			}
+
 			var body io.Reader
 			if len(testCase.Body) > 0 {
 				body = strings.NewReader(testCase.Body)
@@ -207,6 +212,68 @@ func validateOpenAPISpec(t *testing.T, protofile string, spec string) {
 			assert.Equal(tt, ok, len(testCase.Errors) == 0)
 		})
 	}
+}
+
+func assertRequestVariantTitles(t *testing.T, spec string, testCase TestCase) {
+	t.Helper()
+
+	document := map[string]any{}
+	require.NoError(t, yaml.Unmarshal([]byte(spec), &document))
+
+	schemaPath := testCase.Path
+	if testCase.SchemaPath != "" {
+		schemaPath = testCase.SchemaPath
+	}
+	schema := nestedMap(
+		t,
+		document,
+		"paths",
+		schemaPath,
+		strings.ToLower(testCase.Method),
+		"requestBody",
+		"content",
+		"application/json",
+		"schema",
+	)
+	if ref, ok := schema["$ref"].(string); ok {
+		const componentPrefix = "#/components/schemas/"
+		require.True(t, strings.HasPrefix(ref, componentPrefix))
+		schema = nestedMap(t, document, "components", "schemas", strings.TrimPrefix(ref, componentPrefix))
+	}
+
+	variantsValue, ok := schema["oneOf"]
+	if !ok {
+		variantsValue, ok = schema["anyOf"]
+	}
+	require.True(t, ok, "request schema has no oneOf or anyOf variants")
+
+	variants, ok := variantsValue.([]any)
+	require.True(t, ok)
+	titles := make([]string, 0, len(variants))
+	for _, variantValue := range variants {
+		variant, ok := variantValue.(map[string]any)
+		require.True(t, ok)
+		title, ok := variant["title"].(string)
+		require.True(t, ok, "variant has no title: %#v", variant)
+		properties, ok := variant["properties"].(map[string]any)
+		require.True(t, ok, "variant has no properties: %#v", variant)
+		require.NotEmpty(t, properties)
+		titles = append(titles, title)
+	}
+	assert.Equal(t, testCase.VariantTitles, titles)
+}
+
+func nestedMap(t *testing.T, root map[string]any, keys ...string) map[string]any {
+	t.Helper()
+
+	current := root
+	for _, key := range keys {
+		value, ok := current[key]
+		require.True(t, ok, "missing schema path element %q", key)
+		current, ok = value.(map[string]any)
+		require.True(t, ok, "schema path element %q is not an object", key)
+	}
+	return current
 }
 
 // TestConvert uses data in testdata/ to make requests to generate openapi documents,
@@ -373,13 +440,15 @@ type TestCaseFile struct {
 }
 
 type TestCase struct {
-	Name    string            `yaml:"name"`
-	Method  string            `yaml:"method"`
-	Path    string            `yaml:"path"`
-	Headers map[string]string `yaml:"headers"`
-	Body    string            `yaml:"body"`
-	Query   string            `yaml:"query"`
-	Errors  []string          `yaml:"errors"`
+	Name          string            `yaml:"name"`
+	Method        string            `yaml:"method"`
+	Path          string            `yaml:"path"`
+	Headers       map[string]string `yaml:"headers"`
+	Body          string            `yaml:"body"`
+	Query         string            `yaml:"query"`
+	Errors        []string          `yaml:"errors"`
+	VariantTitles []string          `yaml:"variantTitles"`
+	SchemaPath    string            `yaml:"schemaPath"`
 }
 
 func makeOutputPath(protofile, format string) string {

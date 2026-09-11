@@ -1,0 +1,60 @@
+cases:
+  - name: "plain-oneof-no-member"
+    path: "/compliance"
+    body: '{"reference": "case-1"}'
+    variantTitles: ["kyb", "kyc"]
+    headers:
+      Content-Type: application/json
+
+  - name: "plain-oneof-one-member"
+    path: "/compliance"
+    body: '{"reference": "case-1", "kyc": "person"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "plain-oneof-two-members"
+    path: "/compliance"
+    body: '{"kyc": "person", "kyb": "business"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "plain-oneof-additional-property"
+    path: "/compliance"
+    body: '{"kyc": "person", "undeclared": true}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "required-oneof-no-member"
+    path: "/required-compliance"
+    body: '{"reference": "case-2"}'
+    variantTitles: ["kyb", "kyc"]
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "required-oneof-one-member"
+    path: "/required-compliance"
+    body: '{"reference": "case-2", "kyb": "business"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "required-oneof-two-members"
+    path: "/required-compliance"
+    body: '{"kyc": "person", "kyb": "business"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "required-oneof-additional-property"
+    path: "/required-compliance"
+    body: '{"kyb": "business", "undeclared": true}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"

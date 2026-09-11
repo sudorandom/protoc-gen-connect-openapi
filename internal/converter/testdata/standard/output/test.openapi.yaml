@@ -88,647 +88,649 @@ components:
       description: 'Any JSON value: `null`, number, string, boolean, array, or object.'
     test.v1.AllTypes:
       type: object
-      allOf:
-        - properties:
-            doubleValue:
-              type: number
-              title: double_value
-              format: double
-              description: scalar types
-            floatValue:
-              type: number
-              title: float_value
-              format: float
-            int32Value:
-              type: integer
-              title: int32_value
-              format: int32
-            int64Value:
-              type: string
-              title: int64_value
-              format: int64
-            uint32Value:
-              type: integer
-              title: uint32_value
-            uint64Value:
-              type: string
-              title: uint64_value
-              format: int64
-            sint32Value:
-              type: integer
-              title: sint32_value
-              format: int32
-            sint64Value:
-              type: string
-              title: sint64_value
-              format: int64
-            fixed32Value:
-              type: integer
-              title: fixed32_value
-            fixed64Value:
-              type: string
-              title: fixed64_value
-              format: int64
-            sfixed32Value:
-              type: integer
-              title: sfixed32_value
-              format: int32
-            sfixed64Value:
-              type: string
-              title: sfixed64_value
-              format: int64
-            boolValue:
+      anyOf:
+        - type: object
+          properties:
+            boolOption:
               type: boolean
-              title: bool_value
-            stringValue:
-              type: string
-              title: string_value
-            bytesValue:
-              type: string
-              title: bytes_value
-              format: byte
-            doubleList:
-              type: array
-              items:
-                type: number
-                format: double
-              title: double_list
-              description: repeated types
-            floatList:
-              type: array
-              items:
-                type: number
-                format: float
-              title: float_list
-            int32List:
-              type: array
-              items:
-                type: integer
-                format: int32
-              title: int32_list
-            int64List:
-              type: array
-              items:
-                type: string
-                format: int64
-              title: int64_list
-            uint32List:
-              type: array
-              items:
-                type: integer
-              title: uint32_list
-            uint64List:
-              type: array
-              items:
-                type: string
-                format: int64
-              title: uint64_list
-            sint32List:
-              type: array
-              items:
-                type: integer
-                format: int32
-              title: sint32_list
-            sint64List:
-              type: array
-              items:
-                type: string
-                format: int64
-              title: sint64_list
-            fixed32List:
-              type: array
-              items:
-                type: integer
-              title: fixed32_list
-            fixed64List:
-              type: array
-              items:
-                type: string
-                format: int64
-              title: fixed64_list
-            sfixed32List:
-              type: array
-              items:
-                type: integer
-                format: int32
-              title: sfixed32_list
-            sfixed64List:
-              type: array
-              items:
-                type: string
-                format: int64
-              title: sfixed64_list
-            boolList:
-              type: array
-              items:
-                type: boolean
-              title: bool_list
-            stringList:
-              type: array
-              items:
-                type: string
-              title: string_list
-            bytesList:
-              type: array
-              items:
-                type: string
-                format: byte
-              title: bytes_list
-            int32ToStringMap:
-              type: object
-              title: int32_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-              description: map key types
-            int64ToStringMap:
-              type: object
-              title: int64_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            uint32ToStringMap:
-              type: object
-              title: uint32_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            uint64ToStringMap:
-              type: object
-              title: uint64_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            sint32ToStringMap:
-              type: object
-              title: sint32_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            sint64ToStringMap:
-              type: object
-              title: sint64_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            fixed32ToStringMap:
-              type: object
-              title: fixed32_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            fixed64ToStringMap:
-              type: object
-              title: fixed64_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            sfixed32ToStringMap:
-              type: object
-              title: sfixed32_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            sfixed64ToStringMap:
-              type: object
-              title: sfixed64_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            boolToStringMap:
-              type: object
-              title: bool_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            stringToStringMap:
-              type: object
-              title: string_to_string_map
-              additionalProperties:
-                type: string
-                title: value
-            doubleMap:
-              type: object
-              title: double_map
-              additionalProperties:
-                type: number
-                title: value
-                format: double
-              description: map value types
-              deprecated: true
-            floatMap:
-              type: object
-              title: float_map
-              additionalProperties:
-                type: number
-                title: value
-                format: float
-            int32Map:
-              type: object
-              title: int32_map
-              additionalProperties:
-                type: integer
-                title: value
-                format: int32
-            int64Map:
-              type: object
-              title: int64_map
-              additionalProperties:
-                type: string
-                title: value
-                format: int64
-            uint32Map:
-              type: object
-              title: uint32_map
-              additionalProperties:
-                type: integer
-                title: value
-            uint64Map:
-              type: object
-              title: uint64_map
-              additionalProperties:
-                type: string
-                title: value
-                format: int64
-            sint32Map:
-              type: object
-              title: sint32_map
-              additionalProperties:
-                type: integer
-                title: value
-                format: int32
-            sint64Map:
-              type: object
-              title: sint64_map
-              additionalProperties:
-                type: string
-                title: value
-                format: int64
-            fixed32Map:
-              type: object
-              title: fixed32_map
-              additionalProperties:
-                type: integer
-                title: value
-            fixed64Map:
-              type: object
-              title: fixed64_map
-              additionalProperties:
-                type: string
-                title: value
-                format: int64
-            sfixed32Map:
-              type: object
-              title: sfixed32_map
-              additionalProperties:
-                type: integer
-                title: value
-                format: int32
-            sfixed64Map:
-              type: object
-              title: sfixed64_map
-              additionalProperties:
-                type: string
-                title: value
-                format: int64
-            boolMap:
-              type: object
-              title: bool_map
-              additionalProperties:
-                type: boolean
-                title: value
-            stringMap:
-              type: object
-              title: string_map
-              additionalProperties:
-                type: string
-                title: value
-            bytesMap:
-              type: object
-              title: bytes_map
-              additionalProperties:
-                type: string
-                title: value
-                format: byte
-            optDoubleValue:
-              type:
-                - number
-                - "null"
-              title: opt_double_value
-              format: double
-              description: explicit presence types
-              deprecated: true
-            optFloatValue:
-              type:
-                - number
-                - "null"
-              title: opt_float_value
-              format: float
-            optInt32Value:
-              type:
-                - integer
-                - "null"
-              title: opt_int32_value
-              format: int32
-            optInt64Value:
-              type:
-                - string
-                - "null"
-              title: opt_int64_value
-              format: int64
-            optUint32Value:
-              type:
-                - integer
-                - "null"
-              title: opt_uint32_value
-            optUint64Value:
-              type:
-                - string
-                - "null"
-              title: opt_uint64_value
-              format: int64
-            optSint32Value:
-              type:
-                - integer
-                - "null"
-              title: opt_sint32_value
-              format: int32
-            optSint64Value:
-              type:
-                - string
-                - "null"
-              title: opt_sint64_value
-              format: int64
-            optFixed32Value:
-              type:
-                - integer
-                - "null"
-              title: opt_fixed32_value
-            optFixed64Value:
-              type:
-                - string
-                - "null"
-              title: opt_fixed64_value
-              format: int64
-            optSfixed32Value:
-              type:
-                - integer
-                - "null"
-              title: opt_sfixed32_value
-              format: int32
-            optSfixed64Value:
-              type:
-                - string
-                - "null"
-              title: opt_sfixed64_value
-              format: int64
-            optBoolValue:
-              type:
-                - boolean
-                - "null"
-              title: opt_bool_value
-            optStringValue:
-              type:
-                - string
-                - "null"
-              title: opt_string_value
-            optBytesValue:
-              type:
-                - string
-                - "null"
-              title: opt_bytes_value
-              format: byte
-            msgValue:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.AllTypes'
-              title: msg_value
-              deprecated: true
-            enumValue:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-              title: enum_value
-            optMsgValue:
-              oneOf:
-                - $ref: '#/components/schemas/test.v1.AllTypes'
-                - type: "null"
-              title: opt_msg_value
-            optEnumValue:
-              oneOf:
-                - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-                - type: "null"
-              title: opt_enum_value
-            msgList:
-              type: array
-              items:
-                $ref: '#/components/schemas/test.v1.AllTypes'
-              title: msg_list
-            enumList:
-              type: array
-              items:
-                $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-              title: enum_list
-            msgMap:
-              type: object
-              title: msg_map
-              additionalProperties:
-                allOf:
-                  - $ref: '#/components/schemas/test.v1.AllTypes'
-                title: value
-            enumMap:
-              type: object
-              title: enum_map
-              additionalProperties:
-                allOf:
-                  - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-                title: value
-        - oneOf:
-            - type: object
-              properties:
-                boolOption:
-                  type: boolean
-                  title: bool_option
               title: bool_option
-              required:
-                - boolOption
-            - type: object
-              properties:
-                bytesOption:
-                  type: string
-                  title: bytes_option
-                  format: byte
+          title: bool_option
+        - type: object
+          properties:
+            bytesOption:
+              type: string
               title: bytes_option
-              required:
-                - bytesOption
-            - type: object
-              properties:
-                doubleOption:
-                  type: number
-                  title: double_option
-                  format: double
-                  deprecated: true
+              format: byte
+          title: bytes_option
+        - type: object
+          properties:
+            doubleOption:
+              type: number
               title: double_option
-              required:
-                - doubleOption
-            - type: object
-              properties:
-                enumOption:
-                  allOf:
-                    - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
-                  title: enum_option
+              format: double
+              deprecated: true
+          title: double_option
+        - type: object
+          properties:
+            enumOption:
+              allOf:
+                - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
               title: enum_option
-              required:
-                - enumOption
-            - type: object
-              properties:
-                fixed32Option:
-                  type: integer
-                  title: fixed32_option
+          title: enum_option
+        - type: object
+          properties:
+            fixed32Option:
+              type: integer
               title: fixed32_option
-              required:
-                - fixed32Option
-            - type: object
-              properties:
-                fixed64Option:
-                  type: string
-                  title: fixed64_option
-                  format: int64
+          title: fixed32_option
+        - type: object
+          properties:
+            fixed64Option:
+              type: string
               title: fixed64_option
-              required:
-                - fixed64Option
-            - type: object
-              properties:
-                floatOption:
-                  type: number
-                  title: float_option
-                  format: float
+              format: int64
+          title: fixed64_option
+        - type: object
+          properties:
+            floatOption:
+              type: number
               title: float_option
-              required:
-                - floatOption
-            - type: object
-              properties:
-                int32Option:
-                  type: integer
-                  title: int32_option
-                  format: int32
+              format: float
+          title: float_option
+        - type: object
+          properties:
+            int32Option:
+              type: integer
               title: int32_option
-              required:
-                - int32Option
-            - type: object
-              properties:
-                int64Option:
-                  type: string
-                  title: int64_option
-                  format: int64
+              format: int32
+          title: int32_option
+        - type: object
+          properties:
+            int64Option:
+              type: string
               title: int64_option
-              required:
-                - int64Option
-            - type: object
-              properties:
-                msgOption:
-                  allOf:
-                    - $ref: '#/components/schemas/test.v1.AllTypes'
-                  title: msg_option
+              format: int64
+          title: int64_option
+        - type: object
+          properties:
+            msgOption:
+              allOf:
+                - $ref: '#/components/schemas/test.v1.AllTypes'
               title: msg_option
-              required:
-                - msgOption
-            - type: object
-              properties:
-                sfixed32Option:
-                  type: integer
-                  title: sfixed32_option
-                  format: int32
+          title: msg_option
+        - type: object
+          properties:
+            sfixed32Option:
+              type: integer
               title: sfixed32_option
-              required:
-                - sfixed32Option
-            - type: object
-              properties:
-                sfixed64Option:
-                  type: string
-                  title: sfixed64_option
-                  format: int64
+              format: int32
+          title: sfixed32_option
+        - type: object
+          properties:
+            sfixed64Option:
+              type: string
               title: sfixed64_option
-              required:
-                - sfixed64Option
-            - type: object
-              properties:
-                sint32Option:
-                  type: integer
-                  title: sint32_option
-                  format: int32
+              format: int64
+          title: sfixed64_option
+        - type: object
+          properties:
+            sint32Option:
+              type: integer
               title: sint32_option
-              required:
-                - sint32Option
-            - type: object
-              properties:
-                sint64Option:
-                  type: string
-                  title: sint64_option
-                  format: int64
+              format: int32
+          title: sint32_option
+        - type: object
+          properties:
+            sint64Option:
+              type: string
               title: sint64_option
-              required:
-                - sint64Option
-            - type: object
-              properties:
-                stringOption:
-                  type: string
-                  title: string_option
+              format: int64
+          title: sint64_option
+        - type: object
+          properties:
+            stringOption:
+              type: string
               title: string_option
-              required:
-                - stringOption
-            - type: object
-              properties:
-                uint32Option:
-                  type: integer
-                  title: uint32_option
+          title: string_option
+        - type: object
+          properties:
+            uint32Option:
+              type: integer
               title: uint32_option
-              required:
-                - uint32Option
-            - type: object
-              properties:
-                uint64Option:
-                  type: string
-                  title: uint64_option
-                  format: int64
+          title: uint32_option
+        - type: object
+          properties:
+            uint64Option:
+              type: string
               title: uint64_option
-              required:
-                - uint64Option
-            - not:
-                anyOf:
-                  - required:
-                      - boolOption
-                  - required:
-                      - bytesOption
-                  - required:
-                      - doubleOption
-                  - required:
-                      - enumOption
-                  - required:
-                      - fixed32Option
-                  - required:
-                      - fixed64Option
-                  - required:
-                      - floatOption
-                  - required:
-                      - int32Option
-                  - required:
-                      - int64Option
-                  - required:
-                      - msgOption
-                  - required:
-                      - sfixed32Option
-                  - required:
-                      - sfixed64Option
-                  - required:
-                      - sint32Option
-                  - required:
-                      - sint64Option
-                  - required:
-                      - stringOption
-                  - required:
-                      - uint32Option
-                  - required:
-                      - uint64Option
+              format: int64
+          title: uint64_option
       unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
+              - required:
+                  - boolOption
+              - required:
+                  - bytesOption
+              - required:
+                  - doubleOption
+              - required:
+                  - enumOption
+              - required:
+                  - fixed32Option
+              - required:
+                  - fixed64Option
+              - required:
+                  - floatOption
+              - required:
+                  - int32Option
+              - required:
+                  - int64Option
+              - required:
+                  - msgOption
+              - required:
+                  - sfixed32Option
+              - required:
+                  - sfixed64Option
+              - required:
+                  - sint32Option
+              - required:
+                  - sint64Option
+              - required:
+                  - stringOption
+              - required:
+                  - uint32Option
+              - required:
+                  - uint64Option
+          - not:
+              oneOf:
+                - required:
+                    - boolOption
+                - required:
+                    - bytesOption
+                - required:
+                    - doubleOption
+                - required:
+                    - enumOption
+                - required:
+                    - fixed32Option
+                - required:
+                    - fixed64Option
+                - required:
+                    - floatOption
+                - required:
+                    - int32Option
+                - required:
+                    - int64Option
+                - required:
+                    - msgOption
+                - required:
+                    - sfixed32Option
+                - required:
+                    - sfixed64Option
+                - required:
+                    - sint32Option
+                - required:
+                    - sint64Option
+                - required:
+                    - stringOption
+                - required:
+                    - uint32Option
+                - required:
+                    - uint64Option
+      properties:
+        doubleValue:
+          type: number
+          title: double_value
+          format: double
+          description: scalar types
+        floatValue:
+          type: number
+          title: float_value
+          format: float
+        int32Value:
+          type: integer
+          title: int32_value
+          format: int32
+        int64Value:
+          type: string
+          title: int64_value
+          format: int64
+        uint32Value:
+          type: integer
+          title: uint32_value
+        uint64Value:
+          type: string
+          title: uint64_value
+          format: int64
+        sint32Value:
+          type: integer
+          title: sint32_value
+          format: int32
+        sint64Value:
+          type: string
+          title: sint64_value
+          format: int64
+        fixed32Value:
+          type: integer
+          title: fixed32_value
+        fixed64Value:
+          type: string
+          title: fixed64_value
+          format: int64
+        sfixed32Value:
+          type: integer
+          title: sfixed32_value
+          format: int32
+        sfixed64Value:
+          type: string
+          title: sfixed64_value
+          format: int64
+        boolValue:
+          type: boolean
+          title: bool_value
+        stringValue:
+          type: string
+          title: string_value
+        bytesValue:
+          type: string
+          title: bytes_value
+          format: byte
+        doubleList:
+          type: array
+          items:
+            type: number
+            format: double
+          title: double_list
+          description: repeated types
+        floatList:
+          type: array
+          items:
+            type: number
+            format: float
+          title: float_list
+        int32List:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: int32_list
+        int64List:
+          type: array
+          items:
+            type: string
+            format: int64
+          title: int64_list
+        uint32List:
+          type: array
+          items:
+            type: integer
+          title: uint32_list
+        uint64List:
+          type: array
+          items:
+            type: string
+            format: int64
+          title: uint64_list
+        sint32List:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: sint32_list
+        sint64List:
+          type: array
+          items:
+            type: string
+            format: int64
+          title: sint64_list
+        fixed32List:
+          type: array
+          items:
+            type: integer
+          title: fixed32_list
+        fixed64List:
+          type: array
+          items:
+            type: string
+            format: int64
+          title: fixed64_list
+        sfixed32List:
+          type: array
+          items:
+            type: integer
+            format: int32
+          title: sfixed32_list
+        sfixed64List:
+          type: array
+          items:
+            type: string
+            format: int64
+          title: sfixed64_list
+        boolList:
+          type: array
+          items:
+            type: boolean
+          title: bool_list
+        stringList:
+          type: array
+          items:
+            type: string
+          title: string_list
+        bytesList:
+          type: array
+          items:
+            type: string
+            format: byte
+          title: bytes_list
+        int32ToStringMap:
+          type: object
+          title: int32_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+          description: map key types
+        int64ToStringMap:
+          type: object
+          title: int64_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        uint32ToStringMap:
+          type: object
+          title: uint32_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        uint64ToStringMap:
+          type: object
+          title: uint64_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        sint32ToStringMap:
+          type: object
+          title: sint32_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        sint64ToStringMap:
+          type: object
+          title: sint64_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        fixed32ToStringMap:
+          type: object
+          title: fixed32_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        fixed64ToStringMap:
+          type: object
+          title: fixed64_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        sfixed32ToStringMap:
+          type: object
+          title: sfixed32_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        sfixed64ToStringMap:
+          type: object
+          title: sfixed64_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        boolToStringMap:
+          type: object
+          title: bool_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        stringToStringMap:
+          type: object
+          title: string_to_string_map
+          additionalProperties:
+            type: string
+            title: value
+        doubleMap:
+          type: object
+          title: double_map
+          additionalProperties:
+            type: number
+            title: value
+            format: double
+          description: map value types
+          deprecated: true
+        floatMap:
+          type: object
+          title: float_map
+          additionalProperties:
+            type: number
+            title: value
+            format: float
+        int32Map:
+          type: object
+          title: int32_map
+          additionalProperties:
+            type: integer
+            title: value
+            format: int32
+        int64Map:
+          type: object
+          title: int64_map
+          additionalProperties:
+            type: string
+            title: value
+            format: int64
+        uint32Map:
+          type: object
+          title: uint32_map
+          additionalProperties:
+            type: integer
+            title: value
+        uint64Map:
+          type: object
+          title: uint64_map
+          additionalProperties:
+            type: string
+            title: value
+            format: int64
+        sint32Map:
+          type: object
+          title: sint32_map
+          additionalProperties:
+            type: integer
+            title: value
+            format: int32
+        sint64Map:
+          type: object
+          title: sint64_map
+          additionalProperties:
+            type: string
+            title: value
+            format: int64
+        fixed32Map:
+          type: object
+          title: fixed32_map
+          additionalProperties:
+            type: integer
+            title: value
+        fixed64Map:
+          type: object
+          title: fixed64_map
+          additionalProperties:
+            type: string
+            title: value
+            format: int64
+        sfixed32Map:
+          type: object
+          title: sfixed32_map
+          additionalProperties:
+            type: integer
+            title: value
+            format: int32
+        sfixed64Map:
+          type: object
+          title: sfixed64_map
+          additionalProperties:
+            type: string
+            title: value
+            format: int64
+        boolMap:
+          type: object
+          title: bool_map
+          additionalProperties:
+            type: boolean
+            title: value
+        stringMap:
+          type: object
+          title: string_map
+          additionalProperties:
+            type: string
+            title: value
+        bytesMap:
+          type: object
+          title: bytes_map
+          additionalProperties:
+            type: string
+            title: value
+            format: byte
+        optDoubleValue:
+          type:
+            - number
+            - "null"
+          title: opt_double_value
+          format: double
+          description: explicit presence types
+          deprecated: true
+        optFloatValue:
+          type:
+            - number
+            - "null"
+          title: opt_float_value
+          format: float
+        optInt32Value:
+          type:
+            - integer
+            - "null"
+          title: opt_int32_value
+          format: int32
+        optInt64Value:
+          type:
+            - string
+            - "null"
+          title: opt_int64_value
+          format: int64
+        optUint32Value:
+          type:
+            - integer
+            - "null"
+          title: opt_uint32_value
+        optUint64Value:
+          type:
+            - string
+            - "null"
+          title: opt_uint64_value
+          format: int64
+        optSint32Value:
+          type:
+            - integer
+            - "null"
+          title: opt_sint32_value
+          format: int32
+        optSint64Value:
+          type:
+            - string
+            - "null"
+          title: opt_sint64_value
+          format: int64
+        optFixed32Value:
+          type:
+            - integer
+            - "null"
+          title: opt_fixed32_value
+        optFixed64Value:
+          type:
+            - string
+            - "null"
+          title: opt_fixed64_value
+          format: int64
+        optSfixed32Value:
+          type:
+            - integer
+            - "null"
+          title: opt_sfixed32_value
+          format: int32
+        optSfixed64Value:
+          type:
+            - string
+            - "null"
+          title: opt_sfixed64_value
+          format: int64
+        optBoolValue:
+          type:
+            - boolean
+            - "null"
+          title: opt_bool_value
+        optStringValue:
+          type:
+            - string
+            - "null"
+          title: opt_string_value
+        optBytesValue:
+          type:
+            - string
+            - "null"
+          title: opt_bytes_value
+          format: byte
+        msgValue:
+          allOf:
+            - $ref: '#/components/schemas/test.v1.AllTypes'
+          title: msg_value
+          deprecated: true
+        enumValue:
+          allOf:
+            - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+          title: enum_value
+        optMsgValue:
+          oneOf:
+            - $ref: '#/components/schemas/test.v1.AllTypes'
+            - type: "null"
+          title: opt_msg_value
+        optEnumValue:
+          oneOf:
+            - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+            - type: "null"
+          title: opt_enum_value
+        msgList:
+          type: array
+          items:
+            $ref: '#/components/schemas/test.v1.AllTypes'
+          title: msg_list
+        enumList:
+          type: array
+          items:
+            $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+          title: enum_list
+        msgMap:
+          type: object
+          title: msg_map
+          additionalProperties:
+            allOf:
+              - $ref: '#/components/schemas/test.v1.AllTypes'
+            title: value
+        enumMap:
+          type: object
+          title: enum_map
+          additionalProperties:
+            allOf:
+              - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
+            title: value
       title: AllTypes
     test.v1.AllTypes.Enum:
       type: string
@@ -740,222 +742,224 @@ components:
       description: named types
     test.v1.ParameterValues:
       type: object
-      allOf:
-        - properties:
-            doubleValue:
+      anyOf:
+        - type: object
+          properties:
+            oneofDoubleValue:
               type: number
-              title: double_value
+              title: oneof_double_value
               format: double
-              description: scalar types
-            floatValue:
-              type: number
-              title: float_value
-              format: float
-            int32Value:
-              type: integer
-              title: int32_value
-              format: int32
-            int64Value:
-              type: string
-              title: int64_value
-              format: int64
-            uint32Value:
-              type: integer
-              title: uint32_value
-            uint64Value:
-              type: string
-              title: uint64_value
-              format: int64
-            sint32Value:
-              type: integer
-              title: sint32_value
-              format: int32
-            sint64Value:
-              type: string
-              title: sint64_value
-              format: int64
-            fixed32Value:
-              type: integer
-              title: fixed32_value
-            fixed64Value:
-              type: string
-              title: fixed64_value
-              format: int64
-            sfixed32Value:
-              type: integer
-              title: sfixed32_value
-              format: int32
-            sfixed64Value:
-              type: string
-              title: sfixed64_value
-              format: int64
-            boolValue:
-              type: boolean
-              title: bool_value
-            stringValue:
-              type: string
-              title: string_value
-            bytesValue:
-              type: string
-              title: bytes_value
-              format: byte
-            timestamp:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.Timestamp'
-              title: timestamp
-              description: scalar wrappers
-            duration:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.Duration'
-              title: duration
-            boolValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.BoolValue'
-              title: bool_value_wrapper
-            int32ValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.Int32Value'
-              title: int32_value_wrapper
-            int64ValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.Int64Value'
-              title: int64_value_wrapper
-            uint32ValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.UInt32Value'
-              title: uint32_value_wrapper
-            uint64ValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.UInt64Value'
-              title: uint64_value_wrapper
-            floatValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.FloatValue'
-              title: float_value_wrapper
-            doubleValueWrapper:
+          title: oneof_double_value
+        - type: object
+          properties:
+            oneofDoubleValueWrapper:
               allOf:
                 - $ref: '#/components/schemas/google.protobuf.DoubleValue'
-              title: double_value_wrapper
-            bytesValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.BytesValue'
-              title: bytes_value_wrapper
-            stringValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.StringValue'
-              title: string_value_wrapper
-            fieldMask:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.FieldMask'
-              title: field_mask
-            enumValue:
+              title: oneof_double_value_wrapper
+          title: oneof_double_value_wrapper
+        - type: object
+          properties:
+            oneofEnumValue:
               allOf:
                 - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-              title: enum_value
-            enumList:
-              type: array
-              items:
-                $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-              title: enum_list
-              description: complex types
-              deprecated: true
-            doubleList:
-              type: array
-              items:
-                type: number
-                format: double
-              title: double_list
-            doubleValueList:
-              type: array
-              items:
-                $ref: '#/components/schemas/google.protobuf.DoubleValue'
-              title: double_value_list
-            nested:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
-              title: nested
-            recursive:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.ParameterValues'
-              title: recursive
-            stringMap:
-              type: object
-              title: string_map
-              additionalProperties:
-                type: string
-                title: value
-              description: unsupported
-            stringValueMap:
-              type: object
-              title: string_value_map
-              additionalProperties:
-                allOf:
-                  - $ref: '#/components/schemas/google.protobuf.StringValue'
-                title: value
-            enumMap:
-              type: object
-              title: enum_map
-              additionalProperties:
-                allOf:
-                  - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-                title: value
-            nestedMap:
-              type: object
-              title: nested_map
-              additionalProperties:
-                allOf:
-                  - $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
-                title: value
-            structValue:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.Struct'
-              title: struct_value
-            value:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.Value'
-              title: value
-            recursiveList:
-              type: array
-              items:
-                $ref: '#/components/schemas/test.v1.ParameterValues'
-              title: recursive_list
-        - oneOf:
-            - type: object
-              properties:
-                oneofDoubleValue:
-                  type: number
-                  title: oneof_double_value
-                  format: double
-              title: oneof_double_value
-              required:
-                - oneofDoubleValue
-            - type: object
-              properties:
-                oneofDoubleValueWrapper:
-                  allOf:
-                    - $ref: '#/components/schemas/google.protobuf.DoubleValue'
-                  title: oneof_double_value_wrapper
-              title: oneof_double_value_wrapper
-              required:
-                - oneofDoubleValueWrapper
-            - type: object
-              properties:
-                oneofEnumValue:
-                  allOf:
-                    - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
-                  title: oneof_enum_value
               title: oneof_enum_value
-              required:
-                - oneofEnumValue
-            - not:
-                anyOf:
-                  - required:
-                      - oneofDoubleValue
-                  - required:
-                      - oneofDoubleValueWrapper
-                  - required:
-                      - oneofEnumValue
+          title: oneof_enum_value
       unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
+              - required:
+                  - oneofDoubleValue
+              - required:
+                  - oneofDoubleValueWrapper
+              - required:
+                  - oneofEnumValue
+          - not:
+              oneOf:
+                - required:
+                    - oneofDoubleValue
+                - required:
+                    - oneofDoubleValueWrapper
+                - required:
+                    - oneofEnumValue
+      properties:
+        doubleValue:
+          type: number
+          title: double_value
+          format: double
+          description: scalar types
+        floatValue:
+          type: number
+          title: float_value
+          format: float
+        int32Value:
+          type: integer
+          title: int32_value
+          format: int32
+        int64Value:
+          type: string
+          title: int64_value
+          format: int64
+        uint32Value:
+          type: integer
+          title: uint32_value
+        uint64Value:
+          type: string
+          title: uint64_value
+          format: int64
+        sint32Value:
+          type: integer
+          title: sint32_value
+          format: int32
+        sint64Value:
+          type: string
+          title: sint64_value
+          format: int64
+        fixed32Value:
+          type: integer
+          title: fixed32_value
+        fixed64Value:
+          type: string
+          title: fixed64_value
+          format: int64
+        sfixed32Value:
+          type: integer
+          title: sfixed32_value
+          format: int32
+        sfixed64Value:
+          type: string
+          title: sfixed64_value
+          format: int64
+        boolValue:
+          type: boolean
+          title: bool_value
+        stringValue:
+          type: string
+          title: string_value
+        bytesValue:
+          type: string
+          title: bytes_value
+          format: byte
+        timestamp:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Timestamp'
+          title: timestamp
+          description: scalar wrappers
+        duration:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Duration'
+          title: duration
+        boolValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.BoolValue'
+          title: bool_value_wrapper
+        int32ValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Int32Value'
+          title: int32_value_wrapper
+        int64ValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Int64Value'
+          title: int64_value_wrapper
+        uint32ValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.UInt32Value'
+          title: uint32_value_wrapper
+        uint64ValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.UInt64Value'
+          title: uint64_value_wrapper
+        floatValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.FloatValue'
+          title: float_value_wrapper
+        doubleValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.DoubleValue'
+          title: double_value_wrapper
+        bytesValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.BytesValue'
+          title: bytes_value_wrapper
+        stringValueWrapper:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.StringValue'
+          title: string_value_wrapper
+        fieldMask:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.FieldMask'
+          title: field_mask
+        enumValue:
+          allOf:
+            - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+          title: enum_value
+        enumList:
+          type: array
+          items:
+            $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+          title: enum_list
+          description: complex types
+          deprecated: true
+        doubleList:
+          type: array
+          items:
+            type: number
+            format: double
+          title: double_list
+        doubleValueList:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.DoubleValue'
+          title: double_value_list
+        nested:
+          allOf:
+            - $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
+          title: nested
+        recursive:
+          allOf:
+            - $ref: '#/components/schemas/test.v1.ParameterValues'
+          title: recursive
+        stringMap:
+          type: object
+          title: string_map
+          additionalProperties:
+            type: string
+            title: value
+          description: unsupported
+        stringValueMap:
+          type: object
+          title: string_value_map
+          additionalProperties:
+            allOf:
+              - $ref: '#/components/schemas/google.protobuf.StringValue'
+            title: value
+        enumMap:
+          type: object
+          title: enum_map
+          additionalProperties:
+            allOf:
+              - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
+            title: value
+        nestedMap:
+          type: object
+          title: nested_map
+          additionalProperties:
+            allOf:
+              - $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
+            title: value
+        structValue:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Struct'
+          title: struct_value
+        value:
+          allOf:
+            - $ref: '#/components/schemas/google.protobuf.Value'
+          title: value
+        recursiveList:
+          type: array
+          items:
+            $ref: '#/components/schemas/test.v1.ParameterValues'
+          title: recursive_list
       title: ParameterValues
     test.v1.ParameterValues.Enum:
       type: string

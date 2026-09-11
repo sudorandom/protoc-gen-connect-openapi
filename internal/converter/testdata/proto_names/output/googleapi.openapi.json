@@ -114,64 +114,71 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "allOf": [
-                  {},
+                "anyOf": [
                   {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "profile": {
-                            "allOf": [
-                              {
-                                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
-                              }
-                            ],
-                            "title": "profile"
+                    "type": "object",
+                    "properties": {
+                      "profile": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
                           }
-                        },
-                        "title": "profile",
-                        "required": [
-                          "profile"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "settings": {
-                            "allOf": [
-                              {
-                                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
-                              }
-                            ],
-                            "title": "settings"
-                          }
-                        },
-                        "title": "settings",
-                        "required": [
-                          "settings"
-                        ]
-                      },
-                      {
-                        "not": {
-                          "anyOf": [
-                            {
-                              "required": [
-                                "profile"
-                              ]
-                            },
-                            {
-                              "required": [
-                                "settings"
-                              ]
-                            }
-                          ]
-                        }
+                        ],
+                        "title": "profile"
                       }
-                    ]
+                    },
+                    "title": "profile"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "settings": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
+                          }
+                        ],
+                        "title": "settings"
+                      }
+                    },
+                    "title": "settings"
                   }
                 ],
                 "unevaluatedProperties": false,
+                "not": {
+                  "allOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "profile"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "settings"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "not": {
+                        "oneOf": [
+                          {
+                            "required": [
+                              "profile"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "settings"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
                 "title": "UpdateWithOneofRequest"
               }
             }
@@ -461,71 +468,77 @@
       },
       "proto_names.io.swagger.petstore.v2.UpdateWithOneofRequest": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
+            "type": "object",
             "properties": {
-              "account_id": {
-                "type": "string",
-                "title": "account_id"
+              "profile": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
+                  }
+                ],
+                "title": "profile"
               }
-            }
+            },
+            "title": "profile"
           },
           {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "profile": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
-                      }
-                    ],
-                    "title": "profile"
+            "type": "object",
+            "properties": {
+              "settings": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
                   }
-                },
-                "title": "profile",
-                "required": [
-                  "profile"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "settings": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
-                      }
-                    ],
-                    "title": "settings"
-                  }
-                },
-                "title": "settings",
-                "required": [
-                  "settings"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "profile"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "settings"
-                      ]
-                    }
-                  ]
-                }
+                ],
+                "title": "settings"
               }
-            ]
+            },
+            "title": "settings"
           }
         ],
         "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "profile"
+                  ]
+                },
+                {
+                  "required": [
+                    "settings"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "profile"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "settings"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "title": "account_id"
+          }
+        },
         "title": "UpdateWithOneofRequest"
       }
     }

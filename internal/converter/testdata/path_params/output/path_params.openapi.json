@@ -31,64 +31,71 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "allOf": [
-                  {},
+                "anyOf": [
                   {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "profile": {
-                            "allOf": [
-                              {
-                                "$ref": "#/components/schemas/path_params.Profile"
-                              }
-                            ],
-                            "title": "profile"
+                    "type": "object",
+                    "properties": {
+                      "profile": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/path_params.Profile"
                           }
-                        },
-                        "title": "profile",
-                        "required": [
-                          "profile"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "settings": {
-                            "allOf": [
-                              {
-                                "$ref": "#/components/schemas/path_params.Settings"
-                              }
-                            ],
-                            "title": "settings"
-                          }
-                        },
-                        "title": "settings",
-                        "required": [
-                          "settings"
-                        ]
-                      },
-                      {
-                        "not": {
-                          "anyOf": [
-                            {
-                              "required": [
-                                "profile"
-                              ]
-                            },
-                            {
-                              "required": [
-                                "settings"
-                              ]
-                            }
-                          ]
-                        }
+                        ],
+                        "title": "profile"
                       }
-                    ]
+                    },
+                    "title": "profile"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "settings": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/path_params.Settings"
+                          }
+                        ],
+                        "title": "settings"
+                      }
+                    },
+                    "title": "settings"
                   }
                 ],
                 "unevaluatedProperties": false,
+                "not": {
+                  "allOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "profile"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "settings"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "not": {
+                        "oneOf": [
+                          {
+                            "required": [
+                              "profile"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "settings"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
                 "title": "UpdateWithOneofRequest"
               }
             }
@@ -226,71 +233,77 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "allOf": [
+                "anyOf": [
                   {
+                    "type": "object",
                     "properties": {
-                      "name": {
-                        "type": "string",
-                        "title": "name"
+                      "profile": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/path_params.Profile"
+                          }
+                        ],
+                        "title": "profile"
                       }
-                    }
+                    },
+                    "title": "profile"
                   },
                   {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "profile": {
-                            "allOf": [
-                              {
-                                "$ref": "#/components/schemas/path_params.Profile"
-                              }
-                            ],
-                            "title": "profile"
+                    "type": "object",
+                    "properties": {
+                      "settings": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/path_params.Settings"
                           }
-                        },
-                        "title": "profile",
-                        "required": [
-                          "profile"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "settings": {
-                            "allOf": [
-                              {
-                                "$ref": "#/components/schemas/path_params.Settings"
-                              }
-                            ],
-                            "title": "settings"
-                          }
-                        },
-                        "title": "settings",
-                        "required": [
-                          "settings"
-                        ]
-                      },
-                      {
-                        "not": {
-                          "anyOf": [
-                            {
-                              "required": [
-                                "profile"
-                              ]
-                            },
-                            {
-                              "required": [
-                                "settings"
-                              ]
-                            }
-                          ]
-                        }
+                        ],
+                        "title": "settings"
                       }
-                    ]
+                    },
+                    "title": "settings"
                   }
                 ],
                 "unevaluatedProperties": false,
+                "not": {
+                  "allOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "profile"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "settings"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "not": {
+                        "oneOf": [
+                          {
+                            "required": [
+                              "profile"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "settings"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "name"
+                  }
+                },
                 "title": "UpdateRequest",
                 "description": "UpdateRequest has a path param, regular fields, and a oneOf.\n This tests that the requestBody is generated correctly when\n MessageToSchema wraps properties+oneOf under AllOf."
               }
@@ -544,75 +557,81 @@
       },
       "path_params.UpdateRequest": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
+            "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "title": "id"
-              },
-              "name": {
-                "type": "string",
-                "title": "name"
+              "profile": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/path_params.Profile"
+                  }
+                ],
+                "title": "profile"
               }
-            }
+            },
+            "title": "profile"
           },
           {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "profile": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/path_params.Profile"
-                      }
-                    ],
-                    "title": "profile"
+            "type": "object",
+            "properties": {
+              "settings": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/path_params.Settings"
                   }
-                },
-                "title": "profile",
-                "required": [
-                  "profile"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "settings": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/path_params.Settings"
-                      }
-                    ],
-                    "title": "settings"
-                  }
-                },
-                "title": "settings",
-                "required": [
-                  "settings"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "profile"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "settings"
-                      ]
-                    }
-                  ]
-                }
+                ],
+                "title": "settings"
               }
-            ]
+            },
+            "title": "settings"
           }
         ],
         "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "profile"
+                  ]
+                },
+                {
+                  "required": [
+                    "settings"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "profile"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "settings"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
         "title": "UpdateRequest",
         "required": [
           "id"
@@ -621,71 +640,77 @@
       },
       "path_params.UpdateWithOneofRequest": {
         "type": "object",
-        "allOf": [
+        "anyOf": [
           {
+            "type": "object",
             "properties": {
-              "accountId": {
-                "type": "string",
-                "title": "account_id"
+              "profile": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/path_params.Profile"
+                  }
+                ],
+                "title": "profile"
               }
-            }
+            },
+            "title": "profile"
           },
           {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "profile": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/path_params.Profile"
-                      }
-                    ],
-                    "title": "profile"
+            "type": "object",
+            "properties": {
+              "settings": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/path_params.Settings"
                   }
-                },
-                "title": "profile",
-                "required": [
-                  "profile"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "settings": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/path_params.Settings"
-                      }
-                    ],
-                    "title": "settings"
-                  }
-                },
-                "title": "settings",
-                "required": [
-                  "settings"
-                ]
-              },
-              {
-                "not": {
-                  "anyOf": [
-                    {
-                      "required": [
-                        "profile"
-                      ]
-                    },
-                    {
-                      "required": [
-                        "settings"
-                      ]
-                    }
-                  ]
-                }
+                ],
+                "title": "settings"
               }
-            ]
+            },
+            "title": "settings"
           }
         ],
         "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "profile"
+                  ]
+                },
+                {
+                  "required": [
+                    "settings"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "profile"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "settings"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "title": "account_id"
+          }
+        },
         "title": "UpdateWithOneofRequest"
       }
     }

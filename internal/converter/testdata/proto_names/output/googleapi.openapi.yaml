@@ -78,34 +78,35 @@ paths:
           application/json:
             schema:
               type: object
-              allOf:
-                - {}
-                - oneOf:
-                    - type: object
-                      properties:
-                        profile:
-                          allOf:
-                            - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
-                          title: profile
+              anyOf:
+                - type: object
+                  properties:
+                    profile:
+                      allOf:
+                        - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
                       title: profile
-                      required:
-                        - profile
-                    - type: object
-                      properties:
-                        settings:
-                          allOf:
-                            - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
-                          title: settings
+                  title: profile
+                - type: object
+                  properties:
+                    settings:
+                      allOf:
+                        - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
                       title: settings
-                      required:
-                        - settings
-                    - not:
-                        anyOf:
-                          - required:
-                              - profile
-                          - required:
-                              - settings
+                  title: settings
               unevaluatedProperties: false
+              not:
+                allOf:
+                  - anyOf:
+                      - required:
+                          - profile
+                      - required:
+                          - settings
+                  - not:
+                      oneOf:
+                        - required:
+                            - profile
+                        - required:
+                            - settings
               title: UpdateWithOneofRequest
         required: true
       responses:
@@ -306,37 +307,39 @@ components:
       additionalProperties: false
     proto_names.io.swagger.petstore.v2.UpdateWithOneofRequest:
       type: object
-      allOf:
-        - properties:
-            account_id:
-              type: string
-              title: account_id
-        - oneOf:
-            - type: object
-              properties:
-                profile:
-                  allOf:
-                    - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
-                  title: profile
+      anyOf:
+        - type: object
+          properties:
+            profile:
+              allOf:
+                - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
               title: profile
-              required:
-                - profile
-            - type: object
-              properties:
-                settings:
-                  allOf:
-                    - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
-                  title: settings
+          title: profile
+        - type: object
+          properties:
+            settings:
+              allOf:
+                - $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
               title: settings
-              required:
-                - settings
-            - not:
-                anyOf:
-                  - required:
-                      - profile
-                  - required:
-                      - settings
+          title: settings
       unevaluatedProperties: false
+      not:
+        allOf:
+          - anyOf:
+              - required:
+                  - profile
+              - required:
+                  - settings
+          - not:
+              oneOf:
+                - required:
+                    - profile
+                - required:
+                    - settings
+      properties:
+        account_id:
+          type: string
+          title: account_id
       title: UpdateWithOneofRequest
 security: []
 tags:
