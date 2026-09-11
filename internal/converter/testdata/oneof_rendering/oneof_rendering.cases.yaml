@@ -58,3 +58,39 @@ cases:
       Content-Type: application/json
     errors:
       - ".*"
+
+  - name: "two-oneofs-no-members"
+    path: "/screening"
+    body: '{"reference": "case-3"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "two-oneofs-one-member-each"
+    path: "/screening"
+    body: '{"reference": "case-3", "kyc": "person", "region": "eu"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "two-oneofs-two-members-of-subject"
+    path: "/screening"
+    body: '{"kyc": "person", "kyb": "business", "region": "eu"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "two-oneofs-two-members-of-scope"
+    path: "/screening"
+    body: '{"kyc": "person", "region": "eu", "global": true}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "two-oneofs-additional-property"
+    path: "/screening"
+    body: '{"kyc": "person", "region": "eu", "undeclared": true}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"

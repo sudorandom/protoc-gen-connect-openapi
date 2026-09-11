@@ -67,6 +67,37 @@
           }
         }
       }
+    },
+    "/screening": {
+      "post": {
+        "tags": [
+          "oneof_rendering.ComplianceService"
+        ],
+        "summary": "CreateScreening",
+        "operationId": "oneof_rendering.ComplianceService.CreateScreening",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/oneof_rendering.ScreeningRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -224,6 +255,136 @@
           }
         },
         "title": "RequiredComplianceRequest"
+      },
+      "oneof_rendering.ScreeningRequest": {
+        "type": "object",
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "global": {
+                    "type": "boolean",
+                    "title": "global"
+                  }
+                },
+                "title": "global"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "region": {
+                    "type": "string",
+                    "title": "region"
+                  }
+                },
+                "title": "region"
+              }
+            ],
+            "not": {
+              "allOf": [
+                {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "global"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "region"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "oneOf": [
+                      {
+                        "required": [
+                          "global"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "region"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kyb": {
+                    "type": "string",
+                    "title": "kyb"
+                  }
+                },
+                "title": "kyb"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kyc": {
+                    "type": "string",
+                    "title": "kyc"
+                  }
+                },
+                "title": "kyc"
+              }
+            ],
+            "not": {
+              "allOf": [
+                {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "kyb"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "kyc"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "not": {
+                    "oneOf": [
+                      {
+                        "required": [
+                          "kyb"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "kyc"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "unevaluatedProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string",
+            "title": "reference"
+          }
+        },
+        "title": "ScreeningRequest",
+        "description": "ScreeningRequest carries two oneof containers in a single message. Each\n container's at-most-one constraint must apply independently: one member from\n each may be set at the same time, two members of the same container may not."
       }
     }
   },

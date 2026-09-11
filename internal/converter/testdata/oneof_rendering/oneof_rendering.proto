@@ -20,6 +20,13 @@ service ComplianceService {
       body: "*"
     };
   }
+
+  rpc CreateScreening(ScreeningRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/screening"
+      body: "*"
+    };
+  }
 }
 
 message ComplianceRequest {
@@ -36,5 +43,20 @@ message RequiredComplianceRequest {
     option (buf.validate.oneof).required = true;
     string kyc = 2;
     string kyb = 3;
+  }
+}
+
+// ScreeningRequest carries two oneof containers in a single message. Each
+// container's at-most-one constraint must apply independently: one member from
+// each may be set at the same time, two members of the same container may not.
+message ScreeningRequest {
+  string reference = 1;
+  oneof subject {
+    string kyc = 2;
+    string kyb = 3;
+  }
+  oneof scope {
+    string region = 4;
+    bool global = 5;
   }
 }
