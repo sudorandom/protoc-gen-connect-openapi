@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "gnosticoverride.Record": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "id",
+          "minLength": 1,
+          "description": "id is an ordinary scalar, unaffected by this branch."
+        },
+        "startDate": {
+          "type": "string",
+          "title": "start_date",
+          "format": "date",
+          "description": "start_date is a calendar date modelled as google.type.Date but documented\n in its original wire form. It is also protovalidate-required, so the\n parent's required list proves the reference is still *resolved* even\n though it is no longer *attached*."
+        },
+        "status": {
+          "type": "string",
+          "title": "status",
+          "enum": [
+            "active",
+            "tobedeleted"
+          ],
+          "description": "status is a generated enum documented with the vocabulary the source\n schema actually used."
+        },
+        "retiredOn": {
+          "type": "string",
+          "title": "retired_on",
+          "format": "date",
+          "description": "retired_on is optional and annotated, so the oneOf branch is exercised."
+        },
+        "plainDate": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/google.type.Date"
+            }
+          ],
+          "title": "plain_date",
+          "description": "plain_date carries no annotation and must keep the generated reference."
+        },
+        "plainStatus": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/gnosticoverride.Status"
+            }
+          ],
+          "title": "plain_status",
+          "description": "plain_status carries no annotation and must keep the generated reference."
+        },
+        "titledOnly": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/google.type.Date"
+            }
+          ],
+          "title": "A titled date",
+          "description": "titled_only annotates something other than a type, so the reference must\n still be attached."
+        }
+      },
+      "title": "Record",
+      "required": [
+        "startDate"
+      ],
+      "additionalProperties": false,
+      "description": "Record exercises every shape the message/enum branch of FieldToSchema can\n take, with and without an annotation."
+    },
+    "gnosticoverride.Status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "STATUS_UNSPECIFIED",
+        "STATUS_ACTIVE",
+        "STATUS_TOBEDELETED"
+      ],
+      "description": "Status is a generated enum whose values carry a protobuf-style prefix."
+    },
+    "google.type.Date": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "integer",
+          "title": "year",
+          "format": "int32",
+          "description": "Year of the date. Must be from 1 to 9999, or 0 to specify a date without\n a year."
+        },
+        "month": {
+          "type": "integer",
+          "title": "month",
+          "format": "int32",
+          "description": "Month of a year. Must be from 1 to 12, or 0 to specify a year without a\n month and day."
+        },
+        "day": {
+          "type": "integer",
+          "title": "day",
+          "format": "int32",
+          "description": "Day of a month. Must be from 1 to 31 and valid for the year and month, or 0\n to specify a year by itself or a year and month where the day isn't\n significant."
+        }
+      },
+      "title": "Date",
+      "additionalProperties": false,
+      "description": "Represents a whole or partial calendar date, such as a birthday. The time of\n day and time zone are either specified elsewhere or are insignificant. The\n date is relative to the Gregorian Calendar. This can represent one of the\n following:\n\n * A full date, with non-zero year, month, and day values\n * A month and day value, with a zero year, such as an anniversary\n * A year on its own, with zero month and day values\n * A year and month value, with a zero day, such as a credit card expiration\n date\n\n Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and\n `google.protobuf.Timestamp`."
+    }
+  }
+}

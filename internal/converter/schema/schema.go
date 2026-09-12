@@ -166,14 +166,19 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		switch tt.Kind() {
 		case protoreflect.MessageKind, protoreflect.EnumKind:
 			msg := ScalarFieldToSchema(opts, parent, tt, false)
+			// Resolve the reference even when it will not be attached below:
+			// it annotates the *parent* with protovalidate-derived properties,
+			// which is independent of how this field describes itself.
 			ref := ReferenceFieldToSchema(opts, parent, tt)
-			if tt.HasOptionalKeyword() {
-				msg.OneOf = []*base.SchemaProxy{
-					ref,
-					base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
+			if !describesType(msg) {
+				if tt.HasOptionalKeyword() {
+					msg.OneOf = []*base.SchemaProxy{
+						ref,
+						base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
+					}
+				} else {
+					msg.AllOf = []*base.SchemaProxy{ref}
 				}
-			} else {
-				msg.AllOf = []*base.SchemaProxy{ref}
 			}
 			return base.CreateSchemaProxy(msg)
 		}
@@ -181,6 +186,18 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 		s := ScalarFieldToSchema(opts, parent, tt, false)
 		return base.CreateSchemaProxy(s)
 	}
+}
+
+// describesType reports whether an annotation has already given a field a
+// complete type of its own.
+//
+// ScalarFieldToSchema leaves all four of these empty for a message or enum
+// kind, so a non-empty one can only have come from a gnostic annotation. When
+// the field describes itself, attaching the generated $ref as well produces a
+// schema that contradicts the annotation and accepts no value at all.
+func describesType(s *base.Schema) bool {
+	return len(s.Type) > 0 || len(s.AllOf) > 0 ||
+		len(s.OneOf) > 0 || len(s.AnyOf) > 0
 }
 
 func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protoreflect.FieldDescriptor, inContainer bool) *base.Schema {

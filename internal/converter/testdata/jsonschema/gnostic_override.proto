@@ -1,0 +1,61 @@
+// A file for testing that a gnostic property annotation describing a field's
+// own type replaces the generated $ref instead of contradicting it.
+syntax = "proto3";
+
+package gnosticoverride;
+
+import "buf/validate/validate.proto";
+import "gnostic/openapi/v3/annotations.proto";
+import "google/type/date.proto";
+
+// Status is a generated enum whose values carry a protobuf-style prefix.
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_TOBEDELETED = 2;
+}
+
+// Record exercises every shape the message/enum branch of FieldToSchema can
+// take, with and without an annotation.
+message Record {
+  // id is an ordinary scalar, unaffected by this branch.
+  string id = 1 [(buf.validate.field).string.min_len = 1];
+
+  // start_date is a calendar date modelled as google.type.Date but documented
+  // in its original wire form. It is also protovalidate-required, so the
+  // parent's required list proves the reference is still *resolved* even
+  // though it is no longer *attached*.
+  google.type.Date start_date = 2 [
+    (buf.validate.field).required = true,
+    (gnostic.openapi.v3.property) = {
+      type: "string"
+      format: "date"
+    }
+  ];
+
+  // status is a generated enum documented with the vocabulary the source
+  // schema actually used.
+  Status status = 3 [(gnostic.openapi.v3.property) = {
+    type: "string"
+    enum: [
+      {yaml: "active"},
+      {yaml: "tobedeleted"}
+    ]
+  }];
+
+  // retired_on is optional and annotated, so the oneOf branch is exercised.
+  optional google.type.Date retired_on = 4 [(gnostic.openapi.v3.property) = {
+    type: "string"
+    format: "date"
+  }];
+
+  // plain_date carries no annotation and must keep the generated reference.
+  google.type.Date plain_date = 5;
+
+  // plain_status carries no annotation and must keep the generated reference.
+  Status plain_status = 6;
+
+  // titled_only annotates something other than a type, so the reference must
+  // still be attached.
+  google.type.Date titled_only = 7 [(gnostic.openapi.v3.property) = {title: "A titled date"}];
+}
