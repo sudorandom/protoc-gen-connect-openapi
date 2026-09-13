@@ -848,3 +848,59 @@ func TestWrapRefsInAllOf(t *testing.T) {
 	require.Len(t, allOf, 1)
 	assert.Equal(t, "#/components/schemas/test.Child", allOf[0].(map[string]any)["$ref"])
 }
+
+// TestJSONSchemaGnosticPropertyOverride checks that a gnostic property
+// annotation describing a field's own type replaces the generated $ref rather
+// than being combined with it.
+//
+// Before this was fixed, an annotated message- or enum-typed field kept both
+// the annotation's type and the $ref to the referenced definition. The two
+// contradict, so the property accepted no value at all.
+func TestJSONSchemaGnosticPropertyOverride(t *testing.T) {
+	content := generateAndCheckResult(t, "", "jsonschema", "testdata/jsonschema/gnostic_override.proto")
+	compiler := compileJSONSchema(t, content)
+
+	recordSchema, err := compiler.Compile("schema.json#/$defs/gnosticoverride.Record")
+	require.NoError(t, err)
+
+	// The annotated fields accept the form the annotation documents.
+	annotated, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(`{
+		"id": "r-1",
+		"startDate": "2024-01-15",
+		"status": "active",
+		"retiredOn": "2025-06-30",
+		"plainDate": {"year": 2024, "month": 1, "day": 15},
+		"plainStatus": "STATUS_ACTIVE",
+		"titledOnly": {"year": 2024, "month": 1, "day": 15}
+	}`))
+	require.NoError(t, err)
+	assert.NoError(t, recordSchema.Validate(annotated))
+
+	// An annotated field no longer accepts the underlying message's own form.
+	wrongShape, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(
+		`{"id": "r-1", "startDate": {"year": 2024, "month": 1, "day": 15}}`))
+	require.NoError(t, err)
+	assert.Error(t, recordSchema.Validate(wrongShape),
+		"an annotated date should not accept the google.type.Date object form")
+
+	// The annotation's vocabulary is enforced, not the generated enum's.
+	wrongEnum, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(
+		`{"id": "r-1", "startDate": "2024-01-15", "status": "STATUS_ACTIVE"}`))
+	require.NoError(t, err)
+	assert.Error(t, recordSchema.Validate(wrongEnum),
+		"an annotated enum should enforce the annotated values")
+
+	// A field with no annotation, and one whose annotation sets no type, both
+	// keep the generated reference.
+	assert.Contains(t, content, `"$ref": "#/$defs/google.type.Date"`)
+	assert.Contains(t, content, `"$ref": "#/$defs/gnosticoverride.Status"`)
+
+	// Resolving the reference has a side effect on the parent: protovalidate
+	// contributes start_date to the required list. Skipping the resolution
+	// rather than the attachment would silently drop it.
+	recordRequired, err := jsonschemavalidator.UnmarshalJSON(strings.NewReader(
+		`{"id": "r-1", "status": "active"}`))
+	require.NoError(t, err)
+	assert.Error(t, recordSchema.Validate(recordRequired),
+		"start_date is protovalidate-required, so omitting it must fail")
+}
