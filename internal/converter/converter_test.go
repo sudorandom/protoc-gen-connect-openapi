@@ -939,3 +939,59 @@ func TestFieldBehaviorWithoutGoogleAPIHTTP(t *testing.T) {
 	internalId := properties["internalId"].(map[string]any)
 	assert.Contains(t, internalId["description"], "(IMMUTABLE)")
 }
+
+func TestConnectParametersRequiredness(t *testing.T) {
+	pf := loadTestFileDescriptorSet(t)
+	req := &pluginpb.CodeGeneratorRequest{
+		ProtoFile:      pf.GetFile(),
+		FileToGenerate: []string{"standard/helloworld.proto"},
+	}
+
+	opts, err := options.FromString("allow-get,format=yaml")
+	require.NoError(t, err)
+	opts.Path = "helloworld.openapi.yaml"
+
+	resp, err := converter.ConvertWithOptions(req, opts)
+	require.NoError(t, err)
+	require.Len(t, resp.File, 1)
+
+	spec := map[string]any{}
+	require.NoError(t, yaml.Unmarshal([]byte(resp.File[0].GetContent()), &spec))
+
+	paths := spec["paths"].(map[string]any)
+	sayHelloPath := paths["/helloworld.Greeter/SayHello"].(map[string]any)
+
+	// GET operation checks
+	getOp := sayHelloPath["get"].(map[string]any)
+	getParameters := getOp["parameters"].([]any)
+	var foundProtocolVersionGet, foundConnectGet bool
+	for _, pAny := range getParameters {
+		p := pAny.(map[string]any)
+		name := p["name"].(string)
+		if name == "Connect-Protocol-Version" {
+			foundProtocolVersionGet = true
+			assert.NotEqual(t, true, p["required"], "Connect-Protocol-Version should not be required on GET")
+		}
+		if name == "connect" {
+			foundConnectGet = true
+			assert.Equal(t, true, p["required"], "connect query parameter must be required on GET")
+		}
+	}
+	assert.True(t, foundProtocolVersionGet, "Connect-Protocol-Version parameter not found on GET")
+	assert.True(t, foundConnectGet, "connect parameter not found on GET")
+
+	// POST operation checks
+	postOp := sayHelloPath["post"].(map[string]any)
+	postParameters := postOp["parameters"].([]any)
+	var foundProtocolVersionPost bool
+	for _, pAny := range postParameters {
+		p := pAny.(map[string]any)
+		name := p["name"].(string)
+		if name == "Connect-Protocol-Version" {
+			foundProtocolVersionPost = true
+			assert.NotEqual(t, true, p["required"], "Connect-Protocol-Version should not be required on POST")
+		}
+	}
+	assert.True(t, foundProtocolVersionPost, "Connect-Protocol-Version parameter not found on POST")
+}
+
