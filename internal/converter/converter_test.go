@@ -904,3 +904,38 @@ func TestJSONSchemaGnosticPropertyOverride(t *testing.T) {
 	assert.Error(t, recordSchema.Validate(recordRequired),
 		"start_date is protovalidate-required, so omitting it must fail")
 }
+
+func TestFieldBehaviorWithoutGoogleAPIHTTP(t *testing.T) {
+	pf := loadTestFileDescriptorSet(t)
+	req := &pluginpb.CodeGeneratorRequest{
+		ProtoFile:      pf.GetFile(),
+		FileToGenerate: []string{"standard/field_behavior.proto"},
+	}
+
+	opts, err := options.FromString("features=connectrpc,format=yaml")
+	require.NoError(t, err)
+	opts.Path = "field_behavior.openapi.yaml"
+
+	resp, err := converter.ConvertWithOptions(req, opts)
+	require.NoError(t, err)
+	require.Len(t, resp.File, 1)
+
+	spec := map[string]any{}
+	require.NoError(t, yaml.Unmarshal([]byte(resp.File[0].GetContent()), &spec))
+
+	schemas := spec["components"].(map[string]any)["schemas"].(map[string]any)
+	userSchema := schemas["field_behavior.User"].(map[string]any)
+
+	required := userSchema["required"].([]any)
+	assert.Contains(t, required, "name")
+
+	properties := userSchema["properties"].(map[string]any)
+	userId := properties["userId"].(map[string]any)
+	assert.Equal(t, true, userId["readOnly"])
+
+	password := properties["password"].(map[string]any)
+	assert.Equal(t, true, password["writeOnly"])
+
+	internalId := properties["internalId"].(map[string]any)
+	assert.Contains(t, internalId["description"], "(IMMUTABLE)")
+}
