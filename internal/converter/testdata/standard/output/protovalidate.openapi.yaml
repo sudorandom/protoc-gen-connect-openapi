@@ -1188,6 +1188,8 @@ components:
           allOf:
             - $ref: '#/components/schemas/protovalidate.MyEnum'
           title: enum_defined_only
+          description: |
+            enum.defined_only = true
         enumIn:
           allOf:
             - $ref: '#/components/schemas/protovalidate.MyEnum'
@@ -1317,20 +1319,12 @@ components:
           title: duration_gt
           description: |
             duration.gt = 5s
-            duration.gt_lt = 5s
-            duration.gt_lt_exclusive = 5s
-            duration.gt_lte = 5s
-            duration.gt_lte_exclusive = 5s
         durationRange:
           allOf:
             - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration_range
           description: |
             duration.gt = 5s
-            duration.gt_lt = 5s
-            duration.gt_lt_exclusive = 5s
-            duration.gt_lte = 5s
-            duration.gt_lte_exclusive = 5s
             duration.lt = 10s
         durationGte:
           allOf:
@@ -1338,10 +1332,6 @@ components:
           title: duration_gte
           description: |
             duration.gte = 5s
-            duration.gte_lt = 5s
-            duration.gte_lt_exclusive = 5s
-            duration.gte_lte = 5s
-            duration.gte_lte_exclusive = 5s
         timestampConst:
           allOf:
             - $ref: '#/components/schemas/google.protobuf.Timestamp'
