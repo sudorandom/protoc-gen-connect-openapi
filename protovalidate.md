@@ -99,16 +99,20 @@ components:
 | (buf.validate.field).double.lte | ✅ | |
 | (buf.validate.field).double.example | ✅ | |
 | (buf.validate.field).duration.const | ✅ | |
-| (buf.validate.field).duration.gt | ❌ | |
-| (buf.validate.field).duration.gte | ❌ | |
+| (buf.validate.field).duration.gt | ✅ | Appended to the 'description' field |
+| (buf.validate.field).duration.gte | ✅ | Appended to the 'description' field |
 | (buf.validate.field).duration.in | ✅ | |
-| (buf.validate.field).duration.lt | ❌ | |
-| (buf.validate.field).duration.lte | ❌ | |
-| (buf.validate.field).duration.not_in | ❌ | |
+| (buf.validate.field).duration.lt | ✅ | Appended to the 'description' field |
+| (buf.validate.field).duration.lte | ✅ | Appended to the 'description' field |
+| (buf.validate.field).duration.not_in | ✅ | |
 | (buf.validate.field).duration.example | ✅ | |
 | (buf.validate.field).enum.const | ✅ | |
-| (buf.validate.field).enum.defined_only | ❌ | |
+| (buf.validate.field).enum.defined_only | ✅ | Appended to the 'description' field |
 | (buf.validate.field).enum.example | ✅ | |
+| (buf.validate.field).field_mask.const | ✅ | |
+| (buf.validate.field).field_mask.in | ✅ | Appended to the 'description' field |
+| (buf.validate.field).field_mask.not_in | ✅ | Appended to the 'description' field |
+| (buf.validate.field).field_mask.example | ✅ | |
 | (buf.validate.field).fixed32.const | ✅ | |
 | (buf.validate.field).fixed32.gt | ✅ | |
 | (buf.validate.field).fixed32.gte | ✅ | |
