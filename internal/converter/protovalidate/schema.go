@@ -193,6 +193,9 @@ func updateSchemaWithFieldRules(opts options.Options, schema *base.Schema, rules
 	case *validate.FieldRules_Timestamp:
 		innerRules = t.Timestamp.ProtoReflect()
 		updateSchemaTimestamp(opts, schema, t.Timestamp)
+	case *validate.FieldRules_FieldMask:
+		innerRules = t.FieldMask.ProtoReflect()
+		updateSchemaFieldMask(opts, schema, t.FieldMask)
 	}
 
 	if innerRules != nil {
@@ -276,6 +279,21 @@ func updateWithCEL(schema *base.Schema, rules []*validate.Rule, val *protoreflec
 	}
 	s := b.String()
 	schema.Description = s
+}
+
+func appendRuleDescription(schema *base.Schema, ruleID, value string) {
+	b := strings.Builder{}
+	if schema.Description != "" {
+		b.WriteString(strings.TrimSpace(schema.Description))
+		b.WriteByte('\n')
+	}
+	b.WriteString(ruleID)
+	if value != "" {
+		b.WriteString(" = ")
+		b.WriteString(value)
+	}
+	b.WriteByte('\n')
+	schema.Description = b.String()
 }
 
 func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *validate.FloatRules) {
@@ -1062,11 +1080,15 @@ func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *val
 		constraint.Example = nil
 	}()
 
-	enumDesc := desc.Enum()
-	if enumDesc == nil {
+	if constraint.DefinedOnly != nil && *constraint.DefinedOnly {
+		appendRuleDescription(schema, "enum.defined_only", "true")
+	}
+
+	if desc == nil || desc.Enum() == nil {
 		// Not an enum, nothing to do.
 		return
 	}
+	enumDesc := desc.Enum()
 
 	if constraint.Const != nil {
 		val := protoreflect.EnumNumber(*constraint.Const)
@@ -1074,9 +1096,6 @@ func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *val
 			schema.Const = utils.CreateStringNode(string(enumVal.Name()))
 		}
 	}
-
-	// For 'defined_only', when using string enums in constraints, the base enum schema
-	// already enforces the defined values, so no extra annotation is needed.
 
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, 0, len(constraint.In))
@@ -1183,6 +1202,8 @@ func updateSchemaAny(opts options.Options, schema *base.Schema, constraint *vali
 func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint *validate.DurationRules) {
 	defer func() {
 		constraint.Const = nil
+		constraint.LessThan = nil
+		constraint.GreaterThan = nil
 		constraint.In = nil
 		constraint.NotIn = nil
 		constraint.Example = nil
@@ -1190,6 +1211,26 @@ func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint 
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(constraint.Const.AsDuration().String())
+	}
+	switch tt := constraint.GreaterThan.(type) {
+	case *validate.DurationRules_Gt:
+		if tt.Gt != nil {
+			appendRuleDescription(schema, "duration.gt", tt.Gt.AsDuration().String())
+		}
+	case *validate.DurationRules_Gte:
+		if tt.Gte != nil {
+			appendRuleDescription(schema, "duration.gte", tt.Gte.AsDuration().String())
+		}
+	}
+	switch tt := constraint.LessThan.(type) {
+	case *validate.DurationRules_Lt:
+		if tt.Lt != nil {
+			appendRuleDescription(schema, "duration.lt", tt.Lt.AsDuration().String())
+		}
+	case *validate.DurationRules_Lte:
+		if tt.Lte != nil {
+			appendRuleDescription(schema, "duration.lte", tt.Lte.AsDuration().String())
+		}
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -1220,6 +1261,23 @@ func updateSchemaTimestamp(opts options.Options, schema *base.Schema, constraint
 	}
 	for _, item := range constraint.Example {
 		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsTime().String()))
+	}
+}
+
+func updateSchemaFieldMask(opts options.Options, schema *base.Schema, constraint *validate.FieldMaskRules) {
+	defer func() {
+		constraint.Const = nil
+		constraint.Example = nil
+	}()
+	if constraint.Const != nil {
+		paths := make([]string, len(constraint.Const.GetPaths()))
+		copy(paths, constraint.Const.GetPaths())
+		schema.Const = utils.CreateStringNode(strings.Join(paths, ","))
+	}
+	for _, item := range constraint.Example {
+		paths := make([]string, len(item.GetPaths()))
+		copy(paths, item.GetPaths())
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strings.Join(paths, ",")))
 	}
 }
 

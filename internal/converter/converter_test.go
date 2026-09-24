@@ -995,3 +995,37 @@ func TestConnectParametersRequiredness(t *testing.T) {
 	assert.True(t, foundProtocolVersionPost, "Connect-Protocol-Version parameter not found on POST")
 }
 
+func TestProtovalidateDurationAndEnum(t *testing.T) {
+	pf := loadTestFileDescriptorSet(t)
+	req := &pluginpb.CodeGeneratorRequest{
+		ProtoFile:      pf.GetFile(),
+		FileToGenerate: []string{"standard/protovalidate.proto"},
+	}
+
+	opts, err := options.FromString("format=yaml")
+	require.NoError(t, err)
+	opts.Path = "protovalidate.openapi.yaml"
+
+	resp, err := converter.ConvertWithOptions(req, opts)
+	require.NoError(t, err)
+	require.Len(t, resp.File, 1)
+
+	spec := map[string]any{}
+	require.NoError(t, yaml.Unmarshal([]byte(resp.File[0].GetContent()), &spec))
+
+	schemas := spec["components"].(map[string]any)["schemas"].(map[string]any)
+	lotsOfRules := schemas["protovalidate.LotsOfValidationRules"].(map[string]any)
+	properties := lotsOfRules["properties"].(map[string]any)
+
+	durationGte := properties["durationGte"].(map[string]any)
+	assert.Contains(t, durationGte["description"], "duration.gte = 5s")
+	assert.NotContains(t, durationGte["description"], "gte_lt")
+
+	durationRange := properties["durationRange"].(map[string]any)
+	assert.Contains(t, durationRange["description"], "duration.gt = 5s")
+	assert.Contains(t, durationRange["description"], "duration.lt = 10s")
+	assert.NotContains(t, durationRange["description"], "gt_lt")
+
+	enumDefinedOnly := properties["enumDefinedOnly"].(map[string]any)
+	assert.Contains(t, enumDefinedOnly["description"], "enum.defined_only = true")
+}

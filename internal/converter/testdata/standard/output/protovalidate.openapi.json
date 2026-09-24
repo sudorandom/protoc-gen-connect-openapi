@@ -1532,7 +1532,8 @@
                 "$ref": "#/components/schemas/protovalidate.MyEnum"
               }
             ],
-            "title": "enum_defined_only"
+            "title": "enum_defined_only",
+            "description": "enum.defined_only = true\n"
           },
           "enumIn": {
             "allOf": [
@@ -1726,7 +1727,7 @@
               }
             ],
             "title": "duration_gt",
-            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\n"
+            "description": "duration.gt = 5s\n"
           },
           "durationRange": {
             "allOf": [
@@ -1735,7 +1736,7 @@
               }
             ],
             "title": "duration_range",
-            "description": "duration.gt = 5s\nduration.gt_lt = 5s\nduration.gt_lt_exclusive = 5s\nduration.gt_lte = 5s\nduration.gt_lte_exclusive = 5s\nduration.lt = 10s\n"
+            "description": "duration.gt = 5s\nduration.lt = 10s\n"
           },
           "durationGte": {
             "allOf": [
@@ -1744,7 +1745,7 @@
               }
             ],
             "title": "duration_gte",
-            "description": "duration.gte = 5s\nduration.gte_lt = 5s\nduration.gte_lt_exclusive = 5s\nduration.gte_lte = 5s\nduration.gte_lte_exclusive = 5s\n"
+            "description": "duration.gte = 5s\n"
           },
           "timestampConst": {
             "allOf": [
