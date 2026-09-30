@@ -1,0 +1,344 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "test.special.v1",
+    "description": "API documentation for test.special.v1",
+    "version": "1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "test.special.v1.ConstrainedFloatValues": {
+        "type": "object",
+        "properties": {
+          "floatConst": {
+            "type": "number",
+            "title": "float_const",
+            "format": "float",
+            "const": 1
+          },
+          "doubleConst": {
+            "type": "number",
+            "title": "double_const",
+            "format": "double",
+            "const": 1
+          },
+          "doubleRange": {
+            "type": "number",
+            "title": "double_range",
+            "maximum": 1,
+            "minimum": 0,
+            "format": "double"
+          },
+          "floatFinite": {
+            "type": "number",
+            "title": "float_finite",
+            "format": "float",
+            "description": "float.finite = true\n"
+          },
+          "doubleFinite": {
+            "type": "number",
+            "title": "double_finite",
+            "format": "double",
+            "description": "double.finite = true\n"
+          },
+          "optionalFinite": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "title": "optional_finite",
+            "format": "double",
+            "description": "double.finite = true\n"
+          },
+          "floats": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float",
+              "description": "float.finite = true\n"
+            },
+            "title": "floats"
+          },
+          "doubles": {
+            "type": "object",
+            "title": "doubles",
+            "additionalProperties": {
+              "type": "number",
+              "title": "value",
+              "format": "double",
+              "description": "double.finite = true\n"
+            }
+          },
+          "annotatedRange": {
+            "type": "number",
+            "title": "annotated_range",
+            "maximum": 1,
+            "format": "double"
+          },
+          "annotatedString": {
+            "type": "string",
+            "title": "annotated_string",
+            "format": "double"
+          },
+          "annotatedNullable": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "title": "annotated_nullable",
+            "format": "double"
+          }
+        },
+        "title": "ConstrainedFloatValues",
+        "additionalProperties": false
+      },
+      "test.special.v1.FloatValues": {
+        "type": "object",
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "doubleChoice": {
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
+                "title": "double_choice"
+              }
+            },
+            "title": "double_choice"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "floatChoice": {
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
+                "title": "float_choice"
+              }
+            },
+            "title": "float_choice"
+          }
+        ],
+        "unevaluatedProperties": false,
+        "not": {
+          "allOf": [
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "doubleChoice"
+                  ]
+                },
+                {
+                  "required": [
+                    "floatChoice"
+                  ]
+                }
+              ]
+            },
+            {
+              "not": {
+                "oneOf": [
+                  {
+                    "required": [
+                      "doubleChoice"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "floatChoice"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "floatValue": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "float_value"
+          },
+          "doubleValue": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "double_value"
+          },
+          "optionalFloat": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "optional_float"
+          },
+          "optionalDouble": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "optional_double"
+          },
+          "floats": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
+            },
+            "title": "floats"
+          },
+          "doubles": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
+            },
+            "title": "doubles"
+          },
+          "floatMap": {
+            "type": "object",
+            "title": "float_map",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ],
+              "title": "value"
+            }
+          },
+          "doubleMap": {
+            "type": "object",
+            "title": "double_map",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ],
+              "title": "value"
+            }
+          }
+        },
+        "title": "FloatValues"
+      }
+    }
+  },
+  "security": []
+}

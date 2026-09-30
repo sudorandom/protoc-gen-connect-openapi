@@ -53,12 +53,24 @@
         "type": "object",
         "properties": {
           "val": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "examples": [
               "0"
             ],
-            "title": "val",
-            "format": "double"
+            "title": "val"
           }
         },
         "title": "DoubleExample",
@@ -203,9 +215,21 @@
         "type": "object",
         "properties": {
           "val": {
-            "type": "number",
-            "title": "val",
-            "format": "double"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "val"
           }
         },
         "title": "DoubleNone",
@@ -215,9 +239,21 @@
         "type": "object",
         "properties": {
           "val": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "val",
-            "format": "double",
             "description": "double.finite = false\n"
           }
         },
@@ -684,12 +720,24 @@
         "type": "object",
         "properties": {
           "val": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "examples": [
               "8"
             ],
-            "title": "val",
-            "format": "float"
+            "title": "val"
           }
         },
         "title": "FloatExample",
@@ -821,9 +869,21 @@
         "type": "object",
         "properties": {
           "val": {
-            "type": "number",
-            "title": "val",
-            "format": "float"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "val"
           }
         },
         "title": "FloatNone",
@@ -833,9 +893,21 @@
         "type": "object",
         "properties": {
           "val": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "val",
-            "format": "float",
             "description": "float.finite = false\n"
           }
         },

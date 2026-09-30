@@ -297,6 +297,13 @@ func appendRuleDescription(schema *base.Schema, ruleID, value string) {
 }
 
 func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *validate.FloatRules) {
+	// Keep constrained fields numeric until their rules also cover ProtoJSON special strings.
+	if schema.Type == nil && len(schema.OneOf) > 0 && (constraint.Const != nil || constraint.LessThan != nil || constraint.GreaterThan != nil ||
+		len(constraint.In) > 0 || len(constraint.NotIn) > 0 || constraint.GetFinite()) {
+		schema.Type = schema.OneOf[0].Schema().Type
+		schema.Format = schema.OneOf[0].Schema().Format
+		schema.OneOf = nil
+	}
 	defer func() {
 		constraint.Const = nil
 		constraint.LessThan = nil
@@ -345,6 +352,13 @@ func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *va
 }
 
 func updateSchemaDouble(opts options.Options, schema *base.Schema, constraint *validate.DoubleRules) {
+	// Numeric bounds do not constrain strings in JSON Schema.
+	if schema.Type == nil && len(schema.OneOf) > 0 && (constraint.Const != nil || constraint.LessThan != nil || constraint.GreaterThan != nil ||
+		len(constraint.In) > 0 || len(constraint.NotIn) > 0 || constraint.GetFinite()) {
+		schema.Type = schema.OneOf[0].Schema().Type
+		schema.Format = schema.OneOf[0].Schema().Format
+		schema.OneOf = nil
+	}
 	defer func() {
 		constraint.Const = nil
 		constraint.LessThan = nil

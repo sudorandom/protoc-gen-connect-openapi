@@ -42,11 +42,17 @@ components:
       type: object
       properties:
         val:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           examples:
             - "0"
           title: val
-          format: double
       title: DoubleExample
       additionalProperties: false
     buf.validate.conformance.cases.DoubleFinite:
@@ -158,18 +164,30 @@ components:
       type: object
       properties:
         val:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: val
-          format: double
       title: DoubleNone
       additionalProperties: false
     buf.validate.conformance.cases.DoubleNotFinite:
       type: object
       properties:
         val:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: val
-          format: double
           description: |
             double.finite = false
       title: DoubleNotFinite
@@ -522,11 +540,17 @@ components:
       type: object
       properties:
         val:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           examples:
             - "8"
           title: val
-          format: float
       title: FloatExample
       additionalProperties: false
     buf.validate.conformance.cases.FloatFinite:
@@ -626,18 +650,30 @@ components:
       type: object
       properties:
         val:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: val
-          format: float
       title: FloatNone
       additionalProperties: false
     buf.validate.conformance.cases.FloatNotFinite:
       type: object
       properties:
         val:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: val
-          format: float
           description: |
             float.finite = false
       title: FloatNotFinite
