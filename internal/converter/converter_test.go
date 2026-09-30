@@ -995,6 +995,39 @@ func TestConnectParametersRequiredness(t *testing.T) {
 	assert.True(t, foundProtocolVersionPost, "Connect-Protocol-Version parameter not found on POST")
 }
 
+func TestConnectErrorDetailValueIsBase64(t *testing.T) {
+	pf := loadTestFileDescriptorSet(t)
+	req := &pluginpb.CodeGeneratorRequest{
+		ProtoFile:      pf.GetFile(),
+		FileToGenerate: []string{"standard/helloworld.proto"},
+	}
+
+	for _, tc := range []struct {
+		name    string
+		options string
+		schemas []string
+	}{
+		{name: "generic", schemas: []string{"Any"}},
+		{name: "google", options: ",with-google-error-detail", schemas: []string{"google.rpc.ErrorInfo", "Unknown"}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			opts, err := options.FromString("features=connectrpc,format=json" + tc.options)
+			require.NoError(t, err)
+			resp, err := converter.ConvertWithOptions(req, opts)
+			require.NoError(t, err)
+			require.Len(t, resp.File, 1)
+
+			spec := map[string]any{}
+			require.NoError(t, yaml.Unmarshal([]byte(resp.File[0].GetContent()), &spec))
+			for _, name := range tc.schemas {
+				value := nestedMap(t, spec, "components", "schemas", "connect.error_details."+name, "properties", "value")
+				assert.Equal(t, "string", value["type"], name)
+				assert.Equal(t, "byte", value["format"], name)
+			}
+		})
+	}
+}
+
 func TestProtovalidateDurationAndEnum(t *testing.T) {
 	pf := loadTestFileDescriptorSet(t)
 	req := &pluginpb.CodeGeneratorRequest{
