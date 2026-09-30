@@ -111,9 +111,15 @@ components:
                     title: boolField
                     type: boolean
                 doubleField:
-                    format: double
+                    oneOf:
+                        - format: double
+                          type: number
+                        - enum:
+                            - NaN
+                            - Infinity
+                            - -Infinity
+                          type: string
                     title: doubleField
-                    type: number
                 fixed32Field:
                     title: fixed32Field
                     type: integer
@@ -122,9 +128,15 @@ components:
                     title: fixed64Field
                     type: string
                 floatField:
-                    format: float
+                    oneOf:
+                        - format: float
+                          type: number
+                        - enum:
+                            - NaN
+                            - Infinity
+                            - -Infinity
+                          type: string
                     title: floatField
-                    type: number
                 int32Field:
                     format: int32
                     title: int32Field

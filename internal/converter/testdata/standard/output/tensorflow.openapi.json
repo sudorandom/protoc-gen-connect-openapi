@@ -833,9 +833,21 @@
             "type": "object",
             "properties": {
               "f": {
-                "type": "number",
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
                 "title": "f",
-                "format": "float",
                 "description": "\"float\""
               }
             },
@@ -1094,8 +1106,20 @@
           "f": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "f",
             "description": "\"list(float)\""
@@ -1637,9 +1661,21 @@
         "type": "object",
         "properties": {
           "cost": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "cost",
-            "format": "float",
             "description": "Aggregated cost value."
           },
           "dimension": {
@@ -2380,9 +2416,21 @@
         "type": "object",
         "properties": {
           "perProcessGpuMemoryFraction": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "per_process_gpu_memory_fraction",
-            "format": "double",
             "description": "Fraction of the total GPU memory to allocate for each process.\n 1 means to allocate all of the GPU memory, 0.5 means the process\n allocates up to ~50% of the total GPU memory.\n\n GPU memory is pre-allocated unless the allow_growth option is enabled.\n\n If greater than 1.0, uses CUDA unified memory to potentially oversubscribe\n the amount of memory available on the GPU device by using host memory as a\n swap space. Accessing memory not available on the device will be\n significantly slower as that would require memory transfer between the host\n and the device. Options to reduce the memory requirement should be\n considered before enabling this option as this may come with a negative\n performance impact. Oversubscription using the unified memory requires\n Pascal class or newer GPUs and it is currently only supported on the Linux\n operating system. See\n https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-requirements\n for the detailed requirements."
           },
           "allowGrowth": {
@@ -2487,9 +2535,21 @@
             "description": "If kernel_tracker_max_pending \u003e 0 then no more than this many\n tracking events can be outstanding at a time.  An attempt to\n launch an additional kernel will stall until an event\n completes."
           },
           "internalFragmentationFraction": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "internal_fragmentation_fraction",
-            "format": "double",
             "description": "BFC Allocator can return an allocated chunk of memory upto 2x the\n requested size. For virtual devices with tight memory constraints, and\n proportionately large allocation requests, this can lead to a significant\n reduction in available memory. The threshold below controls when a chunk\n should be split if the chunk size exceeds requested memory size. It is\n expressed as a fraction of total available memory for the tf device. For\n example setting it to 0.05 would imply a chunk needs to be split if its\n size exceeds the requested memory by 5% of the total virtual device/gpu\n memory size."
           },
           "useCudaMallocAsync": {
@@ -2503,9 +2563,21 @@
             "description": "By default, BFCAllocator may sleep when it runs out of memory, in the\n hopes that another thread will free up memory in the meantime.  Setting\n this to true disables the sleep; instead we'll OOM immediately."
           },
           "gpuHostMemLimitInMb": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "gpu_host_mem_limit_in_mb",
-            "format": "float",
             "description": "Memory limit for \"GPU host allocator\", aka pinned memory allocator.  This\n can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB."
           },
           "gpuHostMemDisallowGrowth": {
@@ -2523,8 +2595,20 @@
           "memoryLimitMb": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "memory_limit_mb",
             "description": "Per \"virtual\" device memory limit, in MB. The number of elements in\n the list is the number of virtual devices to create on the\n corresponding visible GPU (see \"virtual_devices\" below).\n If empty, it will create single virtual device taking all available\n memory from the device.\n\n For the concept of \"visible\" and \"virtual\" GPU, see the comments for\n \"visible_device_list\" above for more information."
@@ -4640,8 +4724,20 @@
           "floatVal": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "float_val",
             "description": "DT_FLOAT."
@@ -4649,8 +4745,20 @@
           "doubleVal": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "double_val",
             "description": "DT_DOUBLE."
@@ -4676,8 +4784,20 @@
           "scomplexVal": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "scomplex_val",
             "description": "DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real\n and imaginary parts of i-th single precision complex."
@@ -4702,8 +4822,20 @@
           "dcomplexVal": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "dcomplex_val",
             "description": "DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real\n and imaginary parts of i-th double precision complex."

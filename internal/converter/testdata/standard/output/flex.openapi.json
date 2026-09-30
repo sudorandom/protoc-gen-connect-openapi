@@ -721,14 +721,38 @@
         "type": "object",
         "properties": {
           "doubleField": {
-            "type": "number",
-            "title": "doubleField",
-            "format": "double"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "doubleField"
           },
           "floatField": {
-            "type": "number",
-            "title": "floatField",
-            "format": "float"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "floatField"
           },
           "int32Field": {
             "type": "integer",

@@ -39,6 +39,12 @@ func SchemaWithPropertyAnnotations(opts options.Options, schema *base.Schema, de
 	if !ok {
 		return schema
 	}
+	// Preserve the numeric base for explicit overrides and constraints.
+	if (desc.Kind() == protoreflect.FloatKind || desc.Kind() == protoreflect.DoubleKind) && len(schema.OneOf) > 0 {
+		schema.Type = []string{"number"}
+		schema.Format = desc.Kind().String()
+		schema.OneOf = nil
+	}
 	return schemaWithAnnotations(opts, schema, gnosticSchema)
 }
 

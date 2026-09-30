@@ -105,9 +105,15 @@ components:
         - type: object
           properties:
             doubleOption:
-              type: number
+              oneOf:
+                - type: number
+                  format: double
+                - type: string
+                  enum:
+                    - NaN
+                    - Infinity
+                    - -Infinity
               title: double_option
-              format: double
               deprecated: true
           title: double_option
         - type: object
@@ -133,9 +139,15 @@ components:
         - type: object
           properties:
             floatOption:
-              type: number
+              oneOf:
+                - type: number
+                  format: float
+                - type: string
+                  enum:
+                    - NaN
+                    - Infinity
+                    - -Infinity
               title: float_option
-              format: float
           title: float_option
         - type: object
           properties:
@@ -281,14 +293,26 @@ components:
                     - uint64Option
       properties:
         doubleValue:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: double_value
-          format: double
           description: scalar types
         floatValue:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: float_value
-          format: float
         int32Value:
           type: integer
           title: int32_value
@@ -340,15 +364,27 @@ components:
         doubleList:
           type: array
           items:
-            type: number
-            format: double
+            oneOf:
+              - type: number
+                format: double
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: double_list
           description: repeated types
         floatList:
           type: array
           items:
-            type: number
-            format: float
+            oneOf:
+              - type: number
+                format: float
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: float_list
         int32List:
           type: array
@@ -501,18 +537,30 @@ components:
           type: object
           title: double_map
           additionalProperties:
-            type: number
+            oneOf:
+              - type: number
+                format: double
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
             title: value
-            format: double
           description: map value types
           deprecated: true
         floatMap:
           type: object
           title: float_map
           additionalProperties:
-            type: number
+            oneOf:
+              - type: number
+                format: float
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
             title: value
-            format: float
         int32Map:
           type: object
           title: int32_map
@@ -601,19 +649,29 @@ components:
             title: value
             format: byte
         optDoubleValue:
-          type:
-            - number
-            - "null"
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
+            - type: "null"
           title: opt_double_value
-          format: double
           description: explicit presence types
           deprecated: true
         optFloatValue:
-          type:
-            - number
-            - "null"
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
+            - type: "null"
           title: opt_float_value
-          format: float
         optInt32Value:
           type:
             - integer
@@ -746,9 +804,15 @@ components:
         - type: object
           properties:
             oneofDoubleValue:
-              type: number
+              oneOf:
+                - type: number
+                  format: double
+                - type: string
+                  enum:
+                    - NaN
+                    - Infinity
+                    - -Infinity
               title: oneof_double_value
-              format: double
           title: oneof_double_value
         - type: object
           properties:
@@ -784,14 +848,26 @@ components:
                     - oneofEnumValue
       properties:
         doubleValue:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: double_value
-          format: double
           description: scalar types
         floatValue:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: float_value
-          format: float
         int32Value:
           type: integer
           title: int32_value
@@ -903,8 +979,14 @@ components:
         doubleList:
           type: array
           items:
-            type: number
-            format: double
+            oneOf:
+              - type: number
+                format: double
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: double_list
         doubleValueList:
           type: array
@@ -972,9 +1054,15 @@ components:
       type: object
       properties:
         doubleValue:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: double_value
-          format: double
         doubleValueWrapper:
           allOf:
             - $ref: '#/components/schemas/google.protobuf.DoubleValue'
