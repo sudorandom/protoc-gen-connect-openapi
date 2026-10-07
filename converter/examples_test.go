@@ -10,7 +10,9 @@ import (
 	"net/http"
 	"time"
 
-	"buf.build/gen/go/connectrpc/eliza/connectrpc/go/connectrpc/eliza/v1/elizav1connect"
+	"buf.build/gen/go/connectrpc/eliza/connectrpc/go/v2/connectrpc/eliza/v1/elizav1connect"
+	"connectrpc.com/connect/v2"
+	"connectrpc.com/connect/v2/connecthttp"
 	"github.com/sudorandom/protoc-gen-connect-openapi/converter"
 )
 
@@ -42,7 +44,9 @@ var tmplElements = template.Must(template.New("name").Parse(`<!doctype html>
 
 func ExampleGenerateSingle_withEndpoints() {
 	mux := http.NewServeMux()
-	mux.Handle(elizav1connect.NewElizaServiceHandler(&elizav1connect.UnimplementedElizaServiceHandler{}))
+	server := connect.NewServer()
+	elizav1connect.RegisterElizaServiceHandler(server, &elizav1connect.UnimplementedElizaServiceHandler{})
+	connecthttp.Mount(mux, server)
 	openapiBody, err := converter.GenerateSingle(
 		converter.WithGlobal(),
 		converter.WithContentTypes(

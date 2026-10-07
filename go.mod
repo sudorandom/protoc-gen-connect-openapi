@@ -4,9 +4,10 @@ go 1.26.0
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.12-20260825204119-511051f7f437.2
-	buf.build/gen/go/connectrpc/eliza/connectrpc/go v1.21.0-20230913231627-233fca715f49.1
+	buf.build/gen/go/connectrpc/eliza/connectrpc/go/v2 v2.0.0-20230913231627-233fca715f49.1
 	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.12-20230913231627-233fca715f49.2
 	buf.build/go/protovalidate v1.4.0
+	connectrpc.com/connect/v2 v2.0.0
 	github.com/gobwas/glob v1.0.0
 	github.com/google/gnostic v0.7.1
 	github.com/lmittmann/tint v1.2.0
@@ -26,7 +27,6 @@ require (
 	charm.land/bubbles/v2 v2.1.1 // indirect
 	charm.land/bubbletea/v2 v2.0.8 // indirect
 	charm.land/lipgloss/v2 v2.0.5 // indirect
-	connectrpc.com/connect v1.21.0 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/a-h/templ v0.3.1020 // indirect
 	github.com/alecthomas/chroma/v2 v2.27.0 // indirect
