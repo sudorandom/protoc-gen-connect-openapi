@@ -10,7 +10,7 @@ require (
 	connectrpc.com/connect/v2 v2.0.0
 	github.com/gobwas/glob v1.0.0
 	github.com/google/gnostic v0.7.1
-	github.com/lmittmann/tint v1.2.0
+	github.com/lmittmann/tint v1.2.1
 	github.com/pb33f/libopenapi v0.38.7
 	github.com/pb33f/libopenapi-validator v0.14.0
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2
