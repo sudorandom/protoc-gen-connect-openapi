@@ -140,7 +140,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           type: object
@@ -160,7 +160,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.BadRequest'
@@ -177,7 +177,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.DebugInfo'
@@ -194,7 +194,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.ErrorInfo'
@@ -211,7 +211,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.Help'
@@ -228,7 +228,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.LocalizedMessage'
@@ -245,7 +245,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.PreconditionFailure'
@@ -262,7 +262,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.QuotaFailure'
@@ -279,7 +279,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.RequestInfo'
@@ -296,7 +296,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.ResourceInfo'
@@ -313,7 +313,7 @@ components:
           description: A URL that acts as a globally unique identifier for the type of the serialized message.
         value:
           type: string
-          format: binary
+          format: byte
           description: The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.
         debug:
           $ref: '#/components/schemas/google.rpc.RetryInfo'

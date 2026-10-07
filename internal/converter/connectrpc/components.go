@@ -98,7 +98,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 				}))
 				detailProps.Set("value", base.CreateSchemaProxy(&base.Schema{
 					Type:        []string{"string"},
-					Format:      "binary",
+					Format:      "byte",
 					Description: "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.",
 				}))
 				detailProps.Set("debug", base.CreateSchemaProxyRef("#/components/schemas/"+pair.Key()))
@@ -125,7 +125,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 			}))
 			unknownDetailProps.Set("value", base.CreateSchemaProxy(&base.Schema{
 				Type:        []string{"string"},
-				Format:      "binary",
+				Format:      "byte",
 				Description: "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.",
 			}))
 			unknownDetailProps.Set("debug", base.CreateSchemaProxy(&base.Schema{
@@ -162,7 +162,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 			}))
 			connectAnyProps.Set("value", base.CreateSchemaProxy(&base.Schema{
 				Type:        []string{"string"},
-				Format:      "binary",
+				Format:      "byte",
 				Description: "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field.",
 			}))
 			connectAnyProps.Set("debug", base.CreateSchemaProxy(&base.Schema{
