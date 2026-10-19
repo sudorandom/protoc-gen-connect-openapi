@@ -11,8 +11,8 @@ require (
 	github.com/gobwas/glob v1.0.0
 	github.com/google/gnostic v0.7.1
 	github.com/lmittmann/tint v1.2.0
-	github.com/pb33f/libopenapi v0.38.7
-	github.com/pb33f/libopenapi-validator v0.14.0
+	github.com/pb33f/libopenapi v0.41.3
+	github.com/pb33f/libopenapi-validator v0.16.1
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.2
 	github.com/stretchr/testify v1.12.1
 	go.yaml.in/yaml/v3 v3.0.5
@@ -56,8 +56,7 @@ require (
 	github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
-	github.com/go-openapi/jsonpointer v0.23.2 // indirect
-	github.com/go-openapi/swag/jsonname v0.26.1 // indirect
+	github.com/go-openapi/jsonpointer v1.0.2 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/google/gnostic-models v0.7.1 // indirect
@@ -79,9 +78,11 @@ require (
 	github.com/muesli/termenv v0.16.0 // indirect
 	github.com/ncruces/go-strftime v1.0.0 // indirect
 	github.com/pb33f/doctor v0.0.80 // indirect
-	github.com/pb33f/jsonpath v0.8.3 // indirect
+	github.com/pb33f/go-yaml v0.1.1 // indirect
+	github.com/pb33f/jsonpath v0.8.4 // indirect
+	github.com/pb33f/jsonschema/v6 v6.0.3 // indirect
 	github.com/pb33f/libasyncapi v0.0.2 // indirect
-	github.com/pb33f/ordered-map/v2 v2.3.1 // indirect
+	github.com/pb33f/ordered-map/v2 v2.3.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
@@ -99,10 +100,10 @@ require (
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc // indirect
 	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa // indirect
 	golang.org/x/net v0.56.0 // indirect
-	golang.org/x/sync v0.22.0 // indirect
+	golang.org/x/sync v0.23.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/term v0.45.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260825221802-da73d73af1c5 // indirect
 	modernc.org/libc v1.72.3 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
