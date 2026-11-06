@@ -61,15 +61,6 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
 
-  - name: "bytes-len-too-short"
-    path: "/protovalidate.FieldsService/CELRPC"
-    body: '{"requiredField": {}, "byteLen": "AQID"}'
-    headers:
-      Content-Type: application/json
-      Connect-Protocol-Version: 1
-    errors:
-      - ".*"
-
   - name: "any-in-allowed-type"
     path: "/protovalidate.FieldsService/CELRPC"
     body: '{"requiredField": {}, "anyIn": {"@type": "type.googleapis.com/MyType1"}}'

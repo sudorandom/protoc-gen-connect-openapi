@@ -1033,12 +1033,9 @@ func updateSchemaString(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *validate.BytesRules) {
-	// Bytes travel as base64 text, so rules on the raw bytes have to be
-	// translated. Values are encoded; byte lengths become the range of base64
-	// lengths that can encode them (protojson accepts padded and unpadded
-	// input). Length rules stay in the description so the exact byte count is
-	// still documented. pattern and the IP rules apply to the decoded bytes and
-	// can't be checked on the text, so they're left to the description.
+	// Bytes travel as base64 text, so values are encoded to match. Length,
+	// pattern and IP rules apply to the decoded bytes and can't be checked on
+	// the text, so they're left to the description.
 	defer func() {
 		constraint.Const = nil
 		constraint.In = nil
@@ -1048,19 +1045,6 @@ func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *va
 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(base64.StdEncoding.EncodeToString(constraint.Const))
-	}
-	if constraint.Len != nil {
-		minLength, maxLength := base64LengthRange(*constraint.Len)
-		schema.MinLength = &minLength
-		schema.MaxLength = &maxLength
-	}
-	if constraint.MinLen != nil {
-		minLength, _ := base64LengthRange(*constraint.MinLen)
-		schema.MinLength = &minLength
-	}
-	if constraint.MaxLen != nil {
-		_, maxLength := base64LengthRange(*constraint.MaxLen)
-		schema.MaxLength = &maxLength
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -1079,13 +1063,6 @@ func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *va
 	for _, item := range constraint.Example {
 		schema.Examples = append(schema.Examples, utils.CreateStringNode(base64.StdEncoding.EncodeToString(item)))
 	}
-}
-
-// base64LengthRange returns the shortest (unpadded) and longest (padded)
-// base64 encodings of a value with the given number of bytes.
-func base64LengthRange(byteLength uint64) (int64, int64) {
-	n := int64(byteLength)
-	return (4*n + 2) / 3, 4 * ((n + 2) / 3)
 }
 
 func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *validate.EnumRules, desc protoreflect.FieldDescriptor) {

@@ -1110,8 +1110,6 @@ components:
             - string
             - "null"
           title: byte_len
-          maxLength: 8
-          minLength: 6
           format: byte
           description: |
             bytes.len = 4
@@ -1120,7 +1118,6 @@ components:
             - string
             - "null"
           title: bytes_min_len
-          minLength: 3
           format: byte
           description: |
             bytes.min_len = 2
@@ -1129,7 +1126,6 @@ components:
             - string
             - "null"
           title: bytes_max_len
-          maxLength: 8
           format: byte
           description: |
             bytes.max_len = 6
