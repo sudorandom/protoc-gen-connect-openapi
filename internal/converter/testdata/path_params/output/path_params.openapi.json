@@ -35,12 +35,8 @@
                     "type": "object",
                     "properties": {
                       "profile": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/path_params.Profile"
-                          }
-                        ],
-                        "title": "profile"
+                        "title": "profile",
+                        "$ref": "#/components/schemas/path_params.Profile"
                       }
                     },
                     "title": "profile"
@@ -49,12 +45,8 @@
                     "type": "object",
                     "properties": {
                       "settings": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/path_params.Settings"
-                          }
-                        ],
-                        "title": "settings"
+                        "title": "settings",
+                        "$ref": "#/components/schemas/path_params.Settings"
                       }
                     },
                     "title": "settings"
@@ -263,12 +255,8 @@
                     "type": "object",
                     "properties": {
                       "profile": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/path_params.Profile"
-                          }
-                        ],
-                        "title": "profile"
+                        "title": "profile",
+                        "$ref": "#/components/schemas/path_params.Profile"
                       }
                     },
                     "title": "profile"
@@ -277,12 +265,8 @@
                     "type": "object",
                     "properties": {
                       "settings": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/path_params.Settings"
-                          }
-                        ],
-                        "title": "settings"
+                        "title": "settings",
+                        "$ref": "#/components/schemas/path_params.Settings"
                       }
                     },
                     "title": "settings"
@@ -542,12 +526,8 @@
             "title": "name"
           },
           "child": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/path_params.Node"
-              }
-            ],
-            "title": "child"
+            "title": "child",
+            "$ref": "#/components/schemas/path_params.Node"
           }
         },
         "title": "Node",
@@ -569,20 +549,12 @@
         "type": "object",
         "properties": {
           "revenue": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/path_params.Money"
-              }
-            ],
-            "title": "revenue"
+            "title": "revenue",
+            "$ref": "#/components/schemas/path_params.Money"
           },
           "cost": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/path_params.Money"
-              }
-            ],
-            "title": "cost"
+            "title": "cost",
+            "$ref": "#/components/schemas/path_params.Money"
           }
         },
         "title": "QuoteRequest",
@@ -622,20 +594,12 @@
         "type": "object",
         "properties": {
           "left": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/path_params.Node"
-              }
-            ],
-            "title": "left"
+            "title": "left",
+            "$ref": "#/components/schemas/path_params.Node"
           },
           "right": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/path_params.Node"
-              }
-            ],
-            "title": "right"
+            "title": "right",
+            "$ref": "#/components/schemas/path_params.Node"
           }
         },
         "title": "TreeRequest",
@@ -648,12 +612,8 @@
             "type": "object",
             "properties": {
               "profile": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/path_params.Profile"
-                  }
-                ],
-                "title": "profile"
+                "title": "profile",
+                "$ref": "#/components/schemas/path_params.Profile"
               }
             },
             "title": "profile"
@@ -662,12 +622,8 @@
             "type": "object",
             "properties": {
               "settings": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/path_params.Settings"
-                  }
-                ],
-                "title": "settings"
+                "title": "settings",
+                "$ref": "#/components/schemas/path_params.Settings"
               }
             },
             "title": "settings"
@@ -731,12 +687,8 @@
             "type": "object",
             "properties": {
               "profile": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/path_params.Profile"
-                  }
-                ],
-                "title": "profile"
+                "title": "profile",
+                "$ref": "#/components/schemas/path_params.Profile"
               }
             },
             "title": "profile"
@@ -745,12 +697,8 @@
             "type": "object",
             "properties": {
               "settings": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/path_params.Settings"
-                  }
-                ],
-                "title": "settings"
+                "title": "settings",
+                "$ref": "#/components/schemas/path_params.Settings"
               }
             },
             "title": "settings"

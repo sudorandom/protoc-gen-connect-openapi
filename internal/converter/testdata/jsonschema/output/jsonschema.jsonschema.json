@@ -70,13 +70,9 @@
           "description": "action is what happened."
         },
         "actor": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/jsonschema.User"
-            }
-          ],
           "title": "actor",
-          "description": "actor is the user that performed the action."
+          "description": "actor is the user that performed the action.",
+          "$ref": "#/$defs/jsonschema.User"
         }
       },
       "title": "AuditRecord",
@@ -183,40 +179,24 @@
           "description": "name is the display name of the user."
         },
         "role": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/jsonschema.Role"
-            }
-          ],
           "title": "role",
-          "description": "role determines what the user can do."
+          "description": "role determines what the user can do.",
+          "$ref": "#/$defs/jsonschema.Role"
         },
         "createdAt": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/google.protobuf.Timestamp"
-            }
-          ],
           "title": "created_at",
-          "description": "created_at is when the user signed up."
+          "description": "created_at is when the user signed up.",
+          "$ref": "#/$defs/google.protobuf.Timestamp"
         },
         "sessionTtl": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/google.protobuf.Duration"
-            }
-          ],
           "title": "session_ttl",
-          "description": "session_ttl is how long the user's sessions last."
+          "description": "session_ttl is how long the user's sessions last.",
+          "$ref": "#/$defs/google.protobuf.Duration"
         },
         "metadata": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/google.protobuf.Struct"
-            }
-          ],
           "title": "metadata",
-          "description": "metadata is a set of arbitrary details about the user."
+          "description": "metadata is a set of arbitrary details about the user.",
+          "$ref": "#/$defs/google.protobuf.Struct"
         },
         "labels": {
           "type": "object",
@@ -248,13 +228,9 @@
           "description": "avatar is the user's profile image."
         },
         "address": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/jsonschema.User.Address"
-            }
-          ],
           "title": "address",
-          "description": "address is where the user lives."
+          "description": "address is where the user lives.",
+          "$ref": "#/$defs/jsonschema.User.Address"
         }
       },
       "title": "User",

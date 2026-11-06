@@ -23,10 +23,9 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
               title: author_profile
               description: This field should be in the body based on the HTTP annotation
+              $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
       responses:
         default:
           description: An unexpected error response.
@@ -70,13 +69,12 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/body_field_with_query_params.Book'
               title: book
               description: |-
                 The book to create.
                  When using HTTP/JSON, this field is populated based on the HTTP body,
                  because of the `body: "book"` syntax.
+              $ref: '#/components/schemas/body_field_with_query_params.Book'
       responses:
         default:
           description: An unexpected error response.
@@ -102,9 +100,8 @@ components:
           type: string
           title: status
         profile:
-          allOf:
-            - $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
           title: profile
+          $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
       title: Author
       additionalProperties: false
     body_field_with_query_params.AuthorProfile:
@@ -120,9 +117,8 @@ components:
           type: string
           title: email
         biography:
-          allOf:
-            - $ref: '#/components/schemas/body_field_with_query_params.Biography'
           title: biography
+          $ref: '#/components/schemas/body_field_with_query_params.Biography'
         genres:
           type: array
           items:
@@ -164,10 +160,9 @@ components:
       type: object
       properties:
         authorProfile:
-          allOf:
-            - $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
           title: author_profile
           description: This field should be in the body based on the HTTP annotation
+          $ref: '#/components/schemas/body_field_with_query_params.AuthorProfile'
         authorId:
           type: string
           title: author_id
@@ -187,13 +182,12 @@ components:
              When using HTTP/JSON, this field is automatically populated based
              on the URI, because of the `{parent=publishers/*}` syntax.
         book:
-          allOf:
-            - $ref: '#/components/schemas/body_field_with_query_params.Book'
           title: book
           description: |-
             The book to create.
              When using HTTP/JSON, this field is populated based on the HTTP body,
              because of the `body: "book"` syntax.
+          $ref: '#/components/schemas/body_field_with_query_params.Book'
         bookId:
           type: string
           title: book_id

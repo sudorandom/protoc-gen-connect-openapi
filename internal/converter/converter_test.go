@@ -76,6 +76,7 @@ var scenarios = []Scenario{
 	{Name: "trim_unused_type", Options: "trim-unused-types"},
 	{Name: "with_base", Options: "base=testdata/with_base/base.yaml,trim-unused-types"},
 	{Name: "with_specification_extensions", Options: "base=testdata/with_specification_extensions/base.yaml,trim-unused-types"},
+	{Name: "compat_openapi_3_0", Options: "compat=openapi-3.0"},
 	{Name: "additional_bindings"},
 	{Name: "path_params"},
 	{Name: "oneof_rendering", Options: "features=google.api.http;gnostic;protovalidate,with-proto-names"},
@@ -781,7 +782,7 @@ func TestInt64AsString(t *testing.T) {
 	assert.Equal(t, "int64", properties["byteCount"].(map[string]any)["format"])
 }
 
-func TestWrapRefsInAllOf(t *testing.T) {
+func TestRefSiblings(t *testing.T) {
 	req := &pluginpb.CodeGeneratorRequest{
 		ProtoFile: []*descriptorpb.FileDescriptorProto{
 			{
@@ -839,10 +840,16 @@ func TestWrapRefsInAllOf(t *testing.T) {
 		return properties["child"].(map[string]any)
 	}
 
+	// OpenAPI 3.1 allows a $ref next to other keywords.
 	child := childProperty(t, "format=yaml")
+	assert.Equal(t, "#/components/schemas/test.Child", child["$ref"])
+	assert.Contains(t, child, "title")
+	assert.NotContains(t, child, "allOf")
+
+	// OpenAPI 3.0 tooling ignores those siblings, so the $ref moves into allOf.
+	child = childProperty(t, "format=yaml,compat=openapi-3.0")
 	assert.NotContains(t, child, "$ref")
 	assert.Contains(t, child, "title")
-
 	allOf, ok := child["allOf"].([]any)
 	require.True(t, ok, "expected an allOf list, got %#v", child["allOf"])
 	require.Len(t, allOf, 1)

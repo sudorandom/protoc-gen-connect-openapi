@@ -29,16 +29,14 @@ paths:
                 - type: object
                   properties:
                     profile:
-                      allOf:
-                        - $ref: '#/components/schemas/path_params.Profile'
                       title: profile
+                      $ref: '#/components/schemas/path_params.Profile'
                   title: profile
                 - type: object
                   properties:
                     settings:
-                      allOf:
-                        - $ref: '#/components/schemas/path_params.Settings'
                       title: settings
+                      $ref: '#/components/schemas/path_params.Settings'
                   title: settings
               unevaluatedProperties: false
               not:
@@ -160,16 +158,14 @@ paths:
                 - type: object
                   properties:
                     profile:
-                      allOf:
-                        - $ref: '#/components/schemas/path_params.Profile'
                       title: profile
+                      $ref: '#/components/schemas/path_params.Profile'
                   title: profile
                 - type: object
                   properties:
                     settings:
-                      allOf:
-                        - $ref: '#/components/schemas/path_params.Settings'
                       title: settings
+                      $ref: '#/components/schemas/path_params.Settings'
                   title: settings
               unevaluatedProperties: false
               not:
@@ -332,9 +328,8 @@ components:
           type: string
           title: name
         child:
-          allOf:
-            - $ref: '#/components/schemas/path_params.Node'
           title: child
+          $ref: '#/components/schemas/path_params.Node'
       title: Node
       additionalProperties: false
       description: |-
@@ -352,13 +347,11 @@ components:
       type: object
       properties:
         revenue:
-          allOf:
-            - $ref: '#/components/schemas/path_params.Money'
           title: revenue
+          $ref: '#/components/schemas/path_params.Money'
         cost:
-          allOf:
-            - $ref: '#/components/schemas/path_params.Money'
           title: cost
+          $ref: '#/components/schemas/path_params.Money'
       title: QuoteRequest
       additionalProperties: false
       description: |-
@@ -389,13 +382,11 @@ components:
       type: object
       properties:
         left:
-          allOf:
-            - $ref: '#/components/schemas/path_params.Node'
           title: left
+          $ref: '#/components/schemas/path_params.Node'
         right:
-          allOf:
-            - $ref: '#/components/schemas/path_params.Node'
           title: right
+          $ref: '#/components/schemas/path_params.Node'
       title: TreeRequest
       additionalProperties: false
     path_params.UpdateRequest:
@@ -404,16 +395,14 @@ components:
         - type: object
           properties:
             profile:
-              allOf:
-                - $ref: '#/components/schemas/path_params.Profile'
               title: profile
+              $ref: '#/components/schemas/path_params.Profile'
           title: profile
         - type: object
           properties:
             settings:
-              allOf:
-                - $ref: '#/components/schemas/path_params.Settings'
               title: settings
+              $ref: '#/components/schemas/path_params.Settings'
           title: settings
       unevaluatedProperties: false
       not:
@@ -449,16 +438,14 @@ components:
         - type: object
           properties:
             profile:
-              allOf:
-                - $ref: '#/components/schemas/path_params.Profile'
               title: profile
+              $ref: '#/components/schemas/path_params.Profile'
           title: profile
         - type: object
           properties:
             settings:
-              allOf:
-                - $ref: '#/components/schemas/path_params.Settings'
               title: settings
+              $ref: '#/components/schemas/path_params.Settings'
           title: settings
       unevaluatedProperties: false
       not:
