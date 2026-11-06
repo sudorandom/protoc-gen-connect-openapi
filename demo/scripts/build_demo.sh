@@ -30,7 +30,9 @@ fi
 
 INPUT_FILE="$(basename "${INPUT_PATH}")"
 FAILED_STEPS=()
-ARTIFACT_LINKS=""
+UI_LINKS=""
+CODE_LINKS=""
+SPEC_LINKS=""
 
 detect_kind() {
     local input="${1}"
@@ -77,14 +79,27 @@ render_template() {
         "templates/${template}" >"${target_dir}/${template}"
 }
 
-# add_artifact <path-relative-to-OUT_DIR> <label>: records a link for the
-# demo's index page if the file was actually produced.
+# add_artifact <ui|code|spec> <path-relative-to-OUT_DIR> <label>: records a
+# link in that group of the demo's index page if the file was actually
+# produced.
 add_artifact() {
-    local file="${1}"
-    local label="${2}"
-    if [ -s "${OUT_DIR}/${file}" ]; then
-        ARTIFACT_LINKS="${ARTIFACT_LINKS}<li><a href=\"./${file}\">${label}</a></li>"
-    fi
+    local group="${1}"
+    local file="${2}"
+    local label="${3}"
+    [ -s "${OUT_DIR}/${file}" ] || return 0
+    local link="<li><a href=\"./${file}\">${label}</a></li>"
+    case "${group}" in
+    ui) UI_LINKS="${UI_LINKS}${link}" ;;
+    code) CODE_LINKS="${CODE_LINKS}${link}" ;;
+    spec) SPEC_LINKS="${SPEC_LINKS}${link}" ;;
+    esac
+}
+
+# link_section <heading> <links>: renders one group of the index page, or
+# nothing when the group is empty.
+link_section() {
+    [ -n "${2}" ] || return 0
+    echo "<h2>${1}</h2><ul>${2}</ul>"
 }
 
 build_plugin() {
@@ -134,22 +149,22 @@ build_openapi() {
 
     run_step "redoc static docs" \
         npx @redocly/cli build-docs "${target_dir}/${spec_file}" -o "${target_dir}/redoc.html"
-    add_artifact "openapi/redoc.html" "Redoc (static build)"
+    add_artifact ui "openapi/redoc.html" "Redoc (static build)"
 
     render_template "scalar.html" "${target_dir}" "${spec_file}"
-    add_artifact "openapi/scalar.html" "Scalar (CDN)"
+    add_artifact ui "openapi/scalar.html" "Scalar (CDN)"
 
     render_template "swagger-ui.html" "${target_dir}" "${spec_file}"
-    add_artifact "openapi/swagger-ui.html" "Swagger UI (CDN)"
+    add_artifact ui "openapi/swagger-ui.html" "Swagger UI (CDN)"
 
     render_template "elements.html" "${target_dir}" "${spec_file}"
-    add_artifact "openapi/elements.html" "Stoplight Elements (CDN)"
+    add_artifact ui "openapi/elements.html" "Stoplight Elements (CDN)"
 
     run_step "openapi-typescript types" \
         npx openapi-typescript "${target_dir}/${spec_file}" -o "${target_dir}/types.ts"
-    add_artifact "openapi/types.ts" "TypeScript types (openapi-typescript)"
+    add_artifact code "openapi/types.ts" "TypeScript types (openapi-typescript)"
 
-    add_artifact "openapi/${spec_file}" "OpenAPI source (${spec_file})"
+    add_artifact spec "openapi/${spec_file}" "OpenAPI source (${spec_file})"
 }
 
 build_jsonschema() {
@@ -164,21 +179,21 @@ build_jsonschema() {
         uvx --from json-schema-for-humans generate-schema-doc \
         --config expand_buttons=true --config link_to_reused_ref=false \
         "${target_dir}/wrapped.schema.json" "${target_dir}/schema-docs.html"
-    add_artifact "jsonschema/schema-docs.html" "json-schema-for-humans (static docs)"
+    add_artifact ui "jsonschema/schema-docs.html" "json-schema-for-humans (static docs)"
 
     if [ -s "${target_dir}/wrapped.schema.json" ]; then
         run_step "json-schema-to-typescript types" \
             npx json2ts --input "${target_dir}/wrapped.schema.json" --output "${target_dir}/types.ts" --cwd "${target_dir}"
-        add_artifact "jsonschema/types.ts" "TypeScript types (json-schema-to-typescript)"
+        add_artifact code "jsonschema/types.ts" "TypeScript types (json-schema-to-typescript)"
 
         run_step "quicktype Go types" \
             npx quicktype --src-lang schema --lang go --package demo \
             -o "${target_dir}/types.go" "${target_dir}/wrapped.schema.json"
-        add_artifact "jsonschema/types.go" "Go types (quicktype)"
+        add_artifact code "jsonschema/types.go" "Go types (quicktype)"
     fi
 
-    add_artifact "jsonschema/${spec_file}" "JSON Schema source (${spec_file})"
-    add_artifact "jsonschema/wrapped.schema.json" "Codegen wrapper schema"
+    add_artifact spec "jsonschema/${spec_file}" "JSON Schema source (${spec_file})"
+    add_artifact spec "jsonschema/wrapped.schema.json" "Codegen wrapper schema"
 }
 
 write_index() {
@@ -194,7 +209,9 @@ write_index() {
   <body>
     <h1>${BASE_NAME}</h1>
     <p>Input: ${INPUT_FILE} (${kind})</p>
-    <ul>${ARTIFACT_LINKS}</ul>
+    $(link_section "Documentation UIs" "${UI_LINKS}")
+    $(link_section "Generated code" "${CODE_LINKS}")
+    $(link_section "Specs" "${SPEC_LINKS}")
     <p><a href="../">back to all demos</a></p>
   </body>
 </html>

@@ -48,4 +48,4 @@ Tools that fail on a given input are reported and skipped rather than aborting t
 
 - The CDN-based documentation pages (Scalar, Swagger UI, Elements) need network access when opened; Redoc and json-schema-for-humans builds are fully static.
 - `out/` and `node_modules/` are untracked; `just clean` removes all built demos.
-- To add a tool: extend `scripts/build_demo.sh` (a `run_step` + `add_artifact` pair) and, for npm tools, add the dependency to `package.json`.
+- To add a tool: extend `scripts/build_demo.sh` (a `run_step` + `add_artifact` pair, with the artifact's index group: `ui`, `code`, or `spec`) and, for npm tools, add the dependency to `package.json`.
