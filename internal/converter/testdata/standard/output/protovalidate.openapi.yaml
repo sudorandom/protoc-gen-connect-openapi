@@ -247,7 +247,7 @@ components:
           title: cel_field
           format: int32
           description: |
-            my_message.value // value must be greater than 42
+            value must be greater than 42
         skippedField:
           oneOf:
             - $ref: '#/components/schemas/protovalidate.MyOtherMessage'
@@ -1012,9 +1012,9 @@ components:
           type: string
           title: string_strict
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name
-            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value
+            must be a valid HTTP header name
+            value is empty, which is not a valid HTTP header name
+            must be a valid HTTP header value
         stringEmail:
           type: string
           title: string_email
@@ -1055,51 +1055,51 @@ components:
           type: string
           title: string_ip_with_prefixlen
           description: |
-            string.ip_with_prefixlen = true // must be a valid IP prefix
-            string.ip_with_prefixlen_empty = true // value is empty, which is not a valid IP prefix
+            must be a valid IP prefix
+            value is empty, which is not a valid IP prefix
         stringIpv4WithPrefixlen:
           type: string
           title: string_ipv4_with_prefixlen
           description: |
-            string.ipv4_with_prefixlen = true // must be a valid IPv4 address with prefix length
-            string.ipv4_with_prefixlen_empty = true // value is empty, which is not a valid IPv4 address with prefix length
+            must be a valid IPv4 address with prefix length
+            value is empty, which is not a valid IPv4 address with prefix length
         stringIpv6WithPrefixlen:
           type: string
           title: string_ipv6_with_prefixlen
           description: |
-            string.ipv6_with_prefixlen = true // must be a valid IPv6 address with prefix length
-            string.ipv6_with_prefixlen_empty = true // value is empty, which is not a valid IPv6 address with prefix length
+            must be a valid IPv6 address with prefix length
+            value is empty, which is not a valid IPv6 address with prefix length
         stringIpPrefix:
           type: string
           title: string_ip_prefix
           description: |
-            string.ip_prefix = true // must be a valid IP prefix
-            string.ip_prefix_empty = true // value is empty, which is not a valid IP prefix
+            must be a valid IP prefix
+            value is empty, which is not a valid IP prefix
         stringIpv4Prefix:
           type: string
           title: string_ipv4_prefix
           description: |
-            string.ipv4_prefix = true // must be a valid IPv4 prefix
-            string.ipv4_prefix_empty = true // value is empty, which is not a valid IPv4 prefix
+            must be a valid IPv4 prefix
+            value is empty, which is not a valid IPv4 prefix
         stringIpv6Prefix:
           type: string
           title: string_ipv6_prefix
           description: |
-            string.ipv6_prefix = true // must be a valid IPv6 prefix
-            string.ipv6_prefix_empty = true // value is empty, which is not a valid IPv6 prefix
+            must be a valid IPv6 prefix
+            value is empty, which is not a valid IPv6 prefix
         stringHostAndPort:
           type: string
           title: string_host_and_port
           description: |
-            string.host_and_port = true // must be a valid host (hostname or IP address) and port pair
-            string.host_and_port_empty = true // value is empty, which is not a valid host and port pair
+            must be a valid host (hostname or IP address) and port pair
+            value is empty, which is not a valid host and port pair
         stringWellKnownRegex:
           type: string
           title: string_well_known_regex
           description: |
-            string.well_known_regex.header_name = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header name
-            string.well_known_regex.header_name_empty = KNOWN_REGEX_HTTP_HEADER_VALUE // value is empty, which is not a valid HTTP header name
-            string.well_known_regex.header_value = KNOWN_REGEX_HTTP_HEADER_VALUE // must be a valid HTTP header value
+            must be a valid HTTP header name
+            value is empty, which is not a valid HTTP header name
+            must be a valid HTTP header value
         byteConst:
           type: string
           title: byte_const
@@ -1190,8 +1190,8 @@ components:
           title: bytes_ip
           format: byte
           description: |
-            bytes.ip = true // must be a valid IP address
-            bytes.ip_empty = true // value is empty, which is not a valid IP address
+            must be a valid IP address
+            value is empty, which is not a valid IP address
         bytesIpv4:
           type:
             - string
@@ -1199,8 +1199,8 @@ components:
           title: bytes_ipv4
           format: byte
           description: |
-            bytes.ipv4 = true // must be a valid IPv4 address
-            bytes.ipv4_empty = true // value is empty, which is not a valid IPv4 address
+            must be a valid IPv4 address
+            value is empty, which is not a valid IPv4 address
         bytesIpv6:
           type:
             - string
@@ -1208,8 +1208,8 @@ components:
           title: bytes_ipv6
           format: byte
           description: |
-            bytes.ipv6 = true // must be a valid IPv6 address
-            bytes.ipv6_empty = true // value is empty, which is not a valid IPv6 address
+            must be a valid IPv6 address
+            value is empty, which is not a valid IPv6 address
         enumConst:
           title: enum_const
           const: MY_ENUM_VALUE1
