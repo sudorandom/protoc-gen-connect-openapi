@@ -3,6 +3,7 @@ package converter
 import (
 	"encoding/json"
 	"fmt"
+	"slices"
 	"strings"
 
 	yaml "github.com/pb33f/go-yaml"
@@ -102,7 +103,11 @@ func GenerateAsyncAPI(opts options.Options, fds []protoreflect.FileDescriptor) (
 				continue
 			}
 
-			titleParts = append(titleParts, string(service.Name()))
+			titleName := string(service.Name())
+			if slices.Contains(titleParts, titleName) {
+				titleName = string(service.FullName())
+			}
+			titleParts = append(titleParts, titleName)
 			serviceLoc := fd.SourceLocations().ByDescriptor(service)
 			if serviceComments := util.FormatComments(serviceLoc); serviceComments != "" {
 				descParts = append(descParts, serviceComments)
@@ -130,7 +135,14 @@ func GenerateAsyncAPI(opts options.Options, fds []protoreflect.FileDescriptor) (
 				pkg := string(service.FullName().Parent())
 				channelAddress := formatChannelPath(opts.AsyncAPIChannelTemplate, pkg, string(service.Name()), string(method.Name()))
 
-				channelKey := string(service.Name()) + string(method.Name()) + "Channel"
+				// Keys use the short service name; two packages with the same
+				// service and method name would overwrite each other, so a
+				// colliding key is qualified with the package instead.
+				keyPrefix := string(service.Name()) + string(method.Name())
+				if _, taken := spec.Channels[keyPrefix+"Channel"]; taken {
+					keyPrefix = strings.ReplaceAll(string(service.FullName()), ".", "_") + string(method.Name())
+				}
+				channelKey := keyPrefix + "Channel"
 				requestMessageKey := string(method.Input().Name())
 				responseMessageKey := string(method.Output().Name())
 
@@ -163,7 +175,7 @@ func GenerateAsyncAPI(opts options.Options, fds []protoreflect.FileDescriptor) (
 
 				spec.Channels[channelKey] = channel
 
-				sendOpKey := string(service.Name()) + string(method.Name()) + "Send"
+				sendOpKey := keyPrefix + "Send"
 				spec.Operations[sendOpKey] = &AsyncAPIOperation{
 					Action:      "send",
 					Summary:     fmt.Sprintf("Send: %s", summary),
@@ -174,7 +186,7 @@ func GenerateAsyncAPI(opts options.Options, fds []protoreflect.FileDescriptor) (
 					},
 				}
 
-				receiveOpKey := string(service.Name()) + string(method.Name()) + "Receive"
+				receiveOpKey := keyPrefix + "Receive"
 				spec.Operations[receiveOpKey] = &AsyncAPIOperation{
 					Action:      "receive",
 					Summary:     fmt.Sprintf("Receive: %s", summary),
