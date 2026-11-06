@@ -44,7 +44,7 @@ components:
         val:
           type: number
           examples:
-            - "0"
+            - 0
           title: val
           format: double
       title: DoubleExample
@@ -121,14 +121,15 @@ components:
           title: val
           format: double
           enum:
-            - "4.56"
-            - "7.89"
+            - 4.56
+            - 7.89
       title: DoubleIn
       additionalProperties: false
     buf.validate.conformance.cases.DoubleIncorrectType:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: number
           title: val
           format: double
@@ -182,7 +183,7 @@ components:
           not:
             type: number
             enum:
-              - "0"
+              - 0
           title: val
           format: double
       title: DoubleNotIn
@@ -222,7 +223,7 @@ components:
         val:
           type: integer
           examples:
-            - "0"
+            - 0
           title: val
       title: Fixed32Example
       additionalProperties: false
@@ -281,14 +282,15 @@ components:
           type: integer
           title: val
           enum:
-            - "2"
-            - "3"
+            - 2
+            - 3
       title: Fixed32In
       additionalProperties: false
     buf.validate.conformance.cases.Fixed32IncorrectType:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: integer
           title: val
       title: Fixed32IncorrectType
@@ -327,7 +329,7 @@ components:
           not:
             type: integer
             enum:
-              - "0"
+              - 0
           title: val
       title: Fixed32NotIn
       additionalProperties: false
@@ -338,7 +340,7 @@ components:
           type: string
           title: val
           format: int64
-          const: 1
+          const: "1"
       title: Fixed64Const
       additionalProperties: false
     buf.validate.conformance.cases.Fixed64ExGTELTE:
@@ -443,6 +445,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: string
           title: val
           format: int64
@@ -506,6 +509,8 @@ components:
         val:
           type: number
           title: val
+          maximum: 128
+          minimum: 256
           format: float
       title: FloatExGTELTE
       additionalProperties: false
@@ -513,6 +518,8 @@ components:
       type: object
       properties:
         val:
+          exclusiveMaximum: 0
+          exclusiveMinimum: 10
           type: number
           title: val
           format: float
@@ -524,7 +531,7 @@ components:
         val:
           type: number
           examples:
-            - "8"
+            - 8
           title: val
           format: float
       title: FloatExample
@@ -544,6 +551,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMinimum: 16
           type: number
           title: val
           format: float
@@ -555,6 +563,7 @@ components:
         val:
           type: number
           title: val
+          minimum: 8
           format: float
       title: FloatGTE
       additionalProperties: false
@@ -564,6 +573,8 @@ components:
         val:
           type: number
           title: val
+          maximum: 256
+          minimum: 128
           format: float
       title: FloatGTELTE
       additionalProperties: false
@@ -571,6 +582,8 @@ components:
       type: object
       properties:
         val:
+          exclusiveMaximum: 10
+          exclusiveMinimum: 0
           type: number
           title: val
           format: float
@@ -582,6 +595,8 @@ components:
         val:
           type: number
           title: val
+          maximum: 256
+          minimum: 128
           format: float
       title: FloatIgnore
       additionalProperties: false
@@ -592,6 +607,9 @@ components:
           type: number
           title: val
           format: float
+          enum:
+            - 4.56
+            - 7.89
       title: FloatIn
       additionalProperties: false
     buf.validate.conformance.cases.FloatIncorrectType:
@@ -608,6 +626,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMaximum: 0
           type: number
           title: val
           format: float
@@ -619,6 +638,7 @@ components:
         val:
           type: number
           title: val
+          maximum: 64
           format: float
       title: FloatLTE
       additionalProperties: false
@@ -650,7 +670,7 @@ components:
           not:
             type: number
             enum:
-              - "0"
+              - 0
           title: val
           format: float
       title: FloatNotIn
@@ -767,6 +787,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: integer
           title: val
           format: int32
@@ -862,26 +883,26 @@ components:
           type: string
           title: constant_pos
           format: int64
-          const: 5444333222
+          const: "5444333222"
         constantNeg:
           type: string
           title: constant_neg
           format: int64
-          const: -5444333222
+          const: "-5444333222"
         in:
           type: string
           title: in
           format: int64
           enum:
-            - 5444333222
-            - -5444333222
+            - "5444333222"
+            - "-5444333222"
         notin:
           type: string
           not:
             type: string
             enum:
-              - 5444333222
-              - -5444333222
+              - "5444333222"
+              - "-5444333222"
           title: notin
           format: int64
       title: Int64BigConstraints
@@ -893,7 +914,7 @@ components:
           type: string
           title: val
           format: int64
-          const: 1
+          const: "1"
       title: Int64Const
       additionalProperties: false
     buf.validate.conformance.cases.Int64ExGTELTE:
@@ -924,7 +945,7 @@ components:
         val:
           type: string
           examples:
-            - 10
+            - "10"
           title: val
           format: int64
       title: Int64Example
@@ -990,14 +1011,15 @@ components:
           title: val
           format: int64
           enum:
-            - 2
-            - 3
+            - "2"
+            - "3"
       title: Int64In
       additionalProperties: false
     buf.validate.conformance.cases.Int64IncorrectType:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: string
           title: val
           format: int64
@@ -1052,7 +1074,7 @@ components:
           not:
             type: string
             enum:
-              - 0
+              - "0"
           title: val
           format: int64
       title: Int64NotIn
@@ -1169,6 +1191,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: integer
           title: val
           format: int32
@@ -1223,7 +1246,7 @@ components:
           type: string
           title: val
           format: int64
-          const: 1
+          const: "1"
       title: SFixed64Const
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64ExGTELTE:
@@ -1254,7 +1277,7 @@ components:
         val:
           type: string
           examples:
-            - 0
+            - "0"
           title: val
           format: int64
       title: SFixed64Example
@@ -1320,14 +1343,15 @@ components:
           title: val
           format: int64
           enum:
-            - 2
-            - 3
+            - "2"
+            - "3"
       title: SFixed64In
       additionalProperties: false
     buf.validate.conformance.cases.SFixed64IncorrectType:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: string
           title: val
           format: int64
@@ -1370,7 +1394,7 @@ components:
           not:
             type: string
             enum:
-              - 0
+              - "0"
           title: val
           format: int64
       title: SFixed64NotIn
@@ -1487,6 +1511,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: integer
           title: val
           format: int32
@@ -1541,7 +1566,7 @@ components:
           type: string
           title: val
           format: int64
-          const: 1
+          const: "1"
       title: SInt64Const
       additionalProperties: false
     buf.validate.conformance.cases.SInt64ExGTELTE:
@@ -1572,7 +1597,7 @@ components:
         val:
           type: string
           examples:
-            - 0
+            - "0"
           title: val
           format: int64
       title: SInt64Example
@@ -1638,14 +1663,15 @@ components:
           title: val
           format: int64
           enum:
-            - 2
-            - 3
+            - "2"
+            - "3"
       title: SInt64In
       additionalProperties: false
     buf.validate.conformance.cases.SInt64IncorrectType:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: string
           title: val
           format: int64
@@ -1688,7 +1714,7 @@ components:
           not:
             type: string
             enum:
-              - 0
+              - "0"
           title: val
           format: int64
       title: SInt64NotIn
@@ -1728,7 +1754,7 @@ components:
         val:
           type: integer
           examples:
-            - "0"
+            - 0
           title: val
       title: UInt32Example
       additionalProperties: false
@@ -1787,14 +1813,15 @@ components:
           type: integer
           title: val
           enum:
-            - "2"
-            - "3"
+            - 2
+            - 3
       title: UInt32In
       additionalProperties: false
     buf.validate.conformance.cases.UInt32IncorrectType:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: integer
           title: val
       title: UInt32IncorrectType
@@ -1833,7 +1860,7 @@ components:
           not:
             type: integer
             enum:
-              - "0"
+              - 0
           title: val
       title: UInt32NotIn
       additionalProperties: false
@@ -1844,7 +1871,7 @@ components:
           type: string
           title: val
           format: int64
-          const: 1
+          const: "1"
       title: UInt64Const
       additionalProperties: false
     buf.validate.conformance.cases.UInt64ExGTELTE:
@@ -1949,6 +1976,7 @@ components:
       type: object
       properties:
         val:
+          exclusiveMinimum: 0
           type: string
           title: val
           format: int64

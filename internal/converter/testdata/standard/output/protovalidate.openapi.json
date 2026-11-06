@@ -438,7 +438,12 @@
             "type": "array",
             "items": {
               "type": "number",
-              "format": "float"
+              "format": "float",
+              "enum": [
+                1,
+                2,
+                3
+              ]
             },
             "title": "float_in"
           },
@@ -449,9 +454,9 @@
               "not": {
                 "type": "number",
                 "enum": [
-                  "1",
-                  "2",
-                  "3"
+                  1,
+                  2,
+                  3
                 ]
               },
               "format": "float"
@@ -468,6 +473,7 @@
             "title": "float_finite"
           },
           "floatLt": {
+            "exclusiveMaximum": 42,
             "type": "number",
             "title": "float_lt",
             "format": "float"
@@ -475,9 +481,11 @@
           "floatLte": {
             "type": "number",
             "title": "float_lte",
+            "maximum": 420,
             "format": "float"
           },
           "floatGt": {
+            "exclusiveMinimum": 6.900000095367432,
             "type": "number",
             "title": "float_gt",
             "format": "float"
@@ -485,11 +493,14 @@
           "floatGte": {
             "type": "number",
             "title": "float_gte",
+            "minimum": 69,
             "format": "float"
           },
           "floatBounds": {
+            "exclusiveMaximum": 10,
             "type": "number",
             "title": "float_bounds",
+            "minimum": 5,
             "format": "float"
           },
           "doubleConst": {
@@ -505,9 +516,9 @@
               "type": "number",
               "format": "double",
               "enum": [
-                "1",
-                "2",
-                "3"
+                1,
+                2,
+                3
               ]
             },
             "title": "double_in"
@@ -519,9 +530,9 @@
               "not": {
                 "type": "number",
                 "enum": [
-                  "1",
-                  "2",
-                  "3"
+                  1,
+                  2,
+                  3
                 ]
               },
               "format": "double"
@@ -640,7 +651,7 @@
             "title": "int64_const",
             "format": "int64",
             "description": "int64",
-            "const": 42
+            "const": "42"
           },
           "int64In": {
             "type": "array",
@@ -648,9 +659,9 @@
               "type": "string",
               "format": "int64",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ]
             },
             "title": "int64_in"
@@ -662,9 +673,9 @@
               "not": {
                 "type": "string",
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "format": "int64"
@@ -713,9 +724,9 @@
             "items": {
               "type": "integer",
               "enum": [
-                "1",
-                "2",
-                "3"
+                1,
+                2,
+                3
               ]
             },
             "title": "uint32_in"
@@ -727,9 +738,9 @@
               "not": {
                 "type": "integer",
                 "enum": [
-                  "1",
-                  "2",
-                  "3"
+                  1,
+                  2,
+                  3
                 ]
               }
             },
@@ -766,7 +777,7 @@
             "title": "uint64_const",
             "format": "int64",
             "description": "uint64",
-            "const": 42
+            "const": "42"
           },
           "uint64In": {
             "type": "array",
@@ -900,7 +911,7 @@
             "title": "sint64_const",
             "format": "int64",
             "description": "sint64",
-            "const": 42
+            "const": "42"
           },
           "sint64In": {
             "type": "array",
@@ -908,9 +919,9 @@
               "type": "string",
               "format": "int64",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ]
             },
             "title": "sint64_in"
@@ -922,9 +933,9 @@
               "not": {
                 "type": "string",
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "format": "int64"
@@ -973,9 +984,9 @@
             "items": {
               "type": "integer",
               "enum": [
-                "1",
-                "2",
-                "3"
+                1,
+                2,
+                3
               ]
             },
             "title": "fixed32_in"
@@ -987,9 +998,9 @@
               "not": {
                 "type": "integer",
                 "enum": [
-                  "1",
-                  "2",
-                  "3"
+                  1,
+                  2,
+                  3
                 ]
               }
             },
@@ -1026,7 +1037,7 @@
             "title": "fixed64_const",
             "format": "int64",
             "description": "fixed64",
-            "const": 42
+            "const": "42"
           },
           "fixed64In": {
             "type": "array",
@@ -1160,7 +1171,7 @@
             "title": "sfixed64_const",
             "format": "int64",
             "description": "sfixed64",
-            "const": 42
+            "const": "42"
           },
           "sfixed64In": {
             "type": "array",
@@ -1168,9 +1179,9 @@
               "type": "string",
               "format": "int64",
               "enum": [
-                1,
-                2,
-                3
+                "1",
+                "2",
+                "3"
               ]
             },
             "title": "sfixed64_in"
@@ -1182,9 +1193,9 @@
               "not": {
                 "type": "string",
                 "enum": [
-                  1,
-                  2,
-                  3
+                  "1",
+                  "2",
+                  "3"
                 ]
               },
               "format": "int64"

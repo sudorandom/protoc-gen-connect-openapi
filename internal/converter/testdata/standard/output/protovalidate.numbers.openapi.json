@@ -55,7 +55,7 @@
           "val": {
             "type": "number",
             "examples": [
-              "0"
+              0
             ],
             "title": "val",
             "format": "double"
@@ -153,8 +153,8 @@
             "title": "val",
             "format": "double",
             "enum": [
-              "4.56",
-              "7.89"
+              4.56,
+              7.89
             ]
           }
         },
@@ -165,6 +165,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "number",
             "title": "val",
             "format": "double"
@@ -232,7 +233,7 @@
             "not": {
               "type": "number",
               "enum": [
-                "0"
+                0
               ]
             },
             "title": "val",
@@ -286,7 +287,7 @@
           "val": {
             "type": "integer",
             "examples": [
-              "0"
+              0
             ],
             "title": "val"
           }
@@ -364,8 +365,8 @@
             "type": "integer",
             "title": "val",
             "enum": [
-              "2",
-              "3"
+              2,
+              3
             ]
           }
         },
@@ -376,6 +377,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val"
           }
@@ -426,7 +428,7 @@
             "not": {
               "type": "integer",
               "enum": [
-                "0"
+                0
               ]
             },
             "title": "val"
@@ -442,7 +444,7 @@
             "type": "string",
             "title": "val",
             "format": "int64",
-            "const": 1
+            "const": "1"
           }
         },
         "title": "Fixed64Const",
@@ -579,6 +581,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
             "format": "int64"
@@ -662,6 +665,8 @@
           "val": {
             "type": "number",
             "title": "val",
+            "maximum": 128,
+            "minimum": 256,
             "format": "float"
           }
         },
@@ -672,6 +677,8 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 0,
+            "exclusiveMinimum": 10,
             "type": "number",
             "title": "val",
             "format": "float"
@@ -686,7 +693,7 @@
           "val": {
             "type": "number",
             "examples": [
-              "8"
+              8
             ],
             "title": "val",
             "format": "float"
@@ -712,6 +719,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 16,
             "type": "number",
             "title": "val",
             "format": "float"
@@ -726,6 +734,7 @@
           "val": {
             "type": "number",
             "title": "val",
+            "minimum": 8,
             "format": "float"
           }
         },
@@ -738,6 +747,8 @@
           "val": {
             "type": "number",
             "title": "val",
+            "maximum": 256,
+            "minimum": 128,
             "format": "float"
           }
         },
@@ -748,6 +759,8 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 10,
+            "exclusiveMinimum": 0,
             "type": "number",
             "title": "val",
             "format": "float"
@@ -762,6 +775,8 @@
           "val": {
             "type": "number",
             "title": "val",
+            "maximum": 256,
+            "minimum": 128,
             "format": "float"
           }
         },
@@ -774,7 +789,11 @@
           "val": {
             "type": "number",
             "title": "val",
-            "format": "float"
+            "format": "float",
+            "enum": [
+              4.56,
+              7.89
+            ]
           }
         },
         "title": "FloatIn",
@@ -797,6 +816,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMaximum": 0,
             "type": "number",
             "title": "val",
             "format": "float"
@@ -811,6 +831,7 @@
           "val": {
             "type": "number",
             "title": "val",
+            "maximum": 64,
             "format": "float"
           }
         },
@@ -850,7 +871,7 @@
             "not": {
               "type": "number",
               "enum": [
-                "0"
+                0
               ]
             },
             "title": "val",
@@ -1004,6 +1025,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
             "format": "int32"
@@ -1124,21 +1146,21 @@
             "type": "string",
             "title": "constant_pos",
             "format": "int64",
-            "const": 5444333222
+            "const": "5444333222"
           },
           "constantNeg": {
             "type": "string",
             "title": "constant_neg",
             "format": "int64",
-            "const": -5444333222
+            "const": "-5444333222"
           },
           "in": {
             "type": "string",
             "title": "in",
             "format": "int64",
             "enum": [
-              5444333222,
-              -5444333222
+              "5444333222",
+              "-5444333222"
             ]
           },
           "notin": {
@@ -1146,8 +1168,8 @@
             "not": {
               "type": "string",
               "enum": [
-                5444333222,
-                -5444333222
+                "5444333222",
+                "-5444333222"
               ]
             },
             "title": "notin",
@@ -1164,7 +1186,7 @@
             "type": "string",
             "title": "val",
             "format": "int64",
-            "const": 1
+            "const": "1"
           }
         },
         "title": "Int64Const",
@@ -1204,7 +1226,7 @@
           "val": {
             "type": "string",
             "examples": [
-              10
+              "10"
             ],
             "title": "val",
             "format": "int64"
@@ -1289,8 +1311,8 @@
             "title": "val",
             "format": "int64",
             "enum": [
-              2,
-              3
+              "2",
+              "3"
             ]
           }
         },
@@ -1301,6 +1323,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
             "format": "int64"
@@ -1371,7 +1394,7 @@
             "not": {
               "type": "string",
               "enum": [
-                0
+                "0"
               ]
             },
             "title": "val",
@@ -1525,6 +1548,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
             "format": "int32"
@@ -1596,7 +1620,7 @@
             "type": "string",
             "title": "val",
             "format": "int64",
-            "const": 1
+            "const": "1"
           }
         },
         "title": "SFixed64Const",
@@ -1636,7 +1660,7 @@
           "val": {
             "type": "string",
             "examples": [
-              0
+              "0"
             ],
             "title": "val",
             "format": "int64"
@@ -1721,8 +1745,8 @@
             "title": "val",
             "format": "int64",
             "enum": [
-              2,
-              3
+              "2",
+              "3"
             ]
           }
         },
@@ -1733,6 +1757,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
             "format": "int64"
@@ -1787,7 +1812,7 @@
             "not": {
               "type": "string",
               "enum": [
-                0
+                "0"
               ]
             },
             "title": "val",
@@ -1941,6 +1966,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val",
             "format": "int32"
@@ -2012,7 +2038,7 @@
             "type": "string",
             "title": "val",
             "format": "int64",
-            "const": 1
+            "const": "1"
           }
         },
         "title": "SInt64Const",
@@ -2052,7 +2078,7 @@
           "val": {
             "type": "string",
             "examples": [
-              0
+              "0"
             ],
             "title": "val",
             "format": "int64"
@@ -2137,8 +2163,8 @@
             "title": "val",
             "format": "int64",
             "enum": [
-              2,
-              3
+              "2",
+              "3"
             ]
           }
         },
@@ -2149,6 +2175,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
             "format": "int64"
@@ -2203,7 +2230,7 @@
             "not": {
               "type": "string",
               "enum": [
-                0
+                "0"
               ]
             },
             "title": "val",
@@ -2257,7 +2284,7 @@
           "val": {
             "type": "integer",
             "examples": [
-              "0"
+              0
             ],
             "title": "val"
           }
@@ -2335,8 +2362,8 @@
             "type": "integer",
             "title": "val",
             "enum": [
-              "2",
-              "3"
+              2,
+              3
             ]
           }
         },
@@ -2347,6 +2374,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "integer",
             "title": "val"
           }
@@ -2397,7 +2425,7 @@
             "not": {
               "type": "integer",
               "enum": [
-                "0"
+                0
               ]
             },
             "title": "val"
@@ -2413,7 +2441,7 @@
             "type": "string",
             "title": "val",
             "format": "int64",
-            "const": 1
+            "const": "1"
           }
         },
         "title": "UInt64Const",
@@ -2550,6 +2578,7 @@
         "type": "object",
         "properties": {
           "val": {
+            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
             "format": "int64"

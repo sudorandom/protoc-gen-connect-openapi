@@ -288,6 +288,10 @@ components:
           items:
             type: number
             format: float
+            enum:
+              - 1
+              - 2
+              - 3
           title: float_in
         floatNotIn:
           type: array
@@ -296,9 +300,9 @@ components:
             not:
               type: number
               enum:
-                - "1"
-                - "2"
-                - "3"
+                - 1
+                - 2
+                - 3
             format: float
           title: float_not_in
         floatFinite:
@@ -310,24 +314,30 @@ components:
               float.finite = true
           title: float_finite
         floatLt:
+          exclusiveMaximum: 42
           type: number
           title: float_lt
           format: float
         floatLte:
           type: number
           title: float_lte
+          maximum: 420
           format: float
         floatGt:
+          exclusiveMinimum: 6.900000095367432
           type: number
           title: float_gt
           format: float
         floatGte:
           type: number
           title: float_gte
+          minimum: 69
           format: float
         floatBounds:
+          exclusiveMaximum: 10
           type: number
           title: float_bounds
+          minimum: 5
           format: float
         doubleConst:
           type: number
@@ -341,9 +351,9 @@ components:
             type: number
             format: double
             enum:
-              - "1"
-              - "2"
-              - "3"
+              - 1
+              - 2
+              - 3
           title: double_in
         doubleNotIn:
           type: array
@@ -352,9 +362,9 @@ components:
             not:
               type: number
               enum:
-                - "1"
-                - "2"
-                - "3"
+                - 1
+                - 2
+                - 3
             format: double
           title: double_not_in
         doubleFinite:
@@ -450,16 +460,16 @@ components:
           title: int64_const
           format: int64
           description: int64
-          const: 42
+          const: "42"
         int64In:
           type: array
           items:
             type: string
             format: int64
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
           title: int64_in
         int64NotIn:
           type: array
@@ -468,9 +478,9 @@ components:
             not:
               type: string
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             format: int64
           title: int64_not_in
         int64Lt:
@@ -509,9 +519,9 @@ components:
           items:
             type: integer
             enum:
-              - "1"
-              - "2"
-              - "3"
+              - 1
+              - 2
+              - 3
           title: uint32_in
         uint32NotIn:
           type: array
@@ -520,9 +530,9 @@ components:
             not:
               type: integer
               enum:
-                - "1"
-                - "2"
-                - "3"
+                - 1
+                - 2
+                - 3
           title: uint32_not_in
         uint32Lt:
           exclusiveMaximum: 42
@@ -550,7 +560,7 @@ components:
           title: uint64_const
           format: int64
           description: uint64
-          const: 42
+          const: "42"
         uint64In:
           type: array
           items:
@@ -658,16 +668,16 @@ components:
           title: sint64_const
           format: int64
           description: sint64
-          const: 42
+          const: "42"
         sint64In:
           type: array
           items:
             type: string
             format: int64
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
           title: sint64_in
         sint64NotIn:
           type: array
@@ -676,9 +686,9 @@ components:
             not:
               type: string
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             format: int64
           title: sint64_not_in
         sint64Lt:
@@ -717,9 +727,9 @@ components:
           items:
             type: integer
             enum:
-              - "1"
-              - "2"
-              - "3"
+              - 1
+              - 2
+              - 3
           title: fixed32_in
         fixed32NotIn:
           type: array
@@ -728,9 +738,9 @@ components:
             not:
               type: integer
               enum:
-                - "1"
-                - "2"
-                - "3"
+                - 1
+                - 2
+                - 3
           title: fixed32_not_in
         fixed32Lt:
           exclusiveMaximum: 42
@@ -758,7 +768,7 @@ components:
           title: fixed64_const
           format: int64
           description: fixed64
-          const: 42
+          const: "42"
         fixed64In:
           type: array
           items:
@@ -866,16 +876,16 @@ components:
           title: sfixed64_const
           format: int64
           description: sfixed64
-          const: 42
+          const: "42"
         sfixed64In:
           type: array
           items:
             type: string
             format: int64
             enum:
-              - 1
-              - 2
-              - 3
+              - "1"
+              - "2"
+              - "3"
           title: sfixed64_in
         sfixed64NotIn:
           type: array
@@ -884,9 +894,9 @@ components:
             not:
               type: string
               enum:
-                - 1
-                - 2
-                - 3
+                - "1"
+                - "2"
+                - "3"
             format: int64
           title: sfixed64_not_in
         sfixed64Lt:

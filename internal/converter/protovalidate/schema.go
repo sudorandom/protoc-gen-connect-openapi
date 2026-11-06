@@ -2,6 +2,7 @@ package protovalidate
 
 import (
 	"log/slog"
+	"math"
 	"slices"
 	"strconv"
 	"strings"
@@ -296,6 +297,21 @@ func appendRuleDescription(schema *base.Schema, ruleID, value string) {
 	schema.Description = b.String()
 }
 
+// floatNode renders a float or double the way protojson does: finite values
+// are JSON numbers, while NaN and the infinities are the strings "NaN",
+// "Infinity" and "-Infinity".
+func floatNode(value float64, bitSize int) *yaml.Node {
+	switch {
+	case math.IsNaN(value):
+		return utils.CreateStringNode("NaN")
+	case math.IsInf(value, 1):
+		return utils.CreateStringNode("Infinity")
+	case math.IsInf(value, -1):
+		return utils.CreateStringNode("-Infinity")
+	}
+	return utils.CreateFloatNode(strconv.FormatFloat(value, 'f', -1, bitSize))
+}
+
 func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *validate.FloatRules) {
 	defer func() {
 		constraint.Const = nil
@@ -307,40 +323,40 @@ func updateSchemaFloat(opts options.Options, schema *base.Schema, constraint *va
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateFloatNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 32))
-		switch tt := constraint.LessThan.(type) {
-		case *validate.FloatRules_Lt:
-			v := float64(tt.Lt)
-			schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
-		case *validate.FloatRules_Lte:
-			v := float64(tt.Lte)
-			schema.Maximum = &v
+		schema.Const = floatNode(float64(*constraint.Const), 32)
+	}
+	switch tt := constraint.LessThan.(type) {
+	case *validate.FloatRules_Lt:
+		v := float64(tt.Lt)
+		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+	case *validate.FloatRules_Lte:
+		v := float64(tt.Lte)
+		schema.Maximum = &v
+	}
+	switch tt := constraint.GreaterThan.(type) {
+	case *validate.FloatRules_Gt:
+		v := float64(tt.Gt)
+		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+	case *validate.FloatRules_Gte:
+		v := float64(tt.Gte)
+		schema.Minimum = &v
+	}
+	if len(constraint.In) > 0 {
+		items := make([]*yaml.Node, len(constraint.In))
+		for i, item := range constraint.In {
+			items[i] = floatNode(float64(item), 32)
 		}
-		switch tt := constraint.GreaterThan.(type) {
-		case *validate.FloatRules_Gt:
-			v := float64(tt.Gt)
-			schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
-		case *validate.FloatRules_Gte:
-			v := float64(tt.Gte)
-			schema.Minimum = &v
-		}
-		if len(constraint.In) > 0 {
-			items := make([]*yaml.Node, len(constraint.In))
-			for i, item := range constraint.In {
-				items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
-			}
-			schema.Enum = items
-		}
+		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 32))
+			items[i] = floatNode(float64(item), 32)
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 32)))
+		schema.Examples = append(schema.Examples, floatNode(float64(item), 32))
 	}
 }
 
@@ -355,7 +371,7 @@ func updateSchemaDouble(opts options.Options, schema *base.Schema, constraint *v
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateFloatNode(strconv.FormatFloat(float64(*constraint.Const), 'f', -1, 64))
+		schema.Const = floatNode(float64(*constraint.Const), 64)
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DoubleRules_Lt:
@@ -376,19 +392,19 @@ func updateSchemaDouble(opts options.Options, schema *base.Schema, constraint *v
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
+			items[i] = floatNode(float64(item), 64)
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64))
+			items[i] = floatNode(float64(item), 64)
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatFloat(float64(item), 'f', -1, 64)))
+		schema.Examples = append(schema.Examples, floatNode(float64(item), 64))
 	}
 }
 
@@ -451,7 +467,7 @@ func updateSchemaInt64(opts options.Options, schema *base.Schema, constraint *va
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateIntNode(strconv.FormatInt(int64(*constraint.Const), 10))
+		schema.Const = utils.CreateStringNode(strconv.FormatInt(int64(*constraint.Const), 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int64Rules_Lt:
@@ -472,19 +488,19 @@ func updateSchemaInt64(opts options.Options, schema *base.Schema, constraint *va
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
+			items[i] = utils.CreateStringNode(strconv.FormatInt(item, 10))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
+			items[i] = utils.CreateStringNode(strconv.FormatInt(item, 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(item, 10)))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatInt(item, 10)))
 	}
 }
 
@@ -520,19 +536,19 @@ func updateSchemaUint32(opts options.Options, schema *base.Schema, constraint *v
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
+			items[i] = utils.CreateIntNode(strconv.FormatUint(uint64(item), 10))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
+			items[i] = utils.CreateIntNode(strconv.FormatUint(uint64(item), 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatUint(uint64(item), 10)))
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatUint(uint64(item), 10)))
 	}
 }
 
@@ -547,7 +563,7 @@ func updateSchemaUint64(opts options.Options, schema *base.Schema, constraint *v
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateIntNode(strconv.FormatUint(uint64(*constraint.Const), 10))
+		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
@@ -643,7 +659,7 @@ func updateSchemaSint64(opts options.Options, schema *base.Schema, constraint *v
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateIntNode(strconv.FormatInt(*constraint.Const, 10))
+		schema.Const = utils.CreateStringNode(strconv.FormatInt(*constraint.Const, 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt64Rules_Lt:
@@ -664,19 +680,19 @@ func updateSchemaSint64(opts options.Options, schema *base.Schema, constraint *v
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
+			items[i] = utils.CreateStringNode(strconv.FormatInt(item, 10))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
+			items[i] = utils.CreateStringNode(strconv.FormatInt(item, 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(item, 10)))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatInt(item, 10)))
 	}
 }
 
@@ -712,19 +728,19 @@ func updateSchemaFixed32(opts options.Options, schema *base.Schema, constraint *
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
+			items[i] = utils.CreateIntNode(strconv.FormatUint(uint64(item), 10))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(strconv.FormatUint(uint64(item), 10))
+			items[i] = utils.CreateIntNode(strconv.FormatUint(uint64(item), 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatUint(uint64(item), 10)))
+		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatUint(uint64(item), 10)))
 	}
 }
 
@@ -739,7 +755,7 @@ func updateSchemaFixed64(opts options.Options, schema *base.Schema, constraint *
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateIntNode(strconv.FormatUint(*constraint.Const, 10))
+		schema.Const = utils.CreateStringNode(strconv.FormatUint(*constraint.Const, 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
@@ -835,7 +851,7 @@ func updateSchemaSfixed64(opts options.Options, schema *base.Schema, constraint 
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateIntNode(strconv.FormatInt(*constraint.Const, 10))
+		schema.Const = utils.CreateStringNode(strconv.FormatInt(*constraint.Const, 10))
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed64Rules_Lt:
@@ -856,19 +872,19 @@ func updateSchemaSfixed64(opts options.Options, schema *base.Schema, constraint 
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
+			items[i] = utils.CreateStringNode(strconv.FormatInt(item, 10))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateIntNode(strconv.FormatInt(item, 10))
+			items[i] = utils.CreateStringNode(strconv.FormatInt(item, 10))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateIntNode(strconv.FormatInt(item, 10)))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(strconv.FormatInt(item, 10)))
 	}
 }
 
