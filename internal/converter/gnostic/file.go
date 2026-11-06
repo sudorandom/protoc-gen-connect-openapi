@@ -22,15 +22,17 @@ func SpecWithFileAnnotations(opts options.Options, spec *highv3.Document, fd pro
 	if !ok {
 		return
 	}
-	if gnosticDocument.Openapi != "" {
-		spec.Info.Version = gnosticDocument.Openapi
-	}
+	// gnosticDocument.Openapi is the OpenAPI spec version, which this plugin
+	// controls; it isn't the API's version, so it's not copied anywhere.
 
-	if gnosticDocument.Info != nil {
-		spec.Info.Title = gnosticDocument.Info.Title
-		spec.Info.Summary = gnosticDocument.Info.Summary
-		spec.Info.Description = gnosticDocument.Info.Description
-		spec.Info.TermsOfService = gnosticDocument.Info.TermsOfService
+	// Only fields the annotation sets replace the defaults: proto3 strings
+	// can't tell an empty value from an unset one.
+	if info := gnosticDocument.Info; info != nil {
+		setIfNotEmpty(&spec.Info.Title, info.Title)
+		setIfNotEmpty(&spec.Info.Summary, info.Summary)
+		setIfNotEmpty(&spec.Info.Description, info.Description)
+		setIfNotEmpty(&spec.Info.TermsOfService, info.TermsOfService)
+		setIfNotEmpty(&spec.Info.Version, info.Version)
 		if gnosticDocument.Info.Contact != nil {
 			spec.Info.Contact = &highbase.Contact{
 				Name:  gnosticDocument.Info.Contact.Name,
@@ -44,7 +46,6 @@ func SpecWithFileAnnotations(opts options.Options, spec *highv3.Document, fd pro
 				URL:  gnosticDocument.Info.License.Url,
 			}
 		}
-		spec.Info.Version = gnosticDocument.Info.Version
 	}
 	spec.Servers = append(spec.Servers, toServers(gnosticDocument.Servers)...)
 	spec.Security = append(spec.Security, toSecurityRequirements(gnosticDocument.Security)...)
@@ -83,4 +84,10 @@ func SpecWithFileAnnotations(opts options.Options, spec *highv3.Document, fd pro
 		}
 	}
 	appendComponents(opts, spec, gnosticDocument.Components)
+}
+
+func setIfNotEmpty(target *string, value string) {
+	if value != "" {
+		*target = value
+	}
 }

@@ -14,7 +14,7 @@
         "operationId": "twirp.Haberdasher.MakeHat",
         "requestBody": {
           "content": {
-            "json": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/twirp.Size"
               }
@@ -25,7 +25,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "json": {
+              "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/twirp.Hat"
                 }
@@ -76,6 +76,12 @@
           },
           "msg": {
             "type": "string"
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         }
       },

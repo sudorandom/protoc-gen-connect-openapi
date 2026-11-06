@@ -15,6 +15,12 @@ service VisibilityService {
   rpc ListMessages(ListMessagesRequest) returns (Message) {
     option (google.api.http) = {get: "/v1/messages"};
   }
+
+  // The method is visible but its response type isn't, so the method is
+  // hidden as well rather than referencing a schema that isn't emitted.
+  rpc GetExternalThing(GetMessageRequest) returns (ExternalThing) {
+    option (google.api.http) = {get: "/v1/external-things"};
+  }
 }
 
 service ExternalService {
@@ -59,4 +65,15 @@ message Message {
   string another_public_field = 4;
   // Field with comma-separated multi-restriction: visible to INTERNAL or EXTERNAL.
   string multi_restricted_field = 5 [(google.api.field_visibility).restriction = "INTERNAL,EXTERNAL"];
+  // Hidden field: with trim-unused-types its type must not be emitted.
+  ExternalDetail external_detail = 6 [(google.api.field_visibility).restriction = "EXTERNAL"];
+}
+
+message ExternalDetail {
+  string secret = 1;
+}
+
+message ExternalThing {
+  option (google.api.message_visibility).restriction = "EXTERNAL";
+  string name = 1;
 }

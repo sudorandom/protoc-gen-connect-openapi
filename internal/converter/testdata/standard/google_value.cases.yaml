@@ -13,7 +13,7 @@ cases:
       Content-Type: application/json
       Connect-Protocol-Version: 1
     errors:
-      - ".*Reason: got object, want string.*"
+      - ".*Reason: got object, want null or string.*"
 
   - name: "with struct"
     path: "samples.Test/WithGoogleValueMessage"
@@ -51,3 +51,10 @@ cases:
     method: GET
     path: "/list-value"
     query: "items=kevin&items=36"
+
+  - name: "healthcheck with null"
+    path: "samples.Test/HealthCheck"
+    body: 'null'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1

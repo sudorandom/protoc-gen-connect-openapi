@@ -1,0 +1,657 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "io.swagger.petstore.v2",
+    "description": "## io.swagger.petstore.v2.PetService",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/pet": {
+      "put": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "UpdatePet",
+        "operationId": "io.swagger.petstore.v2.PetService.UpdatePet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "AddPet",
+        "operationId": "io.swagger.petstore.v2.PetService.AddPet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pet/findByStatus": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "FindPetsByStatus",
+        "operationId": "io.swagger.petstore.v2.PetService.FindPetsByStatus",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "status"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                  },
+                  "title": "pets"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pet/findByTags": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "FindPetsByTag",
+        "operationId": "io.swagger.petstore.v2.PetService.FindPetsByTag",
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "tag"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                  },
+                  "title": "pets"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/pet/{petId}": {
+      "get": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "GetPetByID",
+        "operationId": "io.swagger.petstore.v2.PetService.GetPetByID",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "pet_id",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "UpdatePetWithForm",
+        "operationId": "io.swagger.petstore.v2.PetService.UpdatePetWithForm",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "pet_id",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "name"
+                  },
+                  "status": {
+                    "type": "string",
+                    "title": "status"
+                  }
+                },
+                "title": "UpdatePetWithFormReq",
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "DeletePet",
+        "operationId": "io.swagger.petstore.v2.PetService.DeletePet",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "pet_id",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.protobuf.Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pet/{petId}/uploadImage": {
+      "post": {
+        "tags": [
+          "io.swagger.petstore.v2.PetService"
+        ],
+        "summary": "UploadFile",
+        "operationId": "io.swagger.petstore.v2.PetService.UploadFile",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "pet_id",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "additionalMetadata": {
+                    "type": "string",
+                    "title": "additional_metadata"
+                  },
+                  "file": {
+                    "type": "string",
+                    "title": "file"
+                  }
+                },
+                "title": "UploadFileReq",
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/io.swagger.petstore.v2.ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "description": "A URL/resource name that uniquely identifies the type of the serialized message."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      },
+      "google.protobuf.Empty": {
+        "type": "object",
+        "description": "An empty JSON object."
+      },
+      "google.rpc.Status": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The status code, which should be an enum value of google.rpc.Code."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Any"
+            },
+            "description": "A list of messages that carry the error details."
+          }
+        },
+        "description": "The Status type defines a logical error model suitable for gRPC and REST APIs."
+      },
+      "io.swagger.petstore.v2.ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "title": "code",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "title": "type"
+          },
+          "message": {
+            "type": "string",
+            "title": "message"
+          }
+        },
+        "title": "ApiResponse",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "Category",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "format": "int64"
+          },
+          "category": {
+            "title": "category",
+            "$ref": "#/components/schemas/io.swagger.petstore.v2.Category"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "photo_urls"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/io.swagger.petstore.v2.Tag"
+            },
+            "title": "tags"
+          },
+          "status": {
+            "type": "string",
+            "title": "status"
+          }
+        },
+        "title": "Pet",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.PetBody": {
+        "type": "object",
+        "properties": {
+          "petId": {
+            "type": "string",
+            "title": "pet_id",
+            "format": "int64"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          }
+        },
+        "title": "PetBody",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.PetID": {
+        "type": "object",
+        "properties": {
+          "petId": {
+            "type": "string",
+            "title": "pet_id",
+            "format": "int64"
+          }
+        },
+        "title": "PetID",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.Pets": {
+        "type": "object",
+        "properties": {
+          "pets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/io.swagger.petstore.v2.Pet"
+            },
+            "title": "pets"
+          }
+        },
+        "title": "Pets",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.Status": {
+        "type": "string",
+        "title": "Status",
+        "enum": [
+          "unknown",
+          "available",
+          "pending",
+          "sold"
+        ],
+        "description": "These do not use standard naming practices in order to match\n the JSON format of the Pet Store Open API schema, which uses\n lower-case names for these constants."
+      },
+      "io.swagger.petstore.v2.StatusReq": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "status"
+          }
+        },
+        "title": "StatusReq",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "Tag",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.TagReq": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "tag"
+          }
+        },
+        "title": "TagReq",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.UpdatePetWithFormReq": {
+        "type": "object",
+        "properties": {
+          "petId": {
+            "type": "string",
+            "title": "pet_id",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "status": {
+            "type": "string",
+            "title": "status"
+          }
+        },
+        "title": "UpdatePetWithFormReq",
+        "additionalProperties": false
+      },
+      "io.swagger.petstore.v2.UploadFileReq": {
+        "type": "object",
+        "properties": {
+          "petId": {
+            "type": "string",
+            "title": "pet_id",
+            "format": "int64"
+          },
+          "additionalMetadata": {
+            "type": "string",
+            "title": "additional_metadata"
+          },
+          "file": {
+            "type": "string",
+            "title": "file"
+          }
+        },
+        "title": "UploadFileReq",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "io.swagger.petstore.v2.PetService"
+    }
+  ]
+}

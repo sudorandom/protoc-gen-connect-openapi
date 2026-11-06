@@ -228,6 +228,7 @@ components:
       oneOf:
         - type: string
         - type: number
+        - type: "null"
       description: A signed 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`.
     google.protobuf.ListValue:
       type: array
@@ -235,17 +236,13 @@ components:
         $ref: '#/components/schemas/google.protobuf.Value'
       description: A JSON array whose elements may be any JSON value.
     google.protobuf.NullValue:
-      type: string
+      type: "null"
       title: NullValue
-      enum:
-        - NULL_VALUE
-      description: |-
-        `NullValue` is a singleton enumeration to represent the null value for the
-         `Value` type union.
-
-         The JSON representation for `NullValue` is JSON `null`.
+      description: The JSON `null` value.
     google.protobuf.StringValue:
-      type: string
+      type:
+        - string
+        - "null"
       description: A string value; `null` is also accepted.
     google.protobuf.Struct:
       type: object

@@ -123,12 +123,14 @@ paths:
           description: How long to wait for events before giving up.
           schema:
             type: string
-            format: duration
+            pattern: ^-?[0-9]+(\.[0-9]{1,9})?s$
         - name: label
           in: query
           description: Only return events with this label.
           schema:
-            type: string
+            type:
+              - string
+              - "null"
       responses:
         default:
           description: An unexpected error response.
@@ -154,7 +156,7 @@ components:
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     google.protobuf.Duration:
       type: string
-      format: duration
+      pattern: ^-?[0-9]+(\.[0-9]{1,9})?s$
       description: |-
         A Duration represents a signed, fixed-length span of time represented
          as a count of seconds and fractions of seconds at nanosecond
@@ -215,7 +217,9 @@ components:
          be expressed in JSON format as "3.000000001s", and 3 seconds and 1
          microsecond should be expressed in JSON format as "3.000001s".
     google.protobuf.StringValue:
-      type: string
+      type:
+        - string
+        - "null"
       description: |-
         Wrapper message for `string`.
 

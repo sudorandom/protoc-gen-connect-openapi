@@ -1,0 +1,57 @@
+asyncapi: 3.1.0
+info:
+    title: ContentTypeService WebSockets
+    version: 1.0.0
+    description: |-
+        Generated with content-types=json;proto and allow-get, without
+         with-streaming.
+channels:
+    ContentTypeServiceWatchChannel:
+        address: /ws/connect_content_types.ContentTypeService/Watch
+        messages:
+            LookupRequest:
+                name: LookupRequest
+                payload:
+                    $ref: '#/components/schemas/connect_content_types.LookupRequest'
+                title: LookupRequest
+            LookupResponse:
+                name: LookupResponse
+                payload:
+                    $ref: '#/components/schemas/connect_content_types.LookupResponse'
+                title: LookupResponse
+        description: Without with-streaming this method gets no path at all.
+operations:
+    ContentTypeServiceWatchReceive:
+        action: receive
+        channel:
+            $ref: '#/channels/ContentTypeServiceWatchChannel'
+        messages:
+            - $ref: '#/channels/ContentTypeServiceWatchChannel/messages/LookupResponse'
+        summary: 'Receive: Watch'
+        description: Without with-streaming this method gets no path at all.
+    ContentTypeServiceWatchSend:
+        action: send
+        channel:
+            $ref: '#/channels/ContentTypeServiceWatchChannel'
+        messages:
+            - $ref: '#/channels/ContentTypeServiceWatchChannel/messages/LookupRequest'
+        summary: 'Send: Watch'
+        description: Without with-streaming this method gets no path at all.
+components:
+    schemas:
+        connect_content_types.LookupRequest:
+            additionalProperties: false
+            properties:
+                key:
+                    title: key
+                    type: string
+            title: LookupRequest
+            type: object
+        connect_content_types.LookupResponse:
+            additionalProperties: false
+            properties:
+                value:
+                    title: value
+                    type: string
+            title: LookupResponse
+            type: object

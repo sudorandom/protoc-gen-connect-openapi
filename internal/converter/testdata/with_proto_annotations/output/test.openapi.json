@@ -9,12 +9,18 @@
   "components": {
     "schemas": {
       "google.protobuf.BoolValue": {
-        "type": "boolean",
+        "type": [
+          "boolean",
+          "null"
+        ],
         "description": "A boolean value; `null` is also accepted."
       },
       "google.protobuf.BytesValue": {
-        "type": "string",
-        "format": "binary",
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "byte",
         "description": "A base64-encoded byte string; `null` is also accepted."
       },
       "google.protobuf.DoubleValue": {
@@ -24,13 +30,16 @@
           },
           {
             "type": "number"
+          },
+          {
+            "type": "null"
           }
         ],
         "description": "A double-precision number. The non-finite values `NaN`, `Infinity`, and `-Infinity` are encoded as strings; `null` is also accepted."
       },
       "google.protobuf.Duration": {
         "type": "string",
-        "format": "duration",
+        "pattern": "^-?[0-9]+(\\.[0-9]{1,9})?s$",
         "description": "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`)."
       },
       "google.protobuf.FieldMask": {
@@ -44,12 +53,18 @@
           },
           {
             "type": "number"
+          },
+          {
+            "type": "null"
           }
         ],
         "description": "A single-precision number. The non-finite values `NaN`, `Infinity`, and `-Infinity` are encoded as strings; `null` is also accepted."
       },
       "google.protobuf.Int32Value": {
-        "type": "number",
+        "type": [
+          "integer",
+          "null"
+        ],
         "description": "A signed 32-bit integer; `null` is also accepted."
       },
       "google.protobuf.Int64Value": {
@@ -59,6 +74,9 @@
           },
           {
             "type": "number"
+          },
+          {
+            "type": "null"
           }
         ],
         "description": "A signed 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`."
@@ -71,15 +89,15 @@
         "description": "A JSON array whose elements may be any JSON value."
       },
       "google.protobuf.NullValue": {
-        "type": "string",
+        "type": "null",
         "title": "NullValue",
-        "enum": [
-          "NULL_VALUE"
-        ],
-        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
+        "description": "The JSON `null` value."
       },
       "google.protobuf.StringValue": {
-        "type": "string",
+        "type": [
+          "string",
+          "null"
+        ],
         "description": "A string value; `null` is also accepted."
       },
       "google.protobuf.Struct": {
@@ -99,7 +117,10 @@
         "description": "A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC."
       },
       "google.protobuf.UInt32Value": {
-        "type": "number",
+        "type": [
+          "integer",
+          "null"
+        ],
         "description": "An unsigned 32-bit integer; `null` is also accepted."
       },
       "google.protobuf.UInt64Value": {
@@ -109,6 +130,9 @@
           },
           {
             "type": "number"
+          },
+          {
+            "type": "null"
           }
         ],
         "description": "An unsigned 64-bit integer encoded as a decimal string. Input may also be a JSON number or `null`."

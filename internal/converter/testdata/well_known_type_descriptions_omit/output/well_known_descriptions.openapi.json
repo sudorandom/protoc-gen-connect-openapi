@@ -45,7 +45,7 @@
             "description": "How long to wait for events before giving up.",
             "schema": {
               "type": "string",
-              "format": "duration"
+              "pattern": "^-?[0-9]+(\\.[0-9]{1,9})?s$"
             }
           },
           {
@@ -53,7 +53,10 @@
             "in": "query",
             "description": "Only return events with this label.",
             "schema": {
-              "type": "string"
+              "type": [
+                "string",
+                "null"
+              ]
             }
           }
         ],
@@ -97,10 +100,13 @@
       },
       "google.protobuf.Duration": {
         "type": "string",
-        "format": "duration"
+        "pattern": "^-?[0-9]+(\\.[0-9]{1,9})?s$"
       },
       "google.protobuf.StringValue": {
-        "type": "string"
+        "type": [
+          "string",
+          "null"
+        ]
       },
       "google.protobuf.Timestamp": {
         "type": "string",

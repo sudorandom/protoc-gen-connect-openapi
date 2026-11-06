@@ -3,11 +3,10 @@ syntax = "proto3";
 package twirp_only.twirp_and_others;
 
 import "buf/validate/validate.proto";
-import "google/api/annotations.proto";
 import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
 
 option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/twirp_and_others";
-
 option (gnostic.openapi.v3.document) = {
   info: {
     title: "Twirp Haberdasher API"
@@ -28,6 +27,9 @@ service Haberdasher {
       tags: ["Hats"]
     };
   }
+
+  // Twirp has no streaming support, so this method gets no Twirp path.
+  rpc WatchHats(Size) returns (stream Hat);
 }
 
 message Size {

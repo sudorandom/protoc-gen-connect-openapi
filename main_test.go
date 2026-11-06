@@ -2,8 +2,7 @@ package main
 
 import (
 	"bytes"
-	"io"
-	"os"
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -24,12 +23,6 @@ func TestVersionInfo(t *testing.T) {
 }
 
 func TestRenderResponse(t *testing.T) {
-	// Capture stdout
-	oldStdout := os.Stdout
-	r, w, err := os.Pipe()
-	require.NoError(t, err)
-	os.Stdout = w
-
 	resp := &pluginpb.CodeGeneratorResponse{
 		File: []*pluginpb.CodeGeneratorResponse_File{
 			{
@@ -39,18 +32,36 @@ func TestRenderResponse(t *testing.T) {
 		},
 	}
 
-	renderResponse(resp)
-	require.NoError(t, w.Close())
-	os.Stdout = oldStdout
-
 	var buf bytes.Buffer
-	_, err = io.Copy(&buf, r)
-	require.NoError(t, err)
+	require.NoError(t, renderResponse(&buf, resp))
 
 	outResp := &pluginpb.CodeGeneratorResponse{}
-	err = proto.Unmarshal(buf.Bytes(), outResp)
-	require.NoError(t, err)
+	require.NoError(t, proto.Unmarshal(buf.Bytes(), outResp))
 	require.Len(t, outResp.File, 1)
 	assert.Equal(t, "test.yaml", outResp.File[0].GetName())
 	assert.Equal(t, "openapi: 3.1.0", outResp.File[0].GetContent())
+}
+
+func TestRunReportsConversionErrorsInResponse(t *testing.T) {
+	req, err := proto.Marshal(&pluginpb.CodeGeneratorRequest{
+		Parameter: proto.String("not-a-real-option"),
+	})
+	require.NoError(t, err)
+
+	var buf bytes.Buffer
+	require.NoError(t, run(bytes.NewReader(req), &buf))
+
+	outResp := &pluginpb.CodeGeneratorResponse{}
+	require.NoError(t, proto.Unmarshal(buf.Bytes(), outResp))
+	assert.Contains(t, outResp.GetError(), "not-a-real-option")
+}
+
+type failingWriter struct{}
+
+func (failingWriter) Write([]byte) (int, error) { return 0, errors.New("broken pipe") }
+
+func TestRunReturnsWriteErrors(t *testing.T) {
+	req, err := proto.Marshal(&pluginpb.CodeGeneratorRequest{})
+	require.NoError(t, err)
+	assert.Error(t, run(bytes.NewReader(req), failingWriter{}))
 }

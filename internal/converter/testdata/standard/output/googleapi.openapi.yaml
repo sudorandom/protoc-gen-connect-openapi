@@ -81,7 +81,9 @@ paths:
           in: query
           description: A string value; `null` is also accepted.
           schema:
-            type: string
+            type:
+              - string
+              - "null"
       responses:
         default:
           description: An unexpected error response.
@@ -127,11 +129,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: propertyInPath
-          in: query
-          schema:
-            type: string
-            title: property_in_path
         - name: propertyInQuery
           in: query
           schema:
@@ -214,6 +211,11 @@ paths:
           schema:
             type: string
             title: property_in_path
+        - name: parentMsg.propertyInQuery
+          in: query
+          schema:
+            type: string
+            title: property_in_query
         - name: propertyInQueryOk
           in: query
           schema:
@@ -315,7 +317,9 @@ components:
       type: string
       description: Comma-separated field paths in lowerCamelCase (for example, `user.displayName,photo`).
     google.protobuf.StringValue:
-      type: string
+      type:
+        - string
+        - "null"
       description: A string value; `null` is also accepted.
     google.protobuf.Timestamp:
       type: string

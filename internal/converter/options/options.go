@@ -158,7 +158,22 @@ type Options struct {
 	Logger *slog.Logger
 }
 
+// FeatureEnabled reports whether a feature is on. only-googleapi-http and
+// ignore-googleapi-http are applied here, rather than when parsing, so they
+// take effect however the options were built (plugin parameters or the Go
+// API).
 func (opts Options) FeatureEnabled(feature Feature) bool {
+	if opts.OnlyGoogleapiHTTP {
+		switch feature {
+		case FeatureConnectRPC, FeatureTwirp:
+			return false
+		case FeatureGoogleAPIHTTP:
+			return true
+		}
+	}
+	if opts.IgnoreGoogleapiHTTP && feature == FeatureGoogleAPIHTTP {
+		return false
+	}
 	return opts.EnabledFeatures[feature]
 }
 
@@ -358,16 +373,6 @@ func FromString(s string) (Options, error) {
 	}
 	if len(contentTypes) > 0 {
 		opts.ContentTypes = contentTypes
-	}
-	if opts.IgnoreGoogleapiHTTP {
-		opts.Logger.Debug("Ignoring google.api.http")
-		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = false
-	}
-	if opts.OnlyGoogleapiHTTP {
-		opts.Logger.Debug("Only google.api.http enabled")
-		opts.EnabledFeatures[FeatureConnectRPC] = false
-		opts.EnabledFeatures[FeatureTwirp] = false
-		opts.EnabledFeatures[FeatureGoogleAPIHTTP] = true
 	}
 	opts.Logger.Debug("Enabled features before final check", "features", opts.EnabledFeatures)
 	hasProtocolFeature := opts.FeatureEnabled(FeatureConnectRPC) || opts.FeatureEnabled(FeatureGoogleAPIHTTP) || opts.FeatureEnabled(FeatureTwirp)

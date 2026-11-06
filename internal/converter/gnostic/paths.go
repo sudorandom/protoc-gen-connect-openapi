@@ -1,6 +1,8 @@
 package gnostic
 
 import (
+	"strings"
+
 	goa3 "github.com/google/gnostic/openapiv3"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
@@ -21,20 +23,18 @@ func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md p
 	}
 	operations := item.GetOperations()
 	for kv := operations.First(); kv != nil; kv = kv.Next() {
-		oper := kv.Value()
+		method, oper := kv.Key(), kv.Value()
 		if gnosticOperation.Deprecated {
 			t := true
 			oper.Deprecated = &t
 		}
 
-		newParams := make([]*v3.Parameter, 0, len(gnosticOperation.Parameters))
-		for _, param := range gnosticOperation.Parameters {
-			newParams = append(newParams, toParameter(opts, param))
-		}
-		oper.Parameters = util.MergeParameters(oper.Parameters, newParams)
+		oper.Parameters = util.MergeParameters(oper.Parameters, toParameters(opts, gnosticOperation.Parameters))
 
-		if gnosticOperation.RequestBody != nil {
-			oper.RequestBody = toRequestBody(opts, gnosticOperation.RequestBody.GetRequestBody())
+		// GET and HEAD carry no body; for allow-get the request goes in the
+		// query string, so a request body only belongs on the other methods.
+		if gnosticOperation.RequestBody != nil && method != "get" && method != "head" {
+			oper.RequestBody = toRequestBody(opts, gnosticOperation.RequestBody)
 		}
 
 		if gnosticOperation.Responses != nil {
@@ -77,8 +77,15 @@ func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md p
 			oper.ExternalDocs = exDocs
 		}
 
+		// One method can produce several operations (allow-get's ".get",
+		// numbered additional bindings) whose IDs extend the default one. Keep
+		// those suffixes so the custom ID doesn't collide with itself.
 		if gnosticOperation.OperationId != "" {
-			oper.OperationId = gnosticOperation.OperationId
+			if suffix, ok := strings.CutPrefix(oper.OperationId, util.DefaultOperationID(opts, md)); ok {
+				oper.OperationId = gnosticOperation.OperationId + suffix
+			} else {
+				oper.OperationId = gnosticOperation.OperationId
+			}
 		}
 
 		if gnosticOperation.SpecificationExtension != nil {

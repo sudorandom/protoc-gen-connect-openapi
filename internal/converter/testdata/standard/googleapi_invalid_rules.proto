@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package googleapi_invalid_rules;
+
+import "google/api/annotations.proto";
+
+// Methods whose google.api.http rule can't be used fall back to their
+// Connect route instead of disappearing from the output.
+service InvalidRuleService {
+  rpc MissingBodyField(Request) returns (Request) {
+    option (google.api.http) = {
+      post: "/v1/things"
+      body: "does_not_exist"
+    };
+  }
+
+  rpc EmptyPattern(Request) returns (Request) {
+    option (google.api.http) = {get: ""};
+  }
+}
+
+message Request {
+  string name = 1;
+}

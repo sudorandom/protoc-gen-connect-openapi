@@ -1,0 +1,436 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "standard",
+    "description": "## standard.GnosticReferenceService",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/gnostic-notes": {
+      "post": {
+        "tags": [
+          "standard.GnosticReferenceService"
+        ],
+        "summary": "CreateGnosticNote",
+        "operationId": "createNote",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/traceId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/NoteBody"
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.GnosticNote"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/standard.GnosticReferenceService/GetGnosticNote": {
+      "get": {
+        "tags": [
+          "standard.GnosticReferenceService"
+        ],
+        "summary": "GetGnosticNote",
+        "description": "With allow-get this method has both a POST and a GET operation. The\n request body only applies to POST, and the custom operation ID keeps the\n GET operation's suffix.",
+        "operationId": "fetchNote.get",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "description": "Define the version of the Connect protocol",
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            },
+            "example": 1
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "description": "Define the timeout, in ms",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            },
+            "example": 1000
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "description": "The URL-encoded message query parameter contains the JSON or binary serialized request message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.GnosticNote"
+                }
+              }
+            }
+          },
+          {
+            "name": "encoding",
+            "in": "query",
+            "description": "Define which encoding or 'Message-Codec' to use",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/encoding"
+            },
+            "example": "json"
+          },
+          {
+            "name": "base64",
+            "in": "query",
+            "description": "Specifies if the message query param is base64 encoded, which may be required for binary data",
+            "schema": {
+              "$ref": "#/components/schemas/base64"
+            },
+            "example": false
+          },
+          {
+            "name": "compression",
+            "in": "query",
+            "description": "Which compression algorithm to use for this request",
+            "schema": {
+              "$ref": "#/components/schemas/compression"
+            },
+            "example": "gzip"
+          },
+          {
+            "name": "connect",
+            "in": "query",
+            "description": "Define the version of the Connect protocol",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/connect"
+            },
+            "example": "v1"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.GnosticNote"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "standard.GnosticReferenceService"
+        ],
+        "summary": "GetGnosticNote",
+        "description": "With allow-get this method has both a POST and a GET operation. The\n request body only applies to POST, and the custom operation ID keeps the\n GET operation's suffix.",
+        "operationId": "fetchNote",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "description": "Define the version of the Connect protocol",
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            },
+            "example": 1
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "description": "Define the timeout, in ms",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            },
+            "example": 1000
+          }
+        ],
+        "requestBody": {
+          "description": "The note to look up.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/standard.GnosticNote"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.GnosticNote"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "base64": {
+        "type": "boolean",
+        "examples": [
+          false
+        ],
+        "title": "base64",
+        "description": "Specifies if the message query param is base64 encoded, which may be required for binary data"
+      },
+      "compression": {
+        "examples": [
+          "gzip"
+        ],
+        "title": "compression",
+        "enum": [
+          "identity",
+          "gzip",
+          "br"
+        ],
+        "description": "Which compression algorithm to use for this request"
+      },
+      "connect": {
+        "examples": [
+          "v1"
+        ],
+        "title": "connect",
+        "enum": [
+          "v1"
+        ],
+        "description": "Define the version of the Connect protocol"
+      },
+      "connect-protocol-version": {
+        "type": "number",
+        "examples": [
+          1
+        ],
+        "title": "Connect-Protocol-Version",
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "examples": [
+          1000
+        ],
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "examples": [
+              "not_found"
+            ],
+            "enum": [
+              "canceled",
+              "unknown",
+              "invalid_argument",
+              "deadline_exceeded",
+              "not_found",
+              "already_exists",
+              "permission_denied",
+              "resource_exhausted",
+              "failed_precondition",
+              "aborted",
+              "out_of_range",
+              "unimplemented",
+              "internal",
+              "unavailable",
+              "data_loss",
+              "unauthenticated"
+            ],
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/connect.error_details.Any"
+            },
+            "description": "A list of messages that carry the error details. There is no limit on the number of messages."
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "connect.error_details.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`."
+          },
+          "value": {
+            "type": "string",
+            "format": "byte",
+            "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
+          },
+          "debug": {
+            "type": "object",
+            "title": "Debug",
+            "additionalProperties": true,
+            "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "encoding": {
+        "examples": [
+          "json"
+        ],
+        "title": "encoding",
+        "enum": [
+          "proto",
+          "json"
+        ],
+        "description": "Define which encoding or 'Message-Codec' to use"
+      },
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "description": "A URL/resource name that uniquely identifies the type of the serialized message."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      },
+      "google.rpc.Status": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The status code, which should be an enum value of google.rpc.Code."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Any"
+            },
+            "description": "A list of messages that carry the error details."
+          }
+        },
+        "description": "The Status type defines a logical error model suitable for gRPC and REST APIs."
+      },
+      "standard.GnosticNote": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "priority": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "title": "priority",
+            "format": "int32",
+            "description": "The type override keeps the null that proto3 optional adds.",
+            "default": 5
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "archived",
+            "default": false
+          }
+        },
+        "title": "GnosticNote",
+        "additionalProperties": false
+      }
+    },
+    "parameters": {
+      "traceId": {
+        "name": "X-Trace-Id",
+        "in": "header",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "requestBodies": {
+      "NoteBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/standard.GnosticNote"
+            }
+          }
+        },
+        "required": true
+      }
+    },
+    "securitySchemes": {
+      "implicitNoScopes": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://example.com/oauth/authorize",
+            "scopes": {}
+          }
+        }
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "standard.GnosticReferenceService"
+    }
+  ]
+}

@@ -38,10 +38,15 @@ func AddMessageSchemas(opts options.Options, md protoreflect.MessageDescriptor, 
 		doc.Components.Schemas.Set(name, base.CreateSchemaProxy(schema))
 	}
 
-	// Messages can have fields
+	// Messages can have fields. Fields hidden by visibility aren't in the
+	// schema, so their types aren't pulled in either.
 	fields := md.Fields()
 	for i := 0; i < fields.Len(); i++ {
-		AddFieldToSchema(opts, fields.Get(i), doc)
+		field := fields.Get(i)
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(field), opts.AllowedVisibilities) {
+			continue
+		}
+		AddFieldToSchema(opts, field, doc)
 	}
 
 	// Messages can have enums
@@ -86,6 +91,14 @@ func AddEnumToSchema(opts options.Options, ed protoreflect.EnumDescriptor, doc *
 
 func enumToSchema(opts options.Options, tt protoreflect.EnumDescriptor) (string, *base.Schema) {
 	opts.Logger.Debug("enumToSchema", slog.Any("descriptor", tt.FullName()))
+	// NullValue is an enum in proto, but protojson writes it as JSON null.
+	if tt.FullName() == "google.protobuf.NullValue" {
+		return string(tt.FullName()), &base.Schema{
+			Title:       string(tt.Name()),
+			Description: "The JSON `null` value.",
+			Type:        []string{"null"},
+		}
+	}
 	children := []*yaml.Node{}
 	values := tt.Values()
 	for i := 0; i < values.Len(); i++ {

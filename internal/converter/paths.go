@@ -35,6 +35,15 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 				continue
 			}
 
+			// A visible method whose request or response type is hidden would
+			// reference a schema that's never emitted, so the method is hidden
+			// too.
+			if hidden := hiddenMessage(opts, method.Input(), method.Output()); hidden != nil {
+				opts.Logger.Warn("Filtering method because its message is hidden by visibility",
+					slog.String("method", string(method.FullName())), slog.String("message", string(hidden.FullName())))
+				continue
+			}
+
 			// No matter what, we add the schemas for the method input/output
 			AddMessageSchemas(opts, method.Input(), doc)
 			AddMessageSchemas(opts, method.Output(), doc)
@@ -84,5 +93,14 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 		}
 	}
 
+	return nil
+}
+
+func hiddenMessage(opts options.Options, messages ...protoreflect.MessageDescriptor) protoreflect.MessageDescriptor {
+	for _, md := range messages {
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(md), opts.AllowedVisibilities) {
+			return md
+		}
+	}
 	return nil
 }

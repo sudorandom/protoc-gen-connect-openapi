@@ -644,7 +644,7 @@
         "properties": {
           "retryDelay": {
             "type": "string",
-            "format": "duration",
+            "pattern": "^-?[0-9]+(\\.[0-9]{1,9})?s$",
             "description": "Clients consuming this error should wait at least this long before retrying. The value is a duration string, following the protobuf Duration format (e.g., \"1.5s\" for one and a half seconds)."
           }
         },

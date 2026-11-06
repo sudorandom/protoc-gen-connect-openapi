@@ -106,13 +106,11 @@ This plugin is now available [as a remote plugin in the BSR](https://buf.build/c
 ```yaml
 version: v2
 plugins:
-  - remote: buf.build/community/sudorandom-connect-openapi:v0.19.1
+  - remote: buf.build/community/sudorandom-connect-openapi:v0.28.0
     out: gen
-    opt:
-    - base=example.base.yaml
 ```
 
-If you use this config you don't actually need to do the install steps above. See the buf page on [remote plugins](https://buf.build/docs/bsr/remote-plugins/usage/) for more information on this.
+If you use this config you don't actually need to do the install steps above. Remote plugins can't read local files, so `base` and `override` aren't available; see [remote plugin usage](remote-plugin.md) for alternatives. See the buf page on [remote plugins](https://buf.build/docs/bsr/remote-plugins/usage/) for more information on this.
 
 Of course, you can also use it locally, with a `buf.gen.yaml` that looks like this:
 ```yaml
@@ -128,19 +126,19 @@ And then run `buf generate`. See [the documentation on buf generate](https://buf
 ### With protoc
 This tool works as a plugin for protoc. Here's a basic example:
 ```shell
-protoc internal/converter/fixtures/helloworld.proto --connect-openapi_out=gen
+protoc internal/converter/testdata/standard/helloworld.proto --connect-openapi_out=gen
 ```
 
 With the JSON format:
 ```shell
-protoc internal/converter/fixtures/helloworld.proto \
+protoc internal/converter/testdata/standard/helloworld.proto \
     --connect-openapi_out=gen \
 --connect-openapi_opt=format=json
 ```
 
 With a base OpenAPI file and without all of the streaming content type:
 ```shell
-protoc internal/converter/fixtures/helloworld.proto \
+protoc internal/converter/testdata/standard/helloworld.proto \
     --connect-openapi_out=gen \
     --connect-openapi_opt=base=example.base.yaml,content-types=json
 ```

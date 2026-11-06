@@ -1,17 +1,20 @@
 package protovalidate
 
 import (
+	"encoding/base64"
+	"encoding/json"
+	"fmt"
 	"log/slog"
 	"math"
 	"slices"
 	"strconv"
 	"strings"
-	"time"
 
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	"buf.build/go/protovalidate"
 	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
@@ -488,21 +491,19 @@ func updateSchemaInt64(opts options.Options, schema *base.Schema, constraint *va
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatInt(int64(*constraint.Const), 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "int64.lt", strconv.FormatInt(int64(tt.Lt), 10))
 	case *validate.Int64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "int64.lte", strconv.FormatInt(int64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Int64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "int64.gt", strconv.FormatInt(int64(tt.Gt), 10))
 	case *validate.Int64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "int64.gte", strconv.FormatInt(int64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -584,21 +585,19 @@ func updateSchemaUint64(opts options.Options, schema *base.Schema, constraint *v
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "uint64.lt", strconv.FormatUint(uint64(tt.Lt), 10))
 	case *validate.UInt64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "uint64.lte", strconv.FormatUint(uint64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.UInt64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "uint64.gt", strconv.FormatUint(uint64(tt.Gt), 10))
 	case *validate.UInt64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "uint64.gte", strconv.FormatUint(uint64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -680,21 +679,19 @@ func updateSchemaSint64(opts options.Options, schema *base.Schema, constraint *v
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatInt(*constraint.Const, 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sint64.lt", strconv.FormatInt(int64(tt.Lt), 10))
 	case *validate.SInt64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "sint64.lte", strconv.FormatInt(int64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SInt64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sint64.gt", strconv.FormatInt(int64(tt.Gt), 10))
 	case *validate.SInt64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "sint64.gte", strconv.FormatInt(int64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -776,21 +773,19 @@ func updateSchemaFixed64(opts options.Options, schema *base.Schema, constraint *
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(*constraint.Const, 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "fixed64.lt", strconv.FormatUint(uint64(tt.Lt), 10))
 	case *validate.Fixed64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "fixed64.lte", strconv.FormatUint(uint64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Fixed64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "fixed64.gt", strconv.FormatUint(uint64(tt.Gt), 10))
 	case *validate.Fixed64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "fixed64.gte", strconv.FormatUint(uint64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -872,21 +867,19 @@ func updateSchemaSfixed64(opts options.Options, schema *base.Schema, constraint 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatInt(*constraint.Const, 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sfixed64.lt", strconv.FormatInt(int64(tt.Lt), 10))
 	case *validate.SFixed64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "sfixed64.lte", strconv.FormatInt(int64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SFixed64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sfixed64.gt", strconv.FormatInt(int64(tt.Gt), 10))
 	case *validate.SFixed64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "sfixed64.gte", strconv.FormatInt(int64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -1040,69 +1033,35 @@ func updateSchemaString(opts options.Options, schema *base.Schema, constraint *v
 }
 
 func updateSchemaBytes(opts options.Options, schema *base.Schema, constraint *validate.BytesRules) {
+	// Bytes travel as base64 text, so values are encoded to match. Length,
+	// pattern and IP rules apply to the decoded bytes and can't be checked on
+	// the text, so they're left to the description.
 	defer func() {
 		constraint.Const = nil
-		constraint.Len = nil
-		constraint.MinLen = nil
-		constraint.MaxLen = nil
-		constraint.Pattern = nil
 		constraint.In = nil
 		constraint.NotIn = nil
 		constraint.Example = nil
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(string(constraint.Const))
-	}
-	if constraint.Len != nil {
-		v := int64(*constraint.Len)
-		schema.MaxLength = &v
-		schema.MinLength = &v
-	}
-	if constraint.MinLen != nil {
-		v := int64(*constraint.MinLen)
-		schema.MinLength = &v
-	}
-	if constraint.MaxLen != nil {
-		v := int64(*constraint.MaxLen)
-		schema.MaxLength = &v
-	}
-	if constraint.Pattern != nil {
-		schema.Pattern = *constraint.Pattern
+		schema.Const = utils.CreateStringNode(base64.StdEncoding.EncodeToString(constraint.Const))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(string(item))
+			items[i] = utils.CreateStringNode(base64.StdEncoding.EncodeToString(item))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(string(item))
+			items[i] = utils.CreateStringNode(base64.StdEncoding.EncodeToString(item))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
-	switch v := constraint.WellKnown.(type) {
-	case *validate.BytesRules_Ip:
-		if v.Ip {
-			schema.Format = "ip"
-			constraint.ClearWellKnown()
-		}
-	case *validate.BytesRules_Ipv4:
-		if v.Ipv4 {
-			schema.Format = "ipv4"
-			constraint.ClearWellKnown()
-		}
-	case *validate.BytesRules_Ipv6:
-		if v.Ipv6 {
-			schema.Format = "ipv6"
-			constraint.ClearWellKnown()
-		}
-	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(string(item)))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(base64.StdEncoding.EncodeToString(item)))
 	}
 }
 
@@ -1216,21 +1175,28 @@ func updateSchemaAny(opts options.Options, schema *base.Schema, constraint *vali
 		constraint.In = nil
 		constraint.NotIn = nil
 	}()
+	if len(constraint.In) == 0 && len(constraint.NotIn) == 0 {
+		return
+	}
 
+	// The rules constrain the type URL, which protojson writes as "@type".
+	typeURL := &base.Schema{Type: []string{"string"}}
 	if len(constraint.In) > 0 {
-		items := make([]*yaml.Node, len(constraint.In))
-		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(item)
+		for _, item := range constraint.In {
+			typeURL.Enum = append(typeURL.Enum, utils.CreateStringNode(item))
 		}
-		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
-		items := make([]*yaml.Node, len(constraint.NotIn))
-		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(item)
+		notIn := &base.Schema{}
+		for _, item := range constraint.NotIn {
+			notIn.Enum = append(notIn.Enum, utils.CreateStringNode(item))
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+		typeURL.Not = base.CreateSchemaProxy(notIn)
 	}
+	if schema.Properties == nil {
+		schema.Properties = orderedmap.New[string, *base.SchemaProxy]()
+	}
+	schema.Properties.Set("@type", base.CreateSchemaProxy(typeURL))
 }
 
 func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint *validate.DurationRules) {
@@ -1244,44 +1210,44 @@ func updateSchemaDuration(opts options.Options, schema *base.Schema, constraint 
 	}()
 
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(constraint.Const.AsDuration().String())
+		schema.Const = utils.CreateStringNode(durationJSON(constraint.Const))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.DurationRules_Gt:
 		if tt.Gt != nil {
-			appendRuleDescription(schema, "duration.gt", tt.Gt.AsDuration().String())
+			appendRuleDescription(schema, "duration.gt", durationJSON(tt.Gt))
 		}
 	case *validate.DurationRules_Gte:
 		if tt.Gte != nil {
-			appendRuleDescription(schema, "duration.gte", tt.Gte.AsDuration().String())
+			appendRuleDescription(schema, "duration.gte", durationJSON(tt.Gte))
 		}
 	}
 	switch tt := constraint.LessThan.(type) {
 	case *validate.DurationRules_Lt:
 		if tt.Lt != nil {
-			appendRuleDescription(schema, "duration.lt", tt.Lt.AsDuration().String())
+			appendRuleDescription(schema, "duration.lt", durationJSON(tt.Lt))
 		}
 	case *validate.DurationRules_Lte:
 		if tt.Lte != nil {
-			appendRuleDescription(schema, "duration.lte", tt.Lte.AsDuration().String())
+			appendRuleDescription(schema, "duration.lte", durationJSON(tt.Lte))
 		}
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
 		for i, item := range constraint.In {
-			items[i] = utils.CreateStringNode(item.AsDuration().String())
+			items[i] = utils.CreateStringNode(durationJSON(item))
 		}
 		schema.Enum = items
 	}
 	if len(constraint.NotIn) > 0 {
 		items := make([]*yaml.Node, len(constraint.NotIn))
 		for i, item := range constraint.NotIn {
-			items[i] = utils.CreateStringNode(item.AsDuration().String())
+			items[i] = utils.CreateStringNode(durationJSON(item))
 		}
 		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsDuration().String()))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(durationJSON(item)))
 	}
 }
 
@@ -1291,10 +1257,10 @@ func updateSchemaTimestamp(opts options.Options, schema *base.Schema, constraint
 		constraint.Example = nil
 	}()
 	if constraint.Const != nil {
-		schema.Const = utils.CreateStringNode(constraint.Const.AsTime().String())
+		schema.Const = utils.CreateStringNode(timestampJSON(constraint.Const))
 	}
 	for _, item := range constraint.Example {
-		schema.Examples = append(schema.Examples, utils.CreateStringNode(item.AsTime().String()))
+		schema.Examples = append(schema.Examples, utils.CreateStringNode(timestampJSON(item)))
 	}
 }
 
@@ -1332,6 +1298,29 @@ func reparseUnrecognized(
 	return nil
 }
 
+// durationJSON formats a Duration the way protojson writes it, e.g. "1.5s".
+func durationJSON(d *durationpb.Duration) string {
+	return protoJSONString(d)
+}
+
+// timestampJSON formats a Timestamp the way protojson writes it (RFC 3339 in
+// UTC).
+func timestampJSON(t *timestamppb.Timestamp) string {
+	return protoJSONString(t)
+}
+
+func protoJSONString(msg proto.Message) string {
+	data, err := protojson.Marshal(msg)
+	if err != nil {
+		return fmt.Sprint(msg)
+	}
+	var value string
+	if err := json.Unmarshal(data, &value); err != nil {
+		return string(data)
+	}
+	return value
+}
+
 func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.FieldDescriptor) string {
 	switch v := val.Interface().(type) {
 	case protoreflect.List:
@@ -1352,17 +1341,17 @@ func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.Fiel
 	case string:
 		return strconv.Quote(v)
 	case *durationpb.Duration:
-		return v.AsDuration().String()
+		return durationJSON(v)
 	case *timestamppb.Timestamp:
 		// RFC3339Nano for OpenAPI compatibility
-		return v.AsTime().Format(time.RFC3339Nano)
+		return timestampJSON(v)
 	case proto.Message:
 		// Special handling for Duration and Timestamp proto messages
 		switch msg := v.(type) {
 		case *durationpb.Duration:
-			return msg.AsDuration().String()
+			return durationJSON(msg)
 		case *timestamppb.Timestamp:
-			return msg.AsTime().Format(time.RFC3339Nano)
+			return timestampJSON(msg)
 		default:
 			data, _ := protojson.Marshal(msg)
 			return string(data)
@@ -1370,10 +1359,10 @@ func formatProtoreflectValue(val protoreflect.Value, fieldDesc protoreflect.Fiel
 	case protoreflect.Message:
 		// Try to convert to well-known types
 		if m, ok := v.Interface().(*durationpb.Duration); ok {
-			return m.AsDuration().String()
+			return durationJSON(m)
 		}
 		if m, ok := v.Interface().(*timestamppb.Timestamp); ok {
-			return m.AsTime().Format(time.RFC3339Nano)
+			return timestampJSON(m)
 		}
 		data, _ := protojson.Marshal(val.Message().Interface())
 		return string(data)

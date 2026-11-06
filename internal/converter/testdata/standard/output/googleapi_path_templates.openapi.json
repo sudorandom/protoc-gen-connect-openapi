@@ -1,0 +1,288 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "googleapi_path_templates",
+    "description": "## googleapi_path_templates.PathTemplateService",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/books/{book.id}": {
+      "put": {
+        "tags": [
+          "googleapi_path_templates.PathTemplateService"
+        ],
+        "summary": "UpdateBook",
+        "description": "A nested path param only removes that field from the body; the rest of\n the parent message is still sent.",
+        "operationId": "googleapi_path_templates.PathTemplateService.UpdateBook",
+        "parameters": [
+          {
+            "name": "book.id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "book": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string",
+                        "title": "title"
+                      }
+                    },
+                    "title": "Book",
+                    "additionalProperties": false
+                  },
+                  "etag": {
+                    "type": "string",
+                    "title": "etag"
+                  }
+                },
+                "title": "UpdateBookRequest",
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_path_templates.Book"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/buckets/{bucket}/{http_path}": {
+      "get": {
+        "tags": [
+          "googleapi_path_templates.PathTemplateService"
+        ],
+        "summary": "GetObject",
+        "description": "A trailing \"**\" inside a pattern matches the rest of the path.",
+        "operationId": "googleapi_path_templates.PathTemplateService.GetObject",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "http_path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "note",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "note"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_path_templates.NamedRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/{name}:cancel": {
+      "post": {
+        "tags": [
+          "googleapi_path_templates.PathTemplateService"
+        ],
+        "summary": "CancelOperation",
+        "description": "A pattern that is a single \"*\" is a plain path param.",
+        "operationId": "googleapi_path_templates.PathTemplateService.CancelOperation",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "note": {
+                    "type": "string",
+                    "title": "note"
+                  }
+                },
+                "title": "NamedRequest",
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "An unexpected error response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/google.rpc.Status"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/googleapi_path_templates.NamedRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string",
+            "description": "A URL/resource name that uniquely identifies the type of the serialized message."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message."
+      },
+      "google.rpc.Status": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The status code, which should be an enum value of google.rpc.Code."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Any"
+            },
+            "description": "A list of messages that carry the error details."
+          }
+        },
+        "description": "The Status type defines a logical error model suitable for gRPC and REST APIs."
+      },
+      "googleapi_path_templates.Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title"
+          }
+        },
+        "title": "Book",
+        "additionalProperties": false
+      },
+      "googleapi_path_templates.NamedRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "note": {
+            "type": "string",
+            "title": "note"
+          }
+        },
+        "title": "NamedRequest",
+        "additionalProperties": false
+      },
+      "googleapi_path_templates.UpdateBookRequest": {
+        "type": "object",
+        "properties": {
+          "book": {
+            "title": "book",
+            "$ref": "#/components/schemas/googleapi_path_templates.Book"
+          },
+          "etag": {
+            "type": "string",
+            "title": "etag"
+          }
+        },
+        "title": "UpdateBookRequest",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "googleapi_path_templates.PathTemplateService"
+    }
+  ]
+}

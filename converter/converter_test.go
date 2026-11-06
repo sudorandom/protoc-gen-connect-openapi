@@ -1,12 +1,14 @@
 package converter
 
 import (
+	"strings"
 	"testing"
 
 	elizav1 "buf.build/gen/go/connectrpc/eliza/protocolbuffers/go/connectrpc/eliza/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
@@ -101,7 +103,8 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.Equal(t, "/ws/{service}/{method}", generator.options.AsyncAPIChannelTemplate)
 		assert.True(t, generator.options.WithGoogleErrorDetail)
 		assert.True(t, generator.options.FeatureEnabled(options.FeatureConnectRPC))
-		assert.True(t, generator.options.FeatureEnabled(options.FeatureGoogleAPIHTTP))
+		// WithIgnoreGoogleapiHTTP wins over the feature list.
+		assert.False(t, generator.options.FeatureEnabled(options.FeatureGoogleAPIHTTP))
 	})
 
 	t.Run("option errors", func(t *testing.T) {
@@ -162,4 +165,69 @@ func TestGenerate(t *testing.T) {
 		_, err := Generate(WithContentTypes("invalid"))
 		require.Error(t, err)
 	})
+}
+
+func TestGenerateSingleOnlyGoogleapiHTTP(t *testing.T) {
+	files := new(protoregistry.Files)
+	require.NoError(t, files.RegisterFile(elizav1.File_connectrpc_eliza_v1_eliza_proto))
+
+	// Eliza has no google.api.http annotations, so only-googleapi-http leaves
+	// no routes; without it, every method gets a Connect route.
+	withConnect, err := GenerateSingle(WithFiles(files))
+	require.NoError(t, err)
+	assert.Contains(t, string(withConnect), "/connectrpc.eliza.v1.ElizaService/Say")
+
+	onlyHTTP, err := GenerateSingle(WithFiles(files), WithOnlyGoogleapiHTTP(true))
+	require.NoError(t, err)
+	assert.NotContains(t, string(onlyHTTP), "/connectrpc.eliza.v1.ElizaService/Say")
+}
+
+func TestWithCompat(t *testing.T) {
+	generator, err := generatorWithOptions(WithCompat(CompatOpenAPI30))
+	require.NoError(t, err)
+	assert.Equal(t, options.CompatOpenAPI30, generator.options.Compat)
+
+	_, err = generatorWithOptions(WithCompat("openapi-2.0"))
+	assert.Error(t, err)
+}
+
+func TestGenerateSingleIsDeterministic(t *testing.T) {
+	// Several files in one package: registry iteration order is random, so
+	// the output must not depend on it.
+	files := new(protoregistry.Files)
+	for _, name := range []string{"a", "b", "c", "d", "e", "f"} {
+		fd, err := protodesc.NewFile(&descriptorpb.FileDescriptorProto{
+			Name:    proto.String("same/" + name + ".proto"),
+			Package: proto.String("same.v1"),
+			Syntax:  proto.String("proto3"),
+			MessageType: []*descriptorpb.DescriptorProto{
+				{Name: proto.String("Msg" + strings.ToUpper(name))},
+			},
+			Service: []*descriptorpb.ServiceDescriptorProto{{
+				Name: proto.String("Service" + strings.ToUpper(name)),
+				Method: []*descriptorpb.MethodDescriptorProto{{
+					Name:       proto.String("Call"),
+					InputType:  proto.String(".same.v1.Msg" + strings.ToUpper(name)),
+					OutputType: proto.String(".same.v1.Msg" + strings.ToUpper(name)),
+				}},
+			}},
+		}, files)
+		require.NoError(t, err)
+		require.NoError(t, files.RegisterFile(fd))
+	}
+
+	first, err := GenerateSingle(WithFiles(files))
+	require.NoError(t, err)
+	for range 20 {
+		again, err := GenerateSingle(WithFiles(files))
+		require.NoError(t, err)
+		require.Equal(t, string(first), string(again))
+	}
+}
+
+func TestOverlappingFileOptions(t *testing.T) {
+	files := new(protoregistry.Files)
+	require.NoError(t, files.RegisterFile(elizav1.File_connectrpc_eliza_v1_eliza_proto))
+	_, err := GenerateSingle(WithFiles(files), WithSourceFiles(files))
+	require.NoError(t, err)
 }

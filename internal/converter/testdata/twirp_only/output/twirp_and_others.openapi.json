@@ -14,7 +14,12 @@
         "operationId": "twirp_only.twirp_and_others.Haberdasher.MakeHat",
         "requestBody": {
           "content": {
-            "json": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/twirp_only.twirp_and_others.Size"
+              }
+            },
+            "application/protobuf": {
               "schema": {
                 "$ref": "#/components/schemas/twirp_only.twirp_and_others.Size"
               }
@@ -25,7 +30,12 @@
           "200": {
             "description": "OK",
             "content": {
-              "json": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/twirp_only.twirp_and_others.Hat"
+                }
+              },
+              "application/protobuf": {
                 "schema": {
                   "$ref": "#/components/schemas/twirp_only.twirp_and_others.Hat"
                 }
@@ -76,6 +86,12 @@
           },
           "msg": {
             "type": "string"
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
           }
         }
       },

@@ -87,3 +87,41 @@ func TestGenerateAsyncAPI(t *testing.T) {
 		assert.Empty(t, out)
 	})
 }
+
+func TestGenerateAsyncAPICollidingNames(t *testing.T) {
+	// Two packages with the same service and method names must both keep
+	// their channels and operations.
+	streamingFile := func(pkg string) protoreflect.FileDescriptor {
+		fd, err := protodesc.NewFile(&descriptorpb.FileDescriptorProto{
+			Name:    proto.String(pkg + ".proto"),
+			Package: proto.String(pkg),
+			MessageType: []*descriptorpb.DescriptorProto{
+				{Name: proto.String("Msg")},
+			},
+			Service: []*descriptorpb.ServiceDescriptorProto{{
+				Name: proto.String("S"),
+				Method: []*descriptorpb.MethodDescriptorProto{{
+					Name:            proto.String("Stream"),
+					InputType:       proto.String("." + pkg + ".Msg"),
+					OutputType:      proto.String("." + pkg + ".Msg"),
+					ClientStreaming: proto.Bool(true),
+					ServerStreaming: proto.Bool(true),
+				}},
+			}},
+		}, nil)
+		require.NoError(t, err)
+		return fd
+	}
+
+	opts := options.NewOptions()
+	opts.MessageAnnotator = &annotator{}
+	opts.FieldAnnotator = &annotator{}
+	opts.FieldReferenceAnnotator = &annotator{}
+	out, err := GenerateAsyncAPI(opts, []protoreflect.FileDescriptor{streamingFile("a"), streamingFile("b")})
+	require.NoError(t, err)
+	assert.Contains(t, out, "SStreamChannel:")
+	assert.Contains(t, out, "b_SStreamChannel:")
+	assert.Contains(t, out, "/ws/a.S/Stream")
+	assert.Contains(t, out, "/ws/b.S/Stream")
+	assert.Contains(t, out, "title: S, b.S WebSockets")
+}

@@ -258,15 +258,21 @@ func MergeParameters(existingParams []*v3.Parameter, newParams []*v3.Parameter) 
 		return existingParams
 	}
 
-	// Map to track existing parameters by Name + In
+	// Map to track existing parameters by Name + In, or by target for $refs,
+	// which carry neither.
+	paramKey := func(p *v3.Parameter) string {
+		if p.Reference != "" {
+			return "$ref|" + p.Reference
+		}
+		return p.Name + "|" + p.In
+	}
 	paramMap := make(map[string]*v3.Parameter, len(existingParams))
 	for _, p := range existingParams {
-		key := p.Name + "|" + p.In
-		paramMap[key] = p
+		paramMap[paramKey(p)] = p
 	}
 
 	for _, newParam := range newParams {
-		key := newParam.Name + "|" + newParam.In
+		key := paramKey(newParam)
 		if p, exists := paramMap[key]; exists {
 			mergeParameter(p, newParam)
 		} else {
@@ -275,6 +281,15 @@ func MergeParameters(existingParams []*v3.Parameter, newParams []*v3.Parameter) 
 		}
 	}
 	return existingParams
+}
+
+// DefaultOperationID is the operation ID generated for a method before any
+// annotation overrides it.
+func DefaultOperationID(opts options.Options, method protoreflect.MethodDescriptor) string {
+	if service, ok := method.Parent().(protoreflect.ServiceDescriptor); ok && opts.ShortOperationIds {
+		return string(service.Name()) + "_" + string(method.Name())
+	}
+	return string(method.FullName())
 }
 
 // MergeOrAppendParameter merges or appends a parameter to a list of parameters.

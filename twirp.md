@@ -9,7 +9,7 @@ Here's an example `buf.gen.yaml` configuration:
 ```yaml
 version: v2
 plugins:
-  - remote: buf.build/community/sudorandom-connect-openapi:v0.19.1
+  - remote: buf.build/community/sudorandom-connect-openapi:v0.28.0
     out: gen
     opt:
       - features=twirp

@@ -278,20 +278,20 @@
       "google.protobuf.Any": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string"
-          },
-          "value": {
+          "@type": {
             "type": "string",
-            "format": "binary"
+            "description": "A URL identifying the type of the embedded message, e.g. `type.googleapis.com/google.rpc.ErrorInfo`."
           }
         },
+        "required": [
+          "@type"
+        ],
         "additionalProperties": true,
         "description": "An arbitrary message with a type URL identifying the encoded message type."
       },
       "google.protobuf.Duration": {
         "type": "string",
-        "format": "duration",
+        "pattern": "^-?[0-9]+(\\.[0-9]{1,9})?s$",
         "description": "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`)."
       },
       "google.protobuf.Empty": {
@@ -648,35 +648,34 @@
             "title": "int64_not_in"
           },
           "int64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "int64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 42\n"
           },
           "int64Lte": {
             "type": "string",
             "title": "int64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 420\n"
           },
           "int64Gt": {
-            "exclusiveMinimum": 6,
             "type": "string",
             "title": "int64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gt = 6\n"
           },
           "int64Gte": {
             "type": "string",
             "title": "int64_gte",
-            "minimum": 69,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gte = 69\n"
           },
           "int64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "int64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 10\nint64.gte = 5\n"
           },
           "uint32Const": {
             "type": "integer",
@@ -774,35 +773,34 @@
             "title": "uint64_not_in"
           },
           "uint64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "uint64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 42\n"
           },
           "uint64Lte": {
             "type": "string",
             "title": "uint64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 420\n"
           },
           "uint64Gt": {
-            "exclusiveMinimum": 6,
             "type": "string",
             "title": "uint64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gt = 6\n"
           },
           "uint64Gte": {
             "type": "string",
             "title": "uint64_gte",
-            "minimum": 69,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gte = 69\n"
           },
           "uint64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "uint64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 10\nuint64.gte = 5\n"
           },
           "sint32Const": {
             "type": "integer",
@@ -908,35 +906,34 @@
             "title": "sint64_not_in"
           },
           "sint64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "sint64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 42\n"
           },
           "sint64Lte": {
             "type": "string",
             "title": "sint64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 420\n"
           },
           "sint64Gt": {
-            "exclusiveMinimum": 8,
             "type": "string",
             "title": "sint64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gt = 8\n"
           },
           "sint64Gte": {
             "type": "string",
             "title": "sint64_gte",
-            "minimum": 89,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gte = 89\n"
           },
           "sint64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "sint64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 10\nsint64.gte = 5\n"
           },
           "fixed32Const": {
             "type": "integer",
@@ -1034,35 +1031,34 @@
             "title": "fixed64_not_in"
           },
           "fixed64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "fixed64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 42\n"
           },
           "fixed64Lte": {
             "type": "string",
             "title": "fixed64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 420\n"
           },
           "fixed64Gt": {
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "fixed64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gt = 10\n"
           },
           "fixed64Gte": {
             "type": "string",
             "title": "fixed64_gte",
-            "minimum": 109,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gte = 109\n"
           },
           "fixed64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "fixed64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 10\nfixed64.gte = 5\n"
           },
           "sfixed32Const": {
             "type": "integer",
@@ -1168,35 +1164,34 @@
             "title": "sfixed64_not_in"
           },
           "sfixed64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "sfixed64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 42\n"
           },
           "sfixed64Lte": {
             "type": "string",
             "title": "sfixed64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 420\n"
           },
           "sfixed64Gt": {
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "sfixed64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gt = 10\n"
           },
           "sfixed64Gte": {
             "type": "string",
             "title": "sfixed64_gte",
-            "minimum": 109,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gte = 109\n"
           },
           "sfixed64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "sfixed64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 10\nsfixed64.gte = 5\n"
           },
           "stringConst": {
             "type": "string",
@@ -1374,7 +1369,7 @@
             "type": "string",
             "title": "byte_const",
             "format": "byte",
-            "const": "\u0001\u0002\u0003\u0004"
+            "const": "AQIDBA=="
           },
           "byteLen": {
             "type": [
@@ -1382,9 +1377,8 @@
               "null"
             ],
             "title": "byte_len",
-            "maxLength": 4,
-            "minLength": 4,
-            "format": "byte"
+            "format": "byte",
+            "description": "bytes.len = 4\n"
           },
           "bytesMinLen": {
             "type": [
@@ -1392,8 +1386,8 @@
               "null"
             ],
             "title": "bytes_min_len",
-            "minLength": 2,
-            "format": "byte"
+            "format": "byte",
+            "description": "bytes.min_len = 2\n"
           },
           "bytesMaxLen": {
             "type": [
@@ -1401,8 +1395,8 @@
               "null"
             ],
             "title": "bytes_max_len",
-            "maxLength": 6,
-            "format": "byte"
+            "format": "byte",
+            "description": "bytes.max_len = 6\n"
           },
           "bytesPattern": {
             "type": [
@@ -1410,8 +1404,8 @@
               "null"
             ],
             "title": "bytes_pattern",
-            "pattern": "^[a-zA-Z0-9]+$",
-            "format": "byte"
+            "format": "byte",
+            "description": "bytes.pattern = \"^[a-zA-Z0-9]+$\"\n"
           },
           "bytesPrefix": {
             "type": [
@@ -1448,9 +1442,9 @@
             "title": "bytes_in",
             "format": "byte",
             "enum": [
-              "\u0001\u0002",
-              "\u0002\u0003",
-              "\u0003\u0004"
+              "AQI=",
+              "AgM=",
+              "AwQ="
             ]
           },
           "bytesNotIn": {
@@ -1461,9 +1455,9 @@
             "not": {
               "type": "string",
               "enum": [
-                "\u0001\u0002",
-                "\u0002\u0003",
-                "\u0003\u0004"
+                "AQI=",
+                "AgM=",
+                "AwQ="
               ]
             },
             "title": "bytes_not_in",
@@ -1475,7 +1469,8 @@
               "null"
             ],
             "title": "bytes_ip",
-            "format": "ip"
+            "format": "byte",
+            "description": "bytes.ip = true // must be a valid IP address\nbytes.ip_empty = true // value is empty, which is not a valid IP address\n"
           },
           "bytesIpv4": {
             "type": [
@@ -1483,7 +1478,8 @@
               "null"
             ],
             "title": "bytes_ipv4",
-            "format": "ipv4"
+            "format": "byte",
+            "description": "bytes.ipv4 = true // must be a valid IPv4 address\nbytes.ipv4_empty = true // value is empty, which is not a valid IPv4 address\n"
           },
           "bytesIpv6": {
             "type": [
@@ -1491,7 +1487,8 @@
               "null"
             ],
             "title": "bytes_ipv6",
-            "format": "ipv6"
+            "format": "byte",
+            "description": "bytes.ipv6 = true // must be a valid IPv6 address\nbytes.ipv6_empty = true // value is empty, which is not a valid IPv6 address\n"
           },
           "enumConst": {
             "title": "enum_const",
@@ -1590,26 +1587,36 @@
             }
           },
           "anyIn": {
+            "properties": {
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "type.googleapis.com/MyType1",
+                  "type.googleapis.com/MyType2"
+                ]
+              }
+            },
             "title": "any_in",
-            "enum": [
-              "type.googleapis.com/MyType1",
-              "type.googleapis.com/MyType2"
-            ],
             "$ref": "#/components/schemas/google.protobuf.Any"
           },
           "anyNotIn": {
-            "not": {
-              "enum": [
-                "type.googleapis.com/ForbiddenType1",
-                "type.googleapis.com/ForbiddenType2"
-              ]
+            "properties": {
+              "@type": {
+                "type": "string",
+                "not": {
+                  "enum": [
+                    "type.googleapis.com/ForbiddenType1",
+                    "type.googleapis.com/ForbiddenType2"
+                  ]
+                }
+              }
             },
             "title": "any_not_in",
             "$ref": "#/components/schemas/google.protobuf.Any"
           },
           "durationConst": {
             "title": "duration_const",
-            "const": "33m20s",
+            "const": "2000s",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationIn": {
@@ -1644,7 +1651,7 @@
           },
           "durationLtSeconds": {
             "title": "duration_lt_seconds",
-            "description": "duration.lt = 72h0m0s\n",
+            "description": "duration.lt = 259200s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationGt": {
@@ -1665,12 +1672,12 @@
           "timestampConst": {
             "title": "timestamp_const",
             "description": "This is a constant timestamp!",
-            "const": "2024-10-03 23:40:00 +0000 UTC",
+            "const": "2024-10-03T23:40:00Z",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampWithin": {
             "title": "timestamp_within",
-            "description": "timestamp.within = 1h0m0s\n",
+            "description": "timestamp.within = 3600s\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLt": {

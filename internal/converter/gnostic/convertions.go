@@ -1,6 +1,7 @@
 package gnostic
 
 import (
+	"math"
 	"strconv"
 
 	goa3 "github.com/google/gnostic/openapiv3"
@@ -87,7 +88,9 @@ func appendComponents(opts options.Options, spec *v3.Document, c *goa3.Component
 func toParametersMap(opts options.Options, params *goa3.ParametersOrReferences) *orderedmap.Map[string, *v3.Parameter] {
 	m := orderedmap.New[string, *v3.Parameter]()
 	for _, item := range params.GetAdditionalProperties() {
-		m.Set(item.Name, toParameter(opts, item.GetValue()))
+		if param := toParameter(opts, item.GetValue()); param != nil {
+			m.Set(item.Name, param)
+		}
 	}
 	return m
 }
@@ -95,18 +98,48 @@ func toParametersMap(opts options.Options, params *goa3.ParametersOrReferences) 
 func toRequestBodiesMap(opts options.Options, bodies *goa3.RequestBodiesOrReferences) *orderedmap.Map[string, *v3.RequestBody] {
 	m := orderedmap.New[string, *v3.RequestBody]()
 	for _, item := range bodies.GetAdditionalProperties() {
-		m.Set(item.Name, toRequestBody(opts, item.GetValue().GetRequestBody()))
+		if body := toRequestBody(opts, item.GetValue()); body != nil {
+			m.Set(item.Name, body)
+		}
 	}
 	return m
 }
 
-func toRequestBody(opts options.Options, rbody *goa3.RequestBody) *v3.RequestBody {
+func toRequestBody(opts options.Options, bodyOrRef *goa3.RequestBodyOrReference) *v3.RequestBody {
+	if ref := bodyOrRef.GetReference(); ref != nil {
+		body := v3.CreateRequestBodyRef(ref.XRef)
+		body.Description = ref.Description
+		return body
+	}
+	rbody := bodyOrRef.GetRequestBody()
+	if rbody == nil {
+		return nil
+	}
 	return &v3.RequestBody{
 		Description: rbody.Description,
 		Content:     toMediaTypes(opts, rbody.GetContent()),
-		Required:    &rbody.Required,
+		Required:    trueOrNil(rbody.Required),
 		Extensions:  toExtensions(rbody.SpecificationExtension),
 	}
+}
+
+// trueOrNil maps a proto3 bool, which can't distinguish false from unset, to
+// an optional OpenAPI boolean: false is the OpenAPI default for the fields
+// this is used with, so it's left out rather than written explicitly.
+func trueOrNil(value bool) *bool {
+	if !value {
+		return nil
+	}
+	return &value
+}
+
+// toScopes converts OAuth scopes, which gnostic allows to be omitted.
+func toScopes(scopes *goa3.Strings) *orderedmap.Map[string, string] {
+	result := orderedmap.New[string, string]()
+	for _, scope := range scopes.GetAdditionalProperties() {
+		result.Set(scope.Name, scope.Value)
+	}
+	return result
 }
 
 func toResponsesMap(opts options.Options, resps *goa3.ResponsesOrReferences) *orderedmap.Map[string, *v3.Response] {
@@ -128,6 +161,12 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 
 	secSchemas := orderedmap.New[string, *v3.SecurityScheme]()
 	for _, addProp := range s.AdditionalProperties {
+		if ref := addProp.Value.GetReference(); ref != nil {
+			scheme := v3.CreateSecuritySchemeRef(ref.XRef)
+			scheme.Description = ref.Description
+			secSchemas.Set(addProp.Name, scheme)
+			continue
+		}
 		secScheme := addProp.Value.GetSecurityScheme()
 		if secScheme != nil {
 			scheme := &v3.SecurityScheme{
@@ -144,10 +183,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 					Extensions: toExtensions(secScheme.Flows.SpecificationExtension),
 				}
 				if secScheme.Flows.Implicit != nil {
-					scopes := orderedmap.New[string, string]()
-					for _, scope := range secScheme.Flows.Implicit.Scopes.AdditionalProperties {
-						scopes.Set(scope.Name, scope.Value)
-					}
+					scopes := toScopes(secScheme.Flows.Implicit.GetScopes())
 					flows.Implicit = &v3.OAuthFlow{
 						AuthorizationUrl: secScheme.Flows.Implicit.AuthorizationUrl,
 						TokenUrl:         secScheme.Flows.Implicit.TokenUrl,
@@ -157,10 +193,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 					}
 				}
 				if secScheme.Flows.Password != nil {
-					scopes := orderedmap.New[string, string]()
-					for _, scope := range secScheme.Flows.Password.Scopes.AdditionalProperties {
-						scopes.Set(scope.Name, scope.Value)
-					}
+					scopes := toScopes(secScheme.Flows.Password.GetScopes())
 					flows.Password = &v3.OAuthFlow{
 						TokenUrl:   secScheme.Flows.Password.TokenUrl,
 						RefreshUrl: secScheme.Flows.Password.RefreshUrl,
@@ -169,10 +202,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 					}
 				}
 				if secScheme.Flows.ClientCredentials != nil {
-					scopes := orderedmap.New[string, string]()
-					for _, scope := range secScheme.Flows.ClientCredentials.Scopes.AdditionalProperties {
-						scopes.Set(scope.Name, scope.Value)
-					}
+					scopes := toScopes(secScheme.Flows.ClientCredentials.GetScopes())
 					flows.ClientCredentials = &v3.OAuthFlow{
 						TokenUrl:   secScheme.Flows.ClientCredentials.TokenUrl,
 						RefreshUrl: secScheme.Flows.ClientCredentials.RefreshUrl,
@@ -181,10 +211,7 @@ func toSecuritySchemes(s *goa3.SecuritySchemesOrReferences) *orderedmap.Map[stri
 					}
 				}
 				if secScheme.Flows.AuthorizationCode != nil {
-					scopes := orderedmap.New[string, string]()
-					for _, scope := range secScheme.Flows.AuthorizationCode.Scopes.AdditionalProperties {
-						scopes.Set(scope.Name, scope.Value)
-					}
+					scopes := toScopes(secScheme.Flows.AuthorizationCode.GetScopes())
 					flows.AuthorizationCode = &v3.OAuthFlow{
 						AuthorizationUrl: secScheme.Flows.AuthorizationCode.AuthorizationUrl,
 						TokenUrl:         secScheme.Flows.AuthorizationCode.TokenUrl,
@@ -280,14 +307,15 @@ func toDefault(dt *goa3.DefaultType) *yaml.Node {
 	}
 	switch dt.GetOneof().(type) {
 	case *goa3.DefaultType_Number:
-		return utils.CreateStringNode(strconv.FormatFloat(dt.GetNumber(), 'f', -1, 64))
+		number := dt.GetNumber()
+		if number == math.Trunc(number) && math.Abs(number) < 1<<53 {
+			return utils.CreateIntNode(strconv.FormatFloat(number, 'f', -1, 64))
+		}
+		return utils.CreateFloatNode(strconv.FormatFloat(number, 'f', -1, 64))
 	case *goa3.DefaultType_String_:
 		return utils.CreateStringNode(dt.GetString_())
 	case *goa3.DefaultType_Boolean:
-		if dt.GetBoolean() {
-			return utils.CreateStringNode("true")
-		}
-		return utils.CreateStringNode("false")
+		return utils.CreateBoolNode(strconv.FormatBool(dt.GetBoolean()))
 	default:
 		return nil
 	}
@@ -324,7 +352,7 @@ func toEncodings(opts options.Options, enc *goa3.Encodings) *orderedmap.Map[stri
 			ContentType:   encoding.Value.ContentType,
 			Headers:       toHeaders(opts, encoding.Value.Headers),
 			Style:         encoding.Value.Style,
-			Explode:       &encoding.Value.Explode,
+			Explode:       trueOrNil(encoding.Value.Explode),
 			AllowReserved: encoding.Value.AllowReserved,
 		})
 	}
@@ -457,7 +485,16 @@ func toLinks(ls *goa3.LinksOrReferences) *orderedmap.Map[string, *v3.Link] {
 	}
 	links := orderedmap.New[string, *v3.Link]()
 	for _, item := range ls.AdditionalProperties {
+		if ref := item.Value.GetReference(); ref != nil {
+			link := v3.CreateLinkRef(ref.XRef)
+			link.Description = ref.Description
+			links.Set(item.Name, link)
+			continue
+		}
 		link := item.Value.GetLink()
+		if link == nil {
+			continue
+		}
 		params := orderedmap.New[string, string]()
 		for _, param := range link.Parameters.GetExpression().GetAdditionalProperties() {
 			params.Set(param.Name, param.Value.Yaml)
@@ -524,7 +561,7 @@ func toOperation(opts options.Options, op *goa3.Operation) *v3.Operation {
 		ExternalDocs: toExternalDocs(op.ExternalDocs),
 		OperationId:  op.OperationId,
 		Parameters:   toParameters(opts, op.Parameters),
-		RequestBody:  nil,
+		RequestBody:  toRequestBody(opts, op.GetRequestBody()),
 		Responses:    toResponses(opts, op.GetResponses()),
 		Callbacks:    toCallbacks(opts, op.Callbacks),
 		Deprecated:   &op.Deprecated,
@@ -538,18 +575,25 @@ func toParameters(opts options.Options, params []*goa3.ParameterOrReference) []*
 	if params == nil {
 		return nil
 	}
-	parameters := make([]*v3.Parameter, len(params))
-	for i, param := range params {
-		parameters[i] = toParameter(opts, param)
+	parameters := make([]*v3.Parameter, 0, len(params))
+	for _, param := range params {
+		if converted := toParameter(opts, param); converted != nil {
+			parameters = append(parameters, converted)
+		}
 	}
 	return parameters
 }
 
 func toParameter(opts options.Options, paramOrRef *goa3.ParameterOrReference) *v3.Parameter {
-	if paramOrRef == nil || paramOrRef.GetParameter() == nil {
-		return nil
+	if ref := paramOrRef.GetReference(); ref != nil {
+		param := v3.CreateParameterRef(ref.XRef)
+		param.Description = ref.Description
+		return param
 	}
 	param := paramOrRef.GetParameter()
+	if param == nil {
+		return nil
+	}
 
 	var example *yaml.Node
 	if param.Example != nil {
@@ -560,11 +604,11 @@ func toParameter(opts options.Options, paramOrRef *goa3.ParameterOrReference) *v
 		Name:            param.GetName(),
 		In:              param.In,
 		Description:     param.Description,
-		Required:        &param.Required,
+		Required:        trueOrNil(param.Required),
 		Deprecated:      param.Deprecated,
 		AllowEmptyValue: param.AllowEmptyValue,
 		Style:           param.Style,
-		Explode:         &param.Explode,
+		Explode:         trueOrNil(param.Explode),
 		AllowReserved:   param.AllowReserved,
 		Schema:          toSchemaOrReference(opts, param.GetSchema()),
 		Example:         example,

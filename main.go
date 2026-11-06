@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log/slog"
 	"os"
 	"runtime"
@@ -11,7 +12,6 @@ import (
 	"google.golang.org/protobuf/proto"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/lmittmann/tint"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 )
 
@@ -50,37 +50,34 @@ func main() {
 		return
 	}
 
-	resp, err := converter.ConvertFrom(os.Stdin)
-	if err != nil {
-		message := err.Error()
-		slog.Error(message)
-		renderResponse(&pluginpb.CodeGeneratorResponse{
-			Error: &message,
-		})
+	if err := run(os.Stdin, os.Stdout); err != nil {
+		slog.Error("failed to write plugin response", slog.Any("error", err))
 		os.Exit(1)
 	}
-
-	slog.SetDefault(slog.New(
-		tint.NewTextHandler(os.Stderr, &tint.Options{
-			Level: slog.LevelDebug,
-		}),
-	))
-
-	renderResponse(resp)
 }
 
-func renderResponse(resp *pluginpb.CodeGeneratorResponse) {
+// run converts a CodeGeneratorRequest into a response. Conversion errors are
+// reported inside the response, which is how the plugin protocol carries them
+// back to protoc or buf with the actual message; only failing to write the
+// response is returned.
+func run(stdin io.Reader, stdout io.Writer) error {
+	resp, err := converter.ConvertFrom(stdin)
+	if err != nil {
+		message := err.Error()
+		resp = &pluginpb.CodeGeneratorResponse{Error: &message}
+	}
+	return renderResponse(stdout, resp)
+}
+
+func renderResponse(w io.Writer, resp *pluginpb.CodeGeneratorResponse) error {
 	data, err := proto.Marshal(resp)
 	if err != nil {
-		slog.Error("failed to marshal response", slog.Any("error", err))
-		return
+		return fmt.Errorf("marshal response: %w", err)
 	}
-
-	_, err = os.Stdout.Write(data)
-	if err != nil {
-		slog.Error("failed to write response", slog.Any("error", err))
-		return
+	if _, err := w.Write(data); err != nil {
+		return fmt.Errorf("write response: %w", err)
 	}
+	return nil
 }
 
 func fullVersion() string {

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package googleapi_path_templates;
+
+import "google/api/annotations.proto";
+
+service PathTemplateService {
+  // A nested path param only removes that field from the body; the rest of
+  // the parent message is still sent.
+  rpc UpdateBook(UpdateBookRequest) returns (Book) {
+    option (google.api.http) = {
+      put: "/v1/books/{book.id}"
+      body: "*"
+    };
+  }
+
+  // A pattern that is a single "*" is a plain path param.
+  rpc CancelOperation(NamedRequest) returns (NamedRequest) {
+    option (google.api.http) = {
+      post: "/v1/{name=*}:cancel"
+      body: "*"
+    };
+  }
+
+  // A trailing "**" inside a pattern matches the rest of the path.
+  rpc GetObject(NamedRequest) returns (NamedRequest) {
+    option (google.api.http) = {get: "/v1/{name=buckets/*/**}"};
+  }
+}
+
+message Book {
+  string id = 1;
+  string title = 2;
+}
+
+message UpdateBookRequest {
+  Book book = 1;
+  string etag = 2;
+}
+
+message NamedRequest {
+  string name = 1;
+  string note = 2;
+}

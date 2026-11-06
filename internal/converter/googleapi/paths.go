@@ -38,7 +38,13 @@ func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*ord
 	if !ok {
 		return nil, false
 	}
-	return httpRuleToPathMap(opts, md, rule, nil), true
+	// An invalid rule gets no route here, so report it as absent and let the
+	// method fall back to its default (Connect) route rather than vanish.
+	paths := httpRuleToPathMap(opts, md, rule, nil)
+	if paths == nil || paths.Len() == 0 {
+		return nil, false
+	}
+	return paths, true
 }
 
 func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule, resMap map[string]string) *orderedmap.Map[string, *v3.PathItem] {
@@ -89,10 +95,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	fd := md.ParentFile()
 	service := md.Parent().(protoreflect.ServiceDescriptor)
 
-	operationId := string(md.FullName())
-	if opts.ShortOperationIds {
-		operationId = string(service.Name()) + "_" + string(md.Name())
-	}
+	operationId := util.DefaultOperationID(opts, md)
 	summary, description := util.FormatOperationComments(fd.SourceLocations().ByDescriptor(md))
 	if summary == "" {
 		summary = string(md.Name())
@@ -113,6 +116,9 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	}
 
 	fieldNamesInPath := map[string]struct{}{}
+	// nestedPathFields holds the proto paths of nested path params
+	// ({book.id} → ["book", "id"]), which only remove that leaf from the body.
+	var nestedPathFields [][]string
 	paramRenames := map[string]string{} // maps proto path param name to display name (camelCase by default)
 	var pathParams []*v3.Parameter
 	for _, param := range partsToParameter(tokens) {
@@ -122,20 +128,16 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		}
 		field, jsonPath := resolveField(opts, md.Input(), param)
 		if field != nil {
-			// This field is only top level, so we will filter out the param from
-			// query/param or request body
-			fieldNamesInPath[string(field.FullName())] = struct{}{}
+			// Exclude the param from query params and the request body. A nested
+			// param ("parent_ref.resource_id") excludes only that leaf, matched by
+			// its dotted name; the rest of the parent message is still sent.
 			fieldNamesInPath[strings.Join(jsonPath, ".")] = struct{}{} // sometimes JSON field names are used
-			fieldNamesInPath[util.MakeFieldName(opts, field)] = struct{}{}
-
-			// For nested params (e.g., "parent_ref.resource_id"), also track the
-			// top-level field so it can be excluded from the request body schema
-			paramParts := strings.SplitN(param, ".", 2)
-			if len(paramParts) > 1 {
-				if topField := fieldByName(opts, md.Input(), paramParts[0]); topField != nil {
-					fieldNamesInPath[string(topField.FullName())] = struct{}{}
-					fieldNamesInPath[util.MakeFieldName(opts, topField)] = struct{}{}
-				}
+			fieldNamesInPath[param] = struct{}{}
+			if paramParts := strings.Split(param, "."); len(paramParts) > 1 {
+				nestedPathFields = append(nestedPathFields, paramParts)
+			} else {
+				fieldNamesInPath[string(field.FullName())] = struct{}{}
+				fieldNamesInPath[util.MakeFieldName(opts, field)] = struct{}{}
 			}
 
 			// Compute display name for the parameter (camelCase by default)
@@ -211,24 +213,22 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 				// in both the path parameters and request body/query parameters
 				originalName := matches[1]
 				fieldNamesInPath[originalName] = struct{}{}
-				// Convert the path from the starred form to use named path parameters.
-				// The starred path may be in the form "things/*/otherthings/*" or contain
-				// literal segments like "things/*/static/otherthings/*".
-				starredPath := matches[2]
-				parts := strings.Split(starredPath, "/")
-				for i, part := range parts {
-					if part != "*" || i == 0 {
-						continue
+				displayName := originalName
+				if field, jsonPath := resolveField(opts, md.Input(), originalName); field != nil {
+					fieldNamesInPath[util.MakeFieldName(opts, field)] = struct{}{}
+					if !opts.WithProtoNames {
+						displayName = strings.Join(jsonPath, ".")
 					}
-					section := parts[i-1]
-					namedPathParameter := singularize(resMap, section)
-					newParameter := &v3.Parameter{
-						Name:     namedPathParameter,
+				}
+				paramRenames[originalName] = displayName
+				_, globParams := rewriteGlob(matches[2], displayName, resMap)
+				for _, name := range globParams {
+					pathParams = append(pathParams, &v3.Parameter{
+						Name:     name,
 						In:       "path",
 						Required: proto.Bool(true),
 						Schema:   base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
-					}
-					pathParams = append(pathParams, newParameter)
+					})
 				}
 			}
 		}
@@ -277,6 +277,7 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 						}
 					}
 				}
+				removeNestedPathFields(opts, md.Input(), s, nestedPathFields)
 				hasContent := (props != nil && props.Len() > 0) ||
 					len(s.AllOf) > 0 ||
 					len(s.OneOf) > 0 ||
@@ -320,7 +321,8 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
 			op.Parameters = util.MergeParameters(op.Parameters, newQueryParams)
 		} else {
-			opts.Logger.Warn("body field not found", slog.String("param", rule.Body))
+			opts.Logger.Warn("invalid HTTP rule: body field not found", slog.String("method", string(md.FullName())), slog.String("body", rule.Body))
+			return nil
 		}
 	}
 
@@ -513,21 +515,11 @@ func partsToOpenAPIPath(tokens []Token, resMap map[string]string, renames map[st
 						b.WriteString("}")
 						continue
 					}
-					// Convert the path from the starred form to use named path parameters.
-					// The starred path may be in the form "things/*/otherthings/*" or contain
-					// literal segments like "things/*/static/otherthings/*".
-					starredPath := matches[2]
-					parts := strings.Split(starredPath, "/")
-					for i, part := range parts {
-						if part != "*" || i == 0 {
-							continue
-						}
-						section := parts[i-1]
-						namedPathParameter := singularize(resMap, section)
-						parts[i] = "{" + namedPathParameter + "}"
+					name := matches[1]
+					if renamed, ok := renames[name]; ok {
+						name = renamed
 					}
-					// Rewrite the path to use the path parameters.
-					newPath := strings.Join(parts, "/")
+					newPath, _ := rewriteGlob(matches[2], name, resMap)
 					b.WriteString(newPath)
 				} else {
 					name := token.Value
@@ -550,6 +542,78 @@ func partsToOpenAPIPath(tokens []Token, resMap map[string]string, renames map[st
 		}
 	}
 	return b.String()
+}
+
+// removeNestedPathFields removes the leaves of nested path params from a body
+// schema. Each parent along the path is replaced with an inline copy of its
+// message schema, since the component schema is shared with other uses.
+func removeNestedPathFields(opts options.Options, md protoreflect.MessageDescriptor, s *base.Schema, paths [][]string) {
+	byParent := map[string][][]string{}
+	var parents []string
+	for _, path := range paths {
+		if len(path) < 2 {
+			continue
+		}
+		if _, ok := byParent[path[0]]; !ok {
+			parents = append(parents, path[0])
+		}
+		byParent[path[0]] = append(byParent[path[0]], path[1:])
+	}
+	for _, parent := range parents {
+		field := fieldByName(opts, md, parent)
+		if field == nil || field.Message() == nil || s.Properties == nil {
+			continue
+		}
+		name := util.MakeFieldName(opts, field)
+		if _, ok := s.Properties.Get(name); !ok {
+			continue
+		}
+		_, inline := schema.MessageToSchema(opts, field.Message())
+		if inline == nil {
+			continue
+		}
+		var deeper [][]string
+		for _, rest := range byParent[parent] {
+			if len(rest) > 1 {
+				deeper = append(deeper, rest)
+				continue
+			}
+			if leaf := fieldByName(opts, field.Message(), rest[0]); leaf != nil && inline.Properties != nil {
+				leafName := util.MakeFieldName(opts, leaf)
+				inline.Properties.Delete(leafName)
+				inline.Required = slices.DeleteFunc(inline.Required, func(required string) bool { return required == leafName })
+			}
+		}
+		removeNestedPathFields(opts, field.Message(), inline, deeper)
+		s.Properties.Set(name, base.CreateSchemaProxy(inline))
+	}
+}
+
+// rewriteGlob converts the pattern of a {field=pattern} variable into OpenAPI
+// path segments and returns the names of the path parameters it introduces.
+// A "*" segment becomes a parameter named after the collection before it
+// (things/* → things/{thing}); a leading "*" has no collection, so it's named
+// after the field. A "**" matches the rest of the path and becomes
+// {http_path}, as it does outside a variable.
+func rewriteGlob(pattern, fieldName string, resMap map[string]string) (string, []string) {
+	parts := strings.Split(pattern, "/")
+	var params []string
+	for i, part := range parts {
+		var name string
+		switch {
+		case part == "**":
+			name = "http_path"
+		case part != "*":
+			continue
+		case i == 0:
+			name = fieldName
+		default:
+			name = singularize(resMap, parts[i-1])
+		}
+		parts[i] = "{" + name + "}"
+		params = append(params, name)
+	}
+	return strings.Join(parts, "/"), params
 }
 
 func flattenToParams(opts options.Options, md protoreflect.MessageDescriptor, prefix string, seen map[string]struct{}) []*v3.Parameter {
