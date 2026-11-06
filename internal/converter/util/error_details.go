@@ -3,11 +3,21 @@ package util
 import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 )
 
+func fieldName(opts options.Options, protoName, jsonName string) string {
+	if opts.WithProtoNames {
+		return protoName
+	}
+	return jsonName
+}
+
 // GoogleRPCErrorDetailSchemas returns schemas for the standard error detail
-// messages in google/rpc/error_details.proto, keyed by full name.
-func GoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
+// messages in google/rpc/error_details.proto, keyed by full name. Property
+// names follow protojson: lowerCamelCase, or the proto names with
+// WithProtoNames.
+func GoogleRPCErrorDetailSchemas(opts options.Options) *orderedmap.Map[string, *base.SchemaProxy] {
 	schemas := orderedmap.New[string, *base.SchemaProxy]()
 
 	// ErrorInfo
@@ -39,7 +49,7 @@ func GoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
 
 	// RetryInfo
 	retryInfoProps := orderedmap.New[string, *base.SchemaProxy]()
-	retryInfoProps.Set("retry_delay", base.CreateSchemaProxy(&base.Schema{
+	retryInfoProps.Set(fieldName(opts, "retry_delay", "retryDelay"), base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"string"},
 		Format:      "duration",
 		Description: "Clients consuming this error should wait at least this long before retrying. The value is a duration string, following the protobuf Duration format (e.g., \"1.5s\" for one and a half seconds).",
@@ -53,7 +63,7 @@ func GoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
 
 	// DebugInfo
 	debugInfoProps := orderedmap.New[string, *base.SchemaProxy]()
-	debugInfoProps.Set("stack_entries", base.CreateSchemaProxy(&base.Schema{
+	debugInfoProps.Set(fieldName(opts, "stack_entries", "stackEntries"), base.CreateSchemaProxy(&base.Schema{
 		Type: []string{"array"},
 		Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 			N: 0,
@@ -143,7 +153,7 @@ func GoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
 		Description: "A description of why the request element is bad.",
 	}))
 	badRequestProps := orderedmap.New[string, *base.SchemaProxy]()
-	badRequestProps.Set("field_violations", base.CreateSchemaProxy(&base.Schema{
+	badRequestProps.Set(fieldName(opts, "field_violations", "fieldViolations"), base.CreateSchemaProxy(&base.Schema{
 		Type: []string{"array"},
 		Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 			N: 0,
@@ -162,11 +172,11 @@ func GoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
 
 	// RequestInfo
 	requestInfoProps := orderedmap.New[string, *base.SchemaProxy]()
-	requestInfoProps.Set("request_id", base.CreateSchemaProxy(&base.Schema{
+	requestInfoProps.Set(fieldName(opts, "request_id", "requestId"), base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"string"},
 		Description: "An opaque string that could be used by the client to trace the request.",
 	}))
-	requestInfoProps.Set("serving_data", base.CreateSchemaProxy(&base.Schema{
+	requestInfoProps.Set(fieldName(opts, "serving_data", "servingData"), base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"string"},
 		Description: "The serving data that were used to process the request.",
 	}))
@@ -179,11 +189,11 @@ func GoogleRPCErrorDetailSchemas() *orderedmap.Map[string, *base.SchemaProxy] {
 
 	// ResourceInfo
 	resourceInfoProps := orderedmap.New[string, *base.SchemaProxy]()
-	resourceInfoProps.Set("resource_type", base.CreateSchemaProxy(&base.Schema{
+	resourceInfoProps.Set(fieldName(opts, "resource_type", "resourceType"), base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"string"},
 		Description: `A name for the type of resource being accessed, e.g. "sql table", "cloud storage bucket", etc.`,
 	}))
-	resourceInfoProps.Set("resource_name", base.CreateSchemaProxy(&base.Schema{
+	resourceInfoProps.Set(fieldName(opts, "resource_name", "resourceName"), base.CreateSchemaProxy(&base.Schema{
 		Type:        []string{"string"},
 		Description: "The name of the resource being accessed.",
 	}))

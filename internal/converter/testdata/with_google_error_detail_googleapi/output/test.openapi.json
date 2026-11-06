@@ -106,7 +106,7 @@
       "google.rpc.BadRequest": {
         "type": "object",
         "properties": {
-          "field_violations": {
+          "fieldViolations": {
             "type": "array",
             "items": {
               "type": "object",
@@ -129,7 +129,7 @@
       "google.rpc.DebugInfo": {
         "type": "object",
         "properties": {
-          "stack_entries": {
+          "stackEntries": {
             "type": "array",
             "items": {
               "type": "string"
@@ -255,11 +255,11 @@
       "google.rpc.RequestInfo": {
         "type": "object",
         "properties": {
-          "request_id": {
+          "requestId": {
             "type": "string",
             "description": "An opaque string that could be used by the client to trace the request."
           },
-          "serving_data": {
+          "servingData": {
             "type": "string",
             "description": "The serving data that were used to process the request."
           }
@@ -270,11 +270,11 @@
       "google.rpc.ResourceInfo": {
         "type": "object",
         "properties": {
-          "resource_type": {
+          "resourceType": {
             "type": "string",
             "description": "A name for the type of resource being accessed, e.g. \"sql table\", \"cloud storage bucket\", etc."
           },
-          "resource_name": {
+          "resourceName": {
             "type": "string",
             "description": "The name of the resource being accessed."
           },
@@ -293,7 +293,7 @@
       "google.rpc.RetryInfo": {
         "type": "object",
         "properties": {
-          "retry_delay": {
+          "retryDelay": {
             "type": "string",
             "format": "duration",
             "description": "Clients consuming this error should wait at least this long before retrying. The value is a duration string, following the protobuf Duration format (e.g., \"1.5s\" for one and a half seconds)."

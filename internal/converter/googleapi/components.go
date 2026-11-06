@@ -66,7 +66,7 @@ func statusDetailSchema(opts options.Options, components *v3.Components) *base.S
 		return anyRef
 	}
 	var variants []*base.SchemaProxy
-	detailSchemas := util.GoogleRPCErrorDetailSchemas()
+	detailSchemas := util.GoogleRPCErrorDetailSchemas(opts)
 	for pair := detailSchemas.First(); pair != nil; pair = pair.Next() {
 		name := pair.Key()
 		if _, ok := components.Schemas.Get(name); !ok {

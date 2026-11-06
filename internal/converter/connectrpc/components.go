@@ -84,7 +84,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 
 	if _, ok := components.Schemas.Get("connect.error_details.Any"); !ok {
 		if opts.WithGoogleErrorDetail {
-			googleRPCSchemas := util.GoogleRPCErrorDetailSchemas()
+			googleRPCSchemas := util.GoogleRPCErrorDetailSchemas(opts)
 			mapping := orderedmap.New[string, string]()
 			oneOf := []*base.SchemaProxy{}
 
