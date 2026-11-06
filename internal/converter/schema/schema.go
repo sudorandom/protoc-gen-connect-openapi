@@ -8,9 +8,11 @@ import (
 
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
+	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -224,12 +226,18 @@ func ScalarFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt prot
 	case protoreflect.Uint64Kind, protoreflect.Fixed64Kind: // uint64 types
 		s.Type = []string{"string"}
 		s.Format = "int64"
-	case protoreflect.DoubleKind:
-		s.Type = []string{"number"}
-		s.Format = "double"
-	case protoreflect.FloatKind:
-		s.Type = []string{"number"}
-		s.Format = "float"
+	case protoreflect.DoubleKind, protoreflect.FloatKind:
+		s.OneOf = []*base.SchemaProxy{
+			base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}, Format: tt.Kind().String()}),
+			base.CreateSchemaProxy(&base.Schema{
+				Type: []string{"string"},
+				Enum: []*yaml.Node{
+					utils.CreateStringNode("NaN"),
+					utils.CreateStringNode("Infinity"),
+					utils.CreateStringNode("-Infinity"),
+				},
+			}),
+		}
 	case protoreflect.StringKind:
 		s.Type = []string{"string"}
 	case protoreflect.BytesKind:
@@ -312,6 +320,10 @@ func presenceOf(fieldNames []string) []*base.SchemaProxy {
 }
 
 func appendType(s *base.Schema, newType string) {
+	if s.Type == nil && len(s.OneOf) > 0 {
+		s.OneOf = append(s.OneOf, base.CreateSchemaProxy(&base.Schema{Type: []string{newType}}))
+		return
+	}
 	if s.Type == nil {
 		s.Type = []string{newType}
 		return

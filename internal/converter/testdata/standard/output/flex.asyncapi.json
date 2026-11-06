@@ -164,9 +164,21 @@
             "type": "boolean"
           },
           "doubleField": {
-            "format": "double",
-            "title": "doubleField",
-            "type": "number"
+            "oneOf": [
+              {
+                "format": "double",
+                "type": "number"
+              },
+              {
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ],
+                "type": "string"
+              }
+            ],
+            "title": "doubleField"
           },
           "fixed32Field": {
             "title": "fixed32Field",
@@ -178,9 +190,21 @@
             "type": "string"
           },
           "floatField": {
-            "format": "float",
-            "title": "floatField",
-            "type": "number"
+            "oneOf": [
+              {
+                "format": "float",
+                "type": "number"
+              },
+              {
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ],
+                "type": "string"
+              }
+            ],
+            "title": "floatField"
           },
           "int32Field": {
             "format": "int32",

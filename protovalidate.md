@@ -1,6 +1,8 @@
 # Protovalidate Support
 protoc-gen-connect-openapi has support for many [Protovalidate](https://github.com/bufbuild/protovalidate) annotations. Note that not every Protovalidate constraint translates clearly to OpenAPI.
 
+Unconstrained `float` and `double` fields accept numbers and the ProtoJSON strings `"NaN"`, `"Infinity"`, and `"-Infinity"`. Fields with numeric bounds, `const`, `in`, `not_in`, or `finite: true` keep their numeric schema; special values under these constraints are not modeled. Explicit Gnostic property annotations also retain their previous schema behavior.
+
 Your protobuf that looks like this:
 ```protobuf
 syntax = "proto3";

@@ -165,9 +165,21 @@
             "type": "object",
             "properties": {
               "doubleOption": {
-                "type": "number",
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
                 "title": "double_option",
-                "format": "double",
                 "deprecated": true
               }
             },
@@ -212,9 +224,21 @@
             "type": "object",
             "properties": {
               "floatOption": {
-                "type": "number",
-                "title": "float_option",
-                "format": "float"
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
+                "title": "float_option"
               }
             },
             "title": "float_option"
@@ -518,15 +542,39 @@
         },
         "properties": {
           "doubleValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "double_value",
-            "format": "double",
             "description": "scalar types"
           },
           "floatValue": {
-            "type": "number",
-            "title": "float_value",
-            "format": "float"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "float_value"
           },
           "int32Value": {
             "type": "integer",
@@ -592,8 +640,20 @@
           "doubleList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "double_list",
             "description": "repeated types"
@@ -601,8 +661,20 @@
           "floatList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "float_list"
           },
@@ -807,9 +879,21 @@
             "type": "object",
             "title": "double_map",
             "additionalProperties": {
-              "type": "number",
-              "title": "value",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ],
+              "title": "value"
             },
             "description": "map value types",
             "deprecated": true
@@ -818,9 +902,21 @@
             "type": "object",
             "title": "float_map",
             "additionalProperties": {
-              "type": "number",
-              "title": "value",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ],
+              "title": "value"
             }
           },
           "int32Map": {
@@ -937,22 +1033,46 @@
             }
           },
           "optDoubleValue": {
-            "type": [
-              "number",
-              "null"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ],
             "title": "opt_double_value",
-            "format": "double",
             "description": "explicit presence types",
             "deprecated": true
           },
           "optFloatValue": {
-            "type": [
-              "number",
-              "null"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ],
-            "title": "opt_float_value",
-            "format": "float"
+            "title": "opt_float_value"
           },
           "optInt32Value": {
             "type": [
@@ -1151,9 +1271,21 @@
             "type": "object",
             "properties": {
               "oneofDoubleValue": {
-                "type": "number",
-                "title": "oneof_double_value",
-                "format": "double"
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
+                "title": "oneof_double_value"
               }
             },
             "title": "oneof_double_value"
@@ -1234,15 +1366,39 @@
         },
         "properties": {
           "doubleValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "double_value",
-            "format": "double",
             "description": "scalar types"
           },
           "floatValue": {
-            "type": "number",
-            "title": "float_value",
-            "format": "float"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "float_value"
           },
           "int32Value": {
             "type": "integer",
@@ -1422,8 +1578,20 @@
           "doubleList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "double_list"
           },
@@ -1534,9 +1702,21 @@
         "type": "object",
         "properties": {
           "doubleValue": {
-            "type": "number",
-            "title": "double_value",
-            "format": "double"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "double_value"
           },
           "doubleValueWrapper": {
             "allOf": [
