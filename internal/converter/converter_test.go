@@ -118,7 +118,7 @@ var scenarios = []Scenario{
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
 	{Name: "with_google_error_detail_googleapi", Options: "features=google.api.http;gnostic;protovalidate,with-google-error-detail"},
 	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
-	{Name: "twirp_only", Options: "features=twirp"},
+	{Name: "twirp_only", Options: "features=twirp,content-types=json;proto"},
 	{Name: "visibility", Options: "features=google.api.http;gnostic;protovalidate,allowed-visibilities=INTERNAL;PREVIEW"},
 	{Name: "disable_default_response", Options: "disable-default-response"},
 }

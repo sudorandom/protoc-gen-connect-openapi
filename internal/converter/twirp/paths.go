@@ -14,8 +14,20 @@ import (
 
 const twirpPathPrefix = "/twirp"
 
+// twirpContentTypes are the encodings Twirp serves, in output order, keyed by
+// the content-types option that enables them. Twirp's binary encoding uses
+// application/protobuf rather than Connect's application/proto.
+var twirpContentTypes = []struct{ option, mediaType string }{
+	{option: "json", mediaType: "application/json"},
+	{option: "proto", mediaType: "application/protobuf"},
+}
+
 func MakePathItems(opts options.Options, service protoreflect.ServiceDescriptor, method protoreflect.MethodDescriptor) *orderedmap.Map[string, *v3.PathItem] {
 	paths := orderedmap.New[string, *v3.PathItem]()
+	// Twirp only supports unary RPCs.
+	if method.IsStreamingClient() || method.IsStreamingServer() {
+		return paths
+	}
 	path := fmt.Sprintf("%s/%s/%s", twirpPathPrefix, service.FullName(), method.Name())
 	paths.Set(path, MakePathItem(opts, method))
 	return paths
@@ -37,24 +49,27 @@ func makeOperation(opts options.Options, method protoreflect.MethodDescriptor) *
 }
 
 func makeRequestBody(opts options.Options, message protoreflect.MessageDescriptor) *v3.RequestBody {
-	content := orderedmap.New[string, *v3.MediaType]()
-	for contentType := range opts.ContentTypes {
-		content.Set(contentType, &v3.MediaType{
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + string(message.FullName())),
-		})
-	}
+	content := makeContent(opts, message)
 	return &v3.RequestBody{
 		Content: content,
 	}
 }
 
-func makeResponses(opts options.Options, message protoreflect.MessageDescriptor) *v3.Responses {
+func makeContent(opts options.Options, message protoreflect.MessageDescriptor) *orderedmap.Map[string, *v3.MediaType] {
 	content := orderedmap.New[string, *v3.MediaType]()
-	for contentType := range opts.ContentTypes {
-		content.Set(contentType, &v3.MediaType{
+	for _, contentType := range twirpContentTypes {
+		if _, ok := opts.ContentTypes[contentType.option]; !ok {
+			continue
+		}
+		content.Set(contentType.mediaType, &v3.MediaType{
 			Schema: base.CreateSchemaProxyRef("#/components/schemas/" + string(message.FullName())),
 		})
 	}
+	return content
+}
+
+func makeResponses(opts options.Options, message protoreflect.MessageDescriptor) *v3.Responses {
+	content := makeContent(opts, message)
 	codes := orderedmap.New[string, *v3.Response]()
 	if !opts.DisableDefaultResponse {
 		codes.Set("200", &v3.Response{
@@ -105,6 +120,10 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 		}))
 		errorSchemaProperties.Set("msg", base.CreateSchemaProxy(&base.Schema{
 			Type: []string{"string"},
+		}))
+		errorSchemaProperties.Set("meta", base.CreateSchemaProxy(&base.Schema{
+			Type:                 []string{"object"},
+			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{A: base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}})},
 		}))
 		components.Schemas.Set("TwirpError", base.CreateSchemaProxy(&base.Schema{
 			Type:       []string{"object"},

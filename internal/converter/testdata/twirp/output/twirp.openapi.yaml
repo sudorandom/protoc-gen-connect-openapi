@@ -11,14 +11,14 @@ paths:
       operationId: twirp.Haberdasher.MakeHat
       requestBody:
         content:
-          json:
+          application/json:
             schema:
               $ref: '#/components/schemas/twirp.Size'
       responses:
         "200":
           description: OK
           content:
-            json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/twirp.Hat'
         default:
@@ -55,6 +55,10 @@ components:
             - dataloss
         msg:
           type: string
+        meta:
+          type: object
+          additionalProperties:
+            type: string
     twirp.Hat:
       type: object
       properties:
