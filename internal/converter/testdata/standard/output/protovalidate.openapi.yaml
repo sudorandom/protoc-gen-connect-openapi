@@ -215,41 +215,28 @@ components:
       description: A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     protovalidate.CELMessage:
       type: object
-      allOf:
-        - oneOf:
-            - required:
-                - a
-            - required:
-                - b
-      anyOf:
-        - type: object
-          properties:
-            a:
-              type: string
-              title: a
-              minLength: 1
-          title: a
-        - type: object
-          properties:
-            b:
-              type: string
-              title: b
-          title: b
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
+        anyOf:
+          - required:
+              - a
+              - b
           - not:
-              oneOf:
+              anyOf:
                 - required:
                     - a
                 - required:
                     - b
+      properties:
+        a:
+          type: string
+          title: a
+          minLength: 1
+        b:
+          type: string
+          title: b
       title: CELMessage
+      additionalProperties: false
+      description: Exactly one of `a`, `b` must be set.
     protovalidate.LotsOfValidationRules:
       type: object
       properties:
@@ -1405,41 +1392,28 @@ components:
       additionalProperties: false
     protovalidate.OneOfMessage:
       type: object
-      allOf:
-        - oneOf:
-            - required:
-                - a
-            - required:
-                - b
-      anyOf:
-        - type: object
-          properties:
-            a:
-              type: string
-              title: a
-              minLength: 1
-          title: a
-        - type: object
-          properties:
-            b:
-              type: string
-              title: b
-          title: b
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
+        anyOf:
+          - required:
+              - a
+              - b
           - not:
-              oneOf:
+              anyOf:
                 - required:
                     - a
                 - required:
                     - b
+      properties:
+        a:
+          type: string
+          title: a
+          minLength: 1
+        b:
+          type: string
+          title: b
       title: OneOfMessage
+      additionalProperties: false
+      description: Exactly one of `a`, `b` must be set.
 security: []
 tags:
   - name: protovalidate.MessageFields

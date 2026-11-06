@@ -159,73 +159,31 @@
       },
       "standard.OneofInteractionMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "c"
-                ]
-              },
-              {
-                "required": [
-                  "d"
-                ]
-              }
-            ]
-          }
-        ],
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "a": {
-                "type": "string",
-                "title": "a"
-              }
-            },
-            "title": "a"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "b": {
-                "type": "integer",
-                "title": "b",
-                "format": "int32"
-              }
-            },
-            "title": "b"
-          }
-        ],
-        "unevaluatedProperties": false,
         "not": {
-          "allOf": [
+          "anyOf": [
             {
-              "anyOf": [
-                {
-                  "required": [
-                    "a"
-                  ]
-                },
-                {
-                  "required": [
-                    "b"
-                  ]
-                }
+              "required": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "required": [
+                "c",
+                "d"
               ]
             },
             {
               "not": {
-                "oneOf": [
+                "anyOf": [
                   {
                     "required": [
-                      "a"
+                      "c"
                     ]
                   },
                   {
                     "required": [
-                      "b"
+                      "d"
                     ]
                   }
                 ]
@@ -234,6 +192,15 @@
           ]
         },
         "properties": {
+          "a": {
+            "type": "string",
+            "title": "a"
+          },
+          "b": {
+            "type": "integer",
+            "title": "b",
+            "format": "int32"
+          },
           "c": {
             "type": "string",
             "title": "c"
@@ -247,7 +214,9 @@
             "title": "e"
           }
         },
-        "title": "OneofInteractionMessage"
+        "title": "OneofInteractionMessage",
+        "additionalProperties": false,
+        "description": "At most one of `a`, `b` may be set.\n\nExactly one of `c`, `d` must be set."
       }
     }
   },

@@ -139,263 +139,13 @@
       },
       "with_proto_annotations.test.v1.AllTypes": {
         "type": "object",
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "boolOption": {
-                "type": "boolean",
-                "title": "bool_option",
-                "description": "(proto bool)"
-              }
-            },
-            "title": "bool_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "bytesOption": {
-                "type": "string",
-                "title": "bytes_option",
-                "format": "byte",
-                "description": "(proto bytes)"
-              }
-            },
-            "title": "bytes_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "doubleOption": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "format": "double"
-                  },
-                  {
-                    "type": "string",
-                    "enum": [
-                      "NaN",
-                      "Infinity",
-                      "-Infinity"
-                    ]
-                  }
-                ],
-                "title": "double_option",
-                "description": "(proto double)"
-              }
-            },
-            "title": "double_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "enumOption": {
-                "title": "enum_option",
-                "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)",
-                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
-              }
-            },
-            "title": "enum_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "fixed32Option": {
-                "type": "integer",
-                "title": "fixed32_option",
-                "description": "(proto fixed32)"
-              }
-            },
-            "title": "fixed32_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "fixed64Option": {
-                "type": "string",
-                "title": "fixed64_option",
-                "format": "int64",
-                "description": "(proto fixed64)"
-              }
-            },
-            "title": "fixed64_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "floatOption": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "format": "float"
-                  },
-                  {
-                    "type": "string",
-                    "enum": [
-                      "NaN",
-                      "Infinity",
-                      "-Infinity"
-                    ]
-                  }
-                ],
-                "title": "float_option",
-                "description": "(proto float)"
-              }
-            },
-            "title": "float_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "int32Option": {
-                "type": "integer",
-                "title": "int32_option",
-                "format": "int32",
-                "description": "(proto int32)"
-              }
-            },
-            "title": "int32_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "int64Option": {
-                "type": "string",
-                "title": "int64_option",
-                "format": "int64",
-                "description": "(proto int64)"
-              }
-            },
-            "title": "int64_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "msgOption": {
-                "title": "msg_option",
-                "description": "(proto with_proto_annotations.test.v1.AllTypes)",
-                "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
-              }
-            },
-            "title": "msg_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "sfixed32Option": {
-                "type": "integer",
-                "title": "sfixed32_option",
-                "format": "int32",
-                "description": "(proto sfixed32)"
-              }
-            },
-            "title": "sfixed32_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "sfixed64Option": {
-                "type": "string",
-                "title": "sfixed64_option",
-                "format": "int64",
-                "description": "(proto sfixed64)"
-              }
-            },
-            "title": "sfixed64_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "sint32Option": {
-                "type": "integer",
-                "title": "sint32_option",
-                "format": "int32",
-                "description": "(proto sint32)"
-              }
-            },
-            "title": "sint32_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "sint64Option": {
-                "type": "string",
-                "title": "sint64_option",
-                "format": "int64",
-                "description": "(proto sint64)"
-              }
-            },
-            "title": "sint64_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "stringOption": {
-                "type": "string",
-                "title": "string_option",
-                "description": "(proto string)"
-              }
-            },
-            "title": "string_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "uint32Option": {
-                "type": "integer",
-                "title": "uint32_option",
-                "description": "(proto uint32)"
-              }
-            },
-            "title": "uint32_option"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "uint64Option": {
-                "type": "string",
-                "title": "uint64_option",
-                "format": "int64",
-                "description": "(proto uint64)"
-              }
-            },
-            "title": "uint64_option"
-          }
-        ],
-        "unevaluatedProperties": false,
         "not": {
           "allOf": [
             {
               "anyOf": [
                 {
                   "required": [
-                    "boolOption"
-                  ]
-                },
-                {
-                  "required": [
-                    "bytesOption"
-                  ]
-                },
-                {
-                  "required": [
                     "doubleOption"
-                  ]
-                },
-                {
-                  "required": [
-                    "enumOption"
-                  ]
-                },
-                {
-                  "required": [
-                    "fixed32Option"
-                  ]
-                },
-                {
-                  "required": [
-                    "fixed64Option"
                   ]
                 },
                 {
@@ -415,17 +165,12 @@
                 },
                 {
                   "required": [
-                    "msgOption"
+                    "uint32Option"
                   ]
                 },
                 {
                   "required": [
-                    "sfixed32Option"
-                  ]
-                },
-                {
-                  "required": [
-                    "sfixed64Option"
+                    "uint64Option"
                   ]
                 },
                 {
@@ -440,17 +185,47 @@
                 },
                 {
                   "required": [
+                    "fixed32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "fixed64Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "sfixed32Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "sfixed64Option"
+                  ]
+                },
+                {
+                  "required": [
+                    "boolOption"
+                  ]
+                },
+                {
+                  "required": [
                     "stringOption"
                   ]
                 },
                 {
                   "required": [
-                    "uint32Option"
+                    "bytesOption"
                   ]
                 },
                 {
                   "required": [
-                    "uint64Option"
+                    "msgOption"
+                  ]
+                },
+                {
+                  "required": [
+                    "enumOption"
                   ]
                 }
               ]
@@ -460,32 +235,7 @@
                 "oneOf": [
                   {
                     "required": [
-                      "boolOption"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "bytesOption"
-                    ]
-                  },
-                  {
-                    "required": [
                       "doubleOption"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "enumOption"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "fixed32Option"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "fixed64Option"
                     ]
                   },
                   {
@@ -505,17 +255,12 @@
                   },
                   {
                     "required": [
-                      "msgOption"
+                      "uint32Option"
                     ]
                   },
                   {
                     "required": [
-                      "sfixed32Option"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "sfixed64Option"
+                      "uint64Option"
                     ]
                   },
                   {
@@ -530,17 +275,47 @@
                   },
                   {
                     "required": [
+                      "fixed32Option"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "fixed64Option"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "sfixed32Option"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "sfixed64Option"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "boolOption"
+                    ]
+                  },
+                  {
+                    "required": [
                       "stringOption"
                     ]
                   },
                   {
                     "required": [
-                      "uint32Option"
+                      "bytesOption"
                     ]
                   },
                   {
                     "required": [
-                      "uint64Option"
+                      "msgOption"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "enumOption"
                     ]
                   }
                 ]
@@ -1343,9 +1118,131 @@
               "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.EnumMapEntry)"
+          },
+          "doubleOption": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "double_option",
+            "description": "(proto double)"
+          },
+          "floatOption": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "float_option",
+            "description": "(proto float)"
+          },
+          "int32Option": {
+            "type": "integer",
+            "title": "int32_option",
+            "format": "int32",
+            "description": "(proto int32)"
+          },
+          "int64Option": {
+            "type": "string",
+            "title": "int64_option",
+            "format": "int64",
+            "description": "(proto int64)"
+          },
+          "uint32Option": {
+            "type": "integer",
+            "title": "uint32_option",
+            "description": "(proto uint32)"
+          },
+          "uint64Option": {
+            "type": "string",
+            "title": "uint64_option",
+            "format": "int64",
+            "description": "(proto uint64)"
+          },
+          "sint32Option": {
+            "type": "integer",
+            "title": "sint32_option",
+            "format": "int32",
+            "description": "(proto sint32)"
+          },
+          "sint64Option": {
+            "type": "string",
+            "title": "sint64_option",
+            "format": "int64",
+            "description": "(proto sint64)"
+          },
+          "fixed32Option": {
+            "type": "integer",
+            "title": "fixed32_option",
+            "description": "(proto fixed32)"
+          },
+          "fixed64Option": {
+            "type": "string",
+            "title": "fixed64_option",
+            "format": "int64",
+            "description": "(proto fixed64)"
+          },
+          "sfixed32Option": {
+            "type": "integer",
+            "title": "sfixed32_option",
+            "format": "int32",
+            "description": "(proto sfixed32)"
+          },
+          "sfixed64Option": {
+            "type": "string",
+            "title": "sfixed64_option",
+            "format": "int64",
+            "description": "(proto sfixed64)"
+          },
+          "boolOption": {
+            "type": "boolean",
+            "title": "bool_option",
+            "description": "(proto bool)"
+          },
+          "stringOption": {
+            "type": "string",
+            "title": "string_option",
+            "description": "(proto string)"
+          },
+          "bytesOption": {
+            "type": "string",
+            "title": "bytes_option",
+            "format": "byte",
+            "description": "(proto bytes)"
+          },
+          "msgOption": {
+            "title": "msg_option",
+            "description": "(proto with_proto_annotations.test.v1.AllTypes)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes"
+          },
+          "enumOption": {
+            "title": "enum_option",
+            "description": "(proto with_proto_annotations.test.v1.AllTypes.Enum)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.AllTypes.Enum"
           }
         },
-        "title": "AllTypes"
+        "title": "AllTypes",
+        "additionalProperties": false,
+        "description": "At most one of `doubleOption`, `floatOption`, `int32Option`, `int64Option`, `uint32Option`, `uint64Option`, `sint32Option`, `sint64Option`, `fixed32Option`, `fixed64Option`, `sfixed32Option`, `sfixed64Option`, `boolOption`, `stringOption`, `bytesOption`, `msgOption`, `enumOption` may be set."
       },
       "with_proto_annotations.test.v1.AllTypes.Enum": {
         "type": "string",
@@ -1359,96 +1256,25 @@
       },
       "with_proto_annotations.test.v1.ParameterValues": {
         "type": "object",
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "oneofDoubleValue": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "format": "double"
-                  },
-                  {
-                    "type": "string",
-                    "enum": [
-                      "NaN",
-                      "Infinity",
-                      "-Infinity"
-                    ]
-                  }
-                ],
-                "title": "oneof_double_value",
-                "description": "(proto double)"
-              }
-            },
-            "title": "oneof_double_value"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "oneofDoubleValueWrapper": {
-                "title": "oneof_double_value_wrapper",
-                "description": "(proto google.protobuf.DoubleValue)",
-                "$ref": "#/components/schemas/google.protobuf.DoubleValue"
-              }
-            },
-            "title": "oneof_double_value_wrapper"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "oneofEnumValue": {
-                "title": "oneof_enum_value",
-                "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
-                "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
-              }
-            },
-            "title": "oneof_enum_value"
-          }
-        ],
-        "unevaluatedProperties": false,
         "not": {
-          "allOf": [
+          "anyOf": [
             {
-              "anyOf": [
-                {
-                  "required": [
-                    "oneofDoubleValue"
-                  ]
-                },
-                {
-                  "required": [
-                    "oneofDoubleValueWrapper"
-                  ]
-                },
-                {
-                  "required": [
-                    "oneofEnumValue"
-                  ]
-                }
+              "required": [
+                "oneofDoubleValue",
+                "oneofDoubleValueWrapper"
               ]
             },
             {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "oneofDoubleValue"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "oneofDoubleValueWrapper"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "oneofEnumValue"
-                    ]
-                  }
-                ]
-              }
+              "required": [
+                "oneofDoubleValue",
+                "oneofEnumValue"
+              ]
+            },
+            {
+              "required": [
+                "oneofDoubleValueWrapper",
+                "oneofEnumValue"
+              ]
             }
           ]
         },
@@ -1665,6 +1491,34 @@
             "title": "double_value_list",
             "description": "(proto google.protobuf.DoubleValue)"
           },
+          "oneofDoubleValue": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "oneof_double_value",
+            "description": "(proto double)"
+          },
+          "oneofDoubleValueWrapper": {
+            "title": "oneof_double_value_wrapper",
+            "description": "(proto google.protobuf.DoubleValue)",
+            "$ref": "#/components/schemas/google.protobuf.DoubleValue"
+          },
+          "oneofEnumValue": {
+            "title": "oneof_enum_value",
+            "description": "(proto with_proto_annotations.test.v1.ParameterValues.Enum)",
+            "$ref": "#/components/schemas/with_proto_annotations.test.v1.ParameterValues.Enum"
+          },
           "nested": {
             "title": "nested",
             "description": "(proto with_proto_annotations.test.v1.ParameterValues.Nested)",
@@ -1734,7 +1588,9 @@
             "description": "(proto with_proto_annotations.test.v1.ParameterValues)"
           }
         },
-        "title": "ParameterValues"
+        "title": "ParameterValues",
+        "additionalProperties": false,
+        "description": "At most one of `oneofDoubleValue`, `oneofDoubleValueWrapper`, `oneofEnumValue` may be set."
       },
       "with_proto_annotations.test.v1.ParameterValues.Enum": {
         "type": "string",

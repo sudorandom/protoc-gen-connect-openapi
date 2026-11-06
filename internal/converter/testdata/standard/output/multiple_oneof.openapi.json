@@ -159,36 +159,54 @@
       },
       "standard.MultipleOneofMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              }
-            ]
-          },
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "c"
-                ]
-              },
-              {
-                "required": [
-                  "d"
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "a"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "b"
+                    ]
+                  }
                 ]
               }
-            ]
-          }
-        ],
+            },
+            {
+              "required": [
+                "c",
+                "d"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "c"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "d"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
         "properties": {
           "a": {
             "type": "string",
@@ -213,7 +231,8 @@
           }
         },
         "title": "MultipleOneofMessage",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Exactly one of `a`, `b` must be set.\n\nExactly one of `c`, `d` must be set."
       }
     }
   },

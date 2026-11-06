@@ -1,0 +1,50 @@
+cases:
+  - name: "one-from-each-rule"
+    path: "/standard.MultipleOneofService/DoSomething"
+    body: '{"a": "x", "c": "y"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "one-from-each-rule-alt"
+    path: "/standard.MultipleOneofService/DoSomething"
+    body: '{"b": 1, "d": true}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "first-rule-unset"
+    path: "/standard.MultipleOneofService/DoSomething"
+    body: '{"c": "y"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "second-rule-unset"
+    path: "/standard.MultipleOneofService/DoSomething"
+    body: '{"a": "x"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "first-rule-both-set"
+    path: "/standard.MultipleOneofService/DoSomething"
+    body: '{"a": "x", "b": 1, "c": "y"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "nothing-set"
+    path: "/standard.MultipleOneofService/DoSomething"
+    body: '{"e": "z"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"

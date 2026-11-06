@@ -309,65 +309,17 @@
       },
       "protovalidate.CELMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              }
-            ]
-          }
-        ],
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "a": {
-                "type": "string",
-                "title": "a",
-                "minLength": 1
-              }
-            },
-            "title": "a"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "b": {
-                "type": "string",
-                "title": "b"
-              }
-            },
-            "title": "b"
-          }
-        ],
-        "unevaluatedProperties": false,
         "not": {
-          "allOf": [
+          "anyOf": [
             {
-              "anyOf": [
-                {
-                  "required": [
-                    "a"
-                  ]
-                },
-                {
-                  "required": [
-                    "b"
-                  ]
-                }
+              "required": [
+                "a",
+                "b"
               ]
             },
             {
               "not": {
-                "oneOf": [
+                "anyOf": [
                   {
                     "required": [
                       "a"
@@ -383,7 +335,20 @@
             }
           ]
         },
-        "title": "CELMessage"
+        "properties": {
+          "a": {
+            "type": "string",
+            "title": "a",
+            "minLength": 1
+          },
+          "b": {
+            "type": "string",
+            "title": "b"
+          }
+        },
+        "title": "CELMessage",
+        "additionalProperties": false,
+        "description": "Exactly one of `a`, `b` must be set."
       },
       "protovalidate.LotsOfValidationRules": {
         "type": "object",
@@ -1776,65 +1741,17 @@
       },
       "protovalidate.OneOfMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
-                ]
-              }
-            ]
-          }
-        ],
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "a": {
-                "type": "string",
-                "title": "a",
-                "minLength": 1
-              }
-            },
-            "title": "a"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "b": {
-                "type": "string",
-                "title": "b"
-              }
-            },
-            "title": "b"
-          }
-        ],
-        "unevaluatedProperties": false,
         "not": {
-          "allOf": [
+          "anyOf": [
             {
-              "anyOf": [
-                {
-                  "required": [
-                    "a"
-                  ]
-                },
-                {
-                  "required": [
-                    "b"
-                  ]
-                }
+              "required": [
+                "a",
+                "b"
               ]
             },
             {
               "not": {
-                "oneOf": [
+                "anyOf": [
                   {
                     "required": [
                       "a"
@@ -1850,7 +1767,20 @@
             }
           ]
         },
-        "title": "OneOfMessage"
+        "properties": {
+          "a": {
+            "type": "string",
+            "title": "a",
+            "minLength": 1
+          },
+          "b": {
+            "type": "string",
+            "title": "b"
+          }
+        },
+        "title": "OneOfMessage",
+        "additionalProperties": false,
+        "description": "Exactly one of `a`, `b` must be set."
       }
     }
   },

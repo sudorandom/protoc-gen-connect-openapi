@@ -25,34 +25,20 @@ paths:
           application/json:
             schema:
               type: object
-              anyOf:
-                - type: object
-                  properties:
-                    profile:
-                      title: profile
-                      $ref: '#/components/schemas/path_params.Profile'
-                  title: profile
-                - type: object
-                  properties:
-                    settings:
-                      title: settings
-                      $ref: '#/components/schemas/path_params.Settings'
-                  title: settings
-              unevaluatedProperties: false
               not:
-                allOf:
-                  - anyOf:
-                      - required:
-                          - profile
-                      - required:
-                          - settings
-                  - not:
-                      oneOf:
-                        - required:
-                            - profile
-                        - required:
-                            - settings
+                required:
+                  - profile
+                  - settings
+              properties:
+                profile:
+                  title: profile
+                  $ref: '#/components/schemas/path_params.Profile'
+                settings:
+                  title: settings
+                  $ref: '#/components/schemas/path_params.Settings'
               title: UpdateWithOneofRequest
+              additionalProperties: false
+              description: At most one of `profile`, `settings` may be set.
         required: true
       responses:
         default:
@@ -154,42 +140,28 @@ paths:
           application/json:
             schema:
               type: object
-              anyOf:
-                - type: object
-                  properties:
-                    profile:
-                      title: profile
-                      $ref: '#/components/schemas/path_params.Profile'
-                  title: profile
-                - type: object
-                  properties:
-                    settings:
-                      title: settings
-                      $ref: '#/components/schemas/path_params.Settings'
-                  title: settings
-              unevaluatedProperties: false
               not:
-                allOf:
-                  - anyOf:
-                      - required:
-                          - profile
-                      - required:
-                          - settings
-                  - not:
-                      oneOf:
-                        - required:
-                            - profile
-                        - required:
-                            - settings
+                required:
+                  - profile
+                  - settings
               properties:
                 name:
                   type: string
                   title: name
+                profile:
+                  title: profile
+                  $ref: '#/components/schemas/path_params.Profile'
+                settings:
+                  title: settings
+                  $ref: '#/components/schemas/path_params.Settings'
               title: UpdateRequest
+              additionalProperties: false
               description: |-
                 UpdateRequest has a path param, regular fields, and a oneOf.
                  This tests that the requestBody is generated correctly when
                  MessageToSchema wraps properties+oneOf under AllOf.
+
+                At most one of `profile`, `settings` may be set.
         required: true
       responses:
         default:
@@ -391,33 +363,10 @@ components:
       additionalProperties: false
     path_params.UpdateRequest:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            profile:
-              title: profile
-              $ref: '#/components/schemas/path_params.Profile'
-          title: profile
-        - type: object
-          properties:
-            settings:
-              title: settings
-              $ref: '#/components/schemas/path_params.Settings'
-          title: settings
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - profile
-              - required:
-                  - settings
-          - not:
-              oneOf:
-                - required:
-                    - profile
-                - required:
-                    - settings
+        required:
+          - profile
+          - settings
       properties:
         id:
           type: string
@@ -425,47 +374,41 @@ components:
         name:
           type: string
           title: name
+        profile:
+          title: profile
+          $ref: '#/components/schemas/path_params.Profile'
+        settings:
+          title: settings
+          $ref: '#/components/schemas/path_params.Settings'
       title: UpdateRequest
       required:
         - id
+      additionalProperties: false
       description: |-
         UpdateRequest has a path param, regular fields, and a oneOf.
          This tests that the requestBody is generated correctly when
          MessageToSchema wraps properties+oneOf under AllOf.
+
+        At most one of `profile`, `settings` may be set.
     path_params.UpdateWithOneofRequest:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            profile:
-              title: profile
-              $ref: '#/components/schemas/path_params.Profile'
-          title: profile
-        - type: object
-          properties:
-            settings:
-              title: settings
-              $ref: '#/components/schemas/path_params.Settings'
-          title: settings
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - profile
-              - required:
-                  - settings
-          - not:
-              oneOf:
-                - required:
-                    - profile
-                - required:
-                    - settings
+        required:
+          - profile
+          - settings
       properties:
         accountId:
           type: string
           title: account_id
+        profile:
+          title: profile
+          $ref: '#/components/schemas/path_params.Profile'
+        settings:
+          title: settings
+          $ref: '#/components/schemas/path_params.Settings'
       title: UpdateWithOneofRequest
+      additionalProperties: false
+      description: At most one of `profile`, `settings` may be set.
 security: []
 tags:
   - name: path_params.PathParams

@@ -115,17 +115,26 @@ components:
       description: An empty JSON object.
     standard.MultipleOneofMessage:
       type: object
-      allOf:
-        - oneOf:
-            - required:
-                - a
-            - required:
-                - b
-        - oneOf:
-            - required:
-                - c
-            - required:
-                - d
+      not:
+        anyOf:
+          - required:
+              - a
+              - b
+          - not:
+              anyOf:
+                - required:
+                    - a
+                - required:
+                    - b
+          - required:
+              - c
+              - d
+          - not:
+              anyOf:
+                - required:
+                    - c
+                - required:
+                    - d
       properties:
         a:
           type: string
@@ -145,6 +154,10 @@ components:
           title: e
       title: MultipleOneofMessage
       additionalProperties: false
+      description: |-
+        Exactly one of `a`, `b` must be set.
+
+        Exactly one of `c`, `d` must be set.
 security: []
 tags:
   - name: standard.MultipleOneofService

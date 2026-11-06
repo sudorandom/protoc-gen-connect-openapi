@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log/slog"
 	"slices"
-	"strings"
 
 	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -51,7 +50,6 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 		}
 		if oneOf := field.ContainingOneof(); oneOf != nil && !oneOf.IsSynthetic() {
 			oneOneGroups[oneOf.FullName()] = append(oneOneGroups[oneOf.FullName()], field)
-			continue
 		}
 		prop := FieldToSchema(opts, base.CreateSchemaProxy(s), field)
 		if field.HasOptionalKeyword() {
@@ -71,27 +69,25 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 
 	s.Properties = regularProps
 	if len(oneOneGroups) > 0 {
-		// make all of groups
-		groupKeys := []protoreflect.FullName{}
-		for key := range oneOneGroups {
-			groupKeys = append(groupKeys, key)
+		var violations []*base.SchemaProxy
+		oneofs := tt.Oneofs()
+		for i := 0; i < oneofs.Len(); i++ {
+			group := oneOneGroups[oneofs.Get(i).FullName()]
+			if len(group) == 0 {
+				continue
+			}
+			fieldNames := make([]string, 0, len(group))
+			for _, field := range group {
+				fieldNames = append(fieldNames, util.MakeFieldName(opts, field))
+			}
+			violations = append(violations, util.OneofViolations(fieldNames)...)
+			if len(fieldNames) > 1 {
+				s.Description = util.AppendDescription(s.Description, util.OneofNote(fieldNames, false))
+			}
 		}
-		slices.Sort(groupKeys)
-		allOfs := []*base.SchemaProxy{}
-		for _, key := range groupKeys {
-			items := oneOneGroups[key]
-			slices.SortFunc(items, func(a, b protoreflect.FieldDescriptor) int {
-				return strings.Compare(string(a.Name()), string(b.Name()))
-			})
-			allOfs = append(allOfs, makeOneOfGroup(opts, items))
-		}
-		if len(allOfs) == 1 {
-			group := allOfs[0].Schema()
-			s.AnyOf = group.AnyOf
-			s.Not = group.Not
-		} else {
-			s.AllOf = append(s.AllOf, allOfs...)
-		}
+		// Oneof members are plain properties; the message is invalid when it
+		// matches any violation, i.e. sets more than one member of a oneof.
+		util.AddViolations(s, violations...)
 	}
 
 	// Apply Updates from Options
@@ -269,63 +265,6 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 	default:
 		panic(fmt.Errorf("ReferenceFieldToSchema called with unknown kind: %T", tt.Kind()))
 	}
-}
-
-func makeOneOfGroup(opts options.Options, fields []protoreflect.FieldDescriptor) *base.SchemaProxy {
-	rootSchemas := make([]*base.SchemaProxy, 0, len(fields))
-	fieldNames := make([]string, 0, len(fields))
-	for _, field := range fields {
-		schema := &base.Schema{
-			/*
-				Having the title prop here is redundant because it'll also be included inside the
-				properties object. But some platforms like readme.io require it to be at the top level for them to
-				properly interpret it.
-			*/
-			Title:      string(field.Name()),
-			Type:       []string{"object"},
-			Properties: orderedmap.New[string, *base.SchemaProxy](),
-		}
-
-		fieldName := util.MakeFieldName(opts, field)
-		propSchema := FieldToSchema(opts, base.CreateSchemaProxy(schema), field)
-		schema.Properties.Set(fieldName, propSchema)
-
-		rootSchemas = append(rootSchemas, base.CreateSchemaProxy(schema))
-		fieldNames = append(fieldNames, fieldName)
-	}
-	group := &base.Schema{AnyOf: rootSchemas}
-
-	// Keep the rendered variants limited to real fields. The variants are
-	// optional because a plain protobuf oneof permits no member to be set, so
-	// at-most-one is carried by a sibling constraint instead. Enumerating the
-	// forbidden pairs would grow with the square of the member count; forbid
-	// "some member set, but not exactly one" instead, which says the same thing
-	// with two presence lists. It sits under not, which no documentation
-	// renderer reads as a list of variants. (buf.validate.oneof).required
-	// layers exactly-one on top in the protovalidate feature.
-	if len(fieldNames) > 1 {
-		group.Not = base.CreateSchemaProxy(&base.Schema{
-			AllOf: []*base.SchemaProxy{
-				base.CreateSchemaProxy(&base.Schema{AnyOf: presenceOf(fieldNames)}),
-				base.CreateSchemaProxy(&base.Schema{
-					Not: base.CreateSchemaProxy(&base.Schema{OneOf: presenceOf(fieldNames)}),
-				}),
-			},
-		})
-	}
-	return base.CreateSchemaProxy(group)
-}
-
-// presenceOf builds one "this field is set" branch per name. oneOf over them
-// matches when exactly one is set, anyOf when at least one is.
-func presenceOf(fieldNames []string) []*base.SchemaProxy {
-	branches := make([]*base.SchemaProxy, 0, len(fieldNames))
-	for _, fieldName := range fieldNames {
-		branches = append(branches, base.CreateSchemaProxy(&base.Schema{
-			Required: []string{fieldName},
-		}))
-	}
-	return branches
 }
 
 func appendType(s *base.Schema, newType string) {

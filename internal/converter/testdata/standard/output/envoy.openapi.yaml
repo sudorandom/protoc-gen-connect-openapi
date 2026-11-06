@@ -314,51 +314,38 @@ components:
       description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details.
     envoy.config.core.v3.Address:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            envoyInternalAddress:
-              title: envoy_internal_address
-              description: |-
-                Specifies a user-space address handled by :ref:`internal listeners
-                 <envoy_v3_api_field_config.listener.v3.Listener.internal_listener>`.
-              $ref: '#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress'
-          title: envoy_internal_address
-        - type: object
-          properties:
-            pipe:
-              title: pipe
-              $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
-          title: pipe
-        - type: object
-          properties:
-            socketAddress:
-              title: socket_address
-              $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
-          title: socket_address
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - envoyInternalAddress
-              - required:
-                  - pipe
-              - required:
-                  - socketAddress
-          - not:
-              oneOf:
-                - required:
-                    - envoyInternalAddress
-                - required:
-                    - pipe
-                - required:
-                    - socketAddress
+        anyOf:
+          - required:
+              - socketAddress
+              - pipe
+          - required:
+              - socketAddress
+              - envoyInternalAddress
+          - required:
+              - pipe
+              - envoyInternalAddress
+      properties:
+        socketAddress:
+          title: socket_address
+          $ref: '#/components/schemas/envoy.config.core.v3.SocketAddress'
+        pipe:
+          title: pipe
+          $ref: '#/components/schemas/envoy.config.core.v3.Pipe'
+        envoyInternalAddress:
+          title: envoy_internal_address
+          description: |-
+            Specifies a user-space address handled by :ref:`internal listeners
+             <envoy_v3_api_field_config.listener.v3.Listener.internal_listener>`.
+          $ref: '#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress'
       title: Address
+      additionalProperties: false
       description: |-
         Addresses specify either a logical or physical address and port, which are
          used to tell Envoy where to bind/listen, connect to upstream and find
          management servers.
+
+        At most one of `socketAddress`, `pipe`, `envoyInternalAddress` may be set.
     envoy.config.core.v3.BuildVersion:
       type: object
       properties:
@@ -392,18 +379,13 @@ components:
       description: Identifies a specific ControlPlane instance that Envoy is connected to.
     envoy.config.core.v3.EnvoyInternalAddress:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            serverListenerName:
-              type: string
-              title: server_listener_name
-              description: |-
-                Specifies the :ref:`name <envoy_v3_api_field_config.listener.v3.Listener.name>` of the
-                 internal listener.
-          title: server_listener_name
-      unevaluatedProperties: false
       properties:
+        serverListenerName:
+          type: string
+          title: server_listener_name
+          description: |-
+            Specifies the :ref:`name <envoy_v3_api_field_config.listener.v3.Listener.name>` of the
+             internal listener.
         endpointId:
           type: string
           title: endpoint_id
@@ -412,6 +394,7 @@ components:
              single upstream pool. Only used in the upstream addresses for tracking changes to individual endpoints. This, for
              example, may be set to the final destination IP for the target internal listener.
       title: EnvoyInternalAddress
+      additionalProperties: false
       description: |-
         The address represents an envoy internal listener.
          [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]
@@ -548,37 +531,10 @@ components:
          [#next-major-version: move to type/metadata/v2]
     envoy.config.core.v3.Node:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            userAgentBuildVersion:
-              title: user_agent_build_version
-              description: Structured version of the entity requesting config.
-              $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
-          title: user_agent_build_version
-        - type: object
-          properties:
-            userAgentVersion:
-              type: string
-              title: user_agent_version
-              description: |-
-                Free-form string that identifies the version of the entity requesting config.
-                 E.g. "1.12.2" or "abcd1234", or "SpecialEnvoyBuild"
-          title: user_agent_version
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - userAgentBuildVersion
-              - required:
-                  - userAgentVersion
-          - not:
-              oneOf:
-                - required:
-                    - userAgentBuildVersion
-                - required:
-                    - userAgentVersion
+        required:
+          - userAgentVersion
+          - userAgentBuildVersion
       properties:
         id:
           type: string
@@ -634,6 +590,16 @@ components:
           description: |-
             Free-form string that identifies the entity requesting config.
              E.g. "envoy" or "grpc"
+        userAgentVersion:
+          type: string
+          title: user_agent_version
+          description: |-
+            Free-form string that identifies the version of the entity requesting config.
+             E.g. "1.12.2" or "abcd1234", or "SpecialEnvoyBuild"
+        userAgentBuildVersion:
+          title: user_agent_build_version
+          description: Structured version of the entity requesting config.
+          $ref: '#/components/schemas/envoy.config.core.v3.BuildVersion'
         extensions:
           type: array
           items:
@@ -663,11 +629,14 @@ components:
              SocketAddress ``(0.0.0.0,80)``. The field is optional and just a hint.
           deprecated: true
       title: Node
+      additionalProperties: false
       description: |-
         Identifies a specific Envoy instance. The node identifier is presented to the
          management server, which may use this identifier to distinguish per Envoy
          configuration for serving.
          [#next-free-field: 13]
+
+        At most one of `userAgentVersion`, `userAgentBuildVersion` may be set.
     envoy.config.core.v3.Pipe:
       type: object
       properties:
@@ -687,37 +656,10 @@ components:
       additionalProperties: false
     envoy.config.core.v3.SocketAddress:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            namedPort:
-              type: string
-              title: named_port
-              description: |-
-                This is only valid if :ref:`resolver_name
-                 <envoy_v3_api_field_config.core.v3.SocketAddress.resolver_name>` is specified below and the
-                 named resolver is capable of named port resolution.
-          title: named_port
-        - type: object
-          properties:
-            portValue:
-              type: integer
-              title: port_value
-          title: port_value
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - namedPort
-              - required:
-                  - portValue
-          - not:
-              oneOf:
-                - required:
-                    - namedPort
-                - required:
-                    - portValue
+        required:
+          - portValue
+          - namedPort
       properties:
         protocol:
           title: protocol
@@ -737,6 +679,16 @@ components:
              address must be an IP (``STATIC`` or ``EDS`` clusters) or a hostname resolved by DNS
              (``STRICT_DNS`` or ``LOGICAL_DNS`` clusters). Address resolution can be customized
              via :ref:`resolver_name <envoy_v3_api_field_config.core.v3.SocketAddress.resolver_name>`.
+        portValue:
+          type: integer
+          title: port_value
+        namedPort:
+          type: string
+          title: named_port
+          description: |-
+            This is only valid if :ref:`resolver_name
+             <envoy_v3_api_field_config.core.v3.SocketAddress.resolver_name>` is specified below and the
+             named resolver is capable of named port resolution.
         resolverName:
           type: string
           title: resolver_name
@@ -771,7 +723,11 @@ components:
              .. attention::
                  Network namespaces are only configurable on Linux. Otherwise, this field has no effect.
       title: SocketAddress
-      description: '[#next-free-field: 8]'
+      additionalProperties: false
+      description: |-
+        [#next-free-field: 8]
+
+        At most one of `portValue`, `namedPort` may be set.
     envoy.config.core.v3.SocketAddress.Protocol:
       type: string
       title: Protocol
@@ -1140,60 +1096,47 @@ components:
       description: '[#next-free-field: 8]'
     envoy.service.discovery.v3.DynamicParameterConstraints:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            andConstraints:
-              title: and_constraints
-              description: A list of constraints that must all match.
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
-          title: and_constraints
-        - type: object
-          properties:
-            constraint:
-              title: constraint
-              description: A single constraint to evaluate.
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint'
-          title: constraint
-        - type: object
-          properties:
-            notConstraints:
-              title: not_constraints
-              description: The inverse (NOT) of a set of constraints.
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
-          title: not_constraints
-        - type: object
-          properties:
-            orConstraints:
-              title: or_constraints
-              description: |-
-                A list of constraints that match if any one constraint in the list
-                 matches.
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
-          title: or_constraints
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - andConstraints
-              - required:
-                  - constraint
-              - required:
-                  - notConstraints
-              - required:
-                  - orConstraints
-          - not:
-              oneOf:
-                - required:
-                    - andConstraints
-                - required:
-                    - constraint
-                - required:
-                    - notConstraints
-                - required:
-                    - orConstraints
+        anyOf:
+          - required:
+              - constraint
+              - orConstraints
+          - required:
+              - constraint
+              - andConstraints
+          - required:
+              - constraint
+              - notConstraints
+          - required:
+              - orConstraints
+              - andConstraints
+          - required:
+              - orConstraints
+              - notConstraints
+          - required:
+              - andConstraints
+              - notConstraints
+      properties:
+        constraint:
+          title: constraint
+          description: A single constraint to evaluate.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint'
+        orConstraints:
+          title: or_constraints
+          description: |-
+            A list of constraints that match if any one constraint in the list
+             matches.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
+        andConstraints:
+          title: and_constraints
+          description: A list of constraints that must all match.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList'
+        notConstraints:
+          title: not_constraints
+          description: The inverse (NOT) of a set of constraints.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints'
       title: DynamicParameterConstraints
+      additionalProperties: false
       description: |-
         A set of dynamic parameter constraints associated with a variant of an individual xDS resource.
          These constraints determine whether the resource matches a subscription based on the set of
@@ -1201,6 +1144,8 @@ components:
          :ref:`ResourceLocator.dynamic_parameters <envoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters>`
          field. This allows xDS implementations (clients, servers, and caching proxies) to determine
          which variant of a resource is appropriate for a given client.
+
+        At most one of `constraint`, `orConstraints`, `andConstraints`, `notConstraints` may be set.
     envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList:
       type: object
       properties:
@@ -1213,46 +1158,33 @@ components:
       additionalProperties: false
     envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            exists:
-              title: exists
-              description: |-
-                Key is present (matches any value except for the key being absent).
-                 This allows setting a default constraint for clients that do
-                 not send a key at all, while there may be other clients that need
-                 special configuration based on that key.
-              $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
-          title: exists
-        - type: object
-          properties:
-            value:
-              type: string
-              title: value
-              description: Matches this exact value.
-          title: value
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - exists
-              - required:
-                  - value
-          - not:
-              oneOf:
-                - required:
-                    - exists
-                - required:
-                    - value
+        required:
+          - value
+          - exists
       properties:
         key:
           type: string
           title: key
           description: The key to match against.
+        value:
+          type: string
+          title: value
+          description: Matches this exact value.
+        exists:
+          title: exists
+          description: |-
+            Key is present (matches any value except for the key being absent).
+             This allows setting a default constraint for clients that do
+             not send a key at all, while there may be other clients that need
+             special configuration based on that key.
+          $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
       title: SingleConstraint
-      description: A single constraint for a given key.
+      additionalProperties: false
+      description: |-
+        A single constraint for a given key.
+
+        At most one of `value`, `exists` may be set.
     envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists:
       type: object
       title: Exists

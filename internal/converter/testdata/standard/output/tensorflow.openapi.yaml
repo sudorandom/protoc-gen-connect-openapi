@@ -551,148 +551,120 @@ components:
       additionalProperties: false
     tensorflow.AttrValue:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            b:
-              type: boolean
-              title: b
-              description: '"bool"'
-          title: b
-        - type: object
-          properties:
-            f:
-              oneOf:
-                - type: number
-                  format: float
-                - type: string
-                  enum:
-                    - NaN
-                    - Infinity
-                    - -Infinity
-              title: f
-              description: '"float"'
-          title: f
-        - type: object
-          properties:
-            func:
-              title: func
-              description: |-
-                "func" represents a function. func.name is a function's name or
-                 a primitive op's name. func.attr.first is the name of an attr
-                 defined for that function. func.attr.second is the value for
-                 that attr in the instantiation.
-              $ref: '#/components/schemas/tensorflow.NameAttrList'
-          title: func
-        - type: object
-          properties:
-            i:
-              type: string
-              title: i
-              format: int64
-              description: '"int"'
-          title: i
-        - type: object
-          properties:
-            list:
-              title: list
-              description: any "list(...)"
-              $ref: '#/components/schemas/tensorflow.AttrValue.ListValue'
-          title: list
-        - type: object
-          properties:
-            placeholder:
-              type: string
-              title: placeholder
-              description: |-
-                This is a placeholder only used in nodes defined inside a
-                 function.  It indicates the attr value will be supplied when
-                 the function is instantiated.  For example, let us suppose a
-                 node "N" in function "FN". "N" has an attr "A" with value
-                 placeholder = "foo". When FN is instantiated with attr "foo"
-                 set to "bar", the instantiated node N's attr A will have been
-                 given the value "bar".
-          title: placeholder
-        - type: object
-          properties:
-            s:
-              type: string
-              title: s
-              format: byte
-              description: '"string"'
-          title: s
-        - type: object
-          properties:
-            shape:
-              title: shape
-              description: '"shape"'
-              $ref: '#/components/schemas/tensorflow.TensorShapeProto'
-          title: shape
-        - type: object
-          properties:
-            tensor:
-              title: tensor
-              description: '"tensor"'
-              $ref: '#/components/schemas/tensorflow.TensorProto'
-          title: tensor
-        - type: object
-          properties:
-            type:
-              title: type
-              description: '"type"'
-              $ref: '#/components/schemas/tensorflow.DataType'
-          title: type
-      unevaluatedProperties: false
       not:
         allOf:
           - anyOf:
               - required:
-                  - b
-              - required:
-                  - f
-              - required:
-                  - func
+                  - s
               - required:
                   - i
               - required:
-                  - list
+                  - f
               - required:
-                  - placeholder
+                  - b
               - required:
-                  - s
+                  - type
               - required:
                   - shape
               - required:
                   - tensor
               - required:
-                  - type
+                  - list
+              - required:
+                  - func
+              - required:
+                  - placeholder
           - not:
               oneOf:
                 - required:
-                    - b
-                - required:
-                    - f
-                - required:
-                    - func
+                    - s
                 - required:
                     - i
                 - required:
-                    - list
+                    - f
                 - required:
-                    - placeholder
+                    - b
                 - required:
-                    - s
+                    - type
                 - required:
                     - shape
                 - required:
                     - tensor
                 - required:
-                    - type
+                    - list
+                - required:
+                    - func
+                - required:
+                    - placeholder
+      properties:
+        s:
+          type: string
+          title: s
+          format: byte
+          description: '"string"'
+        i:
+          type: string
+          title: i
+          format: int64
+          description: '"int"'
+        f:
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
+          title: f
+          description: '"float"'
+        b:
+          type: boolean
+          title: b
+          description: '"bool"'
+        type:
+          title: type
+          description: '"type"'
+          $ref: '#/components/schemas/tensorflow.DataType'
+        shape:
+          title: shape
+          description: '"shape"'
+          $ref: '#/components/schemas/tensorflow.TensorShapeProto'
+        tensor:
+          title: tensor
+          description: '"tensor"'
+          $ref: '#/components/schemas/tensorflow.TensorProto'
+        list:
+          title: list
+          description: any "list(...)"
+          $ref: '#/components/schemas/tensorflow.AttrValue.ListValue'
+        func:
+          title: func
+          description: |-
+            "func" represents a function. func.name is a function's name or
+             a primitive op's name. func.attr.first is the name of an attr
+             defined for that function. func.attr.second is the value for
+             that attr in the instantiation.
+          $ref: '#/components/schemas/tensorflow.NameAttrList'
+        placeholder:
+          type: string
+          title: placeholder
+          description: |-
+            This is a placeholder only used in nodes defined inside a
+             function.  It indicates the attr value will be supplied when
+             the function is instantiated.  For example, let us suppose a
+             node "N" in function "FN". "N" has an attr "A" with value
+             placeholder = "foo". When FN is instantiated with attr "foo"
+             set to "bar", the instantiated node N's attr A will have been
+             given the value "bar".
       title: AttrValue
+      additionalProperties: false
       description: |-
         Protocol buffer representing the value for an attr used to configure an Op.
          Comment indicates the corresponding attr type.  Only the field matching the
          attr type may be filled.
+
+        At most one of `s`, `i`, `f`, `b`, `type`, `shape`, `tensor`, `list`, `func`, `placeholder` may be set.
     tensorflow.AttrValue.ListValue:
       type: object
       properties:
@@ -1846,35 +1818,10 @@ components:
       description: 'TODO(mrry): Return something about the operation?'
     tensorflow.FullTypeDef:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            i:
-              type: string
-              title: i
-              format: int64
-              description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
-          title: i
-        - type: object
-          properties:
-            s:
-              type: string
-              title: s
-          title: s
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - i
-              - required:
-                  - s
-          - not:
-              oneOf:
-                - required:
-                    - i
-                - required:
-                    - s
+        required:
+          - s
+          - i
       properties:
         typeId:
           title: type_id
@@ -1888,12 +1835,23 @@ components:
           items:
             $ref: '#/components/schemas/tensorflow.FullTypeDef'
           title: args
+        s:
+          type: string
+          title: s
+        i:
+          type: string
+          title: i
+          format: int64
+          description: 'TODO(mdan): list/tensor, map? Need to reconcile with TFT_RECORD, etc.'
       title: FullTypeDef
+      additionalProperties: false
       description: |-
         Highly experimental and very likely to change.
          This encoding uses tags instead of dedicated messages for regularity. In
          particular the encoding imposes no restrictions on what the parameters of any
          type should be, which in particular needs to be true for type symbols.
+
+        At most one of `s`, `i` may be set.
     tensorflow.FullTypeId:
       type: string
       title: FullTypeId

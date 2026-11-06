@@ -82,34 +82,20 @@ paths:
           application/json:
             schema:
               type: object
-              anyOf:
-                - type: object
-                  properties:
-                    profile:
-                      title: profile
-                      $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
-                  title: profile
-                - type: object
-                  properties:
-                    settings:
-                      title: settings
-                      $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
-                  title: settings
-              unevaluatedProperties: false
               not:
-                allOf:
-                  - anyOf:
-                      - required:
-                          - profile
-                      - required:
-                          - settings
-                  - not:
-                      oneOf:
-                        - required:
-                            - profile
-                        - required:
-                            - settings
+                required:
+                  - profile
+                  - settings
+              properties:
+                profile:
+                  title: profile
+                  $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
+                settings:
+                  title: settings
+                  $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
               title: UpdateWithOneofRequest
+              additionalProperties: false
+              description: At most one of `profile`, `settings` may be set.
         required: true
       responses:
         default:
@@ -344,38 +330,23 @@ components:
       additionalProperties: false
     proto_names.io.swagger.petstore.v2.UpdateWithOneofRequest:
       type: object
-      anyOf:
-        - type: object
-          properties:
-            profile:
-              title: profile
-              $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
-          title: profile
-        - type: object
-          properties:
-            settings:
-              title: settings
-              $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
-          title: settings
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - profile
-              - required:
-                  - settings
-          - not:
-              oneOf:
-                - required:
-                    - profile
-                - required:
-                    - settings
+        required:
+          - profile
+          - settings
       properties:
         account_id:
           type: string
           title: account_id
+        profile:
+          title: profile
+          $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Profile'
+        settings:
+          title: settings
+          $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
       title: UpdateWithOneofRequest
+      additionalProperties: false
+      description: At most one of `profile`, `settings` may be set.
 security: []
 tags:
   - name: proto_names.io.swagger.petstore.v2.Foo
