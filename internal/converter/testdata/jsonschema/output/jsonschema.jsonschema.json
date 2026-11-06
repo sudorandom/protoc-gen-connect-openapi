@@ -3,7 +3,7 @@
   "$defs": {
     "google.protobuf.Duration": {
       "type": "string",
-      "format": "duration",
+      "pattern": "^-?[0-9]+(\\.[0-9]{1,9})?s$",
       "description": "A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`)."
     },
     "google.protobuf.ListValue": {
@@ -14,12 +14,9 @@
       "description": "A JSON array whose elements may be any JSON value."
     },
     "google.protobuf.NullValue": {
-      "type": "string",
+      "type": "null",
       "title": "NullValue",
-      "enum": [
-        "NULL_VALUE"
-      ],
-      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n `Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`."
+      "description": "The JSON `null` value."
     },
     "google.protobuf.Struct": {
       "type": "object",

@@ -33,7 +33,7 @@ func TestWellKnownToSchema(t *testing.T) {
 			check: func(t *testing.T, s *IDSchema) {
 				assert.Equal(t, "google.protobuf.Duration", s.ID)
 				assert.Equal(t, []string{"string"}, s.Schema.Type)
-				assert.Equal(t, "duration", s.Schema.Format)
+				assert.Equal(t, DurationPattern, s.Schema.Pattern)
 			},
 		},
 		{
@@ -115,7 +115,7 @@ func TestWellKnownToSchema(t *testing.T) {
 			isKnown: true,
 			check: func(t *testing.T, s *IDSchema) {
 				assert.Equal(t, "google.protobuf.StringValue", s.ID)
-				assert.Equal(t, []string{"string"}, s.Schema.Type)
+				assert.Equal(t, []string{"string", "null"}, s.Schema.Type)
 			},
 		},
 		{
@@ -124,8 +124,8 @@ func TestWellKnownToSchema(t *testing.T) {
 			isKnown: true,
 			check: func(t *testing.T, s *IDSchema) {
 				assert.Equal(t, "google.protobuf.BytesValue", s.ID)
-				assert.Equal(t, []string{"string"}, s.Schema.Type)
-				assert.Equal(t, "binary", s.Schema.Format)
+				assert.Equal(t, []string{"string", "null"}, s.Schema.Type)
+				assert.Equal(t, "byte", s.Schema.Format)
 			},
 		},
 		{
@@ -134,7 +134,7 @@ func TestWellKnownToSchema(t *testing.T) {
 			isKnown: true,
 			check: func(t *testing.T, s *IDSchema) {
 				assert.Equal(t, "google.protobuf.BoolValue", s.ID)
-				assert.Equal(t, []string{"boolean"}, s.Schema.Type)
+				assert.Equal(t, []string{"boolean", "null"}, s.Schema.Type)
 			},
 		},
 		{
@@ -152,7 +152,7 @@ func TestWellKnownToSchema(t *testing.T) {
 			isKnown: true,
 			check: func(t *testing.T, s *IDSchema) {
 				assert.Equal(t, "google.protobuf.Int32Value", s.ID)
-				assert.Equal(t, []string{"number"}, s.Schema.Type)
+				assert.Equal(t, []string{"integer", "null"}, s.Schema.Type)
 			},
 		},
 		{
@@ -161,7 +161,7 @@ func TestWellKnownToSchema(t *testing.T) {
 			isKnown: true,
 			check: func(t *testing.T, s *IDSchema) {
 				assert.Equal(t, "google.protobuf.UInt32Value", s.ID)
-				assert.Equal(t, []string{"number"}, s.Schema.Type)
+				assert.Equal(t, []string{"integer", "null"}, s.Schema.Type)
 			},
 		},
 		{

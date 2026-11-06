@@ -201,14 +201,14 @@
       "google.protobuf.Any": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string"
-          },
-          "value": {
+          "@type": {
             "type": "string",
-            "format": "binary"
+            "description": "A URL identifying the type of the embedded message, e.g. `type.googleapis.com/google.rpc.ErrorInfo`."
           }
         },
+        "required": [
+          "@type"
+        ],
         "additionalProperties": true,
         "description": "An arbitrary message with a type URL identifying the encoded message type."
       },

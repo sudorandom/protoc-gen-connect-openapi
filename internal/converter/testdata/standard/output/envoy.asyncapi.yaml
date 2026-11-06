@@ -1094,15 +1094,15 @@ components:
             additionalProperties: true
             description: An arbitrary message with a type URL identifying the encoded message type.
             properties:
-                type:
+                '@type':
+                    description: A URL identifying the type of the embedded message, e.g. `type.googleapis.com/google.rpc.ErrorInfo`.
                     type: string
-                value:
-                    format: binary
-                    type: string
+            required:
+                - '@type'
             type: object
         google.protobuf.Duration:
             description: A signed duration in seconds, with up to nine fractional digits and an `s` suffix (for example, `3s` or `-0.001s`).
-            format: duration
+            pattern: ^-?[0-9]+(\.[0-9]{1,9})?s$
             type: string
         google.protobuf.ListValue:
             description: A JSON array whose elements may be any JSON value.
@@ -1110,15 +1110,9 @@ components:
                 $ref: '#/components/schemas/google.protobuf.Value'
             type: array
         google.protobuf.NullValue:
-            description: |-
-                `NullValue` is a singleton enumeration to represent the null value for the
-                 `Value` type union.
-
-                 The JSON representation for `NullValue` is JSON `null`.
-            enum:
-                - NULL_VALUE
+            description: The JSON `null` value.
             title: NullValue
-            type: string
+            type: "null"
         google.protobuf.Struct:
             additionalProperties:
                 $ref: '#/components/schemas/google.protobuf.Value'

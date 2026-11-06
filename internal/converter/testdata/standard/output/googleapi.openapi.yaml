@@ -81,7 +81,9 @@ paths:
           in: query
           description: A string value; `null` is also accepted.
           schema:
-            type: string
+            type:
+              - string
+              - "null"
       responses:
         default:
           description: An unexpected error response.
@@ -315,7 +317,9 @@ components:
       type: string
       description: Comma-separated field paths in lowerCamelCase (for example, `user.displayName,photo`).
     google.protobuf.StringValue:
-      type: string
+      type:
+        - string
+        - "null"
       description: A string value; `null` is also accepted.
     google.protobuf.Timestamp:
       type: string

@@ -20,7 +20,6 @@ var wellKnownToSchemaFns = map[string]func(protoreflect.MessageDescriptor) *IDSc
 	"google.protobuf.Struct":      googleStruct,
 	"google.protobuf.Value":       googleValue,
 	"google.protobuf.ListValue":   googleListValue,
-	"google.protobuf.NullValue":   googleNullValue,
 	"google.protobuf.StringValue": googleStringValue,
 	"google.protobuf.BytesValue":  googleBytesValue,
 	"google.protobuf.BoolValue":   googleBoolValue,
@@ -82,7 +81,6 @@ var conciseWellKnownDescriptions = map[string]string{
 	"google.protobuf.Struct":      "A JSON object whose property values may be any JSON value.",
 	"google.protobuf.Value":       "Any JSON value: `null`, number, string, boolean, array, or object.",
 	"google.protobuf.ListValue":   "A JSON array whose elements may be any JSON value.",
-	"google.protobuf.NullValue":   "The JSON `null` value.",
 	"google.protobuf.StringValue": "A string value; `null` is also accepted.",
 	"google.protobuf.BytesValue":  "A base64-encoded byte string; `null` is also accepted.",
 	"google.protobuf.BoolValue":   "A boolean value; `null` is also accepted.",
@@ -96,13 +94,19 @@ var conciseWellKnownDescriptions = map[string]string{
 	"google.protobuf.Uint32Value": "An unsigned 32-bit integer; `null` is also accepted.",
 }
 
+// DurationPattern matches protojson's Duration form: seconds with up to nine
+// fractional digits and an "s" suffix.
+const DurationPattern = `^-?[0-9]+(\.[0-9]{1,9})?s$`
+
 func googleDuration(msg protoreflect.MessageDescriptor) *IDSchema {
 	return &IDSchema{
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
 			Type:        []string{"string"},
-			Format:      "duration",
+			// JSON Schema's "duration" format is ISO 8601 (P1D), which protojson
+			// doesn't use, so the pattern describes the actual form instead.
+			Pattern: DurationPattern,
 		},
 	}
 }
@@ -169,22 +173,12 @@ func googleStruct(msg protoreflect.MessageDescriptor) *IDSchema {
 	}
 }
 
-func googleNullValue(msg protoreflect.MessageDescriptor) *IDSchema {
-	return &IDSchema{
-		ID: string(msg.FullName()),
-		Schema: &base.Schema{
-			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:        []string{"null"},
-		},
-	}
-}
-
 func googleStringValue(msg protoreflect.MessageDescriptor) *IDSchema {
 	return &IDSchema{
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:        []string{"string"},
+			Type:        []string{"string", "null"},
 		},
 	}
 }
@@ -194,7 +188,7 @@ func googleBoolValue(msg protoreflect.MessageDescriptor) *IDSchema {
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:        []string{"boolean"},
+			Type:        []string{"boolean", "null"},
 		},
 	}
 }
@@ -204,8 +198,8 @@ func googleBytesValue(msg protoreflect.MessageDescriptor) *IDSchema {
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:        []string{"string"},
-			Format:      "binary",
+			Type:        []string{"string", "null"},
+			Format:      "byte",
 		},
 	}
 }
@@ -215,7 +209,7 @@ func google32BitNumberValue(msg protoreflect.MessageDescriptor) *IDSchema {
 		ID: string(msg.FullName()),
 		Schema: &base.Schema{
 			Description: FormatComments(msg.ParentFile().SourceLocations().ByDescriptor(msg)),
-			Type:        []string{"number"},
+			Type:        []string{"integer", "null"},
 		},
 	}
 }
@@ -228,6 +222,7 @@ func google64BitNumberValue(msg protoreflect.MessageDescriptor) *IDSchema {
 			OneOf: []*base.SchemaProxy{
 				base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 				base.CreateSchemaProxy(&base.Schema{Type: []string{"number"}}),
+				base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
 			},
 		},
 	}
@@ -244,11 +239,12 @@ func googleEmpty(msg protoreflect.MessageDescriptor) *IDSchema {
 }
 
 func NewGoogleAny() *IDSchema {
+	// protojson writes an Any as "@type" next to the embedded message's own
+	// fields (or a "value" field for well-known types with special JSON).
 	props := orderedmap.New[string, *base.SchemaProxy]()
-	props.Set("type", base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}))
-	props.Set("value", base.CreateSchemaProxy(&base.Schema{
-		Type:   []string{"string"},
-		Format: "binary",
+	props.Set("@type", base.CreateSchemaProxy(&base.Schema{
+		Type:        []string{"string"},
+		Description: "A URL identifying the type of the embedded message, e.g. `type.googleapis.com/google.rpc.ErrorInfo`.",
 	}))
 
 	return &IDSchema{
@@ -257,6 +253,7 @@ func NewGoogleAny() *IDSchema {
 			Description:          "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.",
 			Type:                 []string{"object"},
 			Properties:           props,
+			Required:             []string{"@type"},
 			AdditionalProperties: &base.DynamicValue[*base.SchemaProxy, bool]{N: 1, B: true},
 		},
 	}
