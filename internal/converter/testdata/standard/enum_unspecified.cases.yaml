@@ -1,0 +1,25 @@
+cases:
+  - name: "defined-values"
+    path: "enum_unspecified.v1.EnumUnspecifiedService/Paint"
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    body: '{"color": "COLOR_RED", "method": "HTTP_METHOD_GET", "shade": "SHADE_DEFAULT", "requiredColor": "COLOR_GREEN", "notRed": "COLOR_GREEN"}'
+
+  - name: "unspecified-rejected"
+    path: "enum_unspecified.v1.EnumUnspecifiedService/Paint"
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    body: '{"color": "COLOR_UNSPECIFIED"}'
+    errors:
+      - ".*"
+
+  - name: "not-in-still-applies"
+    path: "enum_unspecified.v1.EnumUnspecifiedService/Paint"
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    body: '{"notRed": "COLOR_RED"}'
+    errors:
+      - ".*"

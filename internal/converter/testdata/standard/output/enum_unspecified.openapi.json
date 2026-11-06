@@ -1,0 +1,248 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "enum_unspecified.v1",
+    "description": "## enum_unspecified.v1.EnumUnspecifiedService",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/enum_unspecified.v1.EnumUnspecifiedService/Paint": {
+      "post": {
+        "tags": [
+          "enum_unspecified.v1.EnumUnspecifiedService"
+        ],
+        "summary": "Paint",
+        "operationId": "enum_unspecified.v1.EnumUnspecifiedService.Paint",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "description": "Define the version of the Connect protocol",
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            },
+            "example": 1
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "description": "Define the timeout, in ms",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            },
+            "example": 1000
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enum_unspecified.v1.PaintRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enum_unspecified.v1.PaintResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "connect-protocol-version": {
+        "type": "number",
+        "examples": [
+          1
+        ],
+        "title": "Connect-Protocol-Version",
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "examples": [
+          1000
+        ],
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "examples": [
+              "not_found"
+            ],
+            "enum": [
+              "canceled",
+              "unknown",
+              "invalid_argument",
+              "deadline_exceeded",
+              "not_found",
+              "already_exists",
+              "permission_denied",
+              "resource_exhausted",
+              "failed_precondition",
+              "aborted",
+              "out_of_range",
+              "unimplemented",
+              "internal",
+              "unavailable",
+              "data_loss",
+              "unauthenticated"
+            ],
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/connect.error_details.Any"
+            },
+            "description": "A list of messages that carry the error details. There is no limit on the number of messages."
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "connect.error_details.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`."
+          },
+          "value": {
+            "type": "string",
+            "format": "byte",
+            "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
+          },
+          "debug": {
+            "type": "object",
+            "title": "Debug",
+            "additionalProperties": true,
+            "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "enum_unspecified.v1.Color": {
+        "type": "string",
+        "title": "Color",
+        "enum": [
+          "COLOR_RED",
+          "COLOR_GREEN"
+        ],
+        "description": "The zero value follows the \u003cENUM_NAME\u003e_UNSPECIFIED convention, so it is\n left out of the schema."
+      },
+      "enum_unspecified.v1.HTTPMethod": {
+        "type": "string",
+        "title": "HTTPMethod",
+        "enum": [
+          "HTTP_METHOD_GET"
+        ],
+        "description": "Acronyms in the enum name stay together: HTTP_METHOD, not H_T_T_P_METHOD."
+      },
+      "enum_unspecified.v1.PaintRequest": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/enum_unspecified.v1.Color"
+              }
+            ],
+            "title": "color"
+          },
+          "method": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/enum_unspecified.v1.HTTPMethod"
+              }
+            ],
+            "title": "method"
+          },
+          "shade": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/enum_unspecified.v1.Shade"
+              }
+            ],
+            "title": "shade"
+          },
+          "requiredColor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/enum_unspecified.v1.Color"
+              }
+            ],
+            "title": "required_color",
+            "description": "not_in [0] is redundant once the zero value is left out."
+          },
+          "notRed": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/enum_unspecified.v1.Color"
+              }
+            ],
+            "not": {
+              "enum": [
+                "COLOR_RED"
+              ]
+            },
+            "title": "not_red"
+          }
+        },
+        "title": "PaintRequest",
+        "additionalProperties": false
+      },
+      "enum_unspecified.v1.PaintResponse": {
+        "type": "object",
+        "title": "PaintResponse",
+        "additionalProperties": false
+      },
+      "enum_unspecified.v1.Shade": {
+        "type": "string",
+        "title": "Shade",
+        "enum": [
+          "SHADE_DEFAULT",
+          "SHADE_DARK"
+        ],
+        "description": "A zero value with any other name is a real value and is kept."
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "enum_unspecified.v1.EnumUnspecifiedService"
+    }
+  ]
+}

@@ -1142,13 +1142,19 @@ func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *val
 		items := make([]*yaml.Node, 0, len(constraint.NotIn))
 		for _, item := range constraint.NotIn {
 			val := protoreflect.EnumNumber(item)
-			if enumVal := enumDesc.Values().ByNumber(val); enumVal != nil {
-				items = append(items, utils.CreateStringNode(string(enumVal.Name())))
-			} else {
+			enumVal := enumDesc.Values().ByNumber(val)
+			switch {
+			case enumVal == nil:
 				opts.Logger.Warn("enum value not found for number in 'not_in' constraint", "enum", enumDesc.FullName(), "number", val)
+			case util.IsUnspecifiedEnumValue(enumVal):
+				// Already left out of the enum schema.
+			default:
+				items = append(items, utils.CreateStringNode(string(enumVal.Name())))
 			}
 		}
-		schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+		if len(items) > 0 {
+			schema.Not = base.CreateSchemaProxy(&base.Schema{Type: schema.Type, Enum: items})
+		}
 	}
 	for _, item := range constraint.Example {
 		val := protoreflect.EnumNumber(item)

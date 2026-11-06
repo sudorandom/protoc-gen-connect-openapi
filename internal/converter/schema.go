@@ -94,6 +94,10 @@ func enumToSchema(opts options.Options, tt protoreflect.EnumDescriptor) (string,
 			opts.Logger.Debug("Filtering enum value due to visibility", slog.String("enum_value", string(value.FullName())), slog.Any("restriction_selectors", opts.AllowedVisibilities))
 			continue // Skip this enum value
 		}
+		if util.IsUnspecifiedEnumValue(value) {
+			// The "not set" sentinel isn't a value clients should send.
+			continue
+		}
 		children = append(children, utils.CreateStringNode(string(value.Name())))
 		if opts.IncludeNumberEnumValues {
 			children = append(children, utils.CreateIntNode(strconv.FormatInt(int64(value.Number()), 10)))

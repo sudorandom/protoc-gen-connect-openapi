@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package enum_unspecified.v1;
+
+import "buf/validate/validate.proto";
+
+service EnumUnspecifiedService {
+  rpc Paint(PaintRequest) returns (PaintResponse);
+}
+
+// The zero value follows the <ENUM_NAME>_UNSPECIFIED convention, so it is
+// left out of the schema.
+enum Color {
+  COLOR_UNSPECIFIED = 0;
+  COLOR_RED = 1;
+  COLOR_GREEN = 2;
+}
+
+// Acronyms in the enum name stay together: HTTP_METHOD, not H_T_T_P_METHOD.
+enum HTTPMethod {
+  HTTP_METHOD_UNSPECIFIED = 0;
+  HTTP_METHOD_GET = 1;
+}
+
+// A zero value with any other name is a real value and is kept.
+enum Shade {
+  SHADE_DEFAULT = 0;
+  SHADE_DARK = 1;
+}
+
+message PaintRequest {
+  Color color = 1;
+  HTTPMethod method = 2;
+  Shade shade = 3;
+  // not_in [0] is redundant once the zero value is left out.
+  Color required_color = 4 [(buf.validate.field).enum.not_in = 0];
+  Color not_red = 5 [(buf.validate.field).enum = {
+    not_in: [
+      0,
+      1
+    ]
+  }];
+}
+
+message PaintResponse {}
