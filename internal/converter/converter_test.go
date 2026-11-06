@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"net/http"
 	"os"
 	"os/exec"
@@ -17,6 +18,7 @@ import (
 	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
+	"github.com/pb33f/libopenapi-validator/helpers"
 	"github.com/pb33f/libopenapi/datamodel"
 	jsonschemavalidator "github.com/santhosh-tekuri/jsonschema/v6"
 	"github.com/stretchr/testify/assert"
@@ -39,10 +41,15 @@ func loadTestFileDescriptorSet(t *testing.T) *descriptorpb.FileDescriptorSet {
 
 	loadDescriptorOnce.Do(func() {
 		binpbPath := filepath.Join("testdata", "fileset.binpb")
-		if _, err := os.Stat(binpbPath); errors.Is(err, os.ErrNotExist) {
+		stale, err := descriptorSetStale(binpbPath)
+		if err != nil {
+			cachedDescriptorErr = err
+			return
+		}
+		if stale {
 			bufPath, lookErr := exec.LookPath("buf")
 			if lookErr != nil {
-				cachedDescriptorErr = errors.New("testdata/fileset.binpb not found. Please install buf and run 'go generate ./internal/converter/testdata'")
+				cachedDescriptorErr = errors.New("testdata/fileset.binpb is missing or older than the testdata protos. Please install buf and run 'go generate ./internal/converter/testdata'")
 				return
 			}
 			cmd := exec.Command(bufPath, "build", "-o", "fileset.binpb")
@@ -61,6 +68,32 @@ func loadTestFileDescriptorSet(t *testing.T) *descriptorpb.FileDescriptorSet {
 	pf := new(descriptorpb.FileDescriptorSet)
 	require.NoError(t, proto.Unmarshal(cachedDescriptorBytes, pf))
 	return pf
+}
+
+// descriptorSetStale reports whether the descriptor set is missing or older
+// than any proto under testdata, so editing a fixture and running plain
+// `go test` doesn't silently test the previous descriptors.
+func descriptorSetStale(binpbPath string) (bool, error) {
+	info, err := os.Stat(binpbPath)
+	if errors.Is(err, os.ErrNotExist) {
+		return true, nil
+	}
+	if err != nil {
+		return false, err
+	}
+	stale := false
+	err = filepath.WalkDir("testdata", func(path string, entry fs.DirEntry, err error) error {
+		if err != nil || stale || entry.IsDir() || filepath.Ext(path) != ".proto" {
+			return err
+		}
+		protoInfo, err := entry.Info()
+		if err != nil {
+			return err
+		}
+		stale = protoInfo.ModTime().After(info.ModTime())
+		return nil
+	})
+	return stale, err
 }
 
 var scenarios = []Scenario{
@@ -136,8 +169,7 @@ func generateAndCheckResult(t *testing.T, options, format, protofile string) str
 	_, statErr := os.Stat(outputPath)
 	switch {
 	case errors.Is(statErr, os.ErrNotExist):
-		assert.NoError(t, os.MkdirAll(filepath.Dir(outputPath), 0755))
-		assert.NoError(t, os.WriteFile(outputPath, []byte(file.GetContent()), 0644))
+		writeGolden(t, outputPath, file.GetContent())
 	case statErr != nil:
 		require.NoError(t, statErr)
 	default:
@@ -202,6 +234,12 @@ func validateOpenAPISpec(t *testing.T, protofile string, spec string) {
 			require.NoError(tt, err)
 
 			ok, errs := validate.ValidateHttpRequest(req)
+			// A case must reach an operation; otherwise a negative case with a
+			// loose error pattern passes on "route not found" alone.
+			for _, err := range errs {
+				require.NotContains(tt, []string{helpers.ValidationMissing, helpers.ValidationMissingOperation}, err.ValidationSubType,
+					"case targets a route the spec doesn't define: %s", err.Error())
+			}
 			require.Len(tt, errs, len(testCase.Errors), "Incorrect number of errors: %+v", errs)
 
 			for i, err := range errs {
@@ -233,6 +271,7 @@ func TestConvert(t *testing.T) {
 		t.Run(scenario.Name, func(t *testing.T) {
 			paths, err := filepath.Glob("testdata/" + scenario.Name + "/**.proto")
 			require.NoError(t, err)
+			require.NotEmpty(t, paths, "no protos for scenario %s", scenario.Name)
 			for _, protofile := range paths {
 				formats := []string{"yaml", "json"}
 				for _, format := range formats {
@@ -396,6 +435,18 @@ type TestCase struct {
 	Body    string            `yaml:"body"`
 	Query   string            `yaml:"query"`
 	Errors  []string          `yaml:"errors"`
+}
+
+// writeGolden records a missing golden file so new fixtures can be
+// bootstrapped locally. In CI a missing golden is an error: it means the
+// output was never committed and nothing was compared.
+func writeGolden(t *testing.T, outputPath, content string) {
+	t.Helper()
+	if os.Getenv("CI") != "" {
+		t.Fatalf("golden file %s is missing; run the tests locally and commit it", outputPath)
+	}
+	require.NoError(t, os.MkdirAll(filepath.Dir(outputPath), 0755))
+	require.NoError(t, os.WriteFile(outputPath, []byte(content), 0644))
 }
 
 func makeOutputPath(protofile, format string) string {
@@ -647,8 +698,7 @@ func generateAndCheckAsyncAPIGolden(t *testing.T, options, format, protofile str
 	_, statErr := os.Stat(outputPath)
 	switch {
 	case errors.Is(statErr, os.ErrNotExist):
-		assert.NoError(t, os.MkdirAll(filepath.Dir(outputPath), 0755))
-		assert.NoError(t, os.WriteFile(outputPath, []byte(asyncapiFile.GetContent()), 0644))
+		writeGolden(t, outputPath, asyncapiFile.GetContent())
 	case statErr != nil:
 		require.NoError(t, statErr)
 	default:

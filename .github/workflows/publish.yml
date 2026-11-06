@@ -13,15 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           fetch-depth: 0
 
       - name: Setup Tools
-        uses: jdx/mise-action@v4
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4
 
       - name: Setup Go cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: |
             ~/.cache/go-build
@@ -30,6 +30,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-publish-
             ${{ runner.os }}-go-
+
+      # A tag can point at any commit, so don't publish without the same
+      # checks the main branch gets.
+      - name: Test
+        run: just test
+
+      - name: Lint
+        run: just lint
 
       - name: Run GoReleaser
         run: just release
