@@ -267,23 +267,18 @@ func updateWithCEL(schema *base.Schema, rules []*validate.Rule, val *protoreflec
 	})
 
 	for _, cel := range rules {
-		if cel.HasId() {
-			b.WriteString(cel.GetId())
-		}
-		if val != nil {
-			b.WriteString(" = ")
-			b.WriteString(formatProtoreflectValue(*val, fieldDesc))
-		}
+		// The message is written for people, so it's all a reader needs. The
+		// rule id is an identifier for machines; show it only as a fallback.
+		// The CEL expression is left out because it's very verbose.
 		if cel.HasMessage() {
-			b.WriteString(" // ")
 			b.WriteString(cel.GetMessage())
+		} else {
+			b.WriteString(cel.GetId())
+			if val != nil {
+				b.WriteString(" = ")
+				b.WriteString(formatProtoreflectValue(*val, fieldDesc))
+			}
 		}
-		// This is excluded because it's very verbose.
-		// if cel.HasExpression() {
-		// 	b.WriteString("\n```\n")
-		// 	b.WriteString(cel.GetExpression())
-		// 	b.WriteString("\n```\n")
-		// }
 		b.WriteString("\n")
 	}
 	s := b.String()

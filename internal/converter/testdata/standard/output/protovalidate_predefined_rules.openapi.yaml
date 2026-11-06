@@ -13,22 +13,22 @@ components:
           type: string
           title: first_name
           description: |
-            string.required.medium = true // this is required and must be 50 or fewer characters
+            this is required and must be 50 or fewer characters
         middleName:
           type: string
           title: middle_name
           description: |
-            string.optional.medium = true // this must be 50 or fewer characters
+            this must be 50 or fewer characters
         lastName:
           type: string
           title: last_name
           description: |
-            string.required.medium = true // this is required and must be 50 or fewer characters
+            this is required and must be 50 or fewer characters
         title:
           type: string
           title: title
           description: |
-            string.optional.medium = true // this must be 50 or fewer characters
+            this must be 50 or fewer characters
       title: Person
       additionalProperties: false
 security: []
