@@ -120,7 +120,7 @@ var scenarios = []Scenario{
 	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
 	{Name: "twirp_only", Options: "features=twirp,content-types=json;proto"},
 	{Name: "connect_content_types", Options: "allow-get,content-types=json;proto"},
-	{Name: "visibility", Options: "features=google.api.http;gnostic;protovalidate,allowed-visibilities=INTERNAL;PREVIEW"},
+	{Name: "visibility", Options: "features=google.api.http;gnostic;protovalidate,allowed-visibilities=INTERNAL;PREVIEW,trim-unused-types"},
 	{Name: "disable_default_response", Options: "disable-default-response"},
 }
 

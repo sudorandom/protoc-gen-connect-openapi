@@ -38,10 +38,15 @@ func AddMessageSchemas(opts options.Options, md protoreflect.MessageDescriptor, 
 		doc.Components.Schemas.Set(name, base.CreateSchemaProxy(schema))
 	}
 
-	// Messages can have fields
+	// Messages can have fields. Fields hidden by visibility aren't in the
+	// schema, so their types aren't pulled in either.
 	fields := md.Fields()
 	for i := 0; i < fields.Len(); i++ {
-		AddFieldToSchema(opts, fields.Get(i), doc)
+		field := fields.Get(i)
+		if visibility.ShouldBeFiltered(visibility.GetVisibilityRule(field), opts.AllowedVisibilities) {
+			continue
+		}
+		AddFieldToSchema(opts, field, doc)
 	}
 
 	// Messages can have enums
