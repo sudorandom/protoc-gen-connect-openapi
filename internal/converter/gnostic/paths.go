@@ -40,6 +40,12 @@ func PathItemWithMethodAnnotations(opts options.Options, item *v3.PathItem, md p
 		if gnosticOperation.Responses != nil {
 			responses := toResponses(opts, gnosticOperation.Responses)
 			for pair := responses.Codes.First(); pair != nil; pair = pair.Next() {
+				if pair.Key() == "default" {
+					// Codes can't hold "default" alongside Responses.Default
+					// without emitting the key twice.
+					oper.Responses.Default = pair.Value()
+					continue
+				}
 				oper.Responses.Codes.Set(pair.Key(), pair.Value())
 			}
 			if responses.Default != nil {

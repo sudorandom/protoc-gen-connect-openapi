@@ -47,9 +47,40 @@ service OAuthService {
       }
     };
   }
+
+  // A response named "default" replaces the generated default error response
+  // instead of producing a second "default" key.
+  rpc RevokeToken(IssueTokenRequest) returns (IssueTokenResponse) {
+    option (google.api.http) = {
+      post: "/v1/oauth/revoke"
+      body: "*"
+    };
+    option (gnostic.openapi.v3.operation) = {
+      responses: {
+        response_or_reference: {
+          name: "default"
+          value: {
+            response: {
+              description: "Problem details"
+              content: {
+                additional_properties: {
+                  name: "application/json"
+                  value: {
+                    schema: {
+                      reference: {_ref: "#/components/schemas/gogen.partner.v1.ProblemDetails"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
 }
 
-// This message is only referenced in the operation annotation above
+// This message is only referenced in the operation annotations above
 message ProblemDetails {
   optional string type = 1;
   optional string title = 2;

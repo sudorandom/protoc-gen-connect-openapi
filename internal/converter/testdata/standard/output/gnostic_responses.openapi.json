@@ -6,6 +6,48 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/v1/oauth/revoke": {
+      "post": {
+        "tags": [
+          "gogen.partner.v1.OAuthService"
+        ],
+        "summary": "RevokeToken",
+        "description": "A response named \"default\" replaces the generated default error response\n instead of producing a second \"default\" key.",
+        "operationId": "gogen.partner.v1.OAuthService.RevokeToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gogen.partner.v1.IssueTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "Problem details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gogen.partner.v1.ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gogen.partner.v1.IssueTokenResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/oauth/token": {
       "post": {
         "tags": [
@@ -141,7 +183,7 @@
         },
         "title": "ProblemDetails",
         "additionalProperties": false,
-        "description": "This message is only referenced in the operation annotation above"
+        "description": "This message is only referenced in the operation annotations above"
       },
       "google.protobuf.Any": {
         "type": "object",
