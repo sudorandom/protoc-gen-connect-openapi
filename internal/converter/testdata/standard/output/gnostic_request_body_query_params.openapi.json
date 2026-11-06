@@ -110,6 +110,38 @@
           }
         }
       }
+    },
+    "/v1/uploads:search": {
+      "post": {
+        "tags": [
+          "standard.GnosticRequestBodyQueryParamsService"
+        ],
+        "summary": "Search",
+        "description": "Without a body field, the gnostic request_body describes the whole\n request, so no fields become query parameters.",
+        "operationId": "standard.GnosticRequestBodyQueryParamsService.Search",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/standard.SearchRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.SearchResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -154,6 +186,44 @@
         },
         "additionalProperties": true,
         "description": "An arbitrary message with a type URL identifying the encoded message type."
+      },
+      "standard.SearchRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "type": "string",
+            "title": "filter"
+          },
+          "pageSize": {
+            "type": "integer",
+            "title": "page_size",
+            "format": "int32"
+          },
+          "content": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.api.HttpBody"
+              }
+            ],
+            "title": "content"
+          }
+        },
+        "title": "SearchRequest",
+        "additionalProperties": false
+      },
+      "standard.SearchResponse": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "ids"
+          }
+        },
+        "title": "SearchResponse",
+        "additionalProperties": false
       },
       "standard.UploadRequest": {
         "type": "object",

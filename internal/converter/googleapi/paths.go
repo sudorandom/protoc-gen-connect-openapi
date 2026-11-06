@@ -261,6 +261,11 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 
 	switch rule.Body {
 	case "":
+		if hasGnosticRequestBody {
+			// The gnostic annotation describes the whole request, so the
+			// fields aren't also query parameters.
+			break
+		}
 		newQueryParams := flattenToParams(opts, md.Input(), "", fieldNamesInPath)
 		op.Parameters = util.MergeParameters(op.Parameters, newQueryParams)
 	case "*":
