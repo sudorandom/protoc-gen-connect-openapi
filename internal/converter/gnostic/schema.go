@@ -159,7 +159,13 @@ func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSch
 		schema.Enum = enums
 	}
 	if gnosticSchema.Type != "" {
+		// Overriding the type keeps nullability, whether it came from the
+		// field (proto3 optional) or from nullable above.
+		nullable := slices.Contains(schema.Type, "null")
 		schema.Type = []string{gnosticSchema.Type}
+		if nullable {
+			schema.Type = append(schema.Type, "null")
+		}
 	}
 
 	if gnosticSchema.AdditionalProperties != nil {
@@ -183,7 +189,9 @@ func schemaWithAnnotations(opts options.Options, schema *base.Schema, gnosticSch
 		schema.AnyOf = toSchemaOrReferences(opts, gnosticSchema.AnyOf)
 	}
 	if gnosticSchema.Not != nil {
-		schema.Not = base.CreateSchemaProxy(toSchema(opts, gnosticSchema.Not))
+		// The schema may already forbid shapes (oneof rules), so add to that
+		// rather than replace it.
+		util.AddViolations(schema, base.CreateSchemaProxy(toSchema(opts, gnosticSchema.Not)))
 	}
 	if gnosticSchema.Items != nil {
 		items := toSchemaOrReferences(opts, gnosticSchema.Items.SchemaOrReference)

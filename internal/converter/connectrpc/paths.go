@@ -46,10 +46,7 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 		tagName = string(service.Name())
 	}
 
-	operationId := string(method.FullName())
-	if opts.ShortOperationIds {
-		operationId = string(service.Name()) + "_" + string(method.Name())
-	}
+	operationId := util.DefaultOperationID(opts, method)
 
 	summary, description := util.FormatOperationComments(loc)
 	if summary == "" {

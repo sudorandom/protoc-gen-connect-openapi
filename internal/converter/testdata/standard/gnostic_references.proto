@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package standard;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
+
+// Gnostic annotations that use $ref instead of inline objects, and fields
+// whose proto3 defaults can't be told apart from "unset".
+option (gnostic.openapi.v3.document) = {
+  components: {
+    parameters: {
+      additional_properties: [
+        {
+          name: "traceId"
+          value: {
+            parameter: {
+              name: "X-Trace-Id"
+              in: "header"
+              schema: {
+                schema: {type: "string"}
+              }
+            }
+          }
+        }
+      ]
+    }
+    request_bodies: {
+      additional_properties: [
+        {
+          name: "NoteBody"
+          value: {
+            request_body: {
+              required: true
+              content: {
+                additional_properties: [
+                  {
+                    name: "application/json"
+                    value: {
+                      schema: {
+                        reference: {_ref: "#/components/schemas/standard.GnosticNote"}
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+    security_schemes: {
+      additional_properties: [
+        {
+          name: "implicitNoScopes"
+          value: {
+            security_scheme: {
+              type: "oauth2"
+              flows: {
+                implicit: {authorization_url: "https://example.com/oauth/authorize"}
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+};
+
+service GnosticReferenceService {
+  rpc CreateGnosticNote(GnosticNote) returns (GnosticNote) {
+    option (google.api.http) = {
+      post: "/gnostic-notes"
+      body: "*"
+    };
+    option (gnostic.openapi.v3.operation) = {
+      operation_id: "createNote"
+      parameters: [
+        {
+          reference: {_ref: "#/components/parameters/traceId"}
+        }
+      ]
+      request_body: {
+        reference: {_ref: "#/components/requestBodies/NoteBody"}
+      }
+    };
+  }
+
+  // With allow-get this method has both a POST and a GET operation. The
+  // request body only applies to POST, and the custom operation ID keeps the
+  // GET operation's suffix.
+  rpc GetGnosticNote(GnosticNote) returns (GnosticNote) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+    option (gnostic.openapi.v3.operation) = {
+      operation_id: "fetchNote"
+      request_body: {
+        request_body: {
+          description: "The note to look up."
+          content: {
+            additional_properties: [
+              {
+                name: "application/json"
+                value: {
+                  schema: {
+                    reference: {_ref: "#/components/schemas/standard.GnosticNote"}
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    };
+  }
+}
+
+message GnosticNote {
+  string title = 1;
+  // The type override keeps the null that proto3 optional adds.
+  optional int32 priority = 2 [(gnostic.openapi.v3.property) = {
+    type: "integer"
+    default: {number: 5}
+  }];
+  bool archived = 3 [(gnostic.openapi.v3.property) = {
+    default: {boolean: false}
+  }];
+}
