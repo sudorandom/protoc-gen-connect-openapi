@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package protovalidate.json_types.v1;
+
+import "buf/validate/validate.proto";
+
+// Each field uses const, in, not_in and example so the generated values can be
+// checked against the protojson representation of the field kind: 32-bit
+// integers and floats are JSON numbers, 64-bit integers are JSON strings.
+service JSONTypesService {
+  rpc Check(CheckRequest) returns (CheckResponse);
+}
+
+message CheckRequest {
+  int32 int32_in = 1 [(buf.validate.field).int32 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  sint32 sint32_in = 2 [(buf.validate.field).sint32 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  sfixed32 sfixed32_in = 3 [(buf.validate.field).sfixed32 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  uint32 uint32_in = 4 [(buf.validate.field).uint32 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  fixed32 fixed32_in = 5 [(buf.validate.field).fixed32 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  int64 int64_in = 6 [(buf.validate.field).int64 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  sint64 sint64_in = 7 [(buf.validate.field).sint64 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  sfixed64 sfixed64_in = 8 [(buf.validate.field).sfixed64 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  uint64 uint64_in = 9 [(buf.validate.field).uint64 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  fixed64 fixed64_in = 10 [(buf.validate.field).fixed64 = {
+    in: [
+      1,
+      2
+    ]
+    not_in: [3]
+    example: 1
+  }];
+  float float_in = 11 [(buf.validate.field).float = {
+    in: [
+      1.5,
+      2.5
+    ]
+    not_in: [3.5]
+    example: 1.5
+  }];
+  double double_in = 12 [(buf.validate.field).double = {
+    in: [
+      1.5,
+      2.5
+    ]
+    not_in: [3.5]
+    example: 1.5
+  }];
+
+  int32 int32_const = 13 [(buf.validate.field).int32.const = 7];
+  uint32 uint32_const = 14 [(buf.validate.field).uint32.const = 7];
+  int64 int64_const = 15 [(buf.validate.field).int64.const = 7];
+  uint64 uint64_const = 16 [(buf.validate.field).uint64.const = 7];
+  float float_const = 17 [(buf.validate.field).float.const = 7.5];
+  double double_const = 18 [(buf.validate.field).double.const = 7.5];
+
+  float float_range = 19 [(buf.validate.field).float = {
+    gt: 0
+    lte: 10
+  }];
+  double double_special = 20 [(buf.validate.field).double = {
+    not_in: [
+      inf,
+      -inf
+    ]
+    example: [nan]
+  }];
+}
+
+message CheckResponse {}

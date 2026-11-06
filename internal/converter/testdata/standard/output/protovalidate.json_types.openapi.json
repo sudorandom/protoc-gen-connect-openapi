@@ -1,0 +1,448 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "protovalidate.json_types.v1",
+    "description": "## protovalidate.json_types.v1.JSONTypesService\n\nEach field uses const, in, not_in and example so the generated values can be\n checked against the protojson representation of the field kind: 32-bit\n integers and floats are JSON numbers, 64-bit integers are JSON strings.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/protovalidate.json_types.v1.JSONTypesService/Check": {
+      "post": {
+        "tags": [
+          "protovalidate.json_types.v1.JSONTypesService"
+        ],
+        "summary": "Check",
+        "operationId": "protovalidate.json_types.v1.JSONTypesService.Check",
+        "parameters": [
+          {
+            "name": "Connect-Protocol-Version",
+            "in": "header",
+            "description": "Define the version of the Connect protocol",
+            "schema": {
+              "$ref": "#/components/schemas/connect-protocol-version"
+            },
+            "example": 1
+          },
+          {
+            "name": "Connect-Timeout-Ms",
+            "in": "header",
+            "description": "Define the timeout, in ms",
+            "schema": {
+              "$ref": "#/components/schemas/connect-timeout-header"
+            },
+            "example": 1000
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/protovalidate.json_types.v1.CheckRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connect.error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/protovalidate.json_types.v1.CheckResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "connect-protocol-version": {
+        "type": "number",
+        "examples": [
+          1
+        ],
+        "title": "Connect-Protocol-Version",
+        "description": "Define the version of the Connect protocol",
+        "const": 1
+      },
+      "connect-timeout-header": {
+        "type": "number",
+        "examples": [
+          1000
+        ],
+        "title": "Connect-Timeout-Ms",
+        "description": "Define the timeout, in ms"
+      },
+      "connect.error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "examples": [
+              "not_found"
+            ],
+            "enum": [
+              "canceled",
+              "unknown",
+              "invalid_argument",
+              "deadline_exceeded",
+              "not_found",
+              "already_exists",
+              "permission_denied",
+              "resource_exhausted",
+              "failed_precondition",
+              "aborted",
+              "out_of_range",
+              "unimplemented",
+              "internal",
+              "unavailable",
+              "data_loss",
+              "unauthenticated"
+            ],
+            "description": "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code]."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client."
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/connect.error_details.Any"
+            },
+            "description": "A list of messages that carry the error details. There is no limit on the number of messages."
+          }
+        },
+        "title": "Connect Error",
+        "additionalProperties": true,
+        "description": "Error type returned by Connect: https://connectrpc.com/docs/go/errors/#http-representation"
+      },
+      "connect.error_details.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "A URL that acts as a globally unique identifier for the type of the serialized message. For example: `type.googleapis.com/google.rpc.ErrorInfo`."
+          },
+          "value": {
+            "type": "string",
+            "format": "byte",
+            "description": "The Protobuf message, serialized as bytes and base64-encoded. The specific message type is identified by the `type` field."
+          },
+          "debug": {
+            "type": "object",
+            "title": "Debug",
+            "additionalProperties": true,
+            "description": "Deserialized error detail payload. The 'type' field indicates the schema. This field is for easier debugging and should not be relied upon for application logic."
+          }
+        },
+        "additionalProperties": true,
+        "description": "Contains an arbitrary serialized message along with a @type that describes the type of the serialized message, with an additional debug field for ConnectRPC error details."
+      },
+      "protovalidate.json_types.v1.CheckRequest": {
+        "type": "object",
+        "properties": {
+          "int32In": {
+            "type": "integer",
+            "examples": [
+              1
+            ],
+            "not": {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            "title": "int32_in",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "sint32In": {
+            "type": "integer",
+            "examples": [
+              1
+            ],
+            "not": {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            "title": "sint32_in",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "sfixed32In": {
+            "type": "integer",
+            "examples": [
+              1
+            ],
+            "not": {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            "title": "sfixed32_in",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "uint32In": {
+            "type": "integer",
+            "examples": [
+              1
+            ],
+            "not": {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            "title": "uint32_in",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "fixed32In": {
+            "type": "integer",
+            "examples": [
+              1
+            ],
+            "not": {
+              "type": "integer",
+              "enum": [
+                3
+              ]
+            },
+            "title": "fixed32_in",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          "int64In": {
+            "type": "string",
+            "examples": [
+              "1"
+            ],
+            "not": {
+              "type": "string",
+              "enum": [
+                "3"
+              ]
+            },
+            "title": "int64_in",
+            "format": "int64",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "sint64In": {
+            "type": "string",
+            "examples": [
+              "1"
+            ],
+            "not": {
+              "type": "string",
+              "enum": [
+                "3"
+              ]
+            },
+            "title": "sint64_in",
+            "format": "int64",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "sfixed64In": {
+            "type": "string",
+            "examples": [
+              "1"
+            ],
+            "not": {
+              "type": "string",
+              "enum": [
+                "3"
+              ]
+            },
+            "title": "sfixed64_in",
+            "format": "int64",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "uint64In": {
+            "type": "string",
+            "examples": [
+              "1"
+            ],
+            "not": {
+              "type": "string",
+              "enum": [
+                "3"
+              ]
+            },
+            "title": "uint64_in",
+            "format": "int64",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "fixed64In": {
+            "type": "string",
+            "examples": [
+              "1"
+            ],
+            "not": {
+              "type": "string",
+              "enum": [
+                "3"
+              ]
+            },
+            "title": "fixed64_in",
+            "format": "int64",
+            "enum": [
+              "1",
+              "2"
+            ]
+          },
+          "floatIn": {
+            "type": "number",
+            "examples": [
+              1.5
+            ],
+            "not": {
+              "type": "number",
+              "enum": [
+                3.5
+              ]
+            },
+            "title": "float_in",
+            "format": "float",
+            "enum": [
+              1.5,
+              2.5
+            ]
+          },
+          "doubleIn": {
+            "type": "number",
+            "examples": [
+              1.5
+            ],
+            "not": {
+              "type": "number",
+              "enum": [
+                3.5
+              ]
+            },
+            "title": "double_in",
+            "format": "double",
+            "enum": [
+              1.5,
+              2.5
+            ]
+          },
+          "int32Const": {
+            "type": "integer",
+            "title": "int32_const",
+            "format": "int32",
+            "const": 7
+          },
+          "uint32Const": {
+            "type": "integer",
+            "title": "uint32_const",
+            "const": 7
+          },
+          "int64Const": {
+            "type": "string",
+            "title": "int64_const",
+            "format": "int64",
+            "const": "7"
+          },
+          "uint64Const": {
+            "type": "string",
+            "title": "uint64_const",
+            "format": "int64",
+            "const": "7"
+          },
+          "floatConst": {
+            "type": "number",
+            "title": "float_const",
+            "format": "float",
+            "const": 7.5
+          },
+          "doubleConst": {
+            "type": "number",
+            "title": "double_const",
+            "format": "double",
+            "const": 7.5
+          },
+          "floatRange": {
+            "exclusiveMinimum": 0,
+            "type": "number",
+            "title": "float_range",
+            "maximum": 10,
+            "format": "float"
+          },
+          "doubleSpecial": {
+            "type": "number",
+            "examples": [
+              "NaN"
+            ],
+            "not": {
+              "type": "number",
+              "enum": [
+                "Infinity",
+                "-Infinity"
+              ]
+            },
+            "title": "double_special",
+            "format": "double"
+          }
+        },
+        "title": "CheckRequest",
+        "additionalProperties": false
+      },
+      "protovalidate.json_types.v1.CheckResponse": {
+        "type": "object",
+        "title": "CheckResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "protovalidate.json_types.v1.JSONTypesService",
+      "description": "Each field uses const, in, not_in and example so the generated values can be\n checked against the protojson representation of the field kind: 32-bit\n integers and floats are JSON numbers, 64-bit integers are JSON strings."
+    }
+  ]
+}

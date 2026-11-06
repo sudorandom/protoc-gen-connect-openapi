@@ -1,0 +1,33 @@
+cases:
+  - name: "valid-values"
+    path: "protovalidate.json_types.v1.JSONTypesService/Check"
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    body: |
+      {
+        "int32In": 1, "sint32In": 1, "sfixed32In": 1, "uint32In": 2, "fixed32In": 2,
+        "int64In": "1", "sint64In": "1", "sfixed64In": "1", "uint64In": "2", "fixed64In": "2",
+        "floatIn": 1.5, "doubleIn": 2.5,
+        "int32Const": 7, "uint32Const": 7, "int64Const": "7", "uint64Const": "7",
+        "floatConst": 7.5, "doubleConst": 7.5,
+        "floatRange": 5
+      }
+
+  - name: "uint32-not-in"
+    path: "protovalidate.json_types.v1.JSONTypesService/Check"
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    body: '{"uint32In": 3}'
+    errors:
+      - ".*"
+
+  - name: "float-range"
+    path: "protovalidate.json_types.v1.JSONTypesService/Check"
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    body: '{"floatRange": 11}'
+    errors:
+      - ".*"
