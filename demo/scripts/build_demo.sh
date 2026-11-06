@@ -216,7 +216,7 @@ build_jsonschema() {
         node scripts/wrap_defs.mjs "${target_dir}/${spec_file}" "${target_dir}/wrapped.schema.json"
 
     run_step "json-schema-for-humans docs" \
-        uvx --from json-schema-for-humans generate-schema-doc \
+        uvx --from json-schema-for-humans==1.5.1 generate-schema-doc \
         --config expand_buttons=true --config link_to_reused_ref=false \
         "${target_dir}/wrapped.schema.json" "${target_dir}/schema-docs.html"
     add_artifact ui "jsonschema/schema-docs.html" "json-schema-for-humans (static docs)"
