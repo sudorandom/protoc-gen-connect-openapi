@@ -57,6 +57,12 @@ paths:
               title: UpdateWithOneofRequest
         required: true
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -89,6 +95,12 @@ paths:
               additionalProperties: false
         required: true
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -113,6 +125,12 @@ paths:
             type: string
             title: value
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -178,6 +196,12 @@ paths:
                  MessageToSchema wraps properties+oneOf under AllOf.
         required: true
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -202,6 +226,12 @@ paths:
             type: string
             title: name
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -229,6 +259,12 @@ paths:
             type: string
             title: author
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -254,9 +290,33 @@ components:
       type: object
       title: ListBooksResponse
       additionalProperties: false
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: A URL/resource name that uniquely identifies the type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
     google.protobuf.Empty:
       type: object
       description: An empty JSON object.
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.
+      description: The Status type defines a logical error model suitable for gRPC and REST APIs.
     path_params.Money:
       type: object
       properties:

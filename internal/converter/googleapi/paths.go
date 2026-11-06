@@ -345,19 +345,18 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 		})
 	}
 
-	if opts.WithGoogleErrorDetail {
-		errorMediaType := orderedmap.New[string, *v3.MediaType]()
-		errorMediaType.Set("application/json", &v3.MediaType{
-			Schema: base.CreateSchemaProxyRef("#/components/schemas/google.rpc.Status"),
-		})
-		codeMap.Set("default", &v3.Response{
-			Description: "An unexpected error response.",
-			Content:     errorMediaType,
-		})
-	}
-
+	// REST transcoders (Vanguard, grpc-gateway, Envoy) return errors as
+	// google.rpc.Status, the same way Connect routes always get connect.error.
+	errorMediaType := orderedmap.New[string, *v3.MediaType]()
+	errorMediaType.Set("application/json", &v3.MediaType{
+		Schema: base.CreateSchemaProxyRef("#/components/schemas/google.rpc.Status"),
+	})
 	op.Responses = &v3.Responses{
 		Codes: codeMap,
+		Default: &v3.Response{
+			Description: "An unexpected error response.",
+			Content:     errorMediaType,
+		},
 	}
 
 	switch method {

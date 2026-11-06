@@ -4,17 +4,16 @@ import (
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
+	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 )
 
-// AddSchemas adds google.rpc.Status and google.protobuf.Any schemas to the
-// OpenAPI document components when WithGoogleErrorDetail is enabled. This gives
-// REST client generators typed error handling for google.api.http-annotated
-// methods.
+// AddSchemas adds the google.rpc.Status and google.protobuf.Any schemas used
+// by the default error response of google.api.http-annotated methods. When
+// WithGoogleErrorDetail is enabled, google.rpc.Status details are typed with
+// the standard error detail messages.
 func AddSchemas(opts options.Options, doc *v3.Document) {
-	if !opts.WithGoogleErrorDetail {
-		return
-	}
 	components := doc.Components
 
 	if _, ok := components.Schemas.Get("google.protobuf.Any"); !ok {
@@ -47,7 +46,7 @@ func AddSchemas(opts options.Options, doc *v3.Document) {
 			Description: "A list of messages that carry the error details.",
 			Items: &base.DynamicValue[*base.SchemaProxy, bool]{
 				N: 0,
-				A: base.CreateSchemaProxyRef("#/components/schemas/google.protobuf.Any"),
+				A: statusDetailSchema(opts, components),
 			},
 		}))
 		components.Schemas.Set("google.rpc.Status", base.CreateSchemaProxy(&base.Schema{
@@ -56,4 +55,36 @@ func AddSchemas(opts options.Options, doc *v3.Document) {
 			Properties:  statusProps,
 		}))
 	}
+}
+
+// statusDetailSchema returns the schema for an entry in google.rpc.Status
+// details. With WithGoogleErrorDetail, each standard error detail message is a
+// variant keyed by its "@type"; anything else still matches google.protobuf.Any.
+func statusDetailSchema(opts options.Options, components *v3.Components) *base.SchemaProxy {
+	anyRef := base.CreateSchemaProxyRef("#/components/schemas/google.protobuf.Any")
+	if !opts.WithGoogleErrorDetail {
+		return anyRef
+	}
+	var variants []*base.SchemaProxy
+	detailSchemas := util.GoogleRPCErrorDetailSchemas()
+	for pair := detailSchemas.First(); pair != nil; pair = pair.Next() {
+		name := pair.Key()
+		if _, ok := components.Schemas.Get(name); !ok {
+			components.Schemas.Set(name, pair.Value())
+		}
+		typeProps := orderedmap.New[string, *base.SchemaProxy]()
+		typeProps.Set("@type", base.CreateSchemaProxy(&base.Schema{
+			Type:  []string{"string"},
+			Const: utils.CreateStringNode("type.googleapis.com/" + name),
+		}))
+		variants = append(variants, base.CreateSchemaProxy(&base.Schema{
+			Title:      pair.Value().Schema().Title,
+			AllOf:      []*base.SchemaProxy{base.CreateSchemaProxyRef("#/components/schemas/" + name)},
+			Properties: typeProps,
+			Required:   []string{"@type"},
+		}))
+	}
+	// anyOf rather than oneOf: every typed variant also matches
+	// google.protobuf.Any.
+	return base.CreateSchemaProxy(&base.Schema{AnyOf: append(variants, anyRef)})
 }
