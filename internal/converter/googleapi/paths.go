@@ -38,7 +38,13 @@ func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*ord
 	if !ok {
 		return nil, false
 	}
-	return httpRuleToPathMap(opts, md, rule, nil), true
+	// An invalid rule gets no route here, so report it as absent and let the
+	// method fall back to its default (Connect) route rather than vanish.
+	paths := httpRuleToPathMap(opts, md, rule, nil)
+	if paths == nil || paths.Len() == 0 {
+		return nil, false
+	}
+	return paths, true
 }
 
 func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule, resMap map[string]string) *orderedmap.Map[string, *v3.PathItem] {
@@ -315,7 +321,8 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 			newQueryParams := flattenToParams(opts, md.Input(), "", coveredFields)
 			op.Parameters = util.MergeParameters(op.Parameters, newQueryParams)
 		} else {
-			opts.Logger.Warn("body field not found", slog.String("param", rule.Body))
+			opts.Logger.Warn("invalid HTTP rule: body field not found", slog.String("method", string(md.FullName())), slog.String("body", rule.Body))
+			return nil
 		}
 	}
 
