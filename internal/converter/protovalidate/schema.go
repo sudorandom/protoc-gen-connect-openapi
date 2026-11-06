@@ -10,11 +10,11 @@ import (
 
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	"buf.build/go/protovalidate"
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"

@@ -14,6 +14,7 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
 	"github.com/pb33f/libopenapi/datamodel"
@@ -22,7 +23,6 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"

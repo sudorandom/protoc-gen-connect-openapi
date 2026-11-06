@@ -3,6 +3,7 @@ package util
 import (
 	"testing"
 
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
@@ -10,7 +11,6 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	yamlv3 "go.yaml.in/yaml/v3"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 )
 

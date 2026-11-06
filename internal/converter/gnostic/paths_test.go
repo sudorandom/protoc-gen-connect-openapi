@@ -4,12 +4,12 @@ import (
 	"testing"
 
 	goa3 "github.com/google/gnostic/openapiv3"
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"

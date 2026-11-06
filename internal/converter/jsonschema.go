@@ -5,11 +5,11 @@ import (
 	"log/slog"
 	"strings"
 
+	"github.com/pb33f/go-yaml"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	libjson "github.com/pb33f/libopenapi/json"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/reflect/protoreflect"
 
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"

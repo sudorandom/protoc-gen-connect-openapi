@@ -4,13 +4,13 @@ import (
 	"strconv"
 
 	goa3 "github.com/google/gnostic/openapiv3"
+	"github.com/pb33f/go-yaml"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"go.yaml.in/yaml/v4"
 )
 
 func toServers(servers []*goa3.Server) []*v3.Server {
