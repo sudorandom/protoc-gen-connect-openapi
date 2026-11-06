@@ -31,6 +31,7 @@ From the OpenAPI spec (`out/<name>/openapi/`):
 | `scalar.html` | [Scalar](https://scalar.com/) (loads from CDN) |
 | `swagger-ui.html` | [Swagger UI](https://swagger.io/tools/swagger-ui/) (loads from CDN) |
 | `elements.html` | [Stoplight Elements](https://stoplight.io/open-source/elements) (loads from CDN) |
+| `../mintlify/` | [Mintlify](https://mintlify.com/) static export of a minimal docs project around the spec, in `out/<name>/mintlify/` |
 | `types.ts` | [openapi-typescript](https://openapi-ts.dev/) |
 
 From the JSON Schema bundle (`out/<name>/jsonschema/`):
@@ -46,6 +47,6 @@ Tools that fail on a given input are reported and skipped rather than aborting t
 
 ## Notes
 
-- The CDN-based documentation pages (Scalar, Swagger UI, Elements) need network access when opened; Redoc and json-schema-for-humans builds are fully static.
+- The CDN-based documentation pages (Scalar, Swagger UI, Elements) need network access when opened; Redoc, Mintlify, and json-schema-for-humans builds are fully static.
 - `out/` and `node_modules/` are untracked; `just clean` removes all built demos.
 - To add a tool: extend `scripts/build_demo.sh` (a `run_step` + `add_artifact` pair, with the artifact's index group: `ui`, `code`, or `spec`) and, for npm tools, add the dependency to `package.json`.
