@@ -1060,5 +1060,5 @@ func TestProtovalidateDurationAndEnum(t *testing.T) {
 	assert.NotContains(t, durationRange["description"], "gt_lt")
 
 	enumDefinedOnly := properties["enumDefinedOnly"].(map[string]any)
-	assert.Contains(t, enumDefinedOnly["description"], "enum.defined_only = true")
+	assert.NotContains(t, enumDefinedOnly, "description")
 }
