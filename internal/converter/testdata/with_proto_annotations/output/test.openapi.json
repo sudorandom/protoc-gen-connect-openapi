@@ -167,9 +167,21 @@
             "type": "object",
             "properties": {
               "doubleOption": {
-                "type": "number",
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
                 "title": "double_option",
-                "format": "double",
                 "description": "(proto double)"
               }
             },
@@ -217,9 +229,21 @@
             "type": "object",
             "properties": {
               "floatOption": {
-                "type": "number",
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
                 "title": "float_option",
-                "format": "float",
                 "description": "(proto float)"
               }
             },
@@ -534,15 +558,39 @@
         },
         "properties": {
           "doubleValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "double_value",
-            "format": "double",
             "description": "scalar types (proto double)"
           },
           "floatValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "float_value",
-            "format": "float",
             "description": "(proto float)"
           },
           "int32Value": {
@@ -622,8 +670,20 @@
           "doubleList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "double_list",
             "description": "repeated types (proto double)"
@@ -631,8 +691,20 @@
           "floatList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "float"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "float_list",
             "description": "(proto float)"
@@ -874,9 +946,21 @@
             "type": "object",
             "title": "double_map",
             "additionalProperties": {
-              "type": "number",
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ],
               "title": "value",
-              "format": "double",
               "description": "(proto double)"
             },
             "description": "map value types (proto with_proto_annotations.test.v1.AllTypes.DoubleMapEntry)"
@@ -885,9 +969,21 @@
             "type": "object",
             "title": "float_map",
             "additionalProperties": {
-              "type": "number",
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "float"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ],
               "title": "value",
-              "format": "float",
               "description": "(proto float)"
             },
             "description": "(proto with_proto_annotations.test.v1.AllTypes.FloatMapEntry)"
@@ -1032,21 +1128,45 @@
             "description": "(proto with_proto_annotations.test.v1.AllTypes.BytesMapEntry)"
           },
           "optDoubleValue": {
-            "type": [
-              "number",
-              "null"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ],
             "title": "opt_double_value",
-            "format": "double",
             "description": "explicit presence types (proto double)"
           },
           "optFloatValue": {
-            "type": [
-              "number",
-              "null"
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              },
+              {
+                "type": "null"
+              }
             ],
             "title": "opt_float_value",
-            "format": "float",
             "description": "(proto float)"
           },
           "optInt32Value": {
@@ -1268,9 +1388,21 @@
             "type": "object",
             "properties": {
               "oneofDoubleValue": {
-                "type": "number",
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  {
+                    "type": "string",
+                    "enum": [
+                      "NaN",
+                      "Infinity",
+                      "-Infinity"
+                    ]
+                  }
+                ],
                 "title": "oneof_double_value",
-                "format": "double",
                 "description": "(proto double)"
               }
             },
@@ -1354,15 +1486,39 @@
         },
         "properties": {
           "doubleValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "double_value",
-            "format": "double",
             "description": "scalar types (proto double)"
           },
           "floatValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "float_value",
-            "format": "float",
             "description": "(proto float)"
           },
           "int32Value": {
@@ -1567,8 +1723,20 @@
           "doubleList": {
             "type": "array",
             "items": {
-              "type": "number",
-              "format": "double"
+              "oneOf": [
+                {
+                  "type": "number",
+                  "format": "double"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "NaN",
+                    "Infinity",
+                    "-Infinity"
+                  ]
+                }
+              ]
             },
             "title": "double_list",
             "description": "(proto double)"
@@ -1693,9 +1861,21 @@
         "type": "object",
         "properties": {
           "doubleValue": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
             "title": "double_value",
-            "format": "double",
             "description": "(proto double)"
           },
           "doubleValueWrapper": {

@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package standard;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
+import "google/api/httpbody.proto";
+
+// A gnostic request_body replaces the generated body, but fields outside the
+// path and body still become query parameters, per binding.
+service GnosticRequestBodyQueryParamsService {
+  rpc Upload(UploadRequest) returns (UploadResponse) {
+    option (google.api.http) = {
+      post: "/v1/uploads"
+      body: "content"
+      additional_bindings: {
+        post: "/v1/folders/{folder}/uploads"
+        body: "content"
+      }
+    };
+    option (gnostic.openapi.v3.operation) = {
+      request_body: {
+        request_body: {
+          required: true
+          content: {
+            additional_properties: {
+              name: "application/octet-stream"
+              value: {
+                schema: {
+                  schema: {
+                    type: "string"
+                    format: "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+
+  // Without a body field, the gnostic request_body describes the whole
+  // request, so no fields become query parameters.
+  rpc Search(SearchRequest) returns (SearchResponse) {
+    option (google.api.http) = {post: "/v1/uploads:search"};
+    option (gnostic.openapi.v3.operation) = {
+      request_body: {
+        request_body: {
+          content: {
+            additional_properties: {
+              name: "application/json"
+              value: {
+                schema: {
+                  reference: {_ref: "#/components/schemas/standard.SearchRequest"}
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+}
+
+message SearchRequest {
+  string filter = 1;
+  int32 page_size = 2;
+  google.api.HttpBody content = 3;
+}
+
+message SearchResponse {
+  repeated string ids = 1;
+}
+
+message UploadRequest {
+  string folder = 1;
+  google.api.HttpBody content = 2;
+  string name = 3;
+}
+
+message UploadResponse {
+  string id = 1;
+}

@@ -562,9 +562,15 @@ components:
         - type: object
           properties:
             f:
-              type: number
+              oneOf:
+                - type: number
+                  format: float
+                - type: string
+                  enum:
+                    - NaN
+                    - Infinity
+                    - -Infinity
               title: f
-              format: float
               description: '"float"'
           title: f
         - type: object
@@ -712,8 +718,14 @@ components:
         f:
           type: array
           items:
-            type: number
-            format: float
+            oneOf:
+              - type: number
+                format: float
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: f
           description: '"list(float)"'
         b:
@@ -1387,9 +1399,15 @@ components:
       type: object
       properties:
         cost:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: cost
-          format: float
           description: Aggregated cost value.
         dimension:
           type: string
@@ -2056,9 +2074,15 @@ components:
       type: object
       properties:
         perProcessGpuMemoryFraction:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: per_process_gpu_memory_fraction
-          format: double
           description: |-
             Fraction of the total GPU memory to allocate for each process.
              1 means to allocate all of the GPU memory, 0.5 means the process
@@ -2280,9 +2304,15 @@ components:
              launch an additional kernel will stall until an event
              completes.
         internalFragmentationFraction:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: internal_fragmentation_fraction
-          format: double
           description: |-
             BFC Allocator can return an allocated chunk of memory upto 2x the
              requested size. For virtual devices with tight memory constraints, and
@@ -2305,9 +2335,15 @@ components:
              hopes that another thread will free up memory in the meantime.  Setting
              this to true disables the sleep; instead we'll OOM immediately.
         gpuHostMemLimitInMb:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: gpu_host_mem_limit_in_mb
-          format: float
           description: |-
             Memory limit for "GPU host allocator", aka pinned memory allocator.  This
              can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB.
@@ -2330,8 +2366,14 @@ components:
         memoryLimitMb:
           type: array
           items:
-            type: number
-            format: float
+            oneOf:
+              - type: number
+                format: float
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: memory_limit_mb
           description: |-
             Per "virtual" device memory limit, in MB. The number of elements in
@@ -4380,15 +4422,27 @@ components:
         floatVal:
           type: array
           items:
-            type: number
-            format: float
+            oneOf:
+              - type: number
+                format: float
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: float_val
           description: DT_FLOAT.
         doubleVal:
           type: array
           items:
-            type: number
-            format: double
+            oneOf:
+              - type: number
+                format: double
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: double_val
           description: DT_DOUBLE.
         intVal:
@@ -4408,8 +4462,14 @@ components:
         scomplexVal:
           type: array
           items:
-            type: number
-            format: float
+            oneOf:
+              - type: number
+                format: float
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: scomplex_val
           description: |-
             DT_COMPLEX64. scomplex_val(2*i) and scomplex_val(2*i+1) are real
@@ -4430,8 +4490,14 @@ components:
         dcomplexVal:
           type: array
           items:
-            type: number
-            format: double
+            oneOf:
+              - type: number
+                format: double
+              - type: string
+                enum:
+                  - NaN
+                  - Infinity
+                  - -Infinity
           title: dcomplex_val
           description: |-
             DT_COMPLEX128. dcomplex_val(2*i) and dcomplex_val(2*i+1) are real

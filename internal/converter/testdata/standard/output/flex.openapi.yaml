@@ -463,13 +463,25 @@ components:
       type: object
       properties:
         doubleField:
-          type: number
+          oneOf:
+            - type: number
+              format: double
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: doubleField
-          format: double
         floatField:
-          type: number
+          oneOf:
+            - type: number
+              format: float
+            - type: string
+              enum:
+                - NaN
+                - Infinity
+                - -Infinity
           title: floatField
-          format: float
         int32Field:
           type: integer
           title: int32Field
