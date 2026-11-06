@@ -87,6 +87,7 @@ func WithFiles(files *protoregistry.Files) Option {
 			return true
 		})
 		slices.Sort(g.req.FileToGenerate)
+		g.req.FileToGenerate = slices.Compact(g.req.FileToGenerate)
 		if err := withSourceFiles(files, g); err != nil {
 			return err
 		}
@@ -95,12 +96,24 @@ func WithFiles(files *protoregistry.Files) Option {
 }
 
 func withSourceFiles(files *protoregistry.Files, g *generator) error {
+	// Files may already be present from another WithFiles/WithSourceFiles
+	// call with an overlapping registry; a file listed twice is an error later.
+	seen := make(map[string]struct{}, len(g.req.ProtoFile))
+	for _, file := range g.req.ProtoFile {
+		seen[file.GetName()] = struct{}{}
+	}
 	files.RangeFiles(func(fd protoreflect.FileDescriptor) bool {
+		if _, ok := seen[fd.Path()]; ok {
+			return true
+		}
+		seen[fd.Path()] = struct{}{}
 		g.req.ProtoFile = append(g.req.ProtoFile, protodesc.ToFileDescriptorProto(fd.ParentFile()))
 		return true
 	})
+	// RangeFiles iterates in map order, so sort fully (by package, then path)
+	// to make the output deterministic.
 	slices.SortFunc(g.req.ProtoFile, func(a *descriptorpb.FileDescriptorProto, b *descriptorpb.FileDescriptorProto) int {
-		return cmp.Compare(a.GetPackage(), b.GetPackage())
+		return cmp.Or(cmp.Compare(a.GetPackage(), b.GetPackage()), cmp.Compare(a.GetName(), b.GetName()))
 	})
 	return nil
 }
