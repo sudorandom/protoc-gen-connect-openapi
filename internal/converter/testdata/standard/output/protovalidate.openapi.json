@@ -648,35 +648,34 @@
             "title": "int64_not_in"
           },
           "int64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "int64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 42\n"
           },
           "int64Lte": {
             "type": "string",
             "title": "int64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 420\n"
           },
           "int64Gt": {
-            "exclusiveMinimum": 6,
             "type": "string",
             "title": "int64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gt = 6\n"
           },
           "int64Gte": {
             "type": "string",
             "title": "int64_gte",
-            "minimum": 69,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gte = 69\n"
           },
           "int64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "int64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 10\nint64.gte = 5\n"
           },
           "uint32Const": {
             "type": "integer",
@@ -774,35 +773,34 @@
             "title": "uint64_not_in"
           },
           "uint64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "uint64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 42\n"
           },
           "uint64Lte": {
             "type": "string",
             "title": "uint64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 420\n"
           },
           "uint64Gt": {
-            "exclusiveMinimum": 6,
             "type": "string",
             "title": "uint64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gt = 6\n"
           },
           "uint64Gte": {
             "type": "string",
             "title": "uint64_gte",
-            "minimum": 69,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gte = 69\n"
           },
           "uint64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "uint64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 10\nuint64.gte = 5\n"
           },
           "sint32Const": {
             "type": "integer",
@@ -908,35 +906,34 @@
             "title": "sint64_not_in"
           },
           "sint64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "sint64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 42\n"
           },
           "sint64Lte": {
             "type": "string",
             "title": "sint64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 420\n"
           },
           "sint64Gt": {
-            "exclusiveMinimum": 8,
             "type": "string",
             "title": "sint64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gt = 8\n"
           },
           "sint64Gte": {
             "type": "string",
             "title": "sint64_gte",
-            "minimum": 89,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gte = 89\n"
           },
           "sint64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "sint64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 10\nsint64.gte = 5\n"
           },
           "fixed32Const": {
             "type": "integer",
@@ -1034,35 +1031,34 @@
             "title": "fixed64_not_in"
           },
           "fixed64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "fixed64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 42\n"
           },
           "fixed64Lte": {
             "type": "string",
             "title": "fixed64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 420\n"
           },
           "fixed64Gt": {
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "fixed64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gt = 10\n"
           },
           "fixed64Gte": {
             "type": "string",
             "title": "fixed64_gte",
-            "minimum": 109,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gte = 109\n"
           },
           "fixed64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "fixed64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 10\nfixed64.gte = 5\n"
           },
           "sfixed32Const": {
             "type": "integer",
@@ -1168,35 +1164,34 @@
             "title": "sfixed64_not_in"
           },
           "sfixed64Lt": {
-            "exclusiveMaximum": 42,
             "type": "string",
             "title": "sfixed64_lt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 42\n"
           },
           "sfixed64Lte": {
             "type": "string",
             "title": "sfixed64_lte",
-            "maximum": 420,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 420\n"
           },
           "sfixed64Gt": {
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "sfixed64_gt",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gt = 10\n"
           },
           "sfixed64Gte": {
             "type": "string",
             "title": "sfixed64_gte",
-            "minimum": 109,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gte = 109\n"
           },
           "sfixed64Bounds": {
-            "exclusiveMaximum": 10,
             "type": "string",
             "title": "sfixed64_bounds",
-            "minimum": 5,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 10\nsfixed64.gte = 5\n"
           },
           "stringConst": {
             "type": "string",

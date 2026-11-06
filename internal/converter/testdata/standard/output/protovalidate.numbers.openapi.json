@@ -492,9 +492,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 128\nfixed64.gte = 256\n"
           }
         },
         "title": "Fixed64ExGTELTE",
@@ -504,11 +503,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 5,
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 5\nfixed64.gt = 10\n"
           }
         },
         "title": "Fixed64ExLTGT",
@@ -533,10 +531,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMinimum": 16,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gt = 16\n"
           }
         },
         "title": "Fixed64GT",
@@ -548,8 +546,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "minimum": 8,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.gte = 8\n"
           }
         },
         "title": "Fixed64GTE",
@@ -561,9 +559,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 256\nfixed64.gte = 128\n"
           }
         },
         "title": "Fixed64GTELTE",
@@ -573,11 +570,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 5,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 10\nfixed64.gt = 5\n"
           }
         },
         "title": "Fixed64GTLT",
@@ -589,9 +585,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 256\nfixed64.gte = 128\n"
           }
         },
         "title": "Fixed64Ignore",
@@ -630,10 +625,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 5,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lt = 5\n"
           }
         },
         "title": "Fixed64LT",
@@ -645,8 +640,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 64,
-            "format": "int64"
+            "format": "int64",
+            "description": "fixed64.lte = 64\n"
           }
         },
         "title": "Fixed64LTE",
@@ -1166,53 +1161,52 @@
         "type": "object",
         "properties": {
           "ltPos": {
-            "exclusiveMaximum": 5444333222,
             "type": "string",
             "title": "lt_pos",
             "format": "int64",
-            "description": "Intentionally choose limits that are outside the range of both signed and unsigned 32-bit integers."
+            "description": "Intentionally choose limits that are outside the range of both signed and unsigned 32-bit integers.\nint64.lt = 5444333222\n"
           },
           "ltNeg": {
-            "exclusiveMaximum": -5444333222,
             "type": "string",
             "title": "lt_neg",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = -5444333222\n"
           },
           "gtPos": {
-            "exclusiveMinimum": 5444333222,
             "type": "string",
             "title": "gt_pos",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gt = 5444333222\n"
           },
           "gtNeg": {
-            "exclusiveMinimum": -5444333222,
             "type": "string",
             "title": "gt_neg",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gt = -5444333222\n"
           },
           "ltePos": {
             "type": "string",
             "title": "lte_pos",
-            "maximum": 5444333222,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 5444333222\n"
           },
           "lteNeg": {
             "type": "string",
             "title": "lte_neg",
-            "maximum": -5444333222,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = -5444333222\n"
           },
           "gtePos": {
             "type": "string",
             "title": "gte_pos",
-            "minimum": 5444333222,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gte = 5444333222\n"
           },
           "gteNeg": {
             "type": "string",
             "title": "gte_neg",
-            "minimum": -5444333222,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gte = -5444333222\n"
           },
           "constantPos": {
             "type": "string",
@@ -1270,9 +1264,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 128\nint64.gte = 256\n"
           }
         },
         "title": "Int64ExGTELTE",
@@ -1282,11 +1275,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 0\nint64.gt = 10\n"
           }
         },
         "title": "Int64ExLTGT",
@@ -1311,10 +1303,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMinimum": 16,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gt = 16\n"
           }
         },
         "title": "Int64GT",
@@ -1326,8 +1318,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "minimum": 8,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.gte = 8\n"
           }
         },
         "title": "Int64GTE",
@@ -1339,9 +1331,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 256\nint64.gte = 128\n"
           }
         },
         "title": "Int64GTELTE",
@@ -1351,11 +1342,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 10\nint64.gt = 0\n"
           }
         },
         "title": "Int64GTLT",
@@ -1367,9 +1357,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 256\nint64.gte = 128\n"
           }
         },
         "title": "Int64Ignore",
@@ -1408,10 +1397,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 0,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lt = 0\n"
           }
         },
         "title": "Int64LT",
@@ -1423,8 +1412,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 64,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 64\n"
           }
         },
         "title": "Int64LTE",
@@ -1439,8 +1428,8 @@
               "null"
             ],
             "title": "val",
-            "maximum": 64,
-            "format": "int64"
+            "format": "int64",
+            "description": "int64.lte = 64\n"
           }
         },
         "title": "Int64LTEOptional",
@@ -1704,9 +1693,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 128\nsfixed64.gte = 256\n"
           }
         },
         "title": "SFixed64ExGTELTE",
@@ -1716,11 +1704,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 0\nsfixed64.gt = 10\n"
           }
         },
         "title": "SFixed64ExLTGT",
@@ -1745,10 +1732,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMinimum": 16,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gt = 16\n"
           }
         },
         "title": "SFixed64GT",
@@ -1760,8 +1747,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "minimum": 8,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.gte = 8\n"
           }
         },
         "title": "SFixed64GTE",
@@ -1773,9 +1760,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 256\nsfixed64.gte = 128\n"
           }
         },
         "title": "SFixed64GTELTE",
@@ -1785,11 +1771,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 10\nsfixed64.gt = 0\n"
           }
         },
         "title": "SFixed64GTLT",
@@ -1801,9 +1786,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 256\nsfixed64.gte = 128\n"
           }
         },
         "title": "SFixed64Ignore",
@@ -1842,10 +1826,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 0,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lt = 0\n"
           }
         },
         "title": "SFixed64LT",
@@ -1857,8 +1841,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 64,
-            "format": "int64"
+            "format": "int64",
+            "description": "sfixed64.lte = 64\n"
           }
         },
         "title": "SFixed64LTE",
@@ -2122,9 +2106,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 128\nsint64.gte = 256\n"
           }
         },
         "title": "SInt64ExGTELTE",
@@ -2134,11 +2117,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 0,
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 0\nsint64.gt = 10\n"
           }
         },
         "title": "SInt64ExLTGT",
@@ -2163,10 +2145,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMinimum": 16,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gt = 16\n"
           }
         },
         "title": "SInt64GT",
@@ -2178,8 +2160,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "minimum": 8,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.gte = 8\n"
           }
         },
         "title": "SInt64GTE",
@@ -2191,9 +2173,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 256\nsint64.gte = 128\n"
           }
         },
         "title": "SInt64GTELTE",
@@ -2203,11 +2184,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 0,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 10\nsint64.gt = 0\n"
           }
         },
         "title": "SInt64GTLT",
@@ -2219,9 +2199,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 256\nsint64.gte = 128\n"
           }
         },
         "title": "SInt64Ignore",
@@ -2260,10 +2239,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 0,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lt = 0\n"
           }
         },
         "title": "SInt64LT",
@@ -2275,8 +2254,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 64,
-            "format": "int64"
+            "format": "int64",
+            "description": "sint64.lte = 64\n"
           }
         },
         "title": "SInt64LTE",
@@ -2525,9 +2504,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 128,
-            "minimum": 256,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 128\nuint64.gte = 256\n"
           }
         },
         "title": "UInt64ExGTELTE",
@@ -2537,11 +2515,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 5,
-            "exclusiveMinimum": 10,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 5\nuint64.gt = 10\n"
           }
         },
         "title": "UInt64ExLTGT",
@@ -2566,10 +2543,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMinimum": 16,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gt = 16\n"
           }
         },
         "title": "UInt64GT",
@@ -2581,8 +2558,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "minimum": 8,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.gte = 8\n"
           }
         },
         "title": "UInt64GTE",
@@ -2594,9 +2571,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 256\nuint64.gte = 128\n"
           }
         },
         "title": "UInt64GTELTE",
@@ -2606,11 +2582,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 10,
-            "exclusiveMinimum": 5,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 10\nuint64.gt = 5\n"
           }
         },
         "title": "UInt64GTLT",
@@ -2622,9 +2597,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 256,
-            "minimum": 128,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 256\nuint64.gte = 128\n"
           }
         },
         "title": "UInt64Ignore",
@@ -2663,10 +2637,10 @@
         "type": "object",
         "properties": {
           "val": {
-            "exclusiveMaximum": 5,
             "type": "string",
             "title": "val",
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lt = 5\n"
           }
         },
         "title": "UInt64LT",
@@ -2678,8 +2652,8 @@
           "val": {
             "type": "string",
             "title": "val",
-            "maximum": 64,
-            "format": "int64"
+            "format": "int64",
+            "description": "uint64.lte = 64\n"
           }
         },
         "title": "UInt64LTE",

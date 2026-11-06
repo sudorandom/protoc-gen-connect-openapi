@@ -491,21 +491,19 @@ func updateSchemaInt64(opts options.Options, schema *base.Schema, constraint *va
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatInt(int64(*constraint.Const), 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Int64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "int64.lt", strconv.FormatInt(int64(tt.Lt), 10))
 	case *validate.Int64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "int64.lte", strconv.FormatInt(int64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Int64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "int64.gt", strconv.FormatInt(int64(tt.Gt), 10))
 	case *validate.Int64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "int64.gte", strconv.FormatInt(int64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -587,21 +585,19 @@ func updateSchemaUint64(opts options.Options, schema *base.Schema, constraint *v
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(uint64(*constraint.Const), 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.UInt64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "uint64.lt", strconv.FormatUint(uint64(tt.Lt), 10))
 	case *validate.UInt64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "uint64.lte", strconv.FormatUint(uint64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.UInt64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "uint64.gt", strconv.FormatUint(uint64(tt.Gt), 10))
 	case *validate.UInt64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "uint64.gte", strconv.FormatUint(uint64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -683,21 +679,19 @@ func updateSchemaSint64(opts options.Options, schema *base.Schema, constraint *v
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatInt(*constraint.Const, 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SInt64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sint64.lt", strconv.FormatInt(int64(tt.Lt), 10))
 	case *validate.SInt64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "sint64.lte", strconv.FormatInt(int64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SInt64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sint64.gt", strconv.FormatInt(int64(tt.Gt), 10))
 	case *validate.SInt64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "sint64.gte", strconv.FormatInt(int64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -779,21 +773,19 @@ func updateSchemaFixed64(opts options.Options, schema *base.Schema, constraint *
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatUint(*constraint.Const, 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.Fixed64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "fixed64.lt", strconv.FormatUint(uint64(tt.Lt), 10))
 	case *validate.Fixed64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "fixed64.lte", strconv.FormatUint(uint64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.Fixed64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "fixed64.gt", strconv.FormatUint(uint64(tt.Gt), 10))
 	case *validate.Fixed64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "fixed64.gte", strconv.FormatUint(uint64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
@@ -875,21 +867,19 @@ func updateSchemaSfixed64(opts options.Options, schema *base.Schema, constraint 
 	if constraint.Const != nil {
 		schema.Const = utils.CreateStringNode(strconv.FormatInt(*constraint.Const, 10))
 	}
+	// 64-bit integers are JSON strings, and minimum/maximum don't apply to
+	// strings, so range rules are described instead.
 	switch tt := constraint.LessThan.(type) {
 	case *validate.SFixed64Rules_Lt:
-		v := float64(tt.Lt)
-		schema.ExclusiveMaximum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sfixed64.lt", strconv.FormatInt(int64(tt.Lt), 10))
 	case *validate.SFixed64Rules_Lte:
-		v := float64(tt.Lte)
-		schema.Maximum = &v
+		appendRuleDescription(schema, "sfixed64.lte", strconv.FormatInt(int64(tt.Lte), 10))
 	}
 	switch tt := constraint.GreaterThan.(type) {
 	case *validate.SFixed64Rules_Gt:
-		v := float64(tt.Gt)
-		schema.ExclusiveMinimum = &base.DynamicValue[bool, float64]{N: 1, B: v}
+		appendRuleDescription(schema, "sfixed64.gt", strconv.FormatInt(int64(tt.Gt), 10))
 	case *validate.SFixed64Rules_Gte:
-		v := float64(tt.Gte)
-		schema.Minimum = &v
+		appendRuleDescription(schema, "sfixed64.gte", strconv.FormatInt(int64(tt.Gte), 10))
 	}
 	if len(constraint.In) > 0 {
 		items := make([]*yaml.Node, len(constraint.In))
