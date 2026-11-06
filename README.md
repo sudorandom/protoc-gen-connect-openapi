@@ -1,5 +1,5 @@
 # protoc-gen-connect-openapi
-[![Go](https://github.com/sudorandom/protoc-gen-connect-openapi/actions/workflows/go.yml/badge.svg)](https://github.com/sudorandom/protoc-gen-connect-openapi/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/sudorandom/protoc-gen-connect-openapi)](https://goreportcard.com/report/github.com/sudorandom/protoc-gen-connect-openapi) [![Go Reference](https://pkg.go.dev/badge/github.com/sudorandom/protoc-gen-connect-openapi.svg)](https://pkg.go.dev/github.com/sudorandom/protoc-gen-connect-openapi)
+[![Go](https://github.com/connectrpc/protoc-gen-connect-openapi/actions/workflows/go.yml/badge.svg)](https://github.com/connectrpc/protoc-gen-connect-openapi/actions/workflows/go.yml) [![Go Report Card](https://goreportcard.com/badge/connectrpc.com/protoc-gen-connect-openapi)](https://goreportcard.com/report/connectrpc.com/protoc-gen-connect-openapi) [![Go Reference](https://pkg.go.dev/badge/connectrpc.com/protoc-gen-connect-openapi.svg)](https://pkg.go.dev/connectrpc.com/protoc-gen-connect-openapi)
 
 Generate OpenAPI v3.1 from protobuf matching the [Connect protocol](https://connectrpc.com/docs/protocol). With these [OpenAPI](https://www.openapis.org/what-is-openapi) specs, you can:
 
@@ -13,11 +13,10 @@ Features:
 - Support for OpenAPIv3.1 (which has support for jsonschema)
 - Support for emitting standalone [JSON Schema](https://json-schema.org/) documents with `format=jsonschema`
 - Support for generating [AsyncAPI v3.1](https://www.asyncapi.com/) specifications alongside OpenAPI for streaming/WebSocket endpoints (e.g., for [grpc-websocket-proxy](https://github.com/tmc/grpc-websocket-proxy))
-- Support for [Twirp](https://twitchtv.github.io/twirp/docs/intro.html) ([more info](twirp.md))
 - Support for many [Protovalidate](https://github.com/bufbuild/protovalidate) options ([more info](protovalidate.md))
 - Support for many [OpenAPIv3](https://github.com/google/gnostic/blob/main/openapiv3/annotations.proto) options from the [google/gnostic project](https://github.com/google/gnostic) protobufs ([more info](gnostic.md))
 - Support for [gRPC-Gateway annotations](https://github.com/grpc-ecosystem/grpc-gateway) ([more info](grpcgateway.md))
-- Has [an easy interface](https://pkg.go.dev/github.com/sudorandom/protoc-gen-connect-openapi/converter) for generating OpenAPI specs in-process for Go
+- Has [an easy interface](https://pkg.go.dev/connectrpc.com/protoc-gen-connect-openapi/converter) for generating OpenAPI specs in-process for Go
 
 Example Pipeline:
 - Protobuf file: [example](examples/basic.proto)
@@ -53,7 +52,7 @@ We can document this API as if it's a real JSON/HTTP API... because it is, and t
 ## Install
 
 ### Binaries
-You can download pre-built binaries from the [Github releases page](https://github.com/sudorandom/protoc-gen-connect-openapi/releases/latest).
+You can download pre-built binaries from the [Github releases page](https://github.com/connectrpc/protoc-gen-connect-openapi/releases/latest).
 
 ### asdf
 
@@ -68,7 +67,7 @@ $ asdf global protoc-gen-connect-openapi latest
 
 It isn't recommended, but you can also install directly using Go:
 ```shell
-go install github.com/sudorandom/protoc-gen-connect-openapi@latest
+go install connectrpc.com/protoc-gen-connect-openapi@latest
 protoc-gen-connect-openapi --version
 ```
 
@@ -77,7 +76,7 @@ Or you can actually use `go run` directly from `buf.gen.yaml`, if that's the pro
 ```yaml
 version: v2
 plugins:
-  - local: ["go", "run", "github.com/sudorandom/protoc-gen-connect-openapi@latest"]
+  - local: ["go", "run", "connectrpc.com/protoc-gen-connect-openapi@latest"]
     out: gen
 ```
 
@@ -85,7 +84,7 @@ plugins:
 
 If you are already using Go, it may make sense to also use the new "go tool" support added in Go 1.24:
 ```
-go get -tool github.com/sudorandom/protoc-gen-connect-openapi@latest
+go get -tool connectrpc.com/protoc-gen-connect-openapi@latest
 go tool protoc-gen-connect-openapi --version
 ```
 
@@ -186,13 +185,11 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 | disable-default-response    | - | Disables the generation of the default `200 OK` response for all operations. Only explicit responses (e.g., from `google.api.http` annotations) will be included. |
 | format                     | `yaml`, `json`, or `jsonschema` | Which format to use for the output file, defaults to `yaml`. `yaml` and `json` render an OpenAPI document. `jsonschema` renders a standalone JSON Schema (draft 2020-12) document containing only the message and enum schemas, with every type under `$defs`; see [JSON Schema output](#json-schema-output). |
 | fully-qualified-message-names | - | Use fully qualified message names as the "title" for OpenAPI schemas. So it will be displayed as `company.users.administration.v1.User` instead of `User`.      |
-| ignore-googleapi-http      | - | [DEPRECATED] Use features=connectrpc;gnostic;protovalidate;twirp instead. Ignore google.api.http options on methods when generating openapi specs                                                                                         |
-| only-googleapi-http        | - | [DEPRECATED] Use features=google.api.http;gnostic;protovalidate instead. Only generate routes for methods that have explicit `google.api.http` annotations. Methods without annotations will be skipped.                                  |
 | include-number-enum-values | - | Include number enum values beside the string versions, defaults to only showing strings                                                                            |
 | override                   | `{filepath}` | The path to an override OpenAPI file to override schema components generated by the plugin. This option does not work when used with the remote plugin. |
-| path                       | `{filepath}` | Output filepath, defaults to per-proto file output if not given.  When using [buf](https://github.com/bufbuild/buf), generating multiple files to the same path requires additional configuration to avoid overwriting files. See [#159](https://github.com/sudorandom/protoc-gen-connect-openapi/issues/159).                                                                            |
+| path                       | `{filepath}` | Output filepath, defaults to per-proto file output if not given.  When using [buf](https://github.com/bufbuild/buf), generating multiple files to the same path requires additional configuration to avoid overwriting files. See [#159](https://github.com/connectrpc/protoc-gen-connect-openapi/issues/159).                                                                            |
 | path-prefix                | `{path}` | Prefixes the given string to the beginning of each HTTP path.                                                                                               |
-| features                   | `{feature1};{feature2};[...]` | Semicolon-separated list of features to enable. Options: `connectrpc`, `google.api.http`, `twirp`, `gnostic`, `protovalidate`; Default: `connectrpc;google.api.http;gnostic;protovalidate`. If this option is used, only the specified features will be enabled. |
+| features                   | `{feature1};{feature2};[...]` | Semicolon-separated list of features to enable. Options: `connectrpc`, `google.api.http`; Default: `connectrpc;google.api.http`. If this option is used, only the specified features will be enabled. |
 | allowed-visibilities   | `{visibility1};{visibility2};[...]` | Semicolon-separated list of visibility labels to include. If an element (service, method, message, enum, enum value, or field) has a `google.api.visibility` rule, it will only be included in the generated OpenAPI specification if its visibility label is in this list. If this option is omitted, elements with visibility rules are filtered out by default. Elements without visibility rules are always included. |
 | services                   | `{service_name}` | Specifies which services to include in the generated OpenAPI specification. If omitted, all services are included. The service name must be fully qualified (e.g., "package.name.ServiceName"). Wildcards (`*` and `**`) are supported; `*` matches a single package segment, while `**` matches multiple. This option can be provided multiple times to include multiple services.  |
 | short-operation-ids        | - | Set the operationId to shortServiceName + "_" + method short name instead of the full method name.                                                                 |
@@ -209,36 +206,23 @@ protoc-gen-connect-openapi also has support for the [OpenAPI v3 annotations](htt
 
 ### Features
 
-The `features` option allows you to control which protocol-specific annotations and functionalities are enabled during OpenAPI generation. This is useful for tailoring the output to your specific needs and avoiding unnecessary processing.
+The `features` option controls how RPC methods become HTTP routes. At least one feature is required, and both are on by default:
+- `connectrpc`: Documents each method at its Connect route (`/{package}.{service}/{method}`). Methods with a `google.api.http` annotation use that route instead when `google.api.http` is also enabled.
+- `google.api.http`: Documents the routes from `google.api.http` annotations (gRPC-Gateway style).
 
-At least one of the following features is required: `connectrpc`, `google.api.http`, or `twirp`. These features dictate how RPC methods are translated into HTTP endpoints in the OpenAPI specification.
+To document only the methods that have `google.api.http` annotations, and skip the rest:
+```yaml
+opt:
+  - features=google.api.http
+```
 
-Available features:
-- `connectrpc`: Enables support for Connect RPC.
-- `google.api.http`: Enables support for `google.api.http` annotations (gRPC-Gateway style).
-- `twirp`: Enables support for Twirp RPC.
-- `gnostic`: Enables support for Gnostic OpenAPI v3 annotations.
-- `protovalidate`: Enables support for Protovalidate annotations.
+To ignore `google.api.http` annotations and document every method at its Connect route:
+```yaml
+opt:
+  - features=connectrpc
+```
 
-Examples:
-
-- **Enable only ConnectRPC support:**
-  ```yaml
-  opt:
-    - features=connectrpc
-  ```
-
-- **Enable Google API HTTP and Protovalidate support:**
-  ```yaml
-  opt:
-    - features=google.api.http;protovalidate
-  ```
-
-- **Enable all features:**
-  ```yaml
-  opt:
-    - features=connectrpc;google.api.http;twirp;gnostic;protovalidate
-  ```
+Protovalidate and gnostic annotations are always applied.
 
 ### Contributing
 Contributions are accepted and welcome! Please make sure that all tests pass locally for you. Tests will automatically build the fixture descriptor set (`fileset.binpb`) on demand if `buf` is installed, or you can generate it manually:

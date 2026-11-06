@@ -1,9 +1,9 @@
 package util
 
 import (
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 )
 
 func fieldName(opts options.Options, protoName, jsonName string) string {

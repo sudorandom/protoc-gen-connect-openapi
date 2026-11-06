@@ -6,13 +6,13 @@ import (
 	"slices"
 	"strings"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/util"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/visibility"
 	yaml "github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

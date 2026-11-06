@@ -3,10 +3,10 @@ package converter_test
 import (
 	"testing"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 

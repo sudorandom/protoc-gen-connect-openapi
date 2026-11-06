@@ -1,9 +1,9 @@
 package googleapi
 
 import (
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/util"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"

@@ -18,9 +18,6 @@ type Feature string
 const (
 	FeatureGoogleAPIHTTP Feature = "google.api.http"
 	FeatureConnectRPC    Feature = "connectrpc"
-	FeatureTwirp         Feature = "twirp"
-	FeatureGnostic       Feature = "gnostic"
-	FeatureProtovalidate Feature = "protovalidate"
 )
 
 const (
@@ -122,10 +119,6 @@ type Options struct {
 	WithoutFieldBehaviorPrefixes bool
 	// WithServiceDescriptions set to true will cause service names and their comments to be added to the end of info.description.
 	WithServiceDescriptions bool
-	// IgnoreGoogleapiHTTP set to true will cause service to always generate OpenAPI specs for connect endpoints, and ignore any google.api.http options.
-	IgnoreGoogleapiHTTP bool
-	// OnlyGoogleapiHTTP set to true will only generate OpenAPI specs for methods with explicit google.api.http annotations. Methods without google.api.http will be skipped.
-	OnlyGoogleapiHTTP bool
 	// Services filters which services will be used for generating OpenAPI spec.
 	Services []*glob.Pattern
 	// ShortServiceTags uses the short service name (Name()) instead of the full name (FullName()) for OpenAPI tags.
@@ -158,22 +151,8 @@ type Options struct {
 	Logger *slog.Logger
 }
 
-// FeatureEnabled reports whether a feature is on. only-googleapi-http and
-// ignore-googleapi-http are applied here, rather than when parsing, so they
-// take effect however the options were built (plugin parameters or the Go
-// API).
+// FeatureEnabled reports whether a feature is on.
 func (opts Options) FeatureEnabled(feature Feature) bool {
-	if opts.OnlyGoogleapiHTTP {
-		switch feature {
-		case FeatureConnectRPC, FeatureTwirp:
-			return false
-		case FeatureGoogleAPIHTTP:
-			return true
-		}
-	}
-	if opts.IgnoreGoogleapiHTTP && feature == FeatureGoogleAPIHTTP {
-		return false
-	}
 	return opts.EnabledFeatures[feature]
 }
 
@@ -193,7 +172,7 @@ func (opts *Options) EnableFeatures(features ...Feature) error {
 	enabledFeatures := make(map[Feature]bool)
 	for _, feature := range features {
 		switch feature {
-		case FeatureGoogleAPIHTTP, FeatureConnectRPC, FeatureTwirp, FeatureGnostic, FeatureProtovalidate:
+		case FeatureGoogleAPIHTTP, FeatureConnectRPC:
 			enabledFeatures[feature] = true
 		default:
 			return fmt.Errorf("invalid feature: '%s'", feature)
@@ -212,8 +191,6 @@ func NewOptions() Options {
 		EnabledFeatures: map[Feature]bool{
 			FeatureConnectRPC:    true,
 			FeatureGoogleAPIHTTP: true,
-			FeatureGnostic:       true,
-			FeatureProtovalidate: true,
 		},
 		AsyncAPIChannelTemplate:   "/ws/{package}.{service}/{method}",
 		WellKnownTypeDescriptions: WellKnownTypeDescriptionsConcise,
@@ -274,10 +251,6 @@ func FromString(s string) (Options, error) {
 			opts.WithoutFieldBehaviorPrefixes = true
 		case param == "with-service-descriptions":
 			opts.WithServiceDescriptions = true
-		case param == "ignore-googleapi-http":
-			opts.IgnoreGoogleapiHTTP = true
-		case param == "only-googleapi-http":
-			opts.OnlyGoogleapiHTTP = true
 		case param == "short-service-tags":
 			opts.ShortServiceTags = true
 		case param == "short-operation-ids":
@@ -375,9 +348,9 @@ func FromString(s string) (Options, error) {
 		opts.ContentTypes = contentTypes
 	}
 	opts.Logger.Debug("Enabled features before final check", "features", opts.EnabledFeatures)
-	hasProtocolFeature := opts.FeatureEnabled(FeatureConnectRPC) || opts.FeatureEnabled(FeatureGoogleAPIHTTP) || opts.FeatureEnabled(FeatureTwirp)
+	hasProtocolFeature := opts.FeatureEnabled(FeatureConnectRPC) || opts.FeatureEnabled(FeatureGoogleAPIHTTP)
 	if !hasProtocolFeature {
-		return opts, errors.New("at least one protocol feature (connectrpc, google.api.http, or twirp) must be enabled")
+		return opts, errors.New("at least one protocol feature (connectrpc or google.api.http) must be enabled")
 	}
 	return opts, nil
 }

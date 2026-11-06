@@ -5,7 +5,7 @@ package timeseries;
 import "google/api/annotations.proto";
 import "google/api/resource.proto";
 
-option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/standard;timeseries";
+option go_package = "connectrpc.com/protoc-gen-connect-openapi/internal/converter/testdata/standard;timeseries";
 
 message Timeseries {
   option (google.api.resource) = {

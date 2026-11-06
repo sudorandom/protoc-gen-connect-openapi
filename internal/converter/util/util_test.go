@@ -3,13 +3,13 @@ package util
 import (
 	"testing"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	yamlv3 "go.yaml.in/yaml/v3"
 	"google.golang.org/protobuf/proto"
 )

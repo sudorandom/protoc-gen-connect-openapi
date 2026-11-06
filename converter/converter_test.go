@@ -5,12 +5,11 @@ import (
 	"testing"
 
 	elizav1 "buf.build/gen/go/connectrpc/eliza/protocolbuffers/go/connectrpc/eliza/v1"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
-	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	descriptorpb "google.golang.org/protobuf/types/descriptorpb"
 )
@@ -34,7 +33,6 @@ func TestGeneratorWithOptions(t *testing.T) {
 			WithStreaming(true),
 			WithDebug(true),
 			WithProtoAnnotations(true),
-			WithOnlyGoogleapiHTTP(true),
 		)
 		require.NoError(t, err)
 
@@ -46,7 +44,6 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.Equal(t, true, generator.options.WithStreaming)
 		assert.Equal(t, true, generator.options.Debug)
 		assert.Equal(t, true, generator.options.WithProtoAnnotations)
-		assert.Equal(t, true, generator.options.OnlyGoogleapiHTTP)
 		assert.Equal(t, []string{"connectrpc/eliza/v1/eliza.proto"}, generator.req.FileToGenerate)
 		assert.Equal(
 			t,
@@ -60,10 +57,9 @@ func TestGeneratorWithOptions(t *testing.T) {
 		generator, err := generatorWithOptions(
 			WithSourceFiles(files),
 			WithOverrideOpenAPI([]byte("override")),
-			WithIgnoreGoogleapiHTTP(true),
 			WithProtoNames(true),
 			WithTrimUnusedTypes(true),
-			WithServices([]protoreflect.FullName{"connectrpc.eliza.v1.ElizaService"}),
+			WithServicePatterns([]string{"connectrpc.eliza.v1.ElizaService"}),
 			WithServicePatterns([]string{"connectrpc.eliza.v1.*"}),
 			WithShortServiceTags(true),
 			WithShortOperationIds(true),
@@ -84,7 +80,6 @@ func TestGeneratorWithOptions(t *testing.T) {
 		require.NoError(t, err)
 
 		assert.Equal(t, []byte("override"), generator.options.OverrideOpenAPI)
-		assert.True(t, generator.options.IgnoreGoogleapiHTTP)
 		assert.True(t, generator.options.WithProtoNames)
 		assert.True(t, generator.options.TrimUnusedTypes)
 		assert.Len(t, generator.options.Services, 2)
@@ -103,18 +98,12 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.Equal(t, "/ws/{service}/{method}", generator.options.AsyncAPIChannelTemplate)
 		assert.True(t, generator.options.WithGoogleErrorDetail)
 		assert.True(t, generator.options.FeatureEnabled(options.FeatureConnectRPC))
-		// WithIgnoreGoogleapiHTTP wins over the feature list.
-		assert.False(t, generator.options.FeatureEnabled(options.FeatureGoogleAPIHTTP))
+		assert.True(t, generator.options.FeatureEnabled(options.FeatureGoogleAPIHTTP))
 	})
 
 	t.Run("option errors", func(t *testing.T) {
 		t.Run("invalid content type", func(t *testing.T) {
 			_, err := generatorWithOptions(WithContentTypes("invalid_content_type"))
-			require.Error(t, err)
-		})
-
-		t.Run("invalid service pattern in WithServices", func(t *testing.T) {
-			_, err := generatorWithOptions(WithServices([]protoreflect.FullName{"["}))
 			require.Error(t, err)
 		})
 
@@ -167,17 +156,18 @@ func TestGenerate(t *testing.T) {
 	})
 }
 
-func TestGenerateSingleOnlyGoogleapiHTTP(t *testing.T) {
+func TestGenerateSingleGoogleAPIHTTPOnly(t *testing.T) {
 	files := new(protoregistry.Files)
 	require.NoError(t, files.RegisterFile(elizav1.File_connectrpc_eliza_v1_eliza_proto))
 
-	// Eliza has no google.api.http annotations, so only-googleapi-http leaves
-	// no routes; without it, every method gets a Connect route.
+	// Eliza has no google.api.http annotations, so enabling only the
+	// google.api.http feature leaves no routes; by default, every method gets a
+	// Connect route.
 	withConnect, err := GenerateSingle(WithFiles(files))
 	require.NoError(t, err)
 	assert.Contains(t, string(withConnect), "/connectrpc.eliza.v1.ElizaService/Say")
 
-	onlyHTTP, err := GenerateSingle(WithFiles(files), WithOnlyGoogleapiHTTP(true))
+	onlyHTTP, err := GenerateSingle(WithFiles(files), WithFeatures(options.FeatureGoogleAPIHTTP))
 	require.NoError(t, err)
 	assert.NotContains(t, string(onlyHTTP), "/connectrpc.eliza.v1.ElizaService/Say")
 }

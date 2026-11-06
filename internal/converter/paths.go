@@ -3,15 +3,14 @@ package converter
 import (
 	"log/slog"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/connectrpc"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/googleapi"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/util"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/visibility"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/connectrpc"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/twirp"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -50,9 +49,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 			// Helper function to update or set path items
 			addPathItem := func(path string, newItem *v3.PathItem) {
-				if opts.FeatureEnabled(options.FeatureGnostic) {
-					newItem = gnostic.PathItemWithMethodAnnotations(opts, newItem, method)
-				}
+				newItem = gnostic.PathItemWithMethodAnnotations(opts, newItem, method)
 				path = util.MakePath(opts, path)
 				if existing, ok := doc.Paths.PathItems.Get(path); !ok {
 					doc.Paths.PathItems.Set(path, newItem)
@@ -81,14 +78,6 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 					addPathItem(pair.Key(), pair.Value())
 				}
 				connectrpc.AddSchemas(opts, doc, method)
-			}
-
-			if opts.FeatureEnabled(options.FeatureTwirp) {
-				pathItems := twirp.MakePathItems(opts, service, method)
-				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-					addPathItem(pair.Key(), pair.Value())
-				}
-				twirp.AddSchemas(opts, doc, method)
 			}
 		}
 	}

@@ -12,7 +12,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter"
 )
 
 func getVersionInfo() (version, commit, date string) {

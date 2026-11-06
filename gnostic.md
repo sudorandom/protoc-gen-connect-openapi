@@ -15,12 +15,12 @@ option (gnostic.openapi.v3.document) = {
     description: "Description from annotation";
     contact: {
       name: "Contact Name";
-      url: "https://github.com/sudorandom/protoc-gen-connect-openapi";
+      url: "https://github.com/connectrpc/protoc-gen-connect-openapi";
       email: "hello@sudorandom.com";
     }
     license: {
       name: "MIT License";
-      url: "https://github.com/sudorandom/protoc-gen-connect-openapi/blob/master/LICENSE";
+      url: "https://github.com/connectrpc/protoc-gen-connect-openapi/blob/master/LICENSE";
     }
   }
   components: {
@@ -187,4 +187,4 @@ message HelloReply {
 | (gnostic.openapi.v3.property).format | ✅ |
 | (gnostic.openapi.v3.property).specification_extension | ✅ |
 
-For more information on how to use each option in your Protobuf file, you can reference [the gnostic.openapi.v3 module documentation](https://buf.build/gnostic/gnostic/docs/main:gnostic.openapi.v3) and the [google/gnostic repo](https://github.com/google/gnostic). Note that this is a new feature, so if find something that isn't supported that you need, please [create an issue](https://github.com/sudorandom/protoc-gen-connect-openapi/issues/new).
+For more information on how to use each option in your Protobuf file, you can reference [the gnostic.openapi.v3 module documentation](https://buf.build/gnostic/gnostic/docs/main:gnostic.openapi.v3) and the [google/gnostic repo](https://github.com/google/gnostic). Note that this is a new feature, so if find something that isn't supported that you need, please [create an issue](https://github.com/connectrpc/protoc-gen-connect-openapi/issues/new).

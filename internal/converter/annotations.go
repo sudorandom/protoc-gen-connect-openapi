@@ -1,40 +1,27 @@
 package converter
 
 import (
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/googleapi"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/protovalidate"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/protovalidate"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 type annotator struct{}
 
 func (*annotator) AnnotateMessage(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
-	if opts.FeatureEnabled(options.FeatureProtovalidate) {
-		schema = protovalidate.SchemaWithMessageAnnotations(opts, schema, desc)
-	}
-	if opts.FeatureEnabled(options.FeatureGnostic) {
-		schema = gnostic.SchemaWithSchemaAnnotations(opts, schema, desc)
-	}
-	return schema
+	schema = protovalidate.SchemaWithMessageAnnotations(opts, schema, desc)
+	return gnostic.SchemaWithSchemaAnnotations(opts, schema, desc)
 }
 
 func (*annotator) AnnotateField(opts options.Options, schema *base.Schema, desc protoreflect.FieldDescriptor, onlyScalar bool) *base.Schema {
-	if opts.FeatureEnabled(options.FeatureProtovalidate) {
-		schema = protovalidate.SchemaWithFieldAnnotations(opts, schema, desc, onlyScalar)
-	}
-	if opts.FeatureEnabled(options.FeatureGnostic) {
-		schema = gnostic.SchemaWithPropertyAnnotations(opts, schema, desc)
-	}
-	schema = googleapi.SchemaWithPropertyAnnotations(opts, schema, desc)
-	return schema
+	schema = protovalidate.SchemaWithFieldAnnotations(opts, schema, desc, onlyScalar)
+	schema = gnostic.SchemaWithPropertyAnnotations(opts, schema, desc)
+	return googleapi.SchemaWithPropertyAnnotations(opts, schema, desc)
 }
 
 func (*annotator) AnnotateFieldReference(opts options.Options, parent *base.Schema, desc protoreflect.FieldDescriptor) *base.Schema {
-	if opts.FeatureEnabled(options.FeatureProtovalidate) {
-		parent = protovalidate.PopulateParentProperties(opts, parent, desc)
-	}
-	return parent
+	return protovalidate.PopulateParentProperties(opts, parent, desc)
 }

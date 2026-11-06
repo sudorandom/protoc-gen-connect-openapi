@@ -47,4 +47,4 @@ service PetService {
 }
 ```
 
-For more information on how to use each option in your Protobuf file, you can reference [the gRPC-Gateway documentation](https://github.com/grpc-ecosystem/grpc-gateway/blob/main/README.md) and the [Adding gRPC-Gateway annotations to an existing proto file](https://grpc-ecosystem.github.io/grpc-gateway/docs/tutorials/adding_annotations/) article. Note that this is a new feature, so if find something that isn't supported that you need, please [create an issue](https://github.com/sudorandom/protoc-gen-connect-openapi/issues/new).
+For more information on how to use each option in your Protobuf file, you can reference [the gRPC-Gateway documentation](https://github.com/grpc-ecosystem/grpc-gateway/blob/main/README.md) and the [Adding gRPC-Gateway annotations to an existing proto file](https://grpc-ecosystem.github.io/grpc-gateway/docs/tutorials/adding_annotations/) article. Note that this is a new feature, so if find something that isn't supported that you need, please [create an issue](https://github.com/connectrpc/protoc-gen-connect-openapi/issues/new).

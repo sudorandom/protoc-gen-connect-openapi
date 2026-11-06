@@ -15,6 +15,8 @@ import (
 	"sync"
 	"testing"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi"
 	validator "github.com/pb33f/libopenapi-validator"
@@ -23,8 +25,6 @@ import (
 	jsonschemavalidator "github.com/santhosh-tekuri/jsonschema/v6"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
@@ -112,15 +112,13 @@ var scenarios = []Scenario{
 	{Name: "compat_openapi_3_0", Options: "compat=openapi-3.0"},
 	{Name: "additional_bindings"},
 	{Name: "path_params"},
-	{Name: "oneof_rendering", Options: "features=google.api.http;gnostic;protovalidate,with-proto-names"},
+	{Name: "oneof_rendering", Options: "features=google.api.http,with-proto-names"},
 	{Name: "with_override", Options: "override=testdata/with_override/override.yaml"},
 	{Name: "with_service_filters", Options: "services=**.User*"},
 	{Name: "with_google_error_detail", Options: "with-google-error-detail"},
-	{Name: "with_google_error_detail_googleapi", Options: "features=google.api.http;gnostic;protovalidate,with-google-error-detail"},
-	{Name: "twirp", Options: "features=google.api.http;twirp;gnostic;protovalidate"},
-	{Name: "twirp_only", Options: "features=twirp,content-types=json;proto"},
+	{Name: "with_google_error_detail_googleapi", Options: "features=google.api.http,with-google-error-detail"},
 	{Name: "connect_content_types", Options: "allow-get,content-types=json;proto"},
-	{Name: "visibility", Options: "features=google.api.http;gnostic;protovalidate,allowed-visibilities=INTERNAL;PREVIEW,trim-unused-types"},
+	{Name: "visibility", Options: "features=google.api.http,allowed-visibilities=INTERNAL;PREVIEW,trim-unused-types"},
 	{Name: "disable_default_response", Options: "disable-default-response"},
 }
 
