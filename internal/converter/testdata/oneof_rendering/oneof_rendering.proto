@@ -27,6 +27,20 @@ service ComplianceService {
       body: "*"
     };
   }
+
+  rpc CreateContact(ContactRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/contact"
+      body: "*"
+    };
+  }
+
+  rpc CreateDelivery(DeliveryRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/delivery"
+      body: "*"
+    };
+  }
 }
 
 message ComplianceRequest {
@@ -58,5 +72,26 @@ message ScreeningRequest {
   oneof scope {
     string region = 4;
     bool global = 5;
+  }
+}
+
+// Three members: the at-most-one rule is written as forbidden pairs.
+message ContactRequest {
+  oneof channel {
+    string email = 1;
+    string phone = 2;
+    string post = 3;
+  }
+}
+
+// Five members: pairs would grow quadratically, so the rule is written as
+// "some member set, but not exactly one".
+message DeliveryRequest {
+  oneof method {
+    string courier = 1;
+    string drone = 2;
+    string mail = 3;
+    string pickup = 4;
+    string locker = 5;
   }
 }

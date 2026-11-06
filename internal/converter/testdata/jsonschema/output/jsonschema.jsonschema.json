@@ -105,63 +105,10 @@
     },
     "jsonschema.User": {
       "type": "object",
-      "anyOf": [
-        {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "title": "email",
-              "description": "email is an email address."
-            }
-          },
-          "title": "email"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "phone": {
-              "type": "string",
-              "title": "phone",
-              "description": "phone is a phone number."
-            }
-          },
-          "title": "phone"
-        }
-      ],
-      "unevaluatedProperties": false,
       "not": {
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "email"
-                ]
-              },
-              {
-                "required": [
-                  "phone"
-                ]
-              }
-            ]
-          },
-          {
-            "not": {
-              "oneOf": [
-                {
-                  "required": [
-                    "email"
-                  ]
-                },
-                {
-                  "required": [
-                    "phone"
-                  ]
-                }
-              ]
-            }
-          }
+        "required": [
+          "email",
+          "phone"
         ]
       },
       "properties": {
@@ -227,6 +174,16 @@
           "format": "byte",
           "description": "avatar is the user's profile image."
         },
+        "email": {
+          "type": "string",
+          "title": "email",
+          "description": "email is an email address."
+        },
+        "phone": {
+          "type": "string",
+          "title": "phone",
+          "description": "phone is a phone number."
+        },
         "address": {
           "title": "address",
           "description": "address is where the user lives.",
@@ -234,6 +191,7 @@
         }
       },
       "title": "User",
+      "additionalProperties": false,
       "description": "User is a person with an account."
     },
     "jsonschema.User.Address": {

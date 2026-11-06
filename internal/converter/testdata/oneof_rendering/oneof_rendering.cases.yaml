@@ -2,7 +2,6 @@ cases:
   - name: "plain-oneof-no-member"
     path: "/compliance"
     body: '{"reference": "case-1"}'
-    variantTitles: ["kyb", "kyc"]
     headers:
       Content-Type: application/json
 
@@ -31,7 +30,6 @@ cases:
   - name: "required-oneof-no-member"
     path: "/required-compliance"
     body: '{"reference": "case-2"}'
-    variantTitles: ["kyb", "kyc"]
     headers:
       Content-Type: application/json
     errors:
@@ -90,6 +88,62 @@ cases:
   - name: "two-oneofs-additional-property"
     path: "/screening"
     body: '{"kyc": "person", "region": "eu", "undeclared": true}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "contact-no-member"
+    path: "/contact"
+    body: '{}'
+    headers:
+      Content-Type: application/json
+
+  - name: "contact-one-member"
+    path: "/contact"
+    body: '{"email": "x"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "contact-two-members"
+    path: "/contact"
+    body: '{"phone": "x", "post": "y"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "contact-three-members"
+    path: "/contact"
+    body: '{"email": "x", "phone": "y", "phone": "z"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "delivery-no-member"
+    path: "/delivery"
+    body: '{}'
+    headers:
+      Content-Type: application/json
+
+  - name: "delivery-one-member"
+    path: "/delivery"
+    body: '{"courier": "x"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "delivery-two-members"
+    path: "/delivery"
+    body: '{"mail": "x", "locker": "y"}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - ".*"
+
+  - name: "delivery-three-members"
+    path: "/delivery"
+    body: '{"courier": "x", "mail": "y", "pickup": "z"}'
     headers:
       Content-Type: application/json
     errors:

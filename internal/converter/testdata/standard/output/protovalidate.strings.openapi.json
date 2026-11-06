@@ -304,24 +304,18 @@
       },
       "buf.validate.conformance.cases.StringInOneof": {
         "type": "object",
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "bar": {
-                "type": "string",
-                "title": "bar",
-                "enum": [
-                  "a",
-                  "b"
-                ]
-              }
-            },
-            "title": "bar"
+        "properties": {
+          "bar": {
+            "type": "string",
+            "title": "bar",
+            "enum": [
+              "a",
+              "b"
+            ]
           }
-        ],
-        "unevaluatedProperties": false,
-        "title": "StringInOneof"
+        },
+        "title": "StringInOneof",
+        "additionalProperties": false
       },
       "buf.validate.conformance.cases.StringLen": {
         "type": "object",

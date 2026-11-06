@@ -221,35 +221,20 @@ components:
                 - a
             - required:
                 - b
-      anyOf:
-        - type: object
-          properties:
-            a:
-              type: string
-              title: a
-              minLength: 1
-          title: a
-        - type: object
-          properties:
-            b:
-              type: string
-              title: b
-          title: b
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
-          - not:
-              oneOf:
-                - required:
-                    - a
-                - required:
-                    - b
+        required:
+          - a
+          - b
+      properties:
+        a:
+          type: string
+          title: a
+          minLength: 1
+        b:
+          type: string
+          title: b
       title: CELMessage
+      additionalProperties: false
     protovalidate.LotsOfValidationRules:
       type: object
       properties:
@@ -1411,35 +1396,20 @@ components:
                 - a
             - required:
                 - b
-      anyOf:
-        - type: object
-          properties:
-            a:
-              type: string
-              title: a
-              minLength: 1
-          title: a
-        - type: object
-          properties:
-            b:
-              type: string
-              title: b
-          title: b
-      unevaluatedProperties: false
       not:
-        allOf:
-          - anyOf:
-              - required:
-                  - a
-              - required:
-                  - b
-          - not:
-              oneOf:
-                - required:
-                    - a
-                - required:
-                    - b
+        required:
+          - a
+          - b
+      properties:
+        a:
+          type: string
+          title: a
+          minLength: 1
+        b:
+          type: string
+          title: b
       title: OneOfMessage
+      additionalProperties: false
 security: []
 tags:
   - name: protovalidate.MessageFields

@@ -25,7 +25,7 @@ import (
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
 	// A declared oneof marked required must have exactly one member set. The
-	// generated oneOf group admits the empty state on its own, matching plain
+	// generated schema only forbids setting more than one, matching plain
 	// protobuf semantics, so the constraint is layered on here.
 	oneofs := desc.Oneofs()
 	for i := 0; i < oneofs.Len(); i++ {

@@ -3,66 +3,26 @@
   "$defs": {
     "jsonschema.Notification": {
       "type": "object",
-      "anyOf": [
-        {
-          "type": "object",
-          "properties": {
-            "push": {
-              "title": "push",
-              "description": "push is a mobile push delivery target.",
-              "$ref": "#/$defs/jsonschema.PushChannel"
-            }
-          },
-          "title": "push"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "webhookUrl": {
-              "type": "string",
-              "title": "webhook_url",
-              "description": "webhook_url is an HTTP endpoint to call."
-            }
-          },
-          "title": "webhook_url"
-        }
-      ],
-      "unevaluatedProperties": false,
       "not": {
-        "allOf": [
-          {
-            "anyOf": [
-              {
-                "required": [
-                  "push"
-                ]
-              },
-              {
-                "required": [
-                  "webhookUrl"
-                ]
-              }
-            ]
-          },
-          {
-            "not": {
-              "oneOf": [
-                {
-                  "required": [
-                    "push"
-                  ]
-                },
-                {
-                  "required": [
-                    "webhookUrl"
-                  ]
-                }
-              ]
-            }
-          }
+        "required": [
+          "webhookUrl",
+          "push"
         ]
       },
+      "properties": {
+        "webhookUrl": {
+          "type": "string",
+          "title": "webhook_url",
+          "description": "webhook_url is an HTTP endpoint to call."
+        },
+        "push": {
+          "title": "push",
+          "description": "push is a mobile push delivery target.",
+          "$ref": "#/$defs/jsonschema.PushChannel"
+        }
+      },
       "title": "Notification",
+      "additionalProperties": false,
       "description": "Notification is a message delivered to a user. Its oneof mixes a scalar\n member with a message-type member."
     },
     "jsonschema.PushChannel": {

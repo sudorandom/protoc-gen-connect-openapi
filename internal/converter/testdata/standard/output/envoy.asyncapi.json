@@ -97,87 +97,47 @@
   "components": {
     "schemas": {
       "envoy.config.core.v3.Address": {
-        "anyOf": [
-          {
-            "properties": {
-              "envoyInternalAddress": {
-                "$ref": "#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress",
-                "description": "Specifies a user-space address handled by :ref:`internal listeners\n \u003cenvoy_v3_api_field_config.listener.v3.Listener.internal_listener\u003e`.",
-                "title": "envoy_internal_address"
-              }
-            },
-            "title": "envoy_internal_address",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "pipe": {
-                "$ref": "#/components/schemas/envoy.config.core.v3.Pipe",
-                "title": "pipe"
-              }
-            },
-            "title": "pipe",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "socketAddress": {
-                "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress",
-                "title": "socket_address"
-              }
-            },
-            "title": "socket_address",
-            "type": "object"
-          }
-        ],
+        "additionalProperties": false,
         "description": "Addresses specify either a logical or physical address and port, which are\n used to tell Envoy where to bind/listen, connect to upstream and find\n management servers.",
         "not": {
-          "allOf": [
+          "anyOf": [
             {
-              "anyOf": [
-                {
-                  "required": [
-                    "envoyInternalAddress"
-                  ]
-                },
-                {
-                  "required": [
-                    "pipe"
-                  ]
-                },
-                {
-                  "required": [
-                    "socketAddress"
-                  ]
-                }
+              "required": [
+                "socketAddress",
+                "pipe"
               ]
             },
             {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "envoyInternalAddress"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "pipe"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "socketAddress"
-                    ]
-                  }
-                ]
-              }
+              "required": [
+                "socketAddress",
+                "envoyInternalAddress"
+              ]
+            },
+            {
+              "required": [
+                "pipe",
+                "envoyInternalAddress"
+              ]
             }
           ]
         },
+        "properties": {
+          "envoyInternalAddress": {
+            "$ref": "#/components/schemas/envoy.config.core.v3.EnvoyInternalAddress",
+            "description": "Specifies a user-space address handled by :ref:`internal listeners\n \u003cenvoy_v3_api_field_config.listener.v3.Listener.internal_listener\u003e`.",
+            "title": "envoy_internal_address"
+          },
+          "pipe": {
+            "$ref": "#/components/schemas/envoy.config.core.v3.Pipe",
+            "title": "pipe"
+          },
+          "socketAddress": {
+            "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress",
+            "title": "socket_address"
+          }
+        },
         "title": "Address",
-        "type": "object",
-        "unevaluatedProperties": false
+        "type": "object"
       },
       "envoy.config.core.v3.BuildVersion": {
         "additionalProperties": false,
@@ -211,30 +171,22 @@
         "type": "object"
       },
       "envoy.config.core.v3.EnvoyInternalAddress": {
-        "anyOf": [
-          {
-            "properties": {
-              "serverListenerName": {
-                "description": "Specifies the :ref:`name \u003cenvoy_v3_api_field_config.listener.v3.Listener.name\u003e` of the\n internal listener.",
-                "title": "server_listener_name",
-                "type": "string"
-              }
-            },
-            "title": "server_listener_name",
-            "type": "object"
-          }
-        ],
+        "additionalProperties": false,
         "description": "The address represents an envoy internal listener.\n [#comment: TODO(asraa): When address available, remove workaround from test/server/server_fuzz_test.cc:30.]",
         "properties": {
           "endpointId": {
             "description": "Specifies an endpoint identifier to distinguish between multiple endpoints for the same internal listener in a\n single upstream pool. Only used in the upstream addresses for tracking changes to individual endpoints. This, for\n example, may be set to the final destination IP for the target internal listener.",
             "title": "endpoint_id",
             "type": "string"
+          },
+          "serverListenerName": {
+            "description": "Specifies the :ref:`name \u003cenvoy_v3_api_field_config.listener.v3.Listener.name\u003e` of the\n internal listener.",
+            "title": "server_listener_name",
+            "type": "string"
           }
         },
         "title": "EnvoyInternalAddress",
-        "type": "object",
-        "unevaluatedProperties": false
+        "type": "object"
       },
       "envoy.config.core.v3.Extension": {
         "additionalProperties": false,
@@ -328,63 +280,12 @@
         "type": "object"
       },
       "envoy.config.core.v3.Node": {
-        "anyOf": [
-          {
-            "properties": {
-              "userAgentBuildVersion": {
-                "$ref": "#/components/schemas/envoy.config.core.v3.BuildVersion",
-                "description": "Structured version of the entity requesting config.",
-                "title": "user_agent_build_version"
-              }
-            },
-            "title": "user_agent_build_version",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "userAgentVersion": {
-                "description": "Free-form string that identifies the version of the entity requesting config.\n E.g. \"1.12.2\" or \"abcd1234\", or \"SpecialEnvoyBuild\"",
-                "title": "user_agent_version",
-                "type": "string"
-              }
-            },
-            "title": "user_agent_version",
-            "type": "object"
-          }
-        ],
+        "additionalProperties": false,
         "description": "Identifies a specific Envoy instance. The node identifier is presented to the\n management server, which may use this identifier to distinguish per Envoy\n configuration for serving.\n [#next-free-field: 13]",
         "not": {
-          "allOf": [
-            {
-              "anyOf": [
-                {
-                  "required": [
-                    "userAgentBuildVersion"
-                  ]
-                },
-                {
-                  "required": [
-                    "userAgentVersion"
-                  ]
-                }
-              ]
-            },
-            {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "userAgentBuildVersion"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "userAgentVersion"
-                    ]
-                  }
-                ]
-              }
-            }
+          "required": [
+            "userAgentVersion",
+            "userAgentBuildVersion"
           ]
         },
         "properties": {
@@ -442,15 +343,24 @@
             "description": "Opaque metadata extending the node identifier. Envoy will pass this\n directly to the management server.",
             "title": "metadata"
           },
+          "userAgentBuildVersion": {
+            "$ref": "#/components/schemas/envoy.config.core.v3.BuildVersion",
+            "description": "Structured version of the entity requesting config.",
+            "title": "user_agent_build_version"
+          },
           "userAgentName": {
             "description": "Free-form string that identifies the entity requesting config.\n E.g. \"envoy\" or \"grpc\"",
             "title": "user_agent_name",
             "type": "string"
+          },
+          "userAgentVersion": {
+            "description": "Free-form string that identifies the version of the entity requesting config.\n E.g. \"1.12.2\" or \"abcd1234\", or \"SpecialEnvoyBuild\"",
+            "title": "user_agent_version",
+            "type": "string"
           }
         },
         "title": "Node",
-        "type": "object",
-        "unevaluatedProperties": false
+        "type": "object"
       },
       "envoy.config.core.v3.Pipe": {
         "additionalProperties": false,
@@ -470,62 +380,12 @@
         "type": "object"
       },
       "envoy.config.core.v3.SocketAddress": {
-        "anyOf": [
-          {
-            "properties": {
-              "namedPort": {
-                "description": "This is only valid if :ref:`resolver_name\n \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e` is specified below and the\n named resolver is capable of named port resolution.",
-                "title": "named_port",
-                "type": "string"
-              }
-            },
-            "title": "named_port",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "portValue": {
-                "title": "port_value",
-                "type": "integer"
-              }
-            },
-            "title": "port_value",
-            "type": "object"
-          }
-        ],
+        "additionalProperties": false,
         "description": "[#next-free-field: 8]",
         "not": {
-          "allOf": [
-            {
-              "anyOf": [
-                {
-                  "required": [
-                    "namedPort"
-                  ]
-                },
-                {
-                  "required": [
-                    "portValue"
-                  ]
-                }
-              ]
-            },
-            {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "namedPort"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "portValue"
-                    ]
-                  }
-                ]
-              }
-            }
+          "required": [
+            "portValue",
+            "namedPort"
           ]
         },
         "properties": {
@@ -539,10 +399,19 @@
             "title": "ipv4_compat",
             "type": "boolean"
           },
+          "namedPort": {
+            "description": "This is only valid if :ref:`resolver_name\n \u003cenvoy_v3_api_field_config.core.v3.SocketAddress.resolver_name\u003e` is specified below and the\n named resolver is capable of named port resolution.",
+            "title": "named_port",
+            "type": "string"
+          },
           "networkNamespaceFilepath": {
             "description": "Filepath that specifies the Linux network namespace this socket will be created in (see ``man 7\n network_namespaces``). If this field is set, Envoy will create the socket in the specified\n network namespace.\n\n .. note::\n    Setting this parameter requires Envoy to run with the ``CAP_NET_ADMIN`` capability.\n\n .. note::\n    Currently only used for Listener sockets.\n\n .. attention::\n     Network namespaces are only configurable on Linux. Otherwise, this field has no effect.",
             "title": "network_namespace_filepath",
             "type": "string"
+          },
+          "portValue": {
+            "title": "port_value",
+            "type": "integer"
           },
           "protocol": {
             "$ref": "#/components/schemas/envoy.config.core.v3.SocketAddress.Protocol",
@@ -555,8 +424,7 @@
           }
         },
         "title": "SocketAddress",
-        "type": "object",
-        "unevaluatedProperties": false
+        "type": "object"
       },
       "envoy.config.core.v3.SocketAddress.Protocol": {
         "enum": [
@@ -794,110 +662,72 @@
         "type": "object"
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints": {
-        "anyOf": [
-          {
-            "properties": {
-              "andConstraints": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList",
-                "description": "A list of constraints that must all match.",
-                "title": "and_constraints"
-              }
-            },
-            "title": "and_constraints",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "constraint": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint",
-                "description": "A single constraint to evaluate.",
-                "title": "constraint"
-              }
-            },
-            "title": "constraint",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "notConstraints": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints",
-                "description": "The inverse (NOT) of a set of constraints.",
-                "title": "not_constraints"
-              }
-            },
-            "title": "not_constraints",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "orConstraints": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList",
-                "description": "A list of constraints that match if any one constraint in the list\n matches.",
-                "title": "or_constraints"
-              }
-            },
-            "title": "or_constraints",
-            "type": "object"
-          }
-        ],
+        "additionalProperties": false,
         "description": "A set of dynamic parameter constraints associated with a variant of an individual xDS resource.\n These constraints determine whether the resource matches a subscription based on the set of\n dynamic parameters in the subscription, as specified in the\n :ref:`ResourceLocator.dynamic_parameters \u003cenvoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters\u003e`\n field. This allows xDS implementations (clients, servers, and caching proxies) to determine\n which variant of a resource is appropriate for a given client.",
         "not": {
-          "allOf": [
+          "anyOf": [
             {
-              "anyOf": [
-                {
-                  "required": [
-                    "andConstraints"
-                  ]
-                },
-                {
-                  "required": [
-                    "constraint"
-                  ]
-                },
-                {
-                  "required": [
-                    "notConstraints"
-                  ]
-                },
-                {
-                  "required": [
-                    "orConstraints"
-                  ]
-                }
+              "required": [
+                "constraint",
+                "orConstraints"
               ]
             },
             {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "andConstraints"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "constraint"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "notConstraints"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "orConstraints"
-                    ]
-                  }
-                ]
-              }
+              "required": [
+                "constraint",
+                "andConstraints"
+              ]
+            },
+            {
+              "required": [
+                "constraint",
+                "notConstraints"
+              ]
+            },
+            {
+              "required": [
+                "orConstraints",
+                "andConstraints"
+              ]
+            },
+            {
+              "required": [
+                "orConstraints",
+                "notConstraints"
+              ]
+            },
+            {
+              "required": [
+                "andConstraints",
+                "notConstraints"
+              ]
             }
           ]
         },
+        "properties": {
+          "andConstraints": {
+            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList",
+            "description": "A list of constraints that must all match.",
+            "title": "and_constraints"
+          },
+          "constraint": {
+            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint",
+            "description": "A single constraint to evaluate.",
+            "title": "constraint"
+          },
+          "notConstraints": {
+            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints",
+            "description": "The inverse (NOT) of a set of constraints.",
+            "title": "not_constraints"
+          },
+          "orConstraints": {
+            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList",
+            "description": "A list of constraints that match if any one constraint in the list\n matches.",
+            "title": "or_constraints"
+          }
+        },
         "title": "DynamicParameterConstraints",
-        "type": "object",
-        "unevaluatedProperties": false
+        "type": "object"
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList": {
         "additionalProperties": false,
@@ -914,75 +744,33 @@
         "type": "object"
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint": {
-        "anyOf": [
-          {
-            "properties": {
-              "exists": {
-                "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists",
-                "description": "Key is present (matches any value except for the key being absent).\n This allows setting a default constraint for clients that do\n not send a key at all, while there may be other clients that need\n special configuration based on that key.",
-                "title": "exists"
-              }
-            },
-            "title": "exists",
-            "type": "object"
-          },
-          {
-            "properties": {
-              "value": {
-                "description": "Matches this exact value.",
-                "title": "value",
-                "type": "string"
-              }
-            },
-            "title": "value",
-            "type": "object"
-          }
-        ],
+        "additionalProperties": false,
         "description": "A single constraint for a given key.",
         "not": {
-          "allOf": [
-            {
-              "anyOf": [
-                {
-                  "required": [
-                    "exists"
-                  ]
-                },
-                {
-                  "required": [
-                    "value"
-                  ]
-                }
-              ]
-            },
-            {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "exists"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
-              }
-            }
+          "required": [
+            "value",
+            "exists"
           ]
         },
         "properties": {
+          "exists": {
+            "$ref": "#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists",
+            "description": "Key is present (matches any value except for the key being absent).\n This allows setting a default constraint for clients that do\n not send a key at all, while there may be other clients that need\n special configuration based on that key.",
+            "title": "exists"
+          },
           "key": {
             "description": "The key to match against.",
             "title": "key",
             "type": "string"
+          },
+          "value": {
+            "description": "Matches this exact value.",
+            "title": "value",
+            "type": "string"
           }
         },
         "title": "SingleConstraint",
-        "type": "object",
-        "unevaluatedProperties": false
+        "type": "object"
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists": {
         "additionalProperties": false,

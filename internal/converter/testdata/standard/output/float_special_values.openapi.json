@@ -95,87 +95,10 @@
       },
       "test.special.v1.FloatValues": {
         "type": "object",
-        "anyOf": [
-          {
-            "type": "object",
-            "properties": {
-              "doubleChoice": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "format": "double"
-                  },
-                  {
-                    "type": "string",
-                    "enum": [
-                      "NaN",
-                      "Infinity",
-                      "-Infinity"
-                    ]
-                  }
-                ],
-                "title": "double_choice"
-              }
-            },
-            "title": "double_choice"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "floatChoice": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "format": "float"
-                  },
-                  {
-                    "type": "string",
-                    "enum": [
-                      "NaN",
-                      "Infinity",
-                      "-Infinity"
-                    ]
-                  }
-                ],
-                "title": "float_choice"
-              }
-            },
-            "title": "float_choice"
-          }
-        ],
-        "unevaluatedProperties": false,
         "not": {
-          "allOf": [
-            {
-              "anyOf": [
-                {
-                  "required": [
-                    "doubleChoice"
-                  ]
-                },
-                {
-                  "required": [
-                    "floatChoice"
-                  ]
-                }
-              ]
-            },
-            {
-              "not": {
-                "oneOf": [
-                  {
-                    "required": [
-                      "doubleChoice"
-                    ]
-                  },
-                  {
-                    "required": [
-                      "floatChoice"
-                    ]
-                  }
-                ]
-              }
-            }
+          "required": [
+            "floatChoice",
+            "doubleChoice"
           ]
         },
         "properties": {
@@ -334,9 +257,44 @@
               ],
               "title": "value"
             }
+          },
+          "floatChoice": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "float"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "float_choice"
+          },
+          "doubleChoice": {
+            "oneOf": [
+              {
+                "type": "number",
+                "format": "double"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "NaN",
+                  "Infinity",
+                  "-Infinity"
+                ]
+              }
+            ],
+            "title": "double_choice"
           }
         },
-        "title": "FloatValues"
+        "title": "FloatValues",
+        "additionalProperties": false
       }
     }
   },
