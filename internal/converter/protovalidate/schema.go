@@ -1110,9 +1110,8 @@ func updateSchemaEnum(opts options.Options, schema *base.Schema, constraint *val
 		constraint.Example = nil
 	}()
 
-	if constraint.DefinedOnly != nil && *constraint.DefinedOnly {
-		appendRuleDescription(schema, "enum.defined_only", "true")
-	}
+	// defined_only needs no output: the referenced enum schema already lists
+	// exactly the defined values.
 
 	if desc == nil || desc.Enum() == nil {
 		// Not an enum, nothing to do.

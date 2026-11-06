@@ -6,7 +6,6 @@ import (
 	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/durationpb"
@@ -91,8 +90,8 @@ func TestUpdateSchemaRules(t *testing.T) {
 		rulesClone := proto.Clone(rules).(*validate.FieldRules)
 		updateSchemaWithFieldRules(opts, schema, rulesClone, false, nil)
 
-		require.NotEmpty(t, schema.Description)
-		assert.Contains(t, schema.Description, "enum.defined_only = true")
+		// The enum schema already restricts values to the defined ones.
+		assert.Empty(t, schema.Description)
 	})
 
 	t.Run("enum defined_only false", func(t *testing.T) {
