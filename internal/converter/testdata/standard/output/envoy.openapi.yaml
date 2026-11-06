@@ -344,6 +344,8 @@ components:
         Addresses specify either a logical or physical address and port, which are
          used to tell Envoy where to bind/listen, connect to upstream and find
          management servers.
+
+        At most one of `socketAddress`, `pipe`, `envoyInternalAddress` may be set.
     envoy.config.core.v3.BuildVersion:
       type: object
       properties:
@@ -633,6 +635,8 @@ components:
          management server, which may use this identifier to distinguish per Envoy
          configuration for serving.
          [#next-free-field: 13]
+
+        At most one of `userAgentVersion`, `userAgentBuildVersion` may be set.
     envoy.config.core.v3.Pipe:
       type: object
       properties:
@@ -720,7 +724,10 @@ components:
                  Network namespaces are only configurable on Linux. Otherwise, this field has no effect.
       title: SocketAddress
       additionalProperties: false
-      description: '[#next-free-field: 8]'
+      description: |-
+        [#next-free-field: 8]
+
+        At most one of `portValue`, `namedPort` may be set.
     envoy.config.core.v3.SocketAddress.Protocol:
       type: string
       title: Protocol
@@ -1137,6 +1144,8 @@ components:
          :ref:`ResourceLocator.dynamic_parameters <envoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters>`
          field. This allows xDS implementations (clients, servers, and caching proxies) to determine
          which variant of a resource is appropriate for a given client.
+
+        At most one of `constraint`, `orConstraints`, `andConstraints`, `notConstraints` may be set.
     envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList:
       type: object
       properties:
@@ -1172,7 +1181,10 @@ components:
           $ref: '#/components/schemas/envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists'
       title: SingleConstraint
       additionalProperties: false
-      description: A single constraint for a given key.
+      description: |-
+        A single constraint for a given key.
+
+        At most one of `value`, `exists` may be set.
     envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists:
       type: object
       title: Exists

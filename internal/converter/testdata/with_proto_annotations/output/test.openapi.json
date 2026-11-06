@@ -1241,7 +1241,8 @@
           }
         },
         "title": "AllTypes",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "At most one of `doubleOption`, `floatOption`, `int32Option`, `int64Option`, `uint32Option`, `uint64Option`, `sint32Option`, `sint64Option`, `fixed32Option`, `fixed64Option`, `sfixed32Option`, `sfixed64Option`, `boolOption`, `stringOption`, `bytesOption`, `msgOption`, `enumOption` may be set."
       },
       "with_proto_annotations.test.v1.AllTypes.Enum": {
         "type": "string",
@@ -1588,7 +1589,8 @@
           }
         },
         "title": "ParameterValues",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "At most one of `oneofDoubleValue`, `oneofDoubleValueWrapper`, `oneofEnumValue` may be set."
       },
       "with_proto_annotations.test.v1.ParameterValues.Enum": {
         "type": "string",

@@ -144,6 +144,10 @@ components:
           title: e
       title: OneofInteractionMessage
       additionalProperties: false
+      description: |-
+        At most one of `a`, `b` may be set.
+
+        Exactly one of `c`, `d` must be set.
 security: []
 tags:
   - name: standard.OneofInteractionService

@@ -577,3 +577,15 @@ func TestMakePath(t *testing.T) {
 	assert.Equal(t, "/api/v1/users", MakePath(opts, "/users"))
 	assert.Equal(t, "/api/v1/users", MakePath(opts, "users"))
 }
+
+func TestOneofNote(t *testing.T) {
+	t.Parallel()
+	assert.Equal(t, "At most one of `a`, `b` may be set.", OneofNote([]string{"a", "b"}, false))
+	assert.Equal(t, "Exactly one of `a`, `b`, `c` must be set.", OneofNote([]string{"a", "b", "c"}, true))
+}
+
+func TestAppendDescription(t *testing.T) {
+	t.Parallel()
+	assert.Equal(t, "note", AppendDescription("", "note"))
+	assert.Equal(t, "comment\n\nnote", AppendDescription("comment", "note"))
+}

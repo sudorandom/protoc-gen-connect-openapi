@@ -1000,7 +1000,7 @@
         },
         "title": "AttrValue",
         "additionalProperties": false,
-        "description": "Protocol buffer representing the value for an attr used to configure an Op.\n Comment indicates the corresponding attr type.  Only the field matching the\n attr type may be filled."
+        "description": "Protocol buffer representing the value for an attr used to configure an Op.\n Comment indicates the corresponding attr type.  Only the field matching the\n attr type may be filled.\n\nAt most one of `s`, `i`, `f`, `b`, `type`, `shape`, `tensor`, `list`, `func`, `placeholder` may be set."
       },
       "tensorflow.AttrValue.ListValue": {
         "type": "object",
@@ -2053,7 +2053,7 @@
         },
         "title": "FullTypeDef",
         "additionalProperties": false,
-        "description": "Highly experimental and very likely to change.\n This encoding uses tags instead of dedicated messages for regularity. In\n particular the encoding imposes no restrictions on what the parameters of any\n type should be, which in particular needs to be true for type symbols."
+        "description": "Highly experimental and very likely to change.\n This encoding uses tags instead of dedicated messages for regularity. In\n particular the encoding imposes no restrictions on what the parameters of any\n type should be, which in particular needs to be true for type symbols.\n\nAt most one of `s`, `i` may be set."
       },
       "tensorflow.FullTypeId": {
         "type": "string",

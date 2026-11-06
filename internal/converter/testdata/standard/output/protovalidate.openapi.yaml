@@ -235,6 +235,7 @@ components:
           title: b
       title: CELMessage
       additionalProperties: false
+      description: Exactly one of `a`, `b` must be set.
     protovalidate.LotsOfValidationRules:
       type: object
       properties:
@@ -1410,6 +1411,7 @@ components:
           title: b
       title: OneOfMessage
       additionalProperties: false
+      description: Exactly one of `a`, `b` must be set.
 security: []
 tags:
   - name: protovalidate.MessageFields

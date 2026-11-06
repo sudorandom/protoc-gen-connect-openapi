@@ -274,7 +274,8 @@
           }
         },
         "title": "ComplianceRequest",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "At most one of `kyc`, `kyb` may be set."
       },
       "oneof_rendering.ContactRequest": {
         "type": "object",
@@ -316,7 +317,7 @@
         },
         "title": "ContactRequest",
         "additionalProperties": false,
-        "description": "Three members: the at-most-one rule is written as forbidden pairs."
+        "description": "Three members: the at-most-one rule is written as forbidden pairs.\n\nAt most one of `email`, `phone`, `post` may be set."
       },
       "oneof_rendering.DeliveryRequest": {
         "type": "object",
@@ -408,7 +409,7 @@
         },
         "title": "DeliveryRequest",
         "additionalProperties": false,
-        "description": "Five members: pairs would grow quadratically, so the rule is written as\n \"some member set, but not exactly one\"."
+        "description": "Five members: pairs would grow quadratically, so the rule is written as\n \"some member set, but not exactly one\".\n\nAt most one of `courier`, `drone`, `mail`, `pickup`, `locker` may be set."
       },
       "oneof_rendering.RequiredComplianceRequest": {
         "type": "object",
@@ -449,7 +450,8 @@
           }
         },
         "title": "RequiredComplianceRequest",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Exactly one of `kyc`, `kyb` must be set."
       },
       "oneof_rendering.ScreeningRequest": {
         "type": "object",
@@ -457,14 +459,14 @@
           "anyOf": [
             {
               "required": [
-                "region",
-                "global"
+                "kyc",
+                "kyb"
               ]
             },
             {
               "required": [
-                "kyc",
-                "kyb"
+                "region",
+                "global"
               ]
             }
           ]
@@ -493,7 +495,7 @@
         },
         "title": "ScreeningRequest",
         "additionalProperties": false,
-        "description": "ScreeningRequest carries two oneof containers in a single message. Each\n container's at-most-one constraint must apply independently: one member from\n each may be set at the same time, two members of the same container may not."
+        "description": "ScreeningRequest carries two oneof containers in a single message. Each\n container's at-most-one constraint must apply independently: one member from\n each may be set at the same time, two members of the same container may not.\n\nAt most one of `kyc`, `kyb` may be set.\n\nAt most one of `region`, `global` may be set."
       }
     }
   },

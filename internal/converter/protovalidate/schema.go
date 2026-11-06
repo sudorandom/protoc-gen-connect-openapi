@@ -43,10 +43,20 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 		}
 		fields := oneof.Fields()
 		oneOfs := make([]*base.SchemaProxy, 0, fields.Len())
+		fieldNames := make([]string, 0, fields.Len())
 		for j := 0; j < fields.Len(); j++ {
+			fieldName := util.MakeFieldName(opts, fields.Get(j))
+			fieldNames = append(fieldNames, fieldName)
 			oneOfs = append(oneOfs, base.CreateSchemaProxy(&base.Schema{
-				Required: []string{util.MakeFieldName(opts, fields.Get(j))},
+				Required: []string{fieldName},
 			}))
+		}
+		// The message schema usually already notes that at most one member may
+		// be set; tighten that note rather than adding a second one.
+		if atMostOne := util.OneofNote(fieldNames, false); strings.Contains(schema.Description, atMostOne) {
+			schema.Description = strings.Replace(schema.Description, atMostOne, util.OneofNote(fieldNames, true), 1)
+		} else {
+			schema.Description = util.AppendDescription(schema.Description, util.OneofNote(fieldNames, true))
 		}
 		if len(oneOfs) > 0 {
 			schema.AllOf = append(schema.AllOf, base.CreateSchemaProxy(&base.Schema{
@@ -67,17 +77,20 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 		for _, oneofRule := range rules.GetOneof() {
 			if oneofRule.GetRequired() {
 				var oneOfs []*base.SchemaProxy
+				var fieldNames []string
 				for _, fieldName := range oneofRule.GetFields() {
 					fieldDesc := desc.Fields().ByName(protoreflect.Name(fieldName))
 					if fieldDesc == nil {
 						opts.Logger.Warn("oneof rule references unknown field", "field", fieldName, "message", desc.FullName())
 						continue
 					}
+					fieldNames = append(fieldNames, util.MakeFieldName(opts, fieldDesc))
 					oneOfs = append(oneOfs, base.CreateSchemaProxy(&base.Schema{
 						Required: []string{util.MakeFieldName(opts, fieldDesc)},
 					}))
 				}
 				if len(oneOfs) > 0 {
+					schema.Description = util.AppendDescription(schema.Description, util.OneofNote(fieldNames, true))
 					schema.AllOf = append(schema.AllOf, base.CreateSchemaProxy(&base.Schema{
 						OneOf: oneOfs,
 					}))

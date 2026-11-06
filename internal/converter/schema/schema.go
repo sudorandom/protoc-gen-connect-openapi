@@ -69,18 +69,21 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 
 	s.Properties = regularProps
 	if len(oneOneGroups) > 0 {
-		groupKeys := make([]protoreflect.FullName, 0, len(oneOneGroups))
-		for key := range oneOneGroups {
-			groupKeys = append(groupKeys, key)
-		}
-		slices.Sort(groupKeys)
 		var violations []*base.SchemaProxy
-		for _, key := range groupKeys {
-			fieldNames := make([]string, 0, len(oneOneGroups[key]))
-			for _, field := range oneOneGroups[key] {
+		oneofs := tt.Oneofs()
+		for i := 0; i < oneofs.Len(); i++ {
+			group := oneOneGroups[oneofs.Get(i).FullName()]
+			if len(group) == 0 {
+				continue
+			}
+			fieldNames := make([]string, 0, len(group))
+			for _, field := range group {
 				fieldNames = append(fieldNames, util.MakeFieldName(opts, field))
 			}
 			violations = append(violations, oneofViolations(fieldNames)...)
+			if len(fieldNames) > 1 {
+				s.Description = util.AppendDescription(s.Description, util.OneofNote(fieldNames, false))
+			}
 		}
 		// Oneof members are plain properties; the message is invalid when it
 		// matches any violation, i.e. sets more than one member of a oneof.

@@ -23,7 +23,7 @@
       },
       "title": "Notification",
       "additionalProperties": false,
-      "description": "Notification is a message delivered to a user. Its oneof mixes a scalar\n member with a message-type member."
+      "description": "Notification is a message delivered to a user. Its oneof mixes a scalar\n member with a message-type member.\n\nAt most one of `webhookUrl`, `push` may be set."
     },
     "jsonschema.PushChannel": {
       "type": "object",

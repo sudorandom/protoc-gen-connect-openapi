@@ -38,6 +38,7 @@ paths:
                   $ref: '#/components/schemas/path_params.Settings'
               title: UpdateWithOneofRequest
               additionalProperties: false
+              description: At most one of `profile`, `settings` may be set.
         required: true
       responses:
         default:
@@ -159,6 +160,8 @@ paths:
                 UpdateRequest has a path param, regular fields, and a oneOf.
                  This tests that the requestBody is generated correctly when
                  MessageToSchema wraps properties+oneOf under AllOf.
+
+                At most one of `profile`, `settings` may be set.
         required: true
       responses:
         default:
@@ -385,6 +388,8 @@ components:
         UpdateRequest has a path param, regular fields, and a oneOf.
          This tests that the requestBody is generated correctly when
          MessageToSchema wraps properties+oneOf under AllOf.
+
+        At most one of `profile`, `settings` may be set.
     path_params.UpdateWithOneofRequest:
       type: object
       not:
@@ -403,6 +408,7 @@ components:
           $ref: '#/components/schemas/path_params.Settings'
       title: UpdateWithOneofRequest
       additionalProperties: false
+      description: At most one of `profile`, `settings` may be set.
 security: []
 tags:
   - name: path_params.PathParams

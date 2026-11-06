@@ -663,6 +663,8 @@ components:
         Protocol buffer representing the value for an attr used to configure an Op.
          Comment indicates the corresponding attr type.  Only the field matching the
          attr type may be filled.
+
+        At most one of `s`, `i`, `f`, `b`, `type`, `shape`, `tensor`, `list`, `func`, `placeholder` may be set.
     tensorflow.AttrValue.ListValue:
       type: object
       properties:
@@ -1848,6 +1850,8 @@ components:
          This encoding uses tags instead of dedicated messages for regularity. In
          particular the encoding imposes no restrictions on what the parameters of any
          type should be, which in particular needs to be true for type symbols.
+
+        At most one of `s`, `i` may be set.
     tensorflow.FullTypeId:
       type: string
       title: FullTypeId

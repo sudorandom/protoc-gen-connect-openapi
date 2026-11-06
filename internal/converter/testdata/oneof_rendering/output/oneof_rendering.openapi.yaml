@@ -176,6 +176,7 @@ components:
           title: kyb
       title: ComplianceRequest
       additionalProperties: false
+      description: At most one of `kyc`, `kyb` may be set.
     oneof_rendering.ContactRequest:
       type: object
       not:
@@ -201,7 +202,10 @@ components:
           title: post
       title: ContactRequest
       additionalProperties: false
-      description: 'Three members: the at-most-one rule is written as forbidden pairs.'
+      description: |-
+        Three members: the at-most-one rule is written as forbidden pairs.
+
+        At most one of `email`, `phone`, `post` may be set.
     oneof_rendering.DeliveryRequest:
       type: object
       not:
@@ -250,6 +254,8 @@ components:
       description: |-
         Five members: pairs would grow quadratically, so the rule is written as
          "some member set, but not exactly one".
+
+        At most one of `courier`, `drone`, `mail`, `pickup`, `locker` may be set.
     oneof_rendering.RequiredComplianceRequest:
       type: object
       allOf:
@@ -274,16 +280,17 @@ components:
           title: kyb
       title: RequiredComplianceRequest
       additionalProperties: false
+      description: Exactly one of `kyc`, `kyb` must be set.
     oneof_rendering.ScreeningRequest:
       type: object
       not:
         anyOf:
           - required:
-              - region
-              - global
-          - required:
               - kyc
               - kyb
+          - required:
+              - region
+              - global
       properties:
         reference:
           type: string
@@ -306,6 +313,10 @@ components:
         ScreeningRequest carries two oneof containers in a single message. Each
          container's at-most-one constraint must apply independently: one member from
          each may be set at the same time, two members of the same container may not.
+
+        At most one of `kyc`, `kyb` may be set.
+
+        At most one of `region`, `global` may be set.
 security: []
 tags:
   - name: oneof_rendering.ComplianceService

@@ -145,6 +145,10 @@ components:
           title: e
       title: MultipleOneofMessage
       additionalProperties: false
+      description: |-
+        Exactly one of `a`, `b` must be set.
+
+        Exactly one of `c`, `d` must be set.
 security: []
 tags:
   - name: standard.MultipleOneofService

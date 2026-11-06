@@ -343,7 +343,8 @@
           }
         },
         "title": "CELMessage",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Exactly one of `a`, `b` must be set."
       },
       "protovalidate.LotsOfValidationRules": {
         "type": "object",
@@ -1770,7 +1771,8 @@
           }
         },
         "title": "OneOfMessage",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Exactly one of `a`, `b` must be set."
       }
     }
   },

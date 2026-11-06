@@ -95,6 +95,7 @@ paths:
                   $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
               title: UpdateWithOneofRequest
               additionalProperties: false
+              description: At most one of `profile`, `settings` may be set.
         required: true
       responses:
         default:
@@ -345,6 +346,7 @@ components:
           $ref: '#/components/schemas/proto_names.io.swagger.petstore.v2.Settings'
       title: UpdateWithOneofRequest
       additionalProperties: false
+      description: At most one of `profile`, `settings` may be set.
 security: []
 tags:
   - name: proto_names.io.swagger.petstore.v2.Foo

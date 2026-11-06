@@ -526,7 +526,7 @@
         },
         "title": "Address",
         "additionalProperties": false,
-        "description": "Addresses specify either a logical or physical address and port, which are\n used to tell Envoy where to bind/listen, connect to upstream and find\n management servers."
+        "description": "Addresses specify either a logical or physical address and port, which are\n used to tell Envoy where to bind/listen, connect to upstream and find\n management servers.\n\nAt most one of `socketAddress`, `pipe`, `envoyInternalAddress` may be set."
       },
       "envoy.config.core.v3.BuildVersion": {
         "type": "object",
@@ -749,7 +749,7 @@
         },
         "title": "Node",
         "additionalProperties": false,
-        "description": "Identifies a specific Envoy instance. The node identifier is presented to the\n management server, which may use this identifier to distinguish per Envoy\n configuration for serving.\n [#next-free-field: 13]"
+        "description": "Identifies a specific Envoy instance. The node identifier is presented to the\n management server, which may use this identifier to distinguish per Envoy\n configuration for serving.\n [#next-free-field: 13]\n\nAt most one of `userAgentVersion`, `userAgentBuildVersion` may be set."
       },
       "envoy.config.core.v3.Pipe": {
         "type": "object",
@@ -813,7 +813,7 @@
         },
         "title": "SocketAddress",
         "additionalProperties": false,
-        "description": "[#next-free-field: 8]"
+        "description": "[#next-free-field: 8]\n\nAt most one of `portValue`, `namedPort` may be set."
       },
       "envoy.config.core.v3.SocketAddress.Protocol": {
         "type": "string",
@@ -1116,7 +1116,7 @@
         },
         "title": "DynamicParameterConstraints",
         "additionalProperties": false,
-        "description": "A set of dynamic parameter constraints associated with a variant of an individual xDS resource.\n These constraints determine whether the resource matches a subscription based on the set of\n dynamic parameters in the subscription, as specified in the\n :ref:`ResourceLocator.dynamic_parameters \u003cenvoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters\u003e`\n field. This allows xDS implementations (clients, servers, and caching proxies) to determine\n which variant of a resource is appropriate for a given client."
+        "description": "A set of dynamic parameter constraints associated with a variant of an individual xDS resource.\n These constraints determine whether the resource matches a subscription based on the set of\n dynamic parameters in the subscription, as specified in the\n :ref:`ResourceLocator.dynamic_parameters \u003cenvoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters\u003e`\n field. This allows xDS implementations (clients, servers, and caching proxies) to determine\n which variant of a resource is appropriate for a given client.\n\nAt most one of `constraint`, `orConstraints`, `andConstraints`, `notConstraints` may be set."
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.ConstraintList": {
         "type": "object",
@@ -1159,7 +1159,7 @@
         },
         "title": "SingleConstraint",
         "additionalProperties": false,
-        "description": "A single constraint for a given key."
+        "description": "A single constraint for a given key.\n\nAt most one of `value`, `exists` may be set."
       },
       "envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint.Exists": {
         "type": "object",

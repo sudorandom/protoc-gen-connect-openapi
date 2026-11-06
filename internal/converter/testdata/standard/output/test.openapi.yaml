@@ -732,6 +732,7 @@ components:
           $ref: '#/components/schemas/test.v1.AllTypes.Enum'
       title: AllTypes
       additionalProperties: false
+      description: At most one of `doubleOption`, `floatOption`, `int32Option`, `int64Option`, `uint32Option`, `uint64Option`, `sint32Option`, `sint64Option`, `fixed32Option`, `fixed64Option`, `sfixed32Option`, `sfixed64Option`, `boolOption`, `stringOption`, `bytesOption`, `msgOption`, `enumOption` may be set.
     test.v1.AllTypes.Enum:
       type: string
       title: Enum
@@ -947,6 +948,7 @@ components:
           title: recursive_list
       title: ParameterValues
       additionalProperties: false
+      description: At most one of `oneofDoubleValue`, `oneofDoubleValueWrapper`, `oneofEnumValue` may be set.
     test.v1.ParameterValues.Enum:
       type: string
       title: Enum

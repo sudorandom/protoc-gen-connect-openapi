@@ -66,6 +66,8 @@ components:
                 Addresses specify either a logical or physical address and port, which are
                  used to tell Envoy where to bind/listen, connect to upstream and find
                  management servers.
+
+                At most one of `socketAddress`, `pipe`, `envoyInternalAddress` may be set.
             not:
                 anyOf:
                     - required:
@@ -282,6 +284,8 @@ components:
                  management server, which may use this identifier to distinguish per Envoy
                  configuration for serving.
                  [#next-free-field: 13]
+
+                At most one of `userAgentVersion`, `userAgentBuildVersion` may be set.
             not:
                 required:
                     - userAgentVersion
@@ -400,7 +404,10 @@ components:
             type: object
         envoy.config.core.v3.SocketAddress:
             additionalProperties: false
-            description: '[#next-free-field: 8]'
+            description: |-
+                [#next-free-field: 8]
+
+                At most one of `portValue`, `namedPort` may be set.
             not:
                 required:
                     - portValue
@@ -844,6 +851,8 @@ components:
                  :ref:`ResourceLocator.dynamic_parameters <envoy_v3_api_field_service.discovery.v3.ResourceLocator.dynamic_parameters>`
                  field. This allows xDS implementations (clients, servers, and caching proxies) to determine
                  which variant of a resource is appropriate for a given client.
+
+                At most one of `constraint`, `orConstraints`, `andConstraints`, `notConstraints` may be set.
             not:
                 anyOf:
                     - required:
@@ -897,7 +906,10 @@ components:
             type: object
         envoy.service.discovery.v3.DynamicParameterConstraints.SingleConstraint:
             additionalProperties: false
-            description: A single constraint for a given key.
+            description: |-
+                A single constraint for a given key.
+
+                At most one of `value`, `exists` may be set.
             not:
                 required:
                     - value

@@ -47,7 +47,8 @@
                   }
                 },
                 "title": "UpdateWithOneofRequest",
-                "additionalProperties": false
+                "additionalProperties": false,
+                "description": "At most one of `profile`, `settings` may be set."
               }
             }
           },
@@ -232,7 +233,7 @@
                 },
                 "title": "UpdateRequest",
                 "additionalProperties": false,
-                "description": "UpdateRequest has a path param, regular fields, and a oneOf.\n This tests that the requestBody is generated correctly when\n MessageToSchema wraps properties+oneOf under AllOf."
+                "description": "UpdateRequest has a path param, regular fields, and a oneOf.\n This tests that the requestBody is generated correctly when\n MessageToSchema wraps properties+oneOf under AllOf.\n\nAt most one of `profile`, `settings` may be set."
               }
             }
           },
@@ -554,7 +555,7 @@
           "id"
         ],
         "additionalProperties": false,
-        "description": "UpdateRequest has a path param, regular fields, and a oneOf.\n This tests that the requestBody is generated correctly when\n MessageToSchema wraps properties+oneOf under AllOf."
+        "description": "UpdateRequest has a path param, regular fields, and a oneOf.\n This tests that the requestBody is generated correctly when\n MessageToSchema wraps properties+oneOf under AllOf.\n\nAt most one of `profile`, `settings` may be set."
       },
       "path_params.UpdateWithOneofRequest": {
         "type": "object",
@@ -579,7 +580,8 @@
           }
         },
         "title": "UpdateWithOneofRequest",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "At most one of `profile`, `settings` may be set."
       }
     }
   },
