@@ -1374,7 +1374,7 @@
             "type": "string",
             "title": "byte_const",
             "format": "byte",
-            "const": "\u0001\u0002\u0003\u0004"
+            "const": "AQIDBA=="
           },
           "byteLen": {
             "type": [
@@ -1382,9 +1382,10 @@
               "null"
             ],
             "title": "byte_len",
-            "maxLength": 4,
-            "minLength": 4,
-            "format": "byte"
+            "maxLength": 8,
+            "minLength": 6,
+            "format": "byte",
+            "description": "bytes.len = 4\n"
           },
           "bytesMinLen": {
             "type": [
@@ -1392,8 +1393,9 @@
               "null"
             ],
             "title": "bytes_min_len",
-            "minLength": 2,
-            "format": "byte"
+            "minLength": 3,
+            "format": "byte",
+            "description": "bytes.min_len = 2\n"
           },
           "bytesMaxLen": {
             "type": [
@@ -1401,8 +1403,9 @@
               "null"
             ],
             "title": "bytes_max_len",
-            "maxLength": 6,
-            "format": "byte"
+            "maxLength": 8,
+            "format": "byte",
+            "description": "bytes.max_len = 6\n"
           },
           "bytesPattern": {
             "type": [
@@ -1410,8 +1413,8 @@
               "null"
             ],
             "title": "bytes_pattern",
-            "pattern": "^[a-zA-Z0-9]+$",
-            "format": "byte"
+            "format": "byte",
+            "description": "bytes.pattern = \"^[a-zA-Z0-9]+$\"\n"
           },
           "bytesPrefix": {
             "type": [
@@ -1448,9 +1451,9 @@
             "title": "bytes_in",
             "format": "byte",
             "enum": [
-              "\u0001\u0002",
-              "\u0002\u0003",
-              "\u0003\u0004"
+              "AQI=",
+              "AgM=",
+              "AwQ="
             ]
           },
           "bytesNotIn": {
@@ -1461,9 +1464,9 @@
             "not": {
               "type": "string",
               "enum": [
-                "\u0001\u0002",
-                "\u0002\u0003",
-                "\u0003\u0004"
+                "AQI=",
+                "AgM=",
+                "AwQ="
               ]
             },
             "title": "bytes_not_in",
@@ -1475,7 +1478,8 @@
               "null"
             ],
             "title": "bytes_ip",
-            "format": "ip"
+            "format": "byte",
+            "description": "bytes.ip = true // must be a valid IP address\nbytes.ip_empty = true // value is empty, which is not a valid IP address\n"
           },
           "bytesIpv4": {
             "type": [
@@ -1483,7 +1487,8 @@
               "null"
             ],
             "title": "bytes_ipv4",
-            "format": "ipv4"
+            "format": "byte",
+            "description": "bytes.ipv4 = true // must be a valid IPv4 address\nbytes.ipv4_empty = true // value is empty, which is not a valid IPv4 address\n"
           },
           "bytesIpv6": {
             "type": [
@@ -1491,7 +1496,8 @@
               "null"
             ],
             "title": "bytes_ipv6",
-            "format": "ipv6"
+            "format": "byte",
+            "description": "bytes.ipv6 = true // must be a valid IPv6 address\nbytes.ipv6_empty = true // value is empty, which is not a valid IPv6 address\n"
           },
           "enumConst": {
             "title": "enum_const",
@@ -1590,26 +1596,36 @@
             }
           },
           "anyIn": {
+            "properties": {
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "type.googleapis.com/MyType1",
+                  "type.googleapis.com/MyType2"
+                ]
+              }
+            },
             "title": "any_in",
-            "enum": [
-              "type.googleapis.com/MyType1",
-              "type.googleapis.com/MyType2"
-            ],
             "$ref": "#/components/schemas/google.protobuf.Any"
           },
           "anyNotIn": {
-            "not": {
-              "enum": [
-                "type.googleapis.com/ForbiddenType1",
-                "type.googleapis.com/ForbiddenType2"
-              ]
+            "properties": {
+              "@type": {
+                "type": "string",
+                "not": {
+                  "enum": [
+                    "type.googleapis.com/ForbiddenType1",
+                    "type.googleapis.com/ForbiddenType2"
+                  ]
+                }
+              }
             },
             "title": "any_not_in",
             "$ref": "#/components/schemas/google.protobuf.Any"
           },
           "durationConst": {
             "title": "duration_const",
-            "const": "33m20s",
+            "const": "2000s",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationIn": {
@@ -1644,7 +1660,7 @@
           },
           "durationLtSeconds": {
             "title": "duration_lt_seconds",
-            "description": "duration.lt = 72h0m0s\n",
+            "description": "duration.lt = 259200s\n",
             "$ref": "#/components/schemas/google.protobuf.Duration"
           },
           "durationGt": {
@@ -1665,12 +1681,12 @@
           "timestampConst": {
             "title": "timestamp_const",
             "description": "This is a constant timestamp!",
-            "const": "2024-10-03 23:40:00 +0000 UTC",
+            "const": "2024-10-03T23:40:00Z",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampWithin": {
             "title": "timestamp_within",
-            "description": "timestamp.within = 1h0m0s\n",
+            "description": "timestamp.within = 3600s\n",
             "$ref": "#/components/schemas/google.protobuf.Timestamp"
           },
           "timestampLt": {

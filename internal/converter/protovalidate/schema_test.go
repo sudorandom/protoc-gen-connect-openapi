@@ -31,8 +31,8 @@ func TestUpdateSchemaRules(t *testing.T) {
 		rulesClone := proto.Clone(rules).(*validate.FieldRules)
 		updateSchemaWithFieldRules(opts, schema, rulesClone, false, nil)
 
-		assert.Contains(t, schema.Description, "duration.gte = 1m0s")
-		assert.Contains(t, schema.Description, "duration.lte = 1h0m0s")
+		assert.Contains(t, schema.Description, "duration.gte = 60s")
+		assert.Contains(t, schema.Description, "duration.lte = 3600s")
 		assert.NotContains(t, schema.Description, "gte_lt")
 		assert.NotContains(t, schema.Description, "gte_lte")
 	})

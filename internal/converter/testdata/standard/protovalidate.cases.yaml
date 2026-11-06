@@ -1,0 +1,87 @@
+cases:
+  - name: "duration-const-protojson"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "durationConst": "2000s"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "duration-const-go-format"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "durationConst": "33m20s"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "timestamp-const-rfc3339"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "timestampConst": "2024-10-03T23:40:00Z"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "timestamp-const-other"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "timestampConst": "2024-10-03T23:41:00Z"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "bytes-const-base64"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "byteConst": "AQIDBA=="}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "bytes-const-other"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "byteConst": "AQIDBQ=="}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "bytes-len-padded"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "byteLen": "AQIDBA=="}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "bytes-len-unpadded"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "byteLen": "AQIDBA"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "bytes-len-too-short"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "byteLen": "AQID"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "any-in-allowed-type"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "anyIn": {"@type": "type.googleapis.com/MyType1"}}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "any-in-other-type"
+    path: "/protovalidate.FieldsService/CELRPC"
+    body: '{"requiredField": {}, "anyIn": {"@type": "type.googleapis.com/MyType3"}}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"

@@ -1079,36 +1079,43 @@ components:
           type: string
           title: byte_const
           format: byte
-          const: "\x01\x02\x03\x04"
+          const: AQIDBA==
         byteLen:
           type:
             - string
             - "null"
           title: byte_len
-          maxLength: 4
-          minLength: 4
+          maxLength: 8
+          minLength: 6
           format: byte
+          description: |
+            bytes.len = 4
         bytesMinLen:
           type:
             - string
             - "null"
           title: bytes_min_len
-          minLength: 2
+          minLength: 3
           format: byte
+          description: |
+            bytes.min_len = 2
         bytesMaxLen:
           type:
             - string
             - "null"
           title: bytes_max_len
-          maxLength: 6
+          maxLength: 8
           format: byte
+          description: |
+            bytes.max_len = 6
         bytesPattern:
           type:
             - string
             - "null"
           title: bytes_pattern
-          pattern: ^[a-zA-Z0-9]+$
           format: byte
+          description: |
+            bytes.pattern = "^[a-zA-Z0-9]+$"
         bytesPrefix:
           type:
             - string
@@ -1140,9 +1147,9 @@ components:
           title: bytes_in
           format: byte
           enum:
-            - "\x01\x02"
-            - "\x02\x03"
-            - "\x03\x04"
+            - AQI=
+            - AgM=
+            - AwQ=
         bytesNotIn:
           type:
             - string
@@ -1150,9 +1157,9 @@ components:
           not:
             type: string
             enum:
-              - "\x01\x02"
-              - "\x02\x03"
-              - "\x03\x04"
+              - AQI=
+              - AgM=
+              - AwQ=
           title: bytes_not_in
           format: byte
         bytesIp:
@@ -1160,19 +1167,28 @@ components:
             - string
             - "null"
           title: bytes_ip
-          format: ip
+          format: byte
+          description: |
+            bytes.ip = true // must be a valid IP address
+            bytes.ip_empty = true // value is empty, which is not a valid IP address
         bytesIpv4:
           type:
             - string
             - "null"
           title: bytes_ipv4
-          format: ipv4
+          format: byte
+          description: |
+            bytes.ipv4 = true // must be a valid IPv4 address
+            bytes.ipv4_empty = true // value is empty, which is not a valid IPv4 address
         bytesIpv6:
           type:
             - string
             - "null"
           title: bytes_ipv6
-          format: ipv6
+          format: byte
+          description: |
+            bytes.ipv6 = true // must be a valid IPv6 address
+            bytes.ipv6_empty = true // value is empty, which is not a valid IPv6 address
         enumConst:
           title: enum_const
           const: MY_ENUM_VALUE1
@@ -1247,21 +1263,27 @@ components:
             maxLength: 20
             minLength: 5
         anyIn:
+          properties:
+            '@type':
+              type: string
+              enum:
+                - type.googleapis.com/MyType1
+                - type.googleapis.com/MyType2
           title: any_in
-          enum:
-            - type.googleapis.com/MyType1
-            - type.googleapis.com/MyType2
           $ref: '#/components/schemas/google.protobuf.Any'
         anyNotIn:
-          not:
-            enum:
-              - type.googleapis.com/ForbiddenType1
-              - type.googleapis.com/ForbiddenType2
+          properties:
+            '@type':
+              type: string
+              not:
+                enum:
+                  - type.googleapis.com/ForbiddenType1
+                  - type.googleapis.com/ForbiddenType2
           title: any_not_in
           $ref: '#/components/schemas/google.protobuf.Any'
         durationConst:
           title: duration_const
-          const: 33m20s
+          const: 2000s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationIn:
           title: duration_in
@@ -1291,7 +1313,7 @@ components:
         durationLtSeconds:
           title: duration_lt_seconds
           description: |
-            duration.lt = 72h0m0s
+            duration.lt = 259200s
           $ref: '#/components/schemas/google.protobuf.Duration'
         durationGt:
           title: duration_gt
@@ -1312,12 +1334,12 @@ components:
         timestampConst:
           title: timestamp_const
           description: This is a constant timestamp!
-          const: 2024-10-03 23:40:00 +0000 UTC
+          const: "2024-10-03T23:40:00Z"
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampWithin:
           title: timestamp_within
           description: |
-            timestamp.within = 1h0m0s
+            timestamp.within = 3600s
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         timestampLt:
           title: timestamp_lt
