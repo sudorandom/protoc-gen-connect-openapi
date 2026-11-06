@@ -282,26 +282,22 @@ components:
       type: object
       properties:
         arg:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Value'
           title: arg
+          $ref: '#/components/schemas/google.protobuf.Value'
         someList:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.ListValue'
           title: some_list
+          $ref: '#/components/schemas/google.protobuf.ListValue'
         someStruct:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Struct'
           title: some_struct
+          $ref: '#/components/schemas/google.protobuf.Struct'
       title: GoogleValue
       additionalProperties: false
     samples.ListValueQueryRequest:
       type: object
       properties:
         items:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.ListValue'
           title: items
+          $ref: '#/components/schemas/google.protobuf.ListValue'
       title: ListValueQueryRequest
       additionalProperties: false
 security: []

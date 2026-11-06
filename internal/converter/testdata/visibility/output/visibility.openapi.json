@@ -217,12 +217,8 @@
             "title": "preview_filter"
           },
           "nested": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/visibility.NestedFilter"
-              }
-            ],
-            "title": "nested"
+            "title": "nested",
+            "$ref": "#/components/schemas/visibility.NestedFilter"
           }
         },
         "title": "ListMessagesRequest",

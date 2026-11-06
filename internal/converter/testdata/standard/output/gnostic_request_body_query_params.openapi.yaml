@@ -216,9 +216,8 @@ components:
           title: page_size
           format: int32
         content:
-          allOf:
-            - $ref: '#/components/schemas/google.api.HttpBody'
           title: content
+          $ref: '#/components/schemas/google.api.HttpBody'
       title: SearchRequest
       additionalProperties: false
     standard.SearchResponse:
@@ -238,9 +237,8 @@ components:
           type: string
           title: folder
         content:
-          allOf:
-            - $ref: '#/components/schemas/google.api.HttpBody'
           title: content
+          $ref: '#/components/schemas/google.api.HttpBody'
         name:
           type: string
           title: name

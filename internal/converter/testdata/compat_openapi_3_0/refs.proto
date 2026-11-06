@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package compat_openapi_3_0.v1;
+
+import "buf/validate/validate.proto";
+
+// With compat=openapi-3.0, message and enum references that carry sibling
+// keywords are wrapped in allOf.
+service RefsService {
+  rpc GetThing(GetThingRequest) returns (Thing);
+}
+
+enum Color {
+  COLOR_UNSPECIFIED = 0;
+  COLOR_RED = 1;
+}
+
+message GetThingRequest {
+  Color color = 1 [(buf.validate.field).enum.not_in = 0];
+}
+
+message Thing {
+  Color color = 1;
+  // A described child.
+  Child child = 2;
+  optional Child maybe_child = 3;
+}
+
+message Child {
+  string name = 1;
+}

@@ -14,9 +14,8 @@ paths:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: '#/components/schemas/googleapi_withbody.SomethingData'
               title: data
+              $ref: '#/components/schemas/googleapi_withbody.SomethingData'
       responses:
         default:
           description: An unexpected error response.
@@ -96,9 +95,8 @@ components:
       type: object
       properties:
         data:
-          allOf:
-            - $ref: '#/components/schemas/googleapi_withbody.SomethingData'
           title: data
+          $ref: '#/components/schemas/googleapi_withbody.SomethingData'
       title: GetFooRequest
       additionalProperties: false
     googleapi_withbody.GetFooResponse:

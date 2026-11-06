@@ -55,6 +55,28 @@ func ParseWellKnownTypeDescriptionMode(s string) (WellKnownTypeDescriptionMode, 
 	}
 }
 
+// CompatMode adjusts the output for tooling that doesn't fully support the
+// OpenAPI version being generated.
+type CompatMode string
+
+const (
+	// CompatNone generates plain OpenAPI 3.1.
+	CompatNone CompatMode = ""
+	// CompatOpenAPI30 shapes the output for tooling written against OpenAPI
+	// 3.0, e.g. wrapping a $ref that has sibling keywords in allOf, since 3.0
+	// tools ignore those siblings.
+	CompatOpenAPI30 CompatMode = "openapi-3.0"
+)
+
+func ParseCompatMode(s string) (CompatMode, error) {
+	switch CompatMode(s) {
+	case CompatOpenAPI30:
+		return CompatOpenAPI30, nil
+	default:
+		return "", fmt.Errorf("compat must be openapi-3.0, not '%s'", s)
+	}
+}
+
 type Options struct {
 	// Format is 'yaml', 'json' or 'jsonschema' and is the format of the output file(s).
 	// 'yaml' and 'json' render an OpenAPI document; 'jsonschema' renders a standalone
@@ -84,6 +106,9 @@ type Options struct {
 	TrimUnusedTypes bool
 	// WithProtoAnnotations will add some protobuf annotations for descriptions
 	WithProtoAnnotations bool
+	// Compat adjusts the output for tooling that doesn't fully support
+	// OpenAPI 3.1.
+	Compat CompatMode
 	// WellKnownTypeDescriptions controls how comments for well-known types are rendered.
 	// The comments on these types document the protobuf representation, which often does not
 	// match the JSON representation that the generated schema describes.
@@ -218,6 +243,12 @@ func FromString(s string) (Options, error) {
 				return opts, err
 			}
 			opts.WellKnownTypeDescriptions = mode
+		case strings.HasPrefix(param, "compat="):
+			mode, err := ParseCompatMode(param[len("compat="):])
+			if err != nil {
+				return opts, err
+			}
+			opts.Compat = mode
 		case param == "trim-unused-types":
 			opts.TrimUnusedTypes = true
 		case param == "fully-qualified-message-names":

@@ -248,12 +248,8 @@
             "format": "int32"
           },
           "content": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.api.HttpBody"
-              }
-            ],
-            "title": "content"
+            "title": "content",
+            "$ref": "#/components/schemas/google.api.HttpBody"
           }
         },
         "title": "SearchRequest",
@@ -281,12 +277,8 @@
             "title": "folder"
           },
           "content": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.api.HttpBody"
-              }
-            ],
-            "title": "content"
+            "title": "content",
+            "$ref": "#/components/schemas/google.api.HttpBody"
           },
           "name": {
             "type": "string",

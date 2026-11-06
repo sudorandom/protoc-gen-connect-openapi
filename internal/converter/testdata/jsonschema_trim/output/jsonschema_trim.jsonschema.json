@@ -32,13 +32,9 @@
           "description": "id is the unique identifier of the thing."
         },
         "kind": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/jsonschema.trim.Kind"
-            }
-          ],
           "title": "kind",
-          "description": "kind describes the thing."
+          "description": "kind describes the thing.",
+          "$ref": "#/$defs/jsonschema.trim.Kind"
         }
       },
       "title": "Thing",

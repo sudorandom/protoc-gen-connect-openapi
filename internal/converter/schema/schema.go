@@ -178,8 +178,17 @@ func FieldToSchema(opts options.Options, parent *base.SchemaProxy, tt protorefle
 						ref,
 						base.CreateSchemaProxy(&base.Schema{Type: []string{"null"}}),
 					}
-				} else {
+				} else if opts.Compat == options.CompatOpenAPI30 {
+					// OpenAPI 3.0 tooling ignores keywords next to a $ref;
+					// allOf means the same thing and is understood by both.
 					msg.AllOf = []*base.SchemaProxy{ref}
+				} else {
+					// libopenapi can't render a $ref with siblings, so it's set
+					// as an extension, which renders as a plain key.
+					if msg.Extensions == nil {
+						msg.Extensions = orderedmap.New[string, *yaml.Node]()
+					}
+					msg.Extensions.Set("$ref", utils.CreateStringNode(ref.GetReference()))
 				}
 			}
 			return base.CreateSchemaProxy(msg)

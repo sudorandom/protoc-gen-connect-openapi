@@ -127,12 +127,8 @@
                     "type": "object",
                     "properties": {
                       "profile": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
-                          }
-                        ],
-                        "title": "profile"
+                        "title": "profile",
+                        "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
                       }
                     },
                     "title": "profile"
@@ -141,12 +137,8 @@
                     "type": "object",
                     "properties": {
                       "settings": {
-                        "allOf": [
-                          {
-                            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
-                          }
-                        ],
-                        "title": "settings"
+                        "title": "settings",
+                        "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
                       }
                     },
                     "title": "settings"
@@ -460,12 +452,8 @@
             "title": "property_in_path_ok"
           },
           "parentMsg": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Something"
-              }
-            ],
-            "title": "parentMsg"
+            "title": "parentMsg",
+            "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Something"
           },
           "property_in_query_ok": {
             "type": "string",
@@ -484,12 +472,8 @@
         "type": "object",
         "properties": {
           "fields": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/google.protobuf.FieldMask"
-              }
-            ],
-            "title": "fields"
+            "title": "fields",
+            "$ref": "#/components/schemas/google.protobuf.FieldMask"
           }
         },
         "title": "MaskyRequest",
@@ -539,12 +523,8 @@
             "type": "object",
             "properties": {
               "profile": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
-                  }
-                ],
-                "title": "profile"
+                "title": "profile",
+                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Profile"
               }
             },
             "title": "profile"
@@ -553,12 +533,8 @@
             "type": "object",
             "properties": {
               "settings": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
-                  }
-                ],
-                "title": "settings"
+                "title": "settings",
+                "$ref": "#/components/schemas/proto_names.io.swagger.petstore.v2.Settings"
               }
             },
             "title": "settings"

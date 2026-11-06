@@ -32,31 +32,19 @@
           "description": "retired_on is optional and annotated, so the oneOf branch is exercised."
         },
         "plainDate": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/google.type.Date"
-            }
-          ],
           "title": "plain_date",
-          "description": "plain_date carries no annotation and must keep the generated reference."
+          "description": "plain_date carries no annotation and must keep the generated reference.",
+          "$ref": "#/$defs/google.type.Date"
         },
         "plainStatus": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/gnosticoverride.Status"
-            }
-          ],
           "title": "plain_status",
-          "description": "plain_status carries no annotation and must keep the generated reference."
+          "description": "plain_status carries no annotation and must keep the generated reference.",
+          "$ref": "#/$defs/gnosticoverride.Status"
         },
         "titledOnly": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/google.type.Date"
-            }
-          ],
           "title": "A titled date",
-          "description": "titled_only annotates something other than a type, so the reference must\n still be attached."
+          "description": "titled_only annotates something other than a type, so the reference must\n still be attached.",
+          "$ref": "#/$defs/google.type.Date"
         }
       },
       "title": "Record",

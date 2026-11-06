@@ -8,13 +8,9 @@
           "type": "object",
           "properties": {
             "push": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/jsonschema.PushChannel"
-                }
-              ],
               "title": "push",
-              "description": "push is a mobile push delivery target."
+              "description": "push is a mobile push delivery target.",
+              "$ref": "#/$defs/jsonschema.PushChannel"
             }
           },
           "title": "push"

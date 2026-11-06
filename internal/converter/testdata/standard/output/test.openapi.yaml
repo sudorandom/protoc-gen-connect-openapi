@@ -119,9 +119,8 @@ components:
         - type: object
           properties:
             enumOption:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
               title: enum_option
+              $ref: '#/components/schemas/test.v1.AllTypes.Enum'
           title: enum_option
         - type: object
           properties:
@@ -166,9 +165,8 @@ components:
         - type: object
           properties:
             msgOption:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.AllTypes'
               title: msg_option
+              $ref: '#/components/schemas/test.v1.AllTypes'
           title: msg_option
         - type: object
           properties:
@@ -747,14 +745,12 @@ components:
           title: opt_bytes_value
           format: byte
         msgValue:
-          allOf:
-            - $ref: '#/components/schemas/test.v1.AllTypes'
           title: msg_value
           deprecated: true
+          $ref: '#/components/schemas/test.v1.AllTypes'
         enumValue:
-          allOf:
-            - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
           title: enum_value
+          $ref: '#/components/schemas/test.v1.AllTypes.Enum'
         optMsgValue:
           oneOf:
             - $ref: '#/components/schemas/test.v1.AllTypes'
@@ -779,16 +775,14 @@ components:
           type: object
           title: msg_map
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/test.v1.AllTypes'
             title: value
+            $ref: '#/components/schemas/test.v1.AllTypes'
         enumMap:
           type: object
           title: enum_map
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/test.v1.AllTypes.Enum'
             title: value
+            $ref: '#/components/schemas/test.v1.AllTypes.Enum'
       title: AllTypes
     test.v1.AllTypes.Enum:
       type: string
@@ -817,16 +811,14 @@ components:
         - type: object
           properties:
             oneofDoubleValueWrapper:
-              allOf:
-                - $ref: '#/components/schemas/google.protobuf.DoubleValue'
               title: oneof_double_value_wrapper
+              $ref: '#/components/schemas/google.protobuf.DoubleValue'
           title: oneof_double_value_wrapper
         - type: object
           properties:
             oneofEnumValue:
-              allOf:
-                - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
               title: oneof_enum_value
+              $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
           title: oneof_enum_value
       unevaluatedProperties: false
       not:
@@ -917,58 +909,45 @@ components:
           title: bytes_value
           format: byte
         timestamp:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Timestamp'
           title: timestamp
           description: scalar wrappers
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
         duration:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Duration'
           title: duration
+          $ref: '#/components/schemas/google.protobuf.Duration'
         boolValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.BoolValue'
           title: bool_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.BoolValue'
         int32ValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Int32Value'
           title: int32_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.Int32Value'
         int64ValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Int64Value'
           title: int64_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.Int64Value'
         uint32ValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.UInt32Value'
           title: uint32_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.UInt32Value'
         uint64ValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.UInt64Value'
           title: uint64_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.UInt64Value'
         floatValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.FloatValue'
           title: float_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.FloatValue'
         doubleValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.DoubleValue'
           title: double_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.DoubleValue'
         bytesValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.BytesValue'
           title: bytes_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.BytesValue'
         stringValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.StringValue'
           title: string_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.StringValue'
         fieldMask:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.FieldMask'
           title: field_mask
+          $ref: '#/components/schemas/google.protobuf.FieldMask'
         enumValue:
-          allOf:
-            - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
           title: enum_value
+          $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
         enumList:
           type: array
           items:
@@ -994,13 +973,11 @@ components:
             $ref: '#/components/schemas/google.protobuf.DoubleValue'
           title: double_value_list
         nested:
-          allOf:
-            - $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
           title: nested
+          $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
         recursive:
-          allOf:
-            - $ref: '#/components/schemas/test.v1.ParameterValues'
           title: recursive
+          $ref: '#/components/schemas/test.v1.ParameterValues'
         stringMap:
           type: object
           title: string_map
@@ -1012,31 +989,26 @@ components:
           type: object
           title: string_value_map
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/google.protobuf.StringValue'
             title: value
+            $ref: '#/components/schemas/google.protobuf.StringValue'
         enumMap:
           type: object
           title: enum_map
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
             title: value
+            $ref: '#/components/schemas/test.v1.ParameterValues.Enum'
         nestedMap:
           type: object
           title: nested_map
           additionalProperties:
-            allOf:
-              - $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
             title: value
+            $ref: '#/components/schemas/test.v1.ParameterValues.Nested'
         structValue:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Struct'
           title: struct_value
+          $ref: '#/components/schemas/google.protobuf.Struct'
         value:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.Value'
           title: value
+          $ref: '#/components/schemas/google.protobuf.Value'
         recursiveList:
           type: array
           items:
@@ -1064,13 +1036,11 @@ components:
                 - -Infinity
           title: double_value
         doubleValueWrapper:
-          allOf:
-            - $ref: '#/components/schemas/google.protobuf.DoubleValue'
           title: double_value_wrapper
+          $ref: '#/components/schemas/google.protobuf.DoubleValue'
         enumValue:
-          allOf:
-            - $ref: '#/components/schemas/test.v1.ParameterValues.Nested.Enum'
           title: enum_value
+          $ref: '#/components/schemas/test.v1.ParameterValues.Nested.Enum'
       title: Nested
       additionalProperties: false
     test.v1.ParameterValues.Nested.Enum:

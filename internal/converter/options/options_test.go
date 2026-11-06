@@ -287,6 +287,26 @@ func TestFromString(t *testing.T) {
 			assert.Contains(t, err.Error(), "well-known-type-descriptions")
 		})
 	})
+
+	t.Run("compat", func(t *testing.T) {
+		t.Run("default", func(t *testing.T) {
+			opts, err := options.FromString("")
+			require.NoError(t, err)
+			assert.Equal(t, options.CompatNone, opts.Compat)
+		})
+
+		t.Run("openapi-3.0", func(t *testing.T) {
+			opts, err := options.FromString("compat=openapi-3.0")
+			require.NoError(t, err)
+			assert.Equal(t, options.CompatOpenAPI30, opts.Compat)
+		})
+
+		t.Run("invalid value", func(t *testing.T) {
+			_, err := options.FromString("compat=swagger-2.0")
+			require.Error(t, err)
+			assert.Contains(t, err.Error(), "compat")
+		})
+	})
 }
 
 func TestHasService(t *testing.T) {
