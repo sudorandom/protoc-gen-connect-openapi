@@ -35,7 +35,7 @@ func AddSchemas(opts options.Options, doc *v3.Document, method protoreflect.Meth
 		}))
 	}
 
-	if _, ok := components.Schemas.Get("ct.error"); !ok {
+	if _, ok := components.Schemas.Get("connect.error"); !ok {
 		connectErrorProps := orderedmap.New[string, *base.SchemaProxy]()
 		connectErrorProps.Set("code", base.CreateSchemaProxy(&base.Schema{
 			Description: "The status code, which should be an enum value of [google.rpc.Code][google.rpc.Code].",

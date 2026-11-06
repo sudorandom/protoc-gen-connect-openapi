@@ -20,6 +20,11 @@ func MakePathItems(opts options.Options, service protoreflect.ServiceDescriptor,
 		item.Get = MethodToOperation(opts, method, true)
 	}
 	item.Post = MethodToOperation(opts, method, false)
+	// Streaming methods produce no operations without with-streaming; an empty
+	// path item would still show up as a route.
+	if item.Get == nil && item.Post == nil {
+		return paths
+	}
 	paths.Set(path, item)
 	return paths
 }
@@ -82,14 +87,21 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 		})
 	}
 
+	// Unary Connect errors are always JSON, whatever codec the request used.
+	// Streaming errors arrive in the stream's end message, in the stream's
+	// content type.
+	errorContent := util.MakeMediaTypes(
+		opts,
+		base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
+		false,
+		isStreaming,
+	)
+	if !isStreaming {
+		errorContent = jsonOnly(base.CreateSchemaProxyRef("#/components/schemas/connect.error"))
+	}
 	op.Responses.Default = &v3.Response{
 		Description: "Error",
-		Content: util.MakeMediaTypes(
-			opts,
-			base.CreateSchemaProxyRef("#/components/schemas/connect.error"),
-			false,
-			isStreaming,
-		),
+		Content:     errorContent,
 	}
 	op.Parameters = append(op.Parameters,
 		&v3.Parameter{
@@ -117,11 +129,9 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 				Name:        "message",
 				In:          "query",
 				Description: "The URL-encoded message query parameter contains the JSON or binary serialized request message",
-				Content: util.MakeMediaTypes(
-					opts,
-					base.CreateSchemaProxyRef("#/components/schemas/"+util.FormatTypeRef(inputId)),
-					true,
-					isStreaming),
+				// A parameter's content map must have exactly one entry, so the
+				// message is described in its JSON form (encoding=json).
+				Content: jsonOnly(base.CreateSchemaProxyRef("#/components/schemas/" + util.FormatTypeRef(inputId))),
 			},
 			&v3.Parameter{
 				Name:        "encoding",
@@ -167,4 +177,10 @@ func MethodToOperation(opts options.Options, method protoreflect.MethodDescripto
 	}
 
 	return op
+}
+
+func jsonOnly(schema *base.SchemaProxy) *orderedmap.Map[string, *v3.MediaType] {
+	content := orderedmap.New[string, *v3.MediaType]()
+	content.Set("application/json", &v3.MediaType{Schema: schema})
+	return content
 }

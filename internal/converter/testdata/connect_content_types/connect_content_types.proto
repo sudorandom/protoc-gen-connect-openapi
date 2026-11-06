@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package connect_content_types;
+
+// Generated with content-types=json;proto and allow-get, without
+// with-streaming.
+service ContentTypeService {
+  // Errors are JSON whatever the request codec; the GET message parameter
+  // has a single content entry.
+  rpc Lookup(LookupRequest) returns (LookupResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+
+  // Without with-streaming this method gets no path at all.
+  rpc Watch(LookupRequest) returns (stream LookupResponse);
+}
+
+message LookupRequest {
+  string key = 1;
+}
+
+message LookupResponse {
+  string value = 1;
+}
