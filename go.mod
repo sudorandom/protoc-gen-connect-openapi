@@ -4,10 +4,10 @@ go 1.26.0
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.12-20260825204119-511051f7f437.2
-	buf.build/gen/go/connectrpc/eliza/connectrpc/go/v2 v2.0.0-20230913231627-233fca715f49.1
+	buf.build/gen/go/connectrpc/eliza/connectrpc/go/v2 v2.0.2-20230913231627-233fca715f49.1
 	buf.build/gen/go/connectrpc/eliza/protocolbuffers/go v1.36.12-20230913231627-233fca715f49.2
 	buf.build/go/protovalidate v1.4.0
-	connectrpc.com/connect/v2 v2.0.1
+	connectrpc.com/connect/v2 v2.0.2
 	github.com/gobwas/glob v1.0.0
 	github.com/google/gnostic v0.7.1
 	github.com/lmittmann/tint v1.2.1
