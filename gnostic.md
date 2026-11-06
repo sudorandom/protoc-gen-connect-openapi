@@ -19,8 +19,8 @@ option (gnostic.openapi.v3.document) = {
       email: "hello@sudorandom.com";
     }
     license: {
-      name: "MIT License";
-      url: "https://github.com/connectrpc/protoc-gen-connect-openapi/blob/master/LICENSE";
+      name: "Apache-2.0";
+      url: "https://github.com/connectrpc/protoc-gen-connect-openapi/blob/main/LICENSE";
     }
   }
   components: {

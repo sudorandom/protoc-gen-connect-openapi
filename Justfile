@@ -3,19 +3,30 @@ specs_find := "find internal/converter/testdata -path '*/output/*.openapi.yaml' 
 # The first recipe is the default, mirroring the 'ALL' target.
 default: generate test install
 
-# Generate fixture descriptor set.
+# Generate fixture descriptor set and apply license headers.
 # In `just`, there isn't a direct equivalent to Make's file-based prerequisites.
 # The `go generate` commands inherently use the necessary source files.
 generate:
     @echo "Generating fixture descriptor set"
     go generate ./...
     go generate ./internal/converter/testdata
+    license-header \
+        --license-type apache \
+        --copyright-holder "The Connect Authors" \
+        --year-range "2023-2026" \
+        --ignore "demo/node_modules" \
+        --ignore "demo/out" \
+        --ignore "internal/converter/testdata/standard/protovalidate\.(numbers|strings)\.proto"
 
 # Run tests after generating files.
 test: generate
     go test -coverprofile=coverage.out -coverpkg=./internal/...,./converter/... ./...
     # To see coverage report:
     # go tool cover -html=coverage.out
+
+# Verify that `just generate` and tests don't produce any uncommitted diffs (including license headers).
+checkgenerate:
+    test -z "$(git status --porcelain | tee /dev/stderr)"
 
 lint:
     golangci-lint run ./...

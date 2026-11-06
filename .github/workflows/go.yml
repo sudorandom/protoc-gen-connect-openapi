@@ -42,12 +42,11 @@ jobs:
       - name: Test
         run: just test
 
-      # Tests regenerate missing golden files and descriptors; anything they
-      # leave behind means generated output wasn't committed.
+      # `just test` runs `generate` (including `license-header`) and regenerates
+      # missing golden files; anything left behind means generated output or
+      # copyright headers weren't committed.
       - name: Check generated files are committed
-        run: |
-          git status --porcelain
-          test -z "$(git status --porcelain)"
+        run: just checkgenerate
 
   golangci:
     name: lint
