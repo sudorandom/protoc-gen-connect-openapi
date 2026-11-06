@@ -13,14 +13,12 @@ paths:
       parameters:
         - name: name
           in: path
-          description: The name path parameter.
           required: true
           schema:
             type: string
             title: name
         - name: greeting
           in: query
-          description: The greeting query parameter.
           schema:
             type: string
             title: greeting

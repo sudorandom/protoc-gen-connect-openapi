@@ -17,14 +17,12 @@ paths:
       parameters:
         - name: parentAccountId
           in: path
-          description: The parentAccountId path parameter.
           required: true
           schema:
             type: string
             title: parent_account_id
         - name: itemId
           in: path
-          description: The itemId path parameter.
           required: true
           schema:
             type: string
@@ -46,7 +44,6 @@ paths:
       parameters:
         - name: userId
           in: path
-          description: The userId path parameter.
           required: true
           schema:
             type: string

@@ -16,7 +16,6 @@ paths:
       parameters:
         - name: query
           in: query
-          description: The query query parameter.
           schema:
             type: string
             title: query
@@ -60,14 +59,12 @@ paths:
       parameters:
         - name: tenant
           in: path
-          description: The tenant path parameter.
           required: true
           schema:
             type: string
             title: tenant
         - name: uuid
           in: query
-          description: The uuid query parameter.
           schema:
             type: string
             title: uuid
@@ -90,14 +87,12 @@ paths:
       parameters:
         - name: tenant
           in: path
-          description: The tenant path parameter.
           required: true
           schema:
             type: string
             title: tenant
         - name: uuid
           in: query
-          description: The uuid query parameter.
           schema:
             type: string
             title: uuid
@@ -120,14 +115,12 @@ paths:
       parameters:
         - name: tenant
           in: path
-          description: The tenant path parameter.
           required: true
           schema:
             type: string
             title: tenant
         - name: uuid
           in: path
-          description: The uuid path parameter.
           required: true
           schema:
             type: string

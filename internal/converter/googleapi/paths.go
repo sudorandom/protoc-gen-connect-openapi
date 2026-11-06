@@ -696,9 +696,6 @@ func buildParameter(opts options.Options, name string, in string, field protoref
 	if description == "" {
 		description = util.FormatComments(loc)
 	}
-	if description == "" {
-		description = fmt.Sprintf("The %s %s parameter.", name, in)
-	}
 	deprecated := util.IsFieldDeprecated(field)
 	return &v3.Parameter{
 		Name:          name,

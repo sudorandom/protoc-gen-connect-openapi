@@ -67,7 +67,6 @@ paths:
       parameters:
         - name: account_id
           in: path
-          description: The account_id path parameter.
           required: true
           schema:
             type: string
@@ -130,7 +129,6 @@ paths:
             type: string
         - name: property_in_query
           in: query
-          description: The property_in_query query parameter.
           schema:
             type: string
             title: property_in_query
@@ -150,21 +148,18 @@ paths:
       parameters:
         - name: property_in_path_ok
           in: path
-          description: The property_in_path_ok path parameter.
           required: true
           schema:
             type: string
             title: property_in_path_ok
         - name: parentMsg.property_in_path
           in: path
-          description: The parentMsg.property_in_path path parameter.
           required: true
           schema:
             type: string
             title: property_in_path
         - name: property_in_query_ok
           in: query
-          description: The property_in_query_ok query parameter.
           schema:
             type: string
             title: property_in_query_ok
