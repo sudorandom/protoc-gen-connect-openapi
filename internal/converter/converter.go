@@ -10,12 +10,12 @@ import (
 	"strings"
 
 	"github.com/lmittmann/tint"
+	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/pb33f/libopenapi/index"
 	"github.com/pb33f/libopenapi/orderedmap"
-	"go.yaml.in/yaml/v4"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
