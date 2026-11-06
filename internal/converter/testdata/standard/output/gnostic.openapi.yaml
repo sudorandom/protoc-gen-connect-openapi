@@ -181,7 +181,6 @@ paths:
             deprecated: true
         - name: number
           in: query
-          description: The number query parameter.
           schema:
             exclusiveMaximum: 1000
             exclusiveMinimum: 20
@@ -195,7 +194,6 @@ paths:
             format: int32
         - name: items
           in: query
-          description: The items query parameter.
           schema:
             type: array
             items:

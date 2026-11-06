@@ -17,14 +17,12 @@ paths:
       parameters:
         - name: folder
           in: path
-          description: The folder path parameter.
           required: true
           schema:
             type: string
             title: folder
         - name: name
           in: query
-          description: The name query parameter.
           schema:
             type: string
             title: name
@@ -51,13 +49,11 @@ paths:
       parameters:
         - name: folder
           in: query
-          description: The folder query parameter.
           schema:
             type: string
             title: folder
         - name: name
           in: query
-          description: The name query parameter.
           schema:
             type: string
             title: name

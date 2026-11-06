@@ -4,6 +4,7 @@ import (
 	"log/slog"
 
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/connectrpc"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
 	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
@@ -39,18 +40,9 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			AddMessageSchemas(opts, method.Output(), doc)
 
 			// Helper function to update or set path items
-			addPathItem := func(path string, newItem *v3.PathItem, deferredParams []*v3.Parameter) {
+			addPathItem := func(path string, newItem *v3.PathItem) {
 				if opts.FeatureEnabled(options.FeatureGnostic) {
 					newItem = gnostic.PathItemWithMethodAnnotations(opts, newItem, method)
-				}
-				for kv := newItem.GetOperations().First(); kv != nil; kv = kv.Next() {
-					for _, dp := range deferredParams {
-						for _, ep := range kv.Value().Parameters {
-							if ep.Name == dp.Name && ep.In == dp.In && ep.Description == "" {
-								ep.Description = dp.Description
-							}
-						}
-					}
 				}
 				path = util.MakePath(opts, path)
 				if existing, ok := doc.Paths.PathItems.Get(path); !ok {
@@ -63,14 +55,10 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 
 			var isGoogleHTTP bool
 			if opts.FeatureEnabled(options.FeatureGoogleAPIHTTP) {
-				var result *googleapi.PathItemsResult
-				result, isGoogleHTTP = googleapi.MakePathItems(opts, method)
-
-				if result != nil {
-					for pair := result.PathItems.First(); pair != nil; pair = pair.Next() {
-						deferred, _ := result.DeferredParams.Get(pair.Key())
-						addPathItem(pair.Key(), pair.Value(), deferred)
-					}
+				var pathItems *orderedmap.Map[string, *v3.PathItem]
+				pathItems, isGoogleHTTP = googleapi.MakePathItems(opts, method)
+				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
+					addPathItem(pair.Key(), pair.Value())
 				}
 				if isGoogleHTTP {
 					googleapi.AddSchemas(opts, doc)
@@ -81,7 +69,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			if !isGoogleHTTP && opts.FeatureEnabled(options.FeatureConnectRPC) {
 				pathItems := connectrpc.MakePathItems(opts, service, method)
 				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-					addPathItem(pair.Key(), pair.Value(), nil)
+					addPathItem(pair.Key(), pair.Value())
 				}
 				connectrpc.AddSchemas(opts, doc, method)
 			}
@@ -89,7 +77,7 @@ func addPathItemsFromFile(opts options.Options, fd protoreflect.FileDescriptor, 
 			if opts.FeatureEnabled(options.FeatureTwirp) {
 				pathItems := twirp.MakePathItems(opts, service, method)
 				for pair := pathItems.First(); pair != nil; pair = pair.Next() {
-					addPathItem(pair.Key(), pair.Value(), nil)
+					addPathItem(pair.Key(), pair.Value())
 				}
 				twirp.AddSchemas(opts, doc, method)
 			}

@@ -106,19 +106,16 @@ paths:
       parameters:
         - name: message
           in: path
-          description: The message id.
           required: true
           schema:
             type: string
         - name: propertyInPath
           in: query
-          description: The propertyInPath query parameter.
           schema:
             type: string
             title: property_in_path
         - name: propertyInQuery
           in: query
-          description: The propertyInQuery query parameter.
           schema:
             type: string
             title: property_in_query
@@ -138,31 +135,26 @@ paths:
       parameters:
         - name: organization
           in: path
-          description: The organization id.
           required: true
           schema:
             type: string
         - name: team
           in: path
-          description: The team id.
           required: true
           schema:
             type: string
         - name: member
           in: path
-          description: The member id.
           required: true
           schema:
             type: string
         - name: propertyInPath
           in: query
-          description: The propertyInPath query parameter.
           schema:
             type: string
             title: property_in_path
         - name: propertyInQuery
           in: query
-          description: The propertyInQuery query parameter.
           schema:
             type: string
             title: property_in_query
@@ -182,21 +174,18 @@ paths:
       parameters:
         - name: propertyInPathOk
           in: path
-          description: The propertyInPathOk path parameter.
           required: true
           schema:
             type: string
             title: property_in_path_ok
         - name: parentMsg.propertyInPath
           in: path
-          description: The parentMsg.propertyInPath path parameter.
           required: true
           schema:
             type: string
             title: property_in_path
         - name: propertyInQueryOk
           in: query
-          description: The propertyInQueryOk query parameter.
           schema:
             type: string
             title: property_in_query_ok

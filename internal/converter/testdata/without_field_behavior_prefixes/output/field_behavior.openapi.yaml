@@ -13,7 +13,6 @@ paths:
       parameters:
         - name: name
           in: path
-          description: The name path parameter.
           required: true
           schema:
             type: string
@@ -27,13 +26,11 @@ paths:
             title: nick_name
         - name: internalId
           in: query
-          description: The internalId query parameter.
           schema:
             type: string
             title: internal_id
         - name: otherAttr
           in: query
-          description: The otherAttr query parameter.
           schema:
             type: array
             items:
@@ -41,13 +38,11 @@ paths:
             title: other_attr
         - name: defaultValue
           in: query
-          description: The defaultValue query parameter.
           schema:
             type: string
             title: default_value
         - name: allBehaviors
           in: query
-          description: The allBehaviors query parameter.
           required: true
           schema:
             type: string
