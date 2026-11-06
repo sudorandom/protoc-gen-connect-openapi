@@ -115,16 +115,20 @@ components:
       description: An empty JSON object.
     standard.OneofInteractionMessage:
       type: object
-      allOf:
-        - oneOf:
-            - required:
-                - c
-            - required:
-                - d
       not:
-        required:
-          - a
-          - b
+        anyOf:
+          - required:
+              - a
+              - b
+          - required:
+              - c
+              - d
+          - not:
+              anyOf:
+                - required:
+                    - c
+                - required:
+                    - d
       properties:
         a:
           type: string

@@ -215,16 +215,17 @@ components:
       description: A point in time in RFC 3339 format, with up to nanosecond precision. Output uses UTC (`Z`); input may use an offset from UTC.
     protovalidate.CELMessage:
       type: object
-      allOf:
-        - oneOf:
-            - required:
-                - a
-            - required:
-                - b
       not:
-        required:
-          - a
-          - b
+        anyOf:
+          - required:
+              - a
+              - b
+          - not:
+              anyOf:
+                - required:
+                    - a
+                - required:
+                    - b
       properties:
         a:
           type: string
@@ -1391,16 +1392,17 @@ components:
       additionalProperties: false
     protovalidate.OneOfMessage:
       type: object
-      allOf:
-        - oneOf:
-            - required:
-                - a
-            - required:
-                - b
       not:
-        required:
-          - a
-          - b
+        anyOf:
+          - required:
+              - a
+              - b
+          - not:
+              anyOf:
+                - required:
+                    - a
+                - required:
+                    - b
       properties:
         a:
           type: string

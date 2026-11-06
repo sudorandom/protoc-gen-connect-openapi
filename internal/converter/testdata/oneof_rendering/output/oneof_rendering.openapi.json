@@ -413,26 +413,30 @@
       },
       "oneof_rendering.RequiredComplianceRequest": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "kyc"
-                ]
-              },
-              {
-                "required": [
-                  "kyb"
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "kyc",
+                "kyb"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "kyc"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "kyb"
+                    ]
+                  }
                 ]
               }
-            ]
-          }
-        ],
-        "not": {
-          "required": [
-            "kyc",
-            "kyb"
+            }
           ]
         },
         "properties": {

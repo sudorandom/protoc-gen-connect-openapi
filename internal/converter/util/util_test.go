@@ -589,3 +589,25 @@ func TestAppendDescription(t *testing.T) {
 	assert.Equal(t, "note", AppendDescription("", "note"))
 	assert.Equal(t, "comment\n\nnote", AppendDescription("comment", "note"))
 }
+
+func TestAddViolations(t *testing.T) {
+	t.Parallel()
+	first := base.CreateSchemaProxy(&base.Schema{Required: []string{"a", "b"}})
+	second := base.CreateSchemaProxy(&base.Schema{Required: []string{"c", "d"}})
+	third := OneofNoneSet([]string{"c", "d"})
+
+	s := &base.Schema{}
+	AddViolations(s)
+	assert.Nil(t, s.Not)
+
+	AddViolations(s, first)
+	assert.Same(t, first, s.Not)
+
+	AddViolations(s, second)
+	require.NotNil(t, s.Not.Schema())
+	assert.Equal(t, []*base.SchemaProxy{first, second}, s.Not.Schema().AnyOf)
+
+	// An existing anyOf is extended rather than nested.
+	AddViolations(s, third)
+	assert.Equal(t, []*base.SchemaProxy{first, second, third}, s.Not.Schema().AnyOf)
+}

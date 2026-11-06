@@ -1,0 +1,41 @@
+cases:
+  - name: "rule-member-only"
+    path: "/standard.OneofInteractionService/DoSomething"
+    body: '{"c": "y"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "rule-member-and-oneof-member"
+    path: "/standard.OneofInteractionService/DoSomething"
+    body: '{"a": "x", "d": true}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+
+  - name: "rule-unset"
+    path: "/standard.OneofInteractionService/DoSomething"
+    body: '{"a": "x"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "rule-both-set"
+    path: "/standard.OneofInteractionService/DoSomething"
+    body: '{"c": "y", "d": true}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"
+
+  - name: "oneof-both-set"
+    path: "/standard.OneofInteractionService/DoSomething"
+    body: '{"a": "x", "b": 1, "c": "y"}'
+    headers:
+      Content-Type: application/json
+      Connect-Protocol-Version: 1
+    errors:
+      - ".*"

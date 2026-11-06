@@ -309,26 +309,30 @@
       },
       "protovalidate.CELMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "a"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "b"
+                    ]
+                  }
                 ]
               }
-            ]
-          }
-        ],
-        "not": {
-          "required": [
-            "a",
-            "b"
+            }
           ]
         },
         "properties": {
@@ -1737,26 +1741,30 @@
       },
       "protovalidate.OneOfMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "a"
-                ]
-              },
-              {
-                "required": [
-                  "b"
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "a"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "b"
+                    ]
+                  }
                 ]
               }
-            ]
-          }
-        ],
-        "not": {
-          "required": [
-            "a",
-            "b"
+            }
           ]
         },
         "properties": {

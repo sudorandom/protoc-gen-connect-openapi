@@ -80,20 +80,14 @@ func MessageToSchema(opts options.Options, tt protoreflect.MessageDescriptor) (s
 			for _, field := range group {
 				fieldNames = append(fieldNames, util.MakeFieldName(opts, field))
 			}
-			violations = append(violations, oneofViolations(fieldNames)...)
+			violations = append(violations, util.OneofViolations(fieldNames)...)
 			if len(fieldNames) > 1 {
 				s.Description = util.AppendDescription(s.Description, util.OneofNote(fieldNames, false))
 			}
 		}
 		// Oneof members are plain properties; the message is invalid when it
 		// matches any violation, i.e. sets more than one member of a oneof.
-		switch len(violations) {
-		case 0:
-		case 1:
-			s.Not = violations[0]
-		default:
-			s.Not = base.CreateSchemaProxy(&base.Schema{AnyOf: violations})
-		}
+		util.AddViolations(s, violations...)
 	}
 
 	// Apply Updates from Options
@@ -271,54 +265,6 @@ func ReferenceFieldToSchema(opts options.Options, parent *base.SchemaProxy, tt p
 	default:
 		panic(fmt.Errorf("ReferenceFieldToSchema called with unknown kind: %T", tt.Kind()))
 	}
-}
-
-// maxPairwiseOneofMembers is the largest oneof whose at-most-one rule is
-// written as forbidden pairs. Pairs read naturally but grow with the square of
-// the member count (4 members give 6 pairs), so larger oneofs use a form whose
-// size grows linearly.
-const maxPairwiseOneofMembers = 4
-
-// oneofViolations returns schemas that match when more than one of the
-// oneof's members is set. A plain protobuf oneof permits no member to be set;
-// (buf.validate.oneof).required layers exactly-one on top in the
-// protovalidate feature.
-func oneofViolations(fieldNames []string) []*base.SchemaProxy {
-	if len(fieldNames) < 2 {
-		return nil
-	}
-	if len(fieldNames) > maxPairwiseOneofMembers {
-		// Some member set, but not exactly one.
-		return []*base.SchemaProxy{base.CreateSchemaProxy(&base.Schema{
-			AllOf: []*base.SchemaProxy{
-				base.CreateSchemaProxy(&base.Schema{AnyOf: presenceOf(fieldNames)}),
-				base.CreateSchemaProxy(&base.Schema{
-					Not: base.CreateSchemaProxy(&base.Schema{OneOf: presenceOf(fieldNames)}),
-				}),
-			},
-		})}
-	}
-	var pairs []*base.SchemaProxy
-	for i, first := range fieldNames {
-		for _, second := range fieldNames[i+1:] {
-			pairs = append(pairs, base.CreateSchemaProxy(&base.Schema{
-				Required: []string{first, second},
-			}))
-		}
-	}
-	return pairs
-}
-
-// presenceOf builds one "this field is set" branch per name. oneOf over them
-// matches when exactly one is set, anyOf when at least one is.
-func presenceOf(fieldNames []string) []*base.SchemaProxy {
-	branches := make([]*base.SchemaProxy, 0, len(fieldNames))
-	for _, fieldName := range fieldNames {
-		branches = append(branches, base.CreateSchemaProxy(&base.Schema{
-			Required: []string{fieldName},
-		}))
-	}
-	return branches
 }
 
 func appendType(s *base.Schema, newType string) {

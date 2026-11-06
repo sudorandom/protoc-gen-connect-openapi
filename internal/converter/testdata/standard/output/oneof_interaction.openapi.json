@@ -159,26 +159,36 @@
       },
       "standard.OneofInteractionMessage": {
         "type": "object",
-        "allOf": [
-          {
-            "oneOf": [
-              {
-                "required": [
-                  "c"
-                ]
-              },
-              {
-                "required": [
-                  "d"
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "a",
+                "b"
+              ]
+            },
+            {
+              "required": [
+                "c",
+                "d"
+              ]
+            },
+            {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "c"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "d"
+                    ]
+                  }
                 ]
               }
-            ]
-          }
-        ],
-        "not": {
-          "required": [
-            "a",
-            "b"
+            }
           ]
         },
         "properties": {

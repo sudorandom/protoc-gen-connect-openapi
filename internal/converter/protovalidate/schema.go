@@ -25,8 +25,8 @@ import (
 
 func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, desc protoreflect.MessageDescriptor) *base.Schema {
 	// A declared oneof marked required must have exactly one member set. The
-	// generated schema only forbids setting more than one, matching plain
-	// protobuf semantics, so the constraint is layered on here.
+	// generated schema already forbids setting more than one, matching plain
+	// protobuf semantics, so only "none set" is added here.
 	oneofs := desc.Oneofs()
 	for i := 0; i < oneofs.Len(); i++ {
 		oneof := oneofs.Get(i)
@@ -42,26 +42,20 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 			continue
 		}
 		fields := oneof.Fields()
-		oneOfs := make([]*base.SchemaProxy, 0, fields.Len())
 		fieldNames := make([]string, 0, fields.Len())
 		for j := 0; j < fields.Len(); j++ {
-			fieldName := util.MakeFieldName(opts, fields.Get(j))
-			fieldNames = append(fieldNames, fieldName)
-			oneOfs = append(oneOfs, base.CreateSchemaProxy(&base.Schema{
-				Required: []string{fieldName},
-			}))
+			fieldNames = append(fieldNames, util.MakeFieldName(opts, fields.Get(j)))
 		}
+		if len(fieldNames) == 0 {
+			continue
+		}
+		util.AddViolations(schema, util.OneofNoneSet(fieldNames))
 		// The message schema usually already notes that at most one member may
 		// be set; tighten that note rather than adding a second one.
 		if atMostOne := util.OneofNote(fieldNames, false); strings.Contains(schema.Description, atMostOne) {
 			schema.Description = strings.Replace(schema.Description, atMostOne, util.OneofNote(fieldNames, true), 1)
 		} else {
 			schema.Description = util.AppendDescription(schema.Description, util.OneofNote(fieldNames, true))
-		}
-		if len(oneOfs) > 0 {
-			schema.AllOf = append(schema.AllOf, base.CreateSchemaProxy(&base.Schema{
-				OneOf: oneOfs,
-			}))
 		}
 	}
 	rules, err := protovalidate.ResolveMessageRules(desc)
@@ -73,29 +67,27 @@ func SchemaWithMessageAnnotations(opts options.Options, schema *base.Schema, des
 		return schema
 	}
 	updateWithCEL(schema, rules.GetCel(), nil, nil)
-	if len(rules.Oneof) > 0 {
-		for _, oneofRule := range rules.GetOneof() {
-			if oneofRule.GetRequired() {
-				var oneOfs []*base.SchemaProxy
-				var fieldNames []string
-				for _, fieldName := range oneofRule.GetFields() {
-					fieldDesc := desc.Fields().ByName(protoreflect.Name(fieldName))
-					if fieldDesc == nil {
-						opts.Logger.Warn("oneof rule references unknown field", "field", fieldName, "message", desc.FullName())
-						continue
-					}
-					fieldNames = append(fieldNames, util.MakeFieldName(opts, fieldDesc))
-					oneOfs = append(oneOfs, base.CreateSchemaProxy(&base.Schema{
-						Required: []string{util.MakeFieldName(opts, fieldDesc)},
-					}))
-				}
-				if len(oneOfs) > 0 {
-					schema.Description = util.AppendDescription(schema.Description, util.OneofNote(fieldNames, true))
-					schema.AllOf = append(schema.AllOf, base.CreateSchemaProxy(&base.Schema{
-						OneOf: oneOfs,
-					}))
-				}
+	// Message-level oneof rules group ordinary fields: at most one may be set,
+	// and exactly one when required.
+	for _, oneofRule := range rules.GetOneof() {
+		var fieldNames []string
+		for _, fieldName := range oneofRule.GetFields() {
+			fieldDesc := desc.Fields().ByName(protoreflect.Name(fieldName))
+			if fieldDesc == nil {
+				opts.Logger.Warn("oneof rule references unknown field", "field", fieldName, "message", desc.FullName())
+				continue
 			}
+			fieldNames = append(fieldNames, util.MakeFieldName(opts, fieldDesc))
+		}
+		if len(fieldNames) == 0 {
+			continue
+		}
+		util.AddViolations(schema, util.OneofViolations(fieldNames)...)
+		if oneofRule.GetRequired() {
+			util.AddViolations(schema, util.OneofNoneSet(fieldNames))
+		}
+		if oneofRule.GetRequired() || len(fieldNames) > 1 {
+			schema.Description = util.AppendDescription(schema.Description, util.OneofNote(fieldNames, oneofRule.GetRequired()))
 		}
 	}
 	return schema
