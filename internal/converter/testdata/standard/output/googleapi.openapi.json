@@ -204,14 +204,6 @@
             }
           },
           {
-            "name": "propertyInPath",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "title": "property_in_path"
-            }
-          },
-          {
             "name": "propertyInQuery",
             "in": "query",
             "schema": {
@@ -341,6 +333,14 @@
             "schema": {
               "type": "string",
               "title": "property_in_path"
+            }
+          },
+          {
+            "name": "parentMsg.propertyInQuery",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "title": "property_in_query"
             }
           },
           {

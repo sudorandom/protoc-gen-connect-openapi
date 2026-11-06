@@ -1,0 +1,27 @@
+cases:
+  - name: "nested-param-keeps-sibling-fields"
+    method: PUT
+    path: "/v1/books/b1"
+    body: '{"book": {"title": "Dune"}, "etag": "x"}'
+    headers:
+      Content-Type: application/json
+
+  - name: "single-star-pattern"
+    path: "/v1/op1:cancel"
+    body: '{"note": "stop"}'
+    headers:
+      Content-Type: application/json
+
+  # OpenAPI path params can't span "/", so "**" is checked with one segment.
+  - name: "trailing-double-star"
+    method: GET
+    path: "/v1/buckets/b1/file.txt"
+
+  - name: "nested-param-body-rejects-unknown-field"
+    method: PUT
+    path: "/v1/books/b1"
+    body: '{"book": {"title": "Dune", "author": "x"}}'
+    headers:
+      Content-Type: application/json
+    errors:
+      - "author"

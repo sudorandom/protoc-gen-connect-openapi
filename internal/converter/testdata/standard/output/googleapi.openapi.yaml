@@ -129,11 +129,6 @@ paths:
           required: true
           schema:
             type: string
-        - name: propertyInPath
-          in: query
-          schema:
-            type: string
-            title: property_in_path
         - name: propertyInQuery
           in: query
           schema:
@@ -216,6 +211,11 @@ paths:
           schema:
             type: string
             title: property_in_path
+        - name: parentMsg.propertyInQuery
+          in: query
+          schema:
+            type: string
+            title: property_in_query
         - name: propertyInQueryOk
           in: query
           schema:

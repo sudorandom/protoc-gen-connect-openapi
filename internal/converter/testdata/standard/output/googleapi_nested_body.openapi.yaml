@@ -27,6 +27,10 @@ paths:
             schema:
               type: object
               properties:
+                parentRef:
+                  type: object
+                  title: ParentRef
+                  additionalProperties: false
                 displayName:
                   type: string
                   title: display_name
