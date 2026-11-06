@@ -1,4 +1,4 @@
-module github.com/sudorandom/protoc-gen-connect-openapi
+module connectrpc.com/protoc-gen-connect-openapi
 
 go 1.26.0
 

@@ -1,11 +1,11 @@
 package util
 
 import (
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"github.com/pb33f/go-yaml"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	"github.com/pb33f/libopenapi/orderedmap"
 	"github.com/pb33f/libopenapi/utils"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

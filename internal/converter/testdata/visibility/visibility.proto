@@ -5,7 +5,7 @@ package visibility;
 import "google/api/annotations.proto";
 import "google/api/visibility.proto";
 
-option go_package = "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/testdata/visibility";
+option go_package = "connectrpc.com/protoc-gen-connect-openapi/internal/converter/testdata/visibility";
 
 service VisibilityService {
   rpc GetMessage(GetMessageRequest) returns (Message) {

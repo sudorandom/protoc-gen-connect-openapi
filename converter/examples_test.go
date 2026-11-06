@@ -13,7 +13,7 @@ import (
 	"buf.build/gen/go/connectrpc/eliza/connectrpc/go/v2/connectrpc/eliza/v1/elizav1connect"
 	"connectrpc.com/connect/v2"
 	"connectrpc.com/connect/v2/connecthttp"
-	"github.com/sudorandom/protoc-gen-connect-openapi/converter"
+	"connectrpc.com/protoc-gen-connect-openapi/converter"
 )
 
 var tmplElements = template.Must(template.New("name").Parse(`<!doctype html>
@@ -58,7 +58,7 @@ func ExampleGenerateSingle_withEndpoints() {
 openapi: 3.1.0
 info:
   title: OpenAPI Documentation of gRPC Services
-  description: This is documentation that was generated from [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi).
+  description: This is documentation that was generated from [protoc-gen-connect-openapi](https://github.com/connectrpc/protoc-gen-connect-openapi).
 `)))
 	if err != nil {
 		log.Fatalf("err: %s", err)
@@ -101,7 +101,7 @@ func ExampleGenerateSingle() {
 openapi: 3.1.0
 info:
   title: OpenAPI Documentation of gRPC Services
-  description: This is documentation that was generated from [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi).
+  description: This is documentation that was generated from [protoc-gen-connect-openapi](https://github.com/connectrpc/protoc-gen-connect-openapi).
 `)))
 	fmt.Println(string(openapiBody))
 }

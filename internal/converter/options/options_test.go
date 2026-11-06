@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 )
 
 func TestFromString(t *testing.T) {
@@ -24,7 +24,6 @@ func TestFromString(t *testing.T) {
 			"without-default-tags",
 			"without-field-behavior-prefixes",
 			"with-service-descriptions",
-			"ignore-googleapi-http",
 			"short-service-tags",
 			"short-operation-ids",
 			"with-google-error-detail",
@@ -42,48 +41,15 @@ func TestFromString(t *testing.T) {
 		assert.True(t, opts.WithoutDefaultTags)
 		assert.True(t, opts.WithoutFieldBehaviorPrefixes)
 		assert.True(t, opts.WithServiceDescriptions)
-		assert.True(t, opts.IgnoreGoogleapiHTTP)
-		assert.False(t, opts.OnlyGoogleapiHTTP) // Assert false as it's removed
 		assert.True(t, opts.ShortServiceTags)
 		assert.True(t, opts.ShortOperationIds)
 		assert.True(t, opts.WithGoogleErrorDetail)
 
-		t.Run("only-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("only-googleapi-http")
-			require.NoError(t, err)
-			assert.True(t, opts.OnlyGoogleapiHTTP)
-			assert.True(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
-		})
-
-		t.Run("ignore-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("ignore-googleapi-http")
-			require.NoError(t, err)
-			assert.True(t, opts.IgnoreGoogleapiHTTP)
-			assert.False(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.True(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
-		})
-
-		t.Run("only-googleapi-http,ignore-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("only-googleapi-http,ignore-googleapi-http")
-			require.NoError(t, err)
-			assert.True(t, opts.OnlyGoogleapiHTTP)
-			assert.True(t, opts.IgnoreGoogleapiHTTP)
-			assert.True(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
-		})
-
-		t.Run("only-googleapi-http with debug", func(t *testing.T) {
-			opts, err := options.FromString("only-googleapi-http,debug")
-			require.NoError(t, err)
-			assert.True(t, opts.OnlyGoogleapiHTTP)
-			assert.True(t, opts.Debug)
-			assert.True(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
+		t.Run("removed googleapi-http flags", func(t *testing.T) {
+			for _, param := range []string{"only-googleapi-http", "ignore-googleapi-http"} {
+				_, err := options.FromString(param)
+				require.ErrorContains(t, err, "invalid parameter: "+param)
+			}
 		})
 		require.NoError(t, err)
 		assert.True(t, opts.Debug)
@@ -104,7 +70,6 @@ func TestFromString(t *testing.T) {
 			require.NoError(t, err)
 			assert.True(t, opts.FeatureEnabled(options.FeatureConnectRPC))
 			assert.False(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
 		})
 
 		t.Run("multiple features", func(t *testing.T) {
@@ -112,46 +77,18 @@ func TestFromString(t *testing.T) {
 			require.NoError(t, err)
 			assert.True(t, opts.FeatureEnabled(options.FeatureConnectRPC))
 			assert.True(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
 		})
 
 		t.Run("invalid feature", func(t *testing.T) {
 			_, err := options.FromString("features=invalid")
 			require.Error(t, err)
 		})
-	})
 
-	t.Run("features and http options", func(t *testing.T) {
-		t.Run("features=connectrpc,only-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("features=connectrpc,only-googleapi-http")
-			require.NoError(t, err)
-			assert.False(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.True(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
-		})
-
-		t.Run("features=connectrpc,ignore-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("features=connectrpc,ignore-googleapi-http")
-			require.NoError(t, err)
-			assert.True(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.False(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
-		})
-
-		t.Run("features=connectrpc;google.api.http,only-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("features=connectrpc;google.api.http,only-googleapi-http")
-			require.NoError(t, err)
-			assert.False(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.True(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
-		})
-
-		t.Run("features=connectrpc;google.api.http,ignore-googleapi-http", func(t *testing.T) {
-			opts, err := options.FromString("features=connectrpc;google.api.http,ignore-googleapi-http")
-			require.NoError(t, err)
-			assert.True(t, opts.FeatureEnabled(options.FeatureConnectRPC))
-			assert.False(t, opts.FeatureEnabled(options.FeatureGoogleAPIHTTP))
-			assert.False(t, opts.FeatureEnabled(options.FeatureTwirp))
+		t.Run("removed features", func(t *testing.T) {
+			for _, feature := range []string{"twirp", "gnostic", "protovalidate"} {
+				_, err := options.FromString("features=connectrpc;" + feature)
+				require.ErrorContains(t, err, "invalid feature: '"+feature+"'")
+			}
 		})
 	})
 
@@ -254,12 +191,6 @@ func TestFromString(t *testing.T) {
 		assert.True(t, opts.AllowedVisibilities["INTERNAL"])
 		assert.True(t, opts.AllowedVisibilities["PREVIEW"])
 		assert.False(t, opts.AllowedVisibilities["EXTERNAL"])
-	})
-
-	t.Run("no protocol feature enabled returns error", func(t *testing.T) {
-		_, err := options.FromString("features=protovalidate;gnostic")
-		require.Error(t, err)
-		assert.Contains(t, err.Error(), "at least one protocol feature")
 	})
 
 	t.Run("well-known-type-descriptions", func(t *testing.T) {

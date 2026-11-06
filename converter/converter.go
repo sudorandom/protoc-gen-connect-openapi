@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"slices"
 
-	intconverter "github.com/sudorandom/protoc-gen-connect-openapi/internal/converter"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
+	intconverter "connectrpc.com/protoc-gen-connect-openapi/internal/converter"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
@@ -179,22 +179,6 @@ func WithIncludeNumberEnumValues(includeNumberEnumValues bool) Option {
 	}
 }
 
-// WithIgnoreGoogleapiHTTP tells the generator to ignore google.api.http options.
-func WithIgnoreGoogleapiHTTP(ignoreGoogleapiHTTP bool) Option {
-	return func(g *generator) error {
-		g.options.IgnoreGoogleapiHTTP = ignoreGoogleapiHTTP
-		return nil
-	}
-}
-
-// WithOnlyGoogleapiHTTP tells the generator to only include methods with google.api.http options.
-func WithOnlyGoogleapiHTTP(onlyGoogleapiHTTP bool) Option {
-	return func(g *generator) error {
-		g.options.OnlyGoogleapiHTTP = onlyGoogleapiHTTP
-		return nil
-	}
-}
-
 // WithStreaming includes content types related to streaming.
 func WithStreaming(streaming bool) Option {
 	return func(g *generator) error {
@@ -279,22 +263,6 @@ func WithCompat(mode CompatMode) Option {
 			return err
 		}
 		g.options.Compat = parsed
-		return nil
-	}
-}
-
-// WithServices will limit the services generated.
-func WithServices(serviceNames []protoreflect.FullName) Option {
-	return func(g *generator) error {
-		serviceNameStrs := make([]string, len(serviceNames))
-		for i, serviceName := range serviceNames {
-			serviceNameStrs[i] = string(serviceName)
-		}
-		services, err := options.CompileServicePatterns(serviceNameStrs)
-		if err != nil {
-			return fmt.Errorf("invalid service patterns: %w", err)
-		}
-		g.options.Services = append(g.options.Services, services...)
 		return nil
 	}
 }

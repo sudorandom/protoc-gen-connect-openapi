@@ -16,20 +16,17 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/schema"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/util"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/visibility"
 	goa3 "github.com/google/gnostic/openapiv3"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/schema"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
 )
 
 // namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
 var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 
 func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*orderedmap.Map[string, *v3.PathItem], bool) {
-	if opts.IgnoreGoogleapiHTTP {
-		return nil, false
-	}
 	mdopts := md.Options()
 	if !proto.HasExtension(mdopts, annotations.E_Http) {
 		return nil, false

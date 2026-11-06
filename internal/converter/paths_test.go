@@ -3,10 +3,10 @@ package converter
 import (
 	"testing"
 
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/util"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 	"github.com/stretchr/testify/assert"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
 	"google.golang.org/protobuf/proto"
 )
 

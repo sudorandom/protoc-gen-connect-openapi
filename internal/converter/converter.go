@@ -23,11 +23,11 @@ import (
 	"google.golang.org/protobuf/types/dynamicpb"
 	pluginpb "google.golang.org/protobuf/types/pluginpb"
 
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/gnostic"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/googleapi"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/options"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/util"
-	"github.com/sudorandom/protoc-gen-connect-openapi/internal/converter/visibility"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/gnostic"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/googleapi"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/options"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/util"
+	"connectrpc.com/protoc-gen-connect-openapi/internal/converter/visibility"
 )
 
 func ConvertFrom(rd io.Reader) (*pluginpb.CodeGeneratorResponse, error) {
@@ -318,9 +318,7 @@ func outputFileSuffix(format string) string {
 }
 
 func appendToSpec(opts options.Options, spec *v3.Document, fd protoreflect.FileDescriptor) error {
-	if opts.FeatureEnabled(options.FeatureGnostic) {
-		gnostic.SpecWithFileAnnotations(opts, spec, fd)
-	}
+	gnostic.SpecWithFileAnnotations(opts, spec, fd)
 
 	components := &v3.Components{
 		Schemas:         orderedmap.New[string, *base.SchemaProxy](),
