@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package standard;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
+import "google/api/httpbody.proto";
+
+// A gnostic request_body replaces the generated body, but fields outside the
+// path and body still become query parameters, per binding.
+service GnosticRequestBodyQueryParamsService {
+  rpc Upload(UploadRequest) returns (UploadResponse) {
+    option (google.api.http) = {
+      post: "/v1/uploads"
+      body: "content"
+      additional_bindings: {
+        post: "/v1/folders/{folder}/uploads"
+        body: "content"
+      }
+    };
+    option (gnostic.openapi.v3.operation) = {
+      request_body: {
+        request_body: {
+          required: true
+          content: {
+            additional_properties: {
+              name: "application/octet-stream"
+              value: {
+                schema: {
+                  schema: {
+                    type: "string"
+                    format: "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+  }
+}
+
+message UploadRequest {
+  string folder = 1;
+  google.api.HttpBody content = 2;
+  string name = 3;
+}
+
+message UploadResponse {
+  string id = 1;
+}

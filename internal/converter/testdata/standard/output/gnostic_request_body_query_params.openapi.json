@@ -1,0 +1,201 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "standard",
+    "description": "## standard.GnosticRequestBodyQueryParamsService\n\nA gnostic request_body replaces the generated body, but fields outside the\n path and body still become query parameters, per binding.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/folders/{folder}/uploads": {
+      "post": {
+        "tags": [
+          "standard.GnosticRequestBodyQueryParamsService"
+        ],
+        "summary": "Upload",
+        "operationId": "standard.GnosticRequestBodyQueryParamsService.Upload2",
+        "parameters": [
+          {
+            "name": "folder",
+            "in": "path",
+            "description": "The folder path parameter.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "folder"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The name query parameter.",
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.UploadResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/uploads": {
+      "post": {
+        "tags": [
+          "standard.GnosticRequestBodyQueryParamsService"
+        ],
+        "summary": "Upload",
+        "operationId": "standard.GnosticRequestBodyQueryParamsService.Upload",
+        "parameters": [
+          {
+            "name": "folder",
+            "in": "query",
+            "description": "The folder query parameter.",
+            "schema": {
+              "type": "string",
+              "title": "folder"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "The name query parameter.",
+            "schema": {
+              "type": "string",
+              "title": "name"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/standard.UploadResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "google.api.HttpBody": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "title": "content_type",
+            "description": "The HTTP Content-Type header value specifying the content type of the body."
+          },
+          "data": {
+            "type": "string",
+            "title": "data",
+            "format": "byte",
+            "description": "The HTTP request/response body as raw binary."
+          },
+          "extensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/google.protobuf.Any"
+            },
+            "title": "extensions",
+            "description": "Application specific response metadata. Must be set in the first response\n for streaming APIs."
+          }
+        },
+        "title": "HttpBody",
+        "additionalProperties": false,
+        "description": "Message that represents an arbitrary HTTP body. It should only be used for\n payload formats that can't be represented as JSON, such as raw binary or\n an HTML page.\n\n\n This message can be used both in streaming and non-streaming API methods in\n the request as well as the response.\n\n It can be used as a top-level request field, which is convenient if one\n wants to extract parameters from either the URL or HTTP template into the\n request fields and also want access to the raw HTTP body.\n\n Example:\n\n     message GetResourceRequest {\n       // A unique request id.\n       string request_id = 1;\n\n       // The raw HTTP body is bound to this field.\n       google.api.HttpBody http_body = 2;\n\n     }\n\n     service ResourceService {\n       rpc GetResource(GetResourceRequest)\n         returns (google.api.HttpBody);\n       rpc UpdateResource(google.api.HttpBody)\n         returns (google.protobuf.Empty);\n\n     }\n\n Example with streaming methods:\n\n     service CaldavService {\n       rpc GetCalendar(stream google.api.HttpBody)\n         returns (stream google.api.HttpBody);\n       rpc UpdateCalendar(stream google.api.HttpBody)\n         returns (stream google.api.HttpBody);\n\n     }\n\n Use of this type only changes how the request and response bodies are\n handled, all other features will continue to work unchanged."
+      },
+      "google.protobuf.Any": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "additionalProperties": true,
+        "description": "An arbitrary message with a type URL identifying the encoded message type."
+      },
+      "standard.UploadRequest": {
+        "type": "object",
+        "properties": {
+          "folder": {
+            "type": "string",
+            "title": "folder"
+          },
+          "content": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/google.api.HttpBody"
+              }
+            ],
+            "title": "content"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "title": "UploadRequest",
+        "additionalProperties": false
+      },
+      "standard.UploadResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          }
+        },
+        "title": "UploadResponse",
+        "additionalProperties": false
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "standard.GnosticRequestBodyQueryParamsService",
+      "description": "A gnostic request_body replaces the generated body, but fields outside the\n path and body still become query parameters, per binding."
+    }
+  ]
+}

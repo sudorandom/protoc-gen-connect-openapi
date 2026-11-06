@@ -1,0 +1,184 @@
+openapi: 3.1.0
+info:
+  title: standard
+  description: |-
+    ## standard.GnosticRequestBodyQueryParamsService
+
+    A gnostic request_body replaces the generated body, but fields outside the
+     path and body still become query parameters, per binding.
+  version: 1.0.0
+paths:
+  /v1/folders/{folder}/uploads:
+    post:
+      tags:
+        - standard.GnosticRequestBodyQueryParamsService
+      summary: Upload
+      operationId: standard.GnosticRequestBodyQueryParamsService.Upload2
+      parameters:
+        - name: folder
+          in: path
+          description: The folder path parameter.
+          required: true
+          schema:
+            type: string
+            title: folder
+        - name: name
+          in: query
+          description: The name query parameter.
+          schema:
+            type: string
+            title: name
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/standard.UploadResponse'
+  /v1/uploads:
+    post:
+      tags:
+        - standard.GnosticRequestBodyQueryParamsService
+      summary: Upload
+      operationId: standard.GnosticRequestBodyQueryParamsService.Upload
+      parameters:
+        - name: folder
+          in: query
+          description: The folder query parameter.
+          schema:
+            type: string
+            title: folder
+        - name: name
+          in: query
+          description: The name query parameter.
+          schema:
+            type: string
+            title: name
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/standard.UploadResponse'
+components:
+  schemas:
+    google.api.HttpBody:
+      type: object
+      properties:
+        contentType:
+          type: string
+          title: content_type
+          description: The HTTP Content-Type header value specifying the content type of the body.
+        data:
+          type: string
+          title: data
+          format: byte
+          description: The HTTP request/response body as raw binary.
+        extensions:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          title: extensions
+          description: |-
+            Application specific response metadata. Must be set in the first response
+             for streaming APIs.
+      title: HttpBody
+      additionalProperties: false
+      description: |-
+        Message that represents an arbitrary HTTP body. It should only be used for
+         payload formats that can't be represented as JSON, such as raw binary or
+         an HTML page.
+
+
+         This message can be used both in streaming and non-streaming API methods in
+         the request as well as the response.
+
+         It can be used as a top-level request field, which is convenient if one
+         wants to extract parameters from either the URL or HTTP template into the
+         request fields and also want access to the raw HTTP body.
+
+         Example:
+
+             message GetResourceRequest {
+               // A unique request id.
+               string request_id = 1;
+
+               // The raw HTTP body is bound to this field.
+               google.api.HttpBody http_body = 2;
+
+             }
+
+             service ResourceService {
+               rpc GetResource(GetResourceRequest)
+                 returns (google.api.HttpBody);
+               rpc UpdateResource(google.api.HttpBody)
+                 returns (google.protobuf.Empty);
+
+             }
+
+         Example with streaming methods:
+
+             service CaldavService {
+               rpc GetCalendar(stream google.api.HttpBody)
+                 returns (stream google.api.HttpBody);
+               rpc UpdateCalendar(stream google.api.HttpBody)
+                 returns (stream google.api.HttpBody);
+
+             }
+
+         Use of this type only changes how the request and response bodies are
+         handled, all other features will continue to work unchanged.
+    google.protobuf.Any:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+          format: binary
+      additionalProperties: true
+      description: An arbitrary message with a type URL identifying the encoded message type.
+    standard.UploadRequest:
+      type: object
+      properties:
+        folder:
+          type: string
+          title: folder
+        content:
+          allOf:
+            - $ref: '#/components/schemas/google.api.HttpBody'
+          title: content
+        name:
+          type: string
+          title: name
+      title: UploadRequest
+      additionalProperties: false
+    standard.UploadResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+      title: UploadResponse
+      additionalProperties: false
+security: []
+tags:
+  - name: standard.GnosticRequestBodyQueryParamsService
+    description: |-
+      A gnostic request_body replaces the generated body, but fields outside the
+       path and body still become query parameters, per binding.
