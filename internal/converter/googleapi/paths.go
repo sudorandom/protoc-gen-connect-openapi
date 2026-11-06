@@ -26,15 +26,7 @@ import (
 // namedPathPattern is a regular expression to match named path patterns in the form {name=path/*/pattern}
 var namedPathPattern = regexp.MustCompile("{(.+)=(.+)}")
 
-// PathItemsResult holds path items and any parameters whose default
-// descriptions should only be applied after all annotation processing
-// (e.g. gnostic) has had a chance to set descriptions first.
-type PathItemsResult struct {
-	PathItems      *orderedmap.Map[string, *v3.PathItem]
-	DeferredParams *orderedmap.Map[string, []*v3.Parameter]
-}
-
-func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*PathItemsResult, bool) {
+func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*orderedmap.Map[string, *v3.PathItem], bool) {
 	if opts.IgnoreGoogleapiHTTP {
 		return nil, false
 	}
@@ -49,7 +41,7 @@ func MakePathItems(opts options.Options, md protoreflect.MethodDescriptor) (*Pat
 	return httpRuleToPathMap(opts, md, rule, nil), true
 }
 
-func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule, resMap map[string]string) *PathItemsResult {
+func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, rule *annotations.HttpRule, resMap map[string]string) *orderedmap.Map[string, *v3.PathItem] {
 	if resMap == nil {
 		if opts.ResourceMap != nil {
 			resMap = opts.ResourceMap
@@ -123,7 +115,6 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	fieldNamesInPath := map[string]struct{}{}
 	paramRenames := map[string]string{} // maps proto path param name to display name (camelCase by default)
 	var pathParams []*v3.Parameter
-	var deferredParams []*v3.Parameter
 	for _, param := range partsToParameter(tokens) {
 		// Skip the name parameter if it's part of a glob pattern
 		if strings.Contains(param, "=") {
@@ -238,11 +229,6 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 						Schema:   base.CreateSchemaProxy(&base.Schema{Type: []string{"string"}}),
 					}
 					pathParams = append(pathParams, newParameter)
-					deferredParams = append(deferredParams, &v3.Parameter{
-						Name:        namedPathParameter,
-						In:          "path",
-						Description: "The " + namedPathParameter + " id.",
-					})
 				}
 			}
 		}
@@ -390,32 +376,21 @@ func httpRuleToPathMap(opts options.Options, md protoreflect.MethodDescriptor, r
 	openAPIPath := partsToOpenAPIPath(tokens, resMap, paramRenames)
 	paths.Set(openAPIPath, pathItem)
 
-	allDeferred := orderedmap.New[string, []*v3.Parameter]()
-	if len(deferredParams) > 0 {
-		allDeferred.Set(openAPIPath, deferredParams)
-	}
-
 	for _, binding := range rule.AdditionalBindings {
 		sub := httpRuleToPathMap(opts, md, binding, resMap)
 		if sub == nil {
 			continue
 		}
-		for pair := sub.PathItems.First(); pair != nil; pair = pair.Next() {
+		for pair := sub.First(); pair != nil; pair = pair.Next() {
 			if existing, ok := paths.Get(pair.Key()); ok {
 				mergePathItem(opts, existing, pair.Value(), pair.Key())
 				continue
 			}
 			paths.Set(pair.Key(), pair.Value())
 		}
-		for pair := sub.DeferredParams.First(); pair != nil; pair = pair.Next() {
-			allDeferred.Set(pair.Key(), pair.Value())
-		}
 	}
 	dedupeOperations(op, op.OperationId, paths.ValuesFromOldest())
-	return &PathItemsResult{
-		PathItems:      paths,
-		DeferredParams: allDeferred,
-	}
+	return paths
 }
 
 // dedupeOperations assigns unique operation ids to additional bindings.

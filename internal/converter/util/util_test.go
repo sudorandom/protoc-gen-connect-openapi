@@ -577,4 +577,3 @@ func TestMakePath(t *testing.T) {
 	assert.Equal(t, "/api/v1/users", MakePath(opts, "/users"))
 	assert.Equal(t, "/api/v1/users", MakePath(opts, "users"))
 }
-

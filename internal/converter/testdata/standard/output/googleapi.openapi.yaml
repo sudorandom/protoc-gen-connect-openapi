@@ -106,7 +106,6 @@ paths:
       parameters:
         - name: message
           in: path
-          description: The message id.
           required: true
           schema:
             type: string
@@ -136,19 +135,16 @@ paths:
       parameters:
         - name: organization
           in: path
-          description: The organization id.
           required: true
           schema:
             type: string
         - name: team
           in: path
-          description: The team id.
           required: true
           schema:
             type: string
         - name: member
           in: path
-          description: The member id.
           required: true
           schema:
             type: string
