@@ -52,15 +52,15 @@ clear-golden:
 #   just vacuum                    # lint all golden specs
 #   just vacuum -e                 # errors only
 vacuum *args:
-    go tool vacuum lint {{ args }} $({{ specs_find }})
+    vacuum lint {{ args }} $({{ specs_find }})
 
 # Show only OpenAPI errors across specs (suppresses verbose tables and passing specs).
 vacuum-errors:
-    @go tool vacuum lint --github-annotations $({{ specs_find }}) 2>&1 | grep '^::error' || echo "All OpenAPI specs passed with 0 errors."
+    @vacuum lint --github-annotations $({{ specs_find }}) 2>&1 | grep '^::error' || echo "All OpenAPI specs passed with 0 errors."
 
 # List only filenames that have OpenAPI errors.
 vacuum-failing-files:
-    @go tool vacuum lint --github-annotations $({{ specs_find }}) 2>&1 | sed -n 's/^::error.*file=\([^,]*\).*/\1/p' | sort -u
+    @vacuum lint --github-annotations $({{ specs_find }}) 2>&1 | sed -n 's/^::error.*file=\([^,]*\).*/\1/p' | sort -u
 
 vacuum-dashboard spec="internal/converter/testdata/standard/output/helloworld.openapi.yaml":
-    go tool vacuum dashboard {{ spec }}
+    vacuum dashboard {{ spec }}
