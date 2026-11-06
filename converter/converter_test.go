@@ -101,7 +101,8 @@ func TestGeneratorWithOptions(t *testing.T) {
 		assert.Equal(t, "/ws/{service}/{method}", generator.options.AsyncAPIChannelTemplate)
 		assert.True(t, generator.options.WithGoogleErrorDetail)
 		assert.True(t, generator.options.FeatureEnabled(options.FeatureConnectRPC))
-		assert.True(t, generator.options.FeatureEnabled(options.FeatureGoogleAPIHTTP))
+		// WithIgnoreGoogleapiHTTP wins over the feature list.
+		assert.False(t, generator.options.FeatureEnabled(options.FeatureGoogleAPIHTTP))
 	})
 
 	t.Run("option errors", func(t *testing.T) {
@@ -162,4 +163,28 @@ func TestGenerate(t *testing.T) {
 		_, err := Generate(WithContentTypes("invalid"))
 		require.Error(t, err)
 	})
+}
+
+func TestGenerateSingleOnlyGoogleapiHTTP(t *testing.T) {
+	files := new(protoregistry.Files)
+	require.NoError(t, files.RegisterFile(elizav1.File_connectrpc_eliza_v1_eliza_proto))
+
+	// Eliza has no google.api.http annotations, so only-googleapi-http leaves
+	// no routes; without it, every method gets a Connect route.
+	withConnect, err := GenerateSingle(WithFiles(files))
+	require.NoError(t, err)
+	assert.Contains(t, string(withConnect), "/connectrpc.eliza.v1.ElizaService/Say")
+
+	onlyHTTP, err := GenerateSingle(WithFiles(files), WithOnlyGoogleapiHTTP(true))
+	require.NoError(t, err)
+	assert.NotContains(t, string(onlyHTTP), "/connectrpc.eliza.v1.ElizaService/Say")
+}
+
+func TestWithCompat(t *testing.T) {
+	generator, err := generatorWithOptions(WithCompat(CompatOpenAPI30))
+	require.NoError(t, err)
+	assert.Equal(t, options.CompatOpenAPI30, generator.options.Compat)
+
+	_, err = generatorWithOptions(WithCompat("openapi-2.0"))
+	assert.Error(t, err)
 }

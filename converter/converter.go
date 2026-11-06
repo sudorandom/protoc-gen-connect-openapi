@@ -247,6 +247,29 @@ func WithWellKnownTypeDescriptions(mode WellKnownTypeDescriptionMode) Option {
 	}
 }
 
+// CompatMode adjusts the output for tools that don't support OpenAPI 3.1.
+type CompatMode = options.CompatMode
+
+const (
+	// CompatNone generates plain OpenAPI 3.1.
+	CompatNone = options.CompatNone
+	// CompatOpenAPI30 avoids 3.1-only constructs that OpenAPI 3.0 tooling
+	// rejects, such as siblings next to a $ref.
+	CompatOpenAPI30 = options.CompatOpenAPI30
+)
+
+// WithCompat sets the compatibility mode; see CompatMode.
+func WithCompat(mode CompatMode) Option {
+	return func(g *generator) error {
+		parsed, err := options.ParseCompatMode(string(mode))
+		if err != nil {
+			return err
+		}
+		g.options.Compat = parsed
+		return nil
+	}
+}
+
 // WithServices will limit the services generated.
 func WithServices(serviceNames []protoreflect.FullName) Option {
 	return func(g *generator) error {
