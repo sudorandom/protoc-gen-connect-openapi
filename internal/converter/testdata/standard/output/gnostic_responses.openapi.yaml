@@ -4,6 +4,34 @@ info:
   description: '## gogen.partner.v1.OAuthService'
   version: 1.0.0
 paths:
+  /v1/oauth/revoke:
+    post:
+      tags:
+        - gogen.partner.v1.OAuthService
+      summary: RevokeToken
+      description: |-
+        A response named "default" replaces the generated default error response
+         instead of producing a second "default" key.
+      operationId: gogen.partner.v1.OAuthService.RevokeToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/gogen.partner.v1.IssueTokenRequest'
+        required: true
+      responses:
+        default:
+          description: Problem details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gogen.partner.v1.ProblemDetails'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gogen.partner.v1.IssueTokenResponse'
   /v1/oauth/token:
     post:
       tags:
@@ -17,6 +45,12 @@ paths:
               $ref: '#/components/schemas/gogen.partner.v1.IssueTokenRequest'
         required: true
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -91,7 +125,31 @@ components:
           title: instance
       title: ProblemDetails
       additionalProperties: false
-      description: This message is only referenced in the operation annotation above
+      description: This message is only referenced in the operation annotations above
+    google.protobuf.Any:
+      type: object
+      properties:
+        '@type':
+          type: string
+          description: A URL/resource name that uniquely identifies the type of the serialized message.
+      additionalProperties: true
+      description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.
+      description: The Status type defines a logical error model suitable for gRPC and REST APIs.
 security: []
 tags:
   - name: gogen.partner.v1.OAuthService

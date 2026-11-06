@@ -34,6 +34,12 @@ paths:
               format: binary
         required: true
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -65,6 +71,12 @@ paths:
               format: binary
         required: true
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -87,6 +99,12 @@ paths:
               $ref: '#/components/schemas/standard.SearchRequest'
         required: false
       responses:
+        default:
+          description: An unexpected error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/google.rpc.Status'
         "200":
           description: Success
           content:
@@ -171,6 +189,22 @@ components:
           format: binary
       additionalProperties: true
       description: An arbitrary message with a type URL identifying the encoded message type.
+    google.rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The status code, which should be an enum value of google.rpc.Code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/google.protobuf.Any'
+          description: A list of messages that carry the error details.
+      description: The Status type defines a logical error model suitable for gRPC and REST APIs.
     standard.SearchRequest:
       type: object
       properties:
